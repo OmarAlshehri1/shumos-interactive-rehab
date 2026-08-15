@@ -1,18 +1,24 @@
 import { type Auth, type User, connectAuthEmulator, getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { getEmulatorConfig, getFirebaseApp } from "./firebaseClient";
+import { getDisplayFirebaseApp, getEmulatorConfig } from "./firebaseClient";
 
 /**
- * TASK 8: centralized Firebase Auth bootstrap — the ONE file that imports
- * firebase/auth. No component ever calls signInAnonymously() itself; both
- * realtime adapters (lib/control/useRealtimeControllerSession.ts,
- * lib/display/useRealtimeDisplaySession.ts) go through
- * lib/realtime/useFirebaseAuth.ts, which wraps subscribeToAuthState below.
+ * TASK 8: centralized Firebase Auth bootstrap for /display ONLY — the ONE
+ * file that establishes /display's anonymous identity. No component ever
+ * calls signInAnonymously() itself; lib/display/useRealtimeDisplaySession.ts
+ * goes through lib/realtime/useFirebaseAuth.ts, which wraps
+ * subscribeToAuthState below. /control's staff identity is entirely
+ * separate — see staffAuthClient.ts — and, as of the AUTH ISOLATION
+ * HARDENING task, the two no longer even share a Firebase app instance
+ * (see firebaseClient.ts's getDisplayFirebaseApp() doc comment for why that
+ * used to matter: they previously shared one Auth object, so a same-tab
+ * /control -> /display navigation could leave /display authenticated as
+ * the signed-in staff member instead of anonymous).
  *
  * There is deliberately no login page, no email/password, no account UI —
- * a session is established silently the moment either route loads.
- * Anonymous Authentication proves this client has a Firebase-issued
- * identity; it does NOT prove "this is an authorized Shumos Care
- * therapist" — see the Task 8 report's security-limitation section.
+ * a session is established silently the moment /display loads. Anonymous
+ * Authentication proves this client has a Firebase-issued identity; it does
+ * NOT prove "this is an authorized Shumos Care therapist" — see the Task 8
+ * report's security-limitation section.
  */
 
 export type AuthStatus = "initializing" | "authenticated" | "failed";
@@ -27,7 +33,7 @@ let authEmulatorConnected = false;
 
 function getAuthInstance(): Auth {
   if (!auth) {
-    auth = getAuth(getFirebaseApp());
+    auth = getAuth(getDisplayFirebaseApp());
   }
   const emulator = getEmulatorConfig();
   if (emulator && !authEmulatorConnected) {

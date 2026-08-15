@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { SessionState } from "@/lib/game";
+import type { GameId } from "@/lib/games/registry";
+import { getDisplayDb } from "@/lib/realtime/firebaseClient";
 import { applyLiveRecord, createInitialGuardState } from "@/lib/realtime/displayGuard";
 import {
   registerDisplayPresence,
@@ -19,16 +21,18 @@ export interface IncorrectSignal {
 /**
  * TASK 6/8 REALTIME DISPLAY ADAPTER.
  *
- * Read-only by design: this file never calls publishSession — /display only
- * ever renders the canonical state /control publishes. It remains read-only
- * with respect to game state after Task 8 too — anonymous auth gives this
- * tab an identity, not any extra capability; Security Rules don't (and, with
- * only anonymous auth, structurally can't) distinguish "a display" from "a
- * controller" by role, only by which paths each piece of code chooses to
- * write to. See the Task 8 report's "Display" section for that honest limit.
- * components/display/DisplayScreen.tsx wires every scene's mutating
- * callback (onStart, onCountdownComplete, onSelectBalloon, onStageCompleteDone)
- * to no-ops when this adapter is active.
+ * Read-only by design with respect to game state: this file never calls
+ * publishSession — /display only ever renders the canonical state /control
+ * publishes, and no scene here can mutate `session`/GameState. Anonymous
+ * auth gives this tab an identity, not any extra capability; Security Rules
+ * don't (and, with only anonymous auth, structurally can't) distinguish "a
+ * display" from "a controller" by role, only by which paths each piece of
+ * code chooses to write to. See the Task 8 report's "Display" section for
+ * that honest limit. components/display/DisplayScreen.tsx wires onStart/
+ * onSelectBalloon/onStageCompleteDone to no-ops when this adapter is
+ * active — onCountdownComplete is the one deliberate exception (see
+ * `revision` below): it reports a presentational completion signal on
+ * presence/display, never the canonical session.
  *
  * TASK 8 — AUTH GATING: nothing here touches RTDB until useFirebaseAuth()
  * resolves to "authenticated". On auth failure, this hook simply never
@@ -50,6 +54,10 @@ export interface IncorrectSignal {
 export function useRealtimeDisplaySession() {
   const auth = useFirebaseAuth();
   const [session, setSession] = useState<SessionState | null>(null);
+  /** MULTI-GAME PLATFORM: null whenever there's no session, OR the session's gameId is missing/unsupported/malformed — see LiveSessionRecord.gameId's doc comment. The display's game resolver (gameDisplayRegistry.tsx) treats both exactly the same: show the Shumos waiting world. */
+  const [gameId, setGameId] = useState<GameId | null>(null);
+  /** BUG FIX — "ابدأ" stall: the CURRENT record's own revision number — DisplayScreen.tsx's onCountdownComplete reports it back (see reportCountdownComplete) so the controller can match its wait to exactly the COUNTDOWN publish that's actually on screen right now, never a stale one. */
+  const [revision, setRevision] = useState<number | null>(null);
   const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>("connecting");
   const [incorrectSignal, setIncorrectSignal] = useState<IncorrectSignal | null>(null);
   // TASK 9: the last "إعادة الاحتفال" token this display has been told to
@@ -62,14 +70,17 @@ export function useRealtimeDisplaySession() {
 
   useEffect(() => {
     if (auth.status !== "authenticated") return;
-    const unregisterPresence = registerDisplayPresence();
-    const unsubscribeConnection = subscribeToConnectionStatus(setConnectionStatus);
-    const unsubscribeSession = subscribeToLiveSession((record) => {
+    const db = getDisplayDb();
+    const unregisterPresence = registerDisplayPresence(db);
+    const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
+    const unsubscribeSession = subscribeToLiveSession(db, (record) => {
       const result = applyLiveRecord(guardRef.current, record);
       guardRef.current = result.state;
       if (!result.accept) return;
 
       setSession(record?.session ?? null);
+      setGameId(record?.gameId ?? null);
+      setRevision(record?.revision ?? null);
       if (result.newIncorrectBalloonId) {
         setIncorrectSignal({ balloonId: result.newIncorrectBalloonId, token: Date.now() });
       }
@@ -85,5 +96,5 @@ export function useRealtimeDisplaySession() {
     };
   }, [auth.status]);
 
-  return { session, connectionStatus, incorrectSignal, celebrationReplayToken, authStatus: auth.status };
+  return { session, gameId, revision, connectionStatus, incorrectSignal, celebrationReplayToken, authStatus: auth.status };
 }

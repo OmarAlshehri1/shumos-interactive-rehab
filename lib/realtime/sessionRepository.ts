@@ -1,4 +1,5 @@
 import {
+  type Database,
   get,
   onDisconnect,
   onValue,
@@ -9,7 +10,7 @@ import {
   type Unsubscribe,
 } from "firebase/database";
 import type { SessionState } from "@/lib/game";
-import { getRealtimeDb } from "./firebaseClient";
+import { getGameById, type GameId } from "@/lib/games/registry";
 import { reviveSessionState } from "./serialization";
 import type {
   CelebrationReplaySignal,
@@ -21,13 +22,30 @@ import type {
 } from "./types";
 
 /**
- * The ONLY file (besides firebaseClient.ts) that imports firebase/database.
- * Everything above this layer (the controller/display adapters) speaks in
- * plain domain terms — publish a session, subscribe to the live session,
- * claim a lease — and has no idea Firebase exists underneath. Swapping the
- * realtime backend later means rewriting this one file, not the adapters or
- * any UI component. See the Task 6 report's "Realtime repository
- * architecture" section.
+ * The live-session/lease/presence data layer — everything above this layer
+ * (the controller/display adapters) speaks in plain domain terms — publish
+ * a session, subscribe to the live session, claim a lease — and has no
+ * idea Firebase exists underneath. Swapping the realtime backend later
+ * means rewriting this one file, not the adapters or any UI component. See
+ * the Task 6 report's "Realtime repository architecture" section.
+ *
+ * STAFF AUTH FOUNDATION: staffRepository.ts is a second, deliberately
+ * separate firebase/database entry point for the ONE unrelated domain
+ * (the staff allowlist) — kept out of this file so this one stays scoped
+ * to live gameplay data only.
+ *
+ * AUTH ISOLATION HARDENING: unlike every other data layer in this app
+ * (patientRepository.ts, staffRepository.ts, sessionHistoryRepository.ts —
+ * all staff-only, so they always use firebaseClient.ts's getStaffDb()),
+ * THIS file's functions are called from BOTH surfaces —
+ * lib/control/useRealtimeControllerSession.ts (the staff app) AND
+ * lib/display/useRealtimeDisplaySession.ts / components/display/DisplayScreen.tsx
+ * (the display app) — so it can no longer reach for one hardcoded shared
+ * Database instance internally. Every exported function below now takes
+ * the caller's own `db: Database` as its first parameter instead; callers
+ * pass `getStaffDb()` or `getDisplayDb()` (see firebaseClient.ts)
+ * depending on which surface they run on. This file itself stays entirely
+ * unaware of "staff" vs "display" — it's just handed a connection.
  */
 
 const LIVE_SESSION_PATH = "liveSession";
@@ -40,27 +58,31 @@ const DISPLAY_PRESENCE_PATH = "presence/display";
 // ---------------------------------------------------------------------------
 
 export interface PublishSessionInput {
+  /** MULTI-GAME PLATFORM: which registered game this canonical session belongs to — always required, always known by whichever game's controller is publishing (see lib/games/registry.ts's BALLOON_QUEST_GAME_ID). Never inferred. */
+  gameId: GameId;
   sessionId: string;
   revision: number;
   session: SessionState;
   lastInteraction: LiveInteraction | null;
   /** TASK 9: omit to leave whatever's already there untouched (the common case — every ordinary action); pass explicitly only from replayCelebration(). */
   celebrationReplay?: CelebrationReplaySignal | null;
+  /** SESSION HISTORY TASK: the saved patient this session belongs to, or null for a walk-in session — see LiveSessionRecord.patientId's doc comment. Always required (unlike celebrationReplay) since every publish must carry the SAME value the session was created with; see useRealtimeControllerSession.ts's publish(). */
+  patientId: string | null;
 }
 
 /**
  * Publishes the new canonical session in one atomic multi-location update —
- * sessionId/revision/session/lastInteraction always change together, so no
- * subscriber can ever observe a torn write (e.g. new session with stale
- * revision, or vice versa). celebrationReplay rides along in the same
+ * gameId/sessionId/revision/session/lastInteraction always change together,
+ * so no subscriber can ever observe a torn write (e.g. new session with
+ * stale revision, or vice versa). celebrationReplay rides along in the same
  * update purely so it shares this call's revision bump (see
  * database.rules.json — any write under liveSession must increase
  * `revision`, and celebrationReplay is presentation state, not something
  * that deserves its own parallel write path).
  */
-export async function publishSession(input: PublishSessionInput): Promise<void> {
-  const db = getRealtimeDb();
+export async function publishSession(db: Database, input: PublishSessionInput): Promise<void> {
   const payload: Record<string, unknown> = {
+    gameId: input.gameId,
     sessionId: input.sessionId,
     revision: input.revision,
     session: input.session,
@@ -70,15 +92,20 @@ export async function publishSession(input: PublishSessionInput): Promise<void> 
     // passing through an undefined it read back from RTDB. See
     // subscribeToLiveSession below for why that's a real, not hypothetical, risk.
     lastInteraction: input.lastInteraction ?? null,
+    patientId: input.patientId,
     updatedAt: serverTimestamp(),
   };
   if (input.celebrationReplay !== undefined) payload.celebrationReplay = input.celebrationReplay;
   await update(ref(db, LIVE_SESSION_PATH), payload);
 }
 
+/** Normalizes a raw gameId value read back from Firebase — null for anything not a currently-registered game (missing/old/unsupported/malformed), never a guess. See LiveSessionRecord.gameId's doc comment. */
+function normalizeGameId(raw: unknown): GameId | null {
+  return typeof raw === "string" && getGameById(raw) ? (raw as GameId) : null;
+}
+
 /** Therapist tapped "جلسة جديدة" (or there is nothing to clean up yet): removes the whole node, taking the child's name and every stage result with it. */
-export async function clearLiveSession(): Promise<void> {
-  const db = getRealtimeDb();
+export async function clearLiveSession(db: Database): Promise<void> {
   await remove(ref(db, LIVE_SESSION_PATH));
 }
 
@@ -103,11 +130,16 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
   // partial data" — the try/catch below is what actually keeps that promise
   // for a shape this malformed, not just a missing field.
   try {
+    const rawPatientId = (value as { patientId?: unknown }).patientId;
     return {
       ...value,
+      gameId: normalizeGameId((value as { gameId?: unknown }).gameId),
       session: reviveSessionState(value.session),
       lastInteraction: value.lastInteraction ?? null,
       celebrationReplay: value.celebrationReplay ?? null,
+      // RTDB drops a null scalar on write — an old/walk-in record with no
+      // patientId round-trips with the key simply MISSING, not `null`.
+      patientId: typeof rawPatientId === "string" ? rawPatientId : null,
     };
   } catch {
     return null;
@@ -136,8 +168,25 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
  * revision-guarded callers like the display) rejected as a non-progressing
  * duplicate revision.
  */
-export function subscribeToLiveSession(callback: (record: LiveSessionRecord | null) => void): Unsubscribe {
-  return subscribeWithInitialGet(LIVE_SESSION_PATH, parseLiveSessionValue, callback);
+export function subscribeToLiveSession(db: Database, callback: (record: LiveSessionRecord | null) => void): Unsubscribe {
+  return subscribeWithInitialGet(db, LIVE_SESSION_PATH, parseLiveSessionValue, callback);
+}
+
+/**
+ * RELIABILITY FIX — one-shot fetch of the live session's CURRENT canonical
+ * value, used by useRealtimeControllerSession.ts's publish() to resync
+ * local state after a failed write. A failed publishSession() call means
+ * the server never accepted the local optimistic update, but — unlike a
+ * successful write — that never triggers a new onValue delivery either
+ * (nothing on the server actually changed), so nothing would otherwise
+ * correct the now-wrong local state. This is the same get()+parse pairing
+ * subscribeToLiveSession's initial fetch already uses, exposed standalone
+ * so a failure handler can call it on demand rather than needing a live
+ * subscription.
+ */
+export async function fetchLiveSession(db: Database): Promise<LiveSessionRecord | null> {
+  const snapshot = await get(ref(db, LIVE_SESSION_PATH));
+  return parseLiveSessionValue(snapshot.val());
 }
 
 /**
@@ -149,8 +198,7 @@ export function subscribeToLiveSession(callback: (record: LiveSessionRecord | nu
  * during Task 7 QA (a second controller's lease check silently defaulted to
  * "unclaimed" and would have let it mutate an active session — see report).
  */
-function subscribeWithInitialGet<T>(path: string, parse: (raw: unknown) => T, callback: (value: T) => void): Unsubscribe {
-  const db = getRealtimeDb();
+function subscribeWithInitialGet<T>(db: Database, path: string, parse: (raw: unknown) => T, callback: (value: T) => void): Unsubscribe {
   const valueRef = ref(db, path);
 
   void get(valueRef)
@@ -164,11 +212,11 @@ function subscribeWithInitialGet<T>(path: string, parse: (raw: unknown) => T, ca
 
 // ---------------------------------------------------------------------------
 // Controller lease (see lib/control/useRealtimeControllerSession.ts for the
-// cooperative ownership model this supports)
+// cooperative ownership model this supports) — staff-only in practice
+// (Security Rules require active staff auth), always called with getStaffDb().
 // ---------------------------------------------------------------------------
 
-export async function claimControllerLease(ownerId: string): Promise<void> {
-  const db = getRealtimeDb();
+export async function claimControllerLease(db: Database, ownerId: string): Promise<void> {
   const leaseRef = ref(db, CONTROLLER_LEASE_PATH);
   // Released automatically if this tab/device disconnects without an explicit handoff.
   await onDisconnect(leaseRef).remove();
@@ -176,18 +224,16 @@ export async function claimControllerLease(ownerId: string): Promise<void> {
 }
 
 /** Periodic heartbeat so a stale lease (crashed tab that never fired onDisconnect) can be told apart from a live one — see report. */
-export async function refreshControllerLease(): Promise<void> {
-  const db = getRealtimeDb();
+export async function refreshControllerLease(db: Database): Promise<void> {
   await update(ref(db, CONTROLLER_LEASE_PATH), { updatedAt: serverTimestamp() });
 }
 
-export async function releaseControllerLease(): Promise<void> {
-  const db = getRealtimeDb();
+export async function releaseControllerLease(db: Database): Promise<void> {
   await remove(ref(db, CONTROLLER_LEASE_PATH));
 }
 
-export function subscribeToControllerLease(callback: (lease: ControllerLeaseRecord | null) => void): Unsubscribe {
-  return subscribeWithInitialGet(CONTROLLER_LEASE_PATH, (raw) => (raw as ControllerLeaseRecord | null) ?? null, callback);
+export function subscribeToControllerLease(db: Database, callback: (lease: ControllerLeaseRecord | null) => void): Unsubscribe {
+  return subscribeWithInitialGet(db, CONTROLLER_LEASE_PATH, (raw) => (raw as ControllerLeaseRecord | null) ?? null, callback);
 }
 
 // ---------------------------------------------------------------------------
@@ -196,27 +242,38 @@ export function subscribeToControllerLease(callback: (lease: ControllerLeaseReco
 // more reliable than a client-side heartbeat/timeout guess.
 // ---------------------------------------------------------------------------
 
-function registerPresence(path: string): Unsubscribe {
-  const db = getRealtimeDb();
+function registerPresence(db: Database, path: string): Unsubscribe {
   const presenceRef = ref(db, path);
   const connectedRef = ref(db, ".info/connected");
 
   return onValue(connectedRef, (snapshot) => {
     if (snapshot.val() !== true) return;
+    // RELIABILITY FIX — these were previously bare `void`-fired promises
+    // with no error handling at all, so any rejection (e.g. a momentary
+    // PERMISSION_DENIED right after a reconnect, before auth has fully
+    // re-settled) surfaced as an unhandled promise rejection instead of a
+    // visible, attributable log line. Logged, never silently swallowed —
+    // see the report's "Database is closing/hidden" investigation for why
+    // this exact reconnect window is where this class of failure lives.
+    //
     // Re-registered every time this client (re)connects — required because
     // onDisconnect handlers do not survive a reconnect, only a single
     // connection's lifetime.
-    void onDisconnect(presenceRef).set({ connected: false, updatedAt: serverTimestamp() });
-    void update(presenceRef, { connected: true, updatedAt: serverTimestamp() });
+    void onDisconnect(presenceRef)
+      .set({ connected: false, updatedAt: serverTimestamp() })
+      .catch((error: unknown) => console.error(`[realtime] onDisconnect setup failed for ${path}:`, error));
+    void update(presenceRef, { connected: true, updatedAt: serverTimestamp() }).catch((error: unknown) =>
+      console.error(`[realtime] presence update failed for ${path}:`, error),
+    );
   });
 }
 
-export function registerControllerPresence(): Unsubscribe {
-  return registerPresence(CONTROLLER_PRESENCE_PATH);
+export function registerControllerPresence(db: Database): Unsubscribe {
+  return registerPresence(db, CONTROLLER_PRESENCE_PATH);
 }
 
-export function registerDisplayPresence(): Unsubscribe {
-  return registerPresence(DISPLAY_PRESENCE_PATH);
+export function registerDisplayPresence(db: Database): Unsubscribe {
+  return registerPresence(db, DISPLAY_PRESENCE_PATH);
 }
 
 /**
@@ -228,25 +285,60 @@ export function registerDisplayPresence(): Unsubscribe {
  * new path. Never awaited by any caller that can't afford to wait on it —
  * fullscreen status is informational only.
  */
-export async function reportDisplayFullscreen(isFullscreen: boolean): Promise<void> {
-  const db = getRealtimeDb();
+export async function reportDisplayFullscreen(db: Database, isFullscreen: boolean): Promise<void> {
   await update(ref(db, DISPLAY_PRESENCE_PATH), { fullscreen: isFullscreen });
 }
 
-export function subscribeToDisplayPresence(callback: (presence: PresenceRecord | null) => void): Unsubscribe {
-  return subscribeWithInitialGet(DISPLAY_PRESENCE_PATH, (raw) => (raw as PresenceRecord | null) ?? null, callback);
+/**
+ * BUG FIX — "ابدأ" stall (see PresenceRecord.countdownComplete's doc
+ * comment): /display calls this the instant its OWN CountdownScene
+ * genuinely finishes for a given (sessionId, revision) — real Mariam-paced
+ * completion, not a guess. Same "best-effort merge onto presence/display"
+ * shape as reportDisplayFullscreen above — no new path, no Security Rules
+ * change, and it never grants /display any authority over the canonical
+ * `liveSession` (only useRealtimeControllerSession.ts ever calls
+ * publishSession()) — this is a separate, presentational signal.
+ */
+export async function reportCountdownComplete(db: Database, sessionId: string, revision: number): Promise<void> {
+  await update(ref(db, DISPLAY_PRESENCE_PATH), { countdownComplete: { sessionId, revision } });
 }
 
-export function subscribeToControllerPresence(callback: (presence: PresenceRecord | null) => void): Unsubscribe {
-  return subscribeWithInitialGet(CONTROLLER_PRESENCE_PATH, (raw) => (raw as PresenceRecord | null) ?? null, callback);
+/**
+ * Controller-only: resolves the moment presence/display reports a
+ * countdownComplete signal matching (sessionId, revision) exactly — a
+ * signal for any OTHER revision (a stale one left over from an earlier
+ * stage, or one that simply hasn't arrived yet) is ignored, never treated
+ * as a match. The caller is expected to race `promise` against its own
+ * safety timeout (see useRealtimeControllerSession.ts's
+ * runInstructionsToPlaying) and always call `cancel()` afterwards either
+ * way, so this never leaks a listener.
+ */
+export function waitForDisplayCountdownComplete(db: Database, sessionId: string, revision: number): { promise: Promise<void>; cancel: () => void } {
+  const presenceRef = ref(db, DISPLAY_PRESENCE_PATH);
+  let unsubscribe: Unsubscribe = () => {};
+  const promise = new Promise<void>((resolve) => {
+    unsubscribe = onValue(presenceRef, (snapshot) => {
+      const value = snapshot.val() as { countdownComplete?: { sessionId?: string; revision?: number } | null } | null;
+      const signal = value?.countdownComplete;
+      if (signal && signal.sessionId === sessionId && signal.revision === revision) resolve();
+    });
+  });
+  return { promise, cancel: () => unsubscribe() };
+}
+
+export function subscribeToDisplayPresence(db: Database, callback: (presence: PresenceRecord | null) => void): Unsubscribe {
+  return subscribeWithInitialGet(db, DISPLAY_PRESENCE_PATH, (raw) => (raw as PresenceRecord | null) ?? null, callback);
+}
+
+export function subscribeToControllerPresence(db: Database, callback: (presence: PresenceRecord | null) => void): Unsubscribe {
+  return subscribeWithInitialGet(db, CONTROLLER_PRESENCE_PATH, (raw) => (raw as PresenceRecord | null) ?? null, callback);
 }
 
 // ---------------------------------------------------------------------------
 // This client's own connection status, from RTDB's special `.info/connected`.
 // ---------------------------------------------------------------------------
 
-export function subscribeToConnectionStatus(callback: (status: ConnectionStatus) => void): Unsubscribe {
-  const db = getRealtimeDb();
+export function subscribeToConnectionStatus(db: Database, callback: (status: ConnectionStatus) => void): Unsubscribe {
   callback("connecting");
   return onValue(ref(db, ".info/connected"), (snapshot) => {
     callback(snapshot.val() === true ? "connected" : "disconnected");

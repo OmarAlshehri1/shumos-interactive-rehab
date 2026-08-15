@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GameState, type Difficulty, type SessionState, type StageNumber } from "@/lib/game";
 import {
   useLocalControllerSession,
@@ -9,6 +11,8 @@ import {
 } from "@/lib/control/useLocalControllerSession";
 import { useRealtimeControllerSession } from "@/lib/control/useRealtimeControllerSession";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
+import { usePatientContext } from "@/lib/patients/PatientSessionContext";
+import { usePatientPrefill } from "@/lib/patients/usePatientPrefill";
 import { ConnectionBadge } from "./ConnectionBadge";
 import { LeaseContestedOverlay } from "./LeaseContestedOverlay";
 import { LiveSessionScreen } from "./live/LiveSessionScreen";
@@ -29,10 +33,14 @@ import { SetupScreen } from "./setup/SetupScreen";
  * testing /control in isolation — a real clinic deployment always has
  * Firebase configured and uses the realtime adapter.
  *
- * TASK 8: the realtime branch now also waits on Firebase Authentication
- * (silent, anonymous — no login UI ever appears) before showing the normal
- * controller. See AuthGate below and the report's "Auth bootstrap
- * behavior" section.
+ * STAFF AUTHENTICATION FOUNDATION: the realtime branch also waits on
+ * useRealtimeControllerSession's own staff-auth check before showing the
+ * normal controller — see AuthGate below. This is a lightweight, brief
+ * fallback only: the real login screen and every real auth state
+ * (checking/unauthorized/error) live one level up, in
+ * components/control/auth/StaffAuthGate.tsx (wired in at the /control
+ * layout level), which already guarantees this component never mounts
+ * before an authorized staff session exists.
  */
 export function ControlScreen() {
   return isRealtimeEnabled() ? <RealtimeControlScreen /> : <LocalControlScreen />;
@@ -40,6 +48,7 @@ export function ControlScreen() {
 
 function LocalControlScreen() {
   const controller = useLocalControllerSession();
+  usePatientPrefill(controller.phase, controller.draft.childFirstName, controller.setChildName, controller.setDifficulty, controller.setStartingStage);
   return (
     <ControllerShell phase={controller.phase}>
       <ControllerBody controller={controller} />
@@ -49,18 +58,29 @@ function LocalControlScreen() {
 
 function RealtimeControlScreen() {
   const controller = useRealtimeControllerSession();
+  usePatientPrefill(controller.phase, controller.draft.childFirstName, controller.setChildName, controller.setDifficulty, controller.setStartingStage);
 
-  if (controller.authStatus !== "authenticated") {
+  // STAFF AUTHENTICATION FOUNDATION: StaffAuthGate (app/control/layout.tsx)
+  // already guarantees an authorized staff session exists before this
+  // component ever mounts — this is just the brief single-tick fallback
+  // for this hook's own useStaffAuth() call to catch up (see
+  // useRealtimeControllerSession.ts's authPhase doc comment), never a real
+  // login screen (that's StaffLoginScreen.tsx, owned by StaffAuthGate).
+  if (controller.authPhase !== "authorized") {
     return (
       <ControllerShell phase="SETUP">
-        <AuthGate status={controller.authStatus} />
+        <AuthGate />
       </ControllerShell>
     );
   }
 
   return (
     <ControllerShell phase={controller.phase}>
-      <ConnectionBadge status={controller.connectionStatus} hasLoadedInitialSession={controller.hasLoadedInitialSession} />
+      <ConnectionBadge
+        status={controller.connectionStatus}
+        hasLoadedInitialSession={controller.hasLoadedInitialSession}
+        syncRestoredAt={controller.syncRestoredAt}
+      />
       {!controller.isOwner && <LeaseContestedOverlay onTakeOver={controller.claimOwnership} takeoverBlocked={controller.takeoverBlocked} />}
       {controller.hasLoadedInitialSession ? (
         <ControllerBody
@@ -77,27 +97,13 @@ function RealtimeControlScreen() {
 }
 
 /**
- * TASK 8: the auth-resolution screen — appears only for the brief
- * "initializing" window on first load (no user-visible login step, just a
- * moment of silent bootstrap), or, if Firebase Auth genuinely can't be
- * reached, a clear operational error. Never pretends the controller is
- * connected when it isn't — see the report's "Auth states" section.
+ * STAFF AUTHENTICATION FOUNDATION: the brief single-tick fallback while
+ * this hook's own useStaffAuth() call catches up to what StaffAuthGate
+ * already resolved (see RealtimeControlScreen above) — real login/error/
+ * unauthorized screens all live in components/control/auth/StaffAuthGate.tsx,
+ * one level up, not here.
  */
-function AuthGate({ status }: { status: "initializing" | "failed" }) {
-  if (status === "failed") {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
-        <span className="text-3xl" aria-hidden="true">
-          ⚠️
-        </span>
-        <h2 className="text-lg font-bold text-slate-800">تعذّر الاتصال بالنظام</h2>
-        <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-          لم نتمكن من تجهيز الاتصال الآمن بالخادم. تحقق من الاتصال بالإنترنت ثم أعد تحميل الصفحة.
-        </p>
-      </div>
-    );
-  }
-
+function AuthGate() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 text-slate-400">
       <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-teal-600" />
@@ -169,6 +175,10 @@ interface ControllerLike {
   confirmChildReady: () => void;
   /** TASK 9: "إعادة الاحتفال" — replays the SESSION_COMPLETE celebration on /display. Presentation-only. */
   replayCelebration: () => void;
+  /** CONTROL UX POLISH TASK — the CURRENT liveSession's own pinned patientId (null for a walk-in). Only present on the realtime adapter — see useRealtimeControllerSession.ts's sessionPatientId doc comment; absent/undefined on the local dev adapter, which never has a saved-patient branch to begin with. */
+  sessionPatientId?: string | null;
+  /** CONTROL UX POLISH TASK — "جلسة أخرى لنفس المريض": same reset as newSession(), but preserves the active patient context. Only present on the realtime adapter. */
+  startAnotherSessionForSamePatient?: () => void;
 }
 
 interface ControllerBodyProps {
@@ -178,12 +188,57 @@ interface ControllerBodyProps {
   offline?: boolean;
 }
 
+/**
+ * PATIENT REGISTRY TASK — "provide a clear تغيير المريض / إلغاء اختيار
+ * المريض where appropriate." The setup screen's small equivalent of
+ * PatientContextBanner (Game Library) — silent while no patient context is
+ * active (ordinary walk-in flow, unchanged). Only clears the patient
+ * context itself; the already-filled name field is left alone (still
+ * editable) so a therapist who only wants to detach from the saved record
+ * — not retype a name that happens to be correct — doesn't lose it.
+ */
+function SetupPatientChip() {
+  const { selectedPatient, clearPatient } = usePatientContext();
+  if (!selectedPatient) return null;
+  return (
+    <button
+      type="button"
+      onClick={clearPatient}
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-100"
+    >
+      {selectedPatient.firstName}
+      <span aria-hidden="true">·</span>
+      تغيير المريض
+    </button>
+  );
+}
+
 /** Identical between local and realtime modes — only which adapter supplies `controller` differs. */
 function ControllerBody({ controller, displayConnected, displayFullscreen, offline }: ControllerBodyProps) {
+  const router = useRouter();
   return (
     <>
       {controller.phase === "SETUP" && (
         <div className="flex flex-1 flex-col overflow-y-auto">
+          {/*
+            TASK — GAME LIBRARY: only shown pre-session (no live session
+            record exists yet in this phase — see derivePhase in both
+            controller adapters), matching "before a session has started,
+            provide a clear العودة للأنشطة action." Once the therapist
+            confirms setup, the phase moves to READY/LIVE and this link
+            disappears — the existing End Session workflow is the only way
+            back out of an active session, unchanged.
+          */}
+          <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-3 px-5 pt-5 sm:px-8">
+            <Link
+              href="/control/activities"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-400 transition-colors hover:text-slate-600"
+            >
+              <span aria-hidden="true">→</span>
+              العودة للأنشطة
+            </Link>
+            <SetupPatientChip />
+          </div>
           <SetupScreen
             draft={controller.draft}
             onChildNameChange={controller.setChildName}
@@ -202,6 +257,10 @@ function ControllerBody({ controller, displayConnected, displayFullscreen, offli
           session={controller.session}
           onStart={controller.startLiveSession}
           onEdit={controller.editSetup}
+          onCancel={() => {
+            controller.newSession();
+            router.push("/control/activities");
+          }}
           displayConnected={displayConnected}
           displayFullscreen={displayFullscreen}
         />
@@ -226,8 +285,44 @@ function ControllerBody({ controller, displayConnected, displayFullscreen, offli
         <div className="flex flex-1 flex-col overflow-y-auto">
           <SessionSummaryScreen
             summary={controller.session.summary}
+            sessionPatientId={controller.sessionPatientId ?? null}
             onNewSession={controller.newSession}
             onReplayCelebration={controller.replayCelebration}
+            onReturnToPatientProfile={() => {
+              // Defensive guard: SessionSummaryScreen only renders this
+              // action when sessionPatientId is truthy, but that gate lives
+              // in a different file — never navigate to a "null"/"undefined"
+              // patient route if this is ever reachable another way.
+              if (!controller.sessionPatientId) return;
+              // RELIABILITY FIX: this finished session's data is already
+              // durably saved (see the exactly-once history effect) by the
+              // time SUMMARY renders — clearing the live session here is
+              // always safe. Without it, `/liveSession` stayed pinned to
+              // this already-ended session indefinitely: /display kept
+              // showing its SESSION_COMPLETE celebration forever instead of
+              // returning to the waiting world, and the NEXT therapist to
+              // open Balloon Quest for ANY patient (including a different
+              // one) landed on THIS stale summary instead of a fresh Setup
+              // screen — a real "start a session for the wrong patient" risk
+              // if they mistook it for the new patient's session and tapped
+              // "جلسة أخرى لنفس المريض". newSession() also resets the draft
+              // and patient context, matching every other "leave a finished
+              // summary" action below.
+              controller.newSession();
+              router.push(`/control/patients/${controller.sessionPatientId}`);
+            }}
+            onStartAnotherForSamePatient={() => {
+              controller.startAnotherSessionForSamePatient?.();
+              router.push("/control/activities");
+            }}
+            onGoToActivities={() => {
+              controller.newSession(); // RELIABILITY FIX — see onReturnToPatientProfile's doc comment; applies identically to the walk-in "الأنشطة" secondary action.
+              router.push("/control/activities");
+            }}
+            onGoHome={() => {
+              controller.newSession(); // RELIABILITY FIX — see onReturnToPatientProfile's doc comment; applies identically to "الرئيسية" on both the saved-patient and walk-in branches.
+              router.push("/control");
+            }}
           />
         </div>
       )}

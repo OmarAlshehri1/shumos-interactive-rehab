@@ -5,21 +5,36 @@ import type { StageNumber } from "@/lib/game";
 import { stageOrdinalAr } from "@/components/display/copy";
 
 interface StartZoneOverlayProps {
-  /** The stage about to begin — stage 1 means "before Stage 1"; anything else means "returning between stages." */
+  /** The stage about to begin. */
   stageNumber: StageNumber;
+  /** TASK 12 fix: the session's configured starting stage — "before the first stage" is `stageNumber === startingStage`, not a hardcoded `=== 1` (see StartZoneScene.tsx's matching fix for why). */
+  startingStage: StageNumber;
   onChildReady: () => void;
+  /**
+   * CONTROL UX POLISH TASK — this overlay is `absolute inset-0` over the
+   * ENTIRE live-session screen, including the sidebar's "إنهاء الجلسة"
+   * button underneath it (see LiveSessionScreen.tsx) — a real trap the task
+   * explicitly called out ("StageCompleteOverlay and StartZoneOverlay can
+   * cover the side controls and make إنهاء الجلسة unavailable"). This is the
+   * fix: a small, deliberately quiet escape hatch INSIDE the overlay itself,
+   * wired to the exact same confirm-then-end flow the sidebar button uses
+   * (LiveSessionScreen's pendingConfirm === "end") — never a second,
+   * different way to end a session.
+   */
+  onRequestEndSession: () => void;
 }
 
 /**
  * TASK 8.2 — shown whenever the session is at GameState.START_ZONE, both
- * before Stage 1 and between every stage. There is no camera/floor sensor:
- * the therapist visually confirms the child is standing in the projected
- * Start Zone and taps "الطفل جاهز" themselves — this overlay never claims
- * or implies automatic detection. See BalloonMap's own Start Zone marker
- * (rendered underneath this overlay) for the therapist's spatial reference.
+ * before the session's first stage and between every stage. There is no
+ * camera/floor sensor: the therapist visually confirms the child is
+ * standing in the projected Start Zone and taps "الطفل جاهز" themselves —
+ * this overlay never claims or implies automatic detection. See BalloonMap's
+ * own Start Zone marker (rendered underneath this overlay) for the
+ * therapist's spatial reference.
  */
-export function StartZoneOverlay({ stageNumber, onChildReady }: StartZoneOverlayProps) {
-  const isFirstStage = stageNumber === 1;
+export function StartZoneOverlay({ stageNumber, startingStage, onChildReady, onRequestEndSession }: StartZoneOverlayProps) {
+  const isFirstStage = stageNumber === startingStage;
 
   return (
     <motion.div
@@ -29,6 +44,14 @@ export function StartZoneOverlay({ stageNumber, onChildReady }: StartZoneOverlay
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
+      <button
+        type="button"
+        onClick={onRequestEndSession}
+        className="absolute top-4 end-4 touch-manipulation rounded-full px-3 py-1.5 text-xs font-semibold text-rose-400 transition-colors active:text-rose-600"
+      >
+        إنهاء الجلسة
+      </button>
+
       <div className="flex flex-col items-center gap-2 text-center">
         <span className="text-4xl" aria-hidden="true">
           🧍

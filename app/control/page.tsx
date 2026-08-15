@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { ControlScreen } from "@/components/control/ControlScreen";
+import { HomeScreen } from "@/components/control/home/HomeScreen";
 
 export const metadata: Metadata = {
-  title: "Shumos Interactive Rehab — Control",
+  title: "Shumos Interactive Rehab — الرئيسية",
 };
 
 export default function ControlPage() {
-  return <ControlScreen />;
+  return <HomeScreen />;
 }

@@ -22,9 +22,21 @@ export interface AmbienceHandle {
 export function startAmbience(ctx: AudioContext, destination: AudioNode): AmbienceHandle {
   let stopped = false;
   const timers: ReturnType<typeof setTimeout>[] = [];
+  // RELIABILITY FIX: the display can sit on the waiting world for hours
+  // between patients, and every scheduled tick (breeze wander, pad breathe,
+  // bird chirps) re-schedules itself via `every` — a fired timer id that's
+  // never removed from `timers` accumulated forever, growing unbounded for
+  // the life of the tab even though it no longer does anything. Each timer
+  // now removes its own (already-fired) id from the array before running,
+  // so `timers` only ever holds ids that are still pending.
   function every(fn: () => void, delayMs: number): void {
     if (stopped) return;
-    timers.push(setTimeout(fn, delayMs));
+    const timer = setTimeout(() => {
+      const index = timers.indexOf(timer);
+      if (index !== -1) timers.splice(index, 1);
+      fn();
+    }, delayMs);
+    timers.push(timer);
   }
 
   const breeze = startBreeze(ctx, destination, every);

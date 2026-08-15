@@ -1,12 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import type { StageRuntime } from "@/lib/game";
 import { BALLOON_COLOR_THEME } from "../colorPalette";
 import { BalloonField } from "../balloon/BalloonField";
+import { CorrectCelebrationBurst, type CorrectBurstVariant } from "../celebration/CorrectCelebrationBurst";
 import { StartZoneMarker } from "../startZone/StartZoneMarker";
 import type { DisplayEventListener } from "../events";
+
+const CELEBRATION_VARIANT_COUNT = 3;
 
 interface PlayingSceneProps {
   stage: StageRuntime;
@@ -42,15 +45,37 @@ interface PlayingSceneProps {
 export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrectSignal, isPaused = false }: PlayingSceneProps) {
   const theme = BALLOON_COLOR_THEME[stage.targetColor];
   const [incorrectSignal, setIncorrectSignal] = useState<{ balloonId: string; token: number } | null>(null);
+  // Client feedback: correct balloons need a bigger, more exciting reward —
+  // see CorrectCelebrationBurst.tsx. Keyed by a fresh token each pop so the
+  // burst always replays from scratch (old one just unmounts on key swap,
+  // never accumulates); variant cycles deterministically off stage.correctCount
+  // (itself the engine's own counter — never Math.random()) so back-to-back
+  // pops don't all look identical without ever needing extra state to track it.
+  const [celebrationBurst, setCelebrationBurst] = useState<{ token: number; variant: CorrectBurstVariant } | null>(null);
   // externalIncorrectSignal is already React state one level up (see
   // useRealtimeDisplaySession's id-based dedupe) — no need to mirror it
   // into a second piece of local state, just prefer it at render time.
   const effectiveIncorrectSignal = externalIncorrectSignal ?? incorrectSignal;
 
+  // BUG FIX (client report — false "حاول مرة أخرى" right as a new stage's
+  // balloons appear): useRealtimeDisplaySession's `incorrectSignal` state is
+  // deliberately never reset to null once a real incorrect tap sets it (see
+  // that hook) — it's the last-known signal for the WHOLE tab session, not
+  // scoped to any one stage. THIS PlayingScene instance, though, freshly
+  // mounts every stage; without a baseline, its first render would see that
+  // old, still-truthy signal as brand new and replay the incorrect sound +
+  // spoken line, even though the child hasn't touched anything in the
+  // CURRENT stage. Seeding the ref to whatever's already present at mount
+  // makes that starting value the baseline, not an event — only a signal
+  // that arrives AFTER mount (a genuine tap during this stage, always a
+  // fresh object per useRealtimeDisplaySession's setIncorrectSignal) is
+  // "new" and fires. (Local-demo mode's own `incorrectSignal` state above is
+  // unaffected — it already starts null on every fresh mount.)
+  const lastSeenIncorrectSignalRef = useRef(externalIncorrectSignal ?? null);
   useEffect(() => {
-    if (!externalIncorrectSignal) return;
+    if (!externalIncorrectSignal || externalIncorrectSignal === lastSeenIncorrectSignalRef.current) return;
+    lastSeenIncorrectSignalRef.current = externalIncorrectSignal;
     onEvent({ type: "incorrect", timestamp: Date.now() });
-    // Fires only when a genuinely new externally-driven signal arrives (see useRealtimeDisplaySession's id-based dedupe).
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalIncorrectSignal]);
 
@@ -67,16 +92,19 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
     [stage.balloons, onSelectBalloon, onEvent],
   );
 
-  const handleCorrectEvent = useCallback(
-    () =>
-      onEvent({
-        type: "correct",
-        timestamp: Date.now(),
-        correctCount: stage.correctCount,
-        totalTargets: stage.totalTargets,
-      }),
-    [onEvent, stage.correctCount, stage.totalTargets],
-  );
+  const handleCorrectEvent = useCallback(() => {
+    onEvent({
+      type: "correct",
+      timestamp: Date.now(),
+      correctCount: stage.correctCount,
+      totalTargets: stage.totalTargets,
+    });
+    // stage.correctCount here is already post-increment for this pop (see
+    // the "correct" event above, and AudioManager's matching -1 read) — so
+    // the very first pop of a stage (correctCount === 1) starts at variant 0.
+    const variant = ((stage.correctCount - 1) % CELEBRATION_VARIANT_COUNT) as CorrectBurstVariant;
+    setCelebrationBurst({ token: Date.now(), variant });
+  }, [onEvent, stage.correctCount, stage.totalTargets]);
   const handlePopEvent = useCallback(() => onEvent({ type: "balloon_pop", timestamp: Date.now() }), [onEvent]);
 
   return (
@@ -90,6 +118,7 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
         onCorrectEvent={handleCorrectEvent}
         onPopEvent={handlePopEvent}
       />
+      {celebrationBurst && <CorrectCelebrationBurst key={celebrationBurst.token} variant={celebrationBurst.variant} />}
 
       <div className="pointer-events-none absolute inset-x-0 top-[3vmin] flex flex-col items-center gap-[1.4vmin]">
         <div className="flex items-center gap-[1.4vmin] rounded-full bg-white/85 px-[2.6vmin] py-[1.2vmin] shadow-[0_6px_24px_rgba(60,30,90,0.18)] backdrop-blur-sm">

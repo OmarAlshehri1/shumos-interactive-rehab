@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { STAGES_PER_DIFFICULTY, type SessionState } from "@/lib/game";
+import { ConfirmSheet } from "../live/ConfirmSheet";
 import { DIFFICULTY_LABELS, PLAY_AREA_LABELS, TARGET_SIZE_LABELS, TARGET_SPACING_LABELS } from "../copy";
 
 interface ReadyScreenProps {
   session: SessionState;
   onStart: () => void;
   onEdit: () => void;
+  /** CONTROL UX POLISH TASK — the therapist's safe way to abandon this not-yet-started session entirely and return to Activities, instead of requiring browser Back (task section 11). */
+  onCancel: () => void;
   /** TASK 6: undefined in local mode (nothing rendered); a boolean once connected to Firebase — whether /display currently has an active tab. */
   displayConnected?: boolean;
   /** TASK 9 PART 4: best-effort — whether /display currently reports being in browser fullscreen. Only meaningful (and shown) once displayConnected is true. */
@@ -22,8 +26,18 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function ReadyScreen({ session, onStart, onEdit, displayConnected, displayFullscreen }: ReadyScreenProps) {
+/**
+ * CONTROL UX POLISH TASK — READY's three-tier action hierarchy (task
+ * section 11): PRIMARY "ابدأ المغامرة", SECONDARY "تعديل الإعدادات"
+ * (unchanged, both existed before), and a new TERTIARY safe cancel. Nothing
+ * has been played yet at this point (session is still GameState.WELCOME —
+ * no stage, no score), so cancelling here is low-stakes, but the task still
+ * asks for an explicit confirmation rather than an instant, easy-to-fat-
+ * finger action next to "ابدأ المغامرة".
+ */
+export function ReadyScreen({ session, onStart, onEdit, onCancel, displayConnected, displayFullscreen }: ReadyScreenProps) {
   const { config } = session;
+  const [confirmCancel, setConfirmCancel] = useState(false);
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center justify-center gap-8 px-5 py-8 sm:px-8">
@@ -70,7 +84,27 @@ export function ReadyScreen({ session, onStart, onEdit, displayConnected, displa
         >
           تعديل الإعدادات
         </button>
+        <button
+          type="button"
+          onClick={() => setConfirmCancel(true)}
+          className="min-h-10 touch-manipulation text-sm font-medium text-rose-400 transition-colors active:text-rose-600"
+        >
+          إلغاء الجلسة والعودة للأنشطة
+        </button>
       </div>
+
+      <ConfirmSheet
+        open={confirmCancel}
+        title="إلغاء الجلسة؟"
+        description="لم تبدأ الجلسة بعد. سيتم التراجع عن هذا الإعداد والعودة إلى الأنشطة."
+        confirmLabel="إلغاء الجلسة"
+        destructive
+        onConfirm={() => {
+          setConfirmCancel(false);
+          onCancel();
+        }}
+        onCancel={() => setConfirmCancel(false)}
+      />
     </div>
   );
 }

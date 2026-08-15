@@ -1,7 +1,7 @@
 import { BALLOON_COLOR_ORDER, STAGES_PER_DIFFICULTY, type StageNumber } from "@/lib/game";
 import type { DisplayEvent } from "@/components/display/events";
 import { type AmbienceHandle, startAmbience } from "./ambience";
-import { playCelebration, playChime, playOops, playPop } from "./effects";
+import { playApplause, playCelebration, playChime, playOops, playPop } from "./effects";
 // TEMPORARY TEST (paused Audar work — see the Task 10 checkpoint): swapped
 // from "./audarLocalProvider"'s createAudarLocalVoiceProvider() to this. To
 // revert, change this import back and swap the instantiation below.
@@ -300,6 +300,13 @@ export class AudioManager {
 
       case "correct": {
         this.playEffect((ctx, dest) => playChime(ctx, dest));
+        // Client feedback: correct feedback needed more excitement — a
+        // short, friendly applause alongside the existing pop + chime.
+        // Same effectsGain channel/volume as every other effect here, never
+        // a separate ad-hoc audio call — see playApplause's doc comment for
+        // why this stays clearly under Mariam's encouragement line, never
+        // competing with it.
+        this.playEffect((ctx, dest) => playApplause(ctx, dest));
         const band = crossedEncouragementBand(event.correctCount - 1, event.correctCount, event.totalTargets);
         if (band && this.childName) {
           const occurrenceIndex = this.encouragementBandCounts[band] ?? 0;

@@ -11,6 +11,8 @@ interface StageCompleteOverlayProps {
   result: StageResult;
   currentDifficulty: Difficulty;
   onAdvance: (decision: DifficultyDecision) => void;
+  /** CONTROL UX POLISH TASK — same escape-hatch fix as StartZoneOverlay's onRequestEndSession: this overlay also covers the sidebar's "إنهاء الجلسة" button, so it needs its own reachable copy wired to the same confirm-then-end flow. See that prop's doc comment. */
+  onRequestEndSession: () => void;
 }
 
 /**
@@ -30,7 +32,7 @@ interface StageCompleteOverlayProps {
  * "أسهل"/"أصعب" are hidden at EASY/ADVANCED respectively, where no such
  * tier exists. At least one option is always available.
  */
-export function StageCompleteOverlay({ result, currentDifficulty, onAdvance }: StageCompleteOverlayProps) {
+export function StageCompleteOverlay({ result, currentDifficulty, onAdvance, onRequestEndSession }: StageCompleteOverlayProps) {
   const canContinue = result.stageNumber < 5;
   const easier = getAdjacentDifficulty(currentDifficulty, "easier");
   const harder = getAdjacentDifficulty(currentDifficulty, "harder");
@@ -43,6 +45,14 @@ export function StageCompleteOverlay({ result, currentDifficulty, onAdvance }: S
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
+      <button
+        type="button"
+        onClick={onRequestEndSession}
+        className="absolute top-4 end-4 touch-manipulation rounded-full px-3 py-1.5 text-xs font-semibold text-rose-400 transition-colors active:text-rose-600"
+      >
+        إنهاء الجلسة
+      </button>
+
       <div className="flex flex-col items-center gap-1.5 text-center">
         <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">اكتملت المرحلة {result.stageNumber} ✓</h2>
       </div>

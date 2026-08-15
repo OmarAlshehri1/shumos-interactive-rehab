@@ -13,6 +13,19 @@ function statusLabel(gameState: GameState, isPaused: boolean): { text: string; t
   if (gameState === GameState.STAGE_COMPLETE) return { text: "اكتملت المرحلة", tone: "done" };
   // TASK 8.2: distinct tone/label while waiting on the therapist's Start Zone confirmation.
   if (gameState === GameState.START_ZONE) return { text: "بانتظار الطفل", tone: "waiting" };
+  // RELIABILITY FIX: INSTRUCTIONS/COUNTDOWN used to fall through to the
+  // default "قيد اللعب" (Playing) case below — before this fix, a
+  // therapist saw "Playing" the instant "الطفل جاهز" was tapped, seconds
+  // before the child-facing countdown on /display had actually finished
+  // and real PLAYING began. Tapping "إيقاف مؤقت" during that window looked
+  // broken: SessionControls' controls were enabled, but
+  // useRealtimeControllerSession.ts's pauseOrResume() correctly refuses to
+  // act outside GameState.PLAYING, so nothing visibly happened — no error,
+  // no state change, no explanation. See LiveSessionScreen.tsx's matching
+  // fix, which now also disables those controls during this same window.
+  if (gameState === GameState.INSTRUCTIONS || gameState === GameState.COUNTDOWN) {
+    return { text: "جاري التحضير...", tone: "waiting" };
+  }
   if (isPaused) return { text: "إيقاف مؤقت", tone: "paused" };
   return { text: "قيد اللعب", tone: "playing" };
 }

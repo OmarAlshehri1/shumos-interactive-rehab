@@ -33,6 +33,26 @@ const DEFAULT_RATE = 0.95;
 const DEFAULT_PITCH = 1.0;
 /** Same Chrome idle-queue bug worked around in speech.ts — see that file's comment. */
 const CHROME_RESUME_HEARTBEAT_MS = 12000;
+/**
+ * BUG FIX (client report): "first Start Zone plays no voice, later ones do."
+ * Root cause — Chromium-family browsers return an EMPTY array from the very
+ * first synchronous getVoices() call after a fresh page load; the real list
+ * only arrives moments later via the async "voiceschanged" event. This
+ * provider is constructed (and refreshVoice() runs once, synchronously) the
+ * instant the /display tab mounts — well before the operator's one-time
+ * unlock tap, let alone before the therapist ever creates a session. If the
+ * very first speak() call (in practice, almost always the FIRST Start Zone,
+ * since that's the earliest high-priority line a fresh session speaks —
+ * see AudioManager.ts's dispatch) lands before "voiceschanged" has fired,
+ * mariamVoice is still null and speak() used to give up immediately,
+ * permanently skipping that one line (never retried once voices did load —
+ * every LATER line worked fine because by then voices had long since
+ * loaded). speak() below now waits up to this long for the voice list to
+ * actually populate before concluding Mariam truly isn't installed — it
+ * still never substitutes a different voice, and still fails silently (no
+ * different voice, ever) if this genuinely times out.
+ */
+const VOICE_LIST_READY_TIMEOUT_MS = 1500;
 
 export function createWebSpeechMariamProvider(): VoiceProvider {
   if (typeof window === "undefined" || typeof window.speechSynthesis === "undefined") {
@@ -89,6 +109,74 @@ export function createWebSpeechMariamProvider(): VoiceProvider {
     }, CHROME_RESUME_HEARTBEAT_MS);
   }
 
+  function speakNow(text: string, options?: SpeakOptions): void {
+    if (!mariamVoice) {
+      // Never substitute a different voice — see file doc comment.
+      options?.onError?.();
+      options?.onEnd?.();
+      return;
+    }
+    try {
+      synth.cancel(); // enforce: never more than one utterance in flight
+      const utterance = new SpeechSynthesisUtterance(text);
+      activeUtterance = utterance;
+      utterance.voice = mariamVoice;
+      utterance.lang = mariamVoice.lang;
+      utterance.rate = options?.rate ?? DEFAULT_RATE;
+      utterance.pitch = options?.pitch ?? DEFAULT_PITCH;
+      utterance.volume = options?.volume ?? 1;
+      utterance.onstart = () => options?.onStart?.();
+      const release = () => {
+        if (activeUtterance === utterance) activeUtterance = null;
+      };
+      utterance.onend = () => {
+        release();
+        options?.onEnd?.();
+      };
+      utterance.onerror = () => {
+        release();
+        options?.onError?.();
+        options?.onEnd?.();
+      };
+      synth.speak(utterance);
+    } catch {
+      activeUtterance = null;
+      options?.onError?.();
+      options?.onEnd?.();
+    }
+  }
+
+  /** Resolves once getVoices() actually returns something, or after timeoutMs — whichever first. See VOICE_LIST_READY_TIMEOUT_MS's doc comment. */
+  function waitForVoiceListReady(timeoutMs: number): Promise<void> {
+    return new Promise((resolve) => {
+      let settled = false;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        try {
+          synth.removeEventListener("voiceschanged", onReady);
+        } catch {
+          // Nothing to clean up.
+        }
+        clearTimeout(timer);
+        resolve();
+      };
+      const onReady = () => {
+        try {
+          if (synth.getVoices().length > 0) finish();
+        } catch {
+          finish();
+        }
+      };
+      try {
+        synth.addEventListener("voiceschanged", onReady);
+      } catch {
+        // Some environments don't support this event — the timeout below still fires.
+      }
+      const timer = setTimeout(finish, timeoutMs);
+    });
+  }
+
   return {
     isAvailable() {
       return mariamVoice !== null;
@@ -96,40 +184,31 @@ export function createWebSpeechMariamProvider(): VoiceProvider {
 
     speak(text: string, options?: SpeakOptions) {
       if (!text) return;
-      if (!mariamVoice) {
-        // Never substitute a different voice — see file doc comment.
+      if (mariamVoice) {
+        speakNow(text, options);
+        return;
+      }
+      let voicesSeen = 0;
+      try {
+        voicesSeen = synth.getVoices().length;
+      } catch {
+        // Treated as "no voices seen yet" below.
+      }
+      if (voicesSeen > 0) {
+        // The browser's voice list IS loaded and Mariam genuinely isn't in
+        // it — a real "not installed" case, fail immediately as before.
         options?.onError?.();
         options?.onEnd?.();
         return;
       }
-      try {
-        synth.cancel(); // enforce: never more than one utterance in flight
-        const utterance = new SpeechSynthesisUtterance(text);
-        activeUtterance = utterance;
-        utterance.voice = mariamVoice;
-        utterance.lang = mariamVoice.lang;
-        utterance.rate = options?.rate ?? DEFAULT_RATE;
-        utterance.pitch = options?.pitch ?? DEFAULT_PITCH;
-        utterance.volume = options?.volume ?? 1;
-        utterance.onstart = () => options?.onStart?.();
-        const release = () => {
-          if (activeUtterance === utterance) activeUtterance = null;
-        };
-        utterance.onend = () => {
-          release();
-          options?.onEnd?.();
-        };
-        utterance.onerror = () => {
-          release();
-          options?.onError?.();
-          options?.onEnd?.();
-        };
-        synth.speak(utterance);
-      } catch {
-        activeUtterance = null;
-        options?.onError?.();
-        options?.onEnd?.();
-      }
+      // The voice list hasn't loaded AT ALL yet — almost certainly this
+      // tab's very first speech request racing Chrome's async voice list
+      // (see VOICE_LIST_READY_TIMEOUT_MS's doc comment), not a genuine
+      // "not installed" case. Give it a short, bounded chance to arrive.
+      void waitForVoiceListReady(VOICE_LIST_READY_TIMEOUT_MS).then(() => {
+        refreshVoice();
+        speakNow(text, options);
+      });
     },
 
     cancel() {

@@ -35,6 +35,44 @@ export function playPop(ctx: AudioContext, destination: AudioNode): void {
   noiseSource.stop(now + 0.06);
 }
 
+/**
+ * Client feedback: correct-balloon feedback needed to feel more exciting —
+ * "a short cheerful applause/clapping effect... like 'great job!', NOT a
+ * stadium crowd." Synthesized procedurally (same approach as every other
+ * effect in this file) rather than adding a licensed audio asset, per "use
+ * the existing procedural audio system rather than adding questionable
+ * copyrighted assets." A handful of short band-passed noise transients
+ * (the same "snap" technique playPop uses for its noise layer, just tuned
+ * higher/shorter/punchier) at fixed, deliberately slightly uneven offsets
+ * — real claps are never perfectly metronomic — reads as a few quick claps,
+ * not a texture/hiss. Every "clap" is under 90ms and the whole burst
+ * finishes well under 700ms, deliberately shorter/quieter than the voice
+ * channel so it can never compete with Mariam's encouragement line, which
+ * plays right alongside it (see AudioManager.ts's "correct" dispatch).
+ */
+export function playApplause(ctx: AudioContext, destination: AudioNode): void {
+  const now = ctx.currentTime;
+  // Deliberately uneven (not evenly spaced) — a real small round of applause isn't metronomic.
+  const claps = [0, 0.09, 0.165, 0.26, 0.33, 0.43];
+
+  claps.forEach((offset, i) => {
+    const startTime = now + offset;
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = createNoiseBuffer(ctx, 0.09);
+    const filter = ctx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.value = 1700 + (i % 3) * 250; // slight per-clap variation, not a single flat tone
+    filter.Q.value = 0.9;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.linearRampToValueAtTime(0.24, startTime + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.08);
+    noiseSource.connect(filter).connect(gain).connect(destination);
+    noiseSource.start(startTime);
+    noiseSource.stop(startTime + 0.09);
+  });
+}
+
 /** A small bright two-note bell chime — plays on every correct balloon, alongside the pop. */
 export function playChime(ctx: AudioContext, destination: AudioNode): void {
   const now = ctx.currentTime;

@@ -15,7 +15,7 @@ import { useCallback, useEffect, useState } from "react";
  * Deliberately does NOT attempt to auto-enter fullscreen on mount — the
  * API requires a genuine user gesture, so the caller must invoke
  * requestFullscreen() from inside a real click/tap handler (see
- * WaitingScene's "بدء العرض" button).
+ * ShumosWaitingWorld's "بدء العرض" button).
  */
 export interface UseFullscreenResult {
   isFullscreen: boolean;
@@ -35,7 +35,7 @@ interface FullscreenElement extends HTMLElement {
 export function useFullscreen(): UseFullscreenResult {
   const [isFullscreen, setIsFullscreen] = useState(false);
   // Starts false on both server and client (avoids an SSR/hydration text
-  // mismatch on WaitingScene's "⛶" glyph) and is detected for real once
+  // mismatch on ShumosWaitingWorld's "⛶" glyph) and is detected for real once
   // this effect runs post-mount, same as isFullscreen below.
   const [isSupported, setIsSupported] = useState(false);
 

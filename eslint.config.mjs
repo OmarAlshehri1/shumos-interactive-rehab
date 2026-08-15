@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Not part of the Next.js app: a vendored Python venv (paused TTS
+    // service) whose packages ship their own JS assets — never meant to be
+    // linted as our code.
+    "tts-service/**",
   ]),
 ]);
 

@@ -26,7 +26,7 @@ vi.mock("firebase/auth", () => ({
 }));
 
 vi.mock("../firebaseClient", () => ({
-  getFirebaseApp: () => ({ __fakeApp: true }),
+  getDisplayFirebaseApp: () => ({ __fakeApp: true }),
   getEmulatorConfig: () => null,
 }));
 

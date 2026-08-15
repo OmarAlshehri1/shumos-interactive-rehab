@@ -7,9 +7,20 @@ import { StatCard } from "../StatCard";
 
 interface SessionSummaryScreenProps {
   summary: SessionSummary;
+  /** CONTROL UX POLISH TASK — the finished session's own pinned patientId (null for a walk-in). Decides which next-action set below is shown — task section 14. */
+  sessionPatientId: string | null;
+  /** Walk-in PRIMARY / saved-patient's underlying reset — see useRealtimeControllerSession.ts's newSession(). */
   onNewSession: () => void;
   /** TASK 9: replays the SESSION_COMPLETE celebration on /display — presentation-only, never touches score/metrics/Firebase game state. */
   onReplayCelebration: () => void;
+  /** Saved-patient PRIMARY — "العودة لملف المريض." */
+  onReturnToPatientProfile: () => void;
+  /** Saved-patient SECONDARY — "جلسة أخرى لنفس المريض": preserves patient selection, returns to Activities. */
+  onStartAnotherForSamePatient: () => void;
+  /** Walk-in SECONDARY — "الأنشطة." */
+  onGoToActivities: () => void;
+  /** TERTIARY on both branches — "الرئيسية." */
+  onGoHome: () => void;
 }
 
 /** Groups stageResults by difficulty, in the summary's own canonical difficultiesPlayed order — never all 3 difficulties, only the ones actually played. */
@@ -56,8 +67,28 @@ function StageRow({ result }: { result: StageResult }) {
  * exactly 3 stages. Only difficulties/stages actually played are shown —
  * never all 15 possible stages. SKIPPED stages show "تم التخطي" with no
  * stats, never a failure label — see StageRow above.
+ *
+ * CONTROL UX POLISH TASK — "after completing a session, the report appears
+ * but it is unclear what to do next" (task section 14, verbatim client
+ * observation). The bottom action area is now a clear, branching next-step
+ * hierarchy instead of one generic "جلسة جديدة" button: SAVED PATIENT
+ * (sessionPatientId != null) gets العودة لملف المريض (primary) / جلسة أخرى
+ * لنفس المريض (secondary) / الرئيسية (tertiary); WALK-IN gets جلسة جديدة
+ * (primary) / الأنشطة (secondary) / الرئيسية (tertiary). "إعادة الاحتفال" is
+ * a different KIND of action (a presentation replay, not navigation) — kept
+ * visually separate below the navigation block, per task section 18's "one
+ * obvious primary action per state."
  */
-export function SessionSummaryScreen({ summary, onNewSession, onReplayCelebration }: SessionSummaryScreenProps) {
+export function SessionSummaryScreen({
+  summary,
+  sessionPatientId,
+  onNewSession,
+  onReplayCelebration,
+  onReturnToPatientProfile,
+  onStartAnotherForSamePatient,
+  onGoToActivities,
+  onGoHome,
+}: SessionSummaryScreenProps) {
   const groups = groupByDifficulty(summary);
   const completedCount = summary.stageResults.filter((r) => r.status === StageStatus.COMPLETED).length;
   const skippedCount = summary.stageResults.length - completedCount;
@@ -98,21 +129,57 @@ export function SessionSummaryScreen({ summary, onNewSession, onReplayCelebratio
       </section>
 
       <div className="flex flex-col gap-2.5">
+        {sessionPatientId ? (
+          <>
+            <button
+              type="button"
+              onClick={onReturnToPatientProfile}
+              className="min-h-16 touch-manipulation rounded-2xl bg-teal-600 text-xl font-bold text-white shadow-lg shadow-teal-900/15 transition-all active:scale-[0.98]"
+            >
+              العودة لملف المريض
+            </button>
+            <button
+              type="button"
+              onClick={onStartAnotherForSamePatient}
+              className="min-h-14 touch-manipulation rounded-2xl border-2 border-teal-200 bg-white text-base font-bold text-teal-700 transition-all active:scale-[0.98] active:bg-teal-50"
+            >
+              جلسة أخرى لنفس المريض
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={onNewSession}
+              className="min-h-16 touch-manipulation rounded-2xl bg-teal-600 text-xl font-bold text-white shadow-lg shadow-teal-900/15 transition-all active:scale-[0.98]"
+            >
+              جلسة جديدة
+            </button>
+            <button
+              type="button"
+              onClick={onGoToActivities}
+              className="min-h-14 touch-manipulation rounded-2xl border-2 border-teal-200 bg-white text-base font-bold text-teal-700 transition-all active:scale-[0.98] active:bg-teal-50"
+            >
+              الأنشطة
+            </button>
+          </>
+        )}
         <button
           type="button"
-          onClick={onNewSession}
-          className="min-h-16 touch-manipulation rounded-2xl bg-teal-600 text-xl font-bold text-white shadow-lg shadow-teal-900/15 transition-all active:scale-[0.98]"
+          onClick={onGoHome}
+          className="min-h-10 touch-manipulation text-sm font-medium text-slate-400 transition-colors active:text-slate-600"
         >
-          جلسة جديدة
-        </button>
-        <button
-          type="button"
-          onClick={onReplayCelebration}
-          className="min-h-14 touch-manipulation rounded-2xl border-2 border-teal-200 bg-white text-base font-bold text-teal-700 transition-all active:scale-[0.98] active:bg-teal-50"
-        >
-          إعادة الاحتفال 🎉
+          الرئيسية
         </button>
       </div>
+
+      <button
+        type="button"
+        onClick={onReplayCelebration}
+        className="min-h-12 touch-manipulation rounded-2xl text-sm font-medium text-teal-600 transition-colors active:text-teal-800"
+      >
+        إعادة الاحتفال 🎉
+      </button>
     </div>
   );
 }

@@ -2,26 +2,20 @@
 
 import { useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
-import { GameState, type SessionState } from "@/lib/game";
+import { GameState } from "@/lib/game";
 import { useLocalDemoSession } from "@/lib/demo/useLocalDemoSession";
 import { useRealtimeDisplaySession } from "@/lib/display/useRealtimeDisplaySession";
 import { useFullscreen } from "@/lib/display/useFullscreen";
 import { useAudioManager } from "@/lib/audio/useAudioManager";
-import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
-import { reportDisplayFullscreen } from "@/lib/realtime/sessionRepository";
-import type { DisplayEventListener } from "./events";
+import { getDisplayDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
+import { reportCountdownComplete, reportDisplayFullscreen } from "@/lib/realtime/sessionRepository";
 import { DevBadge } from "./DevBadge";
 import { MuteToggle } from "./MuteToggle";
 import { Environment } from "./environment/Environment";
 import { PlayStage } from "./PlayStage";
-import { CountdownScene } from "./scenes/CountdownScene";
-import { InstructionsScene } from "./scenes/InstructionsScene";
-import { PlayingScene } from "./scenes/PlayingScene";
-import { SessionCompleteScene } from "./scenes/SessionCompleteScene";
-import { StageCompleteScene } from "./scenes/StageCompleteScene";
-import { StartZoneScene } from "./scenes/StartZoneScene";
-import { WaitingScene } from "./scenes/WaitingScene";
-import { WelcomeScene } from "./scenes/WelcomeScene";
+import { BalloonQuestDisplay } from "./games/BalloonQuestDisplay";
+import { GAME_DISPLAY_MODULES } from "./gameDisplayRegistry";
+import { ShumosWaitingWorld } from "./waiting/ShumosWaitingWorld";
 
 /**
  * TASK 6: picks between the realtime experience (driven by /control through
@@ -33,9 +27,15 @@ import { WelcomeScene } from "./scenes/WelcomeScene";
  * disconnected state, not silently fall back to a single-device local
  * session — see the report.
  *
- * Both branches render the exact same SceneSwitch — the approved Task 3/4
- * scenes never needed to change to support Firebase; only who supplies the
- * SessionState, and which callbacks are real vs. no-ops, changed.
+ * MULTI-GAME PLATFORM: the local demo (no Firebase, no waiting world, no
+ * gameId — see LocalDisplayScreen below) always renders Balloon Quest
+ * directly, exactly as before; only the realtime branch resolves a game
+ * through the platform shell (DisplayShell) + the display game resolver
+ * (gameDisplayRegistry.tsx). Both branches render the SAME
+ * BalloonQuestDisplay module underneath — the approved Task 3/4 scenes
+ * never needed to change; only who supplies the SessionState, which
+ * callbacks are real vs. no-ops, and (in realtime mode) whether a game is
+ * even resolved yet, changed.
  */
 export function DisplayScreen() {
   return isRealtimeEnabled() ? <RealtimeDisplayScreen /> : <LocalDisplayScreen />;
@@ -73,7 +73,7 @@ function LocalDisplayScreen() {
 
   return (
     <DisplayShell muted={audio.muted} onToggleMute={audio.toggleMute} gameState={session.gameState}>
-      <SceneSwitch
+      <BalloonQuestDisplay
         session={session}
         onEvent={audio.handleEvent}
         onWelcomeStart={handleStart}
@@ -93,13 +93,25 @@ function RealtimeDisplayScreen() {
   const audio = useAudioManager();
   const fullscreen = useFullscreen();
 
-  // See WaitingScene's doc comment: this is the projector's one-time
+  // See ShumosWaitingWorld's doc comment: this is the projector's one-time
   // audio-unlock gesture. It never touches Firebase — the therapist's own
   // device is what actually starts a session. TASK 9 PART 4: also where
   // fullscreen is requested — "بدء العرض" is the one real user gesture this
   // tab ever gets before the therapist starts driving everything remotely.
+  //
+  // MULTI-GAME PLATFORM: also starts the calm birds/breeze ambience (see
+  // lib/audio/ambience.ts) right away, so the waiting world isn't silent —
+  // per the task's "Mariam must remain SILENT while waiting," this fires
+  // "ambience_start" specifically, never "welcome" (which is what actually
+  // triggers speech — see AudioManager.ts's dispatch). unlock() runs first,
+  // synchronously, so by the time this event reaches AudioManager it's
+  // already unlocked and plays immediately rather than needing to be
+  // buffered. Safe to fire on every tap: startAmbienceIfNeeded() is a no-op
+  // once ambience is already running, and it then simply continues,
+  // unchanged, straight through into Balloon Quest — no restart, no gap.
   const handleWaitingTap = useCallback(() => {
     audio.unlock();
+    audio.handleEvent({ type: "ambience_start", timestamp: Date.now() });
     fullscreen.requestFullscreen();
   }, [audio, fullscreen]);
 
@@ -109,7 +121,7 @@ function RealtimeDisplayScreen() {
   // caller contract (informational only).
   useEffect(() => {
     if (realtime.authStatus !== "authenticated") return;
-    void reportDisplayFullscreen(fullscreen.isFullscreen).catch(() => {});
+    void reportDisplayFullscreen(getDisplayDb(), fullscreen.isFullscreen).catch(() => {});
   }, [fullscreen.isFullscreen, realtime.authStatus]);
 
   // TASK 8.1: /control publishes the full session (all 3 stage colors
@@ -128,27 +140,86 @@ function RealtimeDisplayScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [realtime.session]);
 
+  // DISPLAY GAME RESOLVER: a game is only "resolved" once BOTH a session
+  // exists AND its gameId maps to a registered display module (see
+  // gameDisplayRegistry.tsx) — a session whose gameId is missing/
+  // unsupported/malformed (LiveSessionRecord.gameId is null in every one of
+  // those cases, see sessionRepository.ts's normalizeGameId) resolves to
+  // nothing, same as no session at all: fail safely to the waiting world,
+  // never guess it must be Balloon Quest.
+  const session = realtime.session;
+  const activeGame = session && realtime.gameId ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
+
+  // BUG FIX — "ابدأ" stall: identifies exactly which (sessionId, revision)
+  // is on screen right now, kept in a ref (not read directly in the
+  // callback below) specifically so handleCountdownComplete's own identity
+  // never changes across renders — CountdownScene's pacing effect depends
+  // on its onComplete prop's identity, and churning it on every unrelated
+  // realtime update would risk restarting an in-flight tick's timer for no
+  // reason. See useRealtimeControllerSession.ts's runInstructionsToPlaying
+  // for the controller side of this handshake.
+  const activeRecordRef = useRef<{ sessionId: string; revision: number } | null>(null);
+  useEffect(() => {
+    activeRecordRef.current = session && realtime.revision != null ? { sessionId: session.sessionId, revision: realtime.revision } : null;
+  }, [session, realtime.revision]);
+
+  const handleCountdownComplete = useCallback(() => {
+    const current = activeRecordRef.current;
+    if (!current) return;
+    void reportCountdownComplete(getDisplayDb(), current.sessionId, current.revision).catch(() => {});
+  }, []);
+
   return (
     <DisplayShell
       muted={audio.muted}
       onToggleMute={audio.toggleMute}
       gameState={realtime.session?.gameState ?? null}
     >
-      {realtime.session ? (
-        <SceneSwitch
-          session={realtime.session}
-          onEvent={audio.handleEvent}
-          onWelcomeStart={() => {}}
-          onCountdownComplete={() => {}}
-          onSelectBalloon={() => {}}
-          onStageCompleteDone={() => {}}
-          externalIncorrectSignal={realtime.incorrectSignal}
-          speakCountdownTick={audio.speakCountdownTick}
-          celebrationReplayToken={realtime.celebrationReplayToken}
-        />
-      ) : (
-        <WaitingScene onTap={handleWaitingTap} isFullscreenSupported={fullscreen.isSupported} />
-      )}
+      {/*
+        PLATFORM <-> GAME TRANSITION: a short (~1.1s) crossfade, not a hard
+        cut, in both directions — entering Balloon Quest (waiting world
+        fades out while WelcomeScene's own "مغامرة البالونات" intro fades
+        in underneath it, per the approved flow) and returning to the
+        waiting world once the canonical session is cleared (ended/reset ->
+        back to the Game Library). AnimatePresence's default (sync) mode
+        overlaps the two rather than sequencing them, which is what makes
+        this read as one continuous world rather than two separate screens.
+      */}
+      <AnimatePresence>
+        {activeGame ? (
+          <motion.div
+            key="game"
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.1, ease: "easeInOut" }}
+          >
+            <activeGame.Component
+              session={activeGame.session}
+              onEvent={audio.handleEvent}
+              onWelcomeStart={() => {}}
+              onCountdownComplete={handleCountdownComplete}
+              onSelectBalloon={() => {}}
+              onStageCompleteDone={() => {}}
+              externalIncorrectSignal={realtime.incorrectSignal}
+              speakCountdownTick={audio.speakCountdownTick}
+              celebrationReplayToken={realtime.celebrationReplayToken}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="waiting"
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.06 }}
+            transition={{ duration: 1.1, ease: "easeInOut" }}
+          >
+            <ShumosWaitingWorld onTap={handleWaitingTap} isFullscreenSupported={fullscreen.isSupported} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </DisplayShell>
   );
 }
@@ -178,140 +249,5 @@ function DisplayShell({ muted, onToggleMute, gameState, children }: DisplayShell
         {gameState && <DevBadge gameState={gameState} />}
       </main>
     </MotionConfig>
-  );
-}
-
-interface SceneSwitchProps {
-  session: SessionState;
-  onEvent: DisplayEventListener;
-  onWelcomeStart: () => void;
-  onCountdownComplete: () => void;
-  onSelectBalloon: (balloonId: string) => void;
-  onStageCompleteDone: () => void;
-  externalIncorrectSignal: { balloonId: string; token: number } | null;
-  speakCountdownTick: (tick: "3" | "2" | "1" | "start") => Promise<void>;
-  /** TASK 9: null in local mode (no replay counterpart) or before the therapist has ever tapped "إعادة الاحتفال". A new token re-keys the SESSION_COMPLETE scene so it remounts and replays. */
-  celebrationReplayToken: string | null;
-}
-
-/** The approved Task 3/4 gameState -> scene mapping, unchanged since Task 3 — only ever driven by whichever SessionState its caller supplies. */
-function SceneSwitch({
-  session,
-  onEvent,
-  onWelcomeStart,
-  onCountdownComplete,
-  onSelectBalloon,
-  onStageCompleteDone,
-  externalIncorrectSignal,
-  speakCountdownTick,
-  celebrationReplayToken,
-}: SceneSwitchProps) {
-  const stage = session.currentStage;
-
-  return (
-    <AnimatePresence mode="wait">
-      {session.gameState === GameState.WELCOME && (
-        <motion.div
-          key="welcome"
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <WelcomeScene childName={session.config.childFirstName} onEvent={onEvent} onStart={onWelcomeStart} />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.START_ZONE && (
-        <motion.div
-          key={`start-zone-${stage.stageNumber}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <StartZoneScene stageNumber={stage.stageNumber} onEvent={onEvent} />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.INSTRUCTIONS && (
-        <motion.div
-          key={`instructions-${stage.stageNumber}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <InstructionsScene targetColor={stage.targetColor} stageNumber={stage.stageNumber} onEvent={onEvent} />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.COUNTDOWN && (
-        <motion.div
-          key="countdown"
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <CountdownScene onComplete={onCountdownComplete} onEvent={onEvent} speakCountdownTick={speakCountdownTick} />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.PLAYING && (
-        <motion.div
-          key={`playing-${stage.stageNumber}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, y: "-12vh" }}
-          transition={{ duration: 0.45, ease: "easeIn" }}
-        >
-          <PlayingScene
-            stage={stage}
-            onSelectBalloon={onSelectBalloon}
-            onEvent={onEvent}
-            externalIncorrectSignal={externalIncorrectSignal}
-            isPaused={stage.pausedAt !== null}
-          />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.STAGE_COMPLETE && (
-        <motion.div
-          key={`stage-complete-${stage.stageNumber}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <StageCompleteScene
-            childFirstName={session.config.childFirstName}
-            stageNumber={stage.stageNumber}
-            correctCount={session.results[session.results.length - 1]?.correctCount ?? stage.correctCount}
-            onDone={onStageCompleteDone}
-            onEvent={onEvent}
-          />
-        </motion.div>
-      )}
-
-      {session.gameState === GameState.SESSION_COMPLETE && session.summary && (
-        <motion.div
-          key={`session-complete-${celebrationReplayToken ?? "initial"}`}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <SessionCompleteScene summary={session.summary} onEvent={onEvent} />
-        </motion.div>
-      )}
-    </AnimatePresence>
   );
 }

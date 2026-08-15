@@ -4,12 +4,14 @@ import type { LiveSessionRecord } from "../types";
 
 function makeRecord(overrides: Partial<LiveSessionRecord> = {}): LiveSessionRecord {
   return {
+    gameId: "balloon-quest",
     sessionId: "session-a",
     revision: 1,
     updatedAt: 1000,
     session: {} as LiveSessionRecord["session"],
     lastInteraction: null,
     celebrationReplay: null,
+    patientId: null,
     ...overrides,
   };
 }

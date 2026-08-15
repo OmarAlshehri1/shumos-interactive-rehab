@@ -57,38 +57,74 @@ export function isRealtimeEnabled(): boolean {
   return getConfig() !== null;
 }
 
-let app: FirebaseApp | null = null;
-
 /**
- * Lazily initializes (once) and returns the shared Firebase app instance —
- * Auth and Realtime Database must share the same app so they agree on
- * which project they're talking to. Only called from within lib/realtime/
- * (firebaseClient.ts itself and authClient.ts) — no UI component or other
- * adapter should import firebase/app directly.
+ * AUTH ISOLATION HARDENING — two entirely separate NAMED Firebase app
+ * instances, one per surface, instead of one shared default app:
+ *
+ *   "staff"   — /control's real email/password staff identity
+ *   "display" — /display's silent, limited anonymous identity
+ *
+ * Firebase's SDK memoizes `getAuth(app)`/`getDatabase(app)` PER APP
+ * INSTANCE — two different named apps therefore always get two entirely
+ * separate Auth objects (separate signed-in user, separate persisted
+ * session) and two separate Database connections (each authenticating with
+ * its OWN app's token), even though both talk to the exact same underlying
+ * Firebase project/config.
+ *
+ * ROOT CAUSE this fixes: staffAuthClient.ts (staff) and authClient.ts
+ * (display) both used to call `getAuth(getFirebaseApp())` against the SAME
+ * default app — the exact same Auth object, not "deliberately separate" as
+ * their own doc comments claimed. Next.js App Router's client-side
+ * navigation keeps one JS/Auth-SDK context alive across route changes in
+ * the same tab, so a therapist opening /control (signs in as staff), then
+ * — same tab/profile — opening /display, had /display's onAuthStateChanged
+ * fire immediately with the STAFF user and never call signInAnonymously():
+ * the projector tab silently ran under the therapist's real UID. Two named
+ * apps make that structurally impossible — /display's Auth instance has no
+ * way to ever observe /control's signed-in user, in the same tab or not.
+ *
+ * Only called from within lib/realtime/ (this file, authClient.ts,
+ * staffAuthClient.ts) — no UI component or other adapter should import
+ * firebase/app directly.
  */
-export function getFirebaseApp(): FirebaseApp {
+type FirebaseSurface = "staff" | "display";
+
+const apps: Partial<Record<FirebaseSurface, FirebaseApp>> = {};
+
+function getFirebaseApp(surface: FirebaseSurface): FirebaseApp {
   const config = getConfig();
   if (!config) {
     throw new Error(
-      "Firebase is not configured (missing NEXT_PUBLIC_FIREBASE_* env vars). " +
-        "Check isRealtimeEnabled() before calling getFirebaseApp().",
+      `Firebase is not configured (missing NEXT_PUBLIC_FIREBASE_* env vars). Check isRealtimeEnabled() before calling get${surface === "staff" ? "Staff" : "Display"}FirebaseApp().`,
     );
   }
-  if (!app) {
-    app = getApps().length > 0 ? getApps()[0]! : initializeApp(config);
+  const appName = `shumos-${surface}`;
+  if (!apps[surface]) {
+    apps[surface] = getApps().find((existing) => existing.name === appName) ?? initializeApp(config, appName);
   }
-  return app;
+  return apps[surface]!;
 }
 
-let db: Database | null = null;
-let emulatorConnected = false;
+/** /control's staff Firebase app — the ONE app staffAuthClient.ts, staffRepository.ts, patientRepository.ts, and sessionHistoryRepository.ts ever touch. */
+export function getStaffFirebaseApp(): FirebaseApp {
+  return getFirebaseApp("staff");
+}
+
+/** /display's anonymous Firebase app — the ONE app authClient.ts ever touches. Never shares an Auth/Database instance with getStaffFirebaseApp() above. */
+export function getDisplayFirebaseApp(): FirebaseApp {
+  return getFirebaseApp("display");
+}
+
+const dbs: Partial<Record<FirebaseSurface, Database>> = {};
+const emulatorConnected: Partial<Record<FirebaseSurface, boolean>> = {};
 
 /**
  * Dev/test-only: point at the local RTDB emulator instead of the real
  * cloud project when explicitly requested. Unset in every real deployment
  * — see the report for how this was used to verify two-device sync
  * locally without touching the real clinic database. Exported so
- * authClient.ts can apply the equivalent switch for the Auth emulator.
+ * authClient.ts/staffAuthClient.ts can apply the equivalent switch for the
+ * Auth emulator.
  */
 export function getEmulatorConfig(): { host: string; databasePort: number; authPort: number } | null {
   const host = process.env.NEXT_PUBLIC_FIREBASE_EMULATOR_HOST;
@@ -98,21 +134,37 @@ export function getEmulatorConfig(): { host: string; databasePort: number; authP
   return { host, databasePort: Number(databasePort), authPort: Number(authPort) };
 }
 
-/**
- * Lazily initializes (once) and returns the Realtime Database instance.
- * Only ever called from lib/realtime/sessionRepository.ts — no UI component
- * or other adapter should import firebase/database directly.
- */
-export function getRealtimeDb(): Database {
-  if (!db) {
-    db = getDatabase(getFirebaseApp());
+function getDb(surface: FirebaseSurface): Database {
+  if (!dbs[surface]) {
+    dbs[surface] = getDatabase(getFirebaseApp(surface));
   }
-
+  const db = dbs[surface]!;
   const emulator = getEmulatorConfig();
-  if (emulator && !emulatorConnected) {
-    emulatorConnected = true;
+  if (emulator && !emulatorConnected[surface]) {
+    emulatorConnected[surface] = true;
     connectDatabaseEmulator(db, emulator.host, emulator.databasePort);
   }
-
   return db;
+}
+
+/**
+ * The Realtime Database connection authenticated as the STAFF app — used by
+ * lib/realtime/sessionRepository.ts's control-side calls, and by every
+ * staff-only data layer (patientRepository.ts, staffRepository.ts,
+ * sessionHistoryRepository.ts). Never passed to /display.
+ */
+export function getStaffDb(): Database {
+  return getDb("staff");
+}
+
+/**
+ * The Realtime Database connection authenticated as the DISPLAY app — used
+ * by lib/realtime/sessionRepository.ts's display-side calls
+ * (useRealtimeDisplaySession.ts, components/display/DisplayScreen.tsx).
+ * Never passed to /control's staff-only reads/writes (patients, sessions,
+ * staff, controllerLease, presence/controller are all rule-gated to active
+ * staff anyway — this is defense in depth, not the only boundary).
+ */
+export function getDisplayDb(): Database {
+  return getDb("display");
 }

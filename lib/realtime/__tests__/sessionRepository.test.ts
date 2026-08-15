@@ -5,7 +5,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * required — to verify the repository calls the right paths with the right
  * payloads. End-to-end behavior against a real (emulated) database is
  * covered separately by the Task 6 report's two-browser Playwright run.
+ *
+ * AUTH ISOLATION HARDENING: sessionRepository.ts no longer reaches for a
+ * module-level `getRealtimeDb()` internally — every function takes the
+ * caller's `db` as its first argument (see firebaseClient.ts's
+ * getStaffDb()/getDisplayDb()). These tests pass a plain fake db object
+ * explicitly, the same way a real caller would pass getStaffDb() or
+ * getDisplayDb() — there is nothing left to mock from firebaseClient here.
  */
+
+const fakeDb = { __fakeDb: true } as never;
 
 type SnapshotHandler = (snapshot: { val: () => unknown }) => void;
 
@@ -32,10 +41,6 @@ vi.mock("firebase/database", () => ({
   serverTimestamp: () => serverTimestampMock(),
 }));
 
-vi.mock("../firebaseClient", () => ({
-  getRealtimeDb: () => ({ __fakeDb: true }),
-}));
-
 describe("sessionRepository", () => {
   beforeEach(() => {
     refMock.mockClear();
@@ -51,16 +56,16 @@ describe("sessionRepository", () => {
     vi.resetModules();
   });
 
-  it("publishSession() writes sessionId/revision/session/lastInteraction/updatedAt atomically to liveSession", async () => {
+  it("publishSession() writes gameId/sessionId/revision/session/lastInteraction/updatedAt atomically to liveSession", async () => {
     const { publishSession } = await import("../sessionRepository");
     const session = { gameState: "PLAYING" } as never;
 
-    await publishSession({ sessionId: "abc", revision: 3, session, lastInteraction: null });
+    await publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: null, patientId: null });
 
-    expect(refMock).toHaveBeenCalledWith(expect.anything(), "liveSession");
+    expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
     expect(updateMock).toHaveBeenCalledTimes(1);
     const [, payload] = updateMock.mock.calls[0]!;
-    expect(payload).toMatchObject({ sessionId: "abc", revision: 3, session, lastInteraction: null });
+    expect(payload).toMatchObject({ gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: null });
     expect(payload).toHaveProperty("updatedAt");
   });
 
@@ -71,7 +76,7 @@ describe("sessionRepository", () => {
     // A caller that read lastInteraction back from a previous RTDB round-trip
     // (before it's revived) would see undefined here, not null — this is
     // exactly what broke pauseOrResume() in production (see report).
-    await publishSession({ sessionId: "abc", revision: 3, session, lastInteraction: undefined as never });
+    await publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: undefined as never, patientId: null });
 
     const [, payload] = updateMock.mock.calls[0]!;
     expect(payload).toMatchObject({ lastInteraction: null });
@@ -97,7 +102,7 @@ describe("sessionRepository", () => {
       handler({ val: () => record });
       return vi.fn();
     });
-    subscribeToLiveSession(callback);
+    subscribeToLiveSession(fakeDb, callback);
 
     const delivered = callback.mock.calls[0]![0];
     expect(delivered.lastInteraction).toBeNull();
@@ -128,7 +133,7 @@ describe("sessionRepository", () => {
 
     const { subscribeToLiveSession } = await import("../sessionRepository");
     const callback = vi.fn();
-    subscribeToLiveSession(callback);
+    subscribeToLiveSession(fakeDb, callback);
 
     // get()'s .then() is a microtask — flush it.
     await Promise.resolve();
@@ -140,8 +145,8 @@ describe("sessionRepository", () => {
 
   it("clearLiveSession() removes the whole liveSession node (not a partial field)", async () => {
     const { clearLiveSession } = await import("../sessionRepository");
-    await clearLiveSession();
-    expect(refMock).toHaveBeenCalledWith(expect.anything(), "liveSession");
+    await clearLiveSession(fakeDb);
+    expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
     expect(removeMock).toHaveBeenCalledTimes(1);
   });
 
@@ -153,7 +158,7 @@ describe("sessionRepository", () => {
       handler({ val: () => null });
       return vi.fn();
     });
-    subscribeToLiveSession(callback);
+    subscribeToLiveSession(fakeDb, callback);
     expect(callback).toHaveBeenCalledWith(null);
 
     callback.mockClear();
@@ -161,7 +166,7 @@ describe("sessionRepository", () => {
       handler({ val: () => ({ sessionId: "x" /* missing revision/session */ }) });
       return vi.fn();
     });
-    subscribeToLiveSession(callback);
+    subscribeToLiveSession(fakeDb, callback);
     expect(callback).toHaveBeenCalledWith(null);
   });
 
@@ -184,13 +189,134 @@ describe("sessionRepository", () => {
       handler({ val: () => record });
       return vi.fn();
     });
-    subscribeToLiveSession(callback);
+    subscribeToLiveSession(fakeDb, callback);
 
     expect(callback).toHaveBeenCalledTimes(1);
     const delivered = callback.mock.calls[0]![0];
     expect(delivered.session.results).toEqual([]);
     expect(delivered.session.endedAt).toBeNull();
     expect(delivered.session.summary).toBeNull();
+  });
+
+  // RELIABILITY FIX — FAILED-WRITE RESYNC: fetchLiveSession is the one-shot
+  // read useRealtimeControllerSession.ts's resyncFromCanonical uses to
+  // restore local state after a failed publishSession() — see that file's
+  // doc comment.
+  describe("fetchLiveSession", () => {
+    it("resolves the current canonical record via a one-shot get(), reviving it the same way subscribeToLiveSession does", async () => {
+      const rawSession = {
+        sessionId: "sess-1",
+        seed: "seed",
+        config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
+        gameState: "PLAYING",
+        currentDifficulty: "EASY",
+        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+        createdAt: 1,
+      };
+      const record = { sessionId: "x", revision: 4, session: rawSession, lastInteraction: null, updatedAt: 1 };
+      getMock.mockResolvedValueOnce({ val: () => record });
+
+      const { fetchLiveSession } = await import("../sessionRepository");
+      const delivered = await fetchLiveSession(fakeDb);
+
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
+      expect(delivered).toMatchObject({ sessionId: "x", revision: 4 });
+    });
+
+    it("resolves null when no live session exists (matches subscribeToLiveSession's 'no session' behavior)", async () => {
+      getMock.mockResolvedValueOnce({ val: () => null });
+      const { fetchLiveSession } = await import("../sessionRepository");
+      await expect(fetchLiveSession(fakeDb)).resolves.toBeNull();
+    });
+  });
+
+  // MULTI-GAME PLATFORM: /display's game resolver trusts gameId to decide
+  // which child-facing module to mount (falling back to the Shumos waiting
+  // world otherwise) — these three cases are exactly what protects it from
+  // ever crashing or guessing on an old/malformed/unsupported record.
+  describe("gameId normalization", () => {
+    const minimalRawSession = {
+      sessionId: "sess-1",
+      seed: "seed",
+      config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
+      gameState: "WELCOME",
+      currentDifficulty: "EASY",
+      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+      createdAt: 1,
+    };
+
+    async function deliver(record: Record<string, unknown>) {
+      const { subscribeToLiveSession } = await import("../sessionRepository");
+      const callback = vi.fn();
+      onValueMock.mockImplementationOnce((_ref: unknown, handler: (snap: { val: () => unknown }) => void) => {
+        handler({ val: () => record });
+        return vi.fn();
+      });
+      subscribeToLiveSession(fakeDb, callback);
+      return callback.mock.calls[0]![0];
+    }
+
+    it("passes through a currently-registered gameId", async () => {
+      const delivered = await deliver({ gameId: "balloon-quest", sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      expect(delivered.gameId).toBe("balloon-quest");
+    });
+
+    it("normalizes a missing gameId (pre-migration record) to null, never guessing balloon-quest", async () => {
+      const delivered = await deliver({ sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      expect(delivered.gameId).toBeNull();
+    });
+
+    it("normalizes an unsupported/malformed gameId to null", async () => {
+      const delivered = await deliver({ gameId: "not-a-real-game", sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      expect(delivered.gameId).toBeNull();
+    });
+  });
+
+  // BUG FIX — "ابدأ" stall: the real-completion-signal handshake between
+  // /display's CountdownScene and useRealtimeControllerSession's
+  // runInstructionsToPlaying (replacing a blind timer). See both functions'
+  // own doc comments.
+  describe("countdown completion signal", () => {
+    it("reportCountdownComplete() merges {sessionId, revision} onto presence/display, not a new path", async () => {
+      const { reportCountdownComplete } = await import("../sessionRepository");
+      await reportCountdownComplete(fakeDb, "sess-1", 7);
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display");
+      expect(updateMock).toHaveBeenCalledWith(expect.anything(), { countdownComplete: { sessionId: "sess-1", revision: 7 } });
+    });
+
+    it("waitForDisplayCountdownComplete() resolves once a matching (sessionId, revision) signal arrives", async () => {
+      const { waitForDisplayCountdownComplete } = await import("../sessionRepository");
+      let deliver!: (snap: { val: () => unknown }) => void;
+      onValueMock.mockImplementationOnce((_ref: unknown, handler: (snap: { val: () => unknown }) => void) => {
+        deliver = handler;
+        return vi.fn();
+      });
+
+      const { promise, cancel } = waitForDisplayCountdownComplete(fakeDb, "sess-1", 7);
+      let resolved = false;
+      void promise.then(() => {
+        resolved = true;
+      });
+
+      deliver({ val: () => ({ connected: true, countdownComplete: { sessionId: "sess-1", revision: 6 } }) }); // stale — a different revision
+      await Promise.resolve();
+      expect(resolved).toBe(false);
+
+      deliver({ val: () => ({ connected: true, countdownComplete: { sessionId: "sess-1", revision: 7 } }) }); // the real match
+      await promise;
+      expect(resolved).toBe(true);
+      cancel();
+    });
+
+    it("waitForDisplayCountdownComplete()'s cancel() unsubscribes the listener", async () => {
+      const { waitForDisplayCountdownComplete } = await import("../sessionRepository");
+      const unsubscribe = vi.fn();
+      onValueMock.mockImplementationOnce(() => unsubscribe);
+
+      const { cancel } = waitForDisplayCountdownComplete(fakeDb, "sess-1", 7);
+      cancel();
+      expect(unsubscribe).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("subscribeToControllerLease() delivers via get() even if onValue's initial dispatch is lost (Task 7 QA regression: a second controller must never default to 'unclaimed')", async () => {
@@ -200,7 +326,7 @@ describe("sessionRepository", () => {
 
     const { subscribeToControllerLease } = await import("../sessionRepository");
     const callback = vi.fn();
-    subscribeToControllerLease(callback);
+    subscribeToControllerLease(fakeDb, callback);
 
     await Promise.resolve();
     await Promise.resolve();
@@ -214,7 +340,7 @@ describe("sessionRepository", () => {
     onDisconnectMock.mockReturnValueOnce({ remove, set: vi.fn(async () => {}) });
     const { claimControllerLease } = await import("../sessionRepository");
 
-    await claimControllerLease("owner-1");
+    await claimControllerLease(fakeDb, "owner-1");
 
     expect(onDisconnectMock).toHaveBeenCalledWith(expect.objectContaining({ __path: "controllerLease" }));
     expect(remove).toHaveBeenCalledTimes(1);
@@ -233,7 +359,7 @@ describe("sessionRepository", () => {
       return vi.fn();
     });
 
-    registerControllerPresence();
+    registerControllerPresence(fakeDb);
     connectedHandler({ val: () => true });
     connectedHandler({ val: () => true });
 

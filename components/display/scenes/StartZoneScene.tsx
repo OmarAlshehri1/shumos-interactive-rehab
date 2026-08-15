@@ -7,20 +7,33 @@ import { StartZoneMarker } from "../startZone/StartZoneMarker";
 import type { DisplayEventListener } from "../events";
 
 interface StartZoneSceneProps {
-  /** The stage about to begin — stage 1 means "before Stage 1 ever starts"; anything else means "returning between stages." */
+  /** The stage about to begin. */
   stageNumber: StageNumber;
+  /**
+   * TASK 12 fix: a session can be configured to begin at any stage (the
+   * therapist's "مرحلة البداية" picker), not only stage 1 — so "is this the
+   * first Start Zone the child ever sees" is `stageNumber === startingStage`,
+   * never a hardcoded `stageNumber === 1`. Getting this wrong doesn't just
+   * mislabel the on-screen text: it's also what AudioManager reads (see
+   * events.ts's start_zone event) to decide whether Mariam speaks the
+   * "يلا، وقف..." first-time line or the "ارجع للمربع..." return line — a
+   * session starting at, say, Medium 3 would otherwise play the wrong line
+   * before its very first stage.
+   */
+  startingStage: StageNumber;
   onEvent: DisplayEventListener;
 }
 
 /**
- * TASK 8.2 — shown whenever GameState.START_ZONE is active: before Stage 1,
- * and again between every stage. Purely presentational: no button, no
- * timer, nothing for the child to tap. /display never begins the next
- * stage on its own — see DisplayScreen.tsx and the Task 8.2 report. The
- * therapist is the one who confirms readiness, on /control.
+ * TASK 8.2 — shown whenever GameState.START_ZONE is active: before the
+ * session's first stage, and again between every stage. Purely
+ * presentational: no button, no timer, nothing for the child to tap.
+ * /display never begins the next stage on its own — see DisplayScreen.tsx
+ * and the Task 8.2 report. The therapist is the one who confirms readiness,
+ * on /control.
  */
-export function StartZoneScene({ stageNumber, onEvent }: StartZoneSceneProps) {
-  const isFirstStage = stageNumber === 1;
+export function StartZoneScene({ stageNumber, startingStage, onEvent }: StartZoneSceneProps) {
+  const isFirstStage = stageNumber === startingStage;
 
   // Guards against React StrictMode's dev-only double-invocation of effects
   // (same pattern as InstructionsScene) — keyed by stageNumber, not the

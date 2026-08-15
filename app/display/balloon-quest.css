@@ -86,6 +86,56 @@
   }
 }
 
+/*
+ * SHUMOS WAITING WORLD — the platform-level child-facing screen shown
+ * whenever no game/session is active (see components/display/waiting/).
+ * Two more continuous, cheap loops in the same idiom as the rest of this
+ * file: a gentle twinkle+drift for the stars, and a long-cycle "mostly
+ * invisible" streak for the occasional shooting star, so it reads as rare
+ * magic rather than a repeating effect a child would clock within a couple
+ * of minutes of watching.
+ */
+@keyframes bq-star-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bq-star-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0.9vw, -1.6vh);
+  }
+  100% {
+    transform: translate(-0.7vw, 0.7vh);
+  }
+}
+
+/* Visible only during a short window near the start of each long cycle — everything else is the star sitting invisible, waiting for its next turn. */
+@keyframes bq-shooting-star {
+  0%,
+  2% {
+    opacity: 0;
+    transform: translate(0, 0) scaleX(0.4);
+  }
+  3% {
+    opacity: 0.9;
+  }
+  9%,
+  100% {
+    opacity: 0;
+    transform: translate(var(--bq-shooting-star-distance, 42vw), calc(var(--bq-shooting-star-distance, 42vw) * 0.56)) scaleX(1);
+  }
+}
+
 .bq-cloud {
   animation: bq-cloud-drift 160s ease-in-out infinite alternate;
   will-change: transform;
@@ -117,13 +167,35 @@
   will-change: transform, opacity;
 }
 
+.bq-star {
+  /* Base (pre-animation) opacity so a reduced-motion viewer still sees a calm, present star field rather than a blank sky. */
+  opacity: 0.65;
+  animation:
+    bq-star-twinkle var(--bq-star-twinkle-duration, 4s) ease-in-out infinite,
+    bq-star-drift var(--bq-star-drift-duration, 26s) ease-in-out infinite alternate;
+  animation-delay:
+    var(--bq-star-twinkle-delay, 0s),
+    var(--bq-star-drift-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.bq-shooting-star {
+  /* Invisible at rest — a frozen mid-flight streak would read as clutter, not magic; see the reduced-motion rule below. */
+  opacity: 0;
+  animation: bq-shooting-star var(--bq-shooting-star-duration, 52s) linear infinite;
+  animation-delay: var(--bq-shooting-star-delay, 0s);
+  will-change: transform, opacity;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bq-cloud,
   .bq-leaf,
   .bq-bird,
   .bq-sun,
   .bq-balloon-idle,
-  .bq-welcome-balloon {
+  .bq-welcome-balloon,
+  .bq-star,
+  .bq-shooting-star {
     animation: none !important;
   }
 }

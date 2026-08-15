@@ -58,6 +58,19 @@ export function LiveSessionScreen({
   const isStageComplete = session.gameState === GameState.STAGE_COMPLETE;
   // TASK 8.2: awaiting the therapist's Start Zone confirmation — balloon taps and session controls are disabled the same way they already are during StageCompleteOverlay.
   const isAwaitingStartZone = session.gameState === GameState.START_ZONE;
+  // RELIABILITY FIX: INSTRUCTIONS/COUNTDOWN is a real, if brief, window
+  // where the canonical session isn't GameState.PLAYING yet — LiveHeader
+  // now labels it distinctly instead of misleadingly saying "قيد اللعب",
+  // and pause/restart/skip/balloon-taps must be disabled here too: without
+  // this, the SAME controls a moment later mean something real were
+  // visibly enabled but silently no-op'd (pauseOrResume/restartStage/
+  // skipStage/selectBalloon in useRealtimeControllerSession.ts all
+  // correctly gate on GameState.PLAYING and refuse to act, with zero
+  // visible feedback — confusing, not broken, but indistinguishable from
+  // broken to a therapist tapping "إيقاف مؤقت" and seeing nothing happen).
+  // End Session deliberately stays reachable — see the "never trapped"
+  // requirement — this only covers the four transient-state actions.
+  const isTransitioning = session.gameState === GameState.INSTRUCTIONS || session.gameState === GameState.COUNTDOWN;
   const lastResult = session.results[session.results.length - 1] ?? null;
 
   useEffect(() => {
@@ -91,7 +104,7 @@ export function LiveSessionScreen({
             <BalloonMap
               balloons={stage.balloons}
               incorrectSignal={incorrectSignal}
-              disabled={isStageComplete || isAwaitingStartZone || stage.pausedAt !== null || offline}
+              disabled={isStageComplete || isAwaitingStartZone || isTransitioning || stage.pausedAt !== null || offline}
               offline={offline}
               onSelect={handleSelect}
             />
@@ -116,7 +129,7 @@ export function LiveSessionScreen({
           </div>
           <SessionControls
             isPaused={stage.pausedAt !== null}
-            disabled={isStageComplete || isAwaitingStartZone}
+            disabled={isStageComplete || isAwaitingStartZone || isTransitioning}
             offline={offline}
             onPauseResume={onPauseOrResume}
             onRestartStage={() => setPendingConfirm("restart")}
@@ -128,9 +141,21 @@ export function LiveSessionScreen({
 
       <AnimatePresence>
         {isStageComplete && lastResult && (
-          <StageCompleteOverlay result={lastResult} currentDifficulty={session.currentDifficulty} onAdvance={onAdvanceStage} />
+          <StageCompleteOverlay
+            result={lastResult}
+            currentDifficulty={session.currentDifficulty}
+            onAdvance={onAdvanceStage}
+            onRequestEndSession={() => setPendingConfirm("end")}
+          />
         )}
-        {isAwaitingStartZone && <StartZoneOverlay stageNumber={stage.stageNumber} onChildReady={onChildReady} />}
+        {isAwaitingStartZone && (
+          <StartZoneOverlay
+            stageNumber={stage.stageNumber}
+            startingStage={session.config.startingStage}
+            onChildReady={onChildReady}
+            onRequestEndSession={() => setPendingConfirm("end")}
+          />
+        )}
       </AnimatePresence>
 
       <ConfirmSheet

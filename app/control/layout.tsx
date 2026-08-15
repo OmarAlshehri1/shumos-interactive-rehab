@@ -1,4 +1,6 @@
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
+import { StaffAuthGate } from "@/components/control/auth/StaffAuthGate";
+import { PatientSessionProvider } from "@/lib/patients/PatientSessionContext";
 import "./control.css";
 
 const plexSansArabic = IBM_Plex_Sans_Arabic({
@@ -13,7 +15,19 @@ const plexSansArabic = IBM_Plex_Sans_Arabic({
  * is a professional clinical tool, not the child-facing game, and should
  * read that way typographically. Route-scoped the same way, so this never
  * affects /display.
+ *
+ * STAFF AUTHENTICATION FOUNDATION: StaffAuthGate wraps every route under
+ * /control/* here — both the Game Library (/control) and Balloon Quest's
+ * controller (/control/balloon-quest) — the layout-level, App Router-
+ * idiomatic place for "this whole section requires auth," so neither page
+ * needs to know auth exists. See StaffAuthGate.tsx.
  */
 export default function ControlLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`${plexSansArabic.variable} contents`}>{children}</div>;
+  return (
+    <div className={`${plexSansArabic.variable} contents`}>
+      <PatientSessionProvider>
+        <StaffAuthGate>{children}</StaffAuthGate>
+      </PatientSessionProvider>
+    </div>
+  );
 }
