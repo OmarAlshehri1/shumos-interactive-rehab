@@ -1,0 +1,34 @@
+# TASK 10 — local Audar-TTS-V1-Flash service.
+# Mirrors AudarAI's own documented GGUF/llama.cpp inference path
+# (github.com/AudarAI/Audar-TTS-V1/blob/main/examples/requirements.txt),
+# plus FastAPI/uvicorn to serve it as a persistent local HTTP service, and
+# openai-whisper for the one-time reference-transcript bootstrap (see
+# derive_reference_transcript.py — AudarAI does not publish a transcript
+# for the demo_female_3 reference clip, so this project derives one via
+# real ASR rather than inventing one).
+
+# --- Audar-TTS-V1 (GGUF / llama.cpp path) ---
+# torch/torchaudio/torchao pinned deliberately: neucodec's own dependency
+# range (torchao>=0.12.0, torchtune>=0.3.1, torch>=2.5.1, no upper bounds)
+# lets pip resolve a torch/torchao combo that's actually incompatible with
+# each other (verified live during setup: torch 2.13 + torchao 0.18 broke
+# neucodec's torchtune import with `No module named torchao.dtypes.nf4tensor`;
+# torchao 0.12 + torch 2.13 then broke differently, missing
+# `torch._inductor.kernel.flex_attention`). torch 2.6.0 is the release
+# torchtune (neucodec's own dependency) is actually tested against.
+llama-cpp-python>=0.3
+neucodec>=0.1
+soundfile>=0.12
+librosa>=0.10
+numpy>=1.24
+torch==2.6.0
+torchaudio==2.6.0
+torchao==0.12.0
+huggingface_hub>=0.24
+
+# --- local HTTP service ---
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# --- one-time reference-transcript bootstrap only (see derive_reference_transcript.py) ---
+openai-whisper>=20231117

@@ -1,0 +1,55 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "liveSession": {
+      ".read": "auth != null",
+      ".write": "auth != null && (!data.exists() || !newData.exists() || newData.child('revision').val() > data.child('revision').val())",
+      ".validate": "newData.hasChildren(['sessionId', 'revision', 'session', 'updatedAt'])",
+
+      "sessionId": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 100" },
+      "revision": { ".validate": "newData.isNumber() && newData.val() > 0" },
+
+      "session": {
+        ".validate": "newData.hasChildren(['sessionId', 'seed', 'config', 'gameState', 'currentDifficulty', 'currentStage', 'createdAt'])",
+        "config": {
+          "childFirstName": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 30"
+          },
+          "$other": { ".validate": true }
+        },
+        "$other": { ".validate": true }
+      },
+
+      "lastInteraction": {
+        ".validate": "newData.val() == null || newData.hasChildren(['id', 'type', 'balloonId', 'revision', 'timestamp'])"
+      },
+
+      "celebrationReplay": {
+        ".validate": "newData.val() == null || newData.hasChildren(['token', 'timestamp'])"
+      },
+
+      "updatedAt": { ".validate": true }
+    },
+
+    "controllerLease": {
+      ".read": "auth != null",
+      ".write": "auth != null && (!data.exists() || data.child('ownerId').val() == auth.uid || (now - data.child('updatedAt').val()) > 45000)",
+      ".validate": "!newData.exists() || (newData.hasChildren(['ownerId', 'claimedAt']) && newData.child('ownerId').val() == auth.uid)"
+    },
+
+    "presence": {
+      "controller": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        ".validate": "!newData.exists() || newData.hasChild('connected')"
+      },
+      "display": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        ".validate": "!newData.exists() || newData.hasChild('connected')"
+      }
+    }
+  }
+}

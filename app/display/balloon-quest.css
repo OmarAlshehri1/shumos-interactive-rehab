@@ -1,0 +1,129 @@
+/*
+ * Ambient/idle animation loops for /display only. Scoped to this route (not
+ * app/globals.css) since these keyframes are Balloon Quest-specific and
+ * /control has no use for them. Discrete, triggered choreography (pop,
+ * countdown, scene transitions) is handled by Motion in JS instead — these
+ * are just the continuous infinite loops, which are cheaper as plain CSS.
+ */
+
+@keyframes bq-cloud-drift {
+  from {
+    transform: translateX(-6vw);
+  }
+  to {
+    transform: translateX(6vw);
+  }
+}
+
+@keyframes bq-leaf-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(1.2vw, 1.6vh) rotate(12deg);
+  }
+  100% {
+    transform: translate(-0.6vw, 3.2vh) rotate(-6deg);
+  }
+}
+
+@keyframes bq-bird-fly {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(2vw, -1vh);
+  }
+  100% {
+    transform: translate(4vw, 0);
+  }
+}
+
+@keyframes bq-balloon-idle {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translate(0.4%, -1.1%) scale(1.02) rotate(1deg);
+  }
+  50% {
+    transform: translate(-0.3%, -2%) scale(1.035) rotate(-1deg);
+  }
+  75% {
+    transform: translate(-0.5%, -0.8%) scale(1.015) rotate(0.6deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes bq-welcome-balloon-rise {
+  0% {
+    transform: translateY(8vh) scale(0.9);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-95vh) scale(1.05);
+    opacity: 0;
+  }
+}
+
+@keyframes bq-sun-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.06);
+  }
+}
+
+.bq-cloud {
+  animation: bq-cloud-drift 160s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.bq-leaf {
+  animation: bq-leaf-drift 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.bq-bird {
+  animation: bq-bird-fly 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.bq-sun {
+  animation: bq-sun-glow 10s ease-in-out infinite;
+}
+
+.bq-balloon-idle {
+  animation: bq-balloon-idle var(--bq-idle-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--bq-idle-delay, 0s);
+  will-change: transform;
+}
+
+.bq-welcome-balloon {
+  animation: bq-welcome-balloon-rise var(--bq-rise-duration, 16s) ease-in infinite;
+  animation-delay: var(--bq-rise-delay, 0s);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bq-cloud,
+  .bq-leaf,
+  .bq-bird,
+  .bq-sun,
+  .bq-balloon-idle,
+  .bq-welcome-balloon {
+    animation: none !important;
+  }
+}
