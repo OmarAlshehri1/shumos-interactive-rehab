@@ -2,21 +2,29 @@
 
 import Link from "next/link";
 import { getGameById } from "@/lib/games/registry";
-import type { StoredSession } from "@/lib/sessions/types";
+import type { AnyStoredSession } from "@/lib/sessions/types";
 import { formatAccuracyPercent, formatDurationClock } from "@/components/display/copy";
 import { DIFFICULTY_LABELS } from "@/components/control/copy";
+import { formatCompletionPercent } from "@/components/control/footsteps/copy";
 import { formatSessionDate } from "./formatSessionDate";
+import { formatCountOrUnavailable } from "@/lib/dataIntegrity/numeric";
 
 /**
  * SESSION HISTORY TASK — one compact row in the session history list (task
- * section 9): date, game, difficulty, completed-stage count, accuracy,
- * duration. Deliberately NOT a full report card — "the clinic may
- * eventually have many sessions... do not render giant report cards for
- * every session." Tap -> the full read-only detail (SessionHistoryScreen).
+ * section 9): date, game, difficulty, completed-stage count, a game-specific
+ * secondary metric, duration. Deliberately NOT a full report card. Tap ->
+ * the full read-only detail (SessionDetailScreen).
+ *
+ * MULTI-GAME PLATFORM — task section 35's "Do NOT show Balloon Quest
+ * accuracy terminology if it does not apply": branches on `session.gameId`
+ * for the ONE field that genuinely differs in meaning (دقة for Balloon
+ * Quest vs. نسبة إكمال for Follow the Footsteps, which has no
+ * incorrect/failure scoring at all) — every other field (date, game name,
+ * difficulty, completed-stage count, duration) is already common to both
+ * session shapes.
  */
-export function SessionHistoryRow({ patientId, session }: { patientId: string; session: StoredSession }) {
+export function SessionHistoryRow({ patientId, session }: { patientId: string; session: AnyStoredSession }) {
   const gameName = getGameById(session.gameId)?.nameAr ?? session.gameId;
-
   return (
     <Link
       href={`/control/patients/${patientId}/sessions/${session.sessionId}`}
@@ -28,12 +36,26 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
         <span className="font-semibold text-teal-700">{DIFFICULTY_LABELS[session.endingDifficulty].name}</span>
-        <span>{session.completedStageCount} مراحل مكتملة</span>
-        <span className="font-medium text-emerald-600">{formatAccuracyPercent(session.accuracy)} دقة</span>
+        <span>{formatCountOrUnavailable(session.completedStageCount)} مراحل مكتملة</span>
+        {session.gameId === "follow-the-footsteps" ? (
+          <span className="font-medium text-emerald-600">{formatCompletionPercent(session.completionRate)} إكمال</span>
+        ) : session.gameId === "space-pilot" ? (
+          <span className="font-medium text-emerald-600">{formatCompletionPercent(session.collectionRate)} جمع النجوم</span>
+        ) : session.gameId === "bubble-pop-wall" || session.gameId === "feed-the-animals" ? (
+          <span className="font-medium text-emerald-600">{formatAccuracyPercent(session.accuracy)} دقة</span>
+        ) : (
+          <span className="font-medium text-emerald-600">{formatAccuracyPercent(session.accuracy)} دقة</span>
+        )}
         <span dir="ltr" className="font-mono">
           {formatDurationClock(session.durationMs)}
         </span>
       </div>
+      {(session.therapistName || session.therapistNote) && (
+        <div className="flex flex-wrap gap-2 pt-0.5 text-xs text-slate-500">
+          {session.therapistName && <span>الأخصائي: {session.therapistName}</span>}
+          {session.therapistNote && <span className="rounded-full bg-amber-50 px-2 py-1 font-semibold text-amber-800">توجد ملاحظة للأخصائي</span>}
+        </div>
+      )}
     </Link>
   );
 }

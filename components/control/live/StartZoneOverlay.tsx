@@ -47,7 +47,7 @@ export function StartZoneOverlay({ stageNumber, startingStage, onChildReady, onR
       <button
         type="button"
         onClick={onRequestEndSession}
-        className="absolute top-4 end-4 touch-manipulation rounded-full px-3 py-1.5 text-xs font-semibold text-rose-400 transition-colors active:text-rose-600"
+        className="absolute top-4 end-4 min-h-11 touch-manipulation rounded-full px-4 py-2 text-sm font-semibold text-rose-400 transition-colors active:text-rose-600"
       >
         إنهاء الجلسة
       </button>

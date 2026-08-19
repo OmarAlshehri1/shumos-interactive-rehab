@@ -5,8 +5,13 @@ import { GAME_REGISTRY } from "@/lib/games/registry";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { formatPatientCountLabel, usePatients } from "@/lib/patients/usePatients";
 import { ControlNav } from "@/components/control/nav/ControlNav";
+import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
+import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 import { GameCard } from "@/components/control/library/GameCard";
 import { PatientListItem } from "@/components/control/patients/PatientListItem";
+import { SectionCard } from "@/components/control/ui/SectionCard";
+import { DisplayAudioControl } from "./DisplayAudioControl";
+import { SystemReadinessCard } from "./SystemReadinessCard";
 
 const RECENT_PATIENTS_LIMIT = 4;
 
@@ -29,15 +34,18 @@ export function HomeScreen() {
       className="fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
-      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-7 px-5 py-8 sm:px-8 sm:py-10">
+      <ResetLiveDisplayOnMount />
+      {isRealtimeEnabled() && <DisplayAudioControl />}
+      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-5 py-8 sm:gap-10 sm:px-8 sm:py-10">
         <ControlNav active="home" />
 
         <header className="flex flex-col items-center gap-1.5 text-center">
-          <span className="text-xs font-semibold tracking-[0.25em] text-teal-600 uppercase">Shumos Care</span>
+          <ShumosBrandMark />
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">نظام التأهيل التفاعلي</h1>
           <p className="text-base text-slate-500">مرحبًا، ماذا تريد أن تفعل؟</p>
         </header>
 
+        {isRealtimeEnabled() && <SystemReadinessCard />}
         <QuickStartSection />
         {isRealtimeEnabled() && <QuickPatientsSection />}
         <ActivitiesPreviewSection />
@@ -49,7 +57,7 @@ export function HomeScreen() {
 /** Task section 5 — the two obvious "بدء جلسة جديدة" choices, both reusing existing flows: a saved patient (-> Patient Registry -> Patient Profile's own Start/Continue actions) or a walk-in (-> Activity Library -> manual first name). */
 function QuickStartSection() {
   return (
-    <section className="flex flex-col gap-3 rounded-3xl border border-teal-100 bg-teal-50/50 p-5">
+    <section className="flex flex-col gap-3 rounded-3xl border border-teal-100 bg-teal-50/50 p-5 shadow-sm shadow-slate-900/5">
       <h2 className="text-center text-lg font-bold text-slate-900">بدء جلسة جديدة</h2>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Link
@@ -60,10 +68,10 @@ function QuickStartSection() {
           <span className="text-xs text-teal-100">جلسة مرتبطة بملف المريض وسجل تقدمه</span>
         </Link>
         <Link
-          href="/control/activities"
+          href="/control/quick-session"
           className="flex min-h-16 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl border-2 border-slate-200 bg-white px-4 text-center text-slate-700 transition-all active:scale-[0.98] active:bg-slate-50"
         >
-          <span className="text-base font-bold">جلسة سريعة بدون ملف مريض</span>
+          <span className="text-base font-bold">جلسة سريعة</span>
           <span className="text-xs text-slate-400">مناسبة للعروض التجريبية والزيارات العابرة</span>
         </Link>
       </div>
@@ -77,7 +85,7 @@ function QuickPatientsSection() {
   const recent = [...patients].sort((a, b) => b.updatedAt - a.updatedAt).slice(0, RECENT_PATIENTS_LIMIT);
 
   return (
-    <section className="flex flex-col gap-3">
+    <SectionCard>
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
           <h2 className="text-sm font-semibold text-slate-700">المرضى</h2>
@@ -99,14 +107,14 @@ function QuickPatientsSection() {
           <PatientListItem key={patient.patientId} patient={patient} />
         ))}
       </div>
-    </section>
+    </SectionCard>
   );
 }
 
 /** Task section 6 — a compact preview (today: the one registered game), not a duplicate of the full library. */
 function ActivitiesPreviewSection() {
   return (
-    <section className="flex flex-col gap-3">
+    <SectionCard>
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold text-slate-700">الأنشطة</h2>
         <Link href="/control/activities" className="text-sm font-semibold text-teal-700 transition-colors hover:text-teal-800">
@@ -118,6 +126,6 @@ function ActivitiesPreviewSection() {
           <GameCard key={game.id} game={game} />
         ))}
       </div>
-    </section>
+    </SectionCard>
   );
 }

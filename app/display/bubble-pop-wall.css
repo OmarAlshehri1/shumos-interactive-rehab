@@ -1,0 +1,117 @@
+/*
+ * Ambient/idle animation loops for Bubble Pop Wall's own /display world —
+ * UNDERWATER WORLD. Scoped to this route (not app/globals.css), same
+ * convention as balloon-quest.css/follow-the-footsteps.css: continuous
+ * infinite loops live here as plain CSS (cheap), discrete triggered
+ * choreography (bubble pop, celebrations) is handled by Motion in JS
+ * instead.
+ */
+
+@keyframes bp-fish-swim {
+  0% {
+    transform: translate(0, 0) scaleX(1);
+  }
+  48% {
+    transform: translate(6vw, -1vh) scaleX(1);
+  }
+  50% {
+    transform: translate(6vw, -1vh) scaleX(-1);
+  }
+  98% {
+    transform: translate(0, 1vh) scaleX(-1);
+  }
+  100% {
+    transform: translate(0, 0) scaleX(1);
+  }
+}
+
+@keyframes bp-turtle-swim {
+  0% {
+    transform: translate(-6vw, 0);
+  }
+  50% {
+    transform: translate(6vw, -2vh);
+  }
+  100% {
+    transform: translate(-6vw, 0);
+  }
+}
+
+@keyframes bp-jelly-drift {
+  0% {
+    transform: translate(-14vw, 0);
+  }
+  50% {
+    transform: translate(14vw, -3vh);
+  }
+  100% {
+    transform: translate(-14vw, 0);
+  }
+}
+
+@keyframes bp-seahorse-drift {
+  0% {
+    transform: translate(-4vw, 0);
+  }
+  50% {
+    transform: translate(4vw, -4vh);
+  }
+  100% {
+    transform: translate(-4vw, 0);
+  }
+}
+
+@keyframes bp-bubble-rise {
+  0% {
+    transform: translateY(0) scale(0.85);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.55;
+  }
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.bp-fish {
+  animation: bp-fish-swim var(--bp-fish-duration, 18s) ease-in-out infinite;
+  animation-delay: var(--bp-fish-delay, 0s);
+  will-change: transform;
+}
+
+.bp-turtle-drift {
+  animation: bp-turtle-swim 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+.bp-jelly-drift {
+  animation: bp-jelly-drift var(--bp-jelly-duration, 34s) ease-in-out infinite;
+  will-change: transform;
+}
+
+.bp-seahorse-drift {
+  animation: bp-seahorse-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+.bp-rise {
+  bottom: -5vmin;
+  animation: bp-bubble-rise var(--bp-rise-duration, 10s) linear infinite;
+  animation-delay: var(--bp-rise-delay, 0s);
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-fish,
+  .bp-turtle-drift,
+  .bp-jelly-drift,
+  .bp-seahorse-drift,
+  .bp-rise {
+    animation: none !important;
+  }
+}

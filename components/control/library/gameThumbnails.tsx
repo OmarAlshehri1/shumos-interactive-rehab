@@ -1,6 +1,11 @@
 import type { ComponentType } from "react";
 import type { GameId } from "@/lib/games/registry";
 import { BalloonQuestThumbnail } from "./BalloonQuestThumbnail";
+import { FollowTheFootstepsThumbnail } from "./FollowTheFootstepsThumbnail";
+import { BubblePopWallThumbnail } from "./BubblePopWallThumbnail";
+import { FeedTheAnimalsThumbnail } from "./FeedTheAnimalsThumbnail";
+import { SpacePilotThumbnail } from "./SpacePilotThumbnail";
+import { ColorChaseThumbnail } from "./ColorChaseThumbnail";
 
 /**
  * Kept separate from lib/games/registry.ts on purpose: the registry is
@@ -11,4 +16,9 @@ import { BalloonQuestThumbnail } from "./BalloonQuestThumbnail";
  */
 export const GAME_THUMBNAILS: Record<GameId, ComponentType> = {
   "balloon-quest": BalloonQuestThumbnail,
+  "follow-the-footsteps": FollowTheFootstepsThumbnail,
+  "bubble-pop-wall": BubblePopWallThumbnail,
+  "feed-the-animals": FeedTheAnimalsThumbnail,
+  "space-pilot": SpacePilotThumbnail,
+  "color-chase": ColorChaseThumbnail,
 };

@@ -1,5 +1,5 @@
 import { getGameById } from "@/lib/games/registry";
-import type { StoredSession } from "@/lib/sessions/types";
+import type { AnyStoredSession } from "@/lib/sessions/types";
 import { StatCard } from "@/components/control/StatCard";
 import { formatRelativeArabic, formatSessionDate } from "./formatSessionDate";
 
@@ -10,7 +10,7 @@ import { formatRelativeArabic, formatSessionDate } from "./formatSessionDate";
  * empty — the caller renders the "لا توجد جلسات مسجلة حتى الآن" empty state
  * instead of this component when there's nothing yet.
  */
-export function PatientSessionOverview({ sessions }: { sessions: StoredSession[] }) {
+export function PatientSessionOverview({ sessions }: { sessions: AnyStoredSession[] }) {
   const mostRecent = sessions[0];
   const gamesPlayed = Array.from(new Set(sessions.map((s) => s.gameId)))
     .map((id) => getGameById(id)?.nameAr)

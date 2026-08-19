@@ -71,6 +71,10 @@ export function createWebSpeechMariamProvider(): VoiceProvider {
   let warnedMissing = false;
   // Same GC-during-playback bug worked around in speech.ts — keep a live reference for the utterance's duration.
   let activeUtterance: SpeechSynthesisUtterance | null = null;
+  // RELIABILITY FIX ("Mariam randomly not speaking"): incremented on every speakNow() call, so a
+  // doSpeak() scheduled by an OLDER call (see the setTimeout below) can detect it's been superseded
+  // by a newer one and skip silently instead of speaking stale/wrong text after the fact.
+  let speakToken = 0;
 
   function refreshVoice(): void {
     try {
@@ -109,6 +113,22 @@ export function createWebSpeechMariamProvider(): VoiceProvider {
     }, CHROME_RESUME_HEARTBEAT_MS);
   }
 
+  /**
+   * RELIABILITY FIX ("Mariam randomly not speaking"): Chromium has a
+   * long-standing, well-documented bug where calling speechSynthesis.speak()
+   * in the same synchronous tick as a speechSynthesis.cancel() can silently
+   * drop the new utterance — no onstart, no onerror, no onend, nothing.
+   * VoiceQueue's whole priority model (every "high" line, including every
+   * countdown tick and every instruction, is allowed to interrupt whatever's
+   * currently speaking — see voiceQueue.ts) means this exact cancel-then-
+   * speak sequence happens constantly during normal play, which is exactly
+   * the pattern that triggers the bug. The fix: only call cancel() when the
+   * engine actually has something in flight, and when it does, defer the new
+   * speak() to a fresh macrotask (setTimeout 0) so Chromium's own cancel
+   * has genuinely settled before the next utterance is queued. speakToken
+   * guards against a second, newer speakNow() call racing this deferred one —
+   * only the LATEST call is ever allowed to actually speak.
+   */
   function speakNow(text: string, options?: SpeakOptions): void {
     if (!mariamVoice) {
       // Never substitute a different voice — see file doc comment.
@@ -116,33 +136,52 @@ export function createWebSpeechMariamProvider(): VoiceProvider {
       options?.onEnd?.();
       return;
     }
-    try {
-      synth.cancel(); // enforce: never more than one utterance in flight
-      const utterance = new SpeechSynthesisUtterance(text);
-      activeUtterance = utterance;
-      utterance.voice = mariamVoice;
-      utterance.lang = mariamVoice.lang;
-      utterance.rate = options?.rate ?? DEFAULT_RATE;
-      utterance.pitch = options?.pitch ?? DEFAULT_PITCH;
-      utterance.volume = options?.volume ?? 1;
-      utterance.onstart = () => options?.onStart?.();
-      const release = () => {
-        if (activeUtterance === utterance) activeUtterance = null;
-      };
-      utterance.onend = () => {
-        release();
-        options?.onEnd?.();
-      };
-      utterance.onerror = () => {
-        release();
+    const voice = mariamVoice; // captured now — immune to a `refreshVoice()` reassignment while doSpeak() waits below
+    const myToken = ++speakToken;
+    const hadSomethingInFlight = synth.speaking || synth.pending;
+    if (hadSomethingInFlight) {
+      try {
+        synth.cancel();
+      } catch {
+        // Best-effort — still attempt to speak below.
+      }
+    }
+
+    const doSpeak = () => {
+      if (myToken !== speakToken) return; // superseded by a newer speak() request — let that one own playback
+      try {
+        const utterance = new SpeechSynthesisUtterance(text);
+        activeUtterance = utterance;
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+        utterance.rate = options?.rate ?? DEFAULT_RATE;
+        utterance.pitch = options?.pitch ?? DEFAULT_PITCH;
+        utterance.volume = options?.volume ?? 1;
+        utterance.onstart = () => options?.onStart?.();
+        const release = () => {
+          if (activeUtterance === utterance) activeUtterance = null;
+        };
+        utterance.onend = () => {
+          release();
+          options?.onEnd?.();
+        };
+        utterance.onerror = () => {
+          release();
+          options?.onError?.();
+          options?.onEnd?.();
+        };
+        synth.speak(utterance);
+      } catch {
+        activeUtterance = null;
         options?.onError?.();
         options?.onEnd?.();
-      };
-      synth.speak(utterance);
-    } catch {
-      activeUtterance = null;
-      options?.onError?.();
-      options?.onEnd?.();
+      }
+    };
+
+    if (hadSomethingInFlight) {
+      setTimeout(doSpeak, 0);
+    } else {
+      doSpeak();
     }
   }
 

@@ -1,6 +1,7 @@
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { StaffAuthGate } from "@/components/control/auth/StaffAuthGate";
 import { PatientSessionProvider } from "@/lib/patients/PatientSessionContext";
+import { SessionWorkflowProvider } from "@/components/control/session/SessionWorkflowContext";
 import "./control.css";
 
 const plexSansArabic = IBM_Plex_Sans_Arabic({
@@ -26,7 +27,9 @@ export default function ControlLayout({ children }: { children: React.ReactNode 
   return (
     <div className={`${plexSansArabic.variable} contents`}>
       <PatientSessionProvider>
-        <StaffAuthGate>{children}</StaffAuthGate>
+        <SessionWorkflowProvider>
+          <StaffAuthGate>{children}</StaffAuthGate>
+        </SessionWorkflowProvider>
       </PatientSessionProvider>
     </div>
   );

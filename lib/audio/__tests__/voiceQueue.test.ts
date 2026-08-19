@@ -23,13 +23,41 @@ describe("VoiceQueue priority semantics", () => {
     expect(provider.calls).toEqual(["hello"]);
   });
 
-  it("a high-priority request cancels and replaces currently-speaking high-priority speech (no stale speech across stages)", () => {
+  it("serializes high-priority requests so an in-flight paid line is not synthesized and then discarded", () => {
     const provider = createFakeProvider();
+    const ends: Array<() => void> = [];
+    provider.speak = (text, options) => {
+      provider.calls.push(text);
+      if (options?.onEnd) ends.push(options.onEnd);
+    };
     const queue = new VoiceQueue(provider);
     queue.request("stage 1 instruction", "high");
     const spoken = queue.request("stage 2 instruction", "high");
     expect(spoken).toBe(true);
+    expect(provider.calls).toEqual(["stage 1 instruction"]);
+
+    ends[0]();
     expect(provider.calls).toEqual(["stage 1 instruction", "stage 2 instruction"]);
+  });
+
+  it("keeps only the latest pending high-priority line and settles the displaced callback without sending it to Munsit", () => {
+    const provider = createFakeProvider();
+    const ends: Array<() => void> = [];
+    provider.speak = (text, options) => {
+      provider.calls.push(text);
+      if (options?.onEnd) ends.push(options.onEnd);
+    };
+    const queue = new VoiceQueue(provider);
+    const displacedEnd = vi.fn();
+
+    queue.request("welcome", "high");
+    queue.request("old scene instruction", "high", { onEnd: displacedEnd });
+    queue.request("current scene instruction", "high");
+
+    expect(provider.calls).toEqual(["welcome"]);
+    expect(displacedEnd).toHaveBeenCalledOnce();
+    ends[0]();
+    expect(provider.calls).toEqual(["welcome", "current scene instruction"]);
   });
 
   it("a normal-priority request is dropped while high-priority speech is active", () => {
@@ -83,6 +111,34 @@ describe("VoiceQueue priority semantics", () => {
     queue.cancel();
     const spoken = queue.request("something low priority", "low");
     expect(spoken).toBe(true);
+  });
+
+  it("a retry never displaces a newer high-priority line already waiting", () => {
+    const provider = createFakeProvider();
+    provider.speak = (text) => {
+      provider.calls.push(text);
+    };
+    const queue = new VoiceQueue(provider);
+
+    queue.request("failed instruction", "high");
+    queue.request("new scene", "high");
+    expect(queue.request("stale retry", "high", { isRetry: true })).toBe(false);
+    expect(provider.calls).toEqual(["failed instruction"]);
+  });
+
+  it("cancel settles active and pending requests so ducking/countdown waiters cannot hang", () => {
+    const provider = createFakeProvider();
+    const activeEnd = vi.fn();
+    const pendingEnd = vi.fn();
+    const queue = new VoiceQueue(provider);
+    queue.request("active", "high", { onEnd: activeEnd });
+    queue.request("pending", "high", { onEnd: pendingEnd });
+
+    queue.cancel();
+
+    expect(provider.cancel).toHaveBeenCalledOnce();
+    expect(activeEnd).toHaveBeenCalledOnce();
+    expect(pendingEnd).toHaveBeenCalledOnce();
   });
 
   it("an empty string is never spoken", () => {

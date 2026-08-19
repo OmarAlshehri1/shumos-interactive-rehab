@@ -32,6 +32,7 @@ interface PlayingSceneProps {
    * false so this is purely additive.
    */
   isPaused?: boolean;
+  onFinalActionSettled?: () => void;
 }
 
 /**
@@ -42,7 +43,7 @@ interface PlayingSceneProps {
  * beyond "how many left," per the spec's child-only-needs-encouragement
  * rule. Those richer stats belong to the therapist/report experience.
  */
-export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrectSignal, isPaused = false }: PlayingSceneProps) {
+export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrectSignal, isPaused = false, onFinalActionSettled }: PlayingSceneProps) {
   const theme = BALLOON_COLOR_THEME[stage.targetColor];
   const [incorrectSignal, setIncorrectSignal] = useState<{ balloonId: string; token: number } | null>(null);
   // Client feedback: correct balloons need a bigger, more exciting reward —
@@ -51,7 +52,8 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
   // never accumulates); variant cycles deterministically off stage.correctCount
   // (itself the engine's own counter — never Math.random()) so back-to-back
   // pops don't all look identical without ever needing extra state to track it.
-  const [celebrationBurst, setCelebrationBurst] = useState<{ token: number; variant: CorrectBurstVariant } | null>(null);
+  const [celebrationBurst, setCelebrationBurst] = useState<{ token: number; variant: CorrectBurstVariant; final: boolean } | null>(null);
+  const finalSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // externalIncorrectSignal is already React state one level up (see
   // useRealtimeDisplaySession's id-based dedupe) — no need to mirror it
   // into a second piece of local state, just prefer it at render time.
@@ -79,6 +81,16 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalIncorrectSignal]);
 
+  // VOICE COVERAGE: the "توقف مؤقت" overlay below is visible Arabic text the
+  // child can't be expected to read — speak it once on the false->true
+  // transition, never on every render (isPaused only flips when the
+  // therapist actually pauses/resumes).
+  const wasPausedRef = useRef(isPaused);
+  useEffect(() => {
+    if (isPaused && !wasPausedRef.current) onEvent({ type: "paused", timestamp: Date.now() });
+    wasPausedRef.current = isPaused;
+  }, [isPaused, onEvent]);
+
   const handleSelect = useCallback(
     (balloonId: string) => {
       const balloon = stage.balloons.find((b) => b.id === balloonId);
@@ -103,9 +115,21 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
     // the "correct" event above, and AudioManager's matching -1 read) — so
     // the very first pop of a stage (correctCount === 1) starts at variant 0.
     const variant = ((stage.correctCount - 1) % CELEBRATION_VARIANT_COUNT) as CorrectBurstVariant;
-    setCelebrationBurst({ token: Date.now(), variant });
-  }, [onEvent, stage.correctCount, stage.totalTargets]);
+    const final = stage.correctCount >= stage.totalTargets;
+    setCelebrationBurst({ token: Date.now(), variant, final });
+    if (final && onFinalActionSettled) {
+      if (finalSettleTimerRef.current) clearTimeout(finalSettleTimerRef.current);
+      finalSettleTimerRef.current = setTimeout(onFinalActionSettled, 1_050);
+    }
+  }, [onEvent, onFinalActionSettled, stage.correctCount, stage.totalTargets]);
   const handlePopEvent = useCallback(() => onEvent({ type: "balloon_pop", timestamp: Date.now() }), [onEvent]);
+
+  useEffect(
+    () => () => {
+      if (finalSettleTimerRef.current) clearTimeout(finalSettleTimerRef.current);
+    },
+    [],
+  );
 
   return (
     <div className="relative h-full w-full">
@@ -118,7 +142,7 @@ export function PlayingScene({ stage, onSelectBalloon, onEvent, externalIncorrec
         onCorrectEvent={handleCorrectEvent}
         onPopEvent={handlePopEvent}
       />
-      {celebrationBurst && <CorrectCelebrationBurst key={celebrationBurst.token} variant={celebrationBurst.variant} />}
+      {celebrationBurst && <CorrectCelebrationBurst key={celebrationBurst.token} variant={celebrationBurst.variant} final={celebrationBurst.final} />}
 
       <div className="pointer-events-none absolute inset-x-0 top-[3vmin] flex flex-col items-center gap-[1.4vmin]">
         <div className="flex items-center gap-[1.4vmin] rounded-full bg-white/85 px-[2.6vmin] py-[1.2vmin] shadow-[0_6px_24px_rgba(60,30,90,0.18)] backdrop-blur-sm">

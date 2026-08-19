@@ -2,14 +2,21 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DisplayEvent, DisplayEventListener } from "@/components/display/events";
-import { AudioManager } from "./AudioManager";
+import type { GameId } from "@/lib/games/registry";
+import { AudioManager, type AudioReadiness } from "./AudioManager";
 
 export interface UseAudioManagerResult {
   handleEvent: DisplayEventListener;
   unlock: () => void;
   muted: boolean;
   toggleMute: () => void;
-  prefetchForSession: (childName: string) => void;
+  readiness: AudioReadiness;
+  /** Remote commands may attempt recovery, but only this result can confirm Chrome actually reached running. */
+  attemptRemoteEnable: () => Promise<AudioReadiness>;
+  /** Keeps ambience correct across refreshes, session switches, and the shared waiting world. */
+  setActiveGame: (gameId: GameId | null) => void;
+  /** COST INCIDENT — see AudioManager.prefetchForSession's doc comment: `gameId` scopes the warm-up to ONLY that game's own predictable lines, never all five. */
+  prefetchForSession: (childName: string, gameId: GameId) => void;
   /** Speaks one countdown tick and resolves once it's actually settled — passed to CountdownScene so it can pace itself against real playback. */
   speakCountdownTick: (tick: "3" | "2" | "1" | "start") => Promise<void>;
 }
@@ -34,9 +41,10 @@ export function useAudioManager(): UseAudioManagerResult {
   const managerRef = useRef<AudioManager | null>(null);
   const bufferedEventsRef = useRef<DisplayEvent[]>([]);
   const [muted, setMutedState] = useState(false);
+  const [readiness, setReadiness] = useState<AudioReadiness>({ ready: false, contextState: "unavailable" });
 
   useEffect(() => {
-    const manager = new AudioManager();
+    const manager = new AudioManager(undefined, setReadiness);
     managerRef.current = manager;
     // Deliberately NOT cleared after flushing: under React StrictMode (dev
     // mode), this effect runs mount -> cleanup -> mount again before the
@@ -63,24 +71,39 @@ export function useAudioManager(): UseAudioManagerResult {
     managerRef.current?.unlock();
   }, []);
 
-  // Safety net: the polished "ابدأ التجربة" button is the primary unlock
-  // path, but any first genuine interaction (e.g. a tester using only the
-  // keyboard) should still unlock audio, per the autoplay-policy rule that
-  // any user gesture qualifies — not specifically a click on one element.
+  // Every genuine interaction is a recovery opportunity, not just the
+  // first. Browsers can create a suspended context on the first gesture or
+  // suspend an already-unlocked context after backgrounding/device changes.
+  // AudioManager.unlock() is idempotent for speech but intentionally retries
+  // context.resume() synchronously on each pointer/key gesture.
   useEffect(() => {
-    let firedOnce = false;
-    function handleFirstInteraction() {
-      if (firedOnce) return;
-      firedOnce = true;
+    function handleInteraction() {
       unlock();
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
     }
-    window.addEventListener("pointerdown", handleFirstInteraction);
-    window.addEventListener("keydown", handleFirstInteraction);
+    window.addEventListener("pointerdown", handleInteraction);
+    window.addEventListener("keydown", handleInteraction);
     return () => {
-      window.removeEventListener("pointerdown", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
+      window.removeEventListener("pointerdown", handleInteraction);
+      window.removeEventListener("keydown", handleInteraction);
+    };
+  }, [unlock]);
+
+  // The normal first display tap also enters fullscreen. Some browser/
+  // projector combinations suspend or interrupt Web Audio during that
+  // transition, after the original pointer handler already ran. A
+  // fullscreen lifecycle event is the deterministic recovery point: rerun
+  // the same real unlock path, which resumes the context and re-applies the
+  // audible master gain without changing the mute state or needing a
+  // second user click.
+  useEffect(() => {
+    function handleFullscreenChange() {
+      unlock();
+    }
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
     };
   }, [unlock]);
 
@@ -93,6 +116,10 @@ export function useAudioManager(): UseAudioManagerResult {
   }, []);
 
   const toggleMute = useCallback(() => {
+    // The mute button click is itself a legitimate user gesture. Resume the
+    // Web Audio graph before changing gain so unmute cannot leave a
+    // previously-suspended context permanently silent.
+    managerRef.current?.unlock();
     setMutedState((previous) => {
       const next = !previous;
       managerRef.current?.setMuted(next);
@@ -100,13 +127,22 @@ export function useAudioManager(): UseAudioManagerResult {
     });
   }, []);
 
-  const prefetchForSession = useCallback((childName: string) => {
-    managerRef.current?.prefetchForSession(childName);
+  const attemptRemoteEnable = useCallback(() => {
+    setMutedState(false);
+    return managerRef.current?.attemptRemoteEnable() ?? Promise.resolve({ ready: false, contextState: "unavailable" });
+  }, []);
+
+  const prefetchForSession = useCallback((childName: string, gameId: GameId) => {
+    managerRef.current?.prefetchForSession(childName, gameId);
+  }, []);
+
+  const setActiveGame = useCallback((gameId: GameId | null) => {
+    managerRef.current?.setActiveGame(gameId);
   }, []);
 
   const speakCountdownTick = useCallback((tick: "3" | "2" | "1" | "start") => {
     return managerRef.current?.speakCountdownTick(tick) ?? Promise.resolve();
   }, []);
 
-  return { handleEvent, unlock, muted, toggleMute, prefetchForSession, speakCountdownTick };
+  return { handleEvent, unlock, muted, toggleMute, readiness, attemptRemoteEnable, setActiveGame, prefetchForSession, speakCountdownTick };
 }

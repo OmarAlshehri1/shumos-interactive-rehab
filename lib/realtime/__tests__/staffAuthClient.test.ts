@@ -72,7 +72,7 @@ describe("staffAuthClient", () => {
     subscribeToStaffAuthState((state) => states.push(state));
     stateCallback({ uid: "staff-1", email: "therapist@shumos.care" });
 
-    expect(states.at(-1)).toEqual({ status: "authenticated", uid: "staff-1", email: "therapist@shumos.care" });
+    expect(states.at(-1)).toEqual({ status: "authenticated", uid: "staff-1", email: "therapist@shumos.care", displayName: null });
   });
 
   it("reports 'unauthenticated' (never auto-signs-in) when no user is present — unlike the anonymous flow", async () => {

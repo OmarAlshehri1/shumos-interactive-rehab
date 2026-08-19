@@ -15,6 +15,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  */
 
 const fakeDb = { __fakeDb: true } as never;
+const RAW_BALLOONS = [
+  { id: "b1", color: "BLUE", position: { x: .35, y: .5 }, size: .1, isTarget: true, isPopped: false },
+  { id: "b2", color: "BLUE", position: { x: .65, y: .5 }, size: .1, isTarget: true, isPopped: false },
+];
 
 type SnapshotHandler = (snapshot: { val: () => unknown }) => void;
 
@@ -82,6 +86,13 @@ describe("sessionRepository", () => {
     expect(payload).toMatchObject({ lastInteraction: null });
   });
 
+  it("publishSession() blocks NaN/Infinity before Firebase can receive a corrupt live state", async () => {
+    const { publishSession } = await import("../sessionRepository");
+    const session = { gameState: "PLAYING", corruptMetric: Number.NaN } as never;
+    await expect(publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: null, patientId: null })).rejects.toThrow("non-finite");
+    expect(updateMock).not.toHaveBeenCalled();
+  });
+
   it("subscribeToLiveSession() revives a dropped top-level lastInteraction back to null, not undefined", async () => {
     const { subscribeToLiveSession } = await import("../sessionRepository");
     const callback = vi.fn();
@@ -91,12 +102,12 @@ describe("sessionRepository", () => {
       config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
       gameState: "PLAYING",
       currentDifficulty: "EASY",
-      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
       createdAt: 1,
     };
     // lastInteraction key entirely absent, matching what RTDB actually
     // returns after publishSession wrote `lastInteraction: null`.
-    const record = { sessionId: "x", revision: 1, session: rawSession, updatedAt: 1 };
+    const record = { gameId: "balloon-quest", sessionId: "sess-1", revision: 1, session: rawSession, updatedAt: 1 };
 
     onValueMock.mockImplementationOnce((_ref: unknown, handler: (snap: { val: () => unknown }) => void) => {
       handler({ val: () => record });
@@ -115,15 +126,16 @@ describe("sessionRepository", () => {
     // value — this is the entire point of pairing get() alongside onValue.
     onValueMock.mockImplementationOnce(() => vi.fn()); // never invokes its handler
     const record = {
+      gameId: "balloon-quest",
       sessionId: "x",
       revision: 9,
       session: {
         sessionId: "x",
         seed: "s",
-        config: {},
+        config: { childFirstName: "سارة", difficulty: "EASY" },
         gameState: "PLAYING",
         currentDifficulty: "EASY",
-        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
         createdAt: 1,
       },
       lastInteraction: null,
@@ -168,6 +180,14 @@ describe("sessionRepository", () => {
     });
     subscribeToLiveSession(fakeDb, callback);
     expect(callback).toHaveBeenCalledWith(null);
+
+    callback.mockClear();
+    onValueMock.mockImplementationOnce((_ref: unknown, handler: (snap: { val: () => unknown }) => void) => {
+      handler({ val: () => ({ gameId: "balloon-quest", sessionId: "bad", revision: 1, session: { sessionId: "bad", seed: "s", config: {}, gameState: "PLAYING", currentDifficulty: "EASY", currentStage: {}, createdAt: Number.NaN } }) });
+      return vi.fn();
+    });
+    subscribeToLiveSession(fakeDb, callback);
+    expect(callback).toHaveBeenCalledWith(null);
   });
 
   it("subscribeToLiveSession() forwards a well-formed record, reviving the session (see lib/realtime/serialization.ts)", async () => {
@@ -179,11 +199,11 @@ describe("sessionRepository", () => {
       config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
       gameState: "WELCOME",
       currentDifficulty: "EASY",
-      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
       createdAt: 1,
       // results/endedAt/summary intentionally absent, matching what RTDB actually returns for a fresh session
     };
-    const record = { sessionId: "x", revision: 1, session: rawSession, lastInteraction: null, updatedAt: 1 };
+    const record = { gameId: "balloon-quest", sessionId: "sess-1", revision: 1, session: rawSession, lastInteraction: null, updatedAt: 1 };
 
     onValueMock.mockImplementationOnce((_ref: unknown, handler: (snap: { val: () => unknown }) => void) => {
       handler({ val: () => record });
@@ -210,17 +230,17 @@ describe("sessionRepository", () => {
         config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
         gameState: "PLAYING",
         currentDifficulty: "EASY",
-        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
         createdAt: 1,
       };
-      const record = { sessionId: "x", revision: 4, session: rawSession, lastInteraction: null, updatedAt: 1 };
+      const record = { gameId: "balloon-quest", sessionId: "sess-1", revision: 4, session: rawSession, lastInteraction: null, updatedAt: 1 };
       getMock.mockResolvedValueOnce({ val: () => record });
 
       const { fetchLiveSession } = await import("../sessionRepository");
       const delivered = await fetchLiveSession(fakeDb);
 
       expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
-      expect(delivered).toMatchObject({ sessionId: "x", revision: 4 });
+      expect(delivered).toMatchObject({ sessionId: "sess-1", revision: 4 });
     });
 
     it("resolves null when no live session exists (matches subscribeToLiveSession's 'no session' behavior)", async () => {
@@ -241,7 +261,7 @@ describe("sessionRepository", () => {
       config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" },
       gameState: "WELCOME",
       currentDifficulty: "EASY",
-      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: [], totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
+      currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 },
       createdAt: 1,
     };
 
@@ -257,18 +277,18 @@ describe("sessionRepository", () => {
     }
 
     it("passes through a currently-registered gameId", async () => {
-      const delivered = await deliver({ gameId: "balloon-quest", sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      const delivered = await deliver({ gameId: "balloon-quest", sessionId: "sess-1", revision: 1, session: minimalRawSession, updatedAt: 1 });
       expect(delivered.gameId).toBe("balloon-quest");
     });
 
     it("normalizes a missing gameId (pre-migration record) to null, never guessing balloon-quest", async () => {
-      const delivered = await deliver({ sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
-      expect(delivered.gameId).toBeNull();
+      const delivered = await deliver({ sessionId: "sess-1", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      expect(delivered).toBeNull();
     });
 
     it("normalizes an unsupported/malformed gameId to null", async () => {
-      const delivered = await deliver({ gameId: "not-a-real-game", sessionId: "x", revision: 1, session: minimalRawSession, updatedAt: 1 });
-      expect(delivered.gameId).toBeNull();
+      const delivered = await deliver({ gameId: "not-a-real-game", sessionId: "sess-1", revision: 1, session: minimalRawSession, updatedAt: 1 });
+      expect(delivered).toBeNull();
     });
   });
 
@@ -316,6 +336,45 @@ describe("sessionRepository", () => {
       const { cancel } = waitForDisplayCountdownComplete(fakeDb, "sess-1", 7);
       cancel();
       expect(unsubscribe).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("remote display audio handshake", () => {
+    it("writes a control command without claiming the display is ready", async () => {
+      const { requestDisplayAudioEnable } = await import("../sessionRepository");
+      await requestDisplayAudioEnable(fakeDb, { id: "audio-1", requestedAt: 123 });
+
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display");
+      expect(updateMock).toHaveBeenCalledWith(expect.anything(), {
+        audioEnableCommand: { id: "audio-1", requestedAt: 123 },
+      });
+    });
+
+    it("writes ready only as a display-authored status containing the actual context state", async () => {
+      const { reportDisplayAudioStatus } = await import("../sessionRepository");
+      await reportDisplayAudioStatus(fakeDb, { state: "ready", commandId: "audio-1", contextState: "running" });
+
+      expect(updateMock).toHaveBeenCalledWith(expect.anything(), {
+        audioStatus: {
+          state: "ready",
+          commandId: "audio-1",
+          contextState: "running",
+          updatedAt: { ".sv": "timestamp" },
+        },
+      });
+    });
+
+    it("subscribes to the display command path and rejects malformed values", async () => {
+      const { subscribeToDisplayAudioEnableCommand } = await import("../sessionRepository");
+      const callback = vi.fn();
+      onValueMock.mockImplementationOnce((_ref: unknown, handler: SnapshotHandler) => {
+        handler({ val: () => ({ id: "audio-2", requestedAt: 456 }) });
+        return vi.fn();
+      });
+
+      subscribeToDisplayAudioEnableCommand(fakeDb, callback);
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display/audioEnableCommand");
+      expect(callback).toHaveBeenCalledWith({ id: "audio-2", requestedAt: 456 });
     });
   });
 

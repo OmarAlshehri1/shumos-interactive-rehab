@@ -61,6 +61,8 @@ class RequestFailedError extends Error {
   }
 }
 
+class KnownUnavailableError extends Error {}
+
 export function createMunsitVoiceProvider(): VoiceProvider {
   if (typeof window === "undefined") {
     return { isAvailable: () => false, speak: () => {}, cancel: () => {} };
@@ -159,6 +161,10 @@ export function createMunsitVoiceProvider(): VoiceProvider {
 
     const pending = inFlight.get(text);
     if (pending) return pending;
+    // Requests can already be queued when the first response establishes a
+    // disabled/outage cooldown. Stop those queued jobs before they create a
+    // browser request (or get aborted during navigation/page close).
+    if (isCoolingDown()) throw new KnownUnavailableError("TTS unavailable");
 
     const request = (async () => {
       const controller = new AbortController();
@@ -170,6 +176,14 @@ export function createMunsitVoiceProvider(): VoiceProvider {
           body: JSON.stringify({ text }),
           signal: controller.signal,
         });
+        if (response.headers?.get?.("X-TTS-Disabled") === "true") {
+          // Consume the successful empty body before settling. Abandoning a
+          // Response after headers makes Chromium report net::ERR_ABORTED in
+          // request instrumentation even though the server returned 200.
+          await response.arrayBuffer();
+          markUnavailable(UNAVAILABLE_COOLDOWN_MS);
+          throw new KnownUnavailableError("TTS disabled");
+        }
         if (!response.ok) {
           throw new RequestFailedError(response.status);
         }
@@ -178,6 +192,7 @@ export function createMunsitVoiceProvider(): VoiceProvider {
         cacheAudioUrl(text, url);
         return url;
       } catch (error) {
+        if (error instanceof KnownUnavailableError) throw error;
         const status = error instanceof RequestFailedError ? error.status : null;
         if (status === 429) {
           markUnavailable(RATE_LIMIT_COOLDOWN_MS);

@@ -10,6 +10,7 @@ import { SessionCompleteScene } from "../scenes/SessionCompleteScene";
 import { StageCompleteScene } from "../scenes/StageCompleteScene";
 import { StartZoneScene } from "../scenes/StartZoneScene";
 import { WelcomeScene } from "../scenes/WelcomeScene";
+import { FINAL_ACTION_FAILSAFE_MS, useStageCompletionPresentation } from "../useStageCompletionPresentation";
 
 export interface BalloonQuestDisplayProps {
   session: SessionState;
@@ -46,6 +47,12 @@ export function BalloonQuestDisplay({
   celebrationReplayToken,
 }: BalloonQuestDisplayProps) {
   const stage = session.currentStage;
+  const { holdingFinalAction, finishFinalAction } = useStageCompletionPresentation(
+    session.gameState,
+    `${stage.difficulty}:${stage.stageNumber}:${stage.startedAt ?? "idle"}`,
+    FINAL_ACTION_FAILSAFE_MS.balloonQuest,
+  );
+  const showPlaying = session.gameState === GameState.PLAYING || holdingFinalAction;
 
   return (
     <AnimatePresence mode="wait">
@@ -101,7 +108,7 @@ export function BalloonQuestDisplay({
         </motion.div>
       )}
 
-      {session.gameState === GameState.PLAYING && (
+      {showPlaying && (
         <motion.div
           key={`playing-${stage.stageNumber}`}
           className="absolute inset-0"
@@ -116,11 +123,12 @@ export function BalloonQuestDisplay({
             onEvent={onEvent}
             externalIncorrectSignal={externalIncorrectSignal}
             isPaused={stage.pausedAt !== null}
+            onFinalActionSettled={finishFinalAction}
           />
         </motion.div>
       )}
 
-      {session.gameState === GameState.STAGE_COMPLETE && (
+      {session.gameState === GameState.STAGE_COMPLETE && !holdingFinalAction && (
         <motion.div
           key={`stage-complete-${stage.stageNumber}`}
           className="absolute inset-0"

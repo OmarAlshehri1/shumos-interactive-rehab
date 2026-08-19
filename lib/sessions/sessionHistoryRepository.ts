@@ -1,6 +1,20 @@
 import { get, onValue, ref, set, type Unsubscribe } from "firebase/database";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
-import type { StoredSession } from "./types";
+import type { AnyStoredSession, StoredBubblePopSession, StoredColorChaseSession, StoredFeedAnimalsSession, StoredFootstepsSession, StoredSession, StoredSpacePilotSession } from "./types";
+import {
+  normalizeSessionWorkflowMetadata,
+  normalizeTherapistNote,
+  THERAPIST_NAME_MAX_LENGTH,
+  trimToLimit,
+} from "./workflowMetadata";
+import {
+  assertFirebaseSafeValue,
+  finiteCount,
+  nonNegativeFiniteNumber,
+  safeRatio,
+  sumFinite,
+} from "@/lib/dataIntegrity/numeric";
+import { Difficulty, StageStatus, type StageNumber } from "@/lib/game";
 
 /**
  * SESSION HISTORY TASK — the dedicated Firebase data layer for permanent
@@ -20,30 +34,230 @@ const SESSIONS_PATH = "sessions";
  * no `stageResults` key at all. This restores the exact StoredSession shape
  * callers expect.
  */
+function reviveStageResultsArray(raw: unknown): unknown[] {
+  return Array.isArray(raw) ? raw : raw && typeof raw === "object" ? Object.values(raw) : [];
+}
+
+function safeString(raw: unknown): string | null {
+  return typeof raw === "string" && raw.length > 0 ? raw : null;
+}
+
+function safeDifficulty(raw: unknown): Difficulty {
+  return raw === Difficulty.MEDIUM || raw === Difficulty.ADVANCED ? raw : Difficulty.EASY;
+}
+
+function safeStageNumber(raw: unknown): StageNumber {
+  return raw === 2 || raw === 3 || raw === 4 || raw === 5 ? raw : 1;
+}
+
+function safeStatus(raw: unknown): StageStatus | null {
+  return raw === StageStatus.COMPLETED || raw === StageStatus.SKIPPED ? raw : null;
+}
+
+function safeBestStage(raw: unknown): { difficulty: Difficulty; stageNumber: StageNumber } | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as { difficulty?: unknown; stageNumber?: unknown };
+  if (![1, 2, 3, 4, 5].includes(value.stageNumber as number)) return null;
+  return { difficulty: safeDifficulty(value.difficulty), stageNumber: safeStageNumber(value.stageNumber) };
+}
+
+/**
+ * Runtime history is intentionally more defensive than its write-time type.
+ * Invalid legacy numerics become null (unavailable), never a fabricated zero.
+ */
+function commonFields<T extends Record<string, unknown>>(value: T): T {
+  const workflow = normalizeSessionWorkflowMetadata(value);
+  const startedAt = nonNegativeFiniteNumber(value.startedAt);
+  const rawCompletedAt = nonNegativeFiniteNumber(value.completedAt);
+  const completedAt = rawCompletedAt !== null && rawCompletedAt <= Date.now() + 300_000 && (startedAt === null || rawCompletedAt >= startedAt)
+    ? rawCompletedAt
+    : null;
+  const durationMs = completedAt === null && rawCompletedAt !== null ? null : nonNegativeFiniteNumber(value.durationMs);
+  return {
+    ...value,
+    startedAt,
+    completedAt,
+    createdByUid: typeof value.createdByUid === "string" ? value.createdByUid : "",
+    startingDifficulty: safeDifficulty(value.startingDifficulty),
+    startingStage: safeStageNumber(value.startingStage),
+    endingDifficulty: safeDifficulty(value.endingDifficulty),
+    endingStage: safeStageNumber(value.endingStage),
+    completedStageCount: finiteCount(value.completedStageCount),
+    skippedStageCount: finiteCount(value.skippedStageCount),
+    durationMs,
+    bestStage: safeBestStage(value.bestStage),
+    sessionGoal: workflow?.sessionGoal,
+    customSessionGoal: workflow?.customSessionGoal,
+    endReason: workflow?.endReason,
+    customEndReason: workflow?.customEndReason,
+    therapistName: typeof value.therapistName === "string" ? trimToLimit(value.therapistName, THERAPIST_NAME_MAX_LENGTH) || undefined : undefined,
+    therapistNote: typeof value.therapistNote === "string" ? normalizeTherapistNote(value.therapistNote) || undefined : undefined,
+  } as T;
+}
+
+function validRecordIdentity(value: Record<string, unknown>): boolean {
+  return safeString(value.sessionId) !== null && safeString(value.patientId) !== null;
+}
+
 function reviveStoredSession(raw: unknown): StoredSession | null {
   if (!raw || typeof raw !== "object") return null;
   const value = raw as Partial<StoredSession> & { stageResults?: unknown };
-  const rawStageResults = value.stageResults;
-  const stageResultsArray = Array.isArray(rawStageResults)
-    ? rawStageResults
-    : rawStageResults && typeof rawStageResults === "object"
-      ? Object.values(rawStageResults)
-      : [];
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
 
-  return {
+  return commonFields({
     ...(value as StoredSession),
-    averageReactionTimeMs: value.averageReactionTimeMs ?? null,
-    bestStage: value.bestStage ?? null,
-    stageResults: stageResultsArray.map((result) => {
+    totalCorrect: finiteCount(value.totalCorrect),
+    totalIncorrect: finiteCount(value.totalIncorrect),
+    accuracy: safeRatio(value.totalCorrect, sumFinite([finiteCount(value.totalCorrect), finiteCount(value.totalIncorrect)])),
+    averageReactionTimeMs: nonNegativeFiniteNumber(value.averageReactionTimeMs),
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
       const r = result as Partial<StoredSession["stageResults"][number]>;
-      return {
+      const status = safeStatus(r.status);
+      if (!status) return [];
+      return [{
         ...r,
-        accuracy: r.accuracy ?? null,
-        durationMs: r.durationMs ?? null,
-        averageReactionTimeMs: r.averageReactionTimeMs ?? null,
-      } as StoredSession["stageResults"][number];
+        difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
+        correct: finiteCount(r.correct), incorrect: finiteCount(r.incorrect),
+        accuracy: safeRatio(r.correct, sumFinite([finiteCount(r.correct), finiteCount(r.incorrect)])),
+        durationMs: nonNegativeFiniteNumber(r.durationMs),
+        averageReactionTimeMs: nonNegativeFiniteNumber(r.averageReactionTimeMs),
+      } as unknown as StoredSession["stageResults"][number]];
     }),
-  };
+  } as unknown as Record<string, unknown>) as unknown as StoredSession;
+}
+
+/** MULTI-GAME HISTORY — Follow the Footsteps' own revive function, same RTDB-empty-array/null repair job as reviveStoredSession above. */
+function reviveStoredFootstepsSession(raw: unknown): StoredFootstepsSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredFootstepsSession> & { stageResults?: unknown };
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+
+  return commonFields({
+    ...(value as StoredFootstepsSession),
+    totalStepsPresented: finiteCount(value.totalStepsPresented),
+    totalStepsCompleted: finiteCount(value.totalStepsCompleted),
+    completionRate: safeRatio(value.totalStepsCompleted, value.totalStepsPresented),
+    averageStepTimeMs: nonNegativeFiniteNumber(value.averageStepTimeMs),
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
+      const r = result as Partial<StoredFootstepsSession["stageResults"][number]>;
+      const status = safeStatus(r.status);
+      if (!status) return [];
+      return [{
+        ...r,
+        difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
+        stepsPresented: finiteCount(r.stepsPresented), stepsCompleted: finiteCount(r.stepsCompleted),
+        durationMs: nonNegativeFiniteNumber(r.durationMs),
+        averageStepTimeMs: nonNegativeFiniteNumber(r.averageStepTimeMs),
+      } as unknown as StoredFootstepsSession["stageResults"][number]];
+    }),
+  } as unknown as Record<string, unknown>) as unknown as StoredFootstepsSession;
+}
+
+/** MULTI-GAME HISTORY — Bubble Pop Wall's own revive function, same RTDB-empty-array/null repair job as the other two revive functions above. */
+function reviveStoredBubblePopSession(raw: unknown): StoredBubblePopSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredBubblePopSession> & { stageResults?: unknown };
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+
+  return commonFields({
+    ...(value as StoredBubblePopSession),
+    totalTargetsPresented: finiteCount(value.totalTargetsPresented), totalTargetsCompleted: finiteCount(value.totalTargetsCompleted),
+    totalIncorrect: finiteCount(value.totalIncorrect), completionRate: safeRatio(value.totalTargetsCompleted, value.totalTargetsPresented),
+    accuracy: safeRatio(value.totalTargetsCompleted, sumFinite([finiteCount(value.totalTargetsCompleted), finiteCount(value.totalIncorrect)])),
+    averageResponseTimeMs: nonNegativeFiniteNumber(value.averageResponseTimeMs),
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
+      const r = result as Partial<StoredBubblePopSession["stageResults"][number]>;
+      const status = safeStatus(r.status);
+      if (!status) return [];
+      return [{
+        ...r,
+        difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
+        targetsPresented: finiteCount(r.targetsPresented), targetsCompleted: finiteCount(r.targetsCompleted), incorrectCount: finiteCount(r.incorrectCount),
+        durationMs: nonNegativeFiniteNumber(r.durationMs), averageResponseTimeMs: nonNegativeFiniteNumber(r.averageResponseTimeMs),
+      } as unknown as StoredBubblePopSession["stageResults"][number]];
+    }),
+  } as unknown as Record<string, unknown>) as unknown as StoredBubblePopSession;
+}
+
+/** MULTI-GAME HISTORY — Feed the Animals' own revive function, same RTDB-empty-array/null repair job as the other three revive functions above. */
+function reviveStoredFeedAnimalsSession(raw: unknown): StoredFeedAnimalsSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredFeedAnimalsSession> & { stageResults?: unknown };
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+
+  return commonFields({
+    ...(value as StoredFeedAnimalsSession),
+    totalRoundsPresented: finiteCount(value.totalRoundsPresented), totalRoundsCompleted: finiteCount(value.totalRoundsCompleted),
+    totalIncorrect: finiteCount(value.totalIncorrect), completionRate: safeRatio(value.totalRoundsCompleted, value.totalRoundsPresented),
+    accuracy: safeRatio(value.totalRoundsCompleted, sumFinite([finiteCount(value.totalRoundsCompleted), finiteCount(value.totalIncorrect)])),
+    averageResponseTimeMs: nonNegativeFiniteNumber(value.averageResponseTimeMs),
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
+      const r = result as Partial<StoredFeedAnimalsSession["stageResults"][number]>;
+      const status = safeStatus(r.status);
+      if (!status) return [];
+      return [{
+        ...r,
+        difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
+        roundsPresented: finiteCount(r.roundsPresented), roundsCompleted: finiteCount(r.roundsCompleted), incorrectCount: finiteCount(r.incorrectCount),
+        durationMs: nonNegativeFiniteNumber(r.durationMs), averageResponseTimeMs: nonNegativeFiniteNumber(r.averageResponseTimeMs),
+      } as unknown as StoredFeedAnimalsSession["stageResults"][number]];
+    }),
+  } as unknown as Record<string, unknown>) as unknown as StoredFeedAnimalsSession;
+}
+
+/** MULTI-GAME HISTORY — Space Pilot's own revive function. No stageResults array to repair (this game has none — see StoredSpacePilotSession's doc comment); only the nullable bestStage/finalUpgradeLevel need the same RTDB-dropped-null repair every other reviver applies. */
+function reviveStoredSpacePilotSession(raw: unknown): StoredSpacePilotSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredSpacePilotSession>;
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+
+  return commonFields({
+    ...(value as StoredSpacePilotSession),
+    totalStarsPresented: finiteCount(value.totalStarsPresented), totalStarsCollected: finiteCount(value.totalStarsCollected),
+    collectionRate: safeRatio(value.totalStarsCollected, value.totalStarsPresented), finalUpgradeLevel: finiteCount(value.finalUpgradeLevel),
+    asteroidsCleared: value.asteroidsCleared == null ? null : finiteCount(value.asteroidsCleared),
+    asteroidsAvoided: value.asteroidsAvoided == null ? null : finiteCount(value.asteroidsAvoided),
+  } as unknown as Record<string, unknown>) as unknown as StoredSpacePilotSession;
+}
+
+function reviveStoredColorChaseSession(raw: unknown): StoredColorChaseSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredColorChaseSession> & { stageResults?: unknown };
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+  return commonFields({
+    ...(value as StoredColorChaseSession),
+    totalTargetsPresented: finiteCount(value.totalTargetsPresented), totalCorrect: finiteCount(value.totalCorrect),
+    totalIncorrect: finiteCount(value.totalIncorrect), totalDangerPresses: finiteCount(value.totalDangerPresses),
+    accuracy: safeRatio(value.totalCorrect, sumFinite([finiteCount(value.totalCorrect), finiteCount(value.totalIncorrect), finiteCount(value.totalDangerPresses)])),
+    averageResponseTimeMs: nonNegativeFiniteNumber(value.averageResponseTimeMs),
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
+      const row = result as Partial<StoredColorChaseSession["stageResults"][number]>;
+      const status = safeStatus(row.status);
+      if (!status) return [];
+      return [{ ...row, difficulty: safeDifficulty(row.difficulty), stageNumber: safeStageNumber(row.stageNumber), status,
+        targetsPresented: finiteCount(row.targetsPresented), correctCount: finiteCount(row.correctCount), incorrectCount: finiteCount(row.incorrectCount), dangerPressCount: finiteCount(row.dangerPressCount),
+        accuracy: safeRatio(row.correctCount, sumFinite([finiteCount(row.correctCount), finiteCount(row.incorrectCount), finiteCount(row.dangerPressCount)])),
+        durationMs: nonNegativeFiniteNumber(row.durationMs), averageResponseTimeMs: nonNegativeFiniteNumber(row.averageResponseTimeMs) } as unknown as StoredColorChaseSession["stageResults"][number]];
+    }),
+  } as unknown as Record<string, unknown>) as unknown as StoredColorChaseSession;
+}
+
+/**
+ * MULTI-GAME HISTORY — dispatches to the right revive function by the raw
+ * record's own `gameId`, never a guess from shape. A record with a missing/
+ * unrecognized gameId is dropped (filtered out by the `AnyStoredSession`
+ * callers below), same "fail safely, never misinterpret" convention
+ * lib/realtime/sessionRepository.ts's normalizeGameId documents.
+ */
+function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
+  const gameId = (raw as { gameId?: unknown } | null)?.gameId;
+  if (gameId === "follow-the-footsteps") return reviveStoredFootstepsSession(raw);
+  if (gameId === "balloon-quest") return reviveStoredSession(raw);
+  if (gameId === "bubble-pop-wall") return reviveStoredBubblePopSession(raw);
+  if (gameId === "feed-the-animals") return reviveStoredFeedAnimalsSession(raw);
+  if (gameId === "space-pilot") return reviveStoredSpacePilotSession(raw);
+  if (gameId === "color-chase") return reviveStoredColorChaseSession(raw);
+  return null;
 }
 
 /**
@@ -52,22 +266,24 @@ function reviveStoredSession(raw: unknown): StoredSession | null {
  * ~10-15 patients/month with a handful of sessions each at this stage — the
  * whole per-patient node is small, so no pagination is needed yet.
  */
-export function subscribeToPatientSessions(patientId: string, callback: (sessions: StoredSession[]) => void): Unsubscribe {
+/** Live-subscribes to every stored session for one patient, across every game, newest-first. */
+export function subscribeToPatientSessions(patientId: string, callback: (sessions: AnyStoredSession[]) => void): Unsubscribe {
   const db = getStaffDb();
   return onValue(ref(db, `${SESSIONS_PATH}/${patientId}`), (snapshot) => {
     const value = (snapshot.val() as Record<string, unknown> | null) ?? {};
     const sessions = Object.values(value)
-      .map(reviveStoredSession)
-      .filter((s): s is StoredSession => s !== null)
-      .sort((a, b) => b.completedAt - a.completedAt);
+      .map(reviveAnyStoredSession)
+      .filter((s): s is AnyStoredSession => s !== null && s.patientId === patientId)
+      .sort((a, b) => (nonNegativeFiniteNumber(b.completedAt) ?? -1) - (nonNegativeFiniteNumber(a.completedAt) ?? -1));
     callback(sessions);
   });
 }
 
-export async function getSessionHistoryRecord(patientId: string, sessionId: string): Promise<StoredSession | null> {
+export async function getSessionHistoryRecord(patientId: string, sessionId: string): Promise<AnyStoredSession | null> {
   const db = getStaffDb();
   const snapshot = await get(ref(db, `${SESSIONS_PATH}/${patientId}/${sessionId}`));
-  return reviveStoredSession(snapshot.val());
+  const session = reviveAnyStoredSession(snapshot.val());
+  return session?.patientId === patientId && session.sessionId === sessionId ? session : null;
 }
 
 export type SaveSessionHistoryResult = "saved" | "already-saved";
@@ -93,19 +309,18 @@ export type SaveSessionHistoryResult = "saved" | "already-saved";
  *     never be silently duplicated or overwritten — see the task's
  *     "immutable session records."
  *
- * Specifically a rules REJECTION (`error.code === "PERMISSION_DENIED"`) on
- * the `set()` call is treated as "someone else's write already won this
- * exact path" (this function is only ever called from an already-authorized
- * staff session, so a permission-denied rejection here has no other honest
- * explanation) — returned as `"already-saved"`, not thrown, so a caller
- * never has to distinguish "raced and lost" from "genuinely failed" for its
- * own retry logic. Any OTHER failure (offline, timeout, a genuinely
- * unexpected error) is rethrown, not swallowed — the caller
- * (useRealtimeControllerSession.ts) depends on that rejection to remove this
- * sessionId from its own dedup guard so a real failure gets retried instead
- * of being silently treated as "done" while nothing was actually persisted.
+ * A rules rejection alone is NOT proof of a duplicate: validation and auth
+ * failures use the same PERMISSION_DENIED code. After a rejected race this
+ * function reads the exact immutable path again and reports
+ * `"already-saved"` only if the record genuinely exists. Every other failure
+ * is rethrown so the caller can clear its in-memory guard and retry rather
+ * than silently losing history.
  */
-export async function saveSessionHistoryOnce(patientId: string, record: StoredSession): Promise<SaveSessionHistoryResult> {
+export async function saveSessionHistoryOnce(patientId: string, record: AnyStoredSession): Promise<SaveSessionHistoryResult> {
+  if (!patientId || record.patientId !== patientId || !record.sessionId) {
+    throw new Error("Session history identity does not match its Firebase path");
+  }
+  assertFirebaseSafeValue(record);
   const db = getStaffDb();
   const path = `${SESSIONS_PATH}/${patientId}/${record.sessionId}`;
 
@@ -116,7 +331,26 @@ export async function saveSessionHistoryOnce(patientId: string, record: StoredSe
     await set(ref(db, path), record);
     return "saved";
   } catch (error) {
-    if ((error as { code?: string } | null)?.code === "PERMISSION_DENIED") return "already-saved";
+    if ((error as { code?: string } | null)?.code === "PERMISSION_DENIED") {
+      // A rules/validation mismatch is also PERMISSION_DENIED. Only call it
+      // a won race after proving the immutable record now exists.
+      const racedRecord = await get(ref(db, path));
+      if (racedRecord.exists()) return "already-saved";
+    }
     throw error;
   }
+}
+
+/**
+ * The one intentionally mutable field on an otherwise immutable history
+ * record. Writes only the note child, never rewrites metrics or stage data.
+ */
+export async function saveSessionTherapistNote(patientId: string, sessionId: string, note: string): Promise<string> {
+  const normalized = normalizeTherapistNote(note);
+  const db = getStaffDb();
+  const sessionPath = `${SESSIONS_PATH}/${patientId}/${sessionId}`;
+  const existing = await get(ref(db, sessionPath));
+  if (!existing.exists()) throw new Error("Session history is not ready yet");
+  await set(ref(db, `${sessionPath}/therapistNote`), normalized || null);
+  return normalized;
 }

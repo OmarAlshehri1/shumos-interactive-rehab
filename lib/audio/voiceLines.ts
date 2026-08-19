@@ -72,6 +72,16 @@ export function sessionCompleteLine(childName: string): string {
   return `يا سلام يا ${childName}! خلصت مغامرة البالونات كلها!`;
 }
 
+/** Shared platform waiting-world welcome (task section 13) — spoken exactly once after audio unlock, never looped. Matches ShumosWaitingWorld.tsx's own visible Arabic message verbatim, per the product rule that the child never needs to read to understand what the screen says. Not personalized (no child/session exists yet at this point). */
+export function waitingWorldGreetingLine(): string {
+  return "بانتظار اختيار النشاط من الأخصائي";
+}
+
+/** Shared across every game — spoken once when a PAUSE overlay's "توقف مؤقت" text appears, so the child hears what's happening instead of only reading it. */
+export function pausedLine(): string {
+  return "توقف مؤقت";
+}
+
 /**
  * Progress milestones within a stage, checked at ~25% / ~50% / ~75% of
  * that stage's target balloons. The final target is deliberately excluded

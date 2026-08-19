@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { shouldShowLogout } from "@/lib/control/topLevelNavigation";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
@@ -24,6 +26,7 @@ export function StaffAuthGate({ children }: { children: React.ReactNode }) {
 }
 
 function RealtimeStaffAuthGate({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const staffAuth = useStaffAuth();
   // RELIABILITY FIX — PatientSessionContext is sessionStorage-backed
   // (tab-scoped), not staff-scoped: on a shared clinic device, signing out
@@ -46,7 +49,7 @@ function RealtimeStaffAuthGate({ children }: { children: React.ReactNode }) {
       return (
         <>
           {children}
-          <LogoutCorner email={staffAuth.email} onSignOut={signOut} />
+          {shouldShowLogout(pathname) && <LogoutCorner email={staffAuth.email} onSignOut={signOut} />}
         </>
       );
 
@@ -123,14 +126,7 @@ function Spinner({ label }: { label: string }) {
   );
 }
 
-/**
- * TASK 5 — "تسجيل الخروج ... in an appropriate unobtrusive place": a small
- * fixed corner control, present on every authorized /control screen (both
- * the Game Library and the Balloon Quest controller) without either of
- * those screens needing to know auth exists — same "fixed-position overlay
- * outside the page's own layout" pattern already used by ConnectionBadge
- * (opposite corner, so the two never collide) and /display's MuteToggle.
- */
+/** A small fixed control shown only on approved top-level therapist pages. */
 function LogoutCorner({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
   return (
     <button

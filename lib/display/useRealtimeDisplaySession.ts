@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { SessionState } from "@/lib/game";
 import type { GameId } from "@/lib/games/registry";
 import { getDisplayDb } from "@/lib/realtime/firebaseClient";
 import { applyLiveRecord, createInitialGuardState } from "@/lib/realtime/displayGuard";
@@ -10,7 +9,7 @@ import {
   subscribeToConnectionStatus,
   subscribeToLiveSession,
 } from "@/lib/realtime/sessionRepository";
-import type { ConnectionStatus } from "@/lib/realtime/types";
+import type { AnySessionState, ConnectionStatus } from "@/lib/realtime/types";
 import { useFirebaseAuth } from "@/lib/realtime/useFirebaseAuth";
 
 export interface IncorrectSignal {
@@ -53,7 +52,20 @@ export interface IncorrectSignal {
  */
 export function useRealtimeDisplaySession() {
   const auth = useFirebaseAuth();
-  const [session, setSession] = useState<SessionState | null>(null);
+  const [session, setSession] = useState<AnySessionState | null>(null);
+  // RELIABILITY FIX — idle-overlay bleed-through: before the first RTDB
+  // snapshot resolves, `session`/`gameId` are still their initial `null`, so
+  // DisplayScreen's game resolver briefly (mis)reads that as "no active
+  // game" and starts fading in the waiting world — even when a session
+  // (found during QA: SESSION_COMPLETE) is actually already live. Moments
+  // later the real snapshot arrives and the game scene starts fading in too,
+  // and since AnimatePresence's sync crossfade gives neither layer an
+  // explicit z-index, plain paint order decides which one is visibly on top
+  // for that ~1.1s window — sometimes stranding the idle overlay above the
+  // real scene instead of hiding it. DisplayScreen waits for this flag
+  // before mounting either crossfade layer, so the very first paint already
+  // reflects the true canonical state.
+  const [hasLoadedInitialSession, setHasLoadedInitialSession] = useState(false);
   /** MULTI-GAME PLATFORM: null whenever there's no session, OR the session's gameId is missing/unsupported/malformed — see LiveSessionRecord.gameId's doc comment. The display's game resolver (gameDisplayRegistry.tsx) treats both exactly the same: show the Shumos waiting world. */
   const [gameId, setGameId] = useState<GameId | null>(null);
   /** BUG FIX — "ابدأ" stall: the CURRENT record's own revision number — DisplayScreen.tsx's onCountdownComplete reports it back (see reportCountdownComplete) so the controller can match its wait to exactly the COUNTDOWN publish that's actually on screen right now, never a stale one. */
@@ -87,6 +99,7 @@ export function useRealtimeDisplaySession() {
       if (result.newCelebrationReplayToken) {
         setCelebrationReplayToken(result.newCelebrationReplayToken);
       }
+      setHasLoadedInitialSession(true);
     });
 
     return () => {
@@ -96,5 +109,5 @@ export function useRealtimeDisplaySession() {
     };
   }, [auth.status]);
 
-  return { session, gameId, revision, connectionStatus, incorrectSignal, celebrationReplayToken, authStatus: auth.status };
+  return { session, gameId, revision, connectionStatus, incorrectSignal, celebrationReplayToken, authStatus: auth.status, hasLoadedInitialSession };
 }

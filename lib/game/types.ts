@@ -194,7 +194,7 @@ export interface SessionSummary {
   totalCorrect: number;
   totalIncorrect: number;
   /** Same formula as StageResult.accuracy, applied to session-wide totals. */
-  overallAccuracy: number;
+  overallAccuracy: number | null;
   totalDurationMs: number;
   averageReactionTimeMs: number | null;
   /** The completed stage with the highest accuracy; ties broken by lower average reaction time. Null if no stage was completed (only skips, or none played). Identified by (difficulty, stageNumber) since a session can span more than one difficulty. */

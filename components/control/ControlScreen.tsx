@@ -13,6 +13,7 @@ import { useRealtimeControllerSession } from "@/lib/control/useRealtimeControlle
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { usePatientPrefill } from "@/lib/patients/usePatientPrefill";
+import type { EarlyEndSelection } from "@/lib/sessions/workflowMetadata";
 import { ConnectionBadge } from "./ConnectionBadge";
 import { LeaseContestedOverlay } from "./LeaseContestedOverlay";
 import { LiveSessionScreen } from "./live/LiveSessionScreen";
@@ -148,6 +149,7 @@ function ControllerShell({ phase, children }: ControllerShellProps) {
 
 /** The common shape both adapters return that the four phase screens need — see lib/control/useLocalControllerSession.ts and useRealtimeControllerSession.ts. */
 interface ControllerLike {
+  therapistName?: string | null;
   phase: ControllerPhase;
   draft: DraftConfig;
   session: SessionState | null;
@@ -165,11 +167,12 @@ interface ControllerLike {
   pauseOrResume: () => void;
   restartStage: () => void;
   skipStage: () => void;
-  endSessionEarly: () => void;
+  endSessionEarly: (selection: EarlyEndSelection) => void;
   /** TASK 11: the therapist's post-STAGE_COMPLETE decision — continue, or step to the adjacent easier/harder difficulty. */
   advanceStage: (decision: DifficultyDecision) => void;
   /** TASK 11: the stage strip's forward jump. */
   jumpToStage: (stageNumber: StageNumber) => void;
+  changeLiveDifficulty: (difficulty: Difficulty) => void;
   newSession: () => void;
   /** TASK 8.2: the therapist's "الطفل جاهز" confirmation — the only way out of GameState.START_ZONE. */
   confirmChildReady: () => void;
@@ -216,6 +219,7 @@ function SetupPatientChip() {
 /** Identical between local and realtime modes — only which adapter supplies `controller` differs. */
 function ControllerBody({ controller, displayConnected, displayFullscreen, offline }: ControllerBodyProps) {
   const router = useRouter();
+  const { selectedPatient } = usePatientContext();
   return (
     <>
       {controller.phase === "SETUP" && (
@@ -241,29 +245,30 @@ function ControllerBody({ controller, displayConnected, displayFullscreen, offli
           </div>
           <SetupScreen
             draft={controller.draft}
+            patientName={selectedPatient?.firstName ?? null}
+            therapistName={controller.therapistName}
             onChildNameChange={controller.setChildName}
             onDifficultyChange={controller.setDifficulty}
             onStartingStageChange={controller.setStartingStage}
-            onTargetSizeChange={controller.setTargetSize}
-            onTargetSpacingChange={controller.setTargetSpacing}
-            onPlayAreaChange={controller.setPlayArea}
             onStart={controller.confirmSetup}
           />
         </div>
       )}
 
       {controller.phase === "READY" && controller.session && (
-        <ReadyScreen
-          session={controller.session}
-          onStart={controller.startLiveSession}
-          onEdit={controller.editSetup}
-          onCancel={() => {
-            controller.newSession();
-            router.push("/control/activities");
-          }}
-          displayConnected={displayConnected}
-          displayFullscreen={displayFullscreen}
-        />
+        <div className="flex flex-1 flex-col overflow-y-auto">
+          <ReadyScreen
+            session={controller.session}
+            onStart={controller.startLiveSession}
+            onEdit={controller.editSetup}
+            onCancel={() => {
+              controller.newSession();
+              router.push("/control/activities");
+            }}
+            displayConnected={displayConnected}
+            displayFullscreen={displayFullscreen}
+          />
+        </div>
       )}
 
       {controller.phase === "LIVE" && controller.session && controller.session.gameState !== GameState.SESSION_COMPLETE && (
@@ -276,6 +281,7 @@ function ControllerBody({ controller, displayConnected, displayFullscreen, offli
           onEndSessionEarly={controller.endSessionEarly}
           onAdvanceStage={controller.advanceStage}
           onJumpToStage={controller.jumpToStage}
+          onDifficultyChange={controller.changeLiveDifficulty}
           onChildReady={controller.confirmChildReady}
           offline={offline}
         />
@@ -286,6 +292,8 @@ function ControllerBody({ controller, displayConnected, displayFullscreen, offli
           <SessionSummaryScreen
             summary={controller.session.summary}
             sessionPatientId={controller.sessionPatientId ?? null}
+            workflow={controller.session.workflow}
+            therapistName={controller.therapistName}
             onNewSession={controller.newSession}
             onReplayCelebration={controller.replayCelebration}
             onReturnToPatientProfile={() => {

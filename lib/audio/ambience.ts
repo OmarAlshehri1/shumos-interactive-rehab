@@ -1,34 +1,33 @@
-import { createNoiseBuffer } from "./primitives";
-
 export interface AmbienceHandle {
   stop: () => void;
 }
 
 /**
- * TASK 8.2 — the magical garden's ambient soundscape, three restrained
- * layers under a single gain bus (AudioManager's existing `ambienceGain` —
- * see its ducking logic, unchanged by this file): a slowly-evolving breeze
- * (very low), occasional bird chirps (low), and a barely-audible warm
- * "nature" pad (very low), roughly matching the spec's relative hierarchy
- * (Lama > effects > birds > breeze ≈ nature). Deliberately NOT a melody and
- * NOT a fixed loop a child would recognize as "a song" — everything here is
- * either continuous filtered noise/tone or randomly-timed one-shots, so two
- * minutes of listening never sounds identical to the next two minutes.
+ * The Shumos Waiting World's ambient soundscape — CALM, QUIET MORNING.
+ * Client feedback: the previous continuous lowpass-filtered-noise "breeze"
+ * layer read as an unpleasant constant air/wind hiss (the same complaint
+ * that showed up in Follow the Footsteps' ambience), which is especially
+ * bad here since the display can sit on the Waiting World for hours between
+ * patients. That breeze layer is gone entirely — this is now just
+ * randomly-timed bird chirps with real silence between them. The former
+ * "warm pad" was two indefinitely-running sine oscillators (130.8 Hz and
+ * 196 Hz); even at low gain it was clearly audible as a continuous
+ * electrical-sounding "nnnn" in a quiet clinic, so it is gone entirely.
  * "The child should barely notice the ambience consciously... it should
  * make silence feel pleasant" — every gain value below was chosen low
  * enough to disappear under normal room noise, let alone Lama's voice
- * (which ducks this whole bus further — see AudioManager.duckAmbience).
+ * (which ducks this whole bus further — see AudioManager's duck counter).
  */
 export function startAmbience(ctx: AudioContext, destination: AudioNode): AmbienceHandle {
   let stopped = false;
   const timers: ReturnType<typeof setTimeout>[] = [];
   // RELIABILITY FIX: the display can sit on the waiting world for hours
-  // between patients, and every scheduled tick (breeze wander, pad breathe,
-  // bird chirps) re-schedules itself via `every` — a fired timer id that's
-  // never removed from `timers` accumulated forever, growing unbounded for
-  // the life of the tab even though it no longer does anything. Each timer
-  // now removes its own (already-fired) id from the array before running,
-  // so `timers` only ever holds ids that are still pending.
+    // between patients, and every scheduled bird tick
+  // re-schedules itself via `every` — a fired timer id that's never removed
+  // from `timers` accumulated forever, growing unbounded for the life of
+  // the tab even though it no longer does anything. Each timer now removes
+  // its own (already-fired) id from the array before running, so `timers`
+  // only ever holds ids that are still pending.
   function every(fn: () => void, delayMs: number): void {
     if (stopped) return;
     const timer = setTimeout(() => {
@@ -39,8 +38,6 @@ export function startAmbience(ctx: AudioContext, destination: AudioNode): Ambien
     timers.push(timer);
   }
 
-  const breeze = startBreeze(ctx, destination, every);
-  const nature = startNaturePad(ctx, destination, every);
   scheduleBirds(ctx, destination, every);
 
   return {
@@ -48,110 +45,6 @@ export function startAmbience(ctx: AudioContext, destination: AudioNode): Ambien
       if (stopped) return;
       stopped = true;
       for (const timer of timers) clearTimeout(timer);
-      breeze.stop();
-      nature.stop();
-    },
-  };
-}
-
-/**
- * Very soft, slowly-evolving lowpass-filtered noise — a breeze, not a
- * static "air conditioner" hiss. Every 4-7s it wanders the filter cutoff
- * and gain toward a new nearby random target over a multi-second ramp
- * (never a jump, never a loud gust), so the texture keeps a faint sense of
- * life without ever becoming a recognizable pattern.
- */
-function startBreeze(ctx: AudioContext, destination: AudioNode, every: (fn: () => void, delayMs: number) => void) {
-  const BASE_GAIN = 0.12;
-  const GAIN_WANDER = 0.05;
-  const BASE_CUTOFF = 380;
-  const CUTOFF_WANDER = 160;
-
-  const source = ctx.createBufferSource();
-  source.buffer = createNoiseBuffer(ctx, 8);
-  source.loop = true;
-
-  const filter = ctx.createBiquadFilter();
-  filter.type = "lowpass";
-  filter.frequency.value = BASE_CUTOFF;
-  filter.Q.value = 0.3;
-
-  const gain = ctx.createGain();
-  gain.gain.value = 0;
-
-  source.connect(filter).connect(gain).connect(destination);
-  source.start();
-  // Fade in on start rather than snapping to volume, so the garden never begins with an audible click.
-  gain.gain.setTargetAtTime(BASE_GAIN, ctx.currentTime, 2);
-
-  function wander() {
-    const rampSeconds = 4 + Math.random() * 3;
-    filter.frequency.setTargetAtTime(BASE_CUTOFF + (Math.random() * 2 - 1) * CUTOFF_WANDER, ctx.currentTime, rampSeconds / 3);
-    gain.gain.setTargetAtTime(BASE_GAIN + (Math.random() * 2 - 1) * GAIN_WANDER, ctx.currentTime, rampSeconds / 3);
-    every(wander, rampSeconds * 1000);
-  }
-  every(wander, 4500);
-
-  return {
-    stop() {
-      try {
-        gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-        source.stop(ctx.currentTime + 1.5);
-      } catch {
-        // Already stopped — nothing to clean up.
-      }
-    },
-  };
-}
-
-/**
- * A barely-audible warm pad: two sine oscillators a plain fifth apart in a
- * low register, breathing very slowly in and out (roughly a 13-20s full
- * swell-and-fade cycle, randomized so it never settles into a fixed loop).
- * This is the layer that "makes silence feel pleasant" without ever being
- * consciously identifiable as a sound — closer to a felt warmth than a
- * heard note.
- */
-function startNaturePad(ctx: AudioContext, destination: AudioNode, every: (fn: () => void, delayMs: number) => void) {
-  const PEAK_GAIN = 0.035;
-
-  const gain = ctx.createGain();
-  gain.gain.value = 0.0001;
-  gain.connect(destination);
-
-  const oscA = ctx.createOscillator();
-  oscA.type = "sine";
-  oscA.frequency.value = 130.8; // C3
-  const oscB = ctx.createOscillator();
-  oscB.type = "sine";
-  oscB.frequency.value = 196.0; // G3 — a plain, consonant fifth, never a "melody"
-  const oscBGain = ctx.createGain();
-  oscBGain.gain.value = 0.55;
-
-  oscA.connect(gain);
-  oscB.connect(oscBGain).connect(gain);
-  oscA.start();
-  oscB.start();
-
-  function breathe() {
-    const holdSeconds = 5 + Math.random() * 3;
-    gain.gain.setTargetAtTime(PEAK_GAIN, ctx.currentTime, holdSeconds);
-    every(() => {
-      gain.gain.setTargetAtTime(0.0001, ctx.currentTime, holdSeconds);
-      every(breathe, holdSeconds * 1000 + 1500);
-    }, holdSeconds * 1000);
-  }
-  every(breathe, 2000);
-
-  return {
-    stop() {
-      try {
-        gain.gain.setTargetAtTime(0, ctx.currentTime, 0.4);
-        oscA.stop(ctx.currentTime + 1.2);
-        oscB.stop(ctx.currentTime + 1.2);
-      } catch {
-        // Already stopped — nothing to clean up.
-      }
     },
   };
 }

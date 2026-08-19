@@ -38,6 +38,7 @@ export interface UseStaffAuthResult {
   /** Only meaningful once `phase === "authorized"` — see useRealtimeControllerSession.ts's lease/ownership use. */
   uid: string | null;
   email: string | null;
+  displayName: string | null;
   isSigningIn: boolean;
   /** Resolves to null on success, or the mapped error to show — see StaffLoginScreen.tsx. */
   signIn: (email: string, password: string) => Promise<StaffSignInError | null>;
@@ -45,7 +46,7 @@ export interface UseStaffAuthResult {
 }
 
 export function useStaffAuth(): UseStaffAuthResult {
-  const [authState, setAuthState] = useState<StaffAuthState>({ status: "initializing", uid: null, email: null });
+  const [authState, setAuthState] = useState<StaffAuthState>({ status: "initializing", uid: null, email: null, displayName: null });
   // The allowlist result for whichever uid it was last computed for —
   // deliberately not "reset" on sign-out/uid-change via a second setState
   // call; `phase` below only trusts this when `result.uid` still matches
@@ -97,5 +98,5 @@ export function useStaffAuth(): UseStaffAuthResult {
     return authorization.active ? "authorized" : "unauthorized";
   })();
 
-  return { phase, uid: authState.uid, email: authState.email, isSigningIn, signIn, signOut };
+  return { phase, uid: authState.uid, email: authState.email, displayName: authState.displayName, isSigningIn, signIn, signOut };
 }

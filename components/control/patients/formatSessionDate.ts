@@ -2,12 +2,14 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("ar", { day: "numeric", month: "l
 const TIME_FORMATTER = new Intl.DateTimeFormat("ar", { hour: "numeric", minute: "2-digit", hour12: true });
 
 /** SESSION HISTORY TASK — "15 أغسطس 2026" — always from the STORED timestamp, never derived from the current browser time (see the task's "Date / time" requirement). */
-export function formatSessionDate(timestamp: number): string {
+export function formatSessionDate(timestamp: number | null | undefined): string {
+  if (timestamp === null || timestamp === undefined || !Number.isFinite(timestamp) || timestamp < 0 || timestamp > Date.now() + 300_000) return "—";
   return DATE_FORMATTER.format(new Date(timestamp));
 }
 
 /** "6:42 م" */
-export function formatSessionTime(timestamp: number): string {
+export function formatSessionTime(timestamp: number | null | undefined): string {
+  if (timestamp === null || timestamp === undefined || !Number.isFinite(timestamp) || timestamp < 0 || timestamp > Date.now() + 300_000) return "—";
   return TIME_FORMATTER.format(new Date(timestamp));
 }
 
@@ -18,7 +20,8 @@ const MONTH_MS = 30 * DAY_MS;
 const YEAR_MS = 365 * DAY_MS;
 
 /** آخر نشاط — a coarse, human relative-time chip ("قبل يومين"). Purely a freshness signal, not a precise measurement — see the task's "keep it simple." */
-export function formatRelativeArabic(timestamp: number, now: number = Date.now()): string {
+export function formatRelativeArabic(timestamp: number | null | undefined, now: number = Date.now()): string {
+  if (timestamp === null || timestamp === undefined || !Number.isFinite(timestamp) || timestamp < 0 || !Number.isFinite(now) || timestamp > now + 300_000) return "غير متوفر";
   const diffMs = Math.max(0, now - timestamp);
 
   if (diffMs < MINUTE_MS) return "الآن";

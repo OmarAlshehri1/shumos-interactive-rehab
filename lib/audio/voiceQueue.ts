@@ -10,24 +10,38 @@ export interface VoiceRequestOptions {
   onEnd?: () => void;
   /** Called if the provider specifically failed to produce/play this line — AudioManager uses this to retry critical lines once. */
   onError?: () => void;
+  /** Internal: a failed line may retry only when no newer HIGH line is already waiting. */
+  isRetry?: boolean;
+}
+
+interface QueuedRequest {
+  id: number;
+  text: string;
+  priority: VoicePriority;
+  options?: VoiceRequestOptions;
+  settled: boolean;
 }
 
 /**
- * Priority gatekeeper in front of a VoiceProvider — this is what makes
- * "an encouragement line should NOT cancel an instruction" and "a
- * high-priority line may cancel lower-priority speech, including stale
- * speech from the previous stage" actually hold, regardless of which
- * VoiceProvider is plugged in underneath.
+ * Priority gatekeeper in front of the single Munsit player.
  *
- * Rule: a request is spoken (canceling whatever's currently active) if its
- * priority is >= the priority of whatever is currently speaking. A lower-
- * priority request arriving while something more important is still
- * speaking is dropped, not queued — a delayed "رائع!" arriving after the
- * moment it was about has already passed would feel disconnected, so
- * silence is the better pediatric UX call here than a backlog.
+ * Only one provider request is active at a time. In particular, a new HIGH
+ * request no longer calls provider.speak() while another HIGH request is
+ * still fetching/playing: that old behaviour made Munsit synthesize the
+ * first paid line and then silently discard it when the second line bumped
+ * the provider's request token. We keep at most ONE pending HIGH line and
+ * replace that pending slot with the newest instruction. This preserves a
+ * coherent short sequence without building a stale narration backlog.
+ *
+ * A higher-priority request still interrupts lower-priority incidental
+ * speech immediately. cancel() settles both active and pending callbacks so
+ * ambience ducking and countdown promises cannot be left hanging.
  */
 export class VoiceQueue {
-  private currentPriority: VoicePriority | null = null;
+  private current: QueuedRequest | null = null;
+  private pendingHigh: QueuedRequest | null = null;
+  private nextRequestId = 0;
+  private providerToken = 0;
 
   constructor(private readonly provider: VoiceProvider) {}
 
@@ -37,31 +51,104 @@ export class VoiceQueue {
 
   request(text: string, priority: VoicePriority, options?: VoiceRequestOptions): boolean {
     if (!text) return false;
-    if (this.currentPriority !== null && PRIORITY_RANK[priority] < PRIORITY_RANK[this.currentPriority]) {
-      return false; // dropped: something more important is already speaking
+
+    const request: QueuedRequest = {
+      id: ++this.nextRequestId,
+      text,
+      priority,
+      options,
+      settled: false,
+    };
+
+    if (!this.current) {
+      this.start(request);
+      return true;
     }
 
-    this.currentPriority = priority;
-    this.provider.speak(text, {
-      rate: options?.rate,
-      pitch: options?.pitch,
-      volume: options?.volume,
-      onEnd: () => {
-        if (this.currentPriority === priority) this.currentPriority = null;
-        options?.onEnd?.();
-      },
-      onError: () => options?.onError?.(),
-    });
+    const currentRank = PRIORITY_RANK[this.current.priority];
+    const incomingRank = PRIORITY_RANK[priority];
+    if (incomingRank < currentRank) return false;
+
+    if (priority === "high" && this.current.priority === "high") {
+      if (options?.isRetry && this.pendingHigh) return false;
+      // Keep a bounded, latest-only continuation. Replacing a not-yet-started
+      // request costs no Munsit credit and prevents stale instructions from
+      // accumulating behind a slow line.
+      if (this.pendingHigh) this.settle(this.pendingHigh);
+      this.pendingHigh = request;
+      return true;
+    }
+
+    // A genuinely more important request (or a same-priority optional line,
+    // which should stay immediate and ephemeral) replaces the active one.
+    this.stopCurrent();
+    this.start(request);
     return true;
   }
 
   cancel(): void {
-    this.provider.cancel();
-    this.currentPriority = null;
+    const pending = this.pendingHigh;
+    this.pendingHigh = null;
+    if (pending) this.settle(pending);
+    this.stopCurrent();
   }
 
-  /** Best-effort background cache warm-up — never affects currentPriority or what's actively speaking. Resolves when the attempt finishes. */
+  /** Best-effort background cache warm-up — never affects queue state or active speech. */
   async prefetch(text: string): Promise<void> {
     await this.provider.prefetch?.(text);
+  }
+
+  private start(request: QueuedRequest): void {
+    this.current = request;
+    const token = ++this.providerToken;
+    try {
+      this.provider.speak(request.text, {
+        rate: request.options?.rate,
+        pitch: request.options?.pitch,
+        volume: request.options?.volume,
+        onError: () => {
+          if (token !== this.providerToken || this.current?.id !== request.id) return;
+          request.options?.onError?.();
+        },
+        onEnd: () => {
+          if (token !== this.providerToken || this.current?.id !== request.id) return;
+          this.current = null;
+          this.settle(request);
+          this.startPendingHigh();
+        },
+      });
+    } catch {
+      if (token !== this.providerToken || this.current?.id !== request.id) return;
+      request.options?.onError?.();
+      this.current = null;
+      this.settle(request);
+      this.startPendingHigh();
+    }
+  }
+
+  private startPendingHigh(): void {
+    if (this.current || !this.pendingHigh) return;
+    const next = this.pendingHigh;
+    this.pendingHigh = null;
+    this.start(next);
+  }
+
+  private stopCurrent(): void {
+    const current = this.current;
+    if (!current) return;
+    this.current = null;
+    this.providerToken++;
+    try {
+      this.provider.cancel();
+    } catch {
+      // Cancellation is best-effort; callback settlement below is not.
+    }
+    this.settle(current);
+  }
+
+  private settle(request: QueuedRequest): void {
+    if (request.settled) return;
+    request.settled = true;
+    request.options?.onEnd?.();
   }
 }

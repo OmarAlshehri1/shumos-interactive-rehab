@@ -5,10 +5,6 @@ import type { GameDefinition, SurfaceType } from "@/lib/games/registry";
 import { SURFACE_TYPE_LABELS_AR } from "@/lib/games/registry";
 import { GAME_THUMBNAILS } from "./gameThumbnails";
 
-const STATUS_LABELS: Record<GameDefinition["status"], string> = {
-  ready: "جاهزة",
-};
-
 /** Tiny, currentColor-tinted pictograms — a downward arrow settling onto a baseline for FLOOR (projected at the child's feet), a plain frame for WALL. Deliberately not an emoji: stays crisp at 12px and matches the pill's own text color exactly. */
 function SurfaceTypeIcon({ type }: { type: SurfaceType }) {
   if (type === "WALL") {
@@ -39,12 +35,13 @@ function SurfaceTypeIcon({ type }: { type: SurfaceType }) {
  * (never a hardcoded "لعبة أرضية" string here), a status pill, a short
  * description, and one unambiguous action.
  */
-export function GameCard({ game }: { game: GameDefinition }) {
+export function GameCard({ game, onSelect }: { game: GameDefinition; onSelect?: () => void }) {
   const Thumbnail = GAME_THUMBNAILS[game.id];
 
   return (
     <Link
       href={game.route}
+      onClick={onSelect}
       className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_6px_18px_rgba(30,41,59,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(30,41,59,0.12)] active:scale-[0.99] active:shadow-[0_4px_12px_rgba(30,41,59,0.08)]"
     >
       <Thumbnail />
@@ -60,9 +57,7 @@ export function GameCard({ game }: { game: GameDefinition }) {
             <SurfaceTypeIcon type={game.surfaceType} />
             {SURFACE_TYPE_LABELS_AR[game.surfaceType]}
           </span>
-          <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap text-emerald-700">
-            {STATUS_LABELS[game.status]}
-          </span>
+          {game.focusTagsAr.map((tag) => <span key={tag} className="rounded-full bg-teal-50 px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap text-teal-700">{tag}</span>)}
         </div>
 
         <p className="line-clamp-2 text-[12.5px] leading-relaxed text-slate-500">{game.shortDescriptionAr}</p>

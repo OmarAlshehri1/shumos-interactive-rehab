@@ -3,6 +3,7 @@ import type { StoredSession } from "@/lib/sessions/types";
 import { StatCard } from "@/components/control/StatCard";
 import { DIFFICULTY_LABELS } from "@/components/control/copy";
 import { formatAccuracyPercent, formatDurationClock, formatReactionTimeSeconds } from "@/components/display/copy";
+import { averageFinite, finiteRatio, nonNegativeFiniteNumber } from "@/lib/dataIntegrity/numeric";
 
 const RECENT_TREND_COUNT = 5;
 const BAR_MIN_HEIGHT_PX = 8;
@@ -42,9 +43,9 @@ function highestStageReached(sessions: StoredSession[]): { difficulty: Difficult
 export function SessionPerformanceTrend({ sessions }: { sessions: StoredSession[] }) {
   const recentChronological = sessions.slice(0, RECENT_TREND_COUNT).slice().reverse();
   const best = highestStageReached(sessions);
-  const avgDurationMs = sessions.reduce((sum, s) => sum + s.durationMs, 0) / sessions.length;
-  const reactionSamples = sessions.map((s) => s.averageReactionTimeMs).filter((ms): ms is number => ms !== null);
-  const avgReactionMs = reactionSamples.length > 0 ? reactionSamples.reduce((a, b) => a + b, 0) / reactionSamples.length : null;
+  const avgDurationMs = averageFinite(sessions.map((s) => nonNegativeFiniteNumber(s.durationMs)));
+  const avgReactionMs = averageFinite(sessions.map((s) => nonNegativeFiniteNumber(s.averageReactionTimeMs)));
+  const accuracySessions = recentChronological.filter((session) => finiteRatio(session.accuracy) !== null);
 
   return (
     <section className="flex flex-col gap-3">
@@ -57,16 +58,16 @@ export function SessionPerformanceTrend({ sessions }: { sessions: StoredSession[
         <StatCard label="متوسط زمن الاستجابة" value={formatReactionTimeSeconds(avgReactionMs)} />
       </div>
 
-      {recentChronological.length >= 2 && (
+      {accuracySessions.length >= 2 && (
         <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4">
-          <span className="text-xs font-medium text-slate-400">الدقة — آخر {recentChronological.length} جلسات</span>
+          <span className="text-xs font-medium text-slate-400">الدقة — آخر {accuracySessions.length} جلسات</span>
           <div dir="ltr" className="flex items-end justify-center gap-4 pt-2">
-            {recentChronological.map((session) => (
+            {accuracySessions.map((session) => (
               <div key={session.sessionId} className="flex flex-col items-center gap-1.5">
                 <span className="text-xs font-bold text-slate-700">{formatAccuracyPercent(session.accuracy)}</span>
                 <div
                   className="w-6 rounded-full bg-teal-500"
-                  style={{ height: `${Math.round(BAR_MIN_HEIGHT_PX + session.accuracy * (BAR_MAX_HEIGHT_PX - BAR_MIN_HEIGHT_PX))}px` }}
+                  style={{ height: `${Math.round(BAR_MIN_HEIGHT_PX + finiteRatio(session.accuracy)! * (BAR_MAX_HEIGHT_PX - BAR_MIN_HEIGHT_PX))}px` }}
                 />
               </div>
             ))}

@@ -33,11 +33,18 @@ export function usePatientPrefill(
   setDifficulty: (value: Difficulty) => void,
   setStartingStage: (value: StageNumber) => void,
 ) {
-  const { selectedPatient } = usePatientContext();
+  const { selectedPatient, walkInName } = usePatientContext();
   const appliedForPatientIdRef = useRef<string | null>(null);
+  const quickSessionAppliedRef = useRef(false);
 
   useEffect(() => {
-    if (phase !== "SETUP" || !selectedPatient) return;
+    if (phase !== "SETUP") return;
+    if (!selectedPatient) {
+      if (!walkInName || quickSessionAppliedRef.current) return;
+      if (childFirstName.trim().length === 0) setChildName(walkInName);
+      quickSessionAppliedRef.current = true;
+      return;
+    }
     if (appliedForPatientIdRef.current === selectedPatient.patientId) return;
     appliedForPatientIdRef.current = selectedPatient.patientId;
 
@@ -49,5 +56,5 @@ export function usePatientPrefill(
       setDifficulty(selectedPatient.resumeSuggestion.difficulty);
       setStartingStage(selectedPatient.resumeSuggestion.startingStage);
     }
-  }, [phase, selectedPatient, childFirstName, setChildName, setDifficulty, setStartingStage]);
+  }, [phase, selectedPatient, walkInName, childFirstName, setChildName, setDifficulty, setStartingStage]);
 }

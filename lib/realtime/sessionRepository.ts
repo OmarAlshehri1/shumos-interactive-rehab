@@ -9,13 +9,23 @@ import {
   update,
   type Unsubscribe,
 } from "firebase/database";
-import type { SessionState } from "@/lib/game";
 import { getGameById, type GameId } from "@/lib/games/registry";
-import { reviveSessionState } from "./serialization";
+import { assertFirebaseSafeValue } from "@/lib/dataIntegrity/numeric";
+import {
+  reviveBubblePopSessionState,
+  reviveFeedAnimalsSessionState,
+  reviveFootstepsSessionState,
+  reviveSessionState,
+  reviveSpacePilotSessionState,
+  reviveColorChaseSessionState,
+} from "./serialization";
 import type {
+  AnySessionState,
   CelebrationReplaySignal,
   ConnectionStatus,
   ControllerLeaseRecord,
+  DisplayAudioEnableCommand,
+  DisplayAudioStatus,
   LiveInteraction,
   LiveSessionRecord,
   PresenceRecord,
@@ -62,7 +72,7 @@ export interface PublishSessionInput {
   gameId: GameId;
   sessionId: string;
   revision: number;
-  session: SessionState;
+  session: AnySessionState;
   lastInteraction: LiveInteraction | null;
   /** TASK 9: omit to leave whatever's already there untouched (the common case — every ordinary action); pass explicitly only from replayCelebration(). */
   celebrationReplay?: CelebrationReplaySignal | null;
@@ -96,6 +106,7 @@ export async function publishSession(db: Database, input: PublishSessionInput): 
     updatedAt: serverTimestamp(),
   };
   if (input.celebrationReplay !== undefined) payload.celebrationReplay = input.celebrationReplay;
+  assertFirebaseSafeValue(payload);
   await update(ref(db, LIVE_SESSION_PATH), payload);
 }
 
@@ -111,7 +122,7 @@ export async function clearLiveSession(db: Database): Promise<void> {
 
 function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
   const value = raw as LiveSessionRecord | null;
-  if (!value || typeof value.revision !== "number" || !value.session) return null;
+  if (!value || !Number.isInteger(value.revision) || value.revision < 0 || !value.session) return null;
   // See lib/realtime/serialization.ts: RTDB drops empty arrays and null
   // scalars on read-back, so the raw snapshot is never handed to callers
   // as-is — it's reconstructed into the exact shape SessionState promises.
@@ -131,10 +142,32 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
   // for a shape this malformed, not just a missing field.
   try {
     const rawPatientId = (value as { patientId?: unknown }).patientId;
+    const gameId = normalizeGameId((value as { gameId?: unknown }).gameId);
+    if (!gameId || typeof value.sessionId !== "string" || value.sessionId.length === 0) return null;
+    // MULTI-GAME PLATFORM: which revive function applies depends entirely on
+    // the record's OWN gameId, never guessed from shape — a record whose
+    // gameId is missing/unsupported/malformed already normalizes to null
+    // above and is treated as "no session" by every caller (see
+    // LiveSessionRecord.gameId's doc comment), so it's safe to default to
+    // Balloon Quest's reviver here without ever silently misinterpreting a
+    // genuine Follow the Footsteps/Bubble Pop Wall session as one.
+    const session =
+      gameId === "follow-the-footsteps"
+        ? reviveFootstepsSessionState(value.session)
+        : gameId === "bubble-pop-wall"
+          ? reviveBubblePopSessionState(value.session)
+          : gameId === "feed-the-animals"
+            ? reviveFeedAnimalsSessionState(value.session)
+            : gameId === "space-pilot"
+              ? reviveSpacePilotSessionState(value.session)
+              : gameId === "color-chase"
+                ? reviveColorChaseSessionState(value.session)
+                : reviveSessionState(value.session);
+    if (session.sessionId !== value.sessionId) return null;
     return {
       ...value,
-      gameId: normalizeGameId((value as { gameId?: unknown }).gameId),
-      session: reviveSessionState(value.session),
+      gameId,
+      session,
       lastInteraction: value.lastInteraction ?? null,
       celebrationReplay: value.celebrationReplay ?? null,
       // RTDB drops a null scalar on write — an old/walk-in record with no
@@ -287,6 +320,33 @@ export function registerDisplayPresence(db: Database): Unsubscribe {
  */
 export async function reportDisplayFullscreen(db: Database, isFullscreen: boolean): Promise<void> {
   await update(ref(db, DISPLAY_PRESENCE_PATH), { fullscreen: isFullscreen });
+}
+
+/** Control -> display command. Success means "delivered to RTDB", never "audio is ready". */
+export async function requestDisplayAudioEnable(db: Database, command: DisplayAudioEnableCommand): Promise<void> {
+  await update(ref(db, DISPLAY_PRESENCE_PATH), { audioEnableCommand: command });
+}
+
+/** Display -> control acknowledgement based on the display's real AudioContext state. */
+export async function reportDisplayAudioStatus(
+  db: Database,
+  status: Omit<DisplayAudioStatus, "updatedAt">,
+): Promise<void> {
+  await update(ref(db, DISPLAY_PRESENCE_PATH), {
+    audioStatus: { ...status, updatedAt: serverTimestamp() },
+  });
+}
+
+export function subscribeToDisplayAudioEnableCommand(
+  db: Database,
+  callback: (command: DisplayAudioEnableCommand | null) => void,
+): Unsubscribe {
+  return subscribeWithInitialGet(db, `${DISPLAY_PRESENCE_PATH}/audioEnableCommand`, (raw) => {
+    const value = raw as Partial<DisplayAudioEnableCommand> | null;
+    return value && typeof value.id === "string" && typeof value.requestedAt === "number"
+      ? { id: value.id, requestedAt: value.requestedAt }
+      : null;
+  }, callback);
 }
 
 /**

@@ -2,13 +2,18 @@
 
 import { formatAccuracyPercent, formatDurationClock, formatReactionTimeSeconds } from "@/components/display/copy";
 import { StageStatus, type Difficulty, type SessionSummary, type StageResult } from "@/lib/game";
+import { SectionCard } from "@/components/control/ui/SectionCard";
 import { DIFFICULTY_LABELS } from "../copy";
 import { StatCard } from "../StatCard";
+import { SessionSummaryWorkflowPanel } from "@/components/control/session/SessionSummaryWorkflowPanel";
+import type { SessionWorkflowMetadata } from "@/lib/sessions/workflowMetadata";
 
 interface SessionSummaryScreenProps {
   summary: SessionSummary;
   /** CONTROL UX POLISH TASK — the finished session's own pinned patientId (null for a walk-in). Decides which next-action set below is shown — task section 14. */
   sessionPatientId: string | null;
+  workflow?: SessionWorkflowMetadata;
+  therapistName?: string | null;
   /** Walk-in PRIMARY / saved-patient's underlying reset — see useRealtimeControllerSession.ts's newSession(). */
   onNewSession: () => void;
   /** TASK 9: replays the SESSION_COMPLETE celebration on /display — presentation-only, never touches score/metrics/Firebase game state. */
@@ -82,6 +87,8 @@ function StageRow({ result }: { result: StageResult }) {
 export function SessionSummaryScreen({
   summary,
   sessionPatientId,
+  workflow,
+  therapistName,
   onNewSession,
   onReplayCelebration,
   onReturnToPatientProfile,
@@ -94,39 +101,48 @@ export function SessionSummaryScreen({
   const skippedCount = summary.stageResults.length - completedCount;
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 px-5 py-8 sm:px-8 sm:py-10">
       <header className="flex flex-col items-center gap-1.5 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">ملخص الجلسة</h1>
         <p className="text-lg font-semibold text-teal-700">{summary.childFirstName}</p>
       </header>
 
-      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
-        <StatCard label="المراحل المكتملة" value={String(completedCount)} tone="positive" ltr />
-        <StatCard label="المراحل المتخطاة" value={String(skippedCount)} ltr />
-        <StatCard
-          label="أفضل مرحلة"
-          value={summary.bestStage ? `${DIFFICULTY_LABELS[summary.bestStage.difficulty].name} ${summary.bestStage.stageNumber}` : "—"}
-        />
-        <StatCard label="أهداف صحيحة" value={String(summary.totalCorrect)} tone="positive" />
-        <StatCard label="محاولات خاطئة" value={String(summary.totalIncorrect)} />
-        <StatCard label="الدقة الإجمالية" value={formatAccuracyPercent(summary.overallAccuracy)} />
-        <StatCard label="المدة الإجمالية" value={formatDurationClock(summary.totalDurationMs)} />
-        <StatCard label="متوسط زمن الاستجابة المسجل" value={formatReactionTimeSeconds(summary.averageReactionTimeMs)} />
-      </div>
+      <SectionCard title="النتائج">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+          <StatCard label="المراحل المكتملة" value={String(completedCount)} tone="positive" ltr />
+          <StatCard label="المراحل المتخطاة" value={String(skippedCount)} ltr />
+          <StatCard
+            label="أفضل مرحلة"
+            value={summary.bestStage ? `${DIFFICULTY_LABELS[summary.bestStage.difficulty].name} ${summary.bestStage.stageNumber}` : "—"}
+          />
+          <StatCard label="أهداف صحيحة" value={String(summary.totalCorrect)} tone="positive" />
+          <StatCard label="محاولات خاطئة" value={String(summary.totalIncorrect)} />
+          <StatCard label="الدقة الإجمالية" value={formatAccuracyPercent(summary.overallAccuracy)} />
+          <StatCard label="المدة الإجمالية" value={formatDurationClock(summary.totalDurationMs)} />
+          <StatCard label="متوسط زمن الاستجابة المسجل" value={formatReactionTimeSeconds(summary.averageReactionTimeMs)} />
+        </div>
+      </SectionCard>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-sm font-semibold text-slate-700">تفاصيل المراحل</h2>
+      <SectionCard title="تفاصيل المراحل" className="gap-4">
         {groups.map((group) => (
           <div key={group.difficulty} className="flex flex-col gap-2">
             <h3 className="text-xs font-bold tracking-wide text-teal-700 uppercase">{DIFFICULTY_LABELS[group.difficulty].name}</h3>
             <div className="flex flex-col gap-2">
-              {group.stages.map((result) => (
-                <StageRow key={`${result.difficulty}-${result.stageNumber}`} result={result} />
+              {/* `index` is part of the key because the same (difficulty, stageNumber) legitimately repeats — e.g. restarting or re-skipping an already-completed stage adds another entry to stageResults rather than replacing the earlier one (real duplicate-key React warning otherwise, QA-caught). */}
+              {group.stages.map((result, index) => (
+                <StageRow key={`${result.difficulty}-${result.stageNumber}-${index}`} result={result} />
               ))}
             </div>
           </div>
         ))}
-      </section>
+      </SectionCard>
+
+      <SessionSummaryWorkflowPanel
+        workflow={workflow}
+        therapistName={therapistName}
+        patientId={sessionPatientId}
+        sessionId={summary.sessionId}
+      />
 
       <div className="flex flex-col gap-2.5">
         {sessionPatientId ? (

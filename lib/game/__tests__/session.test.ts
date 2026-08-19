@@ -10,6 +10,7 @@ import {
   restartStage,
   selectBalloon,
   skipStage,
+  switchDifficulty,
   type ActionResult,
   type SessionState,
 } from "../session";
@@ -242,10 +243,52 @@ describe("advanceToStage — changing difficulty", () => {
     const result = advanceToStage(completion.state, { difficulty: Difficulty.EASY, stageNumber: 2 });
     expect(result.success).toBe(false);
   });
+
+  // THERAPIST SETUP SIMPLIFICATION (task section 53) — session.config is
+  // frozen for the session's lifetime EXCEPT its technical fields, which a
+  // real difficulty change now refreshes from the new difficulty's preset
+  // (passed in by the calling controller hook via lib/control/*/stagePreset.ts).
+  // config.difficulty/startingStage must stay the ORIGINAL setup choice
+  // (buildStoredSession's startingDifficulty relies on this) — only
+  // currentDifficulty reflects the live difficulty.
+  it("refreshes only the technical config fields on a difficulty change, leaving config.difficulty/startingStage as the original setup choice", () => {
+    const session = enterPlaying(
+      createSession({ ...baseParams, difficulty: Difficulty.MEDIUM, targetSize: TargetSize.MEDIUM, targetSpacing: TargetSpacing.MEDIUM, now: 1000 }),
+      1000,
+    );
+    const completion = completeCurrentStage(session, 1000);
+    const advanced = expectSuccess(
+      advanceToStage(completion.state, { difficulty: Difficulty.ADVANCED, stageNumber: session.currentStage.stageNumber }, {
+        targetSize: TargetSize.SMALL,
+        targetSpacing: TargetSpacing.WIDE,
+        playArea: PlayArea.FULL,
+      }),
+    );
+    expect(advanced.config.targetSize).toBe(TargetSize.SMALL);
+    expect(advanced.config.targetSpacing).toBe(TargetSpacing.WIDE);
+    expect(advanced.currentDifficulty).toBe(Difficulty.ADVANCED);
+    // The original setup choice never changes, even though currentDifficulty did.
+    expect(advanced.config.difficulty).toBe(Difficulty.MEDIUM);
+    expect(advanced.config.startingStage).toBe(session.config.startingStage);
+  });
+
+  it("ignores presetFields on a same-difficulty continue — config is stage-invariant within one difficulty", () => {
+    const session = enterPlaying(createSession({ ...baseParams, difficulty: Difficulty.EASY, now: 1000 }), 1000);
+    const completion = completeCurrentStage(session, 1000);
+    const advanced = expectSuccess(
+      advanceToStage(
+        completion.state,
+        { difficulty: Difficulty.EASY, stageNumber: (session.currentStage.stageNumber + 1) as StageNumber },
+        { targetSize: TargetSize.SMALL, targetSpacing: TargetSpacing.WIDE, playArea: PlayArea.FULL },
+      ),
+    );
+    expect(advanced.config.targetSize).toBe(session.config.targetSize);
+    expect(advanced.config.targetSpacing).toBe(session.config.targetSpacing);
+  });
 });
 
 describe("jumpToStage", () => {
-  it("records every stage strictly in between as SKIPPED with no gameplay data, and the current in-progress stage as SKIPPED too", () => {
+  it("records only the current in-progress attempt as skipped; unvisited stages are not fabricated", () => {
     const session = enterPlaying(createSession({ ...baseParams, difficulty: Difficulty.EASY, now: 1000 }), 1000);
     const target = session.currentStage.balloons.find((b) => b.isTarget)!;
     const played = expectSuccess(selectBalloon(session, target.id, 1300)); // some real partial progress on stage 1
@@ -256,20 +299,12 @@ describe("jumpToStage", () => {
     expect(jumped.currentStage.stageNumber).toBe(4);
     expect(jumped.currentDifficulty).toBe(Difficulty.EASY);
 
-    expect(jumped.results).toHaveLength(3); // stage 1 (current, partial) + stages 2 and 3 (never entered)
-    const [r1, r2, r3] = jumped.results;
+    expect(jumped.results).toHaveLength(1);
+    const [r1] = jumped.results;
     expect(r1.stageNumber).toBe(1);
     expect(r1.status).toBe(StageStatus.SKIPPED);
     expect(r1.correctCount).toBe(1); // real partial data preserved, not discarded
 
-    expect(r2.stageNumber).toBe(2);
-    expect(r2.status).toBe(StageStatus.SKIPPED);
-    expect(r2.targetColor).toBeNull();
-    expect(r2.accuracy).toBeNull();
-    expect(r2.durationMs).toBeNull();
-
-    expect(r3.stageNumber).toBe(3);
-    expect(r3.status).toBe(StageStatus.SKIPPED);
   });
 
   it("jumps from STAGE_COMPLETE without re-finalizing the already-completed current stage", () => {
@@ -280,23 +315,41 @@ describe("jumpToStage", () => {
 
     const jumped = expectSuccess(jumpToStage(completion.state, 3, completion.clock + 100));
 
-    // Stage 1's COMPLETED result stays exactly as it was finalized; only stage 2 gets a SKIPPED placeholder.
-    expect(jumped.results).toHaveLength(2);
+    // Stage 1's COMPLETED result stays exactly as it was finalized; unvisited stage 2 is not fabricated.
+    expect(jumped.results).toHaveLength(1);
     expect(jumped.results[0].status).toBe(StageStatus.COMPLETED);
     expect(jumped.results[0].stageNumber).toBe(1);
-    expect(jumped.results[1].status).toBe(StageStatus.SKIPPED);
-    expect(jumped.results[1].stageNumber).toBe(2);
     expect(jumped.currentStage.stageNumber).toBe(3);
   });
 
-  it("rejects jumping to the current stage or an earlier one", () => {
+  it("treats current stage as a no-op and allows returning to an earlier stage", () => {
     const session = enterPlaying(createSession({ ...baseParams, now: 1000 }), 1000);
-    expect(jumpToStage(session, 1, 1500).success).toBe(false);
+    const same = expectSuccess(jumpToStage(session, 1, 1500));
+    expect(same).toBe(session);
+    const later = expectSuccess(jumpToStage(session, 3, 1600));
+    const back = expectSuccess(jumpToStage(later, 1, 1700));
+    expect(back.currentStage.stageNumber).toBe(1);
+    expect(back.results).toHaveLength(1);
   });
 
   it("rejects jumping outside of an active or just-completed stage", () => {
     const session = createSession({ ...baseParams, now: 1000 }); // WELCOME
     expect(jumpToStage(session, 3, 1500).success).toBe(false);
+  });
+});
+
+describe("live difficulty navigation", () => {
+  it("finalizes the active attempt once and starts stage 1 with the selected preset", () => {
+    const session = enterPlaying(createSession({ ...baseParams, now: 1000 }), 1000);
+    const target = session.currentStage.balloons.find((balloon) => balloon.isTarget)!;
+    const played = expectSuccess(selectBalloon(session, target.id, 1200));
+    const changed = expectSuccess(switchDifficulty(played, Difficulty.MEDIUM, 1500, { targetSize: TargetSize.SMALL, targetSpacing: TargetSpacing.WIDE, playArea: PlayArea.FULL }));
+    expect(changed.currentDifficulty).toBe(Difficulty.MEDIUM);
+    expect(changed.currentStage.stageNumber).toBe(1);
+    expect(changed.gameState).toBe(GameState.START_ZONE);
+    expect(changed.results).toHaveLength(1);
+    expect(changed.results[0].status).toBe(StageStatus.SKIPPED);
+    expect(changed.config.targetSize).toBe(TargetSize.SMALL);
   });
 });
 
@@ -383,6 +436,21 @@ describe("endSession", () => {
     const ended = expectSuccess(endSession(session, 2000));
     expect(endSession(ended, 3000).success).toBe(false);
   });
+
+  it("excludes an open pause interval when ending without an intervening resume", () => {
+    const session = enterPlaying(createSession({ ...baseParams, now: 1000 }), 1000);
+    const paused = expectSuccess(pauseSession(session, 2000));
+    const ended = expectSuccess(endSession(paused, 7000));
+
+    expect(ended.summary?.stageResults[0].durationMs).toBe(1000);
+    expect(Number.isFinite(ended.summary?.stageResults[0].durationMs)).toBe(true);
+  });
+
+  it("rejects malformed and backwards end timestamps without mutating state", () => {
+    const session = enterPlaying(createSession({ ...baseParams, now: 1000 }), 1000);
+    expect(endSession(session, Number.NaN)).toEqual({ success: false, state: session, reason: "Invalid session timestamp." });
+    expect(endSession(session, 999).success).toBe(false);
+  });
 });
 
 describe("invalid state transitions at the session level", () => {
@@ -391,5 +459,66 @@ describe("invalid state transitions at the session level", () => {
     const result = applyGameTransition(session, GameState.PLAYING, 1000);
     expect(result.success).toBe(false);
     expect(result.state).toBe(session); // rejected: state is returned unchanged
+  });
+});
+
+/**
+ * RELIABILITY FIX — stranded-in-INSTRUCTIONS/COUNTDOWN recovery. The
+ * controller-side watchdog (useRealtimeControllerSession.ts) that resumes a
+ * session left stranded by an interrupted runInstructionsToPlaying sequence
+ * is a thin React effect around exactly this pure transition — these tests
+ * cover the pure logic it depends on: START_ZONE is reachable from both
+ * transient states, and recovery never mutates anything but gameState.
+ */
+describe("stranded transition recovery (INSTRUCTIONS/COUNTDOWN -> START_ZONE)", () => {
+  it("recovers from INSTRUCTIONS back to START_ZONE, preserving session identity", () => {
+    const created = createSession({ ...baseParams, now: 1000 });
+    const setUp = expectSuccess(applyGameTransition(created, GameState.SETUP, 1000));
+    const startZone = expectSuccess(applyGameTransition(setUp, GameState.START_ZONE, 1000));
+    const stranded = expectSuccess(applyGameTransition(startZone, GameState.INSTRUCTIONS, 2000));
+
+    const recovered = applyGameTransition(stranded, GameState.START_ZONE, 3000);
+    expect(recovered.success).toBe(true);
+    expect(recovered.state.gameState).toBe(GameState.START_ZONE);
+    expect(recovered.state.sessionId).toBe(stranded.sessionId);
+    expect(recovered.state.config).toEqual(stranded.config);
+    expect(recovered.state.currentStage.stageNumber).toBe(stranded.currentStage.stageNumber);
+  });
+
+  it("recovers from COUNTDOWN back to START_ZONE, preserving session identity", () => {
+    const created = createSession({ ...baseParams, now: 1000 });
+    const setUp = expectSuccess(applyGameTransition(created, GameState.SETUP, 1000));
+    const startZone = expectSuccess(applyGameTransition(setUp, GameState.START_ZONE, 1000));
+    const instructions = expectSuccess(applyGameTransition(startZone, GameState.INSTRUCTIONS, 2000));
+    const stranded = expectSuccess(applyGameTransition(instructions, GameState.COUNTDOWN, 3000));
+
+    const recovered = applyGameTransition(stranded, GameState.START_ZONE, 4000);
+    expect(recovered.success).toBe(true);
+    expect(recovered.state.gameState).toBe(GameState.START_ZONE);
+    expect(recovered.state.sessionId).toBe(stranded.sessionId);
+    expect(recovered.state.config).toEqual(stranded.config);
+    expect(recovered.state.currentStage.stageNumber).toBe(stranded.currentStage.stageNumber);
+  });
+
+  it("recovering to START_ZONE lets the session reach PLAYING normally afterward", () => {
+    const created = createSession({ ...baseParams, now: 1000 });
+    const setUp = expectSuccess(applyGameTransition(created, GameState.SETUP, 1000));
+    const startZone = expectSuccess(applyGameTransition(setUp, GameState.START_ZONE, 1000));
+    const stranded = expectSuccess(applyGameTransition(startZone, GameState.INSTRUCTIONS, 2000));
+    const recovered = expectSuccess(applyGameTransition(stranded, GameState.START_ZONE, 3000));
+
+    const playing = enterPlayingFromStartZone(recovered, 4000);
+    expect(playing.gameState).toBe(GameState.PLAYING);
+    expect(playing.sessionId).toBe(created.sessionId);
+  });
+
+  it("does not silently succeed from PLAYING back to INSTRUCTIONS — recovery is one-directional", () => {
+    const created = createSession({ ...baseParams, now: 1000 });
+    const setUp = expectSuccess(applyGameTransition(created, GameState.SETUP, 1000));
+    const startZone = expectSuccess(applyGameTransition(setUp, GameState.START_ZONE, 1000));
+    const playing = enterPlayingFromStartZone(startZone, 2000);
+
+    const result = applyGameTransition(playing, GameState.INSTRUCTIONS, 3000);
+    expect(result.success).toBe(false);
   });
 });

@@ -11,13 +11,14 @@ import {
   applyGameTransition,
   createSession,
   endSession as engineEndSession,
-  getAdjacentDifficulty,
+  getStageDecisionTarget,
   jumpToStage as engineJumpToStage,
   pauseSession as enginePauseSession,
   restartStage as engineRestartStage,
   resumeSession as engineResumeSession,
   selectBalloon as engineSelectBalloon,
   skipStage as engineSkipStage,
+  switchDifficulty as engineSwitchDifficulty,
   type SessionState,
   type StageNumber,
 } from "@/lib/game";
@@ -39,11 +40,35 @@ import {
   waitForDisplayCountdownComplete,
 } from "@/lib/realtime/sessionRepository";
 import type { ConnectionStatus, ControllerLeaseRecord, LiveInteraction, LiveSessionRecord, PresenceRecord } from "@/lib/realtime/types";
+
+/**
+ * MULTI-GAME PLATFORM: LiveSessionRecord.session is now `AnySessionState`
+ * (SessionState | FootstepsSessionState — see lib/realtime/types.ts) since
+ * the same canonical `liveSession` node can hold either game's session. This
+ * hook is Balloon Quest's OWN adapter and only ever constructs/consumes a
+ * genuine `SessionState` — narrowing back down to that concrete shape here,
+ * once, at the boundary (the subscription callback and the failed-write
+ * resync fetch, both below) is what keeps every other line in this file
+ * exactly as it already was, instead of sprinkling casts through 20+ call
+ * sites. Safe in practice because the narrowing filter (gameId ===
+ * BALLOON_QUEST_GAME_ID) is applied at both of those boundaries before a
+ * record is ever stored — see the same reasoning documented in
+ * components/display/gameDisplayRegistry.tsx.
+ */
+type BalloonLiveSessionRecord = Omit<LiveSessionRecord, "session"> & { session: SessionState };
+
+function asBalloonQuestRecord(record: LiveSessionRecord | null): BalloonLiveSessionRecord | null {
+  if (!record || record.gameId !== BALLOON_QUEST_GAME_ID) return null;
+  return record as unknown as BalloonLiveSessionRecord;
+}
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
+import { useSessionWorkflow } from "@/components/control/session/SessionWorkflowContext";
+import { applyEarlyEndReason, type EarlyEndSelection } from "@/lib/sessions/workflowMetadata";
 import { buildStoredSession } from "@/lib/sessions/buildStoredSession";
 import { saveSessionHistoryOnce } from "@/lib/sessions/sessionHistoryRepository";
 import type { ControllerPhase, DifficultyDecision, DraftConfig } from "./useLocalControllerSession";
 import { DIFFICULTY_DEFAULTS } from "./smartDefaults";
+import { getStagePreset } from "./stagePreset";
 
 const MAX_NAME_LENGTH = 30;
 const INSTRUCTION_VIEW_MS = 3500;
@@ -189,6 +214,7 @@ export function useRealtimeControllerSession() {
   const auth = useStaffAuth();
   const uid = auth.uid;
   const patientContext = usePatientContext();
+  const sessionWorkflow = useSessionWorkflow();
   // AUTH ISOLATION HARDENING: this hook is /control's realtime adapter, so
   // every Firebase call it makes goes through the STAFF app's Database
   // connection (see firebaseClient.ts's getStaffDb() doc comment) — a
@@ -197,7 +223,7 @@ export function useRealtimeControllerSession() {
   const db = getStaffDb();
 
   const [draft, setDraft] = useState<DraftConfig>(freshDraft);
-  const [liveRecord, setLiveRecord] = useState<LiveSessionRecord | null>(null);
+  const [liveRecord, setLiveRecord] = useState<BalloonLiveSessionRecord | null>(null);
   // True once we've heard from Firebase at least once (with a real session,
   // or a confirmed "no session"). Distinguishes "definitely nothing to
   // recover" from "haven't heard back yet" — without this, a therapist who
@@ -205,7 +231,7 @@ export function useRealtimeControllerSession() {
   // a slow/cold connection could create a second session on top of one
   // still in progress.
   const [hasLoadedInitialSession, setHasLoadedInitialSession] = useState(false);
-  const liveRecordRef = useRef<LiveSessionRecord | null>(null);
+  const liveRecordRef = useRef<BalloonLiveSessionRecord | null>(null);
   useEffect(() => {
     liveRecordRef.current = liveRecord;
   }, [liveRecord]);
@@ -242,7 +268,12 @@ export function useRealtimeControllerSession() {
   useEffect(() => {
     if (auth.phase !== "authorized") return;
     const unsubscribeSession = subscribeToLiveSession(db, (record) => {
-      setLiveRecord(record);
+      // MULTI-GAME PLATFORM: a canonical record whose gameId belongs to a
+      // DIFFERENT game (e.g. a Follow the Footsteps session still live from
+      // another tab) must never be treated as "our" session — the therapist
+      // sees a fresh SETUP here, not another game's state. See
+      // asBalloonQuestRecord's doc comment.
+      setLiveRecord(asBalloonQuestRecord(record));
       setHasLoadedInitialSession(true);
     });
     const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
@@ -357,12 +388,12 @@ export function useRealtimeControllerSession() {
     if (savedSessionIdsRef.current.has(sessionId)) return;
     savedSessionIdsRef.current.add(sessionId);
 
-    const record = buildStoredSession({ session, patientId, createdByUid: uid, gameId: BALLOON_QUEST_GAME_ID });
+    const record = buildStoredSession({ session, patientId, createdByUid: uid, therapistName: auth.displayName, gameId: BALLOON_QUEST_GAME_ID });
     void saveSessionHistoryOnce(patientId, record).catch((error: unknown) => {
       console.error(`[realtime] session history save failed for ${sessionId}:`, error);
       savedSessionIdsRef.current.delete(sessionId); // allow a retry on the next relevant re-render
     });
-  }, [session, liveRecord, auth.phase, uid]);
+  }, [session, liveRecord, auth.phase, auth.displayName, uid]);
 
   const displayConnected = displayPresence?.connected === true;
   // TASK 9 PART 4: best-effort only — see reportDisplayFullscreen's doc comment. Meaningless (and ignored by the UI) while the display isn't even connected.
@@ -417,8 +448,9 @@ export function useRealtimeControllerSession() {
       try {
         const canonical = await fetchLiveSession(db);
         if (myToken !== sequenceTokenRef.current) return; // superseded while the fetch itself was in flight
-        liveRecordRef.current = canonical;
-        setLiveRecord(canonical);
+        const ours = asBalloonQuestRecord(canonical);
+        liveRecordRef.current = ours;
+        setLiveRecord(ours);
         setSyncRestoredAt(Date.now());
       } catch (fetchError) {
         // Best-effort: if even the resync fetch fails (still offline), local
@@ -514,6 +546,44 @@ export function useRealtimeControllerSession() {
    * and bails out cleanly rather than attempting a write it already knows
    * is unsafe.
    */
+  // RELIABILITY FIX — stranded-in-INSTRUCTIONS/COUNTDOWN watchdog: the
+  // INSTRUCTIONS→COUNTDOWN→PLAYING advance (runInstructionsToPlaying below)
+  // lives only as an in-memory promise chain inside whichever control tab
+  // called confirmChildReady — nothing durable in Firebase represents
+  // "a transition is in flight." If that tab is reloaded or closed mid-chain
+  // (confirmed live during cross-game transition QA: refreshing control
+  // between the INSTRUCTIONS and COUNTDOWN publishes, or during COUNTDOWN
+  // itself, strands canonical state forever, since the promise chain simply
+  // dies with the page), no other client ever resumes it — the display
+  // faithfully shows the stranded state and the therapist is stuck. On the
+  // FIRST session snapshot a newly-mounted, mutate-capable control tab
+  // receives, if it finds the session already sitting in INSTRUCTIONS or
+  // COUNTDOWN, nobody was actively driving it (a live chain in this same tab
+  // would still be in flight, not freshly mounted) — bounce back to
+  // START_ZONE, which is always a valid transition from either state and is
+  // this game's normal recovery hub, so the therapist just re-taps
+  // "الطفل جاهز ✓" to continue. Recovery never touches sessionId, patientId,
+  // gameId, difficulty, stage number, or the deterministic balloon
+  // configuration — only gameState changes. Mirrors the identical fix
+  // proven in Bubble Pop Wall's and Follow the Footsteps' own realtime
+  // controller hooks.
+  const hasCheckedStrandedRef = useRef(false);
+  useEffect(() => {
+    if (hasCheckedStrandedRef.current || !hasLoadedInitialSession || !canMutate) return;
+    hasCheckedStrandedRef.current = true;
+    const record = liveRecordRef.current;
+    const strandedSession = record?.session;
+    if (!record || !strandedSession) return;
+    if (strandedSession.gameState !== GameState.INSTRUCTIONS && strandedSession.gameState !== GameState.COUNTDOWN) return;
+    const myToken = ++sequenceTokenRef.current;
+    const recovered = applyGameTransition(strandedSession, GameState.START_ZONE, Date.now());
+    if (!recovered.success) return;
+    // null, not record.lastInteraction — recovery is a clean administrative
+    // transition (same convention as restartStage/skipStage/jumpToStage
+    // below), never carrying forward a stale interaction signal.
+    void publish(record.sessionId, recovered.state, null, myToken);
+  }, [hasLoadedInitialSession, canMutate, publish]);
+
   const runInstructionsToPlaying = useCallback(
     async (sessionId: string, instructionsState: SessionState, myToken: number) => {
       if (!canMutateRef.current) return;
@@ -554,7 +624,7 @@ export function useRealtimeControllerSession() {
     [publish, db],
   );
 
-  const confirmSetup = useCallback(() => {
+  const confirmSetup = useCallback(async () => {
     // Refuse to act until we've heard from Firebase at least once — acting
     // on an unconfirmed "no session" could silently overwrite a session
     // still in progress. Also refuses while offline (see canMutate).
@@ -562,22 +632,46 @@ export function useRealtimeControllerSession() {
     const childFirstName = draft.childFirstName.trim();
     if (!childFirstName) return;
     const myToken = ++sequenceTokenRef.current;
-    const newSession = createSession({ ...draft, childFirstName });
+    // THERAPIST SETUP SIMPLIFICATION — resolve the final config from the
+    // same preset source the Stage Cards previewed (task section 15).
+    const preset = getStagePreset(draft.difficulty, draft.startingStage);
+    const newSession = createSession({ ...preset.config, childFirstName, workflow: sessionWorkflow.metadata });
     // SESSION HISTORY TASK: stamped ONCE, here, at session creation — the
     // saved patient active in this tab RIGHT NOW (or null for a genuine
     // walk-in/manual session), never re-read later. See
     // LiveSessionRecord.patientId's doc comment for why every later
     // publish() carries this same value forward instead of re-deriving it.
     const patientId = patientContext.selectedPatient?.patientId ?? null;
-    // Fresh session: revision restarts at 1, set synchronously (see publish() for why). celebrationReplay explicitly cleared — a brand-new session never inherits a stale replay token.
     // MULTI-GAME PLATFORM: this controller only ever exists at /control/balloon-quest
     // (see the Game Library task) — stamping gameId here, once, is what lets
     // /display's game resolver know which child-facing module to mount, with
     // no extra "pick the game again" step for the therapist (see task #9).
+
+    // RELIABILITY FIX — cross-game revision conflict: liveSession is a
+    // single global node shared by every game, and its write rule requires
+    // a strictly increasing revision. A hardcoded revision: 1 here is only
+    // safe when no record exists at all — if a DIFFERENT game's session was
+    // left dangling (therapist switched games without ending it, or without
+    // clicking past its Summary screen), that record is still at some
+    // revision > 1, and this publish would fail PERMISSION_DENIED with no
+    // visible feedback to the therapist (repro'd during Follow the
+    // Footsteps QA: an abandoned Footsteps session blocked starting a new
+    // Balloon Quest session). Reading the true canonical revision first —
+    // regardless of which game it belongs to — keeps the CAS check honest.
+    let baseRevision = 0;
+    try {
+      const canonical = await fetchLiveSession(db);
+      if (myToken !== sequenceTokenRef.current) return;
+      baseRevision = canonical?.revision ?? 0;
+    } catch (error) {
+      console.error("[realtime] confirmSetup canonical revision fetch failed:", error);
+    }
+    const nextRevision = baseRevision + 1;
+
     liveRecordRef.current = {
       gameId: BALLOON_QUEST_GAME_ID,
       sessionId: newSession.sessionId,
-      revision: 1,
+      revision: nextRevision,
       session: newSession,
       lastInteraction: null,
       celebrationReplay: null,
@@ -588,7 +682,7 @@ export function useRealtimeControllerSession() {
     void publishSession(db, {
       gameId: BALLOON_QUEST_GAME_ID,
       sessionId: newSession.sessionId,
-      revision: 1,
+      revision: nextRevision,
       session: newSession,
       lastInteraction: null,
       celebrationReplay: null,
@@ -602,7 +696,7 @@ export function useRealtimeControllerSession() {
         await resyncFromCanonical(myToken);
       })
       .finally(() => setUnconfirmedActionCount((n) => Math.max(0, n - 1)));
-  }, [draft, canMutate, hasLoadedInitialSession, patientContext.selectedPatient, db, resyncFromCanonical]);
+  }, [draft, canMutate, hasLoadedInitialSession, patientContext.selectedPatient, db, resyncFromCanonical, sessionWorkflow.metadata]);
 
   /** Back to SETUP — clears the whole live session rather than just a local field, so no half-configured session lingers in Firebase for /display to see. */
   const editSetup = useCallback(() => {
@@ -694,11 +788,11 @@ export function useRealtimeControllerSession() {
     void publish(record.sessionId, result.state, null, sequenceTokenRef.current);
   }, [canMutate, publish]);
 
-  const endSessionEarly = useCallback(() => {
+  const endSessionEarly = useCallback((selection: EarlyEndSelection) => {
     const record = liveRecordRef.current;
     if (!canMutate || !record) return;
     sequenceTokenRef.current += 1; // abort any in-flight instructions->countdown->playing sequence
-    const result = engineEndSession(record.session, Date.now());
+    const result = engineEndSession(applyEarlyEndReason(record.session, selection.reason, selection.customReason), Date.now());
     void publish(record.sessionId, result.state, null, sequenceTokenRef.current);
   }, [canMutate, publish]);
 
@@ -716,11 +810,15 @@ export function useRealtimeControllerSession() {
       const record = liveRecordRef.current;
       if (!canMutate || !record || record.session.gameState !== GameState.STAGE_COMPLETE) return;
       const current = record.session;
-      const targetDifficulty = decision === "continue" ? current.currentDifficulty : getAdjacentDifficulty(current.currentDifficulty, decision);
-      if (!targetDifficulty) return;
-      const targetStageNumber = decision === "continue" ? ((current.currentStage.stageNumber + 1) as StageNumber) : current.currentStage.stageNumber;
+      const target = getStageDecisionTarget(current.currentDifficulty, current.currentStage.stageNumber, decision);
+      if (!target) return;
+      const { difficulty: targetDifficulty, stageNumber: targetStageNumber } = target;
+      // THERAPIST SETUP SIMPLIFICATION (task section 53) — see
+      // lib/control/useLocalControllerSession.ts's advanceStage for why
+      // this is only resolved on an actual difficulty change.
+      const presetFields = targetDifficulty === current.currentDifficulty ? undefined : DIFFICULTY_DEFAULTS[targetDifficulty];
       const myToken = ++sequenceTokenRef.current;
-      const advanced = engineAdvanceToStage(current, { difficulty: targetDifficulty, stageNumber: targetStageNumber });
+      const advanced = engineAdvanceToStage(current, { difficulty: targetDifficulty, stageNumber: targetStageNumber }, presetFields);
       void publish(record.sessionId, advanced.state, null, myToken);
     },
     [canMutate, publish],
@@ -734,6 +832,17 @@ export function useRealtimeControllerSession() {
       const myToken = ++sequenceTokenRef.current;
       const result = engineJumpToStage(record.session, stageNumber, Date.now());
       void publish(record.sessionId, result.state, null, myToken);
+    },
+    [canMutate, publish],
+  );
+
+  const changeLiveDifficulty = useCallback(
+    (difficulty: Difficulty) => {
+      const record = liveRecordRef.current;
+      if (!canMutate || !record) return;
+      const myToken = ++sequenceTokenRef.current;
+      const result = engineSwitchDifficulty(record.session, difficulty, Date.now(), DIFFICULTY_DEFAULTS[difficulty]);
+      if (result.success) void publish(record.sessionId, result.state, null, myToken);
     },
     [canMutate, publish],
   );
@@ -759,8 +868,9 @@ export function useRealtimeControllerSession() {
     liveRecordRef.current = null;
     void clearLiveSession(db);
     setDraft(freshDraft());
+    sessionWorkflow.reset();
     patientContext.clearPatient();
-  }, [canMutate, patientContext, db]);
+  }, [canMutate, patientContext, sessionWorkflow, db]);
 
   /**
    * CONTROL UX POLISH TASK — "جلسة أخرى لنفس المريض" (task section 14): the
@@ -784,7 +894,8 @@ export function useRealtimeControllerSession() {
     liveRecordRef.current = null;
     void clearLiveSession(db);
     setDraft(freshDraft());
-  }, [canMutate, db]);
+    sessionWorkflow.reset();
+  }, [canMutate, sessionWorkflow, db]);
 
   /**
    * TASK 9 — "إعادة الاحتفال": publishes the SAME session (gameState stays
@@ -826,6 +937,7 @@ export function useRealtimeControllerSession() {
   }, [canMutate, db, resyncFromCanonical]);
 
   return {
+    therapistName: auth.displayName,
     phase,
     draft,
     session,
@@ -845,6 +957,7 @@ export function useRealtimeControllerSession() {
     endSessionEarly,
     advanceStage,
     jumpToStage,
+    changeLiveDifficulty,
     newSession,
     // Task 8.2 addition:
     confirmChildReady,

@@ -113,4 +113,35 @@ describe("buildStoredSession", () => {
     expect(stored.skippedStageCount).toBe(0);
     expect(stored.stageResults).toHaveLength(0);
   });
+
+  it("keeps separate immutable therapist identities for two sessions belonging to the same patient", () => {
+    const finish = (now: number, seed: string) => {
+      let session = createSession({ ...baseParams, now, seed });
+      session = enterPlaying(session, now);
+      const completed = completeCurrentStage(session, now);
+      return endSession(completed.state, completed.clock + 2_000).state;
+    };
+    const firstSession = finish(1_000, "therapist-one-session");
+    const secondSession = finish(20_000, "therapist-two-session");
+
+    const first = buildStoredSession({
+      session: firstSession,
+      patientId: "same-patient",
+      createdByUid: "staff-one",
+      therapistName: "أ. نورة",
+      gameId: BALLOON_QUEST_GAME_ID,
+    });
+    const second = buildStoredSession({
+      session: secondSession,
+      patientId: "same-patient",
+      createdByUid: "staff-two",
+      therapistName: "أ. سارة",
+      gameId: BALLOON_QUEST_GAME_ID,
+    });
+
+    expect(first.sessionId).not.toBe(second.sessionId);
+    expect(first).toMatchObject({ patientId: "same-patient", createdByUid: "staff-one", therapistName: "أ. نورة" });
+    expect(second).toMatchObject({ patientId: "same-patient", createdByUid: "staff-two", therapistName: "أ. سارة" });
+    expect(first.therapistName).toBe("أ. نورة");
+  });
 });

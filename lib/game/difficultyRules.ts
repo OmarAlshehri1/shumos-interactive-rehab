@@ -122,3 +122,32 @@ export function getAdjacentDifficulty(current: Difficulty, direction: "easier" |
   const targetIndex = direction === "harder" ? index + 1 : index - 1;
   return targetIndex >= 0 && targetIndex < DIFFICULTY_ORDER.length ? DIFFICULTY_ORDER[targetIndex] : null;
 }
+
+export interface StageProgressionTarget {
+  difficulty: Difficulty;
+  stageNumber: StageNumber;
+}
+
+/** The canonical Next Stage progression shared by every 5-stage game. */
+export function getNextStageTarget(difficulty: Difficulty, stageNumber: StageNumber): StageProgressionTarget | null {
+  if (stageNumber < STAGES_PER_DIFFICULTY) {
+    return { difficulty, stageNumber: (stageNumber + 1) as StageNumber };
+  }
+  const harder = getAdjacentDifficulty(difficulty, "harder");
+  return harder ? { difficulty: harder, stageNumber: 1 } : null;
+}
+
+export function isSequentialStageTarget(current: StageProgressionTarget, target: StageProgressionTarget): boolean {
+  const next = getNextStageTarget(current.difficulty, current.stageNumber);
+  return next?.difficulty === target.difficulty && next.stageNumber === target.stageNumber;
+}
+
+export function getStageDecisionTarget(
+  difficulty: Difficulty,
+  stageNumber: StageNumber,
+  decision: "continue" | "easier" | "harder",
+): StageProgressionTarget | null {
+  if (decision === "continue") return getNextStageTarget(difficulty, stageNumber);
+  const targetDifficulty = getAdjacentDifficulty(difficulty, decision);
+  return targetDifficulty ? { difficulty: targetDifficulty, stageNumber } : null;
+}

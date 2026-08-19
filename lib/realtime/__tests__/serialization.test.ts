@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { reviveSessionState } from "../serialization";
+import { reviveColorChaseSessionState, reviveSessionState, reviveSpacePilotSessionState } from "../serialization";
+import { createColorChaseSession, Difficulty as ColorChaseDifficulty, getColorChaseStagePlan } from "@/lib/colorchase";
+import { createSession, Difficulty, PlayArea, TargetSize, TargetSpacing } from "@/lib/game";
+import { createSpacePilotSession } from "@/lib/spacepilot";
+
+function rawBalloons(count: number) {
+  return Array.from({ length: count }, (_, index) => ({ id: `b${index}`, color: "BLUE", position: { x: .2 + index * .1, y: .5 }, size: .1, isTarget: true, isPopped: false }));
+}
 
 /**
  * Regression coverage for the exact bug the Task 6 two-browser emulator
@@ -23,13 +30,14 @@ describe("reviveSessionState", () => {
         difficulty: "EASY",
         stageNumber: 1,
         targetColor: "BLUE",
-        balloons: [],
+        balloons: rawBalloons(2),
         totalTargets: 2,
         correctCount: 0,
         incorrectCount: 0,
         totalPausedMs: 0,
       },
       createdAt: 1,
+      workflow: { sessionGoal: "FOLLOWING_INSTRUCTIONS", endReason: "CHILD_TIRED" },
       // results and endedAt/summary intentionally absent, matching what RTDB actually returns
     };
 
@@ -37,6 +45,7 @@ describe("reviveSessionState", () => {
     expect(revived.results).toEqual([]);
     expect(revived.endedAt).toBeNull();
     expect(revived.summary).toBeNull();
+    expect(revived.workflow).toEqual({ sessionGoal: "FOLLOWING_INSTRUCTIONS", endReason: "CHILD_TIRED" });
   });
 
   it("restores pausedAt/startedAt/completedAt to null when RTDB dropped them (not-yet-started/not-paused stage)", () => {
@@ -83,7 +92,7 @@ describe("reviveSessionState", () => {
         difficulty: "EASY",
         stageNumber: 1,
         targetColor: "BLUE",
-        balloons: [],
+        balloons: rawBalloons(2),
         totalTargets: 2,
         correctCount: 0,
         incorrectCount: 0,
@@ -108,6 +117,7 @@ describe("reviveSessionState", () => {
     expect(revived.summary?.stageResults).toEqual([]);
     expect(revived.summary?.difficultiesPlayed).toEqual([]);
     expect(revived.summary?.averageReactionTimeMs).toBeNull();
+    expect(revived.summary?.overallAccuracy).toBeNull();
     expect(revived.summary?.bestStage).toBeNull();
   });
 
@@ -122,7 +132,7 @@ describe("reviveSessionState", () => {
         difficulty: "MEDIUM",
         stageNumber: 1,
         targetColor: "BLUE",
-        balloons: [],
+        balloons: rawBalloons(3),
         totalTargets: 3,
         correctCount: 1,
         incorrectCount: 2,
@@ -167,7 +177,7 @@ describe("reviveSessionState", () => {
         difficulty: "EASY",
         stageNumber: 2,
         targetColor: "BLUE",
-        balloons: [],
+        balloons: rawBalloons(2),
         totalTargets: 2,
         correctCount: 0,
         incorrectCount: 0,
@@ -182,5 +192,56 @@ describe("reviveSessionState", () => {
     const revived = reviveSessionState(raw);
     expect(revived.results[0]!.status).toBe("COMPLETED");
     expect(revived.results[0]!.targetColor).toBe("RED");
+  });
+});
+
+describe("reviveColorChaseSessionState", () => {
+  it("rebuilds canonical pad plans and empty arrays after a Firebase round trip", () => {
+    const revived = reviveColorChaseSessionState({
+      sessionId: "color-1", seed: "fixed", config: { childFirstName: "سارة", difficulty: "EASY", startingStage: 1 },
+      gameState: "PLAYING", currentDifficulty: "EASY", createdAt: 1, workflow: { sessionGoal: "VISUAL_DISCRIMINATION" },
+      currentStage: { difficulty: "EASY", stageNumber: 1, currentStepIndex: 0, correctCount: 0, incorrectCount: 0, dangerPressCount: 0, totalPausedMs: 0, stepPausedMs: 0 },
+    });
+    expect(revived.results).toEqual([]);
+    expect(revived.currentStage.responseTimesMs).toEqual([]);
+    expect(revived.currentStage.processedInputIds).toEqual([]);
+    expect(revived.currentStage.plan).toEqual(getColorChaseStagePlan(ColorChaseDifficulty.EASY, 1));
+    expect(revived.currentStage.plan.steps[0].distractors).toEqual([]);
+    expect(revived.workflow?.sessionGoal).toBe("VISUAL_DISCRIMINATION");
+  });
+});
+
+describe("reviveSpacePilotSessionState", () => {
+  it("preserves optional workflow metadata through the explicit reviver", () => {
+    const original = createSpacePilotSession({ childFirstName: "سارة", workflow: { sessionGoal: "MOVEMENT_REACH", endReason: "CHANGE_ACTIVITY" } });
+    expect(reviveSpacePilotSessionState(original).workflow).toEqual(original.workflow);
+  });
+});
+
+describe("malformed nested realtime entities", () => {
+  it("rejects a finite but out-of-bounds balloon position", () => {
+    const session = createSession({
+      childFirstName: "سارة",
+      difficulty: Difficulty.EASY,
+      targetSize: TargetSize.MEDIUM,
+      targetSpacing: TargetSpacing.MEDIUM,
+      playArea: PlayArea.FULL,
+      seed: "integrity-balloon",
+    });
+    session.currentStage.balloons[0]!.position.x = 2;
+    expect(() => reviveSessionState(session)).toThrow(/balloon\.position/);
+  });
+
+  it("rejects an invalid Space Pilot lane instead of reviving impossible play state", () => {
+    const session = createSpacePilotSession({ childFirstName: "سارة", difficulty: Difficulty.EASY, seed: "integrity-space" });
+    if (!("stars" in session.currentStage)) throw new Error("Expected EASY star stage");
+    Object.assign(session.currentStage.stars[0]!, { lane: "SIDEWAYS" });
+    expect(() => reviveSpacePilotSessionState(session)).toThrow(/star\.lane/);
+  });
+
+  it("rejects a corrupt Color Chase debounce anchor", () => {
+    const session = createColorChaseSession({ childFirstName: "سارة", difficulty: Difficulty.EASY, seed: "integrity-color", now: 1 });
+    Object.assign(session.currentStage, { lastAcceptedInput: { padId: "PAD_99", timestamp: 2 } });
+    expect(() => reviveColorChaseSessionState(session)).toThrow(/lastAcceptedInput\.padId/);
   });
 });

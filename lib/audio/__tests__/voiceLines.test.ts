@@ -7,10 +7,12 @@ import {
   encouragementLine,
   incorrectLine,
   instructionLine,
+  pausedLine,
   sessionCompleteLine,
   stageCompleteLine,
   startZoneFirstLine,
   startZoneReturnLine,
+  waitingWorldGreetingLine,
   welcomeLine,
 } from "../voiceLines";
 
@@ -105,6 +107,16 @@ describe("encouragementLine variety", () => {
     const half = encouragementLine("half", "نورة", 0);
     const threeQuarter = encouragementLine("threeQuarter", "نورة", 0);
     expect(new Set([quarter, half, threeQuarter]).size).toBe(3);
+  });
+});
+
+describe("waitingWorldGreetingLine / pausedLine (voice coverage gaps)", () => {
+  it("waiting world greeting matches ShumosWaitingWorld.tsx's own visible Arabic message verbatim", () => {
+    expect(waitingWorldGreetingLine()).toBe("بانتظار اختيار النشاط من الأخصائي");
+  });
+
+  it("paused line is a fixed, non-empty phrase", () => {
+    expect(pausedLine().length).toBeGreaterThan(0);
   });
 });
 

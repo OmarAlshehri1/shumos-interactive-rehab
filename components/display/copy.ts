@@ -14,8 +14,8 @@ export function stageOrdinalAr(stageNumber: StageNumber): string {
 }
 
 /** Formats a duration as MM:SS for the session-complete summary card. Null (a stage/session with nothing timed — e.g. a never-entered SKIPPED stage) renders as "—", same convention as formatReactionTimeSeconds below. */
-export function formatDurationClock(durationMs: number | null): string {
-  if (durationMs === null) return "—";
+export function formatDurationClock(durationMs: number | null | undefined): string {
+  if (durationMs === null || durationMs === undefined || !Number.isFinite(durationMs) || durationMs < 0) return "—";
   const totalSeconds = Math.max(0, Math.round(durationMs / 1000));
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -23,8 +23,8 @@ export function formatDurationClock(durationMs: number | null): string {
 }
 
 /** Formats a 0-1 accuracy ratio as a whole-percent string for the child-facing summary. Null (nothing to measure — e.g. a never-entered SKIPPED stage) renders as "—", never 0%, which would misleadingly read as "played and failed." */
-export function formatAccuracyPercent(accuracy: number | null): string {
-  if (accuracy === null) return "—";
+export function formatAccuracyPercent(accuracy: number | null | undefined): string {
+  if (accuracy === null || accuracy === undefined || !Number.isFinite(accuracy) || accuracy < 0 || accuracy > 1) return "—";
   return `${Math.round(accuracy * 100)}%`;
 }
 
@@ -36,8 +36,8 @@ export function formatAccuracyPercent(accuracy: number | null): string {
  * formatting (and the exact same "—" for "nothing recorded yet") appears
  * everywhere this number is shown — see the Task 9 report.
  */
-export function formatReactionTimeSeconds(ms: number | null): string {
-  if (ms === null) return "—";
+export function formatReactionTimeSeconds(ms: number | null | undefined): string {
+  if (ms === null || ms === undefined || !Number.isFinite(ms) || ms < 0) return "—";
   return `${(ms / 1000).toFixed(1)} ث`;
 }
 

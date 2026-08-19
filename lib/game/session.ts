@@ -1,7 +1,8 @@
-import { getAdjacentDifficulty, STAGES_PER_DIFFICULTY } from "./difficultyRules";
+import { getAdjacentDifficulty, isSequentialStageTarget, STAGES_PER_DIFFICULTY } from "./difficultyRules";
 import { buildSessionSummary, finalizeStageResult } from "./scoring";
 import { generateStage, type GeneratedStage } from "./stageGenerator";
 import { transition } from "./stateMachine";
+import type { SessionWorkflowMetadata } from "@/lib/sessions/workflowMetadata";
 import {
   type Balloon,
   type BalloonColor,
@@ -16,6 +17,7 @@ import {
   type TargetSize,
   type TargetSpacing,
 } from "./types";
+import { safeElapsedMs } from "@/lib/dataIntegrity/numeric";
 
 /** Runtime state for the one currently-active stage: its generated balloons plus everything scored during play. */
 export interface StageRuntime {
@@ -88,6 +90,7 @@ export interface SessionState {
   createdAt: number;
   endedAt: number | null;
   summary: SessionSummary | null;
+  workflow?: SessionWorkflowMetadata;
 }
 
 export type ActionResult =
@@ -106,6 +109,7 @@ export interface CreateSessionParams {
   seed?: string;
   /** Injectable clock for tests. Defaults to Date.now(). */
   now?: number;
+  workflow?: SessionWorkflowMetadata;
 }
 
 function stageRuntimeFromGenerated(generated: GeneratedStage, difficulty: Difficulty): StageRuntime {
@@ -164,6 +168,7 @@ export function createSession(params: CreateSessionParams): SessionState {
     createdAt: params.now ?? Date.now(),
     endedAt: null,
     summary: null,
+    ...(params.workflow ? { workflow: params.workflow } : {}),
   };
 }
 
@@ -180,6 +185,7 @@ export function createSession(params: CreateSessionParams): SessionState {
  * module always use the dedicated functions instead.
  */
 export function applyGameTransition(state: SessionState, to: GameState, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   const result = transition(state.gameState, to);
   if (!result.success) {
     return { success: false, state, reason: result.reason };
@@ -202,14 +208,29 @@ export function applyGameTransition(state: SessionState, to: GameState, timestam
  * STAGE_COMPLETE, and it never skips anything (unlike jumpToStage), since
  * the move is always to the very next meaningful stage.
  */
-export function advanceToStage(state: SessionState, target: { difficulty: Difficulty; stageNumber: StageNumber }): ActionResult {
+export function advanceToStage(
+  state: SessionState,
+  target: { difficulty: Difficulty; stageNumber: StageNumber },
+  /**
+   * THERAPIST SETUP SIMPLIFICATION (task section 53) — the calling hook's
+   * freshly-resolved preset technical fields for `target.difficulty`
+   * (getStagePreset(target.difficulty, target.stageNumber).config), passed
+   * only when this is an actual difficulty change. Ignored/omitted on a
+   * same-difficulty "continue" — config is stage-invariant within one
+   * difficulty by design, so nothing needs to be re-resolved there.
+   */
+  presetFields?: Pick<SessionConfig, "targetSize" | "targetSpacing" | "playArea">,
+): ActionResult {
   if (state.gameState !== GameState.STAGE_COMPLETE) {
     return { success: false, state, reason: "Can only advance from STAGE_COMPLETE." };
   }
 
   const current = state.currentStage;
   const sameDifficulty = target.difficulty === state.currentDifficulty;
-  const isContinue = sameDifficulty && target.stageNumber === current.stageNumber + 1;
+  const isContinue = isSequentialStageTarget(
+    { difficulty: state.currentDifficulty, stageNumber: current.stageNumber },
+    target,
+  );
   const isDifficultyChange =
     !sameDifficulty &&
     target.stageNumber === current.stageNumber &&
@@ -224,62 +245,52 @@ export function advanceToStage(state: SessionState, target: { difficulty: Diffic
     };
   }
 
-  return enterStage(state, target.difficulty, target.stageNumber);
+  return enterStage(state, target.difficulty, target.stageNumber, !sameDifficulty ? presetFields : undefined);
 }
 
 /**
- * Forward-jump to a later stage in the SAME difficulty — the therapist
- * stage strip's action. Valid any time a stage is active or has just
- * completed (INSTRUCTIONS/COUNTDOWN/PLAYING/STAGE_COMPLETE). The current
- * stage (if not already finalized, i.e. not already STAGE_COMPLETE) is
- * finalized as SKIPPED using whatever real partial progress it has; every
- * stage strictly between it and the target — never actually entered — is
- * recorded as SKIPPED with no gameplay data at all. Never allows jumping to
- * the current stage or an earlier one — see the Task 11 report's "Do NOT
- * allow chaotic navigation" section: this is the ONE place that rule is
- * enforced.
+ * Direct live navigation to any other stage in the same difficulty. The
+ * current entered attempt is finalized as SKIPPED once; stages that were
+ * never entered are never fabricated in history. Selecting the current
+ * stage is an idempotent no-op.
  */
 export function jumpToStage(state: SessionState, targetStageNumber: StageNumber, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   const validFrom: readonly GameState[] = [
+    GameState.START_ZONE,
     GameState.INSTRUCTIONS,
     GameState.COUNTDOWN,
     GameState.PLAYING,
     GameState.STAGE_COMPLETE,
   ];
   if (!validFrom.includes(state.gameState)) {
-    return { success: false, state, reason: "Can only jump to a later stage while a stage is active or just completed." };
+    return { success: false, state, reason: "Can only navigate stages while a stage is active or just completed." };
   }
 
   const currentStageNumber = state.currentStage.stageNumber;
-  if (targetStageNumber <= currentStageNumber) {
-    return { success: false, state, reason: "Can only jump forward — never to the current stage or an earlier one." };
+  if (targetStageNumber === currentStageNumber) {
+    return { success: true, state };
   }
 
   const alreadyFinalized = state.gameState === GameState.STAGE_COMPLETE;
-  const stateWithCurrentFinalized = alreadyFinalized ? state : finalizeCurrentStage(state, timestamp, StageStatus.SKIPPED);
+  const stateWithCurrentFinalized = alreadyFinalized || state.gameState === GameState.START_ZONE ? state : finalizeCurrentStage(state, timestamp, StageStatus.SKIPPED);
+  return enterStage(stateWithCurrentFinalized, state.currentDifficulty, targetStageNumber);
+}
 
-  const skippedPlaceholders: StageResult[] = [];
-  for (let n = currentStageNumber + 1; n < targetStageNumber; n++) {
-    skippedPlaceholders.push(
-      finalizeStageResult({
-        difficulty: state.currentDifficulty,
-        stageNumber: n as StageNumber,
-        status: StageStatus.SKIPPED,
-        targetColor: null,
-        correctCount: 0,
-        incorrectCount: 0,
-        totalTargets: 0,
-        durationMs: null,
-        reactionTimesMs: [],
-      }),
-    );
-  }
-  const stateWithPlaceholders: SessionState = {
-    ...stateWithCurrentFinalized,
-    results: [...stateWithCurrentFinalized.results, ...skippedPlaceholders],
-  };
-
-  return enterStage(stateWithPlaceholders, state.currentDifficulty, targetStageNumber);
+/** Live therapist difficulty navigation. The current attempt is finalized once, then the selected difficulty starts deterministically at stage 1. */
+export function switchDifficulty(
+  state: SessionState,
+  difficulty: Difficulty,
+  timestamp: number,
+  presetFields: Pick<SessionConfig, "targetSize" | "targetSpacing" | "playArea">,
+): ActionResult {
+  if (difficulty === state.currentDifficulty) return { success: true, state };
+  const validFrom: readonly GameState[] = [GameState.START_ZONE, GameState.INSTRUCTIONS, GameState.COUNTDOWN, GameState.PLAYING, GameState.STAGE_COMPLETE];
+  if (!validFrom.includes(state.gameState)) return { success: false, state, reason: "Cannot change difficulty now." };
+  const finalized = state.gameState === GameState.STAGE_COMPLETE || state.gameState === GameState.START_ZONE
+    ? state
+    : finalizeCurrentStage(state, timestamp, StageStatus.SKIPPED);
+  return enterStage(finalized, difficulty, 1, presetFields);
 }
 
 /**
@@ -300,16 +311,31 @@ export function skipStage(state: SessionState, timestamp: number): ActionResult 
 }
 
 /** Shared by advanceToStage and jumpToStage: generates the target stage and lands on START_ZONE. */
-function enterStage(state: SessionState, difficulty: Difficulty, stageNumber: StageNumber): ActionResult {
-  const transitionResult = transition(state.gameState, GameState.START_ZONE);
+function enterStage(
+  state: SessionState,
+  difficulty: Difficulty,
+  stageNumber: StageNumber,
+  presetFields?: Pick<SessionConfig, "targetSize" | "targetSpacing" | "playArea">,
+): ActionResult {
+  const transitionResult = state.gameState === GameState.START_ZONE
+    ? { success: true as const, state: GameState.START_ZONE }
+    : transition(state.gameState, GameState.START_ZONE);
   if (!transitionResult.success) {
     return { success: false, state, reason: transitionResult.reason };
   }
-  const generated = generateStage({ seed: state.seed, difficulty, stageNumber, config: state.config });
+  // THERAPIST SETUP SIMPLIFICATION — config.difficulty/startingStage always
+  // stay the ORIGINAL setup choice (currentDifficulty is the live indicator
+  // — see SessionState's doc comment and buildStoredSession's
+  // startingDifficulty). Only the technical fields are refreshed here, from
+  // the new difficulty's preset, so a mid-session "أسهل"/"أصعب" decision
+  // actually feels like that difficulty instead of reusing stale values.
+  const config = presetFields ? { ...state.config, ...presetFields } : state.config;
+  const generated = generateStage({ seed: state.seed, difficulty, stageNumber, config });
   return {
     success: true,
     state: {
       ...state,
+      config,
       gameState: transitionResult.state,
       currentDifficulty: difficulty,
       currentStage: stageRuntimeFromGenerated(generated, difficulty),
@@ -325,6 +351,7 @@ function enterStage(state: SessionState, difficulty: Difficulty, stageNumber: St
  * double-scored.
  */
 export function selectBalloon(state: SessionState, balloonId: string, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   if (state.gameState !== GameState.PLAYING) {
     return { success: false, state, reason: "Balloons can only be selected while PLAYING." };
   }
@@ -349,13 +376,13 @@ export function selectBalloon(state: SessionState, balloonId: string, timestamp:
     return { success: true, state: { ...state, currentStage: updatedStage } };
   }
 
-  const reactionTimeMs = Math.max(0, timestamp - (stage.startedAt ?? timestamp) - stage.totalPausedMs);
+  const reactionTimeMs = safeElapsedMs(timestamp, stage.startedAt ?? timestamp, stage.totalPausedMs);
   const updatedBalloons = stage.balloons.map((b, i) => (i === balloonIndex ? { ...b, isPopped: true } : b));
   const updatedStage: StageRuntime = {
     ...stage,
     balloons: updatedBalloons,
     correctCount: stage.correctCount + 1,
-    reactionTimesMs: [...stage.reactionTimesMs, reactionTimeMs],
+    reactionTimesMs: reactionTimeMs === null ? stage.reactionTimesMs : [...stage.reactionTimesMs, reactionTimeMs],
   };
 
   let nextState: SessionState = { ...state, currentStage: updatedStage };
@@ -373,6 +400,7 @@ export function selectBalloon(state: SessionState, balloonId: string, timestamp:
 
 /** Pauses the current stage's timer. Reaction time and stage duration exclude paused time. */
 export function pauseSession(state: SessionState, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   if (state.gameState !== GameState.PLAYING) {
     return { success: false, state, reason: "Can only pause while PLAYING." };
   }
@@ -384,6 +412,7 @@ export function pauseSession(state: SessionState, timestamp: number): ActionResu
 }
 
 export function resumeSession(state: SessionState, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   if (state.gameState !== GameState.PLAYING) {
     return { success: false, state, reason: "Can only resume while PLAYING." };
   }
@@ -391,10 +420,12 @@ export function resumeSession(state: SessionState, timestamp: number): ActionRes
   if (stage.pausedAt === null) {
     return { success: false, state, reason: "Not paused." };
   }
+  const pausedFor = safeElapsedMs(timestamp, stage.pausedAt);
+  if (pausedFor === null) return { success: false, state, reason: "Invalid pause timestamp." };
   const updatedStage: StageRuntime = {
     ...stage,
     pausedAt: null,
-    totalPausedMs: stage.totalPausedMs + Math.max(0, timestamp - stage.pausedAt),
+    totalPausedMs: stage.totalPausedMs + pausedFor,
   };
   return { success: true, state: { ...state, currentStage: updatedStage } };
 }
@@ -406,6 +437,7 @@ export function resumeSession(state: SessionState, timestamp: number): ActionRes
  * a clean retry of the same challenge, not a new random one.
  */
 export function restartStage(state: SessionState, timestamp: number): ActionResult {
+  if (safeElapsedMs(timestamp, state.createdAt) === null) return { success: false, state, reason: "Invalid action timestamp." };
   if (state.gameState !== GameState.PLAYING) {
     return { success: false, state, reason: "Can only restart while PLAYING." };
   }
@@ -431,6 +463,8 @@ export function restartStage(state: SessionState, timestamp: number): ActionResu
  * that jumps straight to SESSION_COMPLETE outside the normal table.
  */
 export function endSession(state: SessionState, timestamp: number): ActionResult {
+  const totalDurationMs = safeElapsedMs(timestamp, state.createdAt);
+  if (totalDurationMs === null) return { success: false, state, reason: "Invalid session timestamp." };
   if (state.gameState === GameState.SESSION_COMPLETE) {
     return { success: false, state, reason: "Session already ended." };
   }
@@ -445,7 +479,7 @@ export function endSession(state: SessionState, timestamp: number): ActionResult
     childFirstName: stateWithFinalStage.config.childFirstName,
     startingDifficulty: stateWithFinalStage.config.difficulty,
     stageResults: stateWithFinalStage.results,
-    totalDurationMs: timestamp - stateWithFinalStage.createdAt,
+    totalDurationMs,
     completedAt: new Date(timestamp).toISOString(),
   });
 
@@ -464,7 +498,8 @@ function finalizeCurrentStage(state: SessionState, timestamp: number, status: St
   const stage = state.currentStage;
   if (stage.completedAt !== null) return state;
 
-  const durationMs = Math.max(0, timestamp - (stage.startedAt ?? timestamp) - stage.totalPausedMs);
+  const openPauseMs = stage.pausedAt === null ? 0 : safeElapsedMs(timestamp, stage.pausedAt);
+  const durationMs = openPauseMs === null ? null : safeElapsedMs(timestamp, stage.startedAt ?? timestamp, stage.totalPausedMs + openPauseMs);
   const result = finalizeStageResult({
     difficulty: stage.difficulty,
     stageNumber: stage.stageNumber,

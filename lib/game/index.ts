@@ -8,6 +8,10 @@ export {
   STAGES_PER_DIFFICULTY,
   getStageBlueprint,
   getAdjacentDifficulty,
+  getNextStageTarget,
+  getStageDecisionTarget,
+  isSequentialStageTarget,
+  type StageProgressionTarget,
   type StageBlueprint,
 } from "./difficultyRules";
 export {
@@ -31,6 +35,7 @@ export {
   applyGameTransition,
   advanceToStage,
   jumpToStage,
+  switchDifficulty,
   selectBalloon,
   pauseSession,
   resumeSession,

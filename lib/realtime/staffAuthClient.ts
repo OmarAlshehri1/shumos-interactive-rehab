@@ -42,6 +42,7 @@ export interface StaffAuthState {
   status: StaffAuthStatus;
   uid: string | null;
   email: string | null;
+  displayName: string | null;
 }
 
 /**
@@ -117,19 +118,19 @@ export type StaffAuthListener = (state: StaffAuthState) => void;
 /** Subscribes to this tab's STAFF auth state. Never triggers a sign-in on its own (unlike authClient.ts's anonymous flow) — the therapist must submit the login form; see signInStaff(). */
 export function subscribeToStaffAuthState(listener: StaffAuthListener): () => void {
   const authInstance = getStaffAuthInstance();
-  listener({ status: "initializing", uid: null, email: null });
+  listener({ status: "initializing", uid: null, email: null, displayName: null });
 
   return onAuthStateChanged(
     authInstance,
     (user) => {
       if (user) {
-        listener({ status: "authenticated", uid: user.uid, email: user.email });
+        listener({ status: "authenticated", uid: user.uid, email: user.email, displayName: user.displayName ?? null });
       } else {
-        listener({ status: "unauthenticated", uid: null, email: null });
+        listener({ status: "unauthenticated", uid: null, email: null, displayName: null });
       }
     },
     () => {
-      listener({ status: "failed", uid: null, email: null });
+      listener({ status: "failed", uid: null, email: null, displayName: null });
     },
   );
 }

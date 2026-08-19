@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { Difficulty, StageStatus } from "@/lib/game";
-import { BALLOON_QUEST_GAME_ID } from "@/lib/games/registry";
+import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, FEED_THE_ANIMALS_GAME_ID } from "@/lib/games/registry";
 import { suggestResumePoint } from "../resumeSuggestion";
-import type { StoredSession, StoredStageResult } from "../types";
+import type { StoredBubblePopSession, StoredFeedAnimalsSession, StoredSession, StoredStageResult } from "../types";
 
 function makeStageResult(overrides: Partial<StoredStageResult>): StoredStageResult {
   return {
@@ -81,5 +81,65 @@ describe("suggestResumePoint", () => {
     const session = makeSession([makeStageResult({ difficulty: Difficulty.EASY, stageNumber: 5, status: StageStatus.COMPLETED })]);
     const suggestion = suggestResumePoint(session);
     expect(Object.keys(suggestion).sort()).toEqual(["difficulty", "reason", "startingStage"]);
+  });
+
+  it("MULTI-GAME PLATFORM — a StoredBubblePopSession satisfies StoredSessionLike structurally, no cast/adapter needed, and progression is computed identically to Balloon Quest/Follow the Footsteps", () => {
+    const bubblePopSession: StoredBubblePopSession = {
+      sessionId: "bp-1",
+      patientId: "p1",
+      gameId: BUBBLE_POP_WALL_GAME_ID,
+      startedAt: 0,
+      completedAt: 1000,
+      createdByUid: "u1",
+      startingDifficulty: Difficulty.MEDIUM,
+      startingStage: 1,
+      endingDifficulty: Difficulty.MEDIUM,
+      endingStage: 3,
+      completedStageCount: 1,
+      skippedStageCount: 0,
+      totalTargetsPresented: 4,
+      totalTargetsCompleted: 4,
+      totalIncorrect: 0,
+      completionRate: 1,
+      accuracy: 1,
+      durationMs: 1000,
+      averageResponseTimeMs: 400,
+      bestStage: { difficulty: Difficulty.MEDIUM, stageNumber: 3 },
+      stageResults: [
+        { difficulty: Difficulty.MEDIUM, stageNumber: 3, status: StageStatus.COMPLETED, targetsPresented: 4, targetsCompleted: 4, incorrectCount: 0, durationMs: 1000, averageResponseTimeMs: 400 },
+      ],
+    };
+
+    expect(suggestResumePoint(bubblePopSession)).toEqual({ difficulty: Difficulty.MEDIUM, startingStage: 4, reason: "next-stage" });
+  });
+
+  it("MULTI-GAME PLATFORM — a StoredFeedAnimalsSession satisfies StoredSessionLike structurally too, no cast/adapter needed, and progression is computed identically to every other game", () => {
+    const feedAnimalsSession: StoredFeedAnimalsSession = {
+      sessionId: "fa-1",
+      patientId: "p1",
+      gameId: FEED_THE_ANIMALS_GAME_ID,
+      startedAt: 0,
+      completedAt: 1000,
+      createdByUid: "u1",
+      startingDifficulty: Difficulty.EASY,
+      startingStage: 1,
+      endingDifficulty: Difficulty.EASY,
+      endingStage: 5,
+      completedStageCount: 1,
+      skippedStageCount: 0,
+      totalRoundsPresented: 5,
+      totalRoundsCompleted: 5,
+      totalIncorrect: 0,
+      completionRate: 1,
+      accuracy: 1,
+      durationMs: 1000,
+      averageResponseTimeMs: 500,
+      bestStage: { difficulty: Difficulty.EASY, stageNumber: 5 },
+      stageResults: [
+        { difficulty: Difficulty.EASY, stageNumber: 5, status: StageStatus.COMPLETED, roundsPresented: 5, roundsCompleted: 5, incorrectCount: 0, durationMs: 1000, averageResponseTimeMs: 500 },
+      ],
+    };
+
+    expect(suggestResumePoint(feedAnimalsSession)).toEqual({ difficulty: Difficulty.MEDIUM, startingStage: 1, reason: "next-difficulty" });
   });
 });

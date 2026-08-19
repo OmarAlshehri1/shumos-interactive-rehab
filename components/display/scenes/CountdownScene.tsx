@@ -49,10 +49,35 @@ const TICK_VOICE = ["3", "2", "1", "start"] as const;
  * this number.
  */
 export const TICK_DURATION_MS = 2000;
-/** Floor so a tick never advances faster than this, even if Lama is muted or fails instantly — keeps the countdown feeling paced, not rushed. */
-const MIN_TICK_MS = 850;
+/**
+ * RELIABILITY FIX — countdown/audio desync: this floor was found while a
+ * since-retired browser-SpeechSynthesis test provider (a "TEMPORARY TEST
+ * PROVIDER" locking macOS's "Mariam (Enhanced)" voice, no longer wired into
+ * AudioManager — Munsit is the active/only voice again) resolved
+ * speakCountdownTick() on SpeechSynthesisUtterance.onend — well documented
+ * to fire early/unreliably for macOS Enhanced-tier voices specifically,
+ * well before real audio playback had actually finished. When that
+ * happened,
+ * voiceSettledRef resolves almost immediately, so every tick used to fall
+ * through to one blind uniform floor regardless of the word's real length —
+ * and since each tick's speak() call unconditionally cancels whatever is
+ * still playing, advancing before real playback finished was cutting the
+ * previous word off mid-syllable. A single per-word minimum, one entry per
+ * TICKS/TICK_VOICE index, replaces that uniform floor so a longer word
+ * ("ثلاثة") isn't held to the same minimum as a shorter one ("واحد") — a
+ * genuinely slow utterance can still win (onend arriving LATER than its
+ * floor still governs pacing via the Promise.race below), this only
+ * compensates for onend arriving suspiciously early. Tune these if live QA
+ * still finds a word's audio outlasting its tick.
+ */
+const MIN_TICK_MS_BY_TICK = [1100, 1000, 900, 900] as const;
 /** Short breathing room after Lama finishes a number before the next one appears. */
 const PAUSE_AFTER_VOICE_MS = 280;
+
+/** Pulled out for unit testing (see __tests__/CountdownScene.test.ts) — an out-of-range index falls back to the last entry rather than throwing. */
+export function resolveMinTickMs(index: number): number {
+  return MIN_TICK_MS_BY_TICK[index] ?? MIN_TICK_MS_BY_TICK[MIN_TICK_MS_BY_TICK.length - 1];
+}
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -110,7 +135,8 @@ export function CountdownScene({ onComplete, onEvent, speakCountdownTick }: Coun
       await Promise.race([voiceSettledRef.current.then(() => delay(PAUSE_AFTER_VOICE_MS)), delay(TICK_DURATION_MS)]);
       if (cancelled) return;
       const elapsed = performance.now() - start;
-      if (elapsed < MIN_TICK_MS) await delay(MIN_TICK_MS - elapsed);
+      const minTickMs = resolveMinTickMs(index);
+      if (elapsed < minTickMs) await delay(minTickMs - elapsed);
       if (cancelled) return;
       if (isLastTick) onComplete();
       else setIndex((i) => i + 1);

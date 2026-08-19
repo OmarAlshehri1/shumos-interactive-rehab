@@ -9,8 +9,8 @@ describe("calculateAccuracy", () => {
     expect(calculateAccuracy(0, 4)).toBe(0);
   });
 
-  it("returns 0, not NaN, when nothing was attempted", () => {
-    expect(calculateAccuracy(0, 0)).toBe(0);
+  it("returns unavailable, not a fabricated 0 or NaN, when nothing was attempted", () => {
+    expect(calculateAccuracy(0, 0)).toBeNull();
   });
 });
 
@@ -219,7 +219,7 @@ describe("buildSessionSummary", () => {
       completedAt: "2026-08-14T00:00:00.000Z",
     });
     expect(summary.bestStage).toBeNull();
-    expect(summary.overallAccuracy).toBe(0);
+    expect(summary.overallAccuracy).toBeNull();
     expect(summary.averageReactionTimeMs).toBeNull();
     expect(summary.difficultiesPlayed).toEqual([]);
   });

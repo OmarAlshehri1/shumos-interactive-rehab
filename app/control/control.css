@@ -29,3 +29,114 @@
     animation: none !important;
   }
 }
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 13mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+    color: #0f172a !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-only {
+    display: flex !important;
+  }
+
+  main:has(.session-report-print) {
+    position: static !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  main:has(.session-report-print) > div {
+    display: block !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .session-report-print {
+    display: block !important;
+    font-family: var(--font-control), system-ui, sans-serif;
+  }
+
+  .session-report-print > * {
+    margin-bottom: 5mm !important;
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .session-report-print section,
+  .session-report-print li,
+  .session-report-print [class*="rounded"] {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .session-report-print section {
+    border-color: #cbd5e1 !important;
+    background: white !important;
+  }
+
+  .session-report-print header {
+    margin-block: 5mm 7mm !important;
+  }
+
+  .session-report-print h1 {
+    font-size: 20pt !important;
+  }
+
+  .session-report-print p,
+  .session-report-print span,
+  .session-report-print dt,
+  .session-report-print dd,
+  .session-report-print li {
+    color: #0f172a !important;
+  }
+
+  .print-report-brand {
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #94a3b8;
+    padding-bottom: 5mm;
+  }
+
+  .print-report-brand img {
+    width: 22mm;
+    height: 22mm;
+    object-fit: contain;
+  }
+
+  .print-report-brand div {
+    display: flex;
+    flex-direction: column;
+    gap: 1mm;
+    text-align: left;
+  }
+
+  .print-report-brand strong {
+    font-size: 15pt;
+  }
+
+  .print-report-brand span {
+    font-size: 10pt;
+    color: #475569 !important;
+  }
+}

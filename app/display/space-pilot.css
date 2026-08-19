@@ -1,0 +1,188 @@
+/*
+ * Ambient/idle animation loops for Space Pilot's own /display world —
+ * SPACE WORLD (رحلة النجوم). Scoped to this route (not app/globals.css),
+ * same convention as balloon-quest.css/bubble-pop-wall.css/etc.:
+ * continuous infinite loops live here as plain CSS (cheap), discrete
+ * triggered choreography (star collection, upgrades, celebrations) is
+ * handled by Motion in JS instead.
+ *
+ * DIRECTION CONVENTION: the rocket flies forward toward the LEFT (nose
+ * points left). Every drifting world layer therefore travels from the LEFT
+ * edge toward the RIGHT edge — the task's "Stars/environment approach from
+ * the LEFT and travel toward the RIGHT relative to the rocket," the
+ * standard side-scroller illusion of a stationary rocket flying through a
+ * scrolling world. Far layers move slowly, closer layers move faster
+ * (parallax depth).
+ */
+
+@keyframes sp-drift-far {
+  from {
+    transform: translateX(-15vw);
+  }
+  to {
+    transform: translateX(115vw);
+  }
+}
+
+@keyframes sp-drift-mid {
+  from {
+    transform: translateX(-15vw);
+  }
+  to {
+    transform: translateX(115vw);
+  }
+}
+
+@keyframes sp-drift-near {
+  from {
+    transform: translateX(-15vw);
+  }
+  to {
+    transform: translateX(115vw);
+  }
+}
+
+/* Task's "occasional comet" — parked invisible off-screen for most of a long cycle, then sweeps across and fades once. */
+@keyframes sp-comet-sweep {
+  0%,
+  78% {
+    transform: translateX(-15vw) rotate(-14deg);
+    opacity: 0;
+  }
+  80% {
+    opacity: 0.95;
+  }
+  92% {
+    transform: translateX(115vw) rotate(-14deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(115vw) rotate(-14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sp-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes sp-nebula-breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes sp-planet-glow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+@keyframes sp-flame-flicker {
+  0%,
+  100% {
+    transform: scaleX(1) scaleY(1);
+    opacity: 0.95;
+  }
+  35% {
+    transform: scaleX(0.92) scaleY(1.08);
+    opacity: 1;
+  }
+  70% {
+    transform: scaleX(1.05) scaleY(0.94);
+    opacity: 0.9;
+  }
+}
+
+/*
+ * SYMMETRIC around 0 — a previous version only ever moved from 0 up to
+ * -1.1vh and back (0% -> -1.1vh -> 0%), which never once dips BELOW the
+ * rocket's true baseline. Since the rocket spends its entire idle cycle at
+ * or above that baseline and never below it, its time-averaged on-screen
+ * position sits measurably ABOVE the canonical lane line it's positioned
+ * on — this is the real cause of the rocket appearing to float slightly
+ * above the lane/star centerline, not a static CSS offset or SVG art
+ * issue. Oscillating equally above (-0.9vh) and below (+0.9vh) keeps the
+ * idle "floating in space" life while its time-average lands exactly on
+ * the canonical lane center.
+ */
+@keyframes sp-rocket-bob {
+  0%,
+  100% {
+    transform: translateY(-0.9vh);
+  }
+  50% {
+    transform: translateY(0.9vh);
+  }
+}
+
+.sp-star-far {
+  animation: sp-drift-far var(--sp-drift-duration, 60s) linear infinite, sp-twinkle var(--sp-twinkle-duration, 4s) ease-in-out infinite;
+  animation-delay: var(--sp-drift-delay, 0s), var(--sp-twinkle-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.sp-star-mid {
+  animation: sp-drift-mid var(--sp-drift-duration, 34s) linear infinite, sp-twinkle var(--sp-twinkle-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--sp-drift-delay, 0s), var(--sp-twinkle-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.sp-nebula-drift {
+  animation: sp-drift-far var(--sp-drift-duration, 90s) linear infinite, sp-nebula-breathe 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.sp-moon-drift {
+  animation: sp-drift-mid var(--sp-drift-duration, 48s) linear infinite;
+  will-change: transform;
+}
+
+.sp-planet-glow {
+  animation: sp-planet-glow 8s ease-in-out infinite;
+}
+
+.sp-comet-drift {
+  animation: sp-comet-sweep var(--sp-drift-duration, 42s) ease-in infinite;
+  animation-delay: var(--sp-drift-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.sp-flame {
+  animation: sp-flame-flicker 0.5s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+.sp-rocket-idle {
+  animation: sp-rocket-bob 3.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-star-far,
+  .sp-star-mid,
+  .sp-nebula-drift,
+  .sp-moon-drift,
+  .sp-planet-glow,
+  .sp-comet-drift,
+  .sp-flame,
+  .sp-rocket-idle {
+    animation: none !important;
+  }
+}

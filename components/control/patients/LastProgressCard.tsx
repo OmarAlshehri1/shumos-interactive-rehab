@@ -1,12 +1,12 @@
 import { STAGES_PER_DIFFICULTY } from "@/lib/game";
 import { getGameById } from "@/lib/games/registry";
-import type { StoredSession } from "@/lib/sessions/types";
+import type { AnyStoredSession } from "@/lib/sessions/types";
 import { DIFFICULTY_LABELS } from "@/components/control/copy";
 import { formatSessionDate } from "./formatSessionDate";
 
 interface LastProgressCardProps {
-  /** The most recent Balloon Quest session (already filtered/sorted by the caller — see PatientSessionHistorySection). */
-  session: StoredSession;
+  /** MULTI-GAME PLATFORM: the most recent session FOR ONE SPECIFIC GAME (already filtered/sorted by the caller — see PatientSessionHistorySection). Every field this component reads (gameId/endingDifficulty/endingStage/completedAt) is common to every game's StoredSession shape, so this needs no per-game branching. */
+  session: AnyStoredSession;
   onResume: () => void;
 }
 

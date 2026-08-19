@@ -81,11 +81,20 @@ function CornerShower() {
 
 const VARIANTS = [StarsAndSides, RadialBursts, CornerShower] as const;
 
-export function CorrectCelebrationBurst({ variant }: { variant: CorrectBurstVariant }) {
+export function CorrectCelebrationBurst({ variant, final = false }: { variant: CorrectBurstVariant; final?: boolean }) {
   const Variant = VARIANTS[variant];
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <Variant />
+      {final && (
+        <>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Sparkles colors={[...RAINBOW]} count={18} radius={18} />
+          </div>
+          <div className="absolute top-[12%] left-[8%]"><Sparkles colors={[...GOLD]} count={8} radius={10} /></div>
+          <div className="absolute right-[8%] bottom-[12%]"><Sparkles colors={[...GOLD]} count={8} radius={10} /></div>
+        </>
+      )}
     </div>
   );
 }

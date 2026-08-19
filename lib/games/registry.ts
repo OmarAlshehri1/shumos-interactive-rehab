@@ -16,7 +16,7 @@
  * indirection (see the Task's "no complicated dynamic routing unless
  * necessary").
  */
-export type GameId = "balloon-quest";
+export type GameId = "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "feed-the-animals" | "space-pilot" | "color-chase";
 
 export type GameStatus = "ready";
 
@@ -31,8 +31,8 @@ export type GameStatus = "ready";
 export type SurfaceType = "FLOOR" | "WALL";
 
 export const SURFACE_TYPE_LABELS_AR: Record<SurfaceType, string> = {
-  FLOOR: "لعبة أرضية",
-  WALL: "لعبة جدارية",
+  FLOOR: "أرضية",
+  WALL: "جدار",
 };
 
 export interface GameDefinition {
@@ -41,6 +41,8 @@ export interface GameDefinition {
   nameEn: string;
   /** Short, non-clinical description of the activity — movement/play framing only, never a therapeutic claim. */
   shortDescriptionAr: string;
+  /** Plain-language interaction focus; descriptive only, never an outcome claim. */
+  focusTagsAr: readonly string[];
   status: GameStatus;
   /** Which surface this activity projects onto — GameCard derives its "لعبة أرضية"/"لعبة جدارية" pill from this, never a hardcoded label. */
   surfaceType: SurfaceType;
@@ -53,10 +55,61 @@ export const GAME_REGISTRY: readonly GameDefinition[] = [
     id: "balloon-quest",
     nameAr: "مغامرة البالونات",
     nameEn: "Balloon Quest",
-    shortDescriptionAr: "نشاط تفاعلي يعتمد على الحركة وتمييز الألوان ضمن مستويات متعددة.",
+    shortDescriptionAr: "يتحرك الطفل نحو البالونات الملوّنة ويفقع اللون المطلوب.",
+    focusTagsAr: ["تمييز الألوان", "وصول وحركة"],
     status: "ready",
     surfaceType: "FLOOR",
     route: "/control/balloon-quest",
+  },
+  {
+    id: "follow-the-footsteps",
+    nameAr: "اتبع الخطوات",
+    nameEn: "Follow the Footsteps",
+    shortDescriptionAr: "يتبع الطفل المسار الأرضي خطوةً بعد خطوة حتى يصل إلى النجمة.",
+    focusTagsAr: ["اتباع المسار", "حركة بمساعدة"],
+    status: "ready",
+    surfaceType: "FLOOR",
+    route: "/control/follow-the-footsteps",
+  },
+  {
+    id: "bubble-pop-wall",
+    nameAr: "فرقع الفقاعات",
+    nameEn: "Bubble Pop Wall",
+    shortDescriptionAr: "يختار الطفل الفقاعة المطلوبة ويؤكد لونها من محطات الجدار.",
+    focusTagsAr: ["تمييز الألوان", "تناسق بصري حركي"],
+    status: "ready",
+    surfaceType: "WALL",
+    route: "/control/bubble-pop-wall",
+  },
+  {
+    id: "feed-the-animals",
+    nameAr: "أطعم الحيوانات",
+    nameEn: "Feed the Animals",
+    shortDescriptionAr: "يختار الطفل الطعام المناسب ويساعد الحيوان على الوصول إلى هدفه.",
+    focusTagsAr: ["اختيار واتخاذ قرار", "وصول وحركة"],
+    status: "ready",
+    surfaceType: "WALL",
+    route: "/control/feed-the-animals",
+  },
+  {
+    id: "space-pilot",
+    nameAr: "قائد الفضاء",
+    nameEn: "Space Pilot",
+    shortDescriptionAr: "يحرّك الطفل الصاروخ بين المسارات، ويجمع النجوم ويتفاعل مع العوائق.",
+    focusTagsAr: ["اختيار واتخاذ قرار", "تناسق بصري حركي"],
+    status: "ready",
+    surfaceType: "WALL",
+    route: "/control/space-pilot",
+  },
+  {
+    id: "color-chase",
+    nameAr: "مطاردة الألوان",
+    nameEn: "Color Chase",
+    shortDescriptionAr: "يتحرك الطفل بين الألوان المضيئة ويختار اللون المطلوب.",
+    focusTagsAr: ["تمييز الألوان", "حركة بمساعدة"],
+    status: "ready",
+    surfaceType: "FLOOR",
+    route: "/control/color-chase",
   },
 ];
 
@@ -71,4 +124,19 @@ export function getGameById(id: string): GameDefinition | undefined {
  * controller stamping its own canonical session with a gameId when it
  * creates one. See lib/control/useRealtimeControllerSession.ts.
  */
-export const BALLOON_QUEST_GAME_ID: GameId = "balloon-quest";
+export const BALLOON_QUEST_GAME_ID = "balloon-quest";
+
+/** Same role as BALLOON_QUEST_GAME_ID above, for Follow the Footsteps — see lib/control/useFootstepsRealtimeControllerSession.ts. */
+export const FOLLOW_THE_FOOTSTEPS_GAME_ID = "follow-the-footsteps";
+
+/** Same role as BALLOON_QUEST_GAME_ID above, for Bubble Pop Wall — see lib/control/bubblepop/useBubblePopRealtimeControllerSession.ts. */
+export const BUBBLE_POP_WALL_GAME_ID = "bubble-pop-wall";
+
+/** Same role as BALLOON_QUEST_GAME_ID above, for Feed the Animals — see lib/control/feedanimals/useFeedAnimalsRealtimeControllerSession.ts. */
+export const FEED_THE_ANIMALS_GAME_ID = "feed-the-animals";
+
+/** Same role as BALLOON_QUEST_GAME_ID above, for Space Pilot — see lib/control/spacepilot/useSpacePilotRealtimeControllerSession.ts. */
+export const SPACE_PILOT_GAME_ID = "space-pilot";
+
+/** Canonical id for Color Chase controller, display, audio, and history integration. */
+export const COLOR_CHASE_GAME_ID = "color-chase";

@@ -97,6 +97,28 @@ describe("createMunsitVoiceProvider caching", () => {
     expect(errored).toBe(true);
   });
 
+  it("silently settles disabled-TTS responses without audio playback, warnings, or repeated requests", async () => {
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+    fetchMock.mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: new Headers({ "X-TTS-Disabled": "true" }),
+      arrayBuffer: async () => new ArrayBuffer(0),
+    });
+    const provider = createMunsitVoiceProvider();
+    let errored = false;
+
+    const first = new Promise<void>((resolve) => provider.speak("مرحبا", { onError: () => { errored = true; }, onEnd: resolve }));
+    const alreadyQueued = provider.prefetch?.("تعليمة كانت في الطابور");
+    await first;
+    await alreadyQueued;
+    await new Promise<void>((resolve) => provider.speak("جملة أخرى", { onEnd: resolve }));
+
+    expect(errored).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(warning).not.toHaveBeenCalled();
+  });
+
   it("after a 5xx failure, skips the network entirely for the cooldown window instead of retrying every call — a 5xx plausibly means the service itself is down", async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503 });
     const provider = createMunsitVoiceProvider();
@@ -187,6 +209,130 @@ describe("createMunsitVoiceProvider caching", () => {
 
     expect(prefetchSettled).toBe(true);
     expect(fetchMock).toHaveBeenCalledTimes(2); // the queued prefetch ran once the real call's slot freed up
+  });
+
+  // CREDIT OPTIMIZATION ROUND 2 — task's explicit required proofs: a cache
+  // MISS makes exactly one real request and still plays; a cache HIT makes
+  // zero new requests and still plays; two concurrent requests for the
+  // identical text in flight together collapse into one upstream request.
+  // "Cache miss must mean: request it on demand. NOT: remain silent."
+
+  it("CACHE MISS: speak() makes exactly one Munsit request, then actually plays the returned audio", async () => {
+    const { audioInstances } = installBrowserStubs();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = createMunsitVoiceProvider();
+
+    let started = false;
+    await new Promise<void>((resolve) => {
+      provider.speak("نص جديد لم يُطلب من قبل", {
+        onStart: () => {
+          started = true;
+        },
+        onEnd: resolve,
+      });
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(started).toBe(true);
+    expect(audioInstances).toHaveLength(1);
+  });
+
+  it("CACHE HIT: a second speak() for the identical text plays with ZERO new Munsit requests", async () => {
+    const { audioInstances } = installBrowserStubs();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = createMunsitVoiceProvider();
+
+    await new Promise<void>((resolve) => provider.speak("نص مكرر", { onEnd: resolve }));
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    let startedSecondTime = false;
+    await new Promise<void>((resolve) => {
+      provider.speak("نص مكرر", {
+        onStart: () => {
+          startedSecondTime = true;
+        },
+        onEnd: resolve,
+      });
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1); // still just one real request — the second was a pure cache hit
+    expect(startedSecondTime).toBe(true); // and it still actually played
+    expect(audioInstances).toHaveLength(2); // a fresh <audio> element per playback, both from the one cached URL
+  });
+
+  it("a rejected audio.play() settles as an error, then the cached line can play on the next gesture with no new synthesis", async () => {
+    let playAttempt = 0;
+    class GestureSensitiveAudio {
+      volume = 1;
+      onplay: (() => void) | null = null;
+      onended: (() => void) | null = null;
+      onerror: (() => void) | null = null;
+      constructor(public src: string) {}
+      play() {
+        playAttempt += 1;
+        if (playAttempt === 1) return Promise.reject(new DOMException("Autoplay blocked", "NotAllowedError"));
+        queueMicrotask(() => {
+          this.onplay?.();
+          this.onended?.();
+        });
+        return Promise.resolve();
+      }
+      pause() {}
+    }
+    vi.stubGlobal("Audio", GestureSensitiveAudio);
+    const provider = createMunsitVoiceProvider();
+    let firstErrored = false;
+
+    await new Promise<void>((resolve) =>
+      provider.speak("تعليمة محفوظة", {
+        onError: () => {
+          firstErrored = true;
+        },
+        onEnd: resolve,
+      }),
+    );
+    expect(firstErrored).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    let secondStarted = false;
+    await new Promise<void>((resolve) =>
+      provider.speak("تعليمة محفوظة", {
+        onStart: () => {
+          secondStarted = true;
+        },
+        onEnd: resolve,
+      }),
+    );
+    expect(secondStarted).toBe(true);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("IN-FLIGHT DEDUPLICATION: requesting the same text twice while the first is still loading makes only ONE upstream request", async () => {
+    installBrowserStubs();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = createMunsitVoiceProvider();
+
+    let resolveFetch!: (value: { ok: boolean; blob: () => Promise<Blob> }) => void;
+    fetchMock.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveFetch = resolve;
+        }),
+    );
+
+    const first = provider.prefetch?.("نفس النص بالضبط");
+    const second = provider.prefetch?.("نفس النص بالضبط");
+
+    // Both are in flight against the same pending fetch — only one should have actually reached fetch() so far.
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+
+    resolveFetch({ ok: true, blob: async () => new Blob(["fake-audio"]) });
+    await first;
+    await second;
+
+    expect(fetchMock).toHaveBeenCalledTimes(1); // still just one, even after both callers resolved
   });
 
   it("evicts and revokes the oldest cached object URL once the client cache cap is reached (Task 7 QA: unbounded growth over a long-running /display tab)", async () => {

@@ -1,13 +1,15 @@
 import { StageStatus, type SessionState } from "@/lib/game";
 import type { GameId } from "@/lib/games/registry";
 import type { StoredSession, StoredStageResult } from "./types";
+import { workflowFieldsForStorage } from "./workflowMetadata";
 
 export interface BuildStoredSessionParams {
   /** Must be a genuinely finished session — `gameState === SESSION_COMPLETE` with a non-null `summary` (see lib/game/session.ts's endSession). */
   session: SessionState;
   patientId: string;
   createdByUid: string;
-  gameId: GameId;
+  gameId: Extract<GameId, "balloon-quest">;
+  therapistName?: string | null;
 }
 
 /**
@@ -22,7 +24,7 @@ export interface BuildStoredSessionParams {
  * recomputes accuracy, duration, or reaction time with a different formula.
  */
 export function buildStoredSession(params: BuildStoredSessionParams): StoredSession {
-  const { session, patientId, createdByUid, gameId } = params;
+  const { session, patientId, createdByUid, gameId, therapistName } = params;
   const summary = session.summary;
   if (!summary) {
     throw new Error("buildStoredSession requires a completed session with a summary");
@@ -57,6 +59,7 @@ export function buildStoredSession(params: BuildStoredSessionParams): StoredSess
     startedAt: session.createdAt,
     completedAt: session.endedAt ?? Date.parse(summary.completedAt),
     createdByUid,
+    ...workflowFieldsForStorage(session.workflow, therapistName),
 
     startingDifficulty: session.config.difficulty,
     startingStage: session.config.startingStage,

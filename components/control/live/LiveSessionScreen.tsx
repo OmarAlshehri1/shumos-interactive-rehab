@@ -2,16 +2,19 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
-import { GameState, type SessionState, type StageNumber } from "@/lib/game";
+import { GameState, type Difficulty, type SessionState, type StageNumber } from "@/lib/game";
 import type { DifficultyDecision } from "@/lib/control/useLocalControllerSession";
 import { BalloonMap } from "./BalloonMap";
 import { ConfirmSheet } from "./ConfirmSheet";
 import { LiveHeader } from "./LiveHeader";
 import { LiveProgress } from "./LiveProgress";
+import { LiveNavigationControls } from "./LiveNavigationControls";
 import { SessionControls } from "./SessionControls";
 import { StageCompleteOverlay } from "./StageCompleteOverlay";
 import { StageStrip } from "./StageStrip";
 import { StartZoneOverlay } from "./StartZoneOverlay";
+import { EndSessionReasonSheet } from "@/components/control/session/EndSessionReasonSheet";
+import type { EarlyEndSelection } from "@/lib/sessions/workflowMetadata";
 
 interface IncorrectSignal {
   balloonId: string;
@@ -24,11 +27,12 @@ interface LiveSessionScreenProps {
   onPauseOrResume: () => void;
   onRestartStage: () => void;
   onSkipStage: () => void;
-  onEndSessionEarly: () => void;
+  onEndSessionEarly: (selection: EarlyEndSelection) => void;
   /** TASK 11: the therapist's post-STAGE_COMPLETE decision — continue, or step to the adjacent easier/harder difficulty. See StageCompleteOverlay.tsx. */
   onAdvanceStage: (decision: DifficultyDecision) => void;
   /** TASK 11: the stage strip's forward jump, confirmed via StageStrip's own ConfirmSheet. */
   onJumpToStage: (stageNumber: StageNumber) => void;
+  onDifficultyChange: (difficulty: Difficulty) => void;
   /** TASK 8.2: the therapist's "الطفل جاهز" confirmation — the only way out of GameState.START_ZONE. */
   onChildReady: () => void;
   /** TASK 8: undefined in local mode (nothing disabled for connectivity); true once /control's socket is confirmed down. */
@@ -48,6 +52,7 @@ export function LiveSessionScreen({
   onEndSessionEarly,
   onAdvanceStage,
   onJumpToStage,
+  onDifficultyChange,
   onChildReady,
   offline = false,
 }: LiveSessionScreenProps) {
@@ -119,11 +124,15 @@ export function LiveSessionScreen({
 
         <div className="flex shrink-0 flex-col gap-3 overflow-y-auto border-t border-slate-100 pt-3 landscape:w-72 landscape:border-t-0 landscape:border-s landscape:pt-3">
           <div className="px-4 sm:px-6">
+            <LiveNavigationControls currentDifficulty={session.currentDifficulty} hasMeaningfulProgress={stage.correctCount + stage.incorrectCount > 0} disabled={offline} onDifficultyChange={onDifficultyChange} />
+          </div>
+          <div className="px-4 sm:px-6">
             <StageStrip
               difficulty={session.currentDifficulty}
               currentStageNumber={stage.stageNumber}
               results={session.results}
               disabled={isAwaitingStartZone || offline}
+              hasMeaningfulProgress={stage.correctCount + stage.incorrectCount > 0}
               onJumpToStage={onJumpToStage}
             />
           </div>
@@ -180,14 +189,10 @@ export function LiveSessionScreen({
         }}
         onCancel={() => setPendingConfirm(null)}
       />
-      <ConfirmSheet
+      <EndSessionReasonSheet
         open={pendingConfirm === "end"}
-        title="إنهاء الجلسة؟"
-        description="سيتم إنهاء الجلسة الحالية وعرض الملخص. لا يمكن التراجع عن هذا الإجراء."
-        confirmLabel="إنهاء الجلسة"
-        destructive
-        onConfirm={() => {
-          onEndSessionEarly();
+        onConfirm={(selection) => {
+          onEndSessionEarly(selection);
           setPendingConfirm(null);
         }}
         onCancel={() => setPendingConfirm(null)}

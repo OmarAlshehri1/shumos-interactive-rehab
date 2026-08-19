@@ -42,7 +42,7 @@ export function PatientProfileScreen({ patientId }: { patientId: string }) {
         <PatientProfileBreadcrumb patientId={patientId} />
 
         <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
-          <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 lg:mx-0">
+          <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-7 lg:mx-0">
             {isRealtimeEnabled() ? <RealtimePatientProfile patientId={patientId} /> : <RealtimeUnavailableNotice />}
           </div>
           {isRealtimeEnabled() && <PatientQuickRail currentPatientId={patientId} />}

@@ -23,10 +23,13 @@ import type { SelectedPatientContext } from "./types";
  */
 
 const STORAGE_KEY = "shumos.control.selectedPatient";
+const WALK_IN_STORAGE_KEY = "shumos.control.walkInName";
 
 interface PatientSessionContextValue {
   selectedPatient: SelectedPatientContext | null;
+  walkInName: string | null;
   selectPatient: (patient: SelectedPatientContext) => void;
+  selectWalkIn: (firstName: string) => void;
   clearPatient: () => void;
 }
 
@@ -75,6 +78,18 @@ function getServerSnapshot(): SelectedPatientContext | null {
   return null;
 }
 
+function getWalkInSnapshot(): string | null {
+  try {
+    return window.sessionStorage.getItem(WALK_IN_STORAGE_KEY)?.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+function getWalkInServerSnapshot(): string | null {
+  return null;
+}
+
 /** sessionStorage never changes from outside this tab's own React state updates, so there is nothing to subscribe to — this context manages its own re-renders via `override` state below, not via store notifications. */
 function subscribeToNothing(): () => void {
   return () => {};
@@ -82,32 +97,50 @@ function subscribeToNothing(): () => void {
 
 export function PatientSessionProvider({ children }: { children: React.ReactNode }) {
   const hydratedPatient = useSyncExternalStore(subscribeToNothing, getSnapshot, getServerSnapshot);
+  const hydratedWalkInName = useSyncExternalStore(subscribeToNothing, getWalkInSnapshot, getWalkInServerSnapshot);
   // Once the therapist makes an explicit choice this tab, it always wins
   // over whatever sessionStorage happened to hold at mount time — `null`
   // is a valid, deliberate override (see clearPatient), so this can't just
   // be `SelectedPatientContext | null`.
   const [override, setOverride] = useState<{ value: SelectedPatientContext | null } | null>(null);
+  const [walkInOverride, setWalkInOverride] = useState<{ value: string | null } | null>(null);
+  const walkInName = walkInOverride ? walkInOverride.value : hydratedWalkInName;
   const selectedPatient = override ? override.value : hydratedPatient;
 
   const selectPatient = useCallback((patient: SelectedPatientContext) => {
+    setWalkInOverride({ value: null });
     setOverride({ value: patient });
     try {
       window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(patient));
+      window.sessionStorage.removeItem(WALK_IN_STORAGE_KEY);
     } catch {
       // Best-effort persistence only — an unavailable/full sessionStorage still leaves the in-memory context working for this tab's lifetime.
     }
   }, []);
 
-  const clearPatient = useCallback(() => {
+  const selectWalkIn = useCallback((firstName: string) => {
     setOverride({ value: null });
+    setWalkInOverride({ value: firstName.trim() });
     try {
       window.sessionStorage.removeItem(STORAGE_KEY);
+      window.sessionStorage.setItem(WALK_IN_STORAGE_KEY, firstName.trim());
+    } catch {
+      // In-memory navigation still works when tab storage is unavailable.
+    }
+  }, []);
+
+  const clearPatient = useCallback(() => {
+    setOverride({ value: null });
+    setWalkInOverride({ value: null });
+    try {
+      window.sessionStorage.removeItem(STORAGE_KEY);
+      window.sessionStorage.removeItem(WALK_IN_STORAGE_KEY);
     } catch {
       // See selectPatient's catch above.
     }
   }, []);
 
-  return <PatientSessionContext.Provider value={{ selectedPatient, selectPatient, clearPatient }}>{children}</PatientSessionContext.Provider>;
+  return <PatientSessionContext.Provider value={{ selectedPatient, walkInName, selectPatient, selectWalkIn, clearPatient }}>{children}</PatientSessionContext.Provider>;
 }
 
 export function usePatientContext(): PatientSessionContextValue {

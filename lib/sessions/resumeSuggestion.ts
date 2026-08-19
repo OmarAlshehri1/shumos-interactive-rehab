@@ -1,5 +1,20 @@
 import { Difficulty, getAdjacentDifficulty, STAGES_PER_DIFFICULTY, StageStatus, type StageNumber } from "@/lib/game";
-import type { StoredSession } from "./types";
+
+/**
+ * MULTI-GAME PLATFORM — the minimal shape suggestResumePoint actually needs.
+ * Both StoredSession (Balloon Quest) and StoredFootstepsSession (Follow the
+ * Footsteps — see ./types) satisfy this structurally without any cast: the
+ * resume algorithm below only ever reads startingDifficulty/startingStage
+ * and each stage result's status/difficulty/stageNumber, none of which are
+ * game-specific. Widening the parameter type here (rather than duplicating
+ * this whole function per game) is exactly the kind of shared, safely-generic
+ * abstraction the platform is meant to grow.
+ */
+export interface StoredSessionLike {
+  startingDifficulty: Difficulty;
+  startingStage: StageNumber;
+  stageResults: readonly { status: StageStatus; difficulty: Difficulty; stageNumber: StageNumber }[];
+}
 
 export type ResumeReason =
   /** No stage was ever entered in the reference session — resume exactly where it started. */
@@ -45,7 +60,7 @@ export interface ResumeSuggestion {
  * most recent StoredSession for the specific game being resumed (see
  * PatientProfileScreen, which filters by gameId before calling this).
  */
-export function suggestResumePoint(mostRecentSession: StoredSession): ResumeSuggestion {
+export function suggestResumePoint(mostRecentSession: StoredSessionLike): ResumeSuggestion {
   const lastResult = mostRecentSession.stageResults[mostRecentSession.stageResults.length - 1] ?? null;
 
   if (!lastResult) {

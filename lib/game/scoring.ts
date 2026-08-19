@@ -7,23 +7,26 @@ import {
   type StageNumber,
   type StageResult,
 } from "./types";
+import { nonNegativeFiniteNumber, requireFiniteCount, requireNonNegativeFiniteNumber, safeRatio, sumFinite, weightedAverageFinite } from "@/lib/dataIntegrity/numeric";
 
 /**
  * Accuracy = correct / (correct + incorrect).
  *
  * "Incorrect" here means attempts on a non-target balloon; re-selecting an
  * already-popped balloon is a no-op and never reaches this formula (see
- * session.ts selectBalloon). Returns 0, not NaN, when nothing was attempted.
+ * session.ts selectBalloon). Null means there was no valid denominator.
  */
-export function calculateAccuracy(correctCount: number, incorrectCount: number): number {
-  const total = correctCount + incorrectCount;
-  return total === 0 ? 0 : correctCount / total;
+export function calculateAccuracy(correctCount: number, incorrectCount: number): number | null {
+  const total = sumFinite([nonNegativeFiniteNumber(correctCount), nonNegativeFiniteNumber(incorrectCount)]);
+  return total === null ? null : safeRatio(correctCount, total);
 }
 
 /** Mean of the given reaction times; null (not NaN/0) when there were none, since "no data" and "instant" are different things. */
 export function averageReactionTime(reactionTimesMs: readonly number[]): number | null {
   if (reactionTimesMs.length === 0) return null;
-  const sum = reactionTimesMs.reduce((total, ms) => total + ms, 0);
+  const values = reactionTimesMs.map(nonNegativeFiniteNumber);
+  const sum = sumFinite(values);
+  if (sum === null) return null;
   return sum / reactionTimesMs.length;
 }
 
@@ -72,7 +75,7 @@ export function difficultiesPlayed(stageResults: readonly StageResult[]): Diffic
  * difficulty.
  */
 function pickBestStage(stageResults: readonly StageResult[]): { difficulty: Difficulty; stageNumber: StageNumber } | null {
-  const completed = stageResults.filter((r) => r.status === StageStatus.COMPLETED && r.accuracy !== null);
+  const completed = stageResults.filter((r) => r.status === StageStatus.COMPLETED && r.accuracy !== null && Number.isFinite(r.accuracy));
   if (completed.length === 0) return null;
 
   let best = completed[0];
@@ -100,11 +103,11 @@ export interface BuildSessionSummaryParams {
 }
 
 export function buildSessionSummary(params: BuildSessionSummaryParams): SessionSummary {
-  const totalCorrect = params.stageResults.reduce((sum, r) => sum + r.correctCount, 0);
-  const totalIncorrect = params.stageResults.reduce((sum, r) => sum + r.incorrectCount, 0);
-  const allReactionTimes = params.stageResults.flatMap((r) =>
-    r.averageReactionTimeMs === null ? [] : [r.averageReactionTimeMs],
-  );
+  const totalCorrect = requireFiniteCount(sumFinite(params.stageResults.map((result) => result.correctCount)), "totalCorrect");
+  const totalIncorrect = requireFiniteCount(sumFinite(params.stageResults.map((result) => result.incorrectCount)), "totalIncorrect");
+  const averageReactionTimeMs = weightedAverageFinite(params.stageResults.flatMap((result) =>
+    result.averageReactionTimeMs === null ? [] : [{ value: result.averageReactionTimeMs, weight: result.correctCount }],
+  ));
 
   return {
     sessionId: params.sessionId,
@@ -115,8 +118,8 @@ export function buildSessionSummary(params: BuildSessionSummaryParams): SessionS
     totalCorrect,
     totalIncorrect,
     overallAccuracy: calculateAccuracy(totalCorrect, totalIncorrect),
-    totalDurationMs: params.totalDurationMs,
-    averageReactionTimeMs: averageReactionTime(allReactionTimes),
+    totalDurationMs: requireNonNegativeFiniteNumber(params.totalDurationMs, "totalDurationMs"),
+    averageReactionTimeMs,
     bestStage: pickBestStage(params.stageResults),
     completedAt: params.completedAt,
   };

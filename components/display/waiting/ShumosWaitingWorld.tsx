@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { BalloonColor } from "@/lib/game";
 import { BALLOON_COLOR_THEME } from "../colorPalette";
@@ -144,6 +145,7 @@ export function ShumosWaitingWorld({ onTap, isFullscreenSupported = true }: Shum
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
+        <Image src="/brand/shumos-care-logo.png" alt="شعار شموس كير" width={495} height={495} priority className="mb-[1vmin] h-[13vmin] w-[13vmin] object-contain drop-shadow-[0_6px_22px_rgba(30,41,59,.25)]" />
         <span className="text-[2.4vmin] font-medium tracking-[0.3em] text-white/70 uppercase">Shumos Interactive Rehab</span>
         <h1 className="text-[9vmin] leading-[1.1] font-extrabold text-white drop-shadow-[0_4px_18px_rgba(60,30,90,0.4)]">شموس كير</h1>
         <p className="text-[4vmin] font-bold text-white/90 drop-shadow-[0_2px_10px_rgba(60,30,90,0.3)]">التأهيل التفاعلي</p>

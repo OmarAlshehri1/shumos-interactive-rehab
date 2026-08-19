@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { formatDurationClock, formatAccuracyPercent, formatReactionTimeSeconds } from "@/components/display/copy";
-import { getAdjacentDifficulty, type Difficulty, type StageResult } from "@/lib/game";
+import { getAdjacentDifficulty, getNextStageTarget, type Difficulty, type StageResult } from "@/lib/game";
 import type { DifficultyDecision } from "@/lib/control/useLocalControllerSession";
 import { DIFFICULTY_LABELS } from "../copy";
 import { StatCard } from "../StatCard";
@@ -33,7 +33,7 @@ interface StageCompleteOverlayProps {
  * tier exists. At least one option is always available.
  */
 export function StageCompleteOverlay({ result, currentDifficulty, onAdvance, onRequestEndSession }: StageCompleteOverlayProps) {
-  const canContinue = result.stageNumber < 5;
+  const nextTarget = getNextStageTarget(currentDifficulty, result.stageNumber);
   const easier = getAdjacentDifficulty(currentDifficulty, "easier");
   const harder = getAdjacentDifficulty(currentDifficulty, "harder");
 
@@ -48,7 +48,7 @@ export function StageCompleteOverlay({ result, currentDifficulty, onAdvance, onR
       <button
         type="button"
         onClick={onRequestEndSession}
-        className="absolute top-4 end-4 touch-manipulation rounded-full px-3 py-1.5 text-xs font-semibold text-rose-400 transition-colors active:text-rose-600"
+        className="absolute top-4 end-4 min-h-11 touch-manipulation rounded-full px-4 py-2 text-sm font-semibold text-rose-400 transition-colors active:text-rose-600"
       >
         إنهاء الجلسة
       </button>
@@ -70,13 +70,15 @@ export function StageCompleteOverlay({ result, currentDifficulty, onAdvance, onR
       </div>
 
       <div className="flex w-full max-w-xs flex-col gap-2.5">
-        {canContinue && (
+        {nextTarget && (
           <button
             type="button"
             onClick={() => onAdvance("continue")}
             className="min-h-16 w-full touch-manipulation rounded-2xl bg-teal-600 text-xl font-bold text-white shadow-lg shadow-teal-900/15 transition-all active:scale-[0.98]"
           >
-            نفس المستوى — المرحلة {result.stageNumber + 1}
+            {nextTarget.difficulty === currentDifficulty
+              ? `المرحلة التالية — ${nextTarget.stageNumber}`
+              : `التالي — ${DIFFICULTY_LABELS[nextTarget.difficulty].name} المرحلة 1`}
           </button>
         )}
         <div className="flex gap-2.5">

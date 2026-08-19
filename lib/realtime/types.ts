@@ -1,5 +1,26 @@
 import type { SessionState } from "@/lib/game";
+import type { FootstepsSessionState } from "@/lib/footsteps";
+import type { BubblePopSessionState } from "@/lib/bubblepop";
+import type { FeedAnimalsSessionState } from "@/lib/feedanimals";
+import type { SpacePilotSessionState } from "@/lib/spacepilot";
+import type { ColorChaseSessionState } from "@/lib/colorchase";
 import type { GameId } from "@/lib/games/registry";
+
+/**
+ * MULTI-GAME PLATFORM: the canonical session body, generic over which
+ * registered game produced it. Every game's own SessionState-shaped type
+ * (lib/game's SessionState for Balloon Quest, lib/footsteps's
+ * FootstepsSessionState for Follow the Footsteps, lib/bubblepop's
+ * BubblePopSessionState for Bubble Pop Wall) already shares the same
+ * generic top-level field names (sessionId/seed/config/gameState/
+ * currentDifficulty/currentStage/createdAt/endedAt/summary/results) — see
+ * database.rules.json's `liveSession.session` validator, which only checks
+ * for those shared names and never anything game-specific. `gameId` is what
+ * tells a reader (sessionRepository.ts's parseLiveSessionValue) which
+ * concrete shape a given record's `session` actually is; nothing here ever
+ * guesses.
+ */
+export type AnySessionState = SessionState | FootstepsSessionState | BubblePopSessionState | FeedAnimalsSessionState | SpacePilotSessionState | ColorChaseSessionState;
 
 /**
  * Firebase Realtime Database schema (see report for the full rationale).
@@ -63,7 +84,7 @@ export interface LiveSessionRecord {
   sessionId: string;
   revision: number;
   updatedAt: number | object; // object while a ServerValue.TIMESTAMP sentinel is in flight
-  session: SessionState;
+  session: AnySessionState;
   lastInteraction: LiveInteraction | null;
   celebrationReplay: CelebrationReplaySignal | null;
   /**
@@ -109,6 +130,24 @@ export interface PresenceRecord {
    * as `fullscreen` above; absent on older records.
    */
   countdownComplete?: { sessionId: string; revision: number } | null;
+  /** Therapist request delivered to /display. A new id is a new attempt. */
+  audioEnableCommand?: DisplayAudioEnableCommand | null;
+  /** Written only after /display inspects its own AudioContext. */
+  audioStatus?: DisplayAudioStatus | null;
+}
+
+export interface DisplayAudioEnableCommand {
+  id: string;
+  requestedAt: number;
+}
+
+export type DisplayAudioStatusKind = "not-ready" | "attempting" | "ready" | "blocked";
+
+export interface DisplayAudioStatus {
+  state: DisplayAudioStatusKind;
+  commandId: string | null;
+  contextState: string;
+  updatedAt: number | object;
 }
 
 export type ConnectionStatus = "connecting" | "connected" | "disconnected";

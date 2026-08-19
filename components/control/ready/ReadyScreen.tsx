@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { STAGES_PER_DIFFICULTY, type SessionState } from "@/lib/game";
+import { getStageCopy } from "@/lib/control/stageCopy";
 import { ConfirmSheet } from "../live/ConfirmSheet";
-import { DIFFICULTY_LABELS, PLAY_AREA_LABELS, TARGET_SIZE_LABELS, TARGET_SPACING_LABELS } from "../copy";
+import { DIFFICULTY_LABELS } from "../copy";
+import { BalloonStagePreview } from "../setup/previews/BalloonStagePreview";
 
 interface ReadyScreenProps {
   session: SessionState;
@@ -34,13 +36,20 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
  * no stage, no score), so cancelling here is low-stakes, but the task still
  * asks for an explicit confirmation rather than an instant, easy-to-fat-
  * finger action next to "ابدأ المغامرة".
+ *
+ * THERAPIST SETUP SIMPLIFICATION — the technical-field rows (حجم الأهداف /
+ * المسافات / منطقة اللعب) are replaced by the same Stage Card preview +
+ * copy the setup screen showed, built from the same getStageCopy source, so
+ * the therapist sees exactly what they picked, in human language, with a
+ * visual confirmation rather than a list of settings.
  */
 export function ReadyScreen({ session, onStart, onEdit, onCancel, displayConnected, displayFullscreen }: ReadyScreenProps) {
   const { config } = session;
   const [confirmCancel, setConfirmCancel] = useState(false);
+  const copy = getStageCopy(config.difficulty, config.startingStage);
 
   return (
-    <div className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center justify-center gap-8 px-5 py-8 sm:px-8">
+    <div className="mx-auto flex w-full max-w-xl flex-1 flex-col items-center gap-8 px-5 py-8 sm:px-8">
       <div className="flex flex-col items-center gap-1.5 text-center">
         <span className="text-xs font-semibold tracking-wide text-teal-600 uppercase">جاهز للبدء</span>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">{config.childFirstName}</h1>
@@ -48,11 +57,25 @@ export function ReadyScreen({ session, onStart, onEdit, onCancel, displayConnect
 
       <div className="w-full rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
         <SummaryRow label="المستوى" value={DIFFICULTY_LABELS[config.difficulty].name} />
-        {/* TASK 12: one final confirmation of the manually-chosen starting point before the child ever sees a balloon. */}
         <SummaryRow label="مرحلة البداية" value={`${config.startingStage} من ${STAGES_PER_DIFFICULTY}`} />
-        <SummaryRow label="حجم الأهداف" value={TARGET_SIZE_LABELS[config.targetSize]} />
-        <SummaryRow label="المسافات" value={TARGET_SPACING_LABELS[config.targetSpacing]} />
-        <SummaryRow label="منطقة اللعب" value={PLAY_AREA_LABELS[config.playArea]} />
+      </div>
+
+      <div className="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="relative" style={{ aspectRatio: "16 / 9" }}>
+          <BalloonStagePreview difficulty={config.difficulty} stageNumber={config.startingStage} />
+        </div>
+        <div className="flex flex-col gap-1.5 p-4">
+          <span className="text-xs font-semibold text-teal-600">إعداد المرحلة</span>
+          <h2 className="text-base font-bold text-slate-900">{copy.title}</h2>
+          <ul className="flex flex-wrap gap-x-3 gap-y-1 text-xs font-medium text-slate-600">
+            {copy.characteristics.map((item) => (
+              <li key={item} className="flex items-center gap-1">
+                <span className="h-1 w-1 rounded-full bg-slate-400" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {displayConnected !== undefined && (

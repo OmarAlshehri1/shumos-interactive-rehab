@@ -11,17 +11,21 @@ import {
   applyGameTransition,
   createSession,
   endSession as engineEndSession,
-  getAdjacentDifficulty,
+  getStageDecisionTarget,
   jumpToStage as engineJumpToStage,
   pauseSession as enginePauseSession,
   restartStage as engineRestartStage,
   resumeSession as engineResumeSession,
   selectBalloon as engineSelectBalloon,
   skipStage as engineSkipStage,
+  switchDifficulty as engineSwitchDifficulty,
   type SessionState,
   type StageNumber,
 } from "@/lib/game";
 import { DIFFICULTY_DEFAULTS } from "./smartDefaults";
+import { getStagePreset } from "./stagePreset";
+import { useSessionWorkflow } from "@/components/control/session/SessionWorkflowContext";
+import { applyEarlyEndReason, type EarlyEndSelection } from "@/lib/sessions/workflowMetadata";
 
 /** The therapist's post-STAGE_COMPLETE decision — see components/control/live/StageCompleteOverlay.tsx. */
 export type DifficultyDecision = "continue" | "easier" | "harder";
@@ -70,6 +74,7 @@ function derivePhase(session: SessionState | null): ControllerPhase {
  * nothing in lib/game/ was touched to build this.
  */
 export function useLocalControllerSession() {
+  const sessionWorkflow = useSessionWorkflow();
   const [draft, setDraft] = useState<DraftConfig>(freshDraft);
   const [session, setSession] = useState<SessionState | null>(null);
   const sessionRef = useRef(session);
@@ -109,8 +114,13 @@ export function useLocalControllerSession() {
   const confirmSetup = useCallback(() => {
     const childFirstName = draft.childFirstName.trim();
     if (!childFirstName) return;
-    setSession(createSession({ ...draft, childFirstName }));
-  }, [draft]);
+    // THERAPIST SETUP SIMPLIFICATION — resolve the final config from the
+    // same preset source the Stage Cards previewed, rather than trusting
+    // the draft's copied fields, so preview and actual session can never
+    // drift (task section 15).
+    const preset = getStagePreset(draft.difficulty, draft.startingStage);
+    setSession(createSession({ ...preset.config, childFirstName, workflow: sessionWorkflow.metadata }));
+  }, [draft, sessionWorkflow.metadata]);
 
   /** Back to SETUP from READY. Keeps the therapist's entered values — "edit", not "discard". */
   const editSetup = useCallback(() => {
@@ -190,10 +200,10 @@ export function useLocalControllerSession() {
     setSession(engineSkipStage(s, Date.now()).state);
   }, []);
 
-  const endSessionEarly = useCallback(() => {
+  const endSessionEarly = useCallback((selection: EarlyEndSelection) => {
     const s = sessionRef.current;
     if (!s) return;
-    setSession(engineEndSession(s, Date.now()).state);
+    setSession(engineEndSession(applyEarlyEndReason(s, selection.reason, selection.customReason), Date.now()).state);
   }, []);
 
   /**
@@ -207,10 +217,15 @@ export function useLocalControllerSession() {
   const advanceStage = useCallback((decision: DifficultyDecision) => {
     const s = sessionRef.current;
     if (!s || s.gameState !== GameState.STAGE_COMPLETE) return;
-    const targetDifficulty = decision === "continue" ? s.currentDifficulty : getAdjacentDifficulty(s.currentDifficulty, decision);
-    if (!targetDifficulty) return;
-    const targetStageNumber = decision === "continue" ? ((s.currentStage.stageNumber + 1) as StageNumber) : s.currentStage.stageNumber;
-    const advanced = engineAdvanceToStage(s, { difficulty: targetDifficulty, stageNumber: targetStageNumber });
+    const target = getStageDecisionTarget(s.currentDifficulty, s.currentStage.stageNumber, decision);
+    if (!target) return;
+    const { difficulty: targetDifficulty, stageNumber: targetStageNumber } = target;
+    // THERAPIST SETUP SIMPLIFICATION (task section 53) — on an actual
+    // difficulty change, resolve that difficulty's real preset technical
+    // fields instead of letting the engine reuse whatever was chosen once
+    // at setup. A same-difficulty "continue" needs no preset lookup.
+    const presetFields = targetDifficulty === s.currentDifficulty ? undefined : DIFFICULTY_DEFAULTS[targetDifficulty];
+    const advanced = engineAdvanceToStage(s, { difficulty: targetDifficulty, stageNumber: targetStageNumber }, presetFields);
     setSession(advanced.state);
   }, []);
 
@@ -221,11 +236,18 @@ export function useLocalControllerSession() {
     setSession(engineJumpToStage(s, stageNumber, Date.now()).state);
   }, []);
 
+  const changeLiveDifficulty = useCallback((difficulty: Difficulty) => {
+    const s = sessionRef.current;
+    if (!s) return;
+    setSession(engineSwitchDifficulty(s, difficulty, Date.now(), DIFFICULTY_DEFAULTS[difficulty]).state);
+  }, []);
+
   /** Full reset: clears the session AND the draft, so no field from the previous child survives. See session-isolation verification in the report. */
   const newSession = useCallback(() => {
     setSession(null);
     setDraft(freshDraft());
-  }, []);
+    sessionWorkflow.reset();
+  }, [sessionWorkflow]);
 
   /**
    * TASK 9: a no-op here on purpose — this local adapter exists only for
@@ -237,6 +259,7 @@ export function useLocalControllerSession() {
   const replayCelebration = useCallback(() => {}, []);
 
   return {
+    therapistName: null,
     phase,
     draft,
     session,
@@ -256,6 +279,7 @@ export function useLocalControllerSession() {
     endSessionEarly,
     advanceStage,
     jumpToStage,
+    changeLiveDifficulty,
     newSession,
     confirmChildReady,
     replayCelebration,
