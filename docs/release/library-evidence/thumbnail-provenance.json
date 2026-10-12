@@ -128,5 +128,15 @@
     "bytes": 33908,
     "sourceSha256": "d99f949b7b6bb923b901ef0311fb8d208fcaa8eb9dada7cce2575dd5689485ba",
     "assetSha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8"
+  },
+  {
+    "gameId": "body-sequence-3d",
+    "source": "docs/release/library-evidence/body-sequence-3d-display.png",
+    "asset": "public/library-thumbnails/body-sequence-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 33940,
+    "sourceSha256": "e702066d3b5281b4a19557cf5714376b3cae09aa67fcab7edda66fe9c67b62a4",
+    "assetSha256": "e5f01cae7dfe9a18995f47b2cc070e0228a855bbceffa63ae494820fd8f96e25"
   }
 ]

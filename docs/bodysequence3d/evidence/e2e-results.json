@@ -1,0 +1,327 @@
+[
+  {
+    "name": "Control opens and publishes the shared session",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (separate device) renders from /liveSession",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display 3D canvas is running (WebGL)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Record is the shared liveSession with game id and engine",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No patient identifier on the public liveSession path",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control states the sensor limitation honestly",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Arabic RTL on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Level 1 shows exactly two lanes on Control map and Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display setup card is shown before starting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Allowed-feet setting (right only) reaches Control state",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Countdown has ended and the first movement is shown on both devices with the same foot and lane",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Right-foot-only setting: every movement of the sequence is the right foot",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display instruction names the right foot in Arabic",
+    "ok": true,
+    "detail": "حرّك قدمك اليمنى إلى الممر الأيمن"
+  },
+  {
+    "name": "Incorrect attempt pulses gently on the Display and changes no progress",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Replay and repeat are recorded without moving progress",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "First movement confirmed on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Pause freezes the clock on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Finishing a sequence celebrates and moves to the next one on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Confirmation is closed during the celebration pause",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "The next sequence starts by itself",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Skipping a movement resolves it without awarding it",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes by touch on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Results count the assisted movement",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Memory: the Display previews the sequence and confirmation is closed",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Memory: preview lights movements one by one",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Memory: recall hides the movement on the Display while Control still shows the order",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Replay returns to the preview without penalty",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hints reveal the movement during recall",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 3 completes (memory)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Level 2 shows three lanes on Control map and Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 4 completes",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hold-and-move: confirming starts a timed hold on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Incorrect during a hold stops it without progress",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hold completes by the game clock and the movement is counted exactly once",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Skipping a stage (with confirmation) moves on safely",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stop signal appears on the Display after the first movement",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Standing still starts the timed pose",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 7 completes",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Orientation settings reach the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Settings are locked once a stage runs (spacing change is ignored)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Recovery keeps stage and progress and never resumes by itself (paused + safety)",
+    "ok": true,
+    "detail": "{\"b\":\"0\",\"a\":\"0\",\"s\":\"paused\"}"
+  },
+  {
+    "name": "Display shows the safe pause after the reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Safety stop pauses both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Ending a session finishes it on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved once for the first (partial) run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History record is the shared versioned record (no score)",
+    "ok": true,
+    "detail": "{\"t\":58,\"a\":38}"
+  },
+  {
+    "name": "Partial record carries the therapist-recorded counts",
+    "ok": true,
+    "detail": "{\"i\":2,\"rp\":2,\"r\":1,\"s\":10}"
+  },
+  {
+    "name": "Restart (after confirmation) opens a new run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 2 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 3 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 4 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 5 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 6 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 7 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 8 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 9 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Final stage ends the session and shows results",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved exactly once for the nine-stage run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Save-once: still two records after waiting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Nine-stage record: 9 stage rows, lanes 2 then 3, every sequence completed",
+    "ok": true,
+    "detail": "{\"total\":103,\"seq\":37}"
+  },
+  {
+    "name": "Reloading the ended session does not save it again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No uncaught exceptions on either device",
+    "ok": true,
+    "detail": ""
+  }
+]

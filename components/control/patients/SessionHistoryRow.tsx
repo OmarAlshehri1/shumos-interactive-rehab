@@ -46,6 +46,8 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
           <span>{session.fishDiscovered} أسماك مكتشفة · {session.assistedEncounters} بمساعدة</span>
         ) : session.gameId === "fire-rescue-3d" ? (
           <span>{session.drivingObjectives} أهداف قيادة · {session.fireTargetsExtinguished} مناطق أُطفئت · {session.assistedObjectives} بمساعدة</span>
+        ) : session.gameId === "body-sequence-3d" ? (
+          <span className="font-medium text-cyan-700">{formatCountOrUnavailable(session.confirmedMovements + session.assistedMovements)} حركة مؤكدة · {formatCountOrUnavailable(session.assistedMovements)} بمساعدة</span>
         ) : session.gameId === "safe-hex-arena-3d" ? (
           <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalRoundsCompleted)} جولة · {formatCountOrUnavailable(session.totalAssists)} بمساعدة</span>
         ) : session.gameId === "mirror-quest-3d" ? (

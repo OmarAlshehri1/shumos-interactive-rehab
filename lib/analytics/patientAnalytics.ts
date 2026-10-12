@@ -60,7 +60,7 @@ const DAY_MS = 86_400_000;
 
 export function sessionAccuracy(session: AnyStoredSession): number | null {
   if (session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
-  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "build-quest-3d" || session.gameId === "follow-the-footsteps" || session.gameId === "runner-quest-3d") return null; // Runner Quest has no accuracy concept
+  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "body-sequence-3d" || session.gameId === "build-quest-3d" || session.gameId === "follow-the-footsteps" || session.gameId === "runner-quest-3d") return null; // Runner Quest has no accuracy concept
   if (session.gameId === "space-pilot") return finiteRatio(session.collectionRate);
   return finiteRatio(session.accuracy);
 }
@@ -69,7 +69,7 @@ export function sessionResponseTimeMs(session: AnyStoredSession): number | null 
   if (session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
   if (session.gameId === "balloon-quest") return nonNegativeFiniteNumber(session.averageReactionTimeMs);
   if (session.gameId === "follow-the-footsteps") return nonNegativeFiniteNumber(session.averageStepTimeMs);
-  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
+  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "body-sequence-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
   return nonNegativeFiniteNumber(session.averageResponseTimeMs);
 }
 
@@ -98,6 +98,13 @@ function perGameMetrics(gameId: HistoricalGameId, sessions: AnyStoredSession[]):
     const items = sessions.filter(s => s.gameId === "mirror-quest-3d");
     specific.push(metric("poses", "الحركات المقبولة", sumFinite(items.map(s => s.totalPoses)), "count"));
     specific.push(metric("assists", "بمساعدة المعالج", sumFinite(items.map(s => s.totalAssists)), "count"));
+  }
+  if (gameId === "body-sequence-3d") {
+    const items = sessions.filter((s) => s.gameId === "body-sequence-3d");
+    specific.push(metric("moves", "حركات مؤكدة", sumFinite(items.map((s) => s.confirmedMovements + s.assistedMovements)), "count"));
+    specific.push(metric("assists", "بمساعدة المعالج", sumFinite(items.map((s) => s.assistedMovements)), "count"));
+    specific.push(metric("sequences", "ترتيبات مكتملة", sumFinite(items.map((s) => s.sequencesCompleted)), "count"));
+    specific.push(metric("incorrect", "محاولات غير صحيحة (بتأكيد المعالج)", sumFinite(items.map((s) => s.incorrectAttempts)), "count"));
   }
   if (gameId === "safe-hex-arena-3d") {
     const items = sessions.filter((s) => s.gameId === "safe-hex-arena-3d");

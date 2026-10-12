@@ -462,6 +462,23 @@ function RealtimeSessionDetail({ patientId, sessionId }: { patientId: string; se
           </div><p className="text-xs text-slate-500">التحكم اليدوي والمساعدة الآلية مسجّلان كمساعدة؛ لا توجد نتيجة سريرية.</p></SectionCard>
           <SectionCard title="تفاصيل المراحل">{session.stageResults.map(row => <div key={row.stageIndex} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.drivingObjectives} قيادة · {row.fireTargetsExtinguished} إطفاء · {row.assistedObjectives} بمساعدة</span></div>)}</SectionCard>
         </>
+      ) : session.gameId === "body-sequence-3d" ? (
+        <>
+          <SectionCard title="نتائج تحدي الجسم الذكي"><div className="grid grid-cols-3 gap-3">
+            <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
+            <StatCard label="حركات مؤكدة" value={formatCountOrUnavailable(session.confirmedMovements + session.assistedMovements)} tone="positive" />
+            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedMovements)} />
+            <StatCard label="حركات متخطاة" value={formatCountOrUnavailable(session.skippedMovements)} />
+            <StatCard label="ترتيبات مكتملة" value={formatCountOrUnavailable(session.sequencesCompleted)} />
+            <StatCard label="محاولات غير صحيحة (بتأكيد المعالج)" value={formatCountOrUnavailable(session.incorrectAttempts)} />
+            <StatCard label="إعادة الحركة" value={formatCountOrUnavailable(session.repeats)} />
+            <StatCard label="إعادة العرض" value={formatCountOrUnavailable(session.replays)} />
+            <StatCard label="وقفات وثبات مكتملة" value={formatCountOrUnavailable(session.holdsCompleted)} />
+            <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
+            <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
+          </div><p className="text-xs text-slate-500">أقصى عدد ممرّات {session.settings.maxLanes} · القدمان المسموحتان: {session.settings.feet === "both" ? "كلتاهما" : session.settings.feet === "R" ? "اليمنى" : "اليسرى"} · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية ولا درجة، والإعادة أو التخطّي ليسا إخفاقًا.</p></SectionCard>
+          <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} حركات · {row.assisted} بمساعدة · {row.lanes} ممرّات · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
+        </>
       ) : session.gameId === "safe-hex-arena-3d" ? (
         <>
           <SectionCard title="نتائج الأرض الآمنة"><div className="grid grid-cols-3 gap-3">
