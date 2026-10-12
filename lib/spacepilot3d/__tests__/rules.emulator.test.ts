@@ -4,7 +4,7 @@ import { SessionAuthority } from '../sessionAuthority';
 import { spacePilotLiveSession } from '../cloudState';
 import { buildStoredRingSession } from '../history';
 import { NINE_STAGE_CURRICULUM } from '../curriculum';
-const DB = `http://127.0.0.1:${process.env.SP_DB_PORT ?? '19200'}`, AUTH = `http://127.0.0.1:${process.env.SP_AUTH_PORT ?? '19099'}/identitytoolkit.googleapis.com/v1`;
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? process.env.SP_DB_PORT ?? '19200'}`, AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? process.env.SP_AUTH_PORT ?? '19099'}/identitytoolkit.googleapis.com/v1`;
 const NS = 'demo-spacepilot-default-rtdb', admin = { Authorization: 'Bearer owner', 'Content-Type': 'application/json' };
 const enabled = process.env.SPACE_PILOT_EMULATOR === '1';
 const url = (path: string, token = '') => `${DB}/${path}.json?ns=${NS}${token ? `&auth=${token}` : ''}`;

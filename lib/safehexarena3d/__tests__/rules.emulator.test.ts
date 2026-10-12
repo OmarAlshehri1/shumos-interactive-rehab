@@ -9,8 +9,8 @@ import { buildHistory } from '../history';
 import { createState as mirrorState } from '@/lib/mirrorquest3d/engine';
 import { makeLive as mirrorLive } from '@/lib/mirrorquest3d/live';
 
-const DB = `http://127.0.0.1:${process.env.HEX_DB_PORT ?? 19300}`;
-const AUTH = `http://127.0.0.1:${process.env.HEX_AUTH_PORT ?? 19399}/identitytoolkit.googleapis.com/v1`;
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? process.env.HEX_DB_PORT ?? 19300}`;
+const AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? process.env.HEX_AUTH_PORT ?? 19399}/identitytoolkit.googleapis.com/v1`;
 const NS = 'demo-hex-rules-default-rtdb';
 const admin = { Authorization: 'Bearer owner', 'Content-Type': 'application/json' };
 const url = (p: string, token = '') => `${DB}/${p}.json?ns=${NS}${token ? `&auth=${token}` : ''}`;

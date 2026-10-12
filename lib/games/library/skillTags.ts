@@ -1,6 +1,7 @@
 import type { GameDefinition, GameId } from "@/lib/games/registry";
-export type ActivitySkill = "balance" | "feet" | "reaching" | "coordination";
+export type ActivitySkill = "balance" | "feet" | "reaching" | "coordination" | "planning";
 export const SKILL_LABELS: Record<ActivitySkill, string> = {
+  planning: "التخطيط الحركي",
   balance: "التوازن والثبات",
   feet: "حركة القدمين والمشي",
   reaching: "حركة اليدين والوصول",

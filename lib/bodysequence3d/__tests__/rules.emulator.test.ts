@@ -10,8 +10,8 @@ import { previewMs } from '../sequence';
 import { createState as hexState } from '@/lib/safehexarena3d/engine';
 import { makeLive as hexLive } from '@/lib/safehexarena3d/live';
 
-const DB = `http://127.0.0.1:${process.env.BS_DB_PORT ?? 19610}`;
-const AUTH = `http://127.0.0.1:${process.env.BS_AUTH_PORT ?? 19709}/identitytoolkit.googleapis.com/v1`;
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? process.env.BS_DB_PORT ?? 19610}`;
+const AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? process.env.BS_AUTH_PORT ?? 19709}/identitytoolkit.googleapis.com/v1`;
 const NS = 'demo-bs-rules-default-rtdb';
 const admin = { Authorization: 'Bearer owner', 'Content-Type': 'application/json' };
 const url = (p: string, token = '') => `${DB}/${p}.json?ns=${NS}${token ? `&auth=${token}` : ''}`;

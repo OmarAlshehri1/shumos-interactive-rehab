@@ -2,8 +2,8 @@
 import { beforeAll, describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { blankEvaluation, type Visit } from "../model";
-const db = "http://127.0.0.1:19970",
-  auth = "http://127.0.0.1:19979/identitytoolkit.googleapis.com/v1",
+const db = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19970}`,
+  auth = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19979}/identitytoolkit.googleapis.com/v1`,
   ns = "demo-clinical-visits-default-rtdb";
 async function write(
   path: string,
@@ -294,6 +294,54 @@ describe.skipIf(process.env.CLINICAL_RULES_EMULATOR !== "1")(
       );
       expect(edited.status, edited.body).toBe(200);
       v = changed;
+    });
+    it("saves each new game's real immutable result and links it to the parent visit", async () => {
+      const loaders: Record<string, () => Promise<unknown>> = {
+        "castlelegends3d/engine": () => import("../../castlelegends3d/engine"), "castlelegends3d/history": () => import("../../castlelegends3d/history"),
+        "balancebridge3d/engine": () => import("../../balancebridge3d/engine"), "balancebridge3d/history": () => import("../../balancebridge3d/history"),
+        "turngo3d/engine": () => import("../../turngo3d/engine"), "turngo3d/history": () => import("../../turngo3d/history"),
+        "footmaze3d/engine": () => import("../../footmaze3d/engine"), "footmaze3d/history": () => import("../../footmaze3d/history"),
+        "rhythmsteps3d/engine": () => import("../../rhythmsteps3d/engine"), "rhythmsteps3d/history": () => import("../../rhythmsteps3d/history"),
+        "bodysequence3d/engine": () => import("../../bodysequence3d/engine"), "bodysequence3d/history": () => import("../../bodysequence3d/history"),
+      };
+      const folders = ['castlelegends3d', 'balancebridge3d', 'turngo3d', 'footmaze3d', 'rhythmsteps3d', 'bodysequence3d'];
+      for (const folder of folders) {
+        const engine = await loaders[folder + "/engine"]() as {
+          createState: (id: string, seed?: number) => unknown;
+          reduce: (s: unknown, c: { type: string; at: number }) => unknown;
+        };
+        const history = await loaders[folder + "/history"]() as {
+          buildHistory: (s: unknown, patient: string, uid: string) => { sessionId: string; gameId: import('@/lib/games/registry').GameId };
+        };
+        const now = Date.now();
+        let state = engine.createState('integration-' + folder, 1);
+        state = engine.reduce(state, { type: 'start', at: now });
+        state = engine.reduce(state, { type: 'end', at: now + 100 });
+        const result = history.buildHistory(state, 'patient-1', staff.uid);
+        const path = 'sessions/patient-1/' + result.sessionId;
+        const saved = await write(path, result, staff.token);
+        expect(saved.status, folder + ': ' + saved.body).toBe(200);
+        expect((await write(path, result, staff.token)).status, folder + ' save-once').toBe(401);
+        expect((await write('visitResultClaims/patient-1/' + result.sessionId, v.visitId, staff.token)).status, folder + ' claim').toBe(200);
+        const next = update({ entries: { ...v.entries, [result.sessionId]: {
+          kind: 'game', sessionId: result.sessionId, gameId: result.gameId,
+          linkedAt: now, evaluation: blankEvaluation(staff.uid, now),
+        } } });
+        const linked = await write('therapyVisits/patient-1/visit-1', next, staff.token);
+        expect(linked.status, folder + ': ' + linked.body).toBe(200);
+        v = next;
+      }
+    });
+    it("transmits calibration without granting Display access to controller metadata", async () => {
+      const command = { id: 'calibration-test', enabled: true, expiresAt: Date.now() + 300000,
+        profile: { version: 1, id: 'floor-test', name: 'Floor', surface: 'FLOOR', rotation: 90,
+          targetPercent: 7, spacingPercent: 20, safeInsetPercent: 8, updatedAt: Date.now() } };
+      expect((await write('presence/controller', { connected: true, projectionCommand: command }, staff.token)).status).toBe(200);
+      expect((await write('presence/controller/projectionCommand', command, anon.token)).status).toBe(401);
+      const url = `${db}/presence/controller/projectionCommand.json?ns=${ns}&auth=${anon.token}`;
+      const read = await fetch(url); expect(read.status).toBe(200); expect((await read.json()).profile.rotation).toBe(90);
+      expect((await fetch(`${db}/presence/controller.json?ns=${ns}&auth=${anon.token}`)).status).toBe(401);
+      expect((await write('presence/controller/projectionCommand', { ...command, profile: { ...command.profile, patientId: 'leak' } }, staff.token)).status).toBe(401);
     });
     it("rejects stale revisions and undeclared clinical fields; finishes once and preserves elapsed time", async () => {
       expect(

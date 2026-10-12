@@ -4,8 +4,8 @@ import { createState, reduce } from '../engine';
 import { makeLive } from '../live';
 import { buildHistory } from '../history';
 const enabled = process.env.FIRE_RESCUE_RULES_EMULATOR === '1';
-const db = `http://127.0.0.1:${process.env.FIRE_RESCUE_DB_PORT ?? 19800}`;
-const auth = `http://127.0.0.1:${process.env.FIRE_RESCUE_AUTH_PORT ?? 19899}/identitytoolkit.googleapis.com/v1`;
+const db = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? process.env.FIRE_RESCUE_DB_PORT ?? 19800}`;
+const auth = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? process.env.FIRE_RESCUE_AUTH_PORT ?? 19899}/identitytoolkit.googleapis.com/v1`;
 const ns = 'demo-fire-rescue-rules-default-rtdb';
 async function put(path: string, body: unknown, token = '', admin = false) { return (await fetch(`${db}/${path}.json?ns=${ns}${token ? `&auth=${token}` : ''}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', ...(admin ? { Authorization: 'Bearer owner' } : {}) }, body: JSON.stringify(body) })).status; }
 async function signup() { const r = await fetch(`${auth}/accounts:signUp?key=fake`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ returnSecureToken: true }) }); const j = await r.json(); return { uid: j.localId as string, token: j.idToken as string }; }

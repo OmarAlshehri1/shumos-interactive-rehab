@@ -6,7 +6,7 @@ import { buildStoredBuildQuestSession } from "../history";
 import { STAGES } from "../stages";
 import { applyManual, manualCommand } from "../manual";
 
-const DB = "http://127.0.0.1:19000", AUTH = "http://127.0.0.1:19099/identitytoolkit.googleapis.com/v1";
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19000}`, AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19099}/identitytoolkit.googleapis.com/v1`;
 const NS = "demo-buildquest-default-rtdb";
 const enabled = process.env.BUILD_QUEST_EMULATOR === "1";
 const runId = Date.now().toString(36);

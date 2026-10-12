@@ -1,3 +1,5 @@
+> Unified integration update (12 October 2026): use the final merged `database.rules.json` and `docs/release/FINAL_DATABASE_RULES_FOR_FIREBASE_CONSOLE.json` for publication review. Per-game candidates below are historical. See [unified integration report](../unified-integration/FINAL_REPORT.md). Nothing has been pushed or published.
+
 # Shumos Castle Legends — implementation report
 
 Implemented locally on 12 October 2026. Canonical ID: `shumos-castle-legends-3d`. Native Control route: `/control/shumos-castle-legends-3d`; child presentation resolves through the existing `/display`.

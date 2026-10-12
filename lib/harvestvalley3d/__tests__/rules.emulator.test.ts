@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {createState,reduce,tokenFor} from '../engine';
 import {makeLive} from '../live';
 import {buildHistory} from '../history';
-const db='http://127.0.0.1:19970',auth='http://127.0.0.1:19979/identitytoolkit.googleapis.com/v1',ns='demo-harvest-rules-default-rtdb';
+const db=`http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19970}`,auth=`http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19979}/identitytoolkit.googleapis.com/v1`,ns='demo-harvest-rules-default-rtdb';
 async function put(path:string,value:unknown,token='',admin=false){return(await fetch(`${db}/${path}.json?ns=${ns}${token?`&auth=${token}`:''}`,{method:'PUT',headers:{'Content-Type':'application/json',...(admin?{Authorization:'Bearer owner'}:{})},body:JSON.stringify(value)})).status;}
 async function signup(){const r=await fetch(`${auth}/accounts:signUp?key=fake`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});const j=await r.json();return{uid:j.localId as string,token:j.idToken as string};}
 describe.skipIf(process.env.HARVEST_RULES_EMULATOR!=='1')('Harvest Valley shared rules',()=>{

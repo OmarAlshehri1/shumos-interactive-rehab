@@ -1,9 +1,13 @@
 "use client";
+import { ProjectionGrid } from "./ProjectionGrid";
+import type { ProjectionPreviewCommand } from "@/lib/projection/calibration";
+import { subscribeToProjectionPreview } from "@/lib/realtime/sessionRepository";
+import { visitGamePaused } from "@/lib/therapyVisits/gameSafety";
 import {decode as decodeBridgeLive} from '@/lib/balancebridge3d/live';
 import { SharedGameIntroduction } from "./SharedGameIntroduction";
 import { isDomeLive } from "@/lib/bubblepopwall3d/live";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { Difficulty, GameState } from "@/lib/game";
 import { useLocalDemoSession } from "@/lib/demo/useLocalDemoSession";
@@ -124,6 +128,17 @@ function LocalDisplayScreen() {
 
 function RealtimeDisplayScreen() {
   const realtime = useRealtimeDisplaySession();
+  const [projectionPreview, setProjectionPreview] = useState<ProjectionPreviewCommand | null>(null);
+  const [previewTime, setPreviewTime] = useState(() => Date.now());
+  useEffect(() => {
+    if (realtime.authStatus !== "authenticated") return;
+    return subscribeToProjectionPreview(getDisplayDb(), setProjectionPreview);
+  }, [realtime.authStatus]);
+  useEffect(() => {
+    if (!projectionPreview?.enabled) return;
+    const timer = setInterval(() => setPreviewTime(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [projectionPreview]);
   const audio = useAudioManager();
   const setActiveAudioGame = audio.setActiveGame;
   const attemptRemoteAudioEnable = audio.attemptRemoteEnable;
@@ -375,6 +390,11 @@ function RealtimeDisplayScreen() {
       gameState={realtime.session?.gameState ?? null}
       background={environmentBackground}
     >
+      {projectionPreview?.enabled && projectionPreview.expiresAt > previewTime && visitGamePaused(realtime.session ? { session: realtime.session } as Parameters<typeof visitGamePaused>[0] : null) && (
+        <div data-testid="projection-display-preview" style={{ position: "fixed", inset: 0, zIndex: 100, display: "grid", placeItems: "center", background: "#102b3b" }}>
+          <ProjectionGrid profile={projectionPreview.profile} />
+        </div>
+      )}
       {/*
         PLATFORM <-> GAME TRANSITION: a short (~1.1s) crossfade, not a hard
         cut, in both directions — entering Balloon Quest (waiting world

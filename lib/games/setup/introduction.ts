@@ -7,6 +7,10 @@ export const GAME_INSTRUCTIONS: Record<
     cue: "reach" | "feet" | "drive" | "mirror" | "flight" | "build";
   }
 > = {
+  "turn-and-go-3d": { goal: "اتبع النجوم حول الأقماع بتوجيه المعالج.", cue: "feet" },
+  "foot-maze-3d": { goal: "اتبع الطريق المضيء إلى الوجهة بتوجيه المعالج.", cue: "feet" },
+  "rhythm-steps-3d": { goal: "اتبع علامات الأقدام على إيقاع الألوان بتوجيه المعالج.", cue: "feet" },
+  "body-sequence-3d": { goal: "اتبع ترتيب العلامات بتوجيه المعالج.", cue: "feet" },
   "balance-bridge-3d": {goal:"امشِ على الطريق المضيء، واتبع العلامات بتوجيه المعالج.",cue:"feet"},
   "shumos-castle-legends-3d": {
     goal: "قلّد الحركة المعروضة بهدوء، ثم انتظر تأكيد الأخصائي.",

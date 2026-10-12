@@ -1,3 +1,4 @@
+import { validProjectionPreview, type ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
 import { reportPublishIntent } from './publishIntent';
 import {reviveCastleLive} from '@/lib/castlelegends3d/live';
@@ -631,4 +632,17 @@ export function subscribeToConnectionStatus(db: Database, callback: (status: Con
   return onValue(ref(db, ".info/connected"), (snapshot) => {
     callback(snapshot.val() === true ? "connected" : "disconnected");
   });
+}
+
+export async function requestProjectionPreview(db: Database, command: ProjectionPreviewCommand): Promise<void> {
+  if (!validProjectionPreview(command)) throw new Error("Invalid projection preview");
+  await update(ref(db, CONTROLLER_PRESENCE_PATH), { connected: true, projectionCommand: command });
+}
+export function subscribeToProjectionPreview(db: Database, callback: (command: ProjectionPreviewCommand | null) => void): Unsubscribe {
+  return subscribeWithInitialGet(db, `${CONTROLLER_PRESENCE_PATH}/projectionCommand`, raw => {
+    if (!raw || typeof raw !== 'object') return null;
+    const c = raw as ProjectionPreviewCommand;
+    const value = { ...c, profile: c.profile ? { ...c.profile, measuredWidthCm: c.profile.measuredWidthCm ?? null, measuredHeightCm: c.profile.measuredHeightCm ?? null } : c.profile };
+    return validProjectionPreview(value) ? value : null;
+  }, callback);
 }

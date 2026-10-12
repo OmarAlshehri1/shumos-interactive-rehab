@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-12",
+  "branch": "main",
+  "canonicalGames": 19,
+  "unit": {
+    "passed": 2279,
+    "skipped": 149,
+    "failed": 0,
+    "filesPassed": 189,
+    "filesSkipped": 19
+  },
+  "firebaseEmulator": {
+    "passed": 138,
+    "failed": 0,
+    "suites": 19,
+    "productionRulesPublished": false
+  },
+  "typescript": {
+    "root": "passed",
+    "isolated": "passed"
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 6,
+    "location": "pre-existing validation scripts"
+  },
+  "productionBuild": {
+    "passed": true,
+    "allGameFlagsEnabled": true,
+    "credentials": "fake demo emulator only"
+  },
+  "browser": {
+    "checks": 8,
+    "routes": 19,
+    "newGames": 6,
+    "pageErrors": 0,
+    "parentVisitCompleted": true,
+    "acknowledgedEvaluationReload": "passed"
+  },
+  "rulesSha256": "b52b8442b808df4df9e38b1ac0279ab6c4d615df942058bea0ec37cb6fb4d5ff",
+  "rulesBytes": 288772,
+  "push": "not authorized in this phase; not attempted",
+  "deployment": "not triggered",
+  "physicalHardware": "unverified",
+  "historicalFailuresResolved": [
+    "Overwriting shared stage-result and settings validators denied valid existing/new game results.",
+    "Zero-target early-ended Rhythm Steps history needed an explicit empty-row case.",
+    "Acknowledged evaluation dialogs reopened after reload.",
+    "All-Display registry test cold imports exceeded default 5-second timeout under build/browser load; scoped timeout set to 20 seconds."
+  ]
+}

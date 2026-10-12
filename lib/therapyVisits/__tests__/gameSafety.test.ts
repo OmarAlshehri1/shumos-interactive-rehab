@@ -27,9 +27,9 @@ const live = (
   }) as unknown as LiveSessionRecord;
 describe("game history switching safety", () => {
   it("uses the exact suffixed or plain key for each actual history family", () => {
-    for (const engine of ["fp3", "cc3", "dome3", "mirror3", "hex3"])
+    for (const engine of ["fp3", "cc3", "dome3", "mirror3", "hex3", "tg3", "fm3", "rs3", "bs3"])
       expect(historyKeyForLive(live(engine, 0))).toBe("game-1-r0");
-    for (const engine of ["bw3", "hv3"]) {
+    for (const engine of ["bw3", "hv3", "bb3"]) {
       expect(historyKeyForLive(live(engine, 0))).toBe("game-1");
       expect(historyKeyForLive(live(engine, 2))).toBe("game-1-r2");
     }

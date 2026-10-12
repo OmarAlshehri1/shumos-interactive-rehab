@@ -2,7 +2,7 @@ import {beforeAll,describe,expect,it} from 'vitest';
 import {createState,reduce} from '../engine';
 import {buildHistory} from '../history';
 import {makeLive} from '../live';
-const on=process.env.DOME_RULES_EMULATOR==='1',DB='http://127.0.0.1:19900',AUTH='http://127.0.0.1:19999/identitytoolkit.googleapis.com/v1',NS='demo-rules-default-rtdb';
+const on=process.env.DOME_RULES_EMULATOR==='1',DB=`http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19900}`,AUTH=`http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19999}/identitytoolkit.googleapis.com/v1`,NS='demo-rules-default-rtdb';
 async function put(path:string,body:unknown,token='owner'){const r=await fetch(`${DB}/${path}.json?ns=${NS}${token==='owner'?'':`&auth=${token}`}`,{method:'PUT',headers:{'Content-Type':'application/json',...(token==='owner'?{Authorization:'Bearer owner'}:{})},body:JSON.stringify(body)});return r.status;}
 async function signup(email?:string){const r=await fetch(`${AUTH}/accounts:signUp?key=fake`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...(email?{email,password:'password123'}:{}),returnSecureToken:true})});const j=await r.json();return {uid:j.localId as string,token:j.idToken as string};}
 describe.skipIf(!on)('Wonder Dome rules on isolated emulators',()=>{

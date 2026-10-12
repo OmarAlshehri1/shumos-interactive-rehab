@@ -12,8 +12,8 @@ import type { Message } from "../protocol";
 import { buildStoredBalloonQuest3DSession } from "@/lib/sessions/buildStoredBalloonQuest3DSession";
 
 const NS = "demo-bq3-default-rtdb";
-const DB = `http://127.0.0.1:9000`;
-const AUTH = `http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1`;
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 9000}`;
+const AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 9099}/identitytoolkit.googleapis.com/v1`;
 const on = process.env.BQ3_RULES_EMULATOR === "1";
 
 const url = (path: string, token?: string) => `${DB}/${path}.json?ns=${NS}${token ? `&auth=${token}` : ""}`;

@@ -3,7 +3,7 @@ import { beforeAll,describe,it,expect } from 'vitest';
 import { createState,reduce } from '../engine';
 import { makeLive } from '../live';
 import { buildHistory } from '../history';
-const DB='http://127.0.0.1:19100',AUTH='http://127.0.0.1:19199/identitytoolkit.googleapis.com/v1',NS='demo-mirror-rules-default-rtdb';
+const DB=`http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19100}`,AUTH=`http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19199}/identitytoolkit.googleapis.com/v1`,NS='demo-mirror-rules-default-rtdb';
 const admin={Authorization:'Bearer owner','Content-Type':'application/json'};
 const url=(p:string,token='')=>`${DB}/${p}.json?ns=${NS}${token?`&auth=${token}`:''}`;
 async function put(p:string,v:unknown,token='',owner=false){return (await fetch(url(p,token),{method:'PUT',headers:owner?admin:{'Content-Type':'application/json'},body:JSON.stringify(v)})).status;}

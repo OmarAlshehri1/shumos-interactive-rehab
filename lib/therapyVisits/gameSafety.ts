@@ -4,7 +4,7 @@ import type { AnyStoredSession } from "@/lib/sessions/types";
 export function historyKeyForLive(record: LiveSessionRecord): string | null {
   const session = record.session as unknown as Record<string, unknown>,
     engine = session.engine;
-  const suffixed = ["fp3", "cc3", "dome3", "mirror3", "hex3"],
+  const suffixed = ["fp3", "cc3", "dome3", "mirror3", "hex3", "tg3", "fm3", "rs3", "bs3"],
     conditional = ["bw3", "hv3", "bb3"];
   if (
     typeof engine === "string" &&

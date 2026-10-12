@@ -54,8 +54,41 @@ export function VisitWorkspace() {
       o.stop(c.currentTime + 0.55);
     }
   }, [visit, clock?.expired]);
+  const reviewKey = visit
+    ? `shumos.visit.reviewed.${visit.ownerUid}.${visit.visitId}`
+    : null;
+  const acknowledgeReview = (id: string | null) => {
+    if (!id || !reviewKey) return;
+    seen.current.add(id);
+    try {
+      const raw = JSON.parse(sessionStorage.getItem(reviewKey) ?? "[]");
+      const ids = Array.isArray(raw)
+        ? raw.filter(
+            (v): v is string => typeof v === "string" && v.length <= 150,
+          )
+        : [];
+      sessionStorage.setItem(
+        reviewKey,
+        JSON.stringify([...new Set([...ids, id])].slice(-500)),
+      );
+    } catch {
+      /* The current mounted workspace still remembers the acknowledgement. */
+    }
+  };
   useEffect(() => {
     if (!visit || visit.endedAt) return;
+    try {
+      const raw = JSON.parse(
+        sessionStorage.getItem(
+          `shumos.visit.reviewed.${visit.ownerUid}.${visit.visitId}`,
+        ) ?? "[]",
+      );
+      if (Array.isArray(raw))
+        for (const id of raw)
+          if (typeof id === "string" && id.length <= 150) seen.current.add(id);
+    } catch {
+      /* A missing or unavailable tab store does not affect clinical data. */
+    }
     const next = Object.entries(visit.entries).find(
       ([id, e]) => e.kind === "game" && !seen.current.has(id),
     );
@@ -147,6 +180,7 @@ export function VisitWorkspace() {
             onKeyDown={(event) =>
               modalKeys(event, () => {
                 setPanel(null);
+                acknowledgeReview(evaluation);
                 setEvaluation(null);
               })
             }
@@ -172,6 +206,7 @@ export function VisitWorkspace() {
                 className={styles.button}
                 onClick={() => {
                   setPanel(null);
+                  acknowledgeReview(evaluation);
                   setEvaluation(null);
                 }}
               >
@@ -209,6 +244,7 @@ export function VisitWorkspace() {
                         },
                       },
                     }));
+                    acknowledgeReview(evaluation);
                     setEvaluation(null);
                   })
                 }

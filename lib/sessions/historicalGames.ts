@@ -1,3 +1,8 @@
+import {CASTLE_REGISTRATION} from "@/lib/castlelegends3d/registration";
+import {BODY_SEQUENCE_REGISTRATION} from "@/lib/bodysequence3d/registration";
+import {RHYTHM_STEPS_REGISTRATION} from "@/lib/rhythmsteps3d/registration";
+import {FOOT_MAZE_REGISTRATION} from "@/lib/footmaze3d/registration";
+import {TURN_AND_GO_REGISTRATION} from "@/lib/turngo3d/registration";
 import {BALANCE_BRIDGE_REGISTRATION} from '@/lib/balancebridge3d/registration';
 import { HARVEST_VALLEY_REGISTRATION } from '@/lib/harvestvalley3d/registration';
 import { BLOOMING_WORLD_REGISTRATION } from '@/lib/bloomingworld3d/registration';
@@ -9,6 +14,11 @@ import { RETIRED_FEED_ANIMALS_ID, RETIRED_FEED_ANIMALS_NAME_AR } from "./retired
 /** Historical IDs are deliberately separate from launchable games. */
 export type HistoricalGameId = GameId | LocalGameId | typeof RETIRED_FEED_ANIMALS_ID;
 export function getHistoricalGameNameAr(id: HistoricalGameId): string {
+  if (id === "turn-and-go-3d") return TURN_AND_GO_REGISTRATION.nameAr;
+  if (id === "foot-maze-3d") return FOOT_MAZE_REGISTRATION.nameAr;
+  if (id === "rhythm-steps-3d") return RHYTHM_STEPS_REGISTRATION.nameAr;
+  if (id === "body-sequence-3d") return BODY_SEQUENCE_REGISTRATION.nameAr;
+  if (id === "shumos-castle-legends-3d") return CASTLE_REGISTRATION.nameAr;
   if (id === "balance-bridge-3d") return BALANCE_BRIDGE_REGISTRATION.nameAr;
   if (id === 'harvest-valley-3d') return HARVEST_VALLEY_REGISTRATION.nameAr;
   if (id === 'blooming-world-3d') return BLOOMING_WORLD_REGISTRATION.nameAr;

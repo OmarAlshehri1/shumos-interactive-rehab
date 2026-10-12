@@ -1,4 +1,5 @@
 'use client';
+import { loadProjectionProfiles } from '@/lib/projection/calibration';
 import { ASPECTS, LANE_SETS, LIMITS, SPEED_PROFILES, activeLanes, speedOf, type Aspect, type Config, type InputMode, type LaneSet, type Limbs, type SpeedProfile } from '@/lib/rhythmsteps3d/config';
 import { computeLayout, estimateZoneCm } from '@/lib/rhythmsteps3d/layout';
 import { rolesForMode, type FootRole } from '@/lib/safehexarena3d/sensorInput';
@@ -151,6 +152,10 @@ export function Settings({ s, send, sim, setSim }: Props) {
           <option value="auto">تلقائي · ملء النافذة</option>
           {(Object.keys(ASPECTS) as Exclude<Aspect, 'auto'>[]).map((a) => <option key={a} value={a}>{a}</option>)}
         </select>
+        <button type="button" disabled={!editable} onClick={() => {
+          const p = loadProjectionProfiles('FLOOR').sort((a, b) => b.updatedAt - a.updatedAt)[0];
+          if (p) cfg({ floorWidthCm: p.measuredWidthCm ?? 0, floorHeightCm: p.measuredHeightCm ?? 0, margin: p.safeInsetPercent, calibrationConfirmed: false });
+        }}>تحميل أحدث قياسات المعايرة المشتركة</button>
         <div className={styles.row2}>
           <div>
             <label htmlFor="rs-fw">عرض الصورة على الأرض (سم)</label>

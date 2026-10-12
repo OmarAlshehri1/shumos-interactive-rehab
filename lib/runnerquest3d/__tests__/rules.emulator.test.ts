@@ -14,8 +14,8 @@ import { buildStoredRunnerQuestSession } from "@/lib/sessions/buildStoredRunnerQ
 
 // Ports/project default to the original Runner emulator setup; override to run against an isolated emulator pair.
 const NS = `${process.env.RQ3_PROJECT ?? "demo-rq3"}-default-rtdb`;
-const DB = `http://127.0.0.1:${process.env.RQ3_DB_PORT ?? "9000"}`;
-const AUTH = `http://127.0.0.1:${process.env.RQ3_AUTH_PORT ?? "9099"}/identitytoolkit.googleapis.com/v1`;
+const DB = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? process.env.RQ3_DB_PORT ?? "9000"}`;
+const AUTH = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? process.env.RQ3_AUTH_PORT ?? "9099"}/identitytoolkit.googleapis.com/v1`;
 const on = process.env.RQ3_RULES_EMULATOR === "1";
 
 const url = (path: string, token?: string) => `${DB}/${path}.json?ns=${NS}${token ? `&auth=${token}` : ""}`;

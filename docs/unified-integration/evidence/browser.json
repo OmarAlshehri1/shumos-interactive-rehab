@@ -1,0 +1,81 @@
+{
+  "environment": "production build; fake loopback Firebase; independent Control/Display contexts",
+  "checks": [
+    "Authenticated readiness dashboard",
+    "Control calibration reaches independent Display",
+    "19 unique canonical library entries",
+    "All 19 canonical Control routes render; Display registry verified by unified unit test",
+    "Six new games: pause/reload/resume, immutable save-once and parent visit linkage",
+    "Parent visit finishes with all six immutable game references retained",
+    "Patient history opens after six linked game results",
+    "No Control or Display page errors"
+  ],
+  "launches": [
+    "balance-bridge-3d",
+    "shumos-castle-legends-3d",
+    "harvest-valley-3d",
+    "blooming-world-3d",
+    "fire-rescue-3d",
+    "pearl-voyage-3d",
+    "mirror-quest-3d",
+    "safe-hex-arena-3d",
+    "turn-and-go-3d",
+    "foot-maze-3d",
+    "rhythm-steps-3d",
+    "body-sequence-3d",
+    "balloon-quest",
+    "follow-the-footsteps",
+    "bubble-pop-wall",
+    "space-pilot",
+    "color-chase",
+    "runner-quest-3d",
+    "build-quest-3d"
+  ],
+  "games": [
+    {
+      "id": "turn-and-go-3d",
+      "historyKey": "a969291d-5e0f-48c1-bbdf-5039ef189d4c-r0",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    },
+    {
+      "id": "foot-maze-3d",
+      "historyKey": "a7c27e25-7a6d-4f44-b07e-8bc820ac0b37-r0",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    },
+    {
+      "id": "rhythm-steps-3d",
+      "historyKey": "4228c9ea-231f-477c-8d86-2e30e99d0123-r1",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    },
+    {
+      "id": "body-sequence-3d",
+      "historyKey": "2dcdcd56-ba20-4fc1-9b1e-9f8817d00fb2-r0",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    },
+    {
+      "id": "balance-bridge-3d",
+      "historyKey": "73ee031c-0406-45b3-9482-379f2d1b35c1",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    },
+    {
+      "id": "shumos-castle-legends-3d",
+      "historyKey": "629f4964-92d1-4fc2-b756-c062769e99da",
+      "pauseReloadResume": true,
+      "historySaved": true,
+      "visitLinked": true
+    }
+  ],
+  "errors": [],
+  "hardware": "unverified",
+  "speech": "intercepted"
+}

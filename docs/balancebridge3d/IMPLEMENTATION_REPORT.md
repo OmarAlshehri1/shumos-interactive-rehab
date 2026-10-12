@@ -1,3 +1,5 @@
+> Unified integration update (12 October 2026): use the final merged `database.rules.json` and `docs/release/FINAL_DATABASE_RULES_FOR_FIREBASE_CONSOLE.json` for publication review. Per-game candidates below are historical. See [unified integration report](../unified-integration/FINAL_REPORT.md). Nothing has been pushed or published.
+
 # Balance Bridge 3D — implementation and verification
 
 12 October 2026 · Shumos Care · canonical ID `balance-bridge-3d`

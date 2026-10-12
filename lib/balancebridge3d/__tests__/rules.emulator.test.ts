@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import { createState, reduce } from "../engine";
 import { makeLive } from "../live";
 import { buildHistory } from "../history";
-const db = "http://127.0.0.1:19940",
-  auth = "http://127.0.0.1:19949/identitytoolkit.googleapis.com/v1",
+const db = `http://127.0.0.1:${process.env.SHUMOS_RULES_DB_PORT ?? 19940}`,
+  auth = `http://127.0.0.1:${process.env.SHUMOS_RULES_AUTH_PORT ?? 19949}/identitytoolkit.googleapis.com/v1`,
   ns = "demo-balance-rules-default-rtdb";
 async function put(path: string, value: unknown, token = "", admin = false) {
   const r = await fetch(
@@ -55,7 +55,7 @@ describe.skipIf(process.env.BALANCE_RULES_EMULATOR !== "1")(
           ".settings/rules",
           JSON.parse(
             readFileSync(
-              "docs/balancebridge3d/CANDIDATE_DATABASE_RULES.json",
+              "database.rules.json",
               "utf8",
             ),
           ),

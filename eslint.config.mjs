@@ -8,7 +8,7 @@ const eslintConfig = defineConfig([
   // Browser evidence scripts are explicitly CommonJS and require synchronous
   // Playwright/helper loading; the TypeScript import-style rule does not apply.
   {
-    files: ["docs/**/validation/*.cjs", "docs/**/qa/*.cjs"],
+    files: ["docs/**/validation/*.cjs", "docs/**/qa/*.cjs", "docs/unified-integration/*.cjs"],
     rules: { "@typescript-eslint/no-require-imports": "off" },
   },
   // Override default ignores of eslint-config-next.
