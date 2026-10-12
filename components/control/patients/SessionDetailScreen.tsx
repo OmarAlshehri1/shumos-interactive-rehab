@@ -578,6 +578,25 @@ function RealtimeSessionDetail({
               ))}
             </SectionCard>
           </>
+      ) : session.gameId === "rhythm-steps-3d" ? (
+        <>
+          <SectionCard title="نتائج نبض الألوان"><div className="grid grid-cols-3 gap-3">
+            <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
+            <StatCard label="أهداف مؤكدة" value={formatCountOrUnavailable(session.confirmedEvents)} tone="positive" />
+            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedEvents)} />
+            <StatCard label="متخطاة" value={formatCountOrUnavailable(session.skippedEvents)} />
+            <StatCard label="غير مؤكدة" value={formatCountOrUnavailable(session.missedEvents)} />
+            <StatCard label="إجمالي الأهداف" value={formatCountOrUnavailable(session.totalTargetEvents)} />
+            <StatCard label="قدم واحدة" value={formatCountOrUnavailable(session.singleFootExercises)} />
+            <StatCard label="قدمان" value={formatCountOrUnavailable(session.twoFootExercises)} />
+            <StatCard label="ثبات" value={formatCountOrUnavailable(session.holdExercises)} />
+            <StatCard label="إعادات" value={formatCountOrUnavailable(session.repetitions)} />
+            <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
+            <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
+          </div><p className="text-xs text-slate-500">نمط التدفق: {session.flowMode === "assisted" ? "مساعد" : session.flowMode === "mixed" ? "مختلط" : "مستمر"} · كل الأرقام أعداد أحداث لعب؛ لا توجد نتيجة سريرية. الأهداف غير المؤكدة ليست إخفاقًا.</p></SectionCard>
+          <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} · {row.assisted} بمساعدة · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
+        </>
+
       ) : session.gameId === "foot-maze-3d" ? (
         <>
           <SectionCard title="نتائج متاهة القدمين"><div className="grid grid-cols-3 gap-3">

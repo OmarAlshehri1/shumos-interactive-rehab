@@ -8,6 +8,7 @@ import type { StoredMirrorSession } from '@/lib/mirrorquest3d/history';
 import type { StoredHexSession } from '@/lib/safehexarena3d/history';
 import type { StoredTurnGoSession } from '@/lib/turngo3d/history';
 import type { StoredFootMazeSession } from '@/lib/footmaze3d/history';
+import type { StoredRhythmSession } from '@/lib/rhythmsteps3d/history';
 import type { StoredFootsteps3Session } from '@/lib/footsteps3d/history';
 import type { StoredColorChase3Session } from '@/lib/colorchase3d/history';
 import type { StoredSpacePilotRingSession, StoredSpacePilotNineSession } from '@/lib/spacepilot3d/history';
@@ -412,5 +413,6 @@ export type AnyStoredSession =
   | StoredHexSession
   | StoredTurnGoSession
   | StoredFootMazeSession
+  | StoredRhythmSession
   | StoredFootsteps3Session
   | StoredColorChase3Session;

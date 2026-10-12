@@ -1,0 +1,232 @@
+[
+  {
+    "name": "Control opens and publishes the shared session",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (separate device) renders from /liveSession",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display 3D canvas is running (WebGL)",
+    "ok": true,
+    "detail": "{\"calls\":1,\"triangles\":1,\"frameMs\":0.72,\"targets\":0,\"bloom\":true,\"pixelRatio\":1,\"fps\":60,\"clock\":0}"
+  },
+  {
+    "name": "Record is the shared liveSession with the game id and engine",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Record carries no patient identifier on the public path",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control states the sensor limitation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Arabic RTL interface",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 starts on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control and Display clocks agree (continuous flow)",
+    "ok": true,
+    "detail": "control 4862 display 4829"
+  },
+  {
+    "name": "Targets are in flight on the Display and in the Control map",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display shows a foot-symbol caption with the colour name",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Pause freezes the clock on both devices",
+    "ok": true,
+    "detail": "control 5462->5462 display 5419->5462"
+  },
+  {
+    "name": "Resume continues without a jump",
+    "ok": true,
+    "detail": "+907 ms of game clock after ~1.2 s"
+  },
+  {
+    "name": "Speed profile changes the clock rate (gentle slower than active)",
+    "ok": true,
+    "detail": "gentle ×0.55 active ×1.03"
+  },
+  {
+    "name": "Clocks stay in sync after speed changes",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Manual confirmation reaches the Display (confirmed count)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "The confirmed target is not current any more (no double confirmation)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Repeat queues the exercise again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stopping the stream is shown on Control",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Assisted flow: the stream waits at the line (clock frozen) while the Display keeps animating",
+    "ok": true,
+    "detail": "clock 17250"
+  },
+  {
+    "name": "Assisted confirmation resumes the stream",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Recovery keeps stage and counts and never resumes by itself (paused, safety)",
+    "ok": true,
+    "detail": "{\"before\":{\"run\":\"1\",\"stage\":\"0\",\"res\":\"5\"},\"after\":{\"run\":\"1\",\"stage\":\"0\",\"status\":\"paused\",\"res\":\"5\"}}"
+  },
+  {
+    "name": "Display shows the safe pause after the reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Safety stop pauses both devices and shows the safe message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Ending a session finishes it",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved once for the first (partial) run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History record is the shared versioned record (no score)",
+    "ok": true,
+    "detail": "{\"g\":\"rhythm-steps-3d\",\"total\":6}"
+  },
+  {
+    "name": "Restart (after confirmation) opens a new run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 0"
+  },
+  {
+    "name": "Stage 2 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 0"
+  },
+  {
+    "name": "Stage 3 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 0"
+  },
+  {
+    "name": "Stage 4 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 8"
+  },
+  {
+    "name": "Stage 5 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 10"
+  },
+  {
+    "name": "Stage 6 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 4"
+  },
+  {
+    "name": "Stage 7 completes on both devices",
+    "ok": true,
+    "detail": "holds 4, two-foot 0"
+  },
+  {
+    "name": "Stage 8 completes on both devices",
+    "ok": true,
+    "detail": "holds 0, two-foot 6"
+  },
+  {
+    "name": "Stage 9 completes on both devices",
+    "ok": true,
+    "detail": "holds 2, two-foot 8"
+  },
+  {
+    "name": "Stages 4 and 8 included two-foot targets, stage 7 included holds",
+    "ok": true,
+    "detail": "[{\"stage\":1,\"holds\":0,\"dual\":0},{\"stage\":2,\"holds\":0,\"dual\":0},{\"stage\":3,\"holds\":0,\"dual\":0},{\"stage\":4,\"holds\":0,\"dual\":8},{\"stage\":5,\"holds\":0,\"dual\":10},{\"stage\":6,\"holds\":0,\"dual\":4},{\"stage\":7,\"holds\":4,\"dual\":0},{\"stage\":8,\"holds\":0,\"dual\":6},{\"stage\":9,\"holds\":2,\"dual\":8}]"
+  },
+  {
+    "name": "Final stage ends the session and shows results",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved exactly once for the nine-stage run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Save-once: still two records after waiting (no duplicate)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Nine-stage record: 9 completed stages, 9 stage rows, hold and two-foot counts present",
+    "ok": true,
+    "detail": "{\"total\":94,\"hold\":6,\"two\":44}"
+  },
+  {
+    "name": "Reloading the ended session does not save it again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No uncaught exceptions on either device",
+    "ok": true,
+    "detail": ""
+  }
+]

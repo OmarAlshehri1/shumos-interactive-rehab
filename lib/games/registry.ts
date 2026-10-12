@@ -9,6 +9,7 @@ import { MIRROR_QUEST_REGISTRATION, MIRROR_QUEST_ENABLED } from '@/lib/mirrorque
 import { SAFE_HEX_ARENA_REGISTRATION, SAFE_HEX_ARENA_ENABLED } from '@/lib/safehexarena3d/registration';
 import { TURN_AND_GO_REGISTRATION, TURN_AND_GO_ENABLED } from '@/lib/turngo3d/registration';
 import { FOOT_MAZE_REGISTRATION, FOOT_MAZE_ENABLED } from '@/lib/footmaze3d/registration';
+import { RHYTHM_STEPS_REGISTRATION, RHYTHM_STEPS_ENABLED } from '@/lib/rhythmsteps3d/registration';
 import { FOOTSTEPS_3D_DESCRIPTION_AR, FOOTSTEPS_3D_ENABLED, FOOTSTEPS_3D_NAME_EN } from '@/lib/footsteps3d/registration';
 import { COLOR_CHASE_3D_DESCRIPTION_AR, COLOR_CHASE_3D_ENABLED, COLOR_CHASE_3D_NAME_EN } from '@/lib/colorchase3d/registration';
 /**
@@ -33,7 +34,7 @@ import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 import { RUNNER_QUEST_3D_ENABLED } from '@/lib/runnerquest3d/availability';
 import { RUNNER_QUEST_3D_REGISTRATION as RQ3D } from '@/lib/runnerquest3d/registration';
 import { BUILD_QUEST_3D_ENABLED, BUILD_QUEST_REGISTRATION as BQ3D } from '@/lib/buildquest3d/registration';
-export type GameId = "foot-maze-3d" | "turn-and-go-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
+export type GameId = "rhythm-steps-3d" | "foot-maze-3d" | "turn-and-go-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
 /**
  * Retained for source compatibility only. Every game, Build Quest 3D included, now publishes into the shared
  * `/liveSession` record and is a full GameId; there is no longer any game with a separate cloud adapter.
@@ -95,6 +96,8 @@ export const GAME_REGISTRY: readonly GameDefinition[] = [
   ...(TURN_AND_GO_ENABLED ? [{ ...TURN_AND_GO_REGISTRATION, focusTagsAr: [...TURN_AND_GO_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
   // Foot Maze 3D: shared-liveSession floor game, feature-flagged (lib/footmaze3d/registration.ts). Rollback: unset NEXT_PUBLIC_FOOT_MAZE_3D.
   ...(FOOT_MAZE_ENABLED ? [{ ...FOOT_MAZE_REGISTRATION, focusTagsAr: [...FOOT_MAZE_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
+  // Rhythm Steps 3D: shared-liveSession floor game, feature-flagged (lib/rhythmsteps3d/registration.ts). Rollback: unset NEXT_PUBLIC_RHYTHM_STEPS_3D.
+  ...(RHYTHM_STEPS_ENABLED ? [{ ...RHYTHM_STEPS_REGISTRATION, focusTagsAr: [...RHYTHM_STEPS_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
   {
     id: "balloon-quest",
     nameAr: "مغامرة البالونات",

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Stage 8 completes",
+    "ok": true,
+    "detail": "pauses 0, 30 s, fps min 60 median 60, cpu frame ms 1.94, draw calls 1, tris 1"
+  },
+  {
+    "name": "Stage 9 completes",
+    "ok": true,
+    "detail": "pauses 0, 49 s, fps min 60 median 60, cpu frame ms 0.91, draw calls 1, tris 1"
+  }
+]

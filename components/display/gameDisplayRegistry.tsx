@@ -23,6 +23,7 @@ import { RunnerQuestDisplayModule } from "./games/RunnerQuestDisplayModule";
 import { BuildQuestDisplayModule } from "./games/BuildQuestDisplayModule";
 import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
 import { TurnGoDisplayModule } from "./games/TurnGoDisplayModule";
+import { RhythmStepsDisplayModule } from "./games/RhythmStepsDisplayModule";
 import type { DisplayEventListener } from "./events";
 
 /**
@@ -86,6 +87,8 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   "turn-and-go-3d": TurnGoDisplayModule,
   // Foot Maze 3D: live-session module (cross-device, read-only Display).
   "foot-maze-3d": FootMazeDisplayModule,
+  // Rhythm Steps 3D: live-session module (cross-device, read-only Display).
+  "rhythm-steps-3d": RhythmStepsDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript

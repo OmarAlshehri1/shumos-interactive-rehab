@@ -7,6 +7,7 @@ import { PearlVoyageThumbnail } from '../pearlvoyage3d/PearlVoyageThumbnail';
 import { MirrorThumbnail } from '../mirrorquest3d/MirrorThumbnail';
 import { HexThumbnail } from '../safehexarena3d/HexThumbnail';
 import { TurnGoThumbnail } from '../turngo3d/TurnGoThumbnail';
+import { RhythmThumbnail } from '../rhythmsteps3d/RhythmThumbnail';
 import { FootstepsForestThumbnail } from '../footsteps3d/FootstepsForestThumbnail';
 import { FOOTSTEPS_3D_ENABLED } from '@/lib/footsteps3d/registration';
 import { ColorChaseGardenThumbnail } from '../colorchase3d/ColorChaseGardenThumbnail';
@@ -49,4 +50,5 @@ export const GAME_THUMBNAILS: Record<GameId | LocalGameId, ComponentType> = {
   "foot-maze-3d": FootMazeThumbnail,
   "safe-hex-arena-3d": HexThumbnail,
   "turn-and-go-3d": TurnGoThumbnail,
+  "rhythm-steps-3d": RhythmThumbnail,
 };

@@ -18,6 +18,7 @@ export const REAL_GAME_THUMBNAILS: Partial<Record<GameId,string>> = {
  'mirror-quest-3d':'/library-thumbnails/mirror-quest-3d.webp',
  'safe-hex-arena-3d':'/library-thumbnails/safe-hex-arena-3d.webp',
  'turn-and-go-3d':'/library-thumbnails/turn-and-go-3d.webp',
+ 'rhythm-steps-3d':'/library-thumbnails/rhythm-steps-3d.webp',
  'fire-rescue-3d':'/library-thumbnails/fire-rescue-3d.webp',
  'blooming-world-3d':'/library-thumbnails/blooming-world-3d.webp',
  'harvest-valley-3d':'/library-thumbnails/harvest-valley-3d.webp',

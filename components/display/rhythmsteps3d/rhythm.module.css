@@ -1,0 +1,36 @@
+.world { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #05030f; color: #f1f4ff; font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, 'Noto Sans Arabic', sans-serif; border-radius: 14px; isolation: isolate; }
+.full { position: fixed; inset: 0; width: auto; aspect-ratio: auto; border-radius: 0; z-index: 5; display: grid; place-items: center; }
+.stageBox { position: relative; width: 100%; height: 100%; max-width: 100%; max-height: 100%; }
+.canvasHost { position: absolute; inset: 0; }
+.hud { position: absolute; inset: 0; pointer-events: none; }
+.badge { position: absolute; top: 2.2vmin; inset-inline-start: 2.4vmin; display: flex; flex-direction: column; gap: 0.8vmin; padding: 1.1vmin 1.8vmin; border-radius: 2.2vmin; background: linear-gradient(135deg, rgba(20, 8, 56, 0.72), rgba(8, 18, 54, 0.62)); border: 1px solid rgba(140, 200, 255, 0.28); backdrop-filter: blur(6px); font-size: clamp(13px, 1.9vmin, 26px); letter-spacing: 0.01em; }
+.badge strong { font-size: 1.15em; }
+.badge span { opacity: 0.8; }
+.dots { display: inline-flex; gap: 0.5vmin; flex-wrap: wrap; max-width: 24vmin; }
+.dot { width: 1.1vmin; height: 1.1vmin; min-width: 7px; min-height: 7px; border-radius: 50%; border: 2px solid rgba(140, 200, 255, 0.8); box-sizing: border-box; }
+.dotDone { background: #7fe9ff; border-color: #7fe9ff; box-shadow: 0 0 8px #3fd8ff; }
+.dotSkip { background: rgba(255, 255, 255, 0.28); border-color: rgba(255, 255, 255, 0.45); }
+.dotNow { border-color: #fff; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3), 0 0 10px #fff; }
+.caption { position: absolute; top: 2.2vmin; left: 0; right: 0; margin: 0 auto; width: max-content; display: flex; align-items: center; gap: 1.6vmin; padding: 1.2vmin 2.6vmin; border-radius: 3vmin; background: linear-gradient(135deg, rgba(14, 6, 44, 0.86), rgba(10, 16, 56, 0.8)); border: 1.5px solid rgba(160, 210, 255, 0.4); box-shadow: 0 0 40px rgba(120, 80, 255, 0.35); backdrop-filter: blur(6px); max-width: 78%; flex-wrap: wrap; justify-content: center; }
+.chip { display: inline-flex; align-items: center; gap: 1.1vmin; padding: 0.7vmin 1.6vmin; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 0.5vmin solid var(--c, #fff); font-size: clamp(16px, 3.2vmin, 40px); font-weight: 800; white-space: nowrap; box-shadow: 0 0 16px var(--c, #fff); }
+.chip i { width: 2.2vmin; height: 2.2vmin; min-width: 14px; min-height: 14px; border-radius: 50%; background: var(--c, #fff); box-shadow: 0 0 10px var(--c, #fff); }
+.chipStay { border-style: dashed; background: rgba(255, 255, 255, 0.03); }
+.hold { font-size: clamp(14px, 2.6vmin, 32px); opacity: 0.95; font-weight: 700; }
+.next { position: absolute; top: 2.2vmin; inset-inline-end: 2.4vmin; display: flex; align-items: center; gap: 1.2vmin; padding: 1vmin 1.7vmin; border-radius: 2.2vmin; background: rgba(12, 8, 40, 0.66); border: 1px solid rgba(140, 200, 255, 0.28); font-size: clamp(12px, 1.9vmin, 24px); }
+.next small { opacity: 0.75; }
+.nextDot { width: 1.8vmin; height: 1.8vmin; min-width: 12px; min-height: 12px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+.brand { position: absolute; bottom: 1.2vmin; inset-inline-end: 2vmin; font-size: 1.2vmin; letter-spacing: 0.3em; opacity: 0.4; }
+.sound { position: absolute; bottom: 1.6vmin; inset-inline-start: 2vmin; padding: 0.8vmin 1.6vmin; border-radius: 999px; background: rgba(12, 8, 40, 0.72); border: 1px solid rgba(255, 255, 255, 0.3); font-size: clamp(12px, 1.8vmin, 22px); pointer-events: auto; cursor: pointer; }
+.overlay { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 45%, rgba(10, 4, 34, 0.35), rgba(4, 2, 16, 0.78)); text-align: center; padding: 3vmin; }
+.card { min-width: min(74%, 70vmin); padding: 4vmin 5vmin; border-radius: 4vmin; background: linear-gradient(160deg, rgba(34, 12, 86, 0.94), rgba(10, 22, 70, 0.94)); border: 2px solid rgba(150, 210, 255, 0.5); box-shadow: 0 0 80px rgba(150, 70, 255, 0.5), 0 24px 70px rgba(0, 0, 0, 0.55); }
+.card h2 { margin: 0.6vmin 0 0.8vmin; font-size: clamp(28px, 7vmin, 84px); line-height: 1.15; background: linear-gradient(90deg, #7ff0ff, #ff7ae9, #ffd34a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.card p { margin: 0.4vmin 0; font-size: clamp(16px, 3vmin, 36px); opacity: 0.92; }
+.icon { font-size: clamp(40px, 9vmin, 110px); line-height: 1; filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.55)); }
+.stats { display: flex; gap: 2.4vmin; justify-content: center; margin-top: 2vmin; flex-wrap: wrap; }
+.stat { min-width: 14vmin; padding: 1.4vmin 2vmin; border-radius: 2.2vmin; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.2); }
+.stat b { display: block; font-size: clamp(24px, 6vmin, 72px); line-height: 1.1; }
+.stat span { font-size: clamp(12px, 2vmin, 24px); opacity: 0.85; }
+.safety { border-color: #ffb347; box-shadow: 0 0 60px rgba(255, 170, 60, 0.45); }
+.hc .card { background: #000; border-color: #fff; box-shadow: none; }
+.hc .card h2 { background: none; color: #fff; }
+.hc .caption, .hc .badge, .hc .next { background: #000; border-color: #fff; backdrop-filter: none; box-shadow: none; }
