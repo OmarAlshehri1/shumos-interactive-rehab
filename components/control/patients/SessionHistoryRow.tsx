@@ -54,6 +54,8 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
           <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.assistedCheckpoints)} بمساعدة</span>
         ) : session.gameId === "foot-maze-3d" ? (
           <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.routeChoices)} اختيار</span>
+        ) : session.gameId === "body-sequence-3d" ? (
+          <span className="font-medium text-cyan-700">{formatCountOrUnavailable(session.confirmedMovements + session.assistedMovements)} حركة مؤكدة · {formatCountOrUnavailable(session.assistedMovements)} بمساعدة</span>
         ) : session.gameId === "safe-hex-arena-3d" ? (
           <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalRoundsCompleted)} جولة · {formatCountOrUnavailable(session.totalAssists)} بمساعدة</span>
         ) : session.gameId === "rhythm-steps-3d" ? (

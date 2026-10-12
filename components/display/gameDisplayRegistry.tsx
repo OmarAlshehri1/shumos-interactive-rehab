@@ -24,6 +24,7 @@ import { BuildQuestDisplayModule } from "./games/BuildQuestDisplayModule";
 import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
 import { TurnGoDisplayModule } from "./games/TurnGoDisplayModule";
 import { RhythmStepsDisplayModule } from "./games/RhythmStepsDisplayModule";
+import { BodySequenceDisplayModule } from "./games/BodySequenceDisplayModule";
 import type { DisplayEventListener } from "./events";
 
 /**
@@ -89,6 +90,8 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   "foot-maze-3d": FootMazeDisplayModule,
   // Rhythm Steps 3D: live-session module (cross-device, read-only Display).
   "rhythm-steps-3d": RhythmStepsDisplayModule,
+  // Body Sequence 3D: live-session module (cross-device, read-only Display).
+  "body-sequence-3d": BodySequenceDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript
