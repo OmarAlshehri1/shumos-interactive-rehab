@@ -1,0 +1,127 @@
+[
+ {
+  "name": "easy: Display layout 9:5-4 matches the therapist map (max normalised error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "easy: arena is centred and inside the safe margin",
+  "ok": true,
+  "detail": "{\"w\":\"0.940\",\"h\":\"0.675\"}"
+ },
+ {
+  "name": "medium: Display layout 12:4-4-4 matches the therapist map (max normalised error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "medium: arena is centred and inside the safe margin",
+  "ok": true,
+  "detail": "{\"w\":\"0.824\",\"h\":\"0.940\"}"
+ },
+ {
+  "name": "advanced: Display layout 16:5-6-5 matches the therapist map (max normalised error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "advanced: arena is centred and inside the safe margin",
+  "ok": true,
+  "detail": "{\"w\":\"0.940\",\"h\":\"0.804\"}"
+ },
+ {
+  "name": "EXTRA_LARGE: stage 2 uses 6 tiles on Control and Display",
+  "ok": true,
+  "detail": "6:3-3"
+ },
+ {
+  "name": "EXTRA_LARGE: tile positions identical on both devices",
+  "ok": true,
+  "detail": "9.606884499024915e-8"
+ },
+ {
+  "name": "preset selector is locked while a stage is running",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "EXTRA_LARGE: a full stage is playable manually and syncs",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "COMPACT: stage 3 uses 12 tiles on Control and Display",
+  "ok": true,
+  "detail": "12:4-4-4"
+ },
+ {
+  "name": "COMPACT: tile positions identical on both devices",
+  "ok": true,
+  "detail": "7.525535972163766e-8"
+ },
+ {
+  "name": "4:3 aspect: both devices switch to the same re-fitted layout",
+  "ok": true,
+  "detail": "16:4-4-4-4"
+ },
+ {
+  "name": "4:3 aspect: tile positions identical on both devices",
+  "ok": true,
+  "detail": "0.0000"
+ },
+ {
+  "name": "4:3 aspect: arena stays centred and inside margins",
+  "ok": true,
+  "detail": "{\"w\":\"0.845\",\"h\":\"0.940\"}"
+ },
+ {
+  "name": "calibration: no physical size is shown before dimensions are entered",
+  "ok": true,
+  "detail": "تغطية الساحة للمساحة القابلة للاستخدام: 86٪ (عرضًا 94٪ · ارتفاعًا 80٪ من الشاشة)"
+ },
+ {
+  "name": "calibration: a floor shape that does not match the projector image is flagged as stretched",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "calibration: estimated hexagon width and spacing appear after entering centimetres",
+  "ok": true,
+  "detail": "تغطية الساحة للمساحة القابلة للاستخدام: 86٪ (عرضًا 94٪ · ارتفاعًا 80٪ من الشاشة) عرض السداسي التقديري (ضلع لضلع): ≈ 47 سم · من رأس لرأس ≈ 54 سم الفاصل الآمن التقديري بين البلاطات: ≈ 3.5 سم مقاس الساحة التقديري: ≈ 301 × 145 سم تقدير من الأرقام المُدخلة فقط. الأ"
+ },
+ {
+  "name": "calibration: states clearly that the size is unverified until measured",
+  "ok": true,
+  "detail": "تقدير من الأرقام المُدخلة فقط. الأبعاد الفعلية غير متحقَّق منها حتى يُقاس الإسقاط ويُعاير على الأرض."
+ },
+ {
+  "name": "calibration: even when confirmed it says the figures are estimates the system cannot verify",
+  "ok": true,
+  "detail": "أقرّ المعالج بقياس الإسقاط ومعايرته. هذه أرقام تقديرية من القيم المُدخلة، ولا يتحقق النظام من دقتها."
+ },
+ {
+  "name": "calibration: the estimated tile width matches the rendered tile width on a 320 cm floor (within 2 %)",
+  "ok": true,
+  "detail": "estimate 47 cm, rendered 46.6 cm"
+ },
+ {
+  "name": "calibration: the estimated spacing matches the rendered gap (within 0.6 cm)",
+  "ok": true,
+  "detail": "estimate 3.5 cm, rendered 3.51 cm"
+ },
+ {
+  "name": "calibration: the tile is plausible for a 320 cm floor (25–60 cm)",
+  "ok": true,
+  "detail": "47"
+ },
+ {
+  "name": "floor view is stable: the arena does not move or rescale during play",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions",
+  "ok": true,
+  "detail": "[]"
+ }
+]

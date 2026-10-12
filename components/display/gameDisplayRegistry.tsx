@@ -1,3 +1,5 @@
+import {BridgeDisplayModule} from './games/BridgeDisplayModule';
+import {CastleLegendsDisplayModule} from './games/CastleLegendsDisplayModule';
 import { HarvestDisplayModule } from './games/HarvestDisplayModule';
 import { BloomDisplayModule } from './games/BloomDisplayModule';
 import { FireRescueDisplayModule } from './games/FireRescueDisplayModule';
@@ -56,6 +58,8 @@ export interface SharedGameDisplayProps {
 }
 
 export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDisplayProps>> = {
+  "balance-bridge-3d": BridgeDisplayModule,
+  "shumos-castle-legends-3d": CastleLegendsDisplayModule,
   "harvest-valley-3d": HarvestDisplayModule,
   "blooming-world-3d": BloomDisplayModule,
   "fire-rescue-3d": FireRescueDisplayModule,

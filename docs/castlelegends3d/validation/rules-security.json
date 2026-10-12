@@ -1,0 +1,30 @@
+{
+  "environment": "isolated demo-castle emulator; candidate rules only",
+  "checks": [
+    {
+      "name": "anonymous Display can read canonical game",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "name": "anonymous Display cannot read patient history",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "anonymous Display cannot publish gameplay",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "staff cannot reuse an old revision",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "name": "owner mismatch rejected",
+      "status": 401,
+      "passed": true
+    }
+  ]
+}

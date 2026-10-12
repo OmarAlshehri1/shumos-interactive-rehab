@@ -1,0 +1,612 @@
+{
+  "before": [
+    {
+      "file": "wt901-right-hand-diagnostic-1788441394853.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.1216,
+          "xRange": 0.0295,
+          "yRange": 0.1844,
+          "jitterStd": 0.04867,
+          "maxStep": 0.01838,
+          "trackingRatio": 0.99
+        },
+        "rotate_other": {
+          "maxDrift": 0.115,
+          "xRange": 0.201,
+          "yRange": 0.029,
+          "jitterStd": 0.06693,
+          "maxStep": 0.01729,
+          "trackingRatio": 0.996
+        },
+        "still_start": {
+          "maxDrift": 0.1816,
+          "xRange": 0.1549,
+          "yRange": 0.1375,
+          "jitterStd": 0.0729,
+          "maxStep": 0.07633,
+          "trackingRatio": 0.949
+        },
+        "still_end": {
+          "maxDrift": 0.2635,
+          "xRange": 0.1987,
+          "yRange": 0.2194,
+          "jitterStd": 0.09844,
+          "maxStep": 0.05441,
+          "trackingRatio": 0.95
+        },
+        "left": {
+          "maxDrift": 0.9414,
+          "xRange": 0.9397,
+          "yRange": 0.0575,
+          "jitterStd": 0.27147,
+          "maxStep": 0.06337,
+          "trackingRatio": 1.035
+        },
+        "right": {
+          "maxDrift": 0.4967,
+          "xRange": 0.5,
+          "yRange": 0.0625,
+          "jitterStd": 0.23004,
+          "maxStep": 0.0496,
+          "trackingRatio": 0.996
+        },
+        "up": {
+          "maxDrift": 0.9761,
+          "xRange": 0.8384,
+          "yRange": 1.0,
+          "jitterStd": 0.57516,
+          "maxStep": 0.13305,
+          "trackingRatio": 1.029
+        },
+        "down": {
+          "maxDrift": 0.3605,
+          "xRange": 0.2325,
+          "yRange": 0.6236,
+          "jitterStd": 0.30307,
+          "maxStep": 0.07344,
+          "trackingRatio": 0.949
+        },
+        "diagonal": {
+          "maxDrift": 0.7793,
+          "xRange": 0.6749,
+          "yRange": 0.4996,
+          "jitterStd": 0.44252,
+          "maxStep": 0.26198,
+          "trackingRatio": 0.996
+        },
+        "tiny": {
+          "maxDrift": 0.7175,
+          "xRange": 0.4991,
+          "yRange": 0.5154,
+          "jitterStd": 0.31154,
+          "maxStep": 0.12172,
+          "trackingRatio": 0.996
+        },
+        "slow": {
+          "maxDrift": 0.0656,
+          "xRange": 0.0912,
+          "yRange": 0.0423,
+          "jitterStd": 0.02403,
+          "maxStep": 0.02843,
+          "trackingRatio": 1.001
+        },
+        "fast": {
+          "maxDrift": 0.6007,
+          "xRange": 1.0,
+          "yRange": 0.9182,
+          "jitterStd": 0.43975,
+          "maxStep": 0.16736,
+          "trackingRatio": 0.992
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788442512578.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.19,
+          "xRange": 0.24,
+          "yRange": 0.0755,
+          "jitterStd": 0.08955,
+          "maxStep": 0.02594,
+          "trackingRatio": 0.998
+        },
+        "rotate_other": {
+          "maxDrift": 0.0449,
+          "xRange": 0.0557,
+          "yRange": 0.0169,
+          "jitterStd": 0.01678,
+          "maxStep": 0.01203,
+          "trackingRatio": 0.972
+        },
+        "still_start": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "still_end": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "left": {
+          "maxDrift": 0.5093,
+          "xRange": 0.7465,
+          "yRange": 0.1011,
+          "jitterStd": 0.26337,
+          "maxStep": 0.07601,
+          "trackingRatio": 0.999
+        },
+        "right": {
+          "maxDrift": 0.5045,
+          "xRange": 0.5511,
+          "yRange": 0.067,
+          "jitterStd": 0.24193,
+          "maxStep": 0.05228,
+          "trackingRatio": 1.0
+        },
+        "up": {
+          "maxDrift": 0.5323,
+          "xRange": 0.3239,
+          "yRange": 0.941,
+          "jitterStd": 0.37734,
+          "maxStep": 0.07351,
+          "trackingRatio": 0.998
+        },
+        "down": {
+          "maxDrift": 0.4061,
+          "xRange": 0.1988,
+          "yRange": 0.683,
+          "jitterStd": 0.23739,
+          "maxStep": 0.05541,
+          "trackingRatio": 0.98
+        },
+        "diagonal": {
+          "maxDrift": 0.7071,
+          "xRange": 0.7224,
+          "yRange": 0.5,
+          "jitterStd": 0.43602,
+          "maxStep": 0.13121,
+          "trackingRatio": 1.0
+        },
+        "tiny": {
+          "maxDrift": 0.3615,
+          "xRange": 0.233,
+          "yRange": 0.3374,
+          "jitterStd": 0.09005,
+          "maxStep": 0.04007,
+          "trackingRatio": 1.048
+        },
+        "slow": {
+          "maxDrift": 0.2766,
+          "xRange": 0.3,
+          "yRange": 0.1641,
+          "jitterStd": 0.10529,
+          "maxStep": 0.04073,
+          "trackingRatio": 0.991
+        },
+        "fast": {
+          "maxDrift": 0.553,
+          "xRange": 0.9996,
+          "yRange": 0.998,
+          "jitterStd": 0.32856,
+          "maxStep": 0.18033,
+          "trackingRatio": 1.009
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788443253622.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.1322,
+          "xRange": 0.1705,
+          "yRange": 0.0,
+          "jitterStd": 0.04315,
+          "maxStep": 0.01821,
+          "trackingRatio": 0.998
+        },
+        "rotate_other": {
+          "maxDrift": 0.1024,
+          "xRange": 0.0018,
+          "yRange": 0.1863,
+          "jitterStd": 0.04692,
+          "maxStep": 0.03198,
+          "trackingRatio": 0.989
+        },
+        "still_start": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "still_end": {
+          "maxDrift": 0.2249,
+          "xRange": 0.0401,
+          "yRange": 0.2213,
+          "jitterStd": 0.05817,
+          "maxStep": 0.03267,
+          "trackingRatio": 1.087
+        },
+        "left": {
+          "maxDrift": 0.5562,
+          "xRange": 0.6538,
+          "yRange": 0.2538,
+          "jitterStd": 0.31402,
+          "maxStep": 0.10456,
+          "trackingRatio": 0.996
+        },
+        "right": {
+          "maxDrift": 0.5333,
+          "xRange": 0.578,
+          "yRange": 0.2379,
+          "jitterStd": 0.30096,
+          "maxStep": 0.08068,
+          "trackingRatio": 0.997
+        },
+        "up": {
+          "maxDrift": 0.5285,
+          "xRange": 0.1785,
+          "yRange": 0.5993,
+          "jitterStd": 0.29614,
+          "maxStep": 0.0899,
+          "trackingRatio": 0.998
+        },
+        "down": {
+          "maxDrift": 0.4725,
+          "xRange": 0.1372,
+          "yRange": 0.8023,
+          "jitterStd": 0.28278,
+          "maxStep": 0.07285,
+          "trackingRatio": 0.989
+        },
+        "diagonal": {
+          "maxDrift": 0.7255,
+          "xRange": 1.0,
+          "yRange": 1.0,
+          "jitterStd": 0.59529,
+          "maxStep": 0.19678,
+          "trackingRatio": 1.005
+        },
+        "tiny": {
+          "maxDrift": 0.2789,
+          "xRange": 0.2546,
+          "yRange": 0.4214,
+          "jitterStd": 0.1387,
+          "maxStep": 0.04063,
+          "trackingRatio": 0.996
+        },
+        "slow": {
+          "maxDrift": 0.3274,
+          "xRange": 0.424,
+          "yRange": 0.4572,
+          "jitterStd": 0.18599,
+          "maxStep": 0.04951,
+          "trackingRatio": 0.978
+        },
+        "fast": {
+          "maxDrift": 0.5961,
+          "xRange": 0.9975,
+          "yRange": 0.8961,
+          "jitterStd": 0.4714,
+          "maxStep": 0.13499,
+          "trackingRatio": 0.999
+        }
+      }
+    }
+  ],
+  "after": [
+    {
+      "file": "wt901-right-hand-diagnostic-1788441394853.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.0353,
+          "xRange": 0.0,
+          "yRange": 0.0419,
+          "jitterStd": 0.00968,
+          "maxStep": 0.00785,
+          "trackingRatio": 0.991
+        },
+        "rotate_other": {
+          "maxDrift": 0.0278,
+          "xRange": 0.0413,
+          "yRange": 0.0054,
+          "jitterStd": 0.01088,
+          "maxStep": 0.00714,
+          "trackingRatio": 0.99
+        },
+        "still_start": {
+          "maxDrift": 0.1813,
+          "xRange": 0.1547,
+          "yRange": 0.1377,
+          "jitterStd": 0.07271,
+          "maxStep": 0.0762,
+          "trackingRatio": 0.949
+        },
+        "still_end": {
+          "maxDrift": 0.2666,
+          "xRange": 0.2013,
+          "yRange": 0.2211,
+          "jitterStd": 0.10009,
+          "maxStep": 0.05438,
+          "trackingRatio": 0.951
+        },
+        "left": {
+          "maxDrift": 0.9411,
+          "xRange": 0.9394,
+          "yRange": 0.0576,
+          "jitterStd": 0.27135,
+          "maxStep": 0.0633,
+          "trackingRatio": 1.035
+        },
+        "right": {
+          "maxDrift": 0.504,
+          "xRange": 0.5,
+          "yRange": 0.0633,
+          "jitterStd": 0.23087,
+          "maxStep": 0.0496,
+          "trackingRatio": 1.0
+        },
+        "up": {
+          "maxDrift": 0.976,
+          "xRange": 0.8382,
+          "yRange": 1.0,
+          "jitterStd": 0.57514,
+          "maxStep": 0.13305,
+          "trackingRatio": 1.029
+        },
+        "down": {
+          "maxDrift": 0.3604,
+          "xRange": 0.2306,
+          "yRange": 0.618,
+          "jitterStd": 0.30143,
+          "maxStep": 0.07343,
+          "trackingRatio": 0.949
+        },
+        "diagonal": {
+          "maxDrift": 0.7804,
+          "xRange": 0.6723,
+          "yRange": 0.4178,
+          "jitterStd": 0.43433,
+          "maxStep": 0.31575,
+          "trackingRatio": 0.996
+        },
+        "tiny": {
+          "maxDrift": 0.698,
+          "xRange": 0.4715,
+          "yRange": 0.5147,
+          "jitterStd": 0.29283,
+          "maxStep": 0.13212,
+          "trackingRatio": 1.006
+        },
+        "slow": {
+          "maxDrift": 0.0689,
+          "xRange": 0.091,
+          "yRange": 0.0395,
+          "jitterStd": 0.02212,
+          "maxStep": 0.02843,
+          "trackingRatio": 1.005
+        },
+        "fast": {
+          "maxDrift": 0.6004,
+          "xRange": 1.0,
+          "yRange": 0.9188,
+          "jitterStd": 0.43971,
+          "maxStep": 0.16738,
+          "trackingRatio": 0.993
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788442512578.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.0674,
+          "xRange": 0.0791,
+          "yRange": 0.0247,
+          "jitterStd": 0.02852,
+          "maxStep": 0.01153,
+          "trackingRatio": 0.998
+        },
+        "rotate_other": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "still_start": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "still_end": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "left": {
+          "maxDrift": 0.5092,
+          "xRange": 0.7462,
+          "yRange": 0.101,
+          "jitterStd": 0.26329,
+          "maxStep": 0.07597,
+          "trackingRatio": 0.999
+        },
+        "right": {
+          "maxDrift": 0.5045,
+          "xRange": 0.5511,
+          "yRange": 0.0671,
+          "jitterStd": 0.2422,
+          "maxStep": 0.05232,
+          "trackingRatio": 1.0
+        },
+        "up": {
+          "maxDrift": 0.5324,
+          "xRange": 0.324,
+          "yRange": 0.941,
+          "jitterStd": 0.37743,
+          "maxStep": 0.07352,
+          "trackingRatio": 0.998
+        },
+        "down": {
+          "maxDrift": 0.4063,
+          "xRange": 0.1962,
+          "yRange": 0.6829,
+          "jitterStd": 0.23847,
+          "maxStep": 0.05617,
+          "trackingRatio": 0.981
+        },
+        "diagonal": {
+          "maxDrift": 0.7071,
+          "xRange": 0.7273,
+          "yRange": 0.5,
+          "jitterStd": 0.43592,
+          "maxStep": 0.13121,
+          "trackingRatio": 1.0
+        },
+        "tiny": {
+          "maxDrift": 0.3567,
+          "xRange": 0.2329,
+          "yRange": 0.3326,
+          "jitterStd": 0.08923,
+          "maxStep": 0.03932,
+          "trackingRatio": 1.047
+        },
+        "slow": {
+          "maxDrift": 0.275,
+          "xRange": 0.2986,
+          "yRange": 0.1621,
+          "jitterStd": 0.1041,
+          "maxStep": 0.04047,
+          "trackingRatio": 0.994
+        },
+        "fast": {
+          "maxDrift": 0.5525,
+          "xRange": 0.9995,
+          "yRange": 0.998,
+          "jitterStd": 0.32619,
+          "maxStep": 0.18029,
+          "trackingRatio": 1.01
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788443253622.json",
+      "phases": {
+        "rotate_one": {
+          "maxDrift": 0.0295,
+          "xRange": 0.0295,
+          "yRange": 0.0,
+          "jitterStd": 0.00835,
+          "maxStep": 0.00621,
+          "trackingRatio": 0.997
+        },
+        "rotate_other": {
+          "maxDrift": 0.0316,
+          "xRange": 0.0,
+          "yRange": 0.0495,
+          "jitterStd": 0.01058,
+          "maxStep": 0.01183,
+          "trackingRatio": 0.967
+        },
+        "still_start": {
+          "maxDrift": 0.0,
+          "xRange": 0.0,
+          "yRange": 0.0,
+          "jitterStd": 0.0,
+          "maxStep": 0.0,
+          "trackingRatio": null
+        },
+        "still_end": {
+          "maxDrift": 0.2249,
+          "xRange": 0.04,
+          "yRange": 0.2213,
+          "jitterStd": 0.05815,
+          "maxStep": 0.03267,
+          "trackingRatio": 1.087
+        },
+        "left": {
+          "maxDrift": 0.5561,
+          "xRange": 0.6532,
+          "yRange": 0.2539,
+          "jitterStd": 0.31389,
+          "maxStep": 0.10456,
+          "trackingRatio": 0.996
+        },
+        "right": {
+          "maxDrift": 0.5333,
+          "xRange": 0.5777,
+          "yRange": 0.2378,
+          "jitterStd": 0.30094,
+          "maxStep": 0.08068,
+          "trackingRatio": 0.997
+        },
+        "up": {
+          "maxDrift": 0.5285,
+          "xRange": 0.1785,
+          "yRange": 0.5992,
+          "jitterStd": 0.29616,
+          "maxStep": 0.0899,
+          "trackingRatio": 0.998
+        },
+        "down": {
+          "maxDrift": 0.4726,
+          "xRange": 0.1372,
+          "yRange": 0.8023,
+          "jitterStd": 0.28279,
+          "maxStep": 0.07285,
+          "trackingRatio": 0.989
+        },
+        "diagonal": {
+          "maxDrift": 0.7251,
+          "xRange": 1.0,
+          "yRange": 1.0,
+          "jitterStd": 0.59562,
+          "maxStep": 0.19678,
+          "trackingRatio": 1.006
+        },
+        "tiny": {
+          "maxDrift": 0.2789,
+          "xRange": 0.2546,
+          "yRange": 0.421,
+          "jitterStd": 0.13862,
+          "maxStep": 0.04063,
+          "trackingRatio": 0.996
+        },
+        "slow": {
+          "maxDrift": 0.3268,
+          "xRange": 0.4237,
+          "yRange": 0.4563,
+          "jitterStd": 0.18584,
+          "maxStep": 0.04949,
+          "trackingRatio": 0.979
+        },
+        "fast": {
+          "maxDrift": 0.5962,
+          "xRange": 0.9975,
+          "yRange": 0.896,
+          "jitterStd": 0.47138,
+          "maxStep": 0.13499,
+          "trackingRatio": 0.999
+        }
+      }
+    }
+  ]
+}

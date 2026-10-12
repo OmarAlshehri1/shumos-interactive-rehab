@@ -1,0 +1,267 @@
+{
+  "generatedBy": "analyze_twist_invariance_capture.py",
+  "sourceFile": "wt901-right-hand-twist-invariance-1788531321165.json",
+  "sampleCount": 4960,
+  "singularityHitsModelC": 0,
+  "signCalibration": {
+    "sign_flip_v": 1.0,
+    "sign_flip_h": 1.0
+  },
+  "modelC_ownCalibration": {
+    "matrix": [
+      [
+        0.06844522504384973,
+        -0.99776377346668
+      ],
+      [
+        -0.9986642259056224,
+        -0.05373137230794926
+      ]
+    ],
+    "e_h": [
+      0.053725535440313395,
+      -0.9985557404780424
+    ],
+    "e_v": [
+      -0.9976553858557288,
+      -0.06843778980254231
+    ],
+    "angle_between_h_v_deg": 89.15546526222502
+  },
+  "perPhase": [
+    {
+      "phase": "neutral_up",
+      "direction": "up",
+      "n": 794,
+      "actualWristAngleDeg": {
+        "mean": 0.8234142236205132,
+        "min": -3.1585693359375,
+        "max": 4.053955078125
+      },
+      "modelA_legacy_default_errorDeg": 6.177449471808245,
+      "modelB_today_continuous_calib_errorDeg": 4.77625413874739,
+      "modelC_candidate_roll_invariant_errorDeg": 0.5957506757865758
+    },
+    {
+      "phase": "neutral_down",
+      "direction": "down",
+      "n": 332,
+      "actualWristAngleDeg": {
+        "mean": 3.0568630724068147,
+        "min": -1.69189453125,
+        "max": 5.5810546875
+      },
+      "modelA_legacy_default_errorDeg": 9.783748200625837,
+      "modelB_today_continuous_calib_errorDeg": 1.594362709316215,
+      "modelC_candidate_roll_invariant_errorDeg": 4.385937448631012
+    },
+    {
+      "phase": "neutral_left",
+      "direction": "left",
+      "n": 268,
+      "actualWristAngleDeg": {
+        "mean": -0.025006194612873133,
+        "min": -3.153076171875,
+        "max": 4.1253662109375
+      },
+      "modelA_legacy_default_errorDeg": 12.439281421035759,
+      "modelB_today_continuous_calib_errorDeg": 0.2875815068207146,
+      "modelC_candidate_roll_invariant_errorDeg": 2.8213590890177045
+    },
+    {
+      "phase": "neutral_right",
+      "direction": "right",
+      "n": 226,
+      "actualWristAngleDeg": {
+        "mean": -0.4131296883642146,
+        "min": -4.1363525390625,
+        "max": 2.7740478515625
+      },
+      "modelA_legacy_default_errorDeg": 9.205008364716747,
+      "modelB_today_continuous_calib_errorDeg": 4.6663453382602995,
+      "modelC_candidate_roll_invariant_errorDeg": 0.28760470797405446
+    },
+    {
+      "phase": "twist_45_up",
+      "direction": "up",
+      "n": 508,
+      "actualWristAngleDeg": {
+        "mean": 45.07754228246493,
+        "min": 0.780029296875,
+        "max": 59.666748046875
+      },
+      "modelA_legacy_default_errorDeg": 49.1591187350287,
+      "modelB_today_continuous_calib_errorDeg": 111.94459233059041,
+      "modelC_candidate_roll_invariant_errorDeg": 0.9819511155762939
+    },
+    {
+      "phase": "twist_45_down",
+      "direction": "down",
+      "n": 416,
+      "actualWristAngleDeg": {
+        "mean": 68.84027921236478,
+        "min": 59.3426513671875,
+        "max": 71.5374755859375
+      },
+      "modelA_legacy_default_errorDeg": 51.432564243494056,
+      "modelB_today_continuous_calib_errorDeg": 122.15354286280588,
+      "modelC_candidate_roll_invariant_errorDeg": 5.693728969701738
+    },
+    {
+      "phase": "twist_45_left",
+      "direction": "left",
+      "n": 316,
+      "actualWristAngleDeg": {
+        "mean": 65.62220706215388,
+        "min": 60.57861328125,
+        "max": 69.1644287109375
+      },
+      "modelA_legacy_default_errorDeg": 54.207452892400354,
+      "modelB_today_continuous_calib_errorDeg": 133.62664635209939,
+      "modelC_candidate_roll_invariant_errorDeg": 2.648169526971685
+    },
+    {
+      "phase": "twist_45_right",
+      "direction": "right",
+      "n": 286,
+      "actualWristAngleDeg": {
+        "mean": 64.95476355919472,
+        "min": 61.7156982421875,
+        "max": 74.77294921875
+      },
+      "modelA_legacy_default_errorDeg": 58.72632165543942,
+      "modelB_today_continuous_calib_errorDeg": 126.86920008189139,
+      "modelC_candidate_roll_invariant_errorDeg": 0.3548806692919584
+    },
+    {
+      "phase": "twist_90_up",
+      "direction": "up",
+      "n": 340,
+      "actualWristAngleDeg": {
+        "mean": 88.38300637637867,
+        "min": 72.509765625,
+        "max": 108.39111328125
+      },
+      "modelA_legacy_default_errorDeg": 87.19883124546584,
+      "modelB_today_continuous_calib_errorDeg": 172.00661421741086,
+      "modelC_candidate_roll_invariant_errorDeg": 3.2751071728174566
+    },
+    {
+      "phase": "twist_90_down",
+      "direction": "down",
+      "n": 252,
+      "actualWristAngleDeg": {
+        "mean": 97.95364379882812,
+        "min": 91.77978515625,
+        "max": 102.0135498046875
+      },
+      "modelA_legacy_default_errorDeg": 88.41892334482291,
+      "modelB_today_continuous_calib_errorDeg": 6.56440231536979,
+      "modelC_candidate_roll_invariant_errorDeg": 1.1438069685905816
+    },
+    {
+      "phase": "twist_90_left",
+      "direction": "left",
+      "n": 260,
+      "actualWristAngleDeg": {
+        "mean": 92.98722487229567,
+        "min": 84.4189453125,
+        "max": 97.9046630859375
+      },
+      "modelA_legacy_default_errorDeg": 69.98253709421898,
+      "modelB_today_continuous_calib_errorDeg": 9.766357626365874,
+      "modelC_candidate_roll_invariant_errorDeg": 8.594077560891662
+    },
+    {
+      "phase": "twist_90_right",
+      "direction": "right",
+      "n": 258,
+      "actualWristAngleDeg": {
+        "mean": 88.83868550145348,
+        "min": 84.100341796875,
+        "max": 93.878173828125
+      },
+      "modelA_legacy_default_errorDeg": 77.14310855062627,
+      "modelB_today_continuous_calib_errorDeg": 170.94217873523604,
+      "modelC_candidate_roll_invariant_errorDeg": 3.882415205272963
+    }
+  ],
+  "buckets": {
+    "near_0": {
+      "phases": [
+        "neutral_up",
+        "neutral_down",
+        "neutral_left",
+        "neutral_right"
+      ],
+      "modelA_meanErrorDeg": 9.401371864546647,
+      "modelB_meanErrorDeg": 2.831135923286155,
+      "modelC_meanErrorDeg": 2.0226629803523366,
+      "modelA_maxErrorDeg": 12.439281421035759,
+      "modelB_maxErrorDeg": 4.77625413874739,
+      "modelC_maxErrorDeg": 4.385937448631012
+    },
+    "near_45": {
+      "phases": [
+        "twist_45_up",
+        "twist_45_down",
+        "twist_45_left",
+        "twist_45_right"
+      ],
+      "modelA_meanErrorDeg": 53.38136438159063,
+      "modelB_meanErrorDeg": 123.64849540684676,
+      "modelC_meanErrorDeg": 2.419682570385419,
+      "modelA_maxErrorDeg": 58.72632165543942,
+      "modelB_maxErrorDeg": 133.62664635209939,
+      "modelC_maxErrorDeg": 5.693728969701738
+    },
+    "near_90": {
+      "phases": [
+        "twist_90_up",
+        "twist_90_down",
+        "twist_90_left",
+        "twist_90_right"
+      ],
+      "modelA_meanErrorDeg": 80.6858500587835,
+      "modelB_meanErrorDeg": 89.81988822359564,
+      "modelC_meanErrorDeg": 4.223851726893166,
+      "modelA_maxErrorDeg": 88.41892334482291,
+      "modelB_maxErrorDeg": 172.00661421741086,
+      "modelC_maxErrorDeg": 8.594077560891662
+    }
+  },
+  "crossCouplingEccentricity": {
+    "neutral_up": {
+      "modelA_eccentricity": 0.05555597124322652,
+      "modelB_eccentricity": 0.054067448830765155,
+      "modelC_eccentricity": 0.06319471526063145
+    },
+    "neutral_down": {
+      "modelA_eccentricity": 0.034892411531855995,
+      "modelB_eccentricity": 0.027235656380282358,
+      "modelC_eccentricity": 0.0471091079089976
+    },
+    "neutral_left": {
+      "modelA_eccentricity": 0.0474274021954188,
+      "modelB_eccentricity": 0.05097585675053165,
+      "modelC_eccentricity": 0.0679744065297549
+    },
+    "neutral_right": {
+      "modelA_eccentricity": 0.06287707899977414,
+      "modelB_eccentricity": 0.10822019966869631,
+      "modelC_eccentricity": 0.11738299393924662
+    }
+  },
+  "edgeReversal": {
+    "edge_left_reverse_right": {
+      "n": 484,
+      "modelB_liveReversalMs": null,
+      "modelC_reversalMs": null
+    },
+    "edge_top_reverse_down": {
+      "n": 220,
+      "modelB_liveReversalMs": null,
+      "modelC_reversalMs": 688.9000000022352
+    }
+  }
+}

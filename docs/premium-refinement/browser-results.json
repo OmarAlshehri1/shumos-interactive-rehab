@@ -1,0 +1,106 @@
+{
+  "library": [
+    {
+      "filter": "ALL",
+      "count": 14,
+      "unique": true
+    },
+    {
+      "filter": "HAND",
+      "count": 7,
+      "inputPreserved": true
+    },
+    {
+      "filter": "FOOT",
+      "count": 8,
+      "inputPreserved": true
+    },
+    {
+      "filter": "JOYSTICK",
+      "count": 6,
+      "inputPreserved": true
+    },
+    {
+      "filter": "DRIVING",
+      "count": 3,
+      "inputPreserved": true
+    }
+  ],
+  "setups": [
+    {
+      "game": "shumos-castle-legends-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "harvest-valley-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "blooming-world-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "fire-rescue-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "pearl-voyage-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "mirror-quest-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "safe-hex-arena-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "balloon-quest",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "follow-the-footsteps",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "bubble-pop-wall",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "space-pilot",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "color-chase",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "runner-quest-3d",
+      "progressive": true,
+      "visibleStages": 3
+    },
+    {
+      "game": "build-quest-3d",
+      "progressive": true,
+      "visibleStages": 3
+    }
+  ],
+  "errors": [],
+  "introduction": {
+    "visual": true,
+    "paidTtsBlocked": true
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "baselineExistingFiles": 741,
+  "unchangedExistingFiles": 723,
+  "changed": [
+    {
+      "path": "docs/spacepilot3d/ARTIFACT_MANIFEST.md",
+      "before": "3bd71df2a0bb29bec74c05ef89282ebb1ec646a4f28b83c269dbd315d741deb3",
+      "after": "f584de96b1363a9b951e09c5231806814d0193a30806277c9f6cca885b0e81b5"
+    },
+    {
+      "path": "docs/spacepilot3d/PHYSICAL_VALIDATION_CHECKLIST.md",
+      "before": "590ededadb4b917c139b8e25e5a08da0353ab152281451325d4dc3f38a8babab",
+      "after": "4b6ed214703ca2e03208e9d634ce037664aa806df8272d14aa81101649661061"
+    },
+    {
+      "path": "lib/spacepilot3d/controlSessionRuntime.ts",
+      "before": "774998b1887e3d720f9a8144b7c04e3b1e9fe020b5ae343642d392a97a737d4b",
+      "after": "117e1a51b5d61d03f5211ce72053d30024590e8c34b3e3e02a81e474dda91ae1"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionReplica.ts",
+      "before": "dfaf26f34eb4629a2d9b7c3f29731e971d532b9745bd470f66ecfb422baabe69",
+      "after": "3efec671a0a3aaaeb723e3dde315bcf7343990186b6d5621d4606d5df6d15c80"
+    },
+    {
+      "path": "lib/spacepilot3d/presentation.ts",
+      "before": "421ddcc45b9cb3d1425b4fb3652c19c2abd775894b1917511021a55526566a27",
+      "after": "408983e3eea5a024e33a3e454dcb2da63bafdaeae0c583177e71ddd00f9a07ce"
+    },
+    {
+      "path": "lib/spacepilot3d/arabic.ts",
+      "before": "fcb98496daedb09a048f70e3bf48637d9af3f7d5a991e36b7e2f6bb984b83182",
+      "after": "027867e1354d756d276b4247406388e360bec8ef24e122d98fe062377d534b31"
+    },
+    {
+      "path": "lib/spacepilot3d/README.md",
+      "before": "2fcbe5383c0d560c004d49d2afd2c6b064263ef2d130f92dbf83f61943f75182",
+      "after": "aaef121e80133488f8620714e5012b5a98e8439f34f7db429465c4564094477b"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionStorage.ts",
+      "before": "9086bba26e6cb9b294f332da00ca7f166ac4d08ea01725e6521b9f04a691ff56",
+      "after": "3325283def2e9f6c81d87fa0490f3803538d7d80e66abc230e64a6400563e864"
+    },
+    {
+      "path": "lib/spacepilot3d/renderer.ts",
+      "before": "3c5b4256398f9eb60b9894c41d41e9471bac99861a469e9ed2ea179fb805e3a3",
+      "after": "71c0c607bf1601865e3f30f3f025b466cca6c5124b445418329dee7a9989a6f0"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionContract.ts",
+      "before": "3f102bbbf21fbec676a1627d06f5bb1f2292bb66f3d3b5afe05a1c5218591bc8",
+      "after": "c90f39ac5ed3e1b03af26e3b2116f0577f90fbbc5eab9d6022891fb21b75a711"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionAuthority.ts",
+      "before": "5be8f2497adbe85d7827e32ea57c05b154a62268ce2a0a2d07d925f03a6edd3f",
+      "after": "7bf0560ec3941a0945283bbb6dbc46c74616fb398df9b5b378e33685773499c7"
+    },
+    {
+      "path": "lib/spacepilot3d/displaySessionRuntime.ts",
+      "before": "4ae92b85bbe0c23e0a692635de5dd204032308fcc21b803f95649e537ae6464d",
+      "after": "f749ba0ed9d44f9d407a124ad28503415f58d71c1e078d7c712524e68fcf6aec"
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "before": "934496eb87ae1c91805c4800bf9ca227d7aede52ebcc315df47a54f7c78127ef",
+      "after": "dbe30c198a81ce38e173c9421840ae8e4f37fc54302995dc56b0ac95a30c8918"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "before": "46f3cd6c664a9d3862c8b128aa3a7497b9d779b6bdb8171a7ccc166341b1038f",
+      "after": "6d07036242b9fca540e118380a3317a383d26efb679a235c513c683839b7946c"
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "before": "4f0e8873959b954564f9db91f1257e48ee8b854a638efa367fc3922ebdedc1ab",
+      "after": "5e9d43e0f745d82f6264aff4ab90b8f6902510c57fb6bfcb98a2785ae32852c5"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/session.test.ts",
+      "before": "e56bf74b8d407cbf6e3ea03cb8dd86c233f08bba1af9dd9b903e6d57e9218118",
+      "after": "b48be1d455f3fce4469e1eb03f5d93d22d99ab7d08620554acf60dce85f614d5"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/runtime.test.ts",
+      "before": "88894e9582be8019f31adc48d2e1521179e290a6e0443ef805cf665b8c435e41",
+      "after": "9e81ad82fc1670b8e86a56a804701cc2db6032cacccac9c6c162b12474c6d0fc"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+      "before": "768f950566569e54d45ac23a6fda5361c595755e5a110400f42e573bd1da192c",
+      "after": "f0a193972049df96f772183d6d5b0ca2070ae928c53459ec900297709bae203a"
+    }
+  ],
+  "added": [
+    {
+      "path": "docs/spacepilot3d/PHASE_R1_REPORT.md",
+      "sha256": "8c0480299d21b4d51403dac7449ef33c864a86bcc4218ec54d806821cc9c0b95"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r1-flight.mp4",
+      "sha256": "210cb69de90ccf7de14c3e43dd1926bb618ea5eed26c46fad83bc4261e74c714"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r1-flight.webm",
+      "sha256": "93d6699802a81172c75c5e6020d69e7c669e2ae51d0d23588d9d520dd5537a94"
+    },
+    {
+      "path": "lib/spacepilot3d/worldCollision.ts",
+      "sha256": "7647adda7c374cc2de3729f0b7270c472c6d3ac3c144f8ff9c371d16029c1f1f"
+    },
+    {
+      "path": "lib/spacepilot3d/worldCamera.ts",
+      "sha256": "7718ab9eefce45a6ec53b609d47b59cf7ac1453d15227e76d651e12088db1137"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-summary.png",
+      "sha256": "7aa225b861686b90820008fe0ebfb5c594c9ab11c958583e6d0c34a10405667a"
+    },
+    {
+      "path": "lib/spacepilot3d/worldFlight.ts",
+      "sha256": "7f7c2899500165f7bae29c5dbe0c4000dad3194c0e4b778f827127a891b3c3b3"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-intentional-collection.png",
+      "sha256": "711d3d57fb15241bc4400161ba9fdff28c6ffa54f96d8a3946aebe0d06b651fa"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-mission-complete.png",
+      "sha256": "2be2f6a93119438845b8848169fe898aefe1e92a7e865ccefdeba6c726c66fd7"
+    },
+    {
+      "path": "lib/spacepilot3d/worldGameplay.ts",
+      "sha256": "018b1c92d5dddd8a3a3a8eb6b00e9a3407fe114c4336e698209e3fbe392bf669"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-tier3.png",
+      "sha256": "e26a60788a54f619006369acc25a19d1093e1c0300be2956eda5788122b580cc"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-neutral.png",
+      "sha256": "2aa0ee4ea026078f5d88b1b00096409550e96a967c3555c1c90192e34d81b9f1"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-m1-encounter3.png",
+      "sha256": "e55fa19f27dd8afa200fc0c50b1f68b8865d8f8fb00a13d1228b4c630a02f9c4"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-tier2.png",
+      "sha256": "d700167c9ca63e32456e283a790c8be60466713cf01add7be4425d081b17adb7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-low-summary.png",
+      "sha256": "7592f9aa525b7c3d8fdab63decb915bd2e3a323a804bfcef24dc0e9af9e9ac36"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-m1-encounter1.png",
+      "sha256": "f14d7fe8dac3540da0ac1f5a159e599ec533b0f1d36d93c32776da192b2c7af5"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-browser.txt",
+      "sha256": "d3e7b5e02325963d2a55379a6993020a2b8213c5c07d2eebc5a83d700aeed96e"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-auth-gate.json",
+      "sha256": "9f4f744a7ce8639d9f929ce3f09241eb6f585689d2f815939590455299e882e5"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-left.png",
+      "sha256": "51fc24caa078d64e6e715c3ccd5cfba300576821ee1e560229ebb6851ce1f5d2"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-production.mjs",
+      "sha256": "515df774f9246a1ca0c7dac087ff11c7c2fe388ae62d34dbd22d161b8a1d3203"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-flight-review.mjs",
+      "sha256": "e681494d65da608aa9c22b3bddd3a811ed0917baf4710ec1d37d327c94304f38"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-m1-encounter4.png",
+      "sha256": "adae43e40c7fdfa95cd0af6adb7845db81a02e4374e41a8ed1d210a796f9f84e"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-performance.json",
+      "sha256": "ede843251e6a248cd1f719fd33cd799539cdf6865f228c00513332babf8783d4"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-control-setup.png",
+      "sha256": "81637a0697b325ce45fafe7da50c619181693ff9da1928675f5be155a267c10c"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-tests.txt",
+      "sha256": "9e111b956092f989ff1d4b7e81e30fbe5aeade0a85bc8d95339c4a57a8c7edc4"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-performance.txt",
+      "sha256": "bfe7f0db36746b9109c97712f466589e5e0b43d4087946c929fb90797084674c"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-avoidance.png",
+      "sha256": "5c1f27bd5bd6e2ea601dc795d187bacb5822ee85b76bd74f7d1d12bd1ab6cf63"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-flight-review.json",
+      "sha256": "0e035d47f1974e58dffa7b8c7c63861e8a8934ba2c16973b4942e0221d76a586"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-right.png",
+      "sha256": "6f7e58a8785b4907158f4e8c2fda0e5a6bdc930dd41a7eaa293927444e8507ca"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-medium-summary.png",
+      "sha256": "ab7929fa403b86d64f126c38ea0dd2eb46be23389fa72aaa75d7cb8f66290fcc"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-presets.txt",
+      "sha256": "dbafc007b765dfeaf54c0c2a71ace1cc2087a4e75fca810281ae2de1160e4a40"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-build.txt",
+      "sha256": "3545732d45927e6f7113c5686d0e409d775e90cf52d0644b259703d4e475b47c"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-control.png",
+      "sha256": "25845d6f22eadf67288d933ea0bff44abef3befe12d99bd002fbc71e61a1de96"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-performance-interruption.txt",
+      "sha256": "6775162c7f6e74185356e4f4cc3a76c3d8d32d4b3663f554f3332f5b139f35be"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-presets.mjs",
+      "sha256": "04e5b3a6347374855119cf3d9756550117f155bc268e2065f723f72badda1ad9"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-lint.txt",
+      "sha256": "b92faec5bda35696ba5ed7a9879afa4210eaee1416bd9f87faf6f293a3e2e6bc"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-collection.png",
+      "sha256": "6df2a456a99ea31d342092456b0d89a28048f3aa1d55de113abb39764338d2ad"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-auth-gate.mjs",
+      "sha256": "7a6a14bc0d5f4e3004840c14c75c9a3274203c18d214f97df71d1dc1c55bce96"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-typecheck.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-browser.mjs",
+      "sha256": "07ca7247cf9352d8d2215d6de45419c1ad54c66f7b525690ad783800fabc8a5a"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-presets.json",
+      "sha256": "95da57ff6250d547a65ee6a69bd3a7f56e66f562c9665e78a62e8928c4148938"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-descending.png",
+      "sha256": "44eadc43258af2e09775584a100ade5e7abe68ca11a516583bb59432cb762ca6"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-performance.mjs",
+      "sha256": "67a82f83105346c226c7948b45742e297f458065b324b1efd2f2506f0cac10a0"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-production.json",
+      "sha256": "d1b8ad3aecaf069c088931c91cfe3356eb71d2145be7e9222bb39ff8dcd02b18"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r1-flight-review.txt",
+      "sha256": "b18da7a126b27976371086c4cacf629742529b16f988bd3999c38851df9f18f7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-m3-encounter2.png",
+      "sha256": "30837ae46ba73229703a9149f6a9964742ead648b8dce23703b0d0ad9931aa54"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-climbing.png",
+      "sha256": "43a012a0d0b780aef077d9e89da3136744d9c6b38a5036774c77df73cb2dd3bc"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-complete.png",
+      "sha256": "624d599762b6ebdbd480d3138e2c2f9838830cc360bd31ce30d63d81f320b2ed"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-start.png",
+      "sha256": "2d2a665bb92c04ed98d5bf64d0725cb78f0efcbfc93c1ee71bd8951c3da2fa6d"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r1-flight-collection.png",
+      "sha256": "72c080b90ba77a78ffc29ff95be00438af175b527a20b7b372893767304fa46c"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/worldFlight.test.ts",
+      "sha256": "b27f264b4b4a6bc5957e744893bdc6dc26c161370efe7744f43fdce8e1d0b5f7"
+    }
+  ],
+  "missing": [],
+  "outsideExperimentalChanges": [],
+  "self": "docs/spacepilot3d/validation/r1-change-manifest.json",
+  "note": "Compared with pre-R1 working-tree hashes, including earlier uncommitted work. Self file is not self-hashed."
+}

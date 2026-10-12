@@ -1,0 +1,360 @@
+{
+  "sections": [
+    {
+      "id": "hand-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=HAND",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=HAND",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=HAND",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=HAND",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=HAND",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=HAND",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "foot-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=FOOT",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "follow-the-footsteps",
+          "href": "/control/follow-the-footsteps?input=FOOT",
+          "name": "اتبع الخطوات"
+        },
+        {
+          "id": "color-chase",
+          "href": "/control/color-chase?input=FOOT",
+          "name": "مطاردة الألوان"
+        },
+        {
+          "id": "runner-quest-3d",
+          "href": "/control/runner-quest-3d?input=FOOT",
+          "name": "مغامرة العدّاء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=FOOT",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "safe-hex-arena-3d",
+          "href": "/control/safe-hex-arena-3d?input=FOOT",
+          "name": "الأرض الآمنة"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=FOOT",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "handheld",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=JOYSTICK",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=JOYSTICK",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=JOYSTICK",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=JOYSTICK",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=JOYSTICK",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=JOYSTICK",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "steering",
+      "cards": [
+        {
+          "id": "fire-rescue-3d",
+          "href": "/control/fire-rescue-3d?input=DRIVING",
+          "name": "مهمة الإطفاء"
+        },
+        {
+          "id": "harvest-valley-3d",
+          "href": "/control/harvest-valley-3d?input=DRIVING",
+          "name": "موسم الحصاد"
+        },
+        {
+          "id": "pearl-voyage-3d",
+          "href": "/control/pearl-voyage-3d?input=DRIVING",
+          "name": "قارب اللؤلؤ"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "runner-quest-3d",
+      "input": "FOOT",
+      "launchCarried": "FOOT",
+      "launchPanel": "مغامرة العدّاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالقدم اليمنى · غير متاح\nالقدم اليسرى · غير متاح\nالقدمان · غير متاح\n\nالمحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.\n\nسطح العرض المنفّذ\nجداريأرضي\n\nاختر السطح صراحةً هنا قبل بدء جلسة جديدة؛ القسم لا يختار الكاميرا نيابةً عنك.\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "→\nالعودة للأنشطة\nمغامرة العدّاء\nمتصل\nمغامرة العدّاء — Runner Quest 3D\n\nتحكّم من هذا الجهاز؛ تظهر اللعبة للطفل على شاشة العرض في الجهاز الآخر. حسّاسات القدم الفعلية لم تُختبر بعد.\n\nشاشة العرض متصلة\nالإدخال جاهز\nجاهز للبدء\nاسم الطفل (يظهر في الجلسة)\nسطح العرض جداري\nجداري\nالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.\nأرضي\nرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.\nاللعبة الآن\nالمرحلة 1 من 9 — الخطوات الأولى\nسهل — تعلّم الاتجاهات · تحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n0\nنجوم\n0%\nالتقدّم\n0\nوقفات\n0/8\nعوائق\nابدأ\nإنهاء الجلسة\nتحكّم المعالج باللمس متاح دائمًا\n◀\nيسار\n▲\nتخطَّ الحاجز\n▶\nيمين\nتعمل هذه الأزرار مع أي مصدر إدخال، وتمرّ عبر نفس قواعد اللعبة تمامًا؛ لا تحتاج إلى لوحة مفاتيح أو حسّاس. تُمنع الضغطات المتكررة السريعة تلقائيًا.\nالمراحل\nمرحلة واحدة\nمن المرحلة المختارة حتى النهاية\nسهل\n1. الخطوات الأولى\n2. اختر المسار\n3. تجنّب بلطف\nمتوسط\n1. أول حاجز\n2. الاتجاه والخطوة\n3. درب العوائق\nمتقدم\n1. مسارات متغيّرة\n2. عوائق متنوعة\n3. المغامرة الأخيرة\nلا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط عندما تضغط «المرحلة التالية».\nإعدادات المعالج\nمصدر الإدخال\nتحكم المعالج باللمس\nالقدم اليمنى — تجريبي\nالقدم اليسرى — تجريبي\nالقدمان معًا — تجريبي\nلا يحتاج إلى أي حسّاس. يبقى التحكم اليدوي متاحًا في كل الأوضاع.\nالسرعة الأمامية: 2.4 م/ث\nبطيء جدًا\nبطيء\nعادي\nأسرع\nالمسافة بين العوائق: ×1.0\nحساسية الحركة (للحسّاسات)\nمنخفضة\nعادية\nعالية\nعالية = تكفي حركة أصغر لتُحتسب.\nتسامح اكتشاف الحركة\nضيّق\nعادي\nواسع\nالواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.\n يتطلّب رفع القدم لتخطّي الحواجز\nعند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.\n التوقّف قبل العائق بمسافة كبيرة\nيتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.\n تقليل الحركة\nيوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.\nإعادة ضبط وضع الراحة\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "جداريالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.",
+          "disabled": false
+        },
+        {
+          "name": "أرضيرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.",
+          "disabled": false
+        },
+        {
+          "name": "ابدأ",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "◀يسار",
+          "disabled": true
+        },
+        {
+          "name": "▲تخطَّ الحاجز",
+          "disabled": true
+        },
+        {
+          "name": "▶يمين",
+          "disabled": true
+        },
+        {
+          "name": "مرحلة واحدة",
+          "disabled": false
+        },
+        {
+          "name": "من المرحلة المختارة حتى النهاية",
+          "disabled": false
+        },
+        {
+          "name": "1. الخطوات الأولى",
+          "disabled": false
+        },
+        {
+          "name": "2. اختر المسار",
+          "disabled": false
+        },
+        {
+          "name": "3. تجنّب بلطف",
+          "disabled": false
+        },
+        {
+          "name": "1. أول حاجز",
+          "disabled": false
+        },
+        {
+          "name": "2. الاتجاه والخطوة",
+          "disabled": false
+        },
+        {
+          "name": "3. درب العوائق",
+          "disabled": false
+        },
+        {
+          "name": "1. مسارات متغيّرة",
+          "disabled": false
+        },
+        {
+          "name": "2. عوائق متنوعة",
+          "disabled": false
+        },
+        {
+          "name": "3. المغامرة الأخيرة",
+          "disabled": false
+        },
+        {
+          "name": "بطيء جدًا",
+          "disabled": false
+        },
+        {
+          "name": "بطيء",
+          "disabled": false
+        },
+        {
+          "name": "عادي",
+          "disabled": false
+        },
+        {
+          "name": "أسرع",
+          "disabled": false
+        },
+        {
+          "name": "منخفضة",
+          "disabled": false
+        },
+        {
+          "name": "عادية",
+          "disabled": false
+        },
+        {
+          "name": "عالية",
+          "disabled": false
+        },
+        {
+          "name": "ضيّق",
+          "disabled": false
+        },
+        {
+          "name": "عادي",
+          "disabled": false
+        },
+        {
+          "name": "واسع",
+          "disabled": false
+        },
+        {
+          "name": "إعادة ضبط وضع الراحة",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "move runner right",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "runner-quest-3d",
+        "revision": 5,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791747018035,
+          "currentDifficulty": "easy",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "rq3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "rq3": {
+            "clock": {
+              "distance": 3.073586731956954,
+              "running": true,
+              "seq": 0,
+              "speed": 2.4
+            },
+            "ownerId": "OyHi9DySlEK1yR4YwNZRdOioqIE1",
+            "ownerStartedAt": 1791747018035,
+            "revision": 3,
+            "runId": 0,
+            "sessionEpoch": 1791747018035,
+            "state": {
+              "armed": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "celebrateSeq": 0,
+              "checkpointsPassed": 0,
+              "distance": 3.073586731956954,
+              "footLiftRequired": true,
+              "holding": false,
+              "holds": 0,
+              "inputSource": "MANUAL",
+              "lane": 1,
+              "laneSeq": 1,
+              "lifecycle": "playing",
+              "pauseBeforeObstacle": false,
+              "plannedFrom": 0,
+              "plannedTo": 8,
+              "reducedMotion": false,
+              "resolved": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "running": true,
+              "seed": 3629082612,
+              "spacingUsed": 1,
+              "speed": 2.4,
+              "stageIndex": 0,
+              "stars": 0,
+              "stepSeq": 0,
+              "targetSpeed": 2.4
+            }
+          },
+          "seed": 3629082612,
+          "sessionId": "541b2fcd-dfe7-41be-add0-c9d44ba63294"
+        },
+        "sessionId": "541b2fcd-dfe7-41be-add0-c9d44ba63294",
+        "updatedAt": 1791747023039
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "المرحلة 1 من 9 — الخطوات الأولىسهل\nتحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n★\n0",
+      "after": "→\nالعودة للأنشطة\nمغامرة العدّاء\nمتصل\nمغامرة العدّاء — Runner Quest 3D\n\nتحكّم من هذا الجهاز؛ تظهر اللعبة للطفل على شاشة العرض في الجهاز الآخر. حسّاسات القدم الفعلية لم تُختبر بعد.\n\nشاشة العرض متصلة\nالإدخال جاهز\nتشغيل\nاسم الطفل (يظهر في الجلسة)\nسطح العرض جداري\nجداري\nالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.\nأرضي\nرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.\nيُحدَّد سطح العرض قبل بدء الجلسة فقط. لتغييره أنهِ الجلسة وابدأ جلسة جديدة.\nاللعبة الآن\nالمرحلة 1 من 9 — الخطوات الأولى\nسهل — تعلّم الاتجاهات · تحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n0\nنجوم\n2%\nالتقدّم\n0\nوقفات\n0/8\nعوائق\nإيقاف مؤقت\nتخطّي المرحلة\nإعادة المرحلة\nإنهاء الجلسة\nآخر إدخال مقبول: المعالج: يمين\nتحكّم المعالج باللمس متاح دائمًا\n◀\nيسار\n▲\nتخطَّ الحاجز\n▶\nيمين\nتعمل هذه الأزرار مع أي مصدر إدخال، وتمرّ عبر نفس قواعد اللعبة تمامًا؛ لا تحتاج إلى لوحة مفاتيح أو حسّاس. تُمنع الضغطات المتكررة السريعة تلقائيًا.\nالمراحل\nمرحلة واحدة\nمن المرحلة المختارة حتى النهاية\nسهل\n1. الخطوات الأولى\n2. اختر المسار\n3. تجنّب بلطف\nمتوسط\n1. أول حاجز\n2. الاتجاه والخطوة\n3. درب العوائق\nمتقدم\n1. مسارات متغيّرة\n2. عوائق متنوعة\n3. المغامرة الأخيرة\nلا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط عندما تضغط «المرحلة التالية».\nإعدادات المعالج\nمصدر الإدخال\nتحكم المعالج باللمس\nالقدم اليمنى — تجريبي\nالقدم اليسرى — تجريبي\nالقدمان معًا — تجريبي\nلا يحتاج إلى أي حسّاس. يبقى التحكم اليدوي متاحًا في كل الأوضاع.\nالسرعة الأمامية: 2.4 م/ث\nبطيء جدًا\nبطيء\nعادي\nأسرع\nالمسافة بين العوائق: ×1.0 (تُطبَّق في المرحلة التالية أو عند إعادتها)\nحساسية الحركة (للحسّاسات)\nمنخفضة\nعادية\nعالية\nعالية = تكفي حركة أصغر لتُحتسب.\nتسامح اكتشاف الحركة\nضيّق\nعادي\nواسع\nالواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.\n يتطلّب رفع القدم لتخطّي الحواجز\nعند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.\n التوقّف قبل العائق بمسافة كبيرة\nيتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.\n تقليل الحركة\nيوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.\nإعادة ضبط وضع الراحة\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    }
+  ]
+}

@@ -5,12 +5,12 @@ export const MODE_NAMES: Record<LaunchMode, string> = {MANUAL:'تحكم المع
 export const REQUEST_MODES: Record<RequestedInput, readonly LaunchMode[]> = {MANUAL:['MANUAL'],HAND:['RIGHT_HAND','LEFT_HAND','DUAL_HAND'],FOOT:['RIGHT_FOOT','LEFT_FOOT','DUAL_FOOT'],JOYSTICK:['RIGHT_JOYSTICK','LEFT_JOYSTICK','DUAL_JOYSTICK'],DRIVING:['STEERING','PEDAL','COMBINED']};
 /** Owner targets are browsing membership, never adapter certification. */
 export const DEVICE_GAMES: Record<Exclude<RequestedInput,'MANUAL'>, readonly GameId[]> = {
- HAND:['balloon-quest','bubble-pop-wall','space-pilot','build-quest-3d','mirror-quest-3d','blooming-world-3d'],
- FOOT:['balloon-quest','follow-the-footsteps','color-chase','runner-quest-3d','mirror-quest-3d','safe-hex-arena-3d','blooming-world-3d'],
+ HAND:['shumos-castle-legends-3d','balloon-quest','bubble-pop-wall','space-pilot','build-quest-3d','mirror-quest-3d','blooming-world-3d'],
+ FOOT:['balance-bridge-3d','shumos-castle-legends-3d','balloon-quest','follow-the-footsteps','color-chase','runner-quest-3d','mirror-quest-3d','safe-hex-arena-3d','blooming-world-3d'],
  JOYSTICK:['balloon-quest','bubble-pop-wall','space-pilot','build-quest-3d','mirror-quest-3d','blooming-world-3d'],
  DRIVING:['fire-rescue-3d','harvest-valley-3d','pearl-voyage-3d'],
 };
-export const TARGET_PROJECTION: Record<GameId, SurfaceType> = {'balloon-quest':'BOTH','follow-the-footsteps':'FLOOR','bubble-pop-wall':'WALL','space-pilot':'WALL','color-chase':'FLOOR','build-quest-3d':'WALL','runner-quest-3d':'BOTH','mirror-quest-3d':'WALL','safe-hex-arena-3d':'FLOOR','fire-rescue-3d':'WALL','blooming-world-3d':'BOTH','harvest-valley-3d':'WALL','pearl-voyage-3d':'WALL'};
+export const TARGET_PROJECTION: Record<GameId, SurfaceType> = {'balance-bridge-3d':'FLOOR','shumos-castle-legends-3d':'WALL','balloon-quest':'BOTH','follow-the-footsteps':'FLOOR','bubble-pop-wall':'WALL','space-pilot':'WALL','color-chase':'FLOOR','build-quest-3d':'WALL','runner-quest-3d':'BOTH','mirror-quest-3d':'WALL','safe-hex-arena-3d':'FLOOR','fire-rescue-3d':'WALL','blooming-world-3d':'BOTH','harvest-valley-3d':'WALL','pearl-voyage-3d':'WALL'};
 export function requestedInput(value: string | null): RequestedInput {return value && Object.hasOwn(REQUEST_MODES,value) ? value as RequestedInput : 'MANUAL';}
 export function launchHref(route: string, input: RequestedInput): string {return `${route}?input=${input}`;}
 export interface HandReadiness {connected:boolean;centered:boolean;pointerAt:number|null;deviceId:string|null;}

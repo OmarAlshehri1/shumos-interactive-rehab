@@ -14,6 +14,8 @@ import { formatPatientCreatedAt } from "./formatPatientDate";
 import { PatientQuickRail } from "./PatientQuickRail";
 import { PatientSessionHistorySection } from "./PatientSessionHistorySection";
 
+import { PatientVisitHistory } from '@/components/control/visits/PatientVisitHistory';
+
 const MAX_NAME_LENGTH = 50;
 
 /**
@@ -211,6 +213,8 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
         آخر تقدم" for primary attention — see ReadyScreen's "تعديل
         الإعدادات" for the same secondary-button treatment.
       */}
+      <PatientVisitHistory patientId={patient.patientId} />
+      <h2 className="text-lg font-bold text-slate-800">سجل الألعاب · داخل الزيارات وخارجها</h2>
       <PatientSessionHistorySection patient={patient} />
 
       {patient.active && (

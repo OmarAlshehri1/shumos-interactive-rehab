@@ -6,6 +6,8 @@ import {SPACE_PILOT_3D_ENABLED} from '@/lib/spacepilot3d/releasePolicy';
 import {WONDER_DOME_ENABLED} from '@/lib/bubblepopwall3d/releasePolicy';
 /** Actual local Display captures, cropped to 16:9; provenance lives in docs/release/library-evidence. */
 export const REAL_GAME_THUMBNAILS: Partial<Record<GameId,string>> = {
+ 'balance-bridge-3d':'/balancebridge3d/thumbnail.webp',
+ 'shumos-castle-legends-3d':'/castlelegends3d/thumbnail.png',
  'balloon-quest':'/library-thumbnails/balloon-quest.webp',
  'follow-the-footsteps':'/library-thumbnails/follow-the-footsteps.webp',
  'bubble-pop-wall':'/library-thumbnails/bubble-pop-wall.webp',

@@ -1,0 +1,86 @@
+[
+  {
+    "suite": "lib/balloonquest/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 2.53,
+    "log": "rules-balloonquest.log"
+  },
+  {
+    "suite": "lib/bloomingworld3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.02,
+    "log": "rules-bloomingworld3d.log"
+  },
+  {
+    "suite": "lib/bubblepopwall3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 0.77,
+    "log": "rules-bubblepopwall3d.log"
+  },
+  {
+    "suite": "lib/buildquest3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.46,
+    "log": "rules-buildquest3d.log"
+  },
+  {
+    "suite": "lib/colorchase3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.19,
+    "log": "rules-colorchase3d.log"
+  },
+  {
+    "suite": "lib/firerescue3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 0.87,
+    "log": "rules-firerescue3d.log"
+  },
+  {
+    "suite": "lib/footsteps3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 0.94,
+    "log": "rules-footsteps3d.log"
+  },
+  {
+    "suite": "lib/harvestvalley3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.03,
+    "log": "rules-harvestvalley3d.log"
+  },
+  {
+    "suite": "lib/mirrorquest3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.11,
+    "log": "rules-mirrorquest3d.log"
+  },
+  {
+    "suite": "lib/pearlvoyage3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 0.96,
+    "log": "rules-pearlvoyage3d.log"
+  },
+  {
+    "suite": "lib/runnerquest3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.21,
+    "log": "rules-runnerquest3d.log"
+  },
+  {
+    "suite": "lib/safehexarena3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.53,
+    "log": "rules-safehexarena3d.log"
+  },
+  {
+    "suite": "lib/spacepilot3d/__tests__/rules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 1.38,
+    "log": "rules-spacepilot3d.log"
+  },
+  {
+    "suite": "lib/realtime/__tests__/platformRules.emulator.test.ts",
+    "exitCode": 0,
+    "seconds": 2.77,
+    "log": "rules-realtime.log"
+  }
+]

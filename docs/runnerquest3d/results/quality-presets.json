@@ -1,0 +1,58 @@
+{
+ "high": {
+  "fps": 60.00150003750093,
+  "frameMsAvg": 16.66625,
+  "frameMsMax": 16.800000000000182,
+  "drawCalls": 332,
+  "triangles": 75984,
+  "geometries": 148,
+  "textures": 11,
+  "quality": "high",
+  "pixelRatio": 1,
+  "shadows": true,
+  "assetLoadMs": 13.900000005960464,
+  "frames": 425
+ },
+ "medium": {
+  "fps": 60.00450033752531,
+  "frameMsAvg": 16.66541666666667,
+  "frameMsMax": 16.800000000000182,
+  "drawCalls": 332,
+  "triangles": 66912,
+  "geometries": 148,
+  "textures": 11,
+  "quality": "medium",
+  "pixelRatio": 1,
+  "shadows": true,
+  "assetLoadMs": 11.599999994039536,
+  "frames": 423
+ },
+ "low": {
+  "fps": 60.00300015000751,
+  "frameMsAvg": 16.66583333333333,
+  "frameMsMax": 16.800000000000182,
+  "drawCalls": 282,
+  "triangles": 48702,
+  "geometries": 147,
+  "textures": 8,
+  "quality": "low",
+  "pixelRatio": 0.85,
+  "shadows": false,
+  "assetLoadMs": 11.700000002980232,
+  "frames": 427
+ },
+ "reduced-motion": {
+  "fps": 60.00150003750093,
+  "frameMsAvg": 16.66625,
+  "frameMsMax": 16.800000000000182,
+  "drawCalls": 329,
+  "triangles": 75960,
+  "geometries": 147,
+  "textures": 10,
+  "quality": "high",
+  "pixelRatio": 1,
+  "shadows": true,
+  "assetLoadMs": 11.099999994039536,
+  "frames": 425
+ }
+}

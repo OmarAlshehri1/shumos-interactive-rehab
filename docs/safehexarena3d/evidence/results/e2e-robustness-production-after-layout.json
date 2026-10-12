@@ -1,0 +1,122 @@
+[
+ {
+  "name": "layout parity (9 tiles): Display tile i is where the map shows tile i",
+  "ok": true,
+  "detail": "max normalised error 0.0000"
+ },
+ {
+  "name": "safety: both devices enter a paused safety hold",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "safety: layout stays frozen and nothing advances while held (9 s > warning time)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "safety: resume needs an explicit, clearly-labelled therapist action",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control reload: recovers the same stage/round/warning, paused with a safety hold, never auto-resuming",
+  "ok": true,
+  "detail": "{\"testid\":\"hex-control\",\"status\":\"paused\",\"phase\":\"warning\",\"stage\":\"0\",\"round\":\"0\",\"safety\":\"1\"}"
+ },
+ {
+  "name": "Control reload: still frozen 7 s later",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display reload: shows the same held state from the shared record",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "explicit resume restarts both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control gone: Display falls back to the safe visual state (waiting overlay, all-safe arena)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control gone: phase never advanced to inactive on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control returns: adopts the session paused with a safety hold; Display reconnects",
+  "ok": true,
+  "detail": "{\"testid\":\"hex-control\",\"status\":\"paused\",\"phase\":\"warning\",\"stage\":\"0\",\"round\":\"0\",\"safety\":\"1\"}"
+ },
+ {
+  "name": "second window of the same account does not silently take over a live session",
+  "ok": true,
+  "detail": "blocked"
+ },
+ {
+  "name": "sensor sim: a movement hint is shown to the therapist as a hint only",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor sim: movement never assigns a tile (child position unchanged)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor loss: link reported lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "manual fallback: therapist confirmation still works with the sensor lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "accessibility toggles reach the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "cinematic preview is a separate, opt-in mode (floor is the default)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "floor projection mode is the default and restorable",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "render stays at interactive frame rate after mode changes",
+  "ok": true,
+  "detail": "{\"fps\":60,\"calls\":38,\"triangles\":2218,\"geometries\":14,\"textures\":7,\"tiles\":9,\"view\":\"floor\"}"
+ },
+ {
+  "name": "library lists Safe Hex Arena and the existing games",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Balloon Quest control still launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Color Chase control still launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions",
+  "ok": true,
+  "detail": "[]"
+ }
+]

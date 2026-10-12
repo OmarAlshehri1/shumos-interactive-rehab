@@ -1,0 +1,28 @@
+{
+  "manualCursor": {
+    "durationMs": 5370,
+    "writes": 33,
+    "writesPerSecond": 6.145251396648044,
+    "finalCursor": {
+      "x": 0.8399999410599773,
+      "y": 0.3400000435965402
+    },
+    "progress": 0,
+    "wireBytes": 1471,
+    "patientIdentifierInDisplayRecord": false
+  },
+  "renderer": {
+    "testid": "bw-view",
+    "stage": "0",
+    "status": "running",
+    "progress": "0",
+    "projection": "WALL",
+    "fps": "60",
+    "calls": "772",
+    "triangles": "1319550",
+    "geometries": "125",
+    "textures": "7"
+  },
+  "note": "Localhost demo Firebase, Apple M1 Chromium. Cursor-only drag does not award restoration. This is not a physical-device latency measurement.",
+  "walkIn": "completed without creating a patient history record"
+}

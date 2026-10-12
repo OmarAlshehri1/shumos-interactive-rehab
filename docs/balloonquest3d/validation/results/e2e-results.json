@@ -1,0 +1,32 @@
+[
+  {
+    "name": "display linked",
+    "ok": true,
+    "detail": "شاشة العرض: متصلة"
+  },
+  {
+    "name": "session started",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "contact fidelity: just OUTSIDE the drawn balloon does not select",
+    "ok": true,
+    "detail": "٠ من ٣"
+  },
+  {
+    "name": "contact fidelity: just INSIDE the drawn balloon selects",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "all nine stages completed in one session",
+    "ok": true,
+    "detail": "9 stages; lifecycle=اكتملت المغامرة"
+  },
+  {
+    "name": "summary shows 9 completed stages",
+    "ok": true,
+    "detail": "ملخص الجلسةاكتملت الجلسة — مراحل مكتملة ٩، متخطاة ٠، اختيارات صحيحة ٤٥، لمسات ببالونات بلون آخر ١٤ (لا تُخصم)، مدة اللعب الفعلية ١:٤١، إعادة مراحل ٠.المرحلةالحا"
+  }
+]

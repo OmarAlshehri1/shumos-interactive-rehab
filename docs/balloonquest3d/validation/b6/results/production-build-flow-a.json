@@ -1,0 +1,77 @@
+[
+  {
+    "name": "production Control mounts through the existing staff login",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "child name is prefilled from the selected patient",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (anonymous, separate window) shows the redesigned ready screen from the Firebase record",
+    "ok": true,
+    "detail": "مغامرة البالونات المستوى سهل — المرحلة ١  استعد!"
+  },
+  {
+    "name": "Control sees the Display as connected (existing presence)",
+    "ok": true,
+    "detail": "شاشة العرض: متصلة"
+  },
+  {
+    "name": "legacy garden (leaves/birds) is not rendered behind the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "session starts through the platform flow",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "live record uses the existing game id and carries patient + child name",
+    "ok": true,
+    "detail": "gameId=balloon-quest patientId=patient-1"
+  },
+  {
+    "name": "Control and Display (over Firebase) draw the same balloons at the same positions (Easy)",
+    "ok": true,
+    "detail": "n=5, max |dy|=0.01%"
+  },
+  {
+    "name": "rising balloons: Display positions match Control over Firebase (Advanced)",
+    "ok": true,
+    "detail": "n=7, max |dy|=0.01% (network latency + 1 Hz clock)"
+  },
+  {
+    "name": "all nine stages completed through the production flow",
+    "ok": true,
+    "detail": "45 therapist taps"
+  },
+  {
+    "name": "Display shows the child completion scene",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "exactly one history record was saved for the patient",
+    "ok": true,
+    "detail": "1"
+  },
+  {
+    "name": "history record: balloon-quest id, 9 completed stages, marker on every stage result, no accuracy",
+    "ok": true,
+    "detail": "{\"completed\":9,\"correct\":45,\"touches\":0,\"start\":[\"EASY\",1],\"end\":[\"ADVANCED\",3]}"
+  },
+  {
+    "name": "history: correct picks = 45 (3+4+5+4+5+6+5+6+7)",
+    "ok": true,
+    "detail": "45"
+  },
+  {
+    "name": "Firebase write volume stays modest",
+    "ok": true,
+    "detail": "revision 1 -> 169 over 116 s"
+  }
+]

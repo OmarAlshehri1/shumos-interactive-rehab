@@ -1,3 +1,5 @@
+import {BridgeThumbnail} from '@/components/balancebridge3d/BridgeThumbnail';
+import {CastleThumbnail} from '@/components/castlelegends3d/CastleThumbnail';
 import { HarvestThumbnail } from '../harvestvalley3d/HarvestThumbnail';
 import { BloomThumbnail } from '../bloomingworld3d/BloomThumbnail';
 import { FireRescueThumbnail } from '../firerescue3d/FireRescueThumbnail';
@@ -28,6 +30,8 @@ import { BuildQuestThumbnail } from '../buildquest3d/BuildQuestThumbnail';
  * registry.ts's doc comment for the full "adding a game" checklist.
  */
 export const GAME_THUMBNAILS: Record<GameId | LocalGameId, ComponentType> = {
+  "balance-bridge-3d": BridgeThumbnail,
+  "shumos-castle-legends-3d": CastleThumbnail,
   "harvest-valley-3d": HarvestThumbnail,
   "blooming-world-3d": BloomThumbnail,
   "fire-rescue-3d": FireRescueThumbnail,

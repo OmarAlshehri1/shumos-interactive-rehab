@@ -1,0 +1,50 @@
+{
+  "modifiedApplicationRulesAndTests": [
+    "app/control/control.css",
+    "app/control/layout.tsx",
+    "components/control/home/HomeScreen.tsx",
+    "components/control/library/GameCard.tsx",
+    "components/control/live/ResetLiveDisplayOnMount.tsx",
+    "components/control/patients/PatientProfileScreen.tsx",
+    "components/display/DisplayScreen.tsx",
+    "database.rules.json",
+    "docs/release/FINAL_DATABASE_RULES_FOR_FIREBASE_CONSOLE.json",
+    "lib/buildquest3d/__tests__/libraryIntegration.test.ts",
+    "lib/buildquest3d/__tests__/registration.test.ts",
+    "lib/games/registry.ts",
+    "lib/realtime/sessionRepository.ts"
+  ],
+  "newApplicationAndTests": [
+    "app/control/calibration/page.tsx",
+    "app/control/visits/page.tsx",
+    "components/control/home/ReadinessDashboard.tsx",
+    "components/control/home/readiness.module.css",
+    "components/control/visits/GameSafetyProvider.tsx",
+    "components/control/visits/PatientVisitHistory.tsx",
+    "components/control/visits/ProjectionCalibrationScreen.tsx",
+    "components/control/visits/VisitProvider.tsx",
+    "components/control/visits/VisitSetupScreen.tsx",
+    "components/control/visits/VisitWorkspace.tsx",
+    "components/control/visits/modalKeys.ts",
+    "components/control/visits/visit.module.css",
+    "lib/games/library/skillTags.ts",
+    "lib/projection/calibration.ts",
+    "lib/realtime/publishIntent.ts",
+    "lib/therapyVisits/__tests__/gameSafety.test.ts",
+    "lib/therapyVisits/__tests__/model.test.ts",
+    "lib/therapyVisits/__tests__/pendingPublish.test.ts",
+    "lib/therapyVisits/__tests__/projection.test.ts",
+    "lib/therapyVisits/__tests__/readiness.test.ts",
+    "lib/therapyVisits/__tests__/repository.test.ts",
+    "lib/therapyVisits/__tests__/rules.emulator.test.ts",
+    "lib/therapyVisits/gameSafety.ts",
+    "lib/therapyVisits/model.ts",
+    "lib/therapyVisits/repository.ts"
+  ],
+  "documentationAndEvidence": "docs/clinical-upgrade/",
+  "preexistingDirtyFilesAlsoTouched": [
+    "lib/games/registry.ts",
+    "lib/realtime/sessionRepository.ts"
+  ],
+  "note": "Registry changes only add optional typed activitySkills. Session repository changes only add Control-local publication observation and actual Display heartbeat. Pre-existing uncommitted game work remains."
+}

@@ -1,0 +1,215 @@
+[
+  {
+    "file": "wt901-right-hand-diagnostic-1788441394853.json",
+    "phases": {
+      "rotate_one": {
+        "n": 126,
+        "meanTwistRateDps": -0.8423820374503969,
+        "medianTwistRateDps": -0.3662109375,
+        "finalYawDeltaDeg": 5.9102501901131,
+        "maxAbsYawDeltaDeg": 6.10674475918349,
+        "finalPitchDeltaDeg": -6.123348186521975,
+        "finalTwistIntegralDeg": -9.95438232426659,
+        "yawPerTwistSlope": -0.01286223288015731,
+        "pitchPerTwistSlope": 0.09376303953824947
+      },
+      "rotate_other": {
+        "n": 83,
+        "meanTwistRateDps": -1.3302722609186748,
+        "medianTwistRateDps": -0.06103515625,
+        "finalYawDeltaDeg": 0.7641019902791726,
+        "maxAbsYawDeltaDeg": 6.747378628586262,
+        "finalPitchDeltaDeg": -5.990471061251121,
+        "finalTwistIntegralDeg": -13.411096191418096,
+        "yawPerTwistSlope": 0.06383971569196993,
+        "pitchPerTwistSlope": 0.02408688664337057
+      },
+      "left": {
+        "n": 88,
+        "meanTwistRateDps": 0.19073486328125,
+        "medianTwistRateDps": -0.335693359375,
+        "finalYawDeltaDeg": 109.84234803345562,
+        "maxAbsYawDeltaDeg": 109.85029789058234,
+        "finalPitchDeltaDeg": -3.2693697299080853,
+        "finalTwistIntegralDeg": 0.7034179687648816,
+        "yawPerTwistSlope": 7.745222597021171,
+        "pitchPerTwistSlope": -0.16782616952825044
+      },
+      "right": {
+        "n": 73,
+        "meanTwistRateDps": -0.3795885059931507,
+        "medianTwistRateDps": -0.06103515625,
+        "finalYawDeltaDeg": -53.93987076733147,
+        "maxAbsYawDeltaDeg": -54.06385456543188,
+        "finalPitchDeltaDeg": 3.629387822515298,
+        "finalTwistIntegralDeg": -3.786132812502217,
+        "yawPerTwistSlope": 7.6177204895805986,
+        "pitchPerTwistSlope": -0.5972158756257541
+      },
+      "up": {
+        "n": 94,
+        "meanTwistRateDps": -1.2577138048537233,
+        "medianTwistRateDps": -0.67138671875,
+        "finalYawDeltaDeg": -44.44583292312912,
+        "maxAbsYawDeltaDeg": -52.3910389646138,
+        "finalPitchDeltaDeg": 3.708505311423586,
+        "finalTwistIntegralDeg": -12.608227539046993,
+        "yawPerTwistSlope": 2.7200989085527683,
+        "pitchPerTwistSlope": 2.7273673391807236
+      },
+      "down": {
+        "n": 78,
+        "meanTwistRateDps": -1.7254169170673077,
+        "medianTwistRateDps": -1.129150390625,
+        "finalYawDeltaDeg": -9.902097167878456,
+        "maxAbsYawDeltaDeg": -13.360279723439058,
+        "finalPitchDeltaDeg": -9.238430389493352,
+        "finalTwistIntegralDeg": -15.577081298819678,
+        "yawPerTwistSlope": 0.4503761619112403,
+        "pitchPerTwistSlope": 1.4532855925639743
+      }
+    }
+  },
+  {
+    "file": "wt901-right-hand-diagnostic-1788442512578.json",
+    "phases": {
+      "rotate_one": {
+        "n": 118,
+        "meanTwistRateDps": 0.5131091101694916,
+        "medianTwistRateDps": -0.42724609375,
+        "finalYawDeltaDeg": 5.788984225864424,
+        "maxAbsYawDeltaDeg": 11.116395458221344,
+        "finalPitchDeltaDeg": -5.434707059124111,
+        "finalTwistIntegralDeg": 6.632550048890209,
+        "yawPerTwistSlope": 0.09790073328800215,
+        "pitchPerTwistSlope": -0.046208759800048314
+      },
+      "rotate_other": {
+        "n": 125,
+        "meanTwistRateDps": 0.2236328125,
+        "medianTwistRateDps": -0.244140625,
+        "finalYawDeltaDeg": 0.5288470099273654,
+        "maxAbsYawDeltaDeg": -3.5314590344515766,
+        "finalPitchDeltaDeg": -3.741805405663019,
+        "finalTwistIntegralDeg": 1.0765808105934411,
+        "yawPerTwistSlope": 0.029100963735295585,
+        "pitchPerTwistSlope": 0.0019268900932513317
+      },
+      "left": {
+        "n": 81,
+        "meanTwistRateDps": 0.11604214891975309,
+        "medianTwistRateDps": 0.30517578125,
+        "finalYawDeltaDeg": -0.236256237807428,
+        "maxAbsYawDeltaDeg": 34.152021152463675,
+        "finalPitchDeltaDeg": -0.9515747590664425,
+        "finalTwistIntegralDeg": 1.4519714355435553,
+        "yawPerTwistSlope": -5.1408380984461415,
+        "pitchPerTwistSlope": 0.8526822405308973
+      },
+      "right": {
+        "n": 99,
+        "meanTwistRateDps": -0.16214389993686867,
+        "medianTwistRateDps": -0.1220703125,
+        "finalYawDeltaDeg": 3.672076548475026,
+        "maxAbsYawDeltaDeg": -48.098314455182184,
+        "finalPitchDeltaDeg": 0.18213788933156216,
+        "finalTwistIntegralDeg": -0.6422119140725613,
+        "yawPerTwistSlope": -3.34495233722335,
+        "pitchPerTwistSlope": 0.24921939064925047
+      },
+      "up": {
+        "n": 90,
+        "meanTwistRateDps": 0.004069010416666667,
+        "medianTwistRateDps": 0.30517578125,
+        "finalYawDeltaDeg": 1.6767704131464054,
+        "maxAbsYawDeltaDeg": -10.943010234133519,
+        "finalPitchDeltaDeg": -2.8759474465258705,
+        "finalTwistIntegralDeg": 0.0717346191387378,
+        "yawPerTwistSlope": 1.2625127650042351,
+        "pitchPerTwistSlope": 4.250858881080242
+      },
+      "down": {
+        "n": 108,
+        "meanTwistRateDps": -1.0969373914930556,
+        "medianTwistRateDps": -0.579833984375,
+        "finalYawDeltaDeg": -1.0423246935804151,
+        "maxAbsYawDeltaDeg": 7.7726543936290025,
+        "finalPitchDeltaDeg": -1.4357500937651189,
+        "finalTwistIntegralDeg": -12.184948730475753,
+        "yawPerTwistSlope": 0.2803336584517208,
+        "pitchPerTwistSlope": 0.7000045892902808
+      }
+    }
+  },
+  {
+    "file": "wt901-right-hand-diagnostic-1788443253622.json",
+    "phases": {
+      "rotate_one": {
+        "n": 93,
+        "meanTwistRateDps": 1.0546612483198925,
+        "medianTwistRateDps": -0.18310546875,
+        "finalYawDeltaDeg": 4.581437634421545,
+        "maxAbsYawDeltaDeg": 9.270757395657563,
+        "finalPitchDeltaDeg": -2.2527101808021515,
+        "finalTwistIntegralDeg": 11.034564208913935,
+        "yawPerTwistSlope": 0.07324538998973511,
+        "pitchPerTwistSlope": 0.0003812977499062859
+      },
+      "rotate_other": {
+        "n": 104,
+        "meanTwistRateDps": -0.28228759765625,
+        "medianTwistRateDps": -0.732421875,
+        "finalYawDeltaDeg": 3.2422369024994158,
+        "maxAbsYawDeltaDeg": 3.2422369024994158,
+        "finalPitchDeltaDeg": -2.9613129925051007,
+        "finalTwistIntegralDeg": -7.6557922362836734,
+        "yawPerTwistSlope": 0.021360765928232488,
+        "pitchPerTwistSlope": 0.07802530043272551
+      },
+      "left": {
+        "n": 76,
+        "meanTwistRateDps": 0.5918803967927632,
+        "medianTwistRateDps": -0.152587890625,
+        "finalYawDeltaDeg": -2.5904292022869537,
+        "maxAbsYawDeltaDeg": 43.473478936264684,
+        "finalPitchDeltaDeg": -1.2645707238887827,
+        "finalTwistIntegralDeg": 4.319329833982692,
+        "yawPerTwistSlope": -3.7187908947606725,
+        "pitchPerTwistSlope": 0.8278881936746795
+      },
+      "right": {
+        "n": 71,
+        "meanTwistRateDps": -0.5905796104753521,
+        "medianTwistRateDps": -0.42724609375,
+        "finalYawDeltaDeg": 5.0242150558944285,
+        "maxAbsYawDeltaDeg": -43.03112804251886,
+        "finalPitchDeltaDeg": -3.644509873019193,
+        "finalTwistIntegralDeg": -5.092633056634895,
+        "yawPerTwistSlope": 3.8136212225522694,
+        "pitchPerTwistSlope": -0.736633127801168
+      },
+      "up": {
+        "n": 62,
+        "meanTwistRateDps": -0.06694178427419355,
+        "medianTwistRateDps": -0.579833984375,
+        "finalYawDeltaDeg": -0.5262384929156827,
+        "maxAbsYawDeltaDeg": -12.516236343692546,
+        "finalPitchDeltaDeg": -0.21569890550610182,
+        "finalTwistIntegralDeg": -0.5188293457209738,
+        "yawPerTwistSlope": 2.017704221661376,
+        "pitchPerTwistSlope": 6.824744641706246
+      },
+      "down": {
+        "n": 62,
+        "meanTwistRateDps": -0.6822155367943549,
+        "medianTwistRateDps": -0.6103515625,
+        "finalYawDeltaDeg": 2.0838826919656768,
+        "maxAbsYawDeltaDeg": 7.010155875816224,
+        "finalPitchDeltaDeg": -4.4466305178671455,
+        "finalTwistIntegralDeg": -3.349371337910725,
+        "yawPerTwistSlope": 0.8358223734438088,
+        "pitchPerTwistSlope": 4.304166648183774
+      }
+    }
+  }
+]

@@ -1,0 +1,27 @@
+// R1 evidence: real Chrome, real key events, forward motion + lane movement screenshots.
+import { launch, sleep } from "./cdplib.mjs";
+import { writeFileSync, mkdirSync } from "node:fs";
+const out = process.argv[2];
+mkdirSync(`${out}/results`, { recursive: true });
+const b = await launch(out, 9560);
+const t = await b.open("http://127.0.0.1:3210/display/runner-quest-3d-prototype?preview=1&stage=0&diag=1");
+await sleep(5000);
+const dist = () => t.eval("window.__RQ3D_RT.session.stage.distance");
+const lane = () => t.eval("window.__RQ3D_RT.session.stage.lane");
+const res = {};
+await t.shot(`${out}/r1-ready.png`);
+await t.key("keyDown", "Enter"); await t.key("keyUp", "Enter");
+await sleep(2500);
+res.d1 = await dist(); await sleep(1000); res.d2 = await dist();
+res.forwardMetresPerSecond = res.d2 - res.d1;
+await t.shot(`${out}/r1-run-center.png`);
+await t.key("keyDown", "ArrowLeft"); await t.key("keyUp", "ArrowLeft"); await sleep(900);
+res.laneAfterLeft = await lane(); await t.shot(`${out}/r1-run-left.png`);
+await t.key("keyDown", "ArrowRight"); await t.key("keyUp", "ArrowRight"); await sleep(300);
+await t.key("keyDown", "ArrowRight"); await t.key("keyUp", "ArrowRight"); await sleep(900);
+res.laneAfterRightRight = await lane(); await t.shot(`${out}/r1-run-right.png`);
+res.stats = await t.eval("window.__RQ3D.stats()");
+res.errors = t.events.filter((e) => e.method === "Runtime.exceptionThrown" || (e.method === "Runtime.consoleAPICalled" && e.params.type === "error")).length;
+writeFileSync(`${out}/results/r1.json`, JSON.stringify(res, null, 1));
+console.log(JSON.stringify(res));
+b.close();

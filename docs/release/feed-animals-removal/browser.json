@@ -1,0 +1,78 @@
+{
+  "emulatorOnly": true,
+  "production": true,
+  "removed": [
+    {
+      "route": "/control/feed-the-animals",
+      "status": 404
+    },
+    {
+      "route": "/control/feed-the-animals-sensor-play",
+      "status": 404
+    }
+  ],
+  "remaining": [
+    {
+      "id": "balloon-quest",
+      "status": 200,
+      "buttons": 4,
+      "title": "Shumos Interactive Rehab — مغامرة البالونات"
+    },
+    {
+      "id": "follow-the-footsteps",
+      "status": 200,
+      "buttons": 6,
+      "title": "Shumos Interactive Rehab — اتبع الخطوات"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "status": 200,
+      "buttons": 14,
+      "title": "Shumos Interactive Rehab — فرقع الفقاعات"
+    },
+    {
+      "id": "color-chase",
+      "status": 200,
+      "buttons": 9,
+      "title": "Shumos Interactive Rehab — مطاردة الألوان"
+    },
+    {
+      "id": "space-pilot",
+      "status": 200,
+      "buttons": 13,
+      "title": "Shumos Interactive Rehab — قائد الفضاء"
+    },
+    {
+      "id": "build-quest-3d",
+      "status": 200,
+      "buttons": 15,
+      "title": "عالم البناء — التحكم"
+    },
+    {
+      "id": "runner-quest-3d",
+      "status": 200,
+      "buttons": 27,
+      "title": "مغامرة العدّاء — Runner Quest 3D"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "status": 200,
+      "buttons": 13,
+      "title": "Shumos Interactive Rehab"
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "status": 200,
+      "buttons": 6,
+      "title": "Shumos Interactive Rehab"
+    }
+  ],
+  "libraryCards": 9,
+  "libraryCategories": 6,
+  "retiredHistoryReadable": true,
+  "originalHistoryMetricsUnchanged": true,
+  "noRetiredResumeLink": true,
+  "retiredDisplayUnavailable": true,
+  "manualControlAndDisplaySync": true,
+  "errors": []
+}

@@ -1,0 +1,51 @@
+{
+  "evidence": [
+    {
+      "mode": "ADVANCED",
+      "difficulty": "HIGH",
+      "stats": {
+        "ringsPresented": 11,
+        "ringsCollected": 11,
+        "ringsMissed": 0,
+        "asteroidsPresented": 7,
+        "asteroidsAvoided": 7,
+        "asteroidCollisions": 0,
+        "score": 1100,
+        "collectionAccuracy": 1,
+        "upgradeTier": 3,
+        "resolved": 18,
+        "totalEncounters": 18,
+        "completedMissions": 3
+      },
+      "summary": {
+        "ringsPresented": 11,
+        "ringsCollected": 11,
+        "ringsMissed": 0,
+        "asteroidsPresented": 7,
+        "asteroidsAvoided": 7,
+        "asteroidCollisions": 0,
+        "score": 1100,
+        "collectionAccuracy": 1,
+        "upgradeTier": 3,
+        "resolved": 18,
+        "totalEncounters": 18,
+        "completedMissions": 3,
+        "sessionId": "e43f0b02-8c89-41a4-bbfe-863dfbf72cf4",
+        "runId": 4,
+        "elapsedSeconds": 72.57500000000383,
+        "reason": "completed"
+      },
+      "pose": {
+        "x": 0.10052463970405609,
+        "y": 5.496618580793669,
+        "z": -2890.8705273625947,
+        "yaw": 0,
+        "pitch": 0,
+        "bank": 0.009999999999999997,
+        "controlX": 0.5132611648099112,
+        "controlY": 0.4866062068342717
+      }
+    }
+  ],
+  "pageErrors": []
+}

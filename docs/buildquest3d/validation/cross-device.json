@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "checks": [
+    "Real staff login, Arabic library card, touch Control and normal /display in an independent anonymous browser context",
+    "Inactive staff denied by unchanged gate; a second window of the same account is blocked from silently taking over a live session",
+    "Display reload recovers accepted placement; Control reload recovers paused without losing progress",
+    "All nine stages completed using touch-only manual Control, with exactly-once versioned patient history",
+    "Saved Build Quest history opens through the normal patient session-detail route",
+    "Normalized RIGHT_HAND simulation places through Firebase; therapist manual override remains available while sensor streams",
+    "Sensor disconnection preserves progress and all pieces remain manually playable in sensor mode",
+    "Prepared handheld mode retains manual selection and placement",
+    "Network loss disables edits; reconnect re-publishes the paused authoritative state with a higher revision",
+    "Pause/resume/restart, skip and end synchronize after latency and disconnection",
+    "Cross-device test uses no Build Quest BroadcastChannel and sends no raw pointer/scene state",
+    "The child-screen link is the normal platform Display and recovers the live session after a Display reload"
+  ],
+  "stages": [
+    {
+      "id": "first-shapes",
+      "pieces": 2,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "three-shapes",
+      "pieces": 3,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "four-shapes",
+      "pieces": 4,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "house",
+      "pieces": 4,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "car",
+      "pieces": 4,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "robot",
+      "pieces": 4,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "tower",
+      "pieces": 3,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "bridge",
+      "pieces": 3,
+      "input": "therapist touch buttons",
+      "passed": true
+    },
+    {
+      "id": "castle",
+      "pieces": 5,
+      "input": "therapist touch buttons",
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "latencyMs": 150,
+    "separateBrowserContexts": true,
+    "realHardwareTested": false,
+    "finalPayloadBytes": 1245
+  },
+  "errors": [],
+  "externalFirebase": []
+}

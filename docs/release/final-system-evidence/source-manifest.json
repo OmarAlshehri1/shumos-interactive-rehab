@@ -1,0 +1,5284 @@
+{
+  "branch": "main",
+  "head": "df5ea8f10bddbd9464a433c73e132b11d6858909",
+  "sourceSHA256": "8023f8f0784dfd2fa64edf8ecaa99bcb79474f691e4315acc68ad1b219d372db",
+  "trackedDiffSHA256": "b3c0d22c8450ceb1345f1df52ac084780b116807c970735cb23410d5f8b94c47",
+  "snapshot": "/private/tmp/shumos-final-v16-candidate",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "a2af34ca58cb80dc11d13a44e2152a5eb8286a204c1222db21384ccd8208147b",
+      "bytes": 2608
+    },
+    {
+      "path": ".firebaserc",
+      "sha256": "48c1cc2dbd2d33abc86f3625b2eb6f20c2ad5363db3b04ff0a9894739bf2f54c",
+      "bytes": 66
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "c14ce6a32d81f40f69fa60e5d8eb130ee849027635e9312dda7e2c607ac6b762",
+      "bytes": 973
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "63f2c50380ed6303237cce215ce27af1d620d094c215e28d1b1538a3c070e3bb",
+      "bytes": 678
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "sha256": "8f9ae2e370d719b8102f6196a8eaa8ed438173fa9f8cf2a40a27f6a6c04dc8d9",
+      "bytes": 7110
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+      "bytes": 11
+    },
+    {
+      "path": "README.md",
+      "sha256": "60b55ff7df79af72590f9524208e46642bc32bdc175cdad41349681c0e2f958f",
+      "bytes": 1450
+    },
+    {
+      "path": "app/api/tts/__tests__/route.test.ts",
+      "sha256": "7ccf1688181bd4f03ea278f35f1d8b34b9e45f82e19c5f7963cfa9e94370273a",
+      "bytes": 6603
+    },
+    {
+      "path": "app/api/tts/route.ts",
+      "sha256": "aed3a2ab6d6d9d823c6c80ae8bd65bc4d58accc2065517a546a534c1ccb978e2",
+      "bytes": 5571
+    },
+    {
+      "path": "app/control/activities/page.tsx",
+      "sha256": "13b7be09cdef32c90d2c8c21969e6f3096124d4999f8514be41b8a4e8cba1e21",
+      "bytes": 296
+    },
+    {
+      "path": "app/control/balloon-quest-3d-prototype/page.tsx",
+      "sha256": "cd665234d8a4af593200d5c65e7eb6749b734dfc485acb9dacb57837fe697e57",
+      "bytes": 592
+    },
+    {
+      "path": "app/control/balloon-quest-legacy/page.tsx",
+      "sha256": "f078bf7d0b95ef56067c640757ffd3c3d5a905c176945d8a0145609b7dee7fe4",
+      "bytes": 701
+    },
+    {
+      "path": "app/control/balloon-quest/page.tsx",
+      "sha256": "30e2e9a2e20a2933063feb6f518cb4457bde9f25bd4a15a0a9ee11aeb16c2d09",
+      "bytes": 906
+    },
+    {
+      "path": "app/control/blooming-world-3d/page.tsx",
+      "sha256": "1cf5c730db56149d4714f896c4c20025e0f352a70f1313a64841de6a6d335747",
+      "bytes": 297
+    },
+    {
+      "path": "app/control/bubble-pop-wall-sensor-play/page.tsx",
+      "sha256": "05b7ab8acc8f9d6c5ee1de824e8fe7dcafbeaca4bd61510e8e328e53f539757e",
+      "bytes": 679
+    },
+    {
+      "path": "app/control/bubble-pop-wall/page.tsx",
+      "sha256": "5d62ef3f8947099b073e4abf84ea82d785e07462a3404af60df57264c7039bd3",
+      "bytes": 814
+    },
+    {
+      "path": "app/control/build-quest-3d/page.tsx",
+      "sha256": "8b4f9722568cd2949e3563d727c4e3dd6b3173184b6412a51ff82f866a1bc785",
+      "bytes": 1126
+    },
+    {
+      "path": "app/control/color-chase-legacy/page.tsx",
+      "sha256": "9033b3d8d75645fc31e168db9f8a52a4c945f925613fad3ca959fd2ab7f9515b",
+      "bytes": 712
+    },
+    {
+      "path": "app/control/color-chase-sensor-play/page.tsx",
+      "sha256": "19c4a32c809a545217757a16d4e6a7d3eb39be76b6fc0c049b457baf2d0a8f43",
+      "bytes": 677
+    },
+    {
+      "path": "app/control/color-chase/page.tsx",
+      "sha256": "b5d45d36a128e7618e5fa4b25a3b686a7807ecd043a41ceb6cf75befb08093a1",
+      "bytes": 797
+    },
+    {
+      "path": "app/control/control.css",
+      "sha256": "925577ac47cdec46d91c28c2eaa2adb27973e6dde1fec6e5ccaad557bded0241",
+      "bytes": 2951
+    },
+    {
+      "path": "app/control/fire-rescue-3d/page.tsx",
+      "sha256": "3e7f8b7bc121a96ab27928cab35252e302c0cdbb32c81d9e472601a95b061a26",
+      "bytes": 311
+    },
+    {
+      "path": "app/control/follow-the-footsteps-legacy/page.tsx",
+      "sha256": "f40a76088821136242f34d7571c59490ad7fc706db010bff798237620e2a790a",
+      "bytes": 730
+    },
+    {
+      "path": "app/control/follow-the-footsteps-sensor-play/page.tsx",
+      "sha256": "9cef6ca3be16dcf7c1d3c143235ae36eebf019f495de999b43bc8158f01d6de9",
+      "bytes": 713
+    },
+    {
+      "path": "app/control/follow-the-footsteps/page.tsx",
+      "sha256": "83c5072f0bd9f074f62d57efabc90d8113e774bb1deec65ee948a39b6d82085a",
+      "bytes": 847
+    },
+    {
+      "path": "app/control/harvest-valley-3d/page.tsx",
+      "sha256": "8e2f3a6146cb4e042d7468a466dbded6960349d3b08d24439e0f2604f7f27753",
+      "bytes": 297
+    },
+    {
+      "path": "app/control/layout.tsx",
+      "sha256": "7a8f74b29e6b5c9d9ed6fabc928212b48e93a940537db7cf08e2afb91e7a4ee8",
+      "bytes": 3423
+    },
+    {
+      "path": "app/control/left-hand-enrollment-session/page.tsx",
+      "sha256": "c64f9e906cb0783a4e094b80326a833ef0ae131e83b07e3bc856e533054e8b53",
+      "bytes": 501
+    },
+    {
+      "path": "app/control/mirror-quest-3d/page.tsx",
+      "sha256": "22537d3fde7981a4e984e71cd3f4e78b41ca5d0b8ec5dd8e21991c1e8dcbdd3c",
+      "bytes": 139
+    },
+    {
+      "path": "app/control/page.tsx",
+      "sha256": "7c47c3f782709fbee30e9bb6b1317a107afe718d7b181e3bbb8e445856d0ab58",
+      "bytes": 271
+    },
+    {
+      "path": "app/control/patients/[patientId]/page.tsx",
+      "sha256": "91f300a8cffbb50d387113969d97bb74d0def5790a407965feb707a554c9f6a6",
+      "bytes": 435
+    },
+    {
+      "path": "app/control/patients/[patientId]/sessions/[sessionId]/page.tsx",
+      "sha256": "70852d463a165dddc148d0e13f6ac893ca5465342fedc04d909ace0f21351bae",
+      "bytes": 489
+    },
+    {
+      "path": "app/control/patients/page.tsx",
+      "sha256": "7b850801a2974aaf95df3270b9b71bd68e313db1ad2e661111b9826aed18f152",
+      "bytes": 305
+    },
+    {
+      "path": "app/control/pearl-voyage-3d/page.tsx",
+      "sha256": "cf2602ce9acb3b6fc3e1d794231874c1a525f668b4473249a9b0bfa61c811805",
+      "bytes": 323
+    },
+    {
+      "path": "app/control/quick-session/page.tsx",
+      "sha256": "313bcf879573a875334b2ca0d2a9442948d350e28d2ba28d7010ba2c659bc9bd",
+      "bytes": 309
+    },
+    {
+      "path": "app/control/right-hand-balloon-play/page.tsx",
+      "sha256": "79cadf14d0c6404cd69d838877560d6528ff677eb8d9b20101751905f0e9988d",
+      "bytes": 645
+    },
+    {
+      "path": "app/control/right-hand-final-session/page.tsx",
+      "sha256": "daf0c74737d30a137e33aa33e28887e94f41d1b1889674fc208ff8cecaa40a89",
+      "bytes": 508
+    },
+    {
+      "path": "app/control/right-hand-twist-invariance/page.tsx",
+      "sha256": "b8087709137c9a7c2d29052e6501dd8d37a6e59f82c6d56d65948571157fe651",
+      "bytes": 533
+    },
+    {
+      "path": "app/control/runner-quest-3d-prototype/page.tsx",
+      "sha256": "40b4e6b5402870058219f4081b3667d88dd2207db593a35f30f500f81ec9a0c6",
+      "bytes": 611
+    },
+    {
+      "path": "app/control/runner-quest-3d/page.tsx",
+      "sha256": "b49eeb5e6ff5f3e8d726aa5992af13ad6e39cde94f6397f691f6ad4e38c73fa9",
+      "bytes": 810
+    },
+    {
+      "path": "app/control/safe-hex-arena-3d/page.tsx",
+      "sha256": "d63b888b95dd2d0a324c4aa2fab61b9c70279c046e0b02c114e24c4b6e4b966b",
+      "bytes": 301
+    },
+    {
+      "path": "app/control/sensor-hand-demo/page.tsx",
+      "sha256": "d138afe446e2a7e3d64681bb2105a2a1da2a71933f5cd60711578de74ad0ea46",
+      "bytes": 422
+    },
+    {
+      "path": "app/control/sensor-setup-prototype/page.tsx",
+      "sha256": "473acf6f4da866ecc92455fcabd22721ba9c02b5073c417175afecac11646dfb",
+      "bytes": 520
+    },
+    {
+      "path": "app/control/space-pilot-3d-prototype/page.tsx",
+      "sha256": "d2b2d1450c76433f3e8507df8f4c940b0d56b8a0fde6a130aa04efb2f30acc35",
+      "bytes": 541
+    },
+    {
+      "path": "app/control/space-pilot-legacy/page.tsx",
+      "sha256": "6d751328625bf21cd2a8394bb195dcb52abba641660c0c93b2adaa4db0e4dd3c",
+      "bytes": 428
+    },
+    {
+      "path": "app/control/space-pilot/page.tsx",
+      "sha256": "3417b7d648599dba48819fb3b6ca479c734fa99c0613e576a972638b60d3a976",
+      "bytes": 837
+    },
+    {
+      "path": "app/control/space-pilot/sensor-source/page.tsx",
+      "sha256": "c27c6e6fb9d775341c3f01af1eda39900f3cc4b7270ddbdbb64e9206b68a4a1e",
+      "bytes": 470
+    },
+    {
+      "path": "app/dev/pearl-voyage-preview/PreviewClient.tsx",
+      "sha256": "acc18c6998ea9fd8ea65ff899792309f78586a60c2bc2ffbed24528d79724d12",
+      "bytes": 2693
+    },
+    {
+      "path": "app/dev/pearl-voyage-preview/page.tsx",
+      "sha256": "804412e51bc64a77a2bc34249d9aa496c75811d9d628d3b64d3f207d11d6b035",
+      "bytes": 429
+    },
+    {
+      "path": "app/display/balloon-quest-3d-prototype/page.tsx",
+      "sha256": "966b75d47d44f7446d634f1bddbefe307045657884c201bb0ec85172be2d9e89",
+      "bytes": 836
+    },
+    {
+      "path": "app/display/balloon-quest-visual-preview/page.tsx",
+      "sha256": "622b2765c3487d584f07f76e2f24cc6d00f6f1432d7d5c763fa2b87c38ab3ff6",
+      "bytes": 1144
+    },
+    {
+      "path": "app/display/balloon-quest.css",
+      "sha256": "97ba49d05de222844d2c8931305e14f523c5a234f37700e5dfb7c63e2ef746a1",
+      "bytes": 4691
+    },
+    {
+      "path": "app/display/blooming-world-3d/page.tsx",
+      "sha256": "c25e2c3a55df02324773f7ac37a90a84eaa6d27f85c136a13c9150ec3ea5143b",
+      "bytes": 284
+    },
+    {
+      "path": "app/display/bubble-pop-wall.css",
+      "sha256": "b67b6833bdc3f6b3680e740a2c3d2d927246fa6acdc579317b8bc7be7614f7b1",
+      "bytes": 2306
+    },
+    {
+      "path": "app/display/build-quest-3d/page.tsx",
+      "sha256": "89b600cf00bc4c221bc573d6e785a4ae65c1e0d262f324e659e22816fd24a3fe",
+      "bytes": 552
+    },
+    {
+      "path": "app/display/color-chase-3d-prototype/page.tsx",
+      "sha256": "00124a767c350539c2de2e8f3c4e621956ce64bad83676905f778f65b4913661",
+      "bytes": 575
+    },
+    {
+      "path": "app/display/follow-the-footsteps.css",
+      "sha256": "06b1224b82d41f45aa9013dbb495dc01d3caff40a6277e61104e2a9be4426aa0",
+      "bytes": 1650
+    },
+    {
+      "path": "app/display/harvest-valley-3d/page.tsx",
+      "sha256": "edbf955048fcbbcff696215c58cad85d5b60a9a0026a2ca97691b0bf96d94e49",
+      "bytes": 278
+    },
+    {
+      "path": "app/display/layout.tsx",
+      "sha256": "f0cf6daa730352530d56b3a6ef254ad66cd3f3a9b1a77c44780ef9a0335ac8c7",
+      "bytes": 510
+    },
+    {
+      "path": "app/display/mirror-quest-3d/page.tsx",
+      "sha256": "64a307b5b8301a443f5df408593a5d3c5aa25fbe8ad4842bc285127e2b2a6920",
+      "bytes": 125
+    },
+    {
+      "path": "app/display/page.tsx",
+      "sha256": "4e081181dc3c60bb82f802d27934c1800b25f1b4cab6c755c046c3564e10e075",
+      "bytes": 266
+    },
+    {
+      "path": "app/display/runner-quest-3d-prototype/page.tsx",
+      "sha256": "0f16542dfec4b0fc67e0275531a9820d95fafae13a3d278b76cd34da6ae89190",
+      "bytes": 1656
+    },
+    {
+      "path": "app/display/runner-quest-3d/page.tsx",
+      "sha256": "d8376c5c0ac698e7e7201f87e6180d8aaef6b54b9266975c7a38dd43b7c2f4f0",
+      "bytes": 1103
+    },
+    {
+      "path": "app/display/safe-hex-arena-3d/page.tsx",
+      "sha256": "5461e45e45ed6b1459196666f5cd62e5c010e553a652e9f56b925813d1e6baba",
+      "bytes": 295
+    },
+    {
+      "path": "app/display/space-pilot-3d-prototype/page.tsx",
+      "sha256": "99a2fd196c4a00f2dadbfb2d022e698aa999a3b36f727865661ef2ec7af5b6aa",
+      "bytes": 553
+    },
+    {
+      "path": "app/display/space-pilot.css",
+      "sha256": "65531e1e60eef13942ed2fcbc41badd78c94e6b5a3772098ff606c5e9eff3b81",
+      "bytes": 4616
+    },
+    {
+      "path": "app/display/space-pilot/page.tsx",
+      "sha256": "925627116479150f6f4aaa24c564fd7d007cb5758370570f23fe2707c8c8c098",
+      "bytes": 649
+    },
+    {
+      "path": "app/favicon.ico",
+      "sha256": "2b8ad2d33455a8f736fc3a8ebf8f0bdea8848ad4c0db48a2833bd0f9cd775932",
+      "bytes": 25931
+    },
+    {
+      "path": "app/globals.css",
+      "sha256": "89585d1f50f4987338e634d2dbc619e4b253f38bd258d7d552045749b6daa795",
+      "bytes": 571
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "3eeab42afbe6d8784d53eb25e68456f0875eee3586cb30147fdbd284e65bc12c",
+      "bytes": 867
+    },
+    {
+      "path": "app/page.tsx",
+      "sha256": "c7231432d74089398c91969c4924c64a8b39917b041e23327371b9713930e9e4",
+      "bytes": 928
+    },
+    {
+      "path": "components/control/ConnectionBadge.tsx",
+      "sha256": "ebb69d907c9983da0c3afd41fa0029b4150bf883f8fcae03aca902f5b0113fbf",
+      "bytes": 3382
+    },
+    {
+      "path": "components/control/ControlScreen.tsx",
+      "sha256": "bc127ab57094bb66f2ec5f72db5056681f301c24831a90565ca107c17a47ab27",
+      "bytes": 15796
+    },
+    {
+      "path": "components/control/LeaseContestedOverlay.tsx",
+      "sha256": "de6d40bdfc3cacb54f127bdbb4339c4eabdcb5d26e8f27c8c4bb4d8703546b6c",
+      "bytes": 2053
+    },
+    {
+      "path": "components/control/StatCard.tsx",
+      "sha256": "51cf1d8f33ee4bc2b24ee50eb220155aefd35900de000c7683d522eae37bb6d4",
+      "bytes": 890
+    },
+    {
+      "path": "components/control/auth/StaffAuthGate.tsx",
+      "sha256": "70f00ee4e873f9819454e8de16dca39e2de413488ba54f55ee5efe3bb8f02768",
+      "bytes": 5578
+    },
+    {
+      "path": "components/control/auth/StaffLoginScreen.tsx",
+      "sha256": "b99d1888705263290ed747fa942e8eff386279d293a021a418ade6bcecc59199",
+      "bytes": 4898
+    },
+    {
+      "path": "components/control/balloonquest3d/BalloonQuest3DControl.tsx",
+      "sha256": "3146e57c314889e569a382eb1d6c20fb9e78fb8f5701eaee7d3723d91bcaef00",
+      "bytes": 24326
+    },
+    {
+      "path": "components/control/balloonquest3d/BalloonQuestControl.tsx",
+      "sha256": "1a6627b2cbae5258f826809c6d95e03da758c2cc92d96589ea6bb4f6c25cd616",
+      "bytes": 8338
+    },
+    {
+      "path": "components/control/balloonquest3d/HandInputBridge.tsx",
+      "sha256": "a01a2fd70b12638124fba4766209549a76371a41cc2ec2bcbdb15fa19da0211a",
+      "bytes": 1911
+    },
+    {
+      "path": "components/control/balloonquest3d/SimulatorPad.tsx",
+      "sha256": "fb825e6f451f739b7f39c774683939f98735110f8ee93e718834c8943133e870",
+      "bytes": 3286
+    },
+    {
+      "path": "components/control/bloomingworld3d/BloomControl.tsx",
+      "sha256": "282be076d7f61acdbbe9e90d045018a072e5bea5c257a2d332c6beffc44c85cc",
+      "bytes": 13871
+    },
+    {
+      "path": "components/control/bloomingworld3d/BloomThumbnail.tsx",
+      "sha256": "0dc5af78a2b66026c5844618f59e9298ecb10b218537c6da19c725d72c3bae60",
+      "bytes": 899
+    },
+    {
+      "path": "components/control/bloomingworld3d/control.module.css",
+      "sha256": "07d47ff0a06187f799cbc056c498dd925f864bcce1cc344af43de8cb1ba1458e",
+      "bytes": 3737
+    },
+    {
+      "path": "components/control/brand/ShumosBrandMark.tsx",
+      "sha256": "d6767b658e8aff14e74f2c25150ce9d8bb88ee41f0907683dfc9fd241bd1f3c1",
+      "bytes": 575
+    },
+    {
+      "path": "components/control/bubblepop/BubblePopControlScreen.tsx",
+      "sha256": "6436effeab2441353b48ff5f3b86bd4deddf7bb924c858b59a80bf33c344a6ac",
+      "bytes": 10218
+    },
+    {
+      "path": "components/control/bubblepop/copy.ts",
+      "sha256": "f488479465f6e82bf56777c5235ce89ee8dad5676af07b91ef3a7f6a70c40ad3",
+      "bytes": 2940
+    },
+    {
+      "path": "components/control/bubblepop/live/BubblePopLiveHeader.tsx",
+      "sha256": "9ee4ce4c827e8de59e9a4416ddc36f2e18cc897b7ced6f185af6d7c334a720f1",
+      "bytes": 2975
+    },
+    {
+      "path": "components/control/bubblepop/live/BubblePopLiveProgress.tsx",
+      "sha256": "a5598a873aabcbe11ec8071175c6364f9087fbc32f0e886c0be2ea42d37734bc",
+      "bytes": 1602
+    },
+    {
+      "path": "components/control/bubblepop/live/BubblePopLiveSessionScreen.tsx",
+      "sha256": "599cddafb36549f40d6dd620535cb9d6f29e1668abd87e9f760d3a2f9401d2a0",
+      "bytes": 6965
+    },
+    {
+      "path": "components/control/bubblepop/live/BubblePopStageCompleteOverlay.tsx",
+      "sha256": "06c4e7d2fbdc2d568c88a2335ffb4b66b0bb29b6075140bb2a5ec88ccae0678e",
+      "bytes": 5175
+    },
+    {
+      "path": "components/control/bubblepop/live/BubblePopStageStrip.tsx",
+      "sha256": "514726f342d9e8b2738644ef39b658130a3897ecf182bc1316aa1b732ae16bc7",
+      "bytes": 3953
+    },
+    {
+      "path": "components/control/bubblepop/live/StationBar.tsx",
+      "sha256": "3939cd51ef35a8639938863f8a469556c6bc6840fbe9aa8993dd9db69ec07155",
+      "bytes": 5762
+    },
+    {
+      "path": "components/control/bubblepop/ready/BubblePopReadyScreen.tsx",
+      "sha256": "a48cf2b9611e394b0260900139cd48b199d6a54aa0c7d22d76023101b71ad60a",
+      "bytes": 5588
+    },
+    {
+      "path": "components/control/bubblepop/setup/BubblePopSetupScreen.tsx",
+      "sha256": "534781d0143a3c6efa5eaef412a13a0715ff89eb34f0815a3b16237215b5133f",
+      "bytes": 5260
+    },
+    {
+      "path": "components/control/bubblepop/summary/BubblePopSessionSummaryScreen.tsx",
+      "sha256": "78715f0fe609e4f988803da158311a2a8fa2f6d5c48f344239340fa68ac72012",
+      "bytes": 8169
+    },
+    {
+      "path": "components/control/bubblepopwall3d/DomeControl.tsx",
+      "sha256": "9daabb7b6f525f5dbe47ee16a1eacd1dc23e64c20ea1191a5112e8532785f04c",
+      "bytes": 13344
+    },
+    {
+      "path": "components/control/bubblepopwall3d/control.module.css",
+      "sha256": "1841b3bbe983811a1baba36b25828f3011527d28e4a7e81f21979026c22e403b",
+      "bytes": 2748
+    },
+    {
+      "path": "components/control/buildquest3d/BuildQuestControl.tsx",
+      "sha256": "aebe99d240b866dad1201165d3ba8cb73c090349fc2b0a3bfcfaa18a0d0c7ecf",
+      "bytes": 15449
+    },
+    {
+      "path": "components/control/buildquest3d/BuildQuestLocalOnlyBoundary.tsx",
+      "sha256": "dcf5af7654ba63884c64d0c70dae6268b0789b53bc72d7d6acb31304bc980177",
+      "bytes": 395
+    },
+    {
+      "path": "components/control/buildquest3d/BuildQuestThumbnail.tsx",
+      "sha256": "1087b60faf42ba3a1efde5b8c1caeabb312d0f41ed2088dce030875941299987",
+      "bytes": 1280
+    },
+    {
+      "path": "components/control/buildquest3d/ManualWorkbench.tsx",
+      "sha256": "15acd07bb12f811256da1a9eb82d21372dc6b212b185751393b91508f3c68506",
+      "bytes": 2210
+    },
+    {
+      "path": "components/control/colorchase/ColorChaseControlScreen.tsx",
+      "sha256": "d9adf7049248f460e07a4322b1f65bd782e8cac9e83e552471adf70563f03ee7",
+      "bytes": 43714
+    },
+    {
+      "path": "components/control/colorchase3d/CalibrationPanel.tsx",
+      "sha256": "42476abf84ba425c75485f4afb1e03caf9c5e48fabc8de6819714bf0953464ed",
+      "bytes": 5615
+    },
+    {
+      "path": "components/control/colorchase3d/ColorChaseControl.tsx",
+      "sha256": "07603bf118049da21fe3453c21199c9a0deb0b85bd5c26d905ad7af71c999773",
+      "bytes": 23658
+    },
+    {
+      "path": "components/control/colorchase3d/ColorChaseGardenThumbnail.tsx",
+      "sha256": "a295f045d91ba8702b56afbfe2aa17942aae817791eab46092e6f17f650de795",
+      "bytes": 4280
+    },
+    {
+      "path": "components/control/colorchase3d/ZoneMap.tsx",
+      "sha256": "d5478636f74c4ea2ec6a476a1193d1e4a7dd21ee06a0afa41b1cb7ddb3e489db",
+      "bytes": 4401
+    },
+    {
+      "path": "components/control/colorchase3d/control.module.css",
+      "sha256": "5c22496a131375f512da8c8d77747a36634d5c0c5572aea8f354193c1f3152b3",
+      "bytes": 4633
+    },
+    {
+      "path": "components/control/copy.ts",
+      "sha256": "f3645e4d04e41d8099dd567697d9b06f14633cf7630634736f5ae58b8d63e469",
+      "bytes": 1068
+    },
+    {
+      "path": "components/control/firerescue3d/DeviceMapping.tsx",
+      "sha256": "1fc4610cef617cef2b5ad5f823893cb3af9c6f19627ff7daaca62c00abf8e1d1",
+      "bytes": 4132
+    },
+    {
+      "path": "components/control/firerescue3d/FireRescueControl.tsx",
+      "sha256": "dd4904a509b7415cc5e3e135d70de67d6e4e795edddd4c914f6252862a976ebb",
+      "bytes": 21278
+    },
+    {
+      "path": "components/control/firerescue3d/FireRescueThumbnail.tsx",
+      "sha256": "c7058ab6836e119e73d2791935847a71ba8e7134114e53c59e540c7f49d91b31",
+      "bytes": 2428
+    },
+    {
+      "path": "components/control/firerescue3d/control.module.css",
+      "sha256": "5d5fed2cecbd0b0eb5adbf234d9146732b27b04d96ee925cd6de39b80eebbe6a",
+      "bytes": 6963
+    },
+    {
+      "path": "components/control/footsteps/FootstepsControlScreen.tsx",
+      "sha256": "1525c324ec0074feaa01f6c645a3d0c5016e809460066a8231633a771e113763",
+      "bytes": 10273
+    },
+    {
+      "path": "components/control/footsteps/copy.ts",
+      "sha256": "6036475102bf9093f6349d6275065734c03eb93a8047e1044ffe0c3a83eb3a68",
+      "bytes": 1219
+    },
+    {
+      "path": "components/control/footsteps/live/FootMap.tsx",
+      "sha256": "5177c94ac8f1cdb4caf5f2abbd84628c8d547eca387d21bf19ceebbedaf19742",
+      "bytes": 10096
+    },
+    {
+      "path": "components/control/footsteps/live/FootstepsLiveHeader.tsx",
+      "sha256": "f786524f4636fb170cd2650e99512cde4098cd040aa742d775d84bf0dd9decff",
+      "bytes": 2430
+    },
+    {
+      "path": "components/control/footsteps/live/FootstepsLiveProgress.tsx",
+      "sha256": "40d2a90a496aebce400669e050451f27c51ff7c7ed39c23b291367667064a354",
+      "bytes": 1572
+    },
+    {
+      "path": "components/control/footsteps/live/FootstepsLiveSessionScreen.tsx",
+      "sha256": "d251f426e630402f6c4702493f6777a1f9b333680764272a5e80a9346f969ba9",
+      "bytes": 7222
+    },
+    {
+      "path": "components/control/footsteps/live/FootstepsStageCompleteOverlay.tsx",
+      "sha256": "ad9843bc826fea60a17b4eb74a8c3413f7c5e43fb2e9a33cdb53013869add612",
+      "bytes": 4766
+    },
+    {
+      "path": "components/control/footsteps/live/FootstepsStageStrip.tsx",
+      "sha256": "f4464e0d3985a10150ad321f752b6198357ce80f00c4f240841dca52d0e6e51c",
+      "bytes": 4136
+    },
+    {
+      "path": "components/control/footsteps/ready/FootstepsReadyScreen.tsx",
+      "sha256": "c2c2dd06f95be1c25b96eb1800ae191bfad18deb8f2f2e7c170427cd81440816",
+      "bytes": 5594
+    },
+    {
+      "path": "components/control/footsteps/setup/FootstepsSetupScreen.tsx",
+      "sha256": "589aed7667619d0911f9f94efdd09803524b557dfcd7cf82a93833767a95951a",
+      "bytes": 5430
+    },
+    {
+      "path": "components/control/footsteps/summary/FootstepsSessionSummaryScreen.tsx",
+      "sha256": "f41947b412274a45f4bdfd5aff7611ed2cd31cf58004d29f8a61cc790efe970d",
+      "bytes": 8033
+    },
+    {
+      "path": "components/control/footsteps3d/CalibrationPanel.tsx",
+      "sha256": "2f807fcc11d3a09aa55334f049eea09ba8ac9a159ab4abd6e4675349e092ab24",
+      "bytes": 5602
+    },
+    {
+      "path": "components/control/footsteps3d/FootControl.tsx",
+      "sha256": "452c45f13ded13269e76ff4b27a56578591e545d67049f685d1bc10a7b22c8a3",
+      "bytes": 18503
+    },
+    {
+      "path": "components/control/footsteps3d/FootstepsForestThumbnail.tsx",
+      "sha256": "d1eebe1d70ad21a4e481c8ce4c90059aacbb45915e2ac90fa5f90cbba64c7365",
+      "bytes": 2676
+    },
+    {
+      "path": "components/control/footsteps3d/StoneMap.tsx",
+      "sha256": "19a69fbe6a6f1ca6d48b036e9489d47cb58f178da635cc37088fb4a0a83d8d8e",
+      "bytes": 2947
+    },
+    {
+      "path": "components/control/footsteps3d/control.module.css",
+      "sha256": "cd21c75d2657518abc1332285a47bcf227dd216a082fb9deecd7e7aec6592ff4",
+      "bytes": 3432
+    },
+    {
+      "path": "components/control/harvestvalley3d/HarvestControl.tsx",
+      "sha256": "034290fb2c5b2e3ae45c82c21c655dd732f1e4e916deaa54ad1b89a9ea184456",
+      "bytes": 15849
+    },
+    {
+      "path": "components/control/harvestvalley3d/HarvestThumbnail.tsx",
+      "sha256": "728848f100bffff2e498c98ac83356461e20830e75788521342877072e15326f",
+      "bytes": 782
+    },
+    {
+      "path": "components/control/harvestvalley3d/control.module.css",
+      "sha256": "0dfe4b8fa124818f429877c75a4bfebe8625242e955d9b2c0bde2e6915e16a5b",
+      "bytes": 4745
+    },
+    {
+      "path": "components/control/home/DisplayAudioControl.tsx",
+      "sha256": "dd51788a3ca456a2ab737c2cc8026c19ef936e2edd94298fcf0be392a748fdd0",
+      "bytes": 4040
+    },
+    {
+      "path": "components/control/home/HomeScreen.tsx",
+      "sha256": "1d65e5f3a3032334e746fee5cac4cea6a43fdbd5d7e8598e66c58cbb397602bd",
+      "bytes": 6476
+    },
+    {
+      "path": "components/control/home/SystemReadinessCard.tsx",
+      "sha256": "25727599efb00cde87eb8381192a9e7cf49fe44f01de6d7c1a83d5506c14dab0",
+      "bytes": 6846
+    },
+    {
+      "path": "components/control/home/__tests__/DisplayAudioControl.test.ts",
+      "sha256": "8e14979dd15c3b842366035d3bafbcf43a25a5c259c1549a2bd654b841ccd7f4",
+      "bytes": 1341
+    },
+    {
+      "path": "components/control/home/__tests__/SystemReadinessCard.test.ts",
+      "sha256": "274880ca8c67dd7ba90ca3f6ee91473fbc49255229b327d49b7539ce4c6caeb1",
+      "bytes": 4853
+    },
+    {
+      "path": "components/control/library/BalloonQuestThumbnail.tsx",
+      "sha256": "5af01d807c1f58ee5b87b3b93ac0cc7f82822fc5755125ed2e97a7ca58612e94",
+      "bytes": 1520
+    },
+    {
+      "path": "components/control/library/BubblePopWallThumbnail.tsx",
+      "sha256": "769d3a4eb1c720c4d6b5f0c5452677fbe1f64804dab439de1e4d7bfedb4cd1ea",
+      "bytes": 1619
+    },
+    {
+      "path": "components/control/library/ColorChaseThumbnail.tsx",
+      "sha256": "27aade78c15bb96c83bdc3615b4dd95aadb6d53ce03e73e25c9a69eff57e10f7",
+      "bytes": 1210
+    },
+    {
+      "path": "components/control/library/FollowTheFootstepsThumbnail.tsx",
+      "sha256": "dd692d1ef724f47a41ec47588bc3c7105b5b450ea07717ee57df13f6f3c2051a",
+      "bytes": 2171
+    },
+    {
+      "path": "components/control/library/GameCard.tsx",
+      "sha256": "1bc750dac505e7421888d38ed3f5f82180d4ca844dcccf8b5df39292d673ca62",
+      "bytes": 2641
+    },
+    {
+      "path": "components/control/library/GameLibraryScreen.tsx",
+      "sha256": "884361a8ec2e6d3ebd3dfbe9ec9c861f8f70dbcdb3647f3fca25ba7ea417adb6",
+      "bytes": 3042
+    },
+    {
+      "path": "components/control/library/InteractionIcon.tsx",
+      "sha256": "132060ce360450ad19735e6b08bbc21359b7657ecf031c08b0ea869d1a871c65",
+      "bytes": 742
+    },
+    {
+      "path": "components/control/library/LibraryArtwork.tsx",
+      "sha256": "36eaf6f9949379aaa2f4501336c95b48d969c4bd6e1fb19b657f3595aa219ceb",
+      "bytes": 2999
+    },
+    {
+      "path": "components/control/library/SpacePilotThumbnail.tsx",
+      "sha256": "b54ed1a15d034b409013cb769f57f7c3902a11eed976afa84a1e3237e8f6928c",
+      "bytes": 2565
+    },
+    {
+      "path": "components/control/library/__tests__/buildLaunch.test.ts",
+      "sha256": "f0a5d6ab2a75807db0810f4e4b48e08961e2cd82ed880ecacac217947bbc9a04",
+      "bytes": 1398
+    },
+    {
+      "path": "components/control/library/__tests__/presentation.test.ts",
+      "sha256": "50984c60c5206cb9a4cea78c51c88a6870ca44ff06ffacce27dd682b018eb2ab",
+      "bytes": 4557
+    },
+    {
+      "path": "components/control/library/__tests__/thumbnails.test.ts",
+      "sha256": "df55ae4fb6af9bba013b49b8330466b1f0e5f141d44b3f46eb11af4d9b58d571",
+      "bytes": 1778
+    },
+    {
+      "path": "components/control/library/gameThumbnails.tsx",
+      "sha256": "394bffe10706ecbff063e73c8375ed89d2057773d53529477a8b0fa3a3600e25",
+      "bytes": 2637
+    },
+    {
+      "path": "components/control/library/launch/LibraryLaunchBoundary.tsx",
+      "sha256": "a5752360465c6615eeca70170f60f245d67491865c5a74ab3ee7d7fde5990167",
+      "bytes": 7066
+    },
+    {
+      "path": "components/control/library/launch/launch.module.css",
+      "sha256": "df1872565b5d2f03f4d7e6c9600983be505efa1e597976b635035b2494a0f830",
+      "bytes": 1136
+    },
+    {
+      "path": "components/control/library/library.module.css",
+      "sha256": "f81d5050af168ece76ad7b3c9085dd156e4a895ea33306779ec308cf109cbefa",
+      "bytes": 8148
+    },
+    {
+      "path": "components/control/library/presentation.ts",
+      "sha256": "4d76aca0a3f6fd4067aa40717f2607f8202268238f15dbf493ce213807edcfdf",
+      "bytes": 3078
+    },
+    {
+      "path": "components/control/library/realGameThumbnails.ts",
+      "sha256": "043830b98c4dd9c3fb733752ec5ca584350b200f91a302dd103e0d76b9d4d087",
+      "bytes": 1852
+    },
+    {
+      "path": "components/control/live/BalloonMap.tsx",
+      "sha256": "bec01c93cf044ba1ee39da2da790039e0d0fe5b2c6e7087dfb1967ea413a07cb",
+      "bytes": 6972
+    },
+    {
+      "path": "components/control/live/ConfirmSheet.tsx",
+      "sha256": "c4c83abf5a16bae649c4179614f1b616a44025daaf118c1a08c5e046ee6075c6",
+      "bytes": 2832
+    },
+    {
+      "path": "components/control/live/LiveHeader.tsx",
+      "sha256": "bc00db50abe6e5a9be7dd12e6bebcda4e6df2ad784dcea7f52daea7f971dded1",
+      "bytes": 3188
+    },
+    {
+      "path": "components/control/live/LiveNavigationControls.tsx",
+      "sha256": "7896934bee9959736f249eab00347118e5598ff8e26380d806015ea1375858a9",
+      "bytes": 4000
+    },
+    {
+      "path": "components/control/live/LiveProgress.tsx",
+      "sha256": "6c032efcd88dfe0ee58d8ef1570e4adb9d8aec647888a4e357efc56d2f1d2ac2",
+      "bytes": 2255
+    },
+    {
+      "path": "components/control/live/LiveSessionScreen.tsx",
+      "sha256": "cb6d848944483afc2ebe81c76b4d1d9b52c00b1e22fbf4d77cbccbf0159e140c",
+      "bytes": 8746
+    },
+    {
+      "path": "components/control/live/ReadyPositionOverlay.tsx",
+      "sha256": "2160f5bee1242a70e06771534c891e7f1b57b6b54c944510d47e327881277849",
+      "bytes": 3167
+    },
+    {
+      "path": "components/control/live/ResetLiveDisplayOnMount.tsx",
+      "sha256": "d0318f1011e811023dbb2a3f0e389a4a0d45acd0d4aa7b71eb23411458e29ddd",
+      "bytes": 447
+    },
+    {
+      "path": "components/control/live/SessionControls.tsx",
+      "sha256": "44e8ad3499c5041001519efa2f76089dd8f66b83215d342973f0897d9f407626",
+      "bytes": 2454
+    },
+    {
+      "path": "components/control/live/StageCompleteOverlay.tsx",
+      "sha256": "f4b33074d7f6bcbde00d45c50d3a0f917cbb2e723e6c6551d9c3d0063a546ccc",
+      "bytes": 5481
+    },
+    {
+      "path": "components/control/live/StageStrip.tsx",
+      "sha256": "5e94520cff5cacb32a0cf947a88500a6862eb1f686f70222182891f1b574d47c",
+      "bytes": 4434
+    },
+    {
+      "path": "components/control/live/StartZoneOverlay.tsx",
+      "sha256": "609ec91369d12781217dc47bef3d429ea47b4d675e754e4425ee290b433196f0",
+      "bytes": 3519
+    },
+    {
+      "path": "components/control/mirrorquest3d/MirrorControl.tsx",
+      "sha256": "1d4b35c79473a2c66dfc0001ac40e58192f61aff7dfee72f9eb3b9256b79923b",
+      "bytes": 10306
+    },
+    {
+      "path": "components/control/mirrorquest3d/MirrorThumbnail.tsx",
+      "sha256": "507b2f122cc21bdb67008350aae82eb40e425f643eff7be45a9ebd2f06cc55b7",
+      "bytes": 862
+    },
+    {
+      "path": "components/control/nav/ControlBreadcrumb.tsx",
+      "sha256": "dbe3c2339e8c7010d4232c0e1ff3aebd94140ca62a6893244618dc970eb5092f",
+      "bytes": 1596
+    },
+    {
+      "path": "components/control/nav/ControlNav.tsx",
+      "sha256": "280d23d514c6b308f7dedb8f2c731aa6165e5ae6cecb45868eab13ac0b74a6ed",
+      "bytes": 2519
+    },
+    {
+      "path": "components/control/patients/AddPatientSheet.tsx",
+      "sha256": "e585ea015583662b9cf802403baf7045ee196503e3b17c405ac0378be93481c5",
+      "bytes": 5908
+    },
+    {
+      "path": "components/control/patients/LastProgressCard.tsx",
+      "sha256": "557039cd4214d3461027a90a1b77b641d09f8d10186072e39982d3fb1c4c3dfb",
+      "bytes": 3573
+    },
+    {
+      "path": "components/control/patients/PatientAnalyticsDashboard.tsx",
+      "sha256": "39caa9141de9e314ec69eb308ed5808be88d9ebc8fb3a8c04e300a72bb71acf7",
+      "bytes": 8716
+    },
+    {
+      "path": "components/control/patients/PatientContextBanner.tsx",
+      "sha256": "5de02f1ac12a85addffc4a9bf68f0ef4fa52a2b8bf0928007422a26b0bbd31e8",
+      "bytes": 1623
+    },
+    {
+      "path": "components/control/patients/PatientListItem.tsx",
+      "sha256": "3d6abe12e9be10431d576f238b78508329497fa54826dcc771de9a989ce2b662",
+      "bytes": 1372
+    },
+    {
+      "path": "components/control/patients/PatientProfileScreen.tsx",
+      "sha256": "adfc13617cc4d0b2b6717aace64ec72f2ca3a4ba36f15175a613aa44adb03bfb",
+      "bytes": 10985
+    },
+    {
+      "path": "components/control/patients/PatientQuickRail.tsx",
+      "sha256": "f1e96ef4666b344e6e434b462e9ed0666128a65a6ff17e09ccd965302f659f9b",
+      "bytes": 2846
+    },
+    {
+      "path": "components/control/patients/PatientRegistryScreen.tsx",
+      "sha256": "e7f9dffbbfcbf083d4ecb0e79af87e23b8eebe1b390fd57e074b02d137345a99",
+      "bytes": 5119
+    },
+    {
+      "path": "components/control/patients/PatientSessionHistorySection.tsx",
+      "sha256": "532ceccc997a32d81f930ea79e2c517c15fed54b347f01e97fc025a69d5223b8",
+      "bytes": 7388
+    },
+    {
+      "path": "components/control/patients/PatientSessionOverview.tsx",
+      "sha256": "2ff3dd20f3207e7141db20c335791e798469a5e3db3870dc1c2dedb111a0379c",
+      "bytes": 1618
+    },
+    {
+      "path": "components/control/patients/SessionDetailScreen.tsx",
+      "sha256": "5b4ee0085e049d39cf4045358ae79a34f350843cf13f841c341f2be9f2597612",
+      "bytes": 42708
+    },
+    {
+      "path": "components/control/patients/SessionHistoryList.tsx",
+      "sha256": "41334e672e27c49e552f4aeda8433aa0b39f66bd13cfcf69fa16740e3d91855d",
+      "bytes": 898
+    },
+    {
+      "path": "components/control/patients/SessionHistoryRow.tsx",
+      "sha256": "a8c7139fff21896aa95c488f00d49ce4727323796c241549a1c0721217eb8bba",
+      "bytes": 5839
+    },
+    {
+      "path": "components/control/patients/SessionPerformanceTrend.tsx",
+      "sha256": "e628ee60ced5916e92d4965bea3d592197173c6c7a7b40c1e54183d1ffd14ece",
+      "bytes": 4192
+    },
+    {
+      "path": "components/control/patients/__tests__/safeFormatting.test.ts",
+      "sha256": "726fbe2100f34bd266ac07379a91d3b873ff29abe7c7770f9091662b3727a18b",
+      "bytes": 1209
+    },
+    {
+      "path": "components/control/patients/formatPatientDate.ts",
+      "sha256": "1d3824776f55f4e6b73f58286c5c9e643d460273623b6e22bac66c8149d79bd2",
+      "bytes": 559
+    },
+    {
+      "path": "components/control/patients/formatSessionDate.ts",
+      "sha256": "3e44febd1233e41d3eeb64370b390a1dd8398702900a580a01eea16408a23740",
+      "bytes": 2417
+    },
+    {
+      "path": "components/control/patients/patientErrorCopy.ts",
+      "sha256": "3a5d3fa80bc08a6305f330fce9fa75593b4ae9ddb910446d1d0e3ba35c9e5999",
+      "bytes": 944
+    },
+    {
+      "path": "components/control/pearlvoyage3d/DeviceMapping.tsx",
+      "sha256": "5edb3b8a0817ec80906e2e0500a732569917eced8bc8b5f8e88f76e2a485e594",
+      "bytes": 5180
+    },
+    {
+      "path": "components/control/pearlvoyage3d/MiniMap.tsx",
+      "sha256": "40a6a5c9b8d3955f3c56862ef68329402f8a437e4ddedf74a17cb2896604916c",
+      "bytes": 3160
+    },
+    {
+      "path": "components/control/pearlvoyage3d/PearlVoyageControl.tsx",
+      "sha256": "1df8995527ce7703f55c379fac6c7ce06b1df2338a52de9ba0b633bbf21a9ba5",
+      "bytes": 26064
+    },
+    {
+      "path": "components/control/pearlvoyage3d/PearlVoyageThumbnail.tsx",
+      "sha256": "1b8b14f2a5ddd18674488aacbebd5d533d0b0e31b8ddf074bce59a30666d2fe7",
+      "bytes": 414
+    },
+    {
+      "path": "components/control/pearlvoyage3d/control.module.css",
+      "sha256": "05998c522ac76b3bb7386421607031873b78646d9ca38e97324bb4dd9d5a6e5e",
+      "bytes": 7580
+    },
+    {
+      "path": "components/control/quick-session/QuickSessionScreen.tsx",
+      "sha256": "a475cd9dae9fe2e093af9094e42781d3435ca8f6e48730ce084365ccaea7fee1",
+      "bytes": 3620
+    },
+    {
+      "path": "components/control/ready/ReadyScreen.tsx",
+      "sha256": "8cd37cd50f1c08f73ac06906874f67c9d74d8a9f2a6791918ad4140742c598b4",
+      "bytes": 6288
+    },
+    {
+      "path": "components/control/runnerquest3d/FloorControlPanel.tsx",
+      "sha256": "3cd6bc492aa87c0779b61bc108cbbc2c6dd81cce38e67e73a6069b6d68f4ed56",
+      "bytes": 9731
+    },
+    {
+      "path": "components/control/runnerquest3d/RunnerQuest3DControl.tsx",
+      "sha256": "80862d0311fa28b40df20bb646e04b8699bf099328456e3969af4ad296638017",
+      "bytes": 27837
+    },
+    {
+      "path": "components/control/runnerquest3d/RunnerQuestControl.tsx",
+      "sha256": "179913cfbc65ff43a5eba917612cabd46ce72f5866763c59c630b378289fa963",
+      "bytes": 4492
+    },
+    {
+      "path": "components/control/runnerquest3d/RunnerQuestThumbnail.tsx",
+      "sha256": "afd68e35368a232fbcea182a943a3f95dcb6aff8688efd41150cf3895d7bdf63",
+      "bytes": 2369
+    },
+    {
+      "path": "components/control/runnerquest3d/control.module.css",
+      "sha256": "764856befa4afb2d1512a21f0f22243ab1f2bc2b7bc5b6156fb4f8244151b7d7",
+      "bytes": 8149
+    },
+    {
+      "path": "components/control/safehexarena3d/CalibrationPanel.tsx",
+      "sha256": "02eb43e0b6342863962db5a2b23836cef83b5aa57e5cf296eae272338b03cf8e",
+      "bytes": 7135
+    },
+    {
+      "path": "components/control/safehexarena3d/HexControl.tsx",
+      "sha256": "4c2a2024c0536f27d42414034c85b930f3a46a59b3ddcac6bcb075bc4a3c0564",
+      "bytes": 17800
+    },
+    {
+      "path": "components/control/safehexarena3d/HexMap.tsx",
+      "sha256": "6f87d1d5f32bf92a65dc418ea994bd6ddc7e0b5aef3e2f201e4ad9fe4685c1cf",
+      "bytes": 3392
+    },
+    {
+      "path": "components/control/safehexarena3d/HexThumbnail.tsx",
+      "sha256": "177a67c46137298cfb3c83f99ea65250b2eb4b0887a972c4e661a187d4c5dfa9",
+      "bytes": 1661
+    },
+    {
+      "path": "components/control/safehexarena3d/control.module.css",
+      "sha256": "d5e819d73e56234922200175d25e6f83efc3803d24ad3d11bae984fa9c9345fe",
+      "bytes": 3241
+    },
+    {
+      "path": "components/control/sensors/BubblePopSensorContactDemo.tsx",
+      "sha256": "245429b697011aff5cd09b2821d0258a541df6f5af4850a851bb693782055cc4",
+      "bytes": 5957
+    },
+    {
+      "path": "components/control/sensors/CanonicalBalloonContactDemo.tsx",
+      "sha256": "220fb70d9d99915d44eb2a9e164a05ca5f6af50fa8557e1a940d7df6ae758084",
+      "bytes": 4659
+    },
+    {
+      "path": "components/control/sensors/ColorChaseSensorContactDemo.tsx",
+      "sha256": "a2cba11420231d19497e0fd926183d067ce48245544d235157ab1d496e5a29b3",
+      "bytes": 5299
+    },
+    {
+      "path": "components/control/sensors/DualHandRecenterControls.tsx",
+      "sha256": "804e44c1b689ff45c4e908bd50fbf369fa6feda0479843ab1e2456792556a2bf",
+      "bytes": 3017
+    },
+    {
+      "path": "components/control/sensors/FollowFootstepsSensorContactDemo.tsx",
+      "sha256": "f99d8f10db724769664bfefa11722402acdffba5d0bead974ef3d52ae94b5519",
+      "bytes": 4825
+    },
+    {
+      "path": "components/control/sensors/LeftHandEnrollmentScreen.tsx",
+      "sha256": "d898ae30556489877d7cc1402f5ee23bd6558a2ec96d5f3027274c763c888c68",
+      "bytes": 26151
+    },
+    {
+      "path": "components/control/sensors/LeftHandPreCaptureCheck.tsx",
+      "sha256": "f9d8565b90dfa841e2d88b1d8b8cee51910cb67bfb79fe5c24f9fbb3de82ab03",
+      "bytes": 6218
+    },
+    {
+      "path": "components/control/sensors/LocalPointerBroadcastSync.tsx",
+      "sha256": "2c509128df6982971ef7a3769c669e2ec462528c77e115e8d667ab1868305722",
+      "bytes": 2279
+    },
+    {
+      "path": "components/control/sensors/RightHandBalloonPlayable.tsx",
+      "sha256": "dbb4825745e21fe4c5d347b9759d7def3596366894879c1883dbaea54f974f1a",
+      "bytes": 2238
+    },
+    {
+      "path": "components/control/sensors/RightHandFinalSessionScreen.tsx",
+      "sha256": "a2051ec85777847bb065d31a25412edbc555c40007e21371158409d629e42d84",
+      "bytes": 35313
+    },
+    {
+      "path": "components/control/sensors/RightHandTwistInvarianceScreen.tsx",
+      "sha256": "dc0839d56063ab58e8ea23929f462b5a4f0c861d30b145ea14b1bfa04b48e552",
+      "bytes": 22939
+    },
+    {
+      "path": "components/control/sensors/SensorConnectionBar.tsx",
+      "sha256": "121ad48a43d2f6c04e69b3be7854a640cd54d206f01308f33f7fb427f214f5a8",
+      "bytes": 3849
+    },
+    {
+      "path": "components/control/sensors/SensorHandCursor.tsx",
+      "sha256": "334d5a5f43ed5f70b604ddbc322e3b5a8173a410ccc913ea3e84a78fc136dce4",
+      "bytes": 5314
+    },
+    {
+      "path": "components/control/sensors/SensorHandDemoScreen.tsx",
+      "sha256": "4a8c47f61e60bfcec4edf002238982c51a6cd8396e4ac90b9725722b34061ad0",
+      "bytes": 31348
+    },
+    {
+      "path": "components/control/sensors/SensorHandLayer.tsx",
+      "sha256": "6ed78ded6967f1d4cd9c33305cc8d48081a83143a075b02dde6f6e9858b64476",
+      "bytes": 2252
+    },
+    {
+      "path": "components/control/sensors/SensorPlayPage.tsx",
+      "sha256": "11b70c5e15acf09600511017a1c9be38ede688a1b91413583bd51622f751188a",
+      "bytes": 1987
+    },
+    {
+      "path": "components/control/sensors/SensorPointerDisplaySync.tsx",
+      "sha256": "8071f0e8fd20c4c3bdaf5ab29354b30b055ab2ab062183bb2bf05adba1701045",
+      "bytes": 3297
+    },
+    {
+      "path": "components/control/sensors/SensorRoleAssignmentControls.tsx",
+      "sha256": "d49f2333c64b4395579a21ff933a3f019d8a5835ff3db2c82eca4323cc952928",
+      "bytes": 4496
+    },
+    {
+      "path": "components/control/sensors/SensorRuntimeProvider.tsx",
+      "sha256": "b0d7670ff9957c725ae1d6697795a64ac5a75b13f67ef8335684641e8dc918eb",
+      "bytes": 6251
+    },
+    {
+      "path": "components/control/sensors/SensorSetupPrototypeScreen.tsx",
+      "sha256": "fb64b9f11ccd186406ffd2db806569401556a84339a7c1aeedb5d7b4f868c37b",
+      "bytes": 9349
+    },
+    {
+      "path": "components/control/sensors/useSensorHandRuntime.ts",
+      "sha256": "25d7a2e0e154e8409bb5a5b98c1a0fccaed6f85a06366c2425655433ad67ef4e",
+      "bytes": 15672
+    },
+    {
+      "path": "components/control/sensors/useSensorPointerTargets.ts",
+      "sha256": "714938aacef6c52fd197f86e744ee38716bf60880f406a688a9a6fdd91f1762c",
+      "bytes": 4097
+    },
+    {
+      "path": "components/control/session/EndSessionReasonSheet.tsx",
+      "sha256": "8ddb24a1f539a5149e558db1ee426a5ef4a2eb52d081287834e645d7d22a85d6",
+      "bytes": 3812
+    },
+    {
+      "path": "components/control/session/SessionMetadataDetails.tsx",
+      "sha256": "90ce6ee4a8ef28543bdea540a496f0cc35b43212ecb2c6226e98bc2d59c4b9fa",
+      "bytes": 1075
+    },
+    {
+      "path": "components/control/session/SessionSummaryWorkflowPanel.tsx",
+      "sha256": "0e7e90701e98134cf358bf7d66132dcd549b336b6d2fd68cfe7a7e2b38fc27d5",
+      "bytes": 902
+    },
+    {
+      "path": "components/control/session/SessionWorkflowContext.tsx",
+      "sha256": "7ec54ec104cadee1d7db1459a174d66a3b13cd2bd8e663660eeeb0b29caf5398",
+      "bytes": 978
+    },
+    {
+      "path": "components/control/session/SetupIdentityCard.tsx",
+      "sha256": "00812ad244ad580576b269af554ce598e6590da568e3ad98445d4509ba0dca19",
+      "bytes": 1388
+    },
+    {
+      "path": "components/control/session/TherapistNoteEditor.tsx",
+      "sha256": "60f46abc939b09bdf37f755173a08b104144da5a687c9cf2509c1a195f73c1f4",
+      "bytes": 2399
+    },
+    {
+      "path": "components/control/session/__tests__/AllGameSetupIdentity.test.tsx",
+      "sha256": "6763e548b29749ac7cf0f2658c16d67c66b34cd914ddb2656adde6031af08713",
+      "bytes": 2909
+    },
+    {
+      "path": "components/control/session/__tests__/SessionMetadataDetails.test.tsx",
+      "sha256": "453f95dc615d33f83b2c0b00d2920ce2a134baf7b73a54ee09a0079afb5328ce",
+      "bytes": 1047
+    },
+    {
+      "path": "components/control/session/__tests__/SetupIdentityCard.test.tsx",
+      "sha256": "6031645d188cc597fb36ba4163a99ddfa5174d48c923612487b8215d66fdd22d",
+      "bytes": 1087
+    },
+    {
+      "path": "components/control/setup/DevQuickFill.tsx",
+      "sha256": "24f281a783ab21f87dd7a50426ccd010de79302e450bc3a18716a7160d1cd963",
+      "bytes": 759
+    },
+    {
+      "path": "components/control/setup/SegmentedControl.tsx",
+      "sha256": "383b3c0e0f73e27dff8e1c514e403bb27ff20115dbf2f45e18df8d4ecdecae4c",
+      "bytes": 3037
+    },
+    {
+      "path": "components/control/setup/SetupScreen.tsx",
+      "sha256": "565ec22bd030d5f049d0a76f2c9222008d5ca96165e137b141ce33ee5740fbb0",
+      "bytes": 4404
+    },
+    {
+      "path": "components/control/setup/StageCard.tsx",
+      "sha256": "43c735ae1985bd670d2824a341e2034cf6b27c186a25c34249712a6774283bb8",
+      "bytes": 2684
+    },
+    {
+      "path": "components/control/setup/StartingStagePicker.tsx",
+      "sha256": "e9e101800882370686c18f3fe3b9677f7b28961d911501df4d434e99869cde87",
+      "bytes": 2154
+    },
+    {
+      "path": "components/control/setup/previews/BalloonStagePreview.tsx",
+      "sha256": "1e82c93301d4b9e173cc3a074a88e512f906e0690b44284b0606df5ded0291f5",
+      "bytes": 1834
+    },
+    {
+      "path": "components/control/setup/previews/BubblePopStagePreview.tsx",
+      "sha256": "75f4b36a39521d912b8921988b93d21fd16ba2c25e68c90bfd37c10fc64d421d",
+      "bytes": 5941
+    },
+    {
+      "path": "components/control/setup/previews/FootstepsStagePreview.tsx",
+      "sha256": "004beff1a15085cfbfb02e19f84c1592e9650adcfc88b14f7d87a68ae496d8a8",
+      "bytes": 5949
+    },
+    {
+      "path": "components/control/spacepilot/SpacePilotControlScreen.tsx",
+      "sha256": "b735b61342fd2fc6d3afacfe2d0c6420ae7bd54c37a5f7e585153bd8c2b16b4d",
+      "bytes": 10367
+    },
+    {
+      "path": "components/control/spacepilot/copy.ts",
+      "sha256": "ba3ec850a1dbdd1426c5c0b3e2444e108cf114d8116f8bc1ca385dd0023ea3be",
+      "bytes": 756
+    },
+    {
+      "path": "components/control/spacepilot/live/LaneControlBar.tsx",
+      "sha256": "7f23c202d1cd397b4d3c08ea08dbb9e0086b8172200fddadfbb5310c0c216a1b",
+      "bytes": 6251
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotLiveHeader.tsx",
+      "sha256": "e72310c05c6a6dd94acba62e74ffee8488a0a1c68ba1b9f084686f93cfee56ad",
+      "bytes": 2634
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotLiveProgress.tsx",
+      "sha256": "c4a79d8024b8d91d6be9200a951ed7615b4db27d480d3dc9b6b558f835a9a8e5",
+      "bytes": 3138
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotLiveSessionScreen.tsx",
+      "sha256": "189935287522c856e01f0f4c8ba6d945d41b976ea4a6adf9e33d81bc95245148",
+      "bytes": 5067
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotReadyPositionOverlay.tsx",
+      "sha256": "4cad44db840ad2fef9a7f5d8fd821d3930ac578879e47fb3270fe97398975208",
+      "bytes": 2090
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotSessionControls.tsx",
+      "sha256": "1950b93884f5712aa50418742b928f200427dd14e4582a9119c498f15d910532",
+      "bytes": 2302
+    },
+    {
+      "path": "components/control/spacepilot/live/SpacePilotStageCompleteOverlay.tsx",
+      "sha256": "ff782174b33994dde6e411aaf8ecb9fbbe2b822174efaed2d72f1b644566cd5e",
+      "bytes": 3650
+    },
+    {
+      "path": "components/control/spacepilot/ready/SpacePilotReadyScreen.tsx",
+      "sha256": "adc25cb15ac874ba1114231f41bea992c64ec89993f59dce7fbe1652a116ba02",
+      "bytes": 5473
+    },
+    {
+      "path": "components/control/spacepilot/setup/SpacePilotSetupScreen.tsx",
+      "sha256": "0ec2dd105fdfb8c7b0ea82611c732f26ec7f9245d1eba0a7192c6e72e2c7906b",
+      "bytes": 5016
+    },
+    {
+      "path": "components/control/spacepilot/summary/SpacePilotSessionSummaryScreen.tsx",
+      "sha256": "c8d23b9b8c538dc16dc8a03521c992593c5f2918c8f6d64e944bcbc786602d8e",
+      "bytes": 5452
+    },
+    {
+      "path": "components/control/spacepilot3d/ManualFlightControls.tsx",
+      "sha256": "d2af0311bdaa0d2996ef9eeb5250945e026dc58b74e585ef31322ffbbf223071",
+      "bytes": 4107
+    },
+    {
+      "path": "components/control/spacepilot3d/PrototypeLocalOnlyBoundary.tsx",
+      "sha256": "5ea822ca65d85db96d38204a1173a3505e36259cae12f510fd739447f8ffcb57",
+      "bytes": 418
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "sha256": "4c49e4209f307db1be3e87a54c0195f79f814d70fc0321a10c969de358cd9295",
+      "bytes": 30028
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DThumbnail.tsx",
+      "sha256": "5f0f9d64095d38af4ed14f87df91eaebdbf650ebf59e53b30620cf54f38c8c9d",
+      "bytes": 1086
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilotSensorSource.tsx",
+      "sha256": "b83fe7090563c9ed83ea32ecf419e2d591d569b6b38053408f80ff4e2bf05d5a",
+      "bytes": 4404
+    },
+    {
+      "path": "components/control/summary/SessionSummaryScreen.tsx",
+      "sha256": "35b49f36f22e0b62cc6030459820b85fcc85690bc3fec80d485bf2629bde3bff",
+      "bytes": 10160
+    },
+    {
+      "path": "components/control/ui/SectionCard.tsx",
+      "sha256": "1c285bb62100908f47da1f992d36f02351f519a948aaec8ef7070d6252698d4f",
+      "bytes": 1282
+    },
+    {
+      "path": "components/display/DevBadge.tsx",
+      "sha256": "714135f492487ebe1c10a925762c086e126ba38b36d47ffafb81b86b4e0349b3",
+      "bytes": 868
+    },
+    {
+      "path": "components/display/DisplayScreen.tsx",
+      "sha256": "0d0b957d67cf1fddaf6bbed5de797ac70f160ac77b22746e8904f5bc7f31e316",
+      "bytes": 23701
+    },
+    {
+      "path": "components/display/LocalGameFeedbackProvider.tsx",
+      "sha256": "0050fe28a622dbad388e35fe86a80b07a0bc39f09bcbb4a7fa6b63b8918c5970",
+      "bytes": 1826
+    },
+    {
+      "path": "components/display/LocalPointerDiagnosticsOverlay.tsx",
+      "sha256": "11c1d2162717098ef5e4bffd121ba0b26ec35ecb5db3e4481d541b516f725f4c",
+      "bytes": 2267
+    },
+    {
+      "path": "components/display/MuteToggle.tsx",
+      "sha256": "635a80be40d5dc8bba3bc42ea06f17dc0e625015d69026b0f7c4f9769ea27241",
+      "bytes": 1652
+    },
+    {
+      "path": "components/display/PlayStage.tsx",
+      "sha256": "3a0afedc2e282e39835be81593e8d7f821f0d753290c615fd36ba641311aaf45",
+      "bytes": 2611
+    },
+    {
+      "path": "components/display/SensorPointerLayer.tsx",
+      "sha256": "9f74810a0b75caac6cd076316329ab3debc6ad7777274d68c23e7dfd2307932e",
+      "bytes": 3124
+    },
+    {
+      "path": "components/display/__tests__/stageCompletionPresentation.test.ts",
+      "sha256": "b387bd71b2e825dce69430ca5c89fc60e4bf7436c5480df6a887a537e7c287de",
+      "bytes": 1225
+    },
+    {
+      "path": "components/display/balloon/Balloon.tsx",
+      "sha256": "9315fd37e4322bd67f339633d04475df9521c0705e07b47b9ce87d8a6f8f59fd",
+      "bytes": 10494
+    },
+    {
+      "path": "components/display/balloon/BalloonArt.tsx",
+      "sha256": "1f4f8da6ea9a42e2445f9b1b3513dba3236840e40151b906dcb365c66fa72227",
+      "bytes": 1901
+    },
+    {
+      "path": "components/display/balloon/BalloonField.tsx",
+      "sha256": "caf25fb9859e7f47abe5b20de701f555bf3529c5e85e4079b356dfb03c49c275",
+      "bytes": 1082
+    },
+    {
+      "path": "components/display/balloon/Sparkles.tsx",
+      "sha256": "1b06e4b108eb54cb713c456cf606111e41ac23efaa3aae1a3de7f68224d55a4a",
+      "bytes": 1604
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DDisplay.tsx",
+      "sha256": "b365e44195b7ca66b87ae53abbde9752147c6f247dc87494636e6d43bdbf40c6",
+      "bytes": 2619
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DLiveDisplay.tsx",
+      "sha256": "a771677ce6ee4499f6fa82bd5db62b50ca79bbc4033b86d67035c53e2a9a614f",
+      "bytes": 1840
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DView.tsx",
+      "sha256": "80870126aca85b2203282110aa854e3ceed566fd03a8b5c0d373369ae9ba816e",
+      "bytes": 1030
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonStage.tsx",
+      "sha256": "e2eb82f39a525d9f4fa9acbceccfd14a5a8124327dfa6540a937087cc21c857a",
+      "bytes": 4727
+    },
+    {
+      "path": "components/display/balloonquest3d/game/Bq3SkyBackground.tsx",
+      "sha256": "4e24d8e8e6c414b510e067cf8ebec7335f9bf7333b939ae99cc0fd1a275f16ce",
+      "bytes": 343
+    },
+    {
+      "path": "components/display/balloonquest3d/game/GameHud.tsx",
+      "sha256": "4c2ad0541f6fb48824b669fc360bdeed913dabeea596cf052f0453f9f719db3f",
+      "bytes": 2699
+    },
+    {
+      "path": "components/display/balloonquest3d/game/Scenes.tsx",
+      "sha256": "b4f8573e377b5cc391ed8533ce1cd0fcead762aad4f8296ea27e5d8399abb968",
+      "bytes": 2594
+    },
+    {
+      "path": "components/display/balloonquest3d/game/game.css",
+      "sha256": "e4ceb83e3ce62bb2159f0c275084402d82305faa5123be3de05acdb60de69dcf",
+      "bytes": 4203
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/BalloonArt3D.tsx",
+      "sha256": "994b8764dbf9b68be041d11698b23ea6b686e9c7caeba4371d679e9588c34573",
+      "bytes": 4367
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/BalloonQuestVisualPreview.tsx",
+      "sha256": "aaf940250f4a9ae39ba993a1aaf82a2a4a8e1770e03bee8f944b8a81eab68836",
+      "bytes": 9339
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/PreviewHud.tsx",
+      "sha256": "2fa620ea20a0d4caaf96e488275d5a7ad226b33811be23fae2cf008de87c8624",
+      "bytes": 2307
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/SkyBackdrop.tsx",
+      "sha256": "431921595d0b588794b2098c7acd799d8673e1ef960e0c12c5df2a4d0b6cf86b",
+      "bytes": 1822
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/__tests__/previewConfig.test.ts",
+      "sha256": "8656269cfc573f58f03c80070dac5ac2d39f9570540cf70aa03dd5adc4916d89",
+      "bytes": 2093
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/__tests__/previewEngine.test.ts",
+      "sha256": "959cc451b973976a1e2aa7213a41e2c23dcf8b20acf5deec394ab8a13ff6f50e",
+      "bytes": 8119
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/balloonQuestPreview.css",
+      "sha256": "b47fbc1f61a09d468f4d402be61f917b223c4cb5c2111727a7c489004ddf24b6",
+      "bytes": 8373
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/previewConfig.ts",
+      "sha256": "ef24ce055088dae4da594c91568778862a8def568de522f98765e00ff9d28db1",
+      "bytes": 4396
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/previewEngine.ts",
+      "sha256": "87a1750a83400a71b83fbaa45a12b6c35e74e009cda69511801216d3609dfa7f",
+      "bytes": 13151
+    },
+    {
+      "path": "components/display/bloomingworld3d/GardenView.tsx",
+      "sha256": "1438c2399fa48b46c4ac7ee3a459502b58a5ba299f09d3d59ce0b26d313f16df",
+      "bytes": 3867
+    },
+    {
+      "path": "components/display/bloomingworld3d/garden.module.css",
+      "sha256": "5964c2803f31c07a2e9f85ce98b93dfff3c3d2aeaa91f37b89d30586184d553e",
+      "bytes": 1647
+    },
+    {
+      "path": "components/display/bloomingworld3d/scene.ts",
+      "sha256": "9c637b776c93e2e1ada8aa3fe33e97d88d2f2bb07ec92d12901c2228cdaf2793",
+      "bytes": 17629
+    },
+    {
+      "path": "components/display/bubblepop/ShapeGlyph.tsx",
+      "sha256": "53c30017d0f880b6bf139e5f52ee7f675746633388820ed22f95435d9d28c248",
+      "bytes": 1554
+    },
+    {
+      "path": "components/display/bubblepop/bubbleColors.ts",
+      "sha256": "805dfd607e8a2e26df7b95579b5911bf060bd9b665f26f73c6181f21ff5098f1",
+      "bytes": 3149
+    },
+    {
+      "path": "components/display/bubblepop/bubbles/BubbleArt.tsx",
+      "sha256": "55c7a3e08be2e52a4696c1d856013b144c350508357db61ab9a994ff61cad856",
+      "bytes": 2516
+    },
+    {
+      "path": "components/display/bubblepop/celebration/BubbleShower.tsx",
+      "sha256": "a95cf3c2832e8f9945cee817e8d4b2f9f0cec41ce99644179f71dd8e914d2d16",
+      "bytes": 1160
+    },
+    {
+      "path": "components/display/bubblepop/celebration/CoralSparkleWave.tsx",
+      "sha256": "6e53b521acf4eb025728db89b64b43d1e33fb92949ced343b89cd1f4060864e9",
+      "bytes": 912
+    },
+    {
+      "path": "components/display/bubblepop/celebration/FishSwimThrough.tsx",
+      "sha256": "c4db3824619b838ab19b58fcd3309f3ed42219b5029d84df31ed657ec413cc54",
+      "bytes": 918
+    },
+    {
+      "path": "components/display/bubblepop/celebration/PearlGlow.tsx",
+      "sha256": "c51f0592e7832810113f26f8282105663992627e6d4e78ada2739d851fd6a3da",
+      "bytes": 720
+    },
+    {
+      "path": "components/display/bubblepop/celebration/TreasureChestCelebration.tsx",
+      "sha256": "d7bec9c7242565103453b92ed4fa2d0c1ba5e064c8084569d55d863bbf20ca0a",
+      "bytes": 1731
+    },
+    {
+      "path": "components/display/bubblepop/creatures/FishArt.tsx",
+      "sha256": "ebefade19d7887ee13ca2516fac07d5dd4525349fd327a108fc25b5451d7066f",
+      "bytes": 3706
+    },
+    {
+      "path": "components/display/bubblepop/creatures/JellyfishArt.tsx",
+      "sha256": "f2bd0612570d07a72ffce0cf7e1f901f96bae42199d59e072e81036cfd4f19f9",
+      "bytes": 2222
+    },
+    {
+      "path": "components/display/bubblepop/creatures/SeahorseArt.tsx",
+      "sha256": "a919581711c78eebaf06eb322ca196c182050be38e5c560fd47cb5da6c3f0f08",
+      "bytes": 1794
+    },
+    {
+      "path": "components/display/bubblepop/creatures/TurtleArt.tsx",
+      "sha256": "c9c528f61397367ca07d6187d8f1ca45bbc5b82a4701bc3b813b919d97ece9d8",
+      "bytes": 1452
+    },
+    {
+      "path": "components/display/bubblepop/environment/UnderwaterEnvironment.tsx",
+      "sha256": "983db0f537cd26271bf1c099e32215e4d8c42c4365fb98cd105c6ea04b857dd3",
+      "bytes": 6131
+    },
+    {
+      "path": "components/display/bubblepop/ocean/EnergyPulse.tsx",
+      "sha256": "0b5cdee7ce710a9eeefb09c1a66af124fe976360addfbfdbc143ec1dd502d5e2",
+      "bytes": 2838
+    },
+    {
+      "path": "components/display/bubblepop/ocean/MissionPrompt.tsx",
+      "sha256": "fd372571370e161e15e3b520280f8c74ca429c9d7eda3fe7fd321fd9f2aa1f41",
+      "bytes": 3167
+    },
+    {
+      "path": "components/display/bubblepop/ocean/MovingBubble.tsx",
+      "sha256": "dd947191e4b0e124fe8a05012ff944283d38434e4543b5f5fd8c1a417cd58c48",
+      "bytes": 1906
+    },
+    {
+      "path": "components/display/bubblepop/ocean/TreasureChest.tsx",
+      "sha256": "f209fb9de5ebc01037cdbd739f946e3eb323b4821221e71dac2cfa506d53336d",
+      "bytes": 6662
+    },
+    {
+      "path": "components/display/bubblepop/ocean/__tests__/bubbleMotion.test.ts",
+      "sha256": "1af483915ba7d6bdec4f9e6818093dcbadab9fc96e8aaa4dcca4a55f532d8c23",
+      "bytes": 2555
+    },
+    {
+      "path": "components/display/bubblepop/ocean/bubbleMotion.ts",
+      "sha256": "d04b00eca44e09e84607a116df9df4856c817bc58df0b27fe6bb629378cd5545",
+      "bytes": 1956
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopInstructionsScene.tsx",
+      "sha256": "bee593631d90eed1c2fc099d6674ec24f64b8288cf236a0081b66df56110451d",
+      "bytes": 2546
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopPlayingScene.tsx",
+      "sha256": "0cd6be194b524df8f6a7e21a13f0b45bafc62e4d2ead4802733aa34e08974033",
+      "bytes": 19680
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopReadyPositionScene.tsx",
+      "sha256": "b694b8c73020620f6b1070ce1f7f856cc8ce768aea2f8a6ecee9e7855faf02ca",
+      "bytes": 3767
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopSessionCompleteScene.tsx",
+      "sha256": "1118275807c03215a45e0cf50b918aebdc0a2855fb7640afee6794f57e0b8c5c",
+      "bytes": 6025
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopStageCompleteScene.tsx",
+      "sha256": "86c6ae3ed08b30d4795351038bd90ed88cb82cef13a2ed81c18674a2ec70c645",
+      "bytes": 3283
+    },
+    {
+      "path": "components/display/bubblepop/scenes/BubblePopWelcomeScene.tsx",
+      "sha256": "42589d6b020dccb4fdc2ed1887a0ca09577700a28e911117f352e61829704aa3",
+      "bytes": 2764
+    },
+    {
+      "path": "components/display/bubblepop/stations/PearlStation.tsx",
+      "sha256": "c6a8651e827770358b2ded648dc9fcd6aa4513ca7310ef492b6167f60d74bf26",
+      "bytes": 4154
+    },
+    {
+      "path": "components/display/bubblepop/stations/StationDock.tsx",
+      "sha256": "75f279153dd8ccd71995d51c0660d95cf245d2ad31238808a74385aba5cec5de",
+      "bytes": 1809
+    },
+    {
+      "path": "components/display/bubblepop/stations/stationLayout.ts",
+      "sha256": "90e655fcd1c71153c47eb88f694f036f61424d217c22254d45b8b278bea3e8bb",
+      "bytes": 703
+    },
+    {
+      "path": "components/display/bubblepopwall3d/DomeScene.tsx",
+      "sha256": "19c468b89dcc5970f88d960e0472d426f4c5aa005d7138aad1d8f2e39f8e6e49",
+      "bytes": 15469
+    },
+    {
+      "path": "components/display/bubblepopwall3d/DomeView.tsx",
+      "sha256": "2798792a1eb2eec6e17b158d07a85e468ccfba6dcd80918ca9102e62eca6d7f1",
+      "bytes": 4166
+    },
+    {
+      "path": "components/display/bubblepopwall3d/dome.module.css",
+      "sha256": "9bbfa4a3bb74bd2decad8a0d2c3f0a0380ca6114e165b326d1d834ed420c0bfd",
+      "bytes": 2304
+    },
+    {
+      "path": "components/display/buildquest3d/BuildQuestDisplay.tsx",
+      "sha256": "b0d2c405d81f2af00934a9fc1931103c353af532d6ca8cc6e0641a75a2bde70d",
+      "bytes": 4806
+    },
+    {
+      "path": "components/display/buildquest3d/BuildQuestDisplayEntry.tsx",
+      "sha256": "c437a98735ef6679166220ccbf6f05e15e1e364f2a6be3ad1e5c0c1c31b34bc9",
+      "bytes": 570
+    },
+    {
+      "path": "components/display/buildquest3d/WorkshopCanvas.tsx",
+      "sha256": "86feec46b107a28faa7e0ed5db236fad0788f3702c20970f5c2bf9bdc81228d7",
+      "bytes": 2608
+    },
+    {
+      "path": "components/display/buildquest3d/workshop.module.css",
+      "sha256": "65ff79bf8467ab157907d6a8575a7e656cba63530a694361edb7c1352a63fa27",
+      "bytes": 5595
+    },
+    {
+      "path": "components/display/celebration/Confetti.tsx",
+      "sha256": "81cbbb155c7d9ce97c5fda80b190333e6e2a8e16a1cbeaf20c24c9027609e7bd",
+      "bytes": 1883
+    },
+    {
+      "path": "components/display/celebration/CorrectCelebrationBurst.tsx",
+      "sha256": "6bc2b56be2bcd6f696c37342b044b1ab8e94a67257ad7a4eae7ece39f4c3a85c",
+      "bytes": 3965
+    },
+    {
+      "path": "components/display/celebration/RisingBalloons.tsx",
+      "sha256": "4cddcea653af7e46222275607a98fcba976cf16b2588e02b80eb4cc1008a95ad",
+      "bytes": 1746
+    },
+    {
+      "path": "components/display/celebration/StarBurst.tsx",
+      "sha256": "2d84ced3ffa4aa2c3a6d833f43657c14faec608b81badfd4bae80722f7b84e95",
+      "bytes": 1022
+    },
+    {
+      "path": "components/display/colorPalette.ts",
+      "sha256": "31dccc59a360ebec3dde50d2c892095e9e2db8a50189e423858431576a2447d0",
+      "bytes": 2230
+    },
+    {
+      "path": "components/display/colorchase/ColorChaseEnvironment.tsx",
+      "sha256": "1b4092bcdb5c86213bbbc95f9ee109605b69505785be71dff0f56a1c139e116a",
+      "bytes": 800
+    },
+    {
+      "path": "components/display/colorchase/ColorPadGrid.tsx",
+      "sha256": "bee3d3de483dd410b5539b45866c933769f9851268cda7b47cfd0facc17ff4d6",
+      "bytes": 5374
+    },
+    {
+      "path": "components/display/colorchase/colorPalette.ts",
+      "sha256": "7ea36e9aebfdd09f1e543db19a90105d18d1cb4f17a7a22456f60ea7c1fcb347",
+      "bytes": 308
+    },
+    {
+      "path": "components/display/colorchase3d/GardenCanvas.tsx",
+      "sha256": "879d03dbea44265d38f1f788d2c7e58e791e2c046021a800b043c5e39fa814ab",
+      "bytes": 2592
+    },
+    {
+      "path": "components/display/colorchase3d/GardenPrototype.tsx",
+      "sha256": "2d5b2c26c04cc1c23a832ba31d2a04884ec6f7137de24b160b2483d013b742f4",
+      "bytes": 2483
+    },
+    {
+      "path": "components/display/colorchase3d/GardenView.tsx",
+      "sha256": "669ff782459bb17f8ca972f6c7470562a6a71c94d45a1702abe806566ee72b65",
+      "bytes": 8278
+    },
+    {
+      "path": "components/display/colorchase3d/SymbolIcon.tsx",
+      "sha256": "e4037df25a714592b0ea7ad5006ca60bfd0ed9a9317210b8864370cc1c2c9991",
+      "bytes": 750
+    },
+    {
+      "path": "components/display/colorchase3d/garden.module.css",
+      "sha256": "28647e67cc0c75b9c472e266c220f3f114a324a4967032bb72166086b5d0d5b7",
+      "bytes": 3237
+    },
+    {
+      "path": "components/display/colorchase3d/scene.ts",
+      "sha256": "17281b18d29e99a512ebd2907391c6c4322209d9e060a8ceda720d2de92edeb9",
+      "bytes": 69860
+    },
+    {
+      "path": "components/display/colorchase3d/textures.ts",
+      "sha256": "e07c4257382c2bdfbb2e0e6430f32c3ab7e31a618fcea980c86db921323106cf",
+      "bytes": 10270
+    },
+    {
+      "path": "components/display/colorchase3d/useChime.ts",
+      "sha256": "6b866aa76f511aa406b65b4e30ce73cf94d90ad5a2e73f01f1e1205581b3a036",
+      "bytes": 2097
+    },
+    {
+      "path": "components/display/copy.ts",
+      "sha256": "b5e663fdee25d140da006a6724a89d9b0d8a9fa844429fac494fddd4317d7e7d",
+      "bytes": 2454
+    },
+    {
+      "path": "components/display/environment/Environment.tsx",
+      "sha256": "1608b47d42e8b5c3abb631ad6e0ee480689756bd95827c818fb4e100151e8acd",
+      "bytes": 4574
+    },
+    {
+      "path": "components/display/events.ts",
+      "sha256": "1e97c85dd0287ce02f43e46fc6c62f6262e91156f5379bf629ab427a68d4fbdc",
+      "bytes": 12063
+    },
+    {
+      "path": "components/display/firerescue3d/FireRescueView.tsx",
+      "sha256": "4123403b1c6f47805d866578ad2fe7dc859c86715af96f37cc8592d8991cb23e",
+      "bytes": 5974
+    },
+    {
+      "path": "components/display/firerescue3d/view.module.css",
+      "sha256": "dcf4f61ec3935d3d9c9bdb78bcacb8994f5494b822a67bf17687326167a0c4ce",
+      "bytes": 3114
+    },
+    {
+      "path": "components/display/footsteps/celebration/ConstellationIllumination.tsx",
+      "sha256": "b80639faf67fd1b73389012fe87583167ee2f413f94743f3442ffcef54be10f9",
+      "bytes": 1379
+    },
+    {
+      "path": "components/display/footsteps/celebration/CosmicSparkleBurst.tsx",
+      "sha256": "bbc8806caedee86fa8de5ce2250545818a2e4df496c21bb6daf7599ad6d86ca5",
+      "bytes": 1708
+    },
+    {
+      "path": "components/display/footsteps/celebration/PathLightTravel.tsx",
+      "sha256": "efe13fecfc12f902bd253028685e29ae61802fd8c415aa54abd0251ce6f95277",
+      "bytes": 1431
+    },
+    {
+      "path": "components/display/footsteps/celebration/ShootingStars.tsx",
+      "sha256": "19e14a4394ecedde26b10d64366f16c7b695e8cbcf1c788ec0e7c56807b2fcad",
+      "bytes": 1237
+    },
+    {
+      "path": "components/display/footsteps/celebration/StepStarBurst.tsx",
+      "sha256": "d202eed0f352fa9c2ff7f3e85a0cea36005f31d857eefed09c6893e4c0a2fe1f",
+      "bytes": 3265
+    },
+    {
+      "path": "components/display/footsteps/environment/CosmicEnvironment.tsx",
+      "sha256": "cd75955c1a774a96e5184ee37265b79dcc2b654d5c6a9617407840e888e3eeda",
+      "bytes": 6430
+    },
+    {
+      "path": "components/display/footsteps/footprints/FootprintArt.tsx",
+      "sha256": "e90bdacae33a45ce18ff7e329f92f72a54372492f7a42bef3ca4949753f67afc",
+      "bytes": 4418
+    },
+    {
+      "path": "components/display/footsteps/obstacles/ObstacleArt.tsx",
+      "sha256": "7c255ae85e1901c449b7d13d42516b1abc2869a3259a12de533a3d973ecc1842",
+      "bytes": 5479
+    },
+    {
+      "path": "components/display/footsteps/path/CheckpointStar.tsx",
+      "sha256": "a74933936895186ea0c5048eeb4329288381ee85340312ab6f052864d32dfc56",
+      "bytes": 1680
+    },
+    {
+      "path": "components/display/footsteps/path/DestinationStar.tsx",
+      "sha256": "8f69d289ab3a055452c459181811a756e0bdf03074267383b1428f523a8389a9",
+      "bytes": 4177
+    },
+    {
+      "path": "components/display/footsteps/path/PathTrail.tsx",
+      "sha256": "48fce554cc76495ff1dec886e59ac1b4b4668ef5c4c2308c204e8de08986890d",
+      "bytes": 1057
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsInstructionsScene.tsx",
+      "sha256": "dd7077779328d3ea90356a17b23b72d1f2757e905883b0d3bd963d1cc1295026",
+      "bytes": 2365
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsPlayingScene.tsx",
+      "sha256": "78f81c603676288ec8b68fc297b6884e73affa34e70d77384c60f2e4453b0eb0",
+      "bytes": 10697
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsSessionCompleteScene.tsx",
+      "sha256": "b1417307c799749cc5bd5736f2d2bad6962b21f08ccf4b8e5f8aecd40dbf9ffc",
+      "bytes": 6108
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsStageCompleteScene.tsx",
+      "sha256": "de9dc4c123011d397ff896b31ada526796738516aa4dca6c6cec529a65755d50",
+      "bytes": 4427
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsStartZoneScene.tsx",
+      "sha256": "4aeb083754749d2542cff3b069476a14290d55a070ad5f6e5b937043e31c50e2",
+      "bytes": 3774
+    },
+    {
+      "path": "components/display/footsteps/scenes/FootstepsWelcomeScene.tsx",
+      "sha256": "3041f6f74fe974d190fdb4fbfa97b33b0f2c9a7e9114e46e96c84d7d75b1fd97",
+      "bytes": 2764
+    },
+    {
+      "path": "components/display/footsteps3d/FootCanvas.tsx",
+      "sha256": "b985dce3758110fc8e017c76e57d5f259140ae9fc128667c2beb5d341e11ff30",
+      "bytes": 2561
+    },
+    {
+      "path": "components/display/footsteps3d/FootView.tsx",
+      "sha256": "0b2ff1a834e172098446742fcecd26768435238b4cbcc901118501469a67fb7a",
+      "bytes": 5994
+    },
+    {
+      "path": "components/display/footsteps3d/foot.module.css",
+      "sha256": "9b0418f7d94f720790407a122b5b080035bcb368eff3e9c54ea52bb4c0dcca91",
+      "bytes": 1659
+    },
+    {
+      "path": "components/display/footsteps3d/scene.ts",
+      "sha256": "b1ccf4e27f73a0b92cdba586712790fa3c385dcc4f9843fbf9080d535cd06a27",
+      "bytes": 49972
+    },
+    {
+      "path": "components/display/footsteps3d/textures.ts",
+      "sha256": "926eb82bc21b4b35dc671d19736321eb513714eed894607f5cb071121bef3d0f",
+      "bytes": 11049
+    },
+    {
+      "path": "components/display/footsteps3d/useChime.ts",
+      "sha256": "aa3f06ded0649593aa97941bcd860d588ecd456e86cc592286a007e80676582d",
+      "bytes": 2106
+    },
+    {
+      "path": "components/display/gameDisplayRegistry.tsx",
+      "sha256": "9f104de9544273892d708cab67fe4909f45e46a415421de3d41bbd09bd1c9158",
+      "bytes": 5721
+    },
+    {
+      "path": "components/display/games/BalloonQuestDisplay.tsx",
+      "sha256": "3f5dcd1baf93e8620269ab2c9e0802166415ba7984db6ef39c046959acde5bf4",
+      "bytes": 6232
+    },
+    {
+      "path": "components/display/games/BalloonQuestDisplayRouter.tsx",
+      "sha256": "fbed46925705a81033e46210afe17e7f82ae6b735abd391af3dfe8309389b40e",
+      "bytes": 991
+    },
+    {
+      "path": "components/display/games/BloomDisplayModule.tsx",
+      "sha256": "3ab20117ede42d4015bb3f50516c998cfacc06ebfb922e4d1e39b5bf17845ce9",
+      "bytes": 561
+    },
+    {
+      "path": "components/display/games/BubblePopDomeDisplayRouter.tsx",
+      "sha256": "6831e315db23b5072f083104fe031db1a3cd78e47ba744ca47e9e4ad6d04b249",
+      "bytes": 1008
+    },
+    {
+      "path": "components/display/games/BubblePopWallDisplay.tsx",
+      "sha256": "b26118986668785eee01f81a290e015d701ee51ee7fd25450d3598baf699254c",
+      "bytes": 7277
+    },
+    {
+      "path": "components/display/games/BuildQuestDisplayModule.tsx",
+      "sha256": "b198622d40b0318bba1557651be5fc73b67a0400e153eaa9d8c4a1f4fb36c665",
+      "bytes": 1053
+    },
+    {
+      "path": "components/display/games/ColorChaseDisplay.tsx",
+      "sha256": "8c3fa2426d7bbb92f67703b0ce1608db7cac1b7ef9af8c1a4aa9fe2f96e744dc",
+      "bytes": 14422
+    },
+    {
+      "path": "components/display/games/ColorChaseDisplayModule.tsx",
+      "sha256": "ddf86bfdd9b2932d4056d8712d3ff37ea3191e939551e6496fd3c7cf0843bf82",
+      "bytes": 1154
+    },
+    {
+      "path": "components/display/games/FireRescueDisplayModule.tsx",
+      "sha256": "6e03c72eb708bcd354d231df4ce2b6fe32395d80cc92102ba9f36aaa8d34ba77",
+      "bytes": 646
+    },
+    {
+      "path": "components/display/games/FollowTheFootstepsDisplay.tsx",
+      "sha256": "9337d3e5fc27e0bb4bd228b1f9ca3025c729b0f9469f52cf70740b2a5cfc14f8",
+      "bytes": 6352
+    },
+    {
+      "path": "components/display/games/FootstepsDisplayModule.tsx",
+      "sha256": "ea88b89d045bcbad33d5b7b1080e6c5a16ff81e460a9c9e2f5e0169a60d9168c",
+      "bytes": 1149
+    },
+    {
+      "path": "components/display/games/HarvestDisplayModule.tsx",
+      "sha256": "505cd9ebe714f22a956a9c818f1f3aa9c2d4da44f1fc390052076e96a20d5094",
+      "bytes": 540
+    },
+    {
+      "path": "components/display/games/MirrorQuestDisplayModule.tsx",
+      "sha256": "540d13f4e5507f2d59f6c20dbf49dcd043c57e75e998bd747159fea451a3f08b",
+      "bytes": 538
+    },
+    {
+      "path": "components/display/games/PearlVoyageDisplayModule.tsx",
+      "sha256": "1d7998bd5f9f07c11b05e85e87a4b086dcd0b5848aeb5fdafac65e27917c912f",
+      "bytes": 782
+    },
+    {
+      "path": "components/display/games/RunnerQuestDisplayModule.tsx",
+      "sha256": "1678dc68c3e4b1cf1c8c4b2e77cd7d23dfd7f40c88c5e1e716aa2c92900205c2",
+      "bytes": 534
+    },
+    {
+      "path": "components/display/games/SafeHexDisplayModule.tsx",
+      "sha256": "a50e925b5ff42e47b35c9035d539e037b262a5e2f9e967320a2ac0a4353f0460",
+      "bytes": 614
+    },
+    {
+      "path": "components/display/games/SpacePilotDisplay.tsx",
+      "sha256": "0afe8125cae9baf8a161f2e70fd03915d67a4917cfc5b522e8c2403aa1ae3f86",
+      "bytes": 6414
+    },
+    {
+      "path": "components/display/games/SpacePilotDisplayModule.tsx",
+      "sha256": "018ebf64d1989a7de70b6743e7d2e672949fa8d86ea471034492d324654c7436",
+      "bytes": 957
+    },
+    {
+      "path": "components/display/harvestvalley3d/FarmView.tsx",
+      "sha256": "95b118230f93ad9ed245bd1a9dd5638bac2596a39cb3a71563f10af16760c479",
+      "bytes": 3803
+    },
+    {
+      "path": "components/display/harvestvalley3d/farm.module.css",
+      "sha256": "5964c2803f31c07a2e9f85ce98b93dfff3c3d2aeaa91f37b89d30586184d553e",
+      "bytes": 1647
+    },
+    {
+      "path": "components/display/harvestvalley3d/scene.ts",
+      "sha256": "e11efd5461f75d1645ed978701aead736d9a9a82971f31bb34c11e1f160c4b88",
+      "bytes": 23112
+    },
+    {
+      "path": "components/display/mirrorquest3d/MirrorCanvas.tsx",
+      "sha256": "5c54d5adb568580b4985265ccaa3161f5fbb12520d245781e8ec59263eecd752",
+      "bytes": 1411
+    },
+    {
+      "path": "components/display/mirrorquest3d/MirrorView.tsx",
+      "sha256": "2a2801fff262f1767f86d6f77205f852e9c7f4efa67ceef6ac26aa40fc71572e",
+      "bytes": 2301
+    },
+    {
+      "path": "components/display/mirrorquest3d/mirror.module.css",
+      "sha256": "7ee355b77bebb3970934a9e43c80d7160d8c026bf184c7c120a8a912611b9ae3",
+      "bytes": 6116
+    },
+    {
+      "path": "components/display/mirrorquest3d/rig.ts",
+      "sha256": "54b6987f83135c8f006bd4e5a34df1473477a766987ca18c9e7ef25f33b75e9c",
+      "bytes": 5583
+    },
+    {
+      "path": "components/display/mirrorquest3d/scene.ts",
+      "sha256": "eae5c85076cf19ee71082209d434ceb355adda17197b8cd99e552ca7b74414d1",
+      "bytes": 5944
+    },
+    {
+      "path": "components/display/pearlvoyage3d/PearlVoyageView.tsx",
+      "sha256": "bf83070531b4c2977c3e66bfb8d04c6e86fbd90a08c07e9ebb5337406730bf9e",
+      "bytes": 9964
+    },
+    {
+      "path": "components/display/pearlvoyage3d/view.module.css",
+      "sha256": "fac732690707f0a09a99e77fe7eff445da79b2c9bc81c7761af9c64436289f6d",
+      "bytes": 7404
+    },
+    {
+      "path": "components/display/runnerquest3d/Hud.tsx",
+      "sha256": "94620cafe9a66c255c61b89e56f1fa6d7590b98d812fae87009ddbe4a11cf6b9",
+      "bytes": 7000
+    },
+    {
+      "path": "components/display/runnerquest3d/RemountHarness.tsx",
+      "sha256": "2391702ddc27c26a416148a7c09e9949e6cda26158e38b7003ea468c3715a5c4",
+      "bytes": 2214
+    },
+    {
+      "path": "components/display/runnerquest3d/RunnerQuest3DCanvas.tsx",
+      "sha256": "61679d1bad063fd42a694c9093f224063d672fb6c145c28adecb7c6e198dd5ef",
+      "bytes": 3680
+    },
+    {
+      "path": "components/display/runnerquest3d/RunnerQuest3DDisplay.tsx",
+      "sha256": "1301681dd9cefde4ecc3bcd114ce08bc34b3d375181ef5ec678c3a59879adca3",
+      "bytes": 4005
+    },
+    {
+      "path": "components/display/runnerquest3d/RunnerQuest3DView.tsx",
+      "sha256": "97f234bb1d1c421e65f9e16a16614accbaab9c771cbe8f08789c1ee05a39c207",
+      "bytes": 4989
+    },
+    {
+      "path": "components/display/runnerquest3d/RunnerQuestLiveDisplay.tsx",
+      "sha256": "7ebe21a67442881687b76f787d2e3ea16d85ed5396df71deda970544e8799bc0",
+      "bytes": 2490
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/FloorCanvas.tsx",
+      "sha256": "d644da0ef952c06a4ffab3f04fdb95e2a3bf650412cbfd75adf96ee20a014e55",
+      "bytes": 3645
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/FloorHud.tsx",
+      "sha256": "2aaed8e5e2efd24f37b806896f6ad604742a6bd8904de83a581b169890aff8f1",
+      "bytes": 6207
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/FloorScene.ts",
+      "sha256": "ca54ee3577dcb63cc7c476f0cdff6d5ec4524165d26b908c5c4b2f80ca392707",
+      "bytes": 36807
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/FloorView.tsx",
+      "sha256": "7dc78f5e4254002bbba7d5470356dc92e721856a585127b712a67cd9b2f742ce",
+      "bytes": 3717
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/floor.module.css",
+      "sha256": "211e83733ce07d0d937b841e49eae4b88baff67241484229291fd76a149105ce",
+      "bytes": 1773
+    },
+    {
+      "path": "components/display/runnerquest3d/frame.ts",
+      "sha256": "e924533f9be1735cecc7fb34fcdc3986e903d020293ae25b14003f55ea41de91",
+      "bytes": 1268
+    },
+    {
+      "path": "components/display/runnerquest3d/runner.module.css",
+      "sha256": "b87c91319282d7e40a1150d3d940ea832844c63e9b8d4a63e2cc163d12b84f30",
+      "bytes": 3888
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/RunnerScene.ts",
+      "sha256": "95cb75cc7f1e75022fafc4c3d29ec78089a00a34b88629f239a3532aa2ff6639",
+      "bytes": 9914
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/character.ts",
+      "sha256": "e20c9dde786b2e9bcef9b406242f1d654cb5d76ef98f34fa7a800405cae82313",
+      "bytes": 8735
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/own.ts",
+      "sha256": "c869878ac99d2e244d378575f1904b873354af56600429fad443514f765e16fd",
+      "bytes": 1950
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/palette.ts",
+      "sha256": "d93369c1302b25efa51647f73670c9d34c70c87e6deb57ace57992d14e181fdc",
+      "bytes": 2160
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/props.ts",
+      "sha256": "d21964e2ba988f9644cb90914398b8c0a1db8d7c2ba2f4b0e4d659a55ec7c599",
+      "bytes": 16753
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/sparkles.ts",
+      "sha256": "2994a26161e5a753c29ec6381821e1c30b4826eb3e53f72dcc8809043ec0f76c",
+      "bytes": 2351
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/textures.ts",
+      "sha256": "e08deb39a8dfbfbe2c1d192f3df622f3e21020597fb537ee79d9997c983d424a",
+      "bytes": 4662
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/types.ts",
+      "sha256": "6378af3f2f7fad0d20d2a3acaf0de92f64e00766a043b24011c7617e6e736a38",
+      "bytes": 1770
+    },
+    {
+      "path": "components/display/runnerquest3d/scene/world.ts",
+      "sha256": "b2a64bd1e5cdd1452ce8d28d672e843bc6db0dd82fb786db5b2a52aabf390213",
+      "bytes": 17719
+    },
+    {
+      "path": "components/display/safehexarena3d/HexCanvas.tsx",
+      "sha256": "33582d2bd22500503e1fe5d7044da0c7796071d2b55ece7738e9663a2e774846",
+      "bytes": 2864
+    },
+    {
+      "path": "components/display/safehexarena3d/HexView.tsx",
+      "sha256": "cc0a5183f97cdc4dc039b5709310a6cc235a6c5a162f3d78587b5c41e08c2aa4",
+      "bytes": 4384
+    },
+    {
+      "path": "components/display/safehexarena3d/hex.module.css",
+      "sha256": "178e1b2b00b05dbf65f0b0e5fd9812a417a909c5c2b6098ab14dc952faba173a",
+      "bytes": 1659
+    },
+    {
+      "path": "components/display/safehexarena3d/scene.ts",
+      "sha256": "6cfd42ed4a1e125a3647e2e3de437f08923fc7179487c85b53237f11cec1146d",
+      "bytes": 16828
+    },
+    {
+      "path": "components/display/safehexarena3d/useCue.ts",
+      "sha256": "5c9533c63745fe613f10e55ab2042a7ba447b587ebd88f10972e409affdd99d0",
+      "bytes": 1598
+    },
+    {
+      "path": "components/display/scenes/CountdownScene.tsx",
+      "sha256": "af65ca35bfc570f1e7ec9495caf510e4ee05ed2973a609f4dc759c33bcd7b254",
+      "bytes": 8781
+    },
+    {
+      "path": "components/display/scenes/InstructionsScene.tsx",
+      "sha256": "9dd6de80769d1d47e93b8a1ead320ff4a755663f5751be94ae89569ae3e3b53a",
+      "bytes": 2526
+    },
+    {
+      "path": "components/display/scenes/PlayingScene.tsx",
+      "sha256": "33f09184618e469526b83c101af088ab3ba6e8865c9b72592270fad624ba740c",
+      "bytes": 9508
+    },
+    {
+      "path": "components/display/scenes/SessionCompleteScene.tsx",
+      "sha256": "0629732cc19a37dd031dc8b5912d65c1977cc06ab9ca20263b86dbf26faf8732",
+      "bytes": 7754
+    },
+    {
+      "path": "components/display/scenes/StageCompleteScene.tsx",
+      "sha256": "af266193f756ff65a892d3101debd4bed38cca13b222bbfd6185b1078d41efa7",
+      "bytes": 4947
+    },
+    {
+      "path": "components/display/scenes/StartZoneScene.tsx",
+      "sha256": "efbf96451520af0b683e86b6ad8b4f975358b0d64135c0134a82384242d1f5ee",
+      "bytes": 3254
+    },
+    {
+      "path": "components/display/scenes/WelcomeScene.tsx",
+      "sha256": "bb879db23c11c9eb61f8ed62cbae67de5853d34358fb762f5efd253b5764f382",
+      "bytes": 3553
+    },
+    {
+      "path": "components/display/scenes/__tests__/CountdownScene.test.ts",
+      "sha256": "b47afafde5dfe4490aba5ee6418ac8711018bf19c5256481943bcc264f9e33d1",
+      "bytes": 927
+    },
+    {
+      "path": "components/display/spacepilot/celebration/FinalRocketPayoff.tsx",
+      "sha256": "ccbfbb1faaf76ad820af5f03d0d61eae87f756a58b14ca3fd18c3c9a04c05b1d",
+      "bytes": 1154
+    },
+    {
+      "path": "components/display/spacepilot/controls/LaneControls.tsx",
+      "sha256": "71cb8cf2b0dbc759d9aabeddacdef666b9feec56a662923efe8f93dee0c77624",
+      "bytes": 2846
+    },
+    {
+      "path": "components/display/spacepilot/environment/SpaceEnvironment.tsx",
+      "sha256": "8985d0bebd16ac41f8398e1ef6d2d205d18db1f5ef1d40fa9215a753a41b23c1",
+      "bytes": 7086
+    },
+    {
+      "path": "components/display/spacepilot/hazards/AlienShipArt.tsx",
+      "sha256": "c0679951a66dadc35da117a420003f93049a1bae51b777053416a18c7ae13be0",
+      "bytes": 2570
+    },
+    {
+      "path": "components/display/spacepilot/hazards/AsteroidArt.tsx",
+      "sha256": "7bcaa909db861702001b2ab40ec5f67c3afcd94cd14e7917d1deb61380d85c90",
+      "bytes": 3823
+    },
+    {
+      "path": "components/display/spacepilot/hazards/FireProjectile.tsx",
+      "sha256": "b63d45fd6f258eaa03c7a6478a4cd9509112dbe89aad41b39e6451cdedde4f9d",
+      "bytes": 1873
+    },
+    {
+      "path": "components/display/spacepilot/lanes.ts",
+      "sha256": "89ecdc5c64021b924440e473a825689574707019a94ac538d9e1cab079c42de9",
+      "bytes": 879
+    },
+    {
+      "path": "components/display/spacepilot/progress/EncounterProgressDots.tsx",
+      "sha256": "a97d5b72ed79cd32a54680ebb0305e7c3089a7261cb5eddad501df5f21be43e0",
+      "bytes": 2244
+    },
+    {
+      "path": "components/display/spacepilot/progress/StarProgressDots.tsx",
+      "sha256": "1ae136b313da3ed0399704b8aa09210aa46ccc42f86aa33a8891796faf6d4db9",
+      "bytes": 1283
+    },
+    {
+      "path": "components/display/spacepilot/rocket/SpacePilotRocket.tsx",
+      "sha256": "1dfc07a598623edb4f48b80b45bc0ed05d68ac1279b6e922e11062194cdb41b5",
+      "bytes": 13835
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotEncounterPlayingScene.tsx",
+      "sha256": "95be8ee7754bb46ad4b6eb92a3b1d9f8c7dadc3b93d075e3fcba5c420fc1a656",
+      "bytes": 12234
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotInstructionsScene.tsx",
+      "sha256": "09613a44278a4ada4a9d080a8d315a63ca1a65f6bdfbe1dbce9e705cbc6dec9c",
+      "bytes": 2556
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotPlayingScene.tsx",
+      "sha256": "53dd3c1373a147a9db2a930db74561b571f57f50dfa421da23212b0872727228",
+      "bytes": 9855
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotReadyPositionScene.tsx",
+      "sha256": "e8f58fb6f0f0d499e130a99b82597bb43f821291ff2d4e0aa12adf8150112f98",
+      "bytes": 3051
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotSessionCompleteScene.tsx",
+      "sha256": "34624e162a19d0b07a0e45b355a79b5833543a01b0df3edee9edd7d5fcf13c0b",
+      "bytes": 4176
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotStageCompleteScene.tsx",
+      "sha256": "a881e4fcc38ec6d233d5285db48e1e905447a25e6c6966fcf0e7176e45ad2f9d",
+      "bytes": 3759
+    },
+    {
+      "path": "components/display/spacepilot/scenes/SpacePilotWelcomeScene.tsx",
+      "sha256": "c6ec83906942b11ce9b78626ee6e7f4ef06c3f10988b32635d6d800ddfecf647",
+      "bytes": 2751
+    },
+    {
+      "path": "components/display/spacepilot/stars/CollectibleStarArt.tsx",
+      "sha256": "00729c1d0bda2a5a0e1030dfa4f0bcb239479960d7341f5c578cd3c2d4f4980d",
+      "bytes": 2716
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DCanvas.tsx",
+      "sha256": "8c47903a63201921f44dc206f69365bd8a534472d22174f7318fb351ad57da5d",
+      "bytes": 2041
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DPreview.tsx",
+      "sha256": "a1b09df68bf0ffabdb150199fd4fac6fb59fa2d975373f979a43c5d9540b22bb",
+      "bytes": 7324
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "sha256": "57197e118cd1b9748a419c769c603b411b4f75aada071ddf5f51b480ed466512",
+      "bytes": 11617
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilotDisplayEntry.tsx",
+      "sha256": "33442d8d3976ea701f6e895018ac664888a65980c98df8273e4ecd60e33d2286",
+      "bytes": 480
+    },
+    {
+      "path": "components/display/spacepilot3d/prototype.module.css",
+      "sha256": "25c0206b9b8a35961e556c6f406837ec967b82286b8e7f6fe6294c1575fead38",
+      "bytes": 12318
+    },
+    {
+      "path": "components/display/startZone/StartZoneMarker.tsx",
+      "sha256": "2484e812f9d2d03bc97d27790f736fcd69e1b1709200590adc19d8b66ff3ac75",
+      "bytes": 4486
+    },
+    {
+      "path": "components/display/useDualLocalPointerChannel.ts",
+      "sha256": "c691fa9ae75721f6b49d6a7e5c5fe3eb81325a7dc686284fd53eed77d0c3809a",
+      "bytes": 3450
+    },
+    {
+      "path": "components/display/useInterpolatedPointer.ts",
+      "sha256": "d89185cf09672064b9b2397dcf9fc6cf24a030cc2428fec65a65eaf98d0fa21c",
+      "bytes": 2494
+    },
+    {
+      "path": "components/display/useLocalGameFeedback.ts",
+      "sha256": "dd28d114c9f119a0fad3737c7588c36d1fc6e4ed9f73c34a7d3f81767eb3ef48",
+      "bytes": 4040
+    },
+    {
+      "path": "components/display/useLocalPointerChannel.ts",
+      "sha256": "361695b14c7e9507ca0d240e761510226b48096442de00a372747eeb8615b6c3",
+      "bytes": 7432
+    },
+    {
+      "path": "components/display/useStageCompletionPresentation.ts",
+      "sha256": "d472c11f0d1b4dea39995dc854f77c59e7079db021a8892fedc4c043bf532672",
+      "bytes": 2752
+    },
+    {
+      "path": "components/display/waiting/ShumosWaitingWorld.tsx",
+      "sha256": "26d60d163f832f0c555bfec043f09c68e66351bb9e44c60f6c590fb5ee0651b1",
+      "bytes": 8473
+    },
+    {
+      "path": "components/shared/SystemStatus.tsx",
+      "sha256": "e6a96cc87ec3834244ffd373ec8fa5a116ab8d7f335b88ce68ac2731350d2cb4",
+      "bytes": 569
+    },
+    {
+      "path": "database.rules.json",
+      "sha256": "68950e64fe28fcdf3d946c364e0f2a8350d613415c1c290c05d59d787ee15bc8",
+      "bytes": 83642
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "0f26815505a4b02de9d5c5337d4d32033e5d9a17cf56d8eaef15d0b803a864bf",
+      "bytes": 946
+    },
+    {
+      "path": "firebase.json",
+      "sha256": "4f54ec3328613ea049401e827a521399424e6749e416922299146d70c4bf35e4",
+      "bytes": 256
+    },
+    {
+      "path": "lib/analytics/__tests__/patientAnalytics.test.ts",
+      "sha256": "41319800882eaff614f7f427b80c744d0cd6bbfd9afb858f5c8eaa428cbf45b6",
+      "bytes": 8527
+    },
+    {
+      "path": "lib/analytics/patientAnalytics.ts",
+      "sha256": "b2d2d895c5be5b3522e4fe7afe4147f065f430b17bd5a94941c89ad0297f8a49",
+      "bytes": 21934
+    },
+    {
+      "path": "lib/audio/AudioManager.ts",
+      "sha256": "54572400e4ea7a3ecae6a9e868d3231b035c7fc4e23ef7eb866069aacd70562f",
+      "bytes": 52625
+    },
+    {
+      "path": "lib/audio/__tests__/AudioManager.test.ts",
+      "sha256": "358d0122a6a7db957a38afd421c0f28f84f1494a5adf93d6b18f7b5a5a2a2244",
+      "bytes": 13996
+    },
+    {
+      "path": "lib/audio/__tests__/AudioManagerAmbience.test.ts",
+      "sha256": "04866e289cdee7c48e88cb8a4e17e9a6ae0ab4dc1d58f62b937a49b61c18d278",
+      "bytes": 11917
+    },
+    {
+      "path": "lib/audio/__tests__/ambienceSources.test.ts",
+      "sha256": "7958396ebd6176b72456945587639c6e46cda8484a3934d0e31b301006089222",
+      "bytes": 5000
+    },
+    {
+      "path": "lib/audio/__tests__/munsitProvider.test.ts",
+      "sha256": "7a6429db8104d10ba7ccc5002085bbd554a02e46441fe35a6a143d6c37d320ff",
+      "bytes": 13760
+    },
+    {
+      "path": "lib/audio/__tests__/prefetchLines.test.ts",
+      "sha256": "e60358b1fd3a5ab5000590c529af873ee406727f4d7d3cb6833a60a0dabc8db3",
+      "bytes": 4757
+    },
+    {
+      "path": "lib/audio/__tests__/voiceLines.test.ts",
+      "sha256": "e0595416de4ae512f610edcaa886317ecf84a6abefb79fc6874448d1f01deba5",
+      "bytes": 5300
+    },
+    {
+      "path": "lib/audio/__tests__/voiceQueue.test.ts",
+      "sha256": "d2a2eae3ada58c51cd94608a947920976f3c051f4cbd06f64e3b008c0d01bf52",
+      "bytes": 5640
+    },
+    {
+      "path": "lib/audio/__tests__/webSpeechMariamProvider.test.ts",
+      "sha256": "a4481dcb694f57965944624445bb1a2cdf594ad493ccd2ee7a3cfdf64f76b3ea",
+      "bytes": 4710
+    },
+    {
+      "path": "lib/audio/ambience.ts",
+      "sha256": "26cf065513455925b38157ece28058e0486ead308f63e3b598d449120fd6e65f",
+      "bytes": 3944
+    },
+    {
+      "path": "lib/audio/audarLocalProvider.ts",
+      "sha256": "f239931270d236aa495ddb9020d0a69cb148a7770509365a011eae3a89155197",
+      "bytes": 8063
+    },
+    {
+      "path": "lib/audio/bubblePopVoiceLines.ts",
+      "sha256": "c15f132a5a2e152b9761f448471670d21af7ff58632d839b6cb83e977db50fe0",
+      "bytes": 5961
+    },
+    {
+      "path": "lib/audio/colorChaseAmbience.ts",
+      "sha256": "fce111956ef69215fcd2e7497fd115cacf90c33ecc8d390186da328a1acd9d80",
+      "bytes": 1488
+    },
+    {
+      "path": "lib/audio/colorChaseEffects.ts",
+      "sha256": "192ea6104aa8a1123a0ee32e53749c7857663a849e4e98026a31ff87bae01d71",
+      "bytes": 1299
+    },
+    {
+      "path": "lib/audio/colorChaseVoiceLines.ts",
+      "sha256": "966f650de8d4e1febf014b0ab5d8c628fa7bf6686c789f67791aba28bd8318aa",
+      "bytes": 843
+    },
+    {
+      "path": "lib/audio/cosmicAmbience.ts",
+      "sha256": "f57c5f059aa52d665be2ea895e7867a40702ce4eabade7af93a9ff316d20f662",
+      "bytes": 5742
+    },
+    {
+      "path": "lib/audio/cosmicEffects.ts",
+      "sha256": "8b71732d2c264443b6196901d2970e470267ddfe5984ebd773afaba03e10f3c2",
+      "bytes": 7438
+    },
+    {
+      "path": "lib/audio/effects.ts",
+      "sha256": "94f0d839e95895e3016ee4d7793c3e6e4db450da98e19f1be90b67d976035ab6",
+      "bytes": 6950
+    },
+    {
+      "path": "lib/audio/footstepsVoiceLines.ts",
+      "sha256": "9d57131a98e94a23bc8991f7859dc174eb6f2149fb855491822d6ab44c52a543",
+      "bytes": 4020
+    },
+    {
+      "path": "lib/audio/munsitProvider.ts",
+      "sha256": "12413487abf3e5342041bd6abe93023ee6a88b17be219dd8bfaf797922a417b0",
+      "bytes": 12484
+    },
+    {
+      "path": "lib/audio/primitives.ts",
+      "sha256": "cbbe25fe9a8b45509ffb726ebe1cffd562530bf1e2f1d398de8380b4c1203d85",
+      "bytes": 2493
+    },
+    {
+      "path": "lib/audio/spaceAmbience.ts",
+      "sha256": "99583664b69efb7cf358100b50b96a89b5e74adc964745e370f2be100417bd63",
+      "bytes": 3423
+    },
+    {
+      "path": "lib/audio/spaceEffects.ts",
+      "sha256": "3da8a2a1a0f3088a2057c570ec4dce543b90510c01a0174749b54f78c2c6462b",
+      "bytes": 8803
+    },
+    {
+      "path": "lib/audio/spacePilotVoiceLines.ts",
+      "sha256": "ba035610812d2ed0a78f7447d702e41e82dc5791c776fe82cf942014f7c546c3",
+      "bytes": 3454
+    },
+    {
+      "path": "lib/audio/speech.ts",
+      "sha256": "2b87e57929176c61efc6a2333aa0229b26c11bdf7397d34d0d1e09fc4b471d4a",
+      "bytes": 5779
+    },
+    {
+      "path": "lib/audio/types.ts",
+      "sha256": "53531532d3cdf24676413fd9ce75cf3be988afb381813b7cddaa0fc7df25400d",
+      "bytes": 1031
+    },
+    {
+      "path": "lib/audio/underwaterAmbience.ts",
+      "sha256": "b7314b4ad623f41caf01ac626e644d06d038e488059185caa084b0734566e27f",
+      "bytes": 4912
+    },
+    {
+      "path": "lib/audio/underwaterEffects.ts",
+      "sha256": "0f575126c77ab606949c032fa73066c62a11308e2e4025fcd1fc400c985f6d31",
+      "bytes": 6093
+    },
+    {
+      "path": "lib/audio/useAudioManager.ts",
+      "sha256": "facbd3f6fa0aec292b24c9ca2829569da5e978b76eb96f03000ed3d97e23ba09",
+      "bytes": 6847
+    },
+    {
+      "path": "lib/audio/voiceLines.ts",
+      "sha256": "d2e71152cce92f2fd14867ebcc07395b61e99246b9dd65e041d0111fc2287b4c",
+      "bytes": 6638
+    },
+    {
+      "path": "lib/audio/voiceQueue.ts",
+      "sha256": "cd09da5ca0750a6484bfe395821ea50b3419d2fa1c99c11d281d72d9647a5123",
+      "bytes": 4893
+    },
+    {
+      "path": "lib/audio/webSpeechMariamProvider.ts",
+      "sha256": "05ae9bce24005d41fa82823b9b0d2f332a435a8c01414821e2de49114b9cba59",
+      "bytes": 10199
+    },
+    {
+      "path": "lib/balloonquest/__tests__/harness.ts",
+      "sha256": "7f9f670e69153c55efd7c6e3e7fc60aabe72b14356726525a4c7ecdf667f57e7",
+      "bytes": 3772
+    },
+    {
+      "path": "lib/balloonquest/__tests__/helpers.ts",
+      "sha256": "b9efefb0b4bd6520f4e44358762ddb8c9073c109b2d8e2cb6612dd1b09a6b8b7",
+      "bytes": 1596
+    },
+    {
+      "path": "lib/balloonquest/__tests__/input.test.ts",
+      "sha256": "b53eca3885eac04b30eccda2dc4a2d5914adb8b52e8b9c2ccf5f6287e5132db3",
+      "bytes": 17440
+    },
+    {
+      "path": "lib/balloonquest/__tests__/live.test.ts",
+      "sha256": "91c358b5294bbf81aff091017035a19588f80a4c7bd9135cb507ead770fac9f1",
+      "bytes": 10659
+    },
+    {
+      "path": "lib/balloonquest/__tests__/recovery.test.ts",
+      "sha256": "27abba5d83115fc372f0d0114e8f9ee5a9ca9d183997aae62c7983fd16b06573",
+      "bytes": 15878
+    },
+    {
+      "path": "lib/balloonquest/__tests__/rules.emulator.test.ts",
+      "sha256": "d80bac30f4b0754c7db59a08bf45265e23b3c62e3e720738e6f2144ca1c0cb76",
+      "bytes": 9036
+    },
+    {
+      "path": "lib/balloonquest/__tests__/runtime.test.ts",
+      "sha256": "4ea9a2adf4512905af50e012e9ced99339022391db36c18057324b83b6d48a01",
+      "bytes": 15135
+    },
+    {
+      "path": "lib/balloonquest/__tests__/session.test.ts",
+      "sha256": "c75cc2dd0cd440ce469ed118c17ab9914f76ea1395a0775aba6501b9bf7b3632",
+      "bytes": 14206
+    },
+    {
+      "path": "lib/balloonquest/arabic.ts",
+      "sha256": "16b157b32c231be0d608779e0e9f98944a484fd61c1fe9aee9acb1a4cec573f5",
+      "bytes": 2051
+    },
+    {
+      "path": "lib/balloonquest/colors.ts",
+      "sha256": "be34bbf42d91dfbdcc5b0c34d347c9c3e8d769f7189f060a9751f8d5ebe3648c",
+      "bytes": 2260
+    },
+    {
+      "path": "lib/balloonquest/controlMount.ts",
+      "sha256": "a4e6680c514cd601c833f9327eedc8c906fcedd10a96cdfeec3717064d0aad24",
+      "bytes": 5993
+    },
+    {
+      "path": "lib/balloonquest/controlRuntime.ts",
+      "sha256": "bb8c2d7b6f74364bb4f68cdc1b9532261d6a2045ba589ba08f8cf7475ef92d6a",
+      "bytes": 16673
+    },
+    {
+      "path": "lib/balloonquest/displayMount.ts",
+      "sha256": "700dce1ed359b7e6d8aced5daa0c1deadd5ae088b26ce3d580543b31093f88dc",
+      "bytes": 2493
+    },
+    {
+      "path": "lib/balloonquest/geometry.ts",
+      "sha256": "94d912e4e50f8cef4c9d65fdc0e5a9f3baf4b7d50e13185d0e49bedc4dc7c49c",
+      "bytes": 5831
+    },
+    {
+      "path": "lib/balloonquest/input/hub.ts",
+      "sha256": "2a1e4790a2299f5bd79263d0b4fde65d883ec52cda6d5fdf5c8c61878f8c2e3f",
+      "bytes": 4864
+    },
+    {
+      "path": "lib/balloonquest/input/keyboard.ts",
+      "sha256": "6eea89e68663afe999286cc65309ef441f9983105f2c0dcc9576564cd8c73a76",
+      "bytes": 1744
+    },
+    {
+      "path": "lib/balloonquest/input/pipeline.ts",
+      "sha256": "97a140400890d619c3687d69ded39c33b6c6fabfa16283a78bbff099763732ee",
+      "bytes": 3079
+    },
+    {
+      "path": "lib/balloonquest/input/simulated.ts",
+      "sha256": "9fe1aba8a27c065df76565edf18599fb95c841a28fcbbb273e15040f7090d3c8",
+      "bytes": 1440
+    },
+    {
+      "path": "lib/balloonquest/input/types.ts",
+      "sha256": "262d8677b43d30ad1e9d50b71ed2d4f0ec4708b4bb0ef5734e98b64265fcef62",
+      "bytes": 1978
+    },
+    {
+      "path": "lib/balloonquest/live.ts",
+      "sha256": "bceb06d2bb7bd3955bfa8b8fe8b4a3ea5a345a3bd7559dcfee37e9ef8ad6ef39",
+      "bytes": 12787
+    },
+    {
+      "path": "lib/balloonquest/protocol.ts",
+      "sha256": "4c198cc8b4c349229fab1b420b9e62028c24976bb1dd4032883cbe7a93540d00",
+      "bytes": 8669
+    },
+    {
+      "path": "lib/balloonquest/recovery.ts",
+      "sha256": "4c4c1b5bd60fc0942ce95d1a7a033e145e3bc7dcf82d95983411cd0cb8e1aab7",
+      "bytes": 8999
+    },
+    {
+      "path": "lib/balloonquest/replica.ts",
+      "sha256": "3d0b1fb97bd0a2793e67edf4c102ec3d68d00886ff06ebb4f8a65706b9f80691",
+      "bytes": 4253
+    },
+    {
+      "path": "lib/balloonquest/rng.ts",
+      "sha256": "f03c715f07d16a82d1256ade2510309a5adfeee8852472d2a6b312d707154c2f",
+      "bytes": 678
+    },
+    {
+      "path": "lib/balloonquest/rollback.ts",
+      "sha256": "9e416d1462971a4ef341889bdfe971f2af003a05c2b2f9e8799e37d6803cc56e",
+      "bytes": 523
+    },
+    {
+      "path": "lib/balloonquest/session.ts",
+      "sha256": "555a3a67d93cbdee3f80ec775dc857e5c062c50b70647c1dfad7bb2287aa10d8",
+      "bytes": 14779
+    },
+    {
+      "path": "lib/balloonquest/spawner.ts",
+      "sha256": "fe4342eac9edfb5eae24ae93f93d24368b5214eb75bfd9be58740f32e8280a1b",
+      "bytes": 10058
+    },
+    {
+      "path": "lib/balloonquest/stages.ts",
+      "sha256": "30c6ce6ae966402600351a49595b109b9b8ce733682771546ad6b7ebf03143da",
+      "bytes": 7074
+    },
+    {
+      "path": "lib/balloonquest/types.ts",
+      "sha256": "ecb20b1daf2c5af27f4b5622c3c9ea6a7f35f630f29fec8268bf607c7c324733",
+      "bytes": 6898
+    },
+    {
+      "path": "lib/bloomingworld3d/__tests__/engine.test.ts",
+      "sha256": "763e27929a8acd765dc79ba8960227238c3138e12a8ac583e8f812064a56f898",
+      "bytes": 7543
+    },
+    {
+      "path": "lib/bloomingworld3d/__tests__/rules.emulator.test.ts",
+      "sha256": "3f1a9970528eeb77f6e18f6128c3e2098320630e3a0bffc46501e8583e0edfc7",
+      "bytes": 5012
+    },
+    {
+      "path": "lib/bloomingworld3d/audio.ts",
+      "sha256": "a6d7fb356f157c0dc5ffa52263fa59664f69125542953768d798dbdd01d02b89",
+      "bytes": 2274
+    },
+    {
+      "path": "lib/bloomingworld3d/copy.ts",
+      "sha256": "1a00301b1b302f9e1a70a6ec5985dbbd9effb1d13c2691b1501db542af6b608b",
+      "bytes": 764
+    },
+    {
+      "path": "lib/bloomingworld3d/engine.ts",
+      "sha256": "ed9c42ecf865db04d91bf8e4950c3ab54e499c7bbb715b89d0d7e5f2a94983c1",
+      "bytes": 8076
+    },
+    {
+      "path": "lib/bloomingworld3d/history.ts",
+      "sha256": "ecd60ca1de04b3c14440838dbbb1202dd8bf9d0bb5a326305ac6a1abdfa1616f",
+      "bytes": 4144
+    },
+    {
+      "path": "lib/bloomingworld3d/live.ts",
+      "sha256": "504d75a326f7f69223ea412be22f7288f93ec85ad488ad133b5257ae10ecbb20",
+      "bytes": 4645
+    },
+    {
+      "path": "lib/bloomingworld3d/registration.ts",
+      "sha256": "fef0684779d293e5d72b7571fab0fd040164e906a40303d39b65e1b3bd4b9795",
+      "bytes": 721
+    },
+    {
+      "path": "lib/bloomingworld3d/sensorInput.ts",
+      "sha256": "fbf73412a2c2b50e4faf59d335af236f168c680fb71a3c7c35b655343411b627",
+      "bytes": 1908
+    },
+    {
+      "path": "lib/bloomingworld3d/useSession.ts",
+      "sha256": "63fbfb1dfba2df1afb449d1ada76d9e10a8994263b99476cccac6b26551587ab",
+      "bytes": 8417
+    },
+    {
+      "path": "lib/bubblepop/__tests__/bubbleGenerator.test.ts",
+      "sha256": "3195b06194a69498e052a957e7df59f91ba9552bdeb9cba219a2b2c521098b4c",
+      "bytes": 5864
+    },
+    {
+      "path": "lib/bubblepop/__tests__/mediumAdvancedPlans.test.ts",
+      "sha256": "da9e9982b5b6760afb6f5f335df741c343b40488fb15d15dde97ba220280e31a",
+      "bytes": 7560
+    },
+    {
+      "path": "lib/bubblepop/__tests__/session.test.ts",
+      "sha256": "dc3ccae2a9289330ba3dce7bc7de59c70d4de4aaa68a264f192f285a041b5608",
+      "bytes": 27105
+    },
+    {
+      "path": "lib/bubblepop/__tests__/stagePlans.test.ts",
+      "sha256": "138a6988fb2d241a508caf42fa89aa22a43c0f3c4c1e5b52ac4f64cdc22a085d",
+      "bytes": 2379
+    },
+    {
+      "path": "lib/bubblepop/bubbleGenerator.ts",
+      "sha256": "8ffafc71cec987997c6adf1e2f641003682be6eba80915438a0b4838da3198ba",
+      "bytes": 7396
+    },
+    {
+      "path": "lib/bubblepop/difficultyRules.ts",
+      "sha256": "e87f0f7252448ad7fcedc2f5d0c680266503275b37439f038925c0912d5727ff",
+      "bytes": 4156
+    },
+    {
+      "path": "lib/bubblepop/index.ts",
+      "sha256": "26e0b8eb78b7a5f9926d0e949541b1634138fa56763d823e9805ae42ed4bdacf",
+      "bytes": 1517
+    },
+    {
+      "path": "lib/bubblepop/scoring.ts",
+      "sha256": "8289ee8c082610e02a639718630b596cb20da8e887d136ee3411b6def12c56ba",
+      "bytes": 5830
+    },
+    {
+      "path": "lib/bubblepop/session.ts",
+      "sha256": "548533b2e8840a84632bd786ca5b4a35fc267bc383ae2df8a3f30c36adb0babf",
+      "bytes": 22350
+    },
+    {
+      "path": "lib/bubblepop/stagePlans.ts",
+      "sha256": "9ba92a54e1bf36e29308a7c172da5d266da27ad107de7de95f3619b13bfc2501",
+      "bytes": 15305
+    },
+    {
+      "path": "lib/bubblepop/types.ts",
+      "sha256": "8a9fe808ff8b4b84d62e7440fdc87c07b7c5f61d6c07ec64bd6272844599228b",
+      "bytes": 8290
+    },
+    {
+      "path": "lib/bubblepopwall3d/__tests__/engine.test.ts",
+      "sha256": "fc51d12e823cf832b099eb4c9a9df6a006d09408496b16c58e5b4c257edcf58d",
+      "bytes": 6052
+    },
+    {
+      "path": "lib/bubblepopwall3d/__tests__/rules.emulator.test.ts",
+      "sha256": "33d9552c9e300e8a0cdfbb75e9d1b6e4f78beab1e3fdd3b515c5ca6d38d9a63f",
+      "bytes": 3431
+    },
+    {
+      "path": "lib/bubblepopwall3d/audio.ts",
+      "sha256": "6f5d4c3a57e9edfacc0cb311f959dde2c3cdcbd6ebc78a56fcba291e74991333",
+      "bytes": 1425
+    },
+    {
+      "path": "lib/bubblepopwall3d/engine.ts",
+      "sha256": "72ee9c3a39f1dd649226bf46ef72bc68d4348a88ae20b3f05de323a92eada428",
+      "bytes": 11053
+    },
+    {
+      "path": "lib/bubblepopwall3d/history.ts",
+      "sha256": "d96584fb81789f320743d5c7bdffb00e0b0a3f5061acc7e93031f27b3d680896",
+      "bytes": 3222
+    },
+    {
+      "path": "lib/bubblepopwall3d/live.ts",
+      "sha256": "501a3baba1a08fc8f20369987d40b21776c9d6ba39f4de5c678b283e545faa80",
+      "bytes": 4311
+    },
+    {
+      "path": "lib/bubblepopwall3d/releasePolicy.ts",
+      "sha256": "42918c8099fe849e22dd7c942d4967f3bd75021b024650aec4697068921cd7ab",
+      "bytes": 185
+    },
+    {
+      "path": "lib/bubblepopwall3d/sensorInput.ts",
+      "sha256": "f2451508afe0e7322632b83cfae98b55cfd30490048957996f6af73fc5b5d0b0",
+      "bytes": 1121
+    },
+    {
+      "path": "lib/bubblepopwall3d/useSession.ts",
+      "sha256": "1ddf8ac47a5fa4944ce5bac3e1999c134e686b8e8a13a5eb08249385b7c0531c",
+      "bytes": 6865
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/crossDevice.test.ts",
+      "sha256": "d8c2c94c837911a902f6fb2e9d05fa4d1a2e309afa4c1a23611423e788aea8ba",
+      "bytes": 6881
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/foundation.test.ts",
+      "sha256": "437bb44b49213e5765f10dab45924fde0513125ae6a16801fff6cd98d6c6c40d",
+      "bytes": 1182
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/gameplay.test.ts",
+      "sha256": "7ce19297cf37b5b38a31a7fa5584a71b0ed5740e0b4e465a92f54fbb9951af61",
+      "bytes": 5600
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/inputProtocol.test.ts",
+      "sha256": "76dfd93870f1546fd9a4f1da93f2903b98e862ac951352df111d8d3de1ea37b6",
+      "bytes": 6441
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/libraryIntegration.test.ts",
+      "sha256": "693973725eb476955895dee14ff85e441cec4c27dbb4202a95747f518bb2be84",
+      "bytes": 3445
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/registration.test.ts",
+      "sha256": "6bbe80e3fbca94e3fc791ba12f0003fec2a48f103100cfe2b7bdc0caef6c9b61",
+      "bytes": 1832
+    },
+    {
+      "path": "lib/buildquest3d/__tests__/rules.emulator.test.ts",
+      "sha256": "608b318c51735cb2fdeb81e75ebf81749ae22691a75d582b24d4704e5aabccbe",
+      "bytes": 10056
+    },
+    {
+      "path": "lib/buildquest3d/cloudState.ts",
+      "sha256": "699036b2a940f1c70fabb4728bf7c5847d43d71250c97fede1aa553160e82819",
+      "bytes": 8179
+    },
+    {
+      "path": "lib/buildquest3d/gameplay.ts",
+      "sha256": "adfd37b02cf1f8348965fcd09f5bcdaec58a38c8e621086a2a931ecea4ef8602",
+      "bytes": 7874
+    },
+    {
+      "path": "lib/buildquest3d/history.ts",
+      "sha256": "c7e0eaa4435a6088d60dd2971dcaf428907f8919bc8b2613280b987c69b9e8d9",
+      "bytes": 4340
+    },
+    {
+      "path": "lib/buildquest3d/manual.ts",
+      "sha256": "d36a3246ad517d58f000205f47714a7759be8b009125caa1903696ed111f0ad1",
+      "bytes": 956
+    },
+    {
+      "path": "lib/buildquest3d/protocol.ts",
+      "sha256": "1a71166925cf5835abe92d56a6a58b8f1af9f9c02fca9254280c4a04ad925732",
+      "bytes": 3946
+    },
+    {
+      "path": "lib/buildquest3d/registration.ts",
+      "sha256": "8ca5e46c2760ec5f6a73cf37dfb90dd331d77ff90d5354e9dac4ccf133a4a592",
+      "bytes": 1502
+    },
+    {
+      "path": "lib/buildquest3d/renderer.ts",
+      "sha256": "1af7a08faa0e2f110d6ad4907fb9f2f352672e016e61133b728c6d919bfbf2d1",
+      "bytes": 20591
+    },
+    {
+      "path": "lib/buildquest3d/run-local.sh",
+      "sha256": "18a8cd7a54e6dada99a0e077822f3144e6b71e9f8914f6fece411008dd7fbc93",
+      "bytes": 1043
+    },
+    {
+      "path": "lib/buildquest3d/sensorInput.ts",
+      "sha256": "a4ed7e9fbfa0fd271efcaf61c2d9cf8d786412e8d85879b0fb4cb20bcd57ccb7",
+      "bytes": 3556
+    },
+    {
+      "path": "lib/buildquest3d/stages.ts",
+      "sha256": "96e2e913af812c815ac757449460f3efcc82d98b22cdea5428827d227c4dd6dd",
+      "bytes": 9089
+    },
+    {
+      "path": "lib/buildquest3d/useFirebaseSession.ts",
+      "sha256": "1ae8fb24cc3148deb498c64019bd5185d69901673dd5168a4f17084410a733d3",
+      "bytes": 11790
+    },
+    {
+      "path": "lib/buildquest3d/useSession.ts",
+      "sha256": "46dc0e5b37822e355b8943003b7cdc135e88f8e6db1359f1d59b79329ec8069d",
+      "bytes": 9204
+    },
+    {
+      "path": "lib/buildquest3d/useSimulation.ts",
+      "sha256": "b28d378d9f048fbd1daa9fda2b699ad17a130a2cdeefb9d5cbe0fde6fa8d1e37",
+      "bytes": 2501
+    },
+    {
+      "path": "lib/colorchase/__tests__/rules.test.ts",
+      "sha256": "5384c9eded29d87481be6af92329bea7aab123193bcf601e27ff2c1caee0b390",
+      "bytes": 540
+    },
+    {
+      "path": "lib/colorchase/__tests__/session.test.ts",
+      "sha256": "14dbc386850a8dd2c12c00fdaa43e471f8c566ec9eed2c097f826a507b3df41b",
+      "bytes": 7609
+    },
+    {
+      "path": "lib/colorchase/__tests__/voiceEventGate.test.ts",
+      "sha256": "ebfaf839082cf4f98bebbfd8cb57a6f25e7973af6e08ec0ff28d3948ca4c2ba0",
+      "bytes": 2895
+    },
+    {
+      "path": "lib/colorchase/index.ts",
+      "sha256": "251bcac81b165045b2984a4f64fd7f04e647fd47176484ac64ab4f264f50ef5d",
+      "bytes": 143
+    },
+    {
+      "path": "lib/colorchase/scoring.ts",
+      "sha256": "003b1e8e774aef2f42013b288df47429d49d5d97f1a1f698d8e4df691d4d6c49",
+      "bytes": 2832
+    },
+    {
+      "path": "lib/colorchase/session.ts",
+      "sha256": "7ff3307ed71a45c2d8482665f28f690c465e20524d841b01c8919e6121dd9f0d",
+      "bytes": 12948
+    },
+    {
+      "path": "lib/colorchase/stagePlans.ts",
+      "sha256": "f396864e2c4cfe2811569572be13468e8b3f5931196f2f1b5aa8b14e8cdaef75",
+      "bytes": 5205
+    },
+    {
+      "path": "lib/colorchase/types.ts",
+      "sha256": "b2519ab1bee63952613220d744f8910a23eeb2b497eb588f78ec176ff973302a",
+      "bytes": 3926
+    },
+    {
+      "path": "lib/colorchase/voiceEventGate.ts",
+      "sha256": "7ab13b12b568b820d729ee882290d2991682f42b6f3e9a0c39573370641043c3",
+      "bytes": 1319
+    },
+    {
+      "path": "lib/colorchase3d/__tests__/engine.test.ts",
+      "sha256": "b5f0cd0b98a38e2099a5361a83dea475ddec46b9e8f7cc0287c9787bcae03a2a",
+      "bytes": 18404
+    },
+    {
+      "path": "lib/colorchase3d/__tests__/rules.emulator.test.ts",
+      "sha256": "c75daefb8a98f6097d374561d63e3c61b35514b2522be13d1ee2bcdc5acfc1e0",
+      "bytes": 9318
+    },
+    {
+      "path": "lib/colorchase3d/colors.ts",
+      "sha256": "f54271acad358b51bc82cccf3061933f149d5f6a4bbc8be94bd57a6cb098a4bc",
+      "bytes": 3170
+    },
+    {
+      "path": "lib/colorchase3d/engine.ts",
+      "sha256": "c23e6fb707c8bdb845eab923450ab7a6b47f8273955701f982ae79d873547184",
+      "bytes": 17713
+    },
+    {
+      "path": "lib/colorchase3d/history.ts",
+      "sha256": "12b6ea82a87180551e3941559254f4f4b9e40b61d4623918b3dcb5fe595e77c9",
+      "bytes": 6430
+    },
+    {
+      "path": "lib/colorchase3d/layout.ts",
+      "sha256": "0acb937e1af48f77dc89611fdf920f6b2a7d1a841a0bafc15d4ffc314fb590ef",
+      "bytes": 7263
+    },
+    {
+      "path": "lib/colorchase3d/live.ts",
+      "sha256": "c6ec5869ff6e26873819aa9b99f53763471d8c9865cb61aec6d3166d6cd875a6",
+      "bytes": 5436
+    },
+    {
+      "path": "lib/colorchase3d/registration.ts",
+      "sha256": "bab5bc6728cce08ca51f86282c5680e472dde96d2ec9ae6b20733f5e51d58bec",
+      "bytes": 1189
+    },
+    {
+      "path": "lib/colorchase3d/rng.ts",
+      "sha256": "20f7ad6a513f736eb9ec7251ab92c5134f0b84784f0bb1c8cd8e9faeb6b1dc09",
+      "bytes": 591
+    },
+    {
+      "path": "lib/colorchase3d/stages.ts",
+      "sha256": "ff4ef6da7cedd430a43a36634d34772ab2f90eaacc294b59de48f04868f1b327",
+      "bytes": 4650
+    },
+    {
+      "path": "lib/colorchase3d/useSession.ts",
+      "sha256": "8a5a087e1ca41e61b752708f252b9f617ebea54aa35c056ecc77f5dee32657c3",
+      "bytes": 8294
+    },
+    {
+      "path": "lib/control/__tests__/quickSession.test.ts",
+      "sha256": "64abcd4fde5c52b1c2d96f7517f29f24de100c978a4b8d87f94049e10f4010e8",
+      "bytes": 956
+    },
+    {
+      "path": "lib/control/__tests__/stagePreset.test.ts",
+      "sha256": "47fcdc261e480b337e1546da3c5f066dfce1e2a6854daeb43e5b25fe8b813154",
+      "bytes": 2722
+    },
+    {
+      "path": "lib/control/__tests__/topLevelNavigation.test.ts",
+      "sha256": "df2e8f6e505d90f9d6908434e9dcf07730ca340a771de6dc269407424b774fbd",
+      "bytes": 793
+    },
+    {
+      "path": "lib/control/balloonquest3d/useBalloonQuest3DRealtimeControl.ts",
+      "sha256": "ad68b2f734a987c24fecd7c04cee9575367a5c5c9e2bee06e3ba59a88a8ea686",
+      "bytes": 10768
+    },
+    {
+      "path": "lib/control/bubblepop/__tests__/stagePreset.test.ts",
+      "sha256": "16f721bce9e801628fdb803d8c01069873da842d96d4eebf706a7200fb81feb8",
+      "bytes": 3180
+    },
+    {
+      "path": "lib/control/bubblepop/smartDefaults.ts",
+      "sha256": "f5cbaab5452874b675e9d503df49f90419a7ba0855310d36f9c965f2b5eee2e8",
+      "bytes": 1539
+    },
+    {
+      "path": "lib/control/bubblepop/stageCopy.ts",
+      "sha256": "18ea23fb3aded1313f8d2bf9163d61792630bc34db1ef9ccd57caa783312ef89",
+      "bytes": 4897
+    },
+    {
+      "path": "lib/control/bubblepop/stagePreset.ts",
+      "sha256": "e2441d10df674ddcead31c786fe4d7715ebbaaa161bb9aebcaa44e5de271cb9d",
+      "bytes": 2155
+    },
+    {
+      "path": "lib/control/bubblepop/useBubblePopRealtimeControllerSession.ts",
+      "sha256": "3a8da7457e61837db64216e1b0f306a6b436a0830f03316983308b068ec323d0",
+      "bytes": 28733
+    },
+    {
+      "path": "lib/control/bubblepop/useLocalBubblePopControllerSession.ts",
+      "sha256": "caf06d808511ca0b9cb6ad71a335fbb7593b3bc32034d0413dc30041d83f54b5",
+      "bytes": 9003
+    },
+    {
+      "path": "lib/control/colorchase/useColorChaseRealtimeControllerSession.ts",
+      "sha256": "a5ea486ef21a52c96bfd455e426116e6869a2e2e6a7a3fc290e6d2aab3de5982",
+      "bytes": 14421
+    },
+    {
+      "path": "lib/control/colorchase/useLocalColorChaseControllerSession.ts",
+      "sha256": "9e4a39c4ed87ed4ce0adbe6b979b5a587af97e618e81399500baea78f906d2e4",
+      "bytes": 5418
+    },
+    {
+      "path": "lib/control/footsteps/__tests__/stagePreset.test.ts",
+      "sha256": "a50df6168a667706f74c7dbbd796b08e54d090153df5cf5afbd16714ee0ac6bd",
+      "bytes": 5835
+    },
+    {
+      "path": "lib/control/footsteps/smartDefaults.ts",
+      "sha256": "9fdf516356257b4326984f8f8f6507502c79496a2f46050ae986b29507046389",
+      "bytes": 1347
+    },
+    {
+      "path": "lib/control/footsteps/stageCopy.ts",
+      "sha256": "9e08f6a24ba859fcf27e3a1cf4e6b7d7c7f25fb96a3de3f91ef88cd99cc5a892",
+      "bytes": 5359
+    },
+    {
+      "path": "lib/control/footsteps/stagePreset.ts",
+      "sha256": "300a52c4116f1d8906e1bd0244772cd62a22dd0cfce9299e810891e7bda1e4b5",
+      "bytes": 2092
+    },
+    {
+      "path": "lib/control/footsteps/useFootstepsRealtimeControllerSession.ts",
+      "sha256": "a4738c89a680b2d1a33f67c33948227faea940027618ff6aaa5e9dcbc5edbfe1",
+      "bytes": 27805
+    },
+    {
+      "path": "lib/control/footsteps/useLocalFootstepsControllerSession.ts",
+      "sha256": "1b65ba3b9152b2a947df12ebbfa2d5cb8b2939da4bd2a4e2a04438096b385297",
+      "bytes": 8772
+    },
+    {
+      "path": "lib/control/quickSession.ts",
+      "sha256": "396b95b9142796d35c4bc0964adb1c346a3070d84d50930b0070792c07651a14",
+      "bytes": 559
+    },
+    {
+      "path": "lib/control/runnerquest3d/useRunnerQuestRealtimeControl.ts",
+      "sha256": "76d67910560563a39680a9f58085b1b383c4d6a800f5073ca52da060cafe91ba",
+      "bytes": 7463
+    },
+    {
+      "path": "lib/control/smartDefaults.ts",
+      "sha256": "66d4ba9b36800eb7df46426b86e523303760fc17b61c7e8f9762c155ab8d37d9",
+      "bytes": 1077
+    },
+    {
+      "path": "lib/control/spacepilot/useLocalSpacePilotControllerSession.ts",
+      "sha256": "23e90f8d1a66cbd9798bae80b3aac0224b8478570e7aec7156b0a5bcd04a1013",
+      "bytes": 8293
+    },
+    {
+      "path": "lib/control/spacepilot/useSpacePilotRealtimeControllerSession.ts",
+      "sha256": "8c124d5bf8b8b44b9d972b6c86d9cd8930583f01753783018214920dab71dcac",
+      "bytes": 29792
+    },
+    {
+      "path": "lib/control/stageCopy.ts",
+      "sha256": "9fd4002aae46fb9335c2690a607ab91b99881a9fff78884ba2f18cc41ad12a7e",
+      "bytes": 3857
+    },
+    {
+      "path": "lib/control/stagePreset.ts",
+      "sha256": "dcd58f611063754337c76463e8d77f9cb4453252e03ce2e3d703b53a8c29e947",
+      "bytes": 1791
+    },
+    {
+      "path": "lib/control/topLevelNavigation.ts",
+      "sha256": "a305880fab7b0ce34b84589f1fe687b615c149fea6316ba3d405cf044b2a04da",
+      "bytes": 376
+    },
+    {
+      "path": "lib/control/useLocalControllerSession.ts",
+      "sha256": "433d4a9b4b5eb3c7ed4db7c4895c0bbcd73103369598b2cf37d5ef50649e359b",
+      "bytes": 11729
+    },
+    {
+      "path": "lib/control/useRealtimeControllerSession.ts",
+      "sha256": "11d81014a1da3c4bad00867d2ce3280118655e15a038b8661ab1d8b19469ce53",
+      "bytes": 53776
+    },
+    {
+      "path": "lib/dataIntegrity/__tests__/numeric.test.ts",
+      "sha256": "304352db66745484cf63722ac924d6de0fd05caa31d1f34e47dd1062793a23cc",
+      "bytes": 1857
+    },
+    {
+      "path": "lib/dataIntegrity/numeric.ts",
+      "sha256": "8678b76f0b7697c15ff3cd602d666275383671763718b9c843f08e004c9d2532",
+      "bytes": 4800
+    },
+    {
+      "path": "lib/demo/devSessionParams.ts",
+      "sha256": "f4a6809e48f97983b0fdccf453f508e3c6656a102e8cf25a15f5797863392b78",
+      "bytes": 703
+    },
+    {
+      "path": "lib/demo/useLocalDemoSession.ts",
+      "sha256": "65f63bed4deaaf68d07733ecad07a90be408660846dbb29401193e0eb8c91ce6",
+      "bytes": 6736
+    },
+    {
+      "path": "lib/display/DualLocalPointerDemuxer.ts",
+      "sha256": "5e111322cd36b5464d97f63ded9db27ed5d48cd3e2ac7f564764334887aacff0",
+      "bytes": 2012
+    },
+    {
+      "path": "lib/display/LocalGameFeedbackChannel.ts",
+      "sha256": "18200f062eaae79ca9d72fadd5555ce771b6216a0b1b2ea0d82c415c28cc268a",
+      "bytes": 4486
+    },
+    {
+      "path": "lib/display/LocalGameFeedbackStore.ts",
+      "sha256": "d252231aae4fdc87a5e5891e234dfb9edde2efc482c45bf6e977412197f050e2",
+      "bytes": 3392
+    },
+    {
+      "path": "lib/display/LocalPointerChannel.ts",
+      "sha256": "844cf28ff4116b08ad0eab159925913e3914012a3047a3ac7ec02871b1663c11",
+      "bytes": 3154
+    },
+    {
+      "path": "lib/display/LocalSessionWakeChannel.ts",
+      "sha256": "2f9ecf32cb91b35819468242b8b44495b30d4c88b8adc3efb4462638a502f93b",
+      "bytes": 2876
+    },
+    {
+      "path": "lib/display/PointerInterpolator.ts",
+      "sha256": "b1474bef1d2650217757ae61141e4b1880961a7c85dc8fd733dcaa5c29e06e0d",
+      "bytes": 3393
+    },
+    {
+      "path": "lib/display/__tests__/DualLocalPointerDemuxer.test.ts",
+      "sha256": "14521e2ad2465a44958d89a04a396302f040fa5776a4aa71fd98681ee37bb527",
+      "bytes": 3015
+    },
+    {
+      "path": "lib/display/__tests__/LocalGameFeedbackChannel.test.ts",
+      "sha256": "987151007a1e637746e4b050b28742644074ce5a3f6d6be64985d9fa2a4ee7cc",
+      "bytes": 4539
+    },
+    {
+      "path": "lib/display/__tests__/LocalGameFeedbackStore.test.ts",
+      "sha256": "956429149423a056d90a0d56728296af18762e58f8d50e0a5d542b5a0bcf667d",
+      "bytes": 6119
+    },
+    {
+      "path": "lib/display/__tests__/LocalSessionWakeChannel.test.ts",
+      "sha256": "0bf8bfb876b50d262872d6ad78d0ffbab4ab3aab06ff04ecad65f34719df908e",
+      "bytes": 2178
+    },
+    {
+      "path": "lib/display/__tests__/PointerInterpolator.test.ts",
+      "sha256": "dfc6ba84b6b736cf7b0b8156df64380e543706870b3844a7c0a300b93538bb39",
+      "bytes": 5950
+    },
+    {
+      "path": "lib/display/useFullscreen.ts",
+      "sha256": "9b50f66c59b7592d4d55401eb86b02fce69abfe25ca99390d89d1b6d1ec4e980",
+      "bytes": 3221
+    },
+    {
+      "path": "lib/display/useRealtimeDisplaySession.ts",
+      "sha256": "c5f8c46d112b1b97eb74cff569aae7f108b1afcfb9f25ebfaf9193ecaf1955e3",
+      "bytes": 10643
+    },
+    {
+      "path": "lib/firerescue3d/__tests__/engine.test.ts",
+      "sha256": "a840d7aa81d82c41d903cb81e3b60ba8fb96c544b1256eeefb0deb794bab8278",
+      "bytes": 8446
+    },
+    {
+      "path": "lib/firerescue3d/__tests__/rules.emulator.test.ts",
+      "sha256": "c4b87ff361ce3735e34327874b61a3a5c1f3440436ecb689728b06e1301665e2",
+      "bytes": 6555
+    },
+    {
+      "path": "lib/firerescue3d/engine.ts",
+      "sha256": "babddb57cbb18ed66ebcd8e29fc392f77fdce4c8fca17d9222db6712a8601509",
+      "bytes": 15599
+    },
+    {
+      "path": "lib/firerescue3d/history.ts",
+      "sha256": "36682651f2fa83a7a7c5b00f50eef43b584b10304e998cf014c100367e6676b6",
+      "bytes": 6105
+    },
+    {
+      "path": "lib/firerescue3d/input.ts",
+      "sha256": "49f4ef0c0048d6fffcc288304dabd2c8d821d999a745c882108a8ca2a0e9b995",
+      "bytes": 3864
+    },
+    {
+      "path": "lib/firerescue3d/live.ts",
+      "sha256": "6891302adfa68a6aed6540ebf83741867efdb8713b64d20e26f4e29734ba2691",
+      "bytes": 6208
+    },
+    {
+      "path": "lib/firerescue3d/registration.ts",
+      "sha256": "6affa5095c2d13891aba6f751e08af214bcd06108202e273fc79291f3f89138e",
+      "bytes": 689
+    },
+    {
+      "path": "lib/firerescue3d/renderer.ts",
+      "sha256": "2250c8c89329434a354752eb1fa3d583ad4ebcba21388dddcae96e065bb220c4",
+      "bytes": 37571
+    },
+    {
+      "path": "lib/firerescue3d/stages.ts",
+      "sha256": "d4bc3cfc55cbb56d1f6af17ddcd62b9b7931d7f4ca5f9d7b10ae59b30ab870eb",
+      "bytes": 2826
+    },
+    {
+      "path": "lib/firerescue3d/useSession.ts",
+      "sha256": "101d2ef7da7b14516e7d6d757cf262b2a122b47444b8414d0a0577edf705db8d",
+      "bytes": 10223
+    },
+    {
+      "path": "lib/footsteps/__tests__/centerline.test.ts",
+      "sha256": "964317b1157bfa2b6f28ee07e4ea1bfd735401a37a5bb48dd630ed46a13e9977",
+      "bytes": 7121
+    },
+    {
+      "path": "lib/footsteps/__tests__/pathGenerator.test.ts",
+      "sha256": "cb155827a5d1e4b82e018b8bff5c6764eaebeeae5668864548d48d355a286612",
+      "bytes": 27641
+    },
+    {
+      "path": "lib/footsteps/__tests__/session.test.ts",
+      "sha256": "35ef6a6037a3cc28dd9f592508646301b108f451b8308e7f093a015e4d95d9f9",
+      "bytes": 19794
+    },
+    {
+      "path": "lib/footsteps/centerline.ts",
+      "sha256": "36477f192fb9063e5bc03af5e59530734056e31f00a29c8b6d952fc98b788000",
+      "bytes": 8380
+    },
+    {
+      "path": "lib/footsteps/difficultyRules.ts",
+      "sha256": "5dfde68e0c798949c514a8da78fe2a8465e850d3b78591f3e0d1f7e21dacca61",
+      "bytes": 2072
+    },
+    {
+      "path": "lib/footsteps/index.ts",
+      "sha256": "0d55b4f9d05602e645f153717fe55702e054154a7ecdd49163415de3aa450981",
+      "bytes": 1298
+    },
+    {
+      "path": "lib/footsteps/journeyPlans.ts",
+      "sha256": "164089ce618d2451a79f36bdba5ffc4eaace07145d5d7e0e0a9f646602ffeac0",
+      "bytes": 12706
+    },
+    {
+      "path": "lib/footsteps/pathGenerator.ts",
+      "sha256": "9b72aa6936a72b1b84b22e0b1a75b3b9027aa24e17b00647c4daead3c3701e01",
+      "bytes": 17966
+    },
+    {
+      "path": "lib/footsteps/scoring.ts",
+      "sha256": "a47bd80143d33d4d7676acceaf8331df536753bab7824c89695b8a99f16b2735",
+      "bytes": 4658
+    },
+    {
+      "path": "lib/footsteps/session.ts",
+      "sha256": "ac19ad11627cccfc0306bf93607c4b75e51fe6fbad40a64ecb667343530d50cb",
+      "bytes": 19963
+    },
+    {
+      "path": "lib/footsteps/types.ts",
+      "sha256": "9147b244b067ff9091114b5f993e7efab0fe4d58207ede7dfa5e80b13bb8bddf",
+      "bytes": 6939
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/crossDevice.test.ts",
+      "sha256": "4021b0c33c8d11aa27a804459c15d48e103a71a8c3eaba88b6fe33ee0f688a5e",
+      "bytes": 13111
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/displayModule.test.tsx",
+      "sha256": "64bed84f7ec40769f67779da397d6a9d1994770929186a5f4012402b2154e534",
+      "bytes": 2050
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/engine.test.ts",
+      "sha256": "cd155208e49e31786ca489697192375b6db4e2b5f278ca67215c802f7ef74163",
+      "bytes": 16765
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/libraryIntegration.test.ts",
+      "sha256": "9a7061b8b079092cf3ae1ee2997bf71a19a3b0faba567c6e6d86d2a16ab8c3f6",
+      "bytes": 2705
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/resume.test.ts",
+      "sha256": "d95dacb027576db42e7557fca32375ea2b7360fc818aef3a89aa5f4b2e22b55c",
+      "bytes": 1485
+    },
+    {
+      "path": "lib/footsteps3d/__tests__/rules.emulator.test.ts",
+      "sha256": "bc20718c3638916a5aed04c63a8b441ffc88389ade9887ecf2d6e5ac4c44aa5c",
+      "bytes": 8045
+    },
+    {
+      "path": "lib/footsteps3d/engine.ts",
+      "sha256": "6dbe78f6f3350a20303847f896006521cafafb59f2c227b9c0a45bf111b43fa1",
+      "bytes": 15934
+    },
+    {
+      "path": "lib/footsteps3d/history.ts",
+      "sha256": "d7d7799649bb83f2b43ecf5322eae7f727e1315e54b7c8c8a63f4c800f2f1358",
+      "bytes": 6035
+    },
+    {
+      "path": "lib/footsteps3d/live.ts",
+      "sha256": "2d769243744b11be1195a2e0e676e27aba2f727aa648842275eea54484af0ffa",
+      "bytes": 5485
+    },
+    {
+      "path": "lib/footsteps3d/registration.ts",
+      "sha256": "f1cbb5bce85af9584a55ae80ed7b37aefa0dd3685848d28ab425ae5d9e6d564f",
+      "bytes": 1013
+    },
+    {
+      "path": "lib/footsteps3d/rng.ts",
+      "sha256": "20f7ad6a513f736eb9ec7251ab92c5134f0b84784f0bb1c8cd8e9faeb6b1dc09",
+      "bytes": 591
+    },
+    {
+      "path": "lib/footsteps3d/stages.ts",
+      "sha256": "0e78c5966dd3d0564b1ce977cdda70c96a441965d918c66dcdf1567d7a866d18",
+      "bytes": 2381
+    },
+    {
+      "path": "lib/footsteps3d/useSession.ts",
+      "sha256": "d805673c12741a3c95b47dece0345bf7cc20ffbcba451d9b347d36bab633eb30",
+      "bytes": 8608
+    },
+    {
+      "path": "lib/footsteps3d/world.ts",
+      "sha256": "f0cbb08e654b8890e2c48abf8e55548c890a0606f5ded59d9565e35a5dc0dfc9",
+      "bytes": 9852
+    },
+    {
+      "path": "lib/game/__tests__/difficultyRules.test.ts",
+      "sha256": "dcec8bd11239c602180b72e1f3af372174ae697315a9adc3f0a2f67151e33fc0",
+      "bytes": 4640
+    },
+    {
+      "path": "lib/game/__tests__/rng.test.ts",
+      "sha256": "9eafdbb359e2843f6315d8adaa757371b6f12ff325d0fbe39ace6efe923aa5dc",
+      "bytes": 1520
+    },
+    {
+      "path": "lib/game/__tests__/scoring.test.ts",
+      "sha256": "7649a9be8dfd6b7325ec01843d7c05de5710fafd1885dcda7e78e476c107f0be",
+      "bytes": 7168
+    },
+    {
+      "path": "lib/game/__tests__/session.test.ts",
+      "sha256": "20e985f07e7bd7fcd79dfc78b2137acb85dbe9da210eee1bdb3561061ece6e8c",
+      "bytes": 25608
+    },
+    {
+      "path": "lib/game/__tests__/stageGenerator.test.ts",
+      "sha256": "3d5124f9347f4a47f9dd3892117a6ec77ec6fee22453e7a683590424c328b899",
+      "bytes": 7523
+    },
+    {
+      "path": "lib/game/__tests__/stageProgression.test.ts",
+      "sha256": "e93eac31fd6efd382fed1942903abd04f70fd7f5ced438c8950186d1b7f2916e",
+      "bytes": 865
+    },
+    {
+      "path": "lib/game/__tests__/stateMachine.test.ts",
+      "sha256": "2b82fb9897b4503955bc8c6835de92ccd6a87ceddf5a6193c88887ba20dddbb5",
+      "bytes": 3148
+    },
+    {
+      "path": "lib/game/difficultyRules.ts",
+      "sha256": "c36163df2f2e18cd8a3b507fe9afaabf2f34f085de57aee4c733651b0d78f23b",
+      "bytes": 7708
+    },
+    {
+      "path": "lib/game/index.ts",
+      "sha256": "5713db0b749a18680f891299391a96c75a4cf5a754feaf9f8b75a0876ee38df9",
+      "bytes": 1070
+    },
+    {
+      "path": "lib/game/rng.ts",
+      "sha256": "d19842a1b74cdad6960493ff178f5f32eabfa1c92ffc60a92903a3cc75bc90cb",
+      "bytes": 2250
+    },
+    {
+      "path": "lib/game/scoring.ts",
+      "sha256": "627f1cdf9bde1a507a00eab4161ca2883e9ed8c99a457a9a6cc3a5f6533cba82",
+      "bytes": 5367
+    },
+    {
+      "path": "lib/game/session.ts",
+      "sha256": "c4659fdc7fd3146d71206dfd78561053790f1f35b13338322b01c65811c536d1",
+      "bytes": 23471
+    },
+    {
+      "path": "lib/game/stageGenerator.ts",
+      "sha256": "eb7f20ef4ea15c1fb127a69e4a76a0be05fc6e40a73f7568e2f1d5e0b43cbdc8",
+      "bytes": 7381
+    },
+    {
+      "path": "lib/game/startZone.ts",
+      "sha256": "066c363ac2ace28bf474b906d8e394e4d32f7b5b79c8ffa87a4e3a1a89cf617b",
+      "bytes": 2562
+    },
+    {
+      "path": "lib/game/stateMachine.ts",
+      "sha256": "b1e9b560708901559811391affe4d6cbde2ab1278395d28d09c7ba2334129343",
+      "bytes": 2813
+    },
+    {
+      "path": "lib/game/types.ts",
+      "sha256": "453c6ff68d2f1444833ceaa8353aed63e32c1d14fb3dce1e9571167123c3c0ee",
+      "bytes": 8222
+    },
+    {
+      "path": "lib/games/__tests__/colorChaseRegistry.test.ts",
+      "sha256": "280d834bf58210c40a7ca81fc5fd21c5dc1449f1216081918bd394820b84c012",
+      "bytes": 1457
+    },
+    {
+      "path": "lib/games/library/capabilities.ts",
+      "sha256": "e9a7c49a7e92dc1b6f39e48c68bab9dfe9b56efdda9627059dd2d8ce9c12d024",
+      "bytes": 3548
+    },
+    {
+      "path": "lib/games/registry.ts",
+      "sha256": "07d765c5883b56f4e0d0a87e8af36d0fba7b2c7061dc72647ff779e7db371ec9",
+      "bytes": 10854
+    },
+    {
+      "path": "lib/harvestvalley3d/__tests__/engine.test.ts",
+      "sha256": "54592112355993e83c66095a4af00571db28252b5069bf7aa2236f3556b4c974",
+      "bytes": 7126
+    },
+    {
+      "path": "lib/harvestvalley3d/__tests__/rules.emulator.test.ts",
+      "sha256": "d2c63a6c81234b77b7cd7bfda6181152225cc9076523b8c7a1235cc534422aa5",
+      "bytes": 5093
+    },
+    {
+      "path": "lib/harvestvalley3d/audio.ts",
+      "sha256": "848f7a47ffc8eba86c993f414b19e7a1e0afedff14b3311f40c344f8f504f660",
+      "bytes": 2787
+    },
+    {
+      "path": "lib/harvestvalley3d/copy.ts",
+      "sha256": "be53f5f77fe785fbbe1ef8900c9e0835d54c03fea18bd5e8d034bcb7bafc112d",
+      "bytes": 268
+    },
+    {
+      "path": "lib/harvestvalley3d/engine.ts",
+      "sha256": "2ae12e78ff953ee15c3908146e2bdda282d891eb2f446ac49287801b0bde2fff",
+      "bytes": 11997
+    },
+    {
+      "path": "lib/harvestvalley3d/history.ts",
+      "sha256": "f06f904768bf763b3f73fb9cef04eef02e46d8b98786600f8f64609edd3de8f1",
+      "bytes": 4262
+    },
+    {
+      "path": "lib/harvestvalley3d/input.ts",
+      "sha256": "4d427551843a273d7b7fa8b04428ffcc484c480a13c62c254c84a017d19da53e",
+      "bytes": 719
+    },
+    {
+      "path": "lib/harvestvalley3d/live.ts",
+      "sha256": "647a1f43354970c6f63be28a47e52a0a16840f34dff2710ad8056e365b7d33b0",
+      "bytes": 4743
+    },
+    {
+      "path": "lib/harvestvalley3d/registration.ts",
+      "sha256": "bb3200c936a7ff7abea41500b7479e934b29bec6f1c0ccc1c88e651ab7d249a9",
+      "bytes": 660
+    },
+    {
+      "path": "lib/harvestvalley3d/useSession.ts",
+      "sha256": "5a954ffdb58c517d615b5318289508584614e1ea04ecacc39cfd3e64a80901cc",
+      "bytes": 8429
+    },
+    {
+      "path": "lib/liveGame/__tests__/liveGame.test.ts",
+      "sha256": "6688b223b529ac7e83e79fffdf90a0a3265687dbef45f403d7c9fe22345f1c23",
+      "bytes": 8107
+    },
+    {
+      "path": "lib/liveGame/historySaver.ts",
+      "sha256": "beb91f3b4633a0b77a7cafed5609cc62bad46e19cc135a8f745e3499d0ce6c26",
+      "bytes": 1678
+    },
+    {
+      "path": "lib/liveGame/ownership.ts",
+      "sha256": "354c1f797f8442220c01e8f99c8c090ae2ce3ee5e9b724d8c82dabecea719fe0",
+      "bytes": 5489
+    },
+    {
+      "path": "lib/liveGame/publisher.ts",
+      "sha256": "d217d015eac3e1db53789de8ace39768cbec2c7d49afe5be6353e3dd4288c29d",
+      "bytes": 4145
+    },
+    {
+      "path": "lib/liveGame/useControlAlive.ts",
+      "sha256": "6b77ac67ad8a69507d04ea3c2239e043a01fbc88c7fe9cc0bc2106927874e1c1",
+      "bytes": 844
+    },
+    {
+      "path": "lib/liveGame/useLiveGameController.ts",
+      "sha256": "c7cdc9a2a8e28ce6c89998c596f8b7e909ea52c593422a07249aaca568f8bf64",
+      "bytes": 4070
+    },
+    {
+      "path": "lib/mirrorquest3d/__tests__/engine.test.ts",
+      "sha256": "c0266c20441e8e17d5e8f68fe1ebc2b2ae91081a95a1fee5482785ebc01ce3e9",
+      "bytes": 7198
+    },
+    {
+      "path": "lib/mirrorquest3d/__tests__/rig.test.ts",
+      "sha256": "d1044bd4ff4b7171f87fb26e8493e1b41e43ab26717c05bba127966f08f4c508",
+      "bytes": 2486
+    },
+    {
+      "path": "lib/mirrorquest3d/__tests__/rules.emulator.test.ts",
+      "sha256": "c76c6e9263a0d3a81ca5a09ba71aab8fa18a244f3919265e97f690b3fea6ecc5",
+      "bytes": 3512
+    },
+    {
+      "path": "lib/mirrorquest3d/engine.ts",
+      "sha256": "4c4cc4d651acb8e9fdd125ed408c171b666c3407ac093f3f038f279fd89ad344",
+      "bytes": 9614
+    },
+    {
+      "path": "lib/mirrorquest3d/history.ts",
+      "sha256": "c29c7fd177c5058a460a7416cbf40b46a7a744041c0edb3a951844a5e3ca9f9e",
+      "bytes": 3250
+    },
+    {
+      "path": "lib/mirrorquest3d/input.ts",
+      "sha256": "5bc9fbc783953d2a9a383ee72ec492546001c688906d94af3dee909decfc5c8e",
+      "bytes": 1166
+    },
+    {
+      "path": "lib/mirrorquest3d/live.ts",
+      "sha256": "148cf60092b43645113157e36f05ef3ba73581044044e4cd5ea4af659c06fc25",
+      "bytes": 4002
+    },
+    {
+      "path": "lib/mirrorquest3d/registration.ts",
+      "sha256": "94b10262d07f8f56e3134deee83d8dd39d2792a23794aa27ece4bc0724975f69",
+      "bytes": 667
+    },
+    {
+      "path": "lib/mirrorquest3d/useSession.ts",
+      "sha256": "ccb9ec1661e374264d51b56741166ce823f124deb35321ff6d12fc63c7d29bb9",
+      "bytes": 5382
+    },
+    {
+      "path": "lib/patients/PatientSessionContext.tsx",
+      "sha256": "ea6747f01446aa0fc5795f0cf0a375b19beeb8a7362c1b4b209f2059717ad448",
+      "bytes": 6377
+    },
+    {
+      "path": "lib/patients/__tests__/patientRepository.test.ts",
+      "sha256": "b186faa6648c27be41f1f995c53b680fffe3cfd4d9f9756a013e4e4883e342c3",
+      "bytes": 5995
+    },
+    {
+      "path": "lib/patients/patientRepository.ts",
+      "sha256": "3d046cd6384fff1545f523e0d77e456401d769ee92a1f19afb782b82c88785b5",
+      "bytes": 9890
+    },
+    {
+      "path": "lib/patients/types.ts",
+      "sha256": "284fa8198574dfaddc0621d9735dec00adbbf5990d05c5705508fecedc867e73",
+      "bytes": 2799
+    },
+    {
+      "path": "lib/patients/usePatientPrefill.ts",
+      "sha256": "71660280840c9473a3f9d2f57f25b23cf9c0301ed2d3eeb694c464952841fd1c",
+      "bytes": 2752
+    },
+    {
+      "path": "lib/patients/usePatients.ts",
+      "sha256": "3bf047e5744093df8a159d0a7543a2d3c6245e59acbe1433f74827277c357f57",
+      "bytes": 2215
+    },
+    {
+      "path": "lib/pearlvoyage3d/__tests__/engine.test.ts",
+      "sha256": "122459b7455bb1fa9481223a75b0fd67758bb53b6d7218b7432f5fcf9cd09e11",
+      "bytes": 17522
+    },
+    {
+      "path": "lib/pearlvoyage3d/__tests__/platform.test.ts",
+      "sha256": "b51ddb2872d106f512424d0690ba51b6944541d025a6436ede5c95116fb6b914",
+      "bytes": 10483
+    },
+    {
+      "path": "lib/pearlvoyage3d/__tests__/rules.emulator.test.ts",
+      "sha256": "93b85f83851a54dbe03b37988b2bec20335c46c70bfcd1fd84eead830765788f",
+      "bytes": 9339
+    },
+    {
+      "path": "lib/pearlvoyage3d/audio.ts",
+      "sha256": "6d104f3f524888145883306501bf7116177743a6dab069771f2b758cb5bdde95",
+      "bytes": 6923
+    },
+    {
+      "path": "lib/pearlvoyage3d/copy.ts",
+      "sha256": "2e0bce4303102ae2742c1994c3d6284cc6bda5dad3cf764c8445f8f761ef65f7",
+      "bytes": 1741
+    },
+    {
+      "path": "lib/pearlvoyage3d/engine.ts",
+      "sha256": "b5d670760a11d86a49106e344b39af49a8c1803ed737a11c90ac4521d3958ec2",
+      "bytes": 21993
+    },
+    {
+      "path": "lib/pearlvoyage3d/history.ts",
+      "sha256": "3c02c9cb23619b6b1744ed6f014e952d7939ed195d938a8bccdd111d6a6cf6d4",
+      "bytes": 6206
+    },
+    {
+      "path": "lib/pearlvoyage3d/input.ts",
+      "sha256": "f9cf9ff0731a5fede1eafbb93c9d6d24915099fdc63c01f634e6902be25a7bef",
+      "bytes": 4391
+    },
+    {
+      "path": "lib/pearlvoyage3d/live.ts",
+      "sha256": "532e5eb56e238acb4b9993108bf6d64e819a364d4d1fb2c48f4d506869ceae0a",
+      "bytes": 7040
+    },
+    {
+      "path": "lib/pearlvoyage3d/registration.ts",
+      "sha256": "2f050491e4da348f6ba81115e8a468a4c01893328d3d3942dec96701bb5c218a",
+      "bytes": 887
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/boat.ts",
+      "sha256": "084015e85c0d46470f83f86c6d15f766878e0c7dded7809d1603c20bf6a77839",
+      "bytes": 13763
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/coral.ts",
+      "sha256": "53df64aed294256e158fbd22c27737865defc55225c7a6eedf3adfb6dbea3b85",
+      "bytes": 11741
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/environments.ts",
+      "sha256": "71e821c15fccae3867aba76a455d87b9f30eb62d822f603a021d7f4d5c52dc00",
+      "bytes": 3343
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/fish.ts",
+      "sha256": "1b5f0bd6b022e97829d858eaa93400260f891d40ff77df927402eed323f68c2e",
+      "bytes": 25752
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/fx.ts",
+      "sha256": "af15907bafc747adf1da954fda2584e3d34778c72294f882b7eab23f33dbae6c",
+      "bytes": 4626
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/islands.ts",
+      "sha256": "0a668d9e56ea6268956fceff4be061f19cd359fb364a15b4d18ba79645bf1521",
+      "bytes": 19713
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/life.ts",
+      "sha256": "99abe910af563e029319be2f26429119c2b6638faf7f5df2ccd27734365b5bfe",
+      "bytes": 2573
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/markers.ts",
+      "sha256": "cac3ee42aa5dd7fb6e3f7c1e222ab0c705c153e28e5e95e44eb82f7fcb746ba7",
+      "bytes": 9676
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/portraits.ts",
+      "sha256": "6ca35314ddf4351ff69e3af7b79647c3f3c53f00a57af851cfa9ddf1f7b83b58",
+      "bytes": 2761
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/sky.ts",
+      "sha256": "be6b67031cbdedcdbbd1e4892196c480f1ba3991d24caee570c666814ce2a9c8",
+      "bytes": 3535
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/util.ts",
+      "sha256": "5d8d1b8d51beccae821507e12b41f94e6008a93938330e6af60544ece999f127",
+      "bytes": 5587
+    },
+    {
+      "path": "lib/pearlvoyage3d/render/water.ts",
+      "sha256": "90b6e1ed7b34d0adbacd52af42c85507d480aed36f6987792dff0e0c0e0f377d",
+      "bytes": 8931
+    },
+    {
+      "path": "lib/pearlvoyage3d/renderer.ts",
+      "sha256": "bf133a324faddd020a107ca663089d54b5173a47b73ca51c0d8777917feec7fe",
+      "bytes": 25345
+    },
+    {
+      "path": "lib/pearlvoyage3d/stages.ts",
+      "sha256": "9d16ee74aea0415adbcbfd0831545ff067bf0969b200500961fd273681a4373a",
+      "bytes": 9226
+    },
+    {
+      "path": "lib/pearlvoyage3d/useSession.ts",
+      "sha256": "ee2321bc106c9d5a59cdb367679af8a63f879d0f1fd6d6f2fedfcce85914d9d4",
+      "bytes": 8853
+    },
+    {
+      "path": "lib/physicalInput/ContactActivationGate.ts",
+      "sha256": "ae32a9a5c1a63a19cdf62f273dcbf40c1f52b79468e5889d72fd7b28e8bd25ac",
+      "bytes": 3595
+    },
+    {
+      "path": "lib/physicalInput/ContinuousMotionController.ts",
+      "sha256": "00b01ec0ea40e9ab0d275978a25359c2feb88e95290141557b02040470b42d0a",
+      "bytes": 36290
+    },
+    {
+      "path": "lib/physicalInput/FinalSessionPhases.ts",
+      "sha256": "01e1eb7da7aa766ffae350114123c2b91e37d498987760dce1e3e78284957e16",
+      "bytes": 2933
+    },
+    {
+      "path": "lib/physicalInput/InputSource.ts",
+      "sha256": "23604489974f764a1dff7feadb147b6ff8f14a3b104ca36b1591689309aa11c8",
+      "bytes": 1362
+    },
+    {
+      "path": "lib/physicalInput/LeftHandEnrollmentPhases.ts",
+      "sha256": "94e04c7fe7ce4967d760b276f5e312d8b34391d23aedba3f74d241b083e02e88",
+      "bytes": 2709
+    },
+    {
+      "path": "lib/physicalInput/LeftHandEnrollmentProfile.ts",
+      "sha256": "f979ae110ad8de264b657ea068c250f12072d23c802063936cca06ebb404e340",
+      "bytes": 6128
+    },
+    {
+      "path": "lib/physicalInput/MotionDiagnostic.ts",
+      "sha256": "9f995bf56204aceb0df50aa747671000cf48a82ce0a079f42354b59d1f9f5b6a",
+      "bytes": 11040
+    },
+    {
+      "path": "lib/physicalInput/MotionFilters.ts",
+      "sha256": "999bbbd0e8e75f4023874d0895df9ff6251da4e8730da030265e4b54bf06faf4",
+      "bytes": 10184
+    },
+    {
+      "path": "lib/physicalInput/PhysicalInputManager.ts",
+      "sha256": "cdbfc5f9b7390135b3b946531b35438d58ca872057772818ac2a37ad6f816950",
+      "bytes": 9667
+    },
+    {
+      "path": "lib/physicalInput/RightHandAdultCalibrationEvidence.ts",
+      "sha256": "76eeb78dbb25e7a5d1a0e437cede2742e59b4d42720612afa0e825167773c79c",
+      "bytes": 1537
+    },
+    {
+      "path": "lib/physicalInput/RightHandAdultTwistInvariantCalibrationEvidence.ts",
+      "sha256": "5e8188932071c7232b54d5310b56905497c4abf88ddd2688f701e9a8331c0755",
+      "bytes": 2329
+    },
+    {
+      "path": "lib/physicalInput/RightHandSessionProfile.ts",
+      "sha256": "3b22b91ac4362bf075e79396bbb66e80eee2f192625e2af0d2f17482e6fcbc83",
+      "bytes": 18013
+    },
+    {
+      "path": "lib/physicalInput/SemanticDetector.ts",
+      "sha256": "e5e1cb31e3a47e12e322afe99f5d3caae7d906f576ea73f3497ffa3f535db39c",
+      "bytes": 2741
+    },
+    {
+      "path": "lib/physicalInput/SensorContactRouter.ts",
+      "sha256": "ca9e490a120878a023468096f00b11c0666b990ea8dc22026debc5fab3df5359",
+      "bytes": 3277
+    },
+    {
+      "path": "lib/physicalInput/SensorHandRuntimeConfig.ts",
+      "sha256": "99d2a25d13f5384132bf593915862ed3e2faf1b1a16b49aae8ad082efd7f534a",
+      "bytes": 4120
+    },
+    {
+      "path": "lib/physicalInput/SimulatedInputSource.ts",
+      "sha256": "6c58c3430b23f7ecf55082b59769a19f5c51a50a91c4d7581ec5849c4c418a5f",
+      "bytes": 3146
+    },
+    {
+      "path": "lib/physicalInput/StabilizationProfiles.ts",
+      "sha256": "76d7445cbcae8908ba67b8024108e3446048097f8c4682c324bcee83b441a1c6",
+      "bytes": 2818
+    },
+    {
+      "path": "lib/physicalInput/TwistInvarianceCapturePhases.ts",
+      "sha256": "f9ee9008ebbc62bacac77d7a7c8e6893c5979b58f011eedba131b209b4bc6574",
+      "bytes": 5712
+    },
+    {
+      "path": "lib/physicalInput/WitmotionBleProtocol.ts",
+      "sha256": "83043bfb364131714708ab85116f76f18aaf6d1062abc28fc29f695634119cb4",
+      "bytes": 6019
+    },
+    {
+      "path": "lib/physicalInput/WitmotionConfigTrial.ts",
+      "sha256": "9e409272ae0cc7ded1455326f834b6d03190ed8a1930336a4fa27c1b047cf3c9",
+      "bytes": 10358
+    },
+    {
+      "path": "lib/physicalInput/WitmotionRateTest.ts",
+      "sha256": "9c2d42dbf5f1aa8ef2d63e48e6e5224ced1ad226580c0ca09fd5211bbf0a9a8a",
+      "bytes": 3310
+    },
+    {
+      "path": "lib/physicalInput/Wt901BleInputSource.ts",
+      "sha256": "24e7919d381938ca585b5eb332f36dd0c0762fddd21cda0ec020f66f6438a530",
+      "bytes": 18462
+    },
+    {
+      "path": "lib/physicalInput/__tests__/ContactActivationGate.test.ts",
+      "sha256": "73970ac3a4a0e93d6a5d53cb9ec120eee1cc50ac848d489965d9a08be30ec570",
+      "bytes": 2590
+    },
+    {
+      "path": "lib/physicalInput/__tests__/ContinuousMotionController.test.ts",
+      "sha256": "9d394a73dc2437267b441ba0eadcd4bda10f2e8c6a576d4416c5886b123b3ded",
+      "bytes": 37758
+    },
+    {
+      "path": "lib/physicalInput/__tests__/LeftHandEnrollmentPhases.test.ts",
+      "sha256": "d012b27345bd5b230223d93ba32c2b35445b9cc177156c882466c89a1d706bce",
+      "bytes": 1176
+    },
+    {
+      "path": "lib/physicalInput/__tests__/LeftHandEnrollmentProfile.test.ts",
+      "sha256": "35e83a317578560a3c260a96b3cc4cd08cdf31a7918128eb121e6861810d1c70",
+      "bytes": 5186
+    },
+    {
+      "path": "lib/physicalInput/__tests__/MotionDiagnostic.test.ts",
+      "sha256": "695219773d90b91d755939d3e1b157db4dc20338934cc5be024588797992866e",
+      "bytes": 4352
+    },
+    {
+      "path": "lib/physicalInput/__tests__/MotionFilters.test.ts",
+      "sha256": "ef1a324b1f97c482889f01a056697a059e7bd0de1d490bf1f395aefcea08aba1",
+      "bytes": 1082
+    },
+    {
+      "path": "lib/physicalInput/__tests__/MotionIntentGate.test.ts",
+      "sha256": "00283ea4ae7e22416bacb22f1e4e86ce5a2b87f6c6781bb24af30f7fb1772c2e",
+      "bytes": 3453
+    },
+    {
+      "path": "lib/physicalInput/__tests__/PhysicalInputManager.test.ts",
+      "sha256": "87d1ab14b9fc11934fb1a6eabfa4d50c972af3c38b2eb57a00a50c19d27cf4f0",
+      "bytes": 9625
+    },
+    {
+      "path": "lib/physicalInput/__tests__/RightHandSessionProfile.test.ts",
+      "sha256": "3af164b646f8217d481f9ede7b87c9e1a077968545f2b2690221a69335a6a4b1",
+      "bytes": 9847
+    },
+    {
+      "path": "lib/physicalInput/__tests__/SensorContactRouter.test.ts",
+      "sha256": "f83c9a7dd7920345fdb05b206a69cbfbe76663612e69bc5a063f10201cf3582b",
+      "bytes": 5243
+    },
+    {
+      "path": "lib/physicalInput/__tests__/SensorHandRuntimeConfig.test.ts",
+      "sha256": "e57badf3e9ddabc05c64413da30aa8bb15423684ded0d0bc6c49ea5467bb83fe",
+      "bytes": 3012
+    },
+    {
+      "path": "lib/physicalInput/__tests__/WitmotionBleProtocol.test.ts",
+      "sha256": "bcb3a87cfee39a0a04c18f12ae9bf5e92fcc8d94dffbc3c9daec74a10c0f8b89",
+      "bytes": 2589
+    },
+    {
+      "path": "lib/physicalInput/__tests__/WitmotionConfigTrial.test.ts",
+      "sha256": "bf902c148b02aa28ab23a840bf1e9468bb7c8b4c408bfbd00079829b6f48973f",
+      "bytes": 5449
+    },
+    {
+      "path": "lib/physicalInput/__tests__/WitmotionRateTest.test.ts",
+      "sha256": "14622e79f7c490e5e214280547ecaaa008b63489233486939f0d7c71de70e11b",
+      "bytes": 2721
+    },
+    {
+      "path": "lib/physicalInput/__tests__/Wt901BleInputSource.test.ts",
+      "sha256": "958370df57ad5cd99f408d5f1ba30a77f61728ea7dca00ab4ddfd821e6170104",
+      "bytes": 9985
+    },
+    {
+      "path": "lib/physicalInput/__tests__/dualSensorSimulation.test.ts",
+      "sha256": "a3d7ea7e97e38c05037eab80d29422b2ac737966bb4620e74d6b626d575515cf",
+      "bytes": 18762
+    },
+    {
+      "path": "lib/physicalInput/__tests__/gameSensorTargets.test.ts",
+      "sha256": "160d398bb34631aeb0d8545808a907d3a95cc4eb3b709a9dd70a2ec78156ca01",
+      "bytes": 6106
+    },
+    {
+      "path": "lib/physicalInput/__tests__/pointerInvariants.test.ts",
+      "sha256": "6445605918bb1ff9cb06791d06c40ed795d5cfc3ea035b1efef56663954afee0",
+      "bytes": 3950
+    },
+    {
+      "path": "lib/physicalInput/__tests__/roleAssignment.test.ts",
+      "sha256": "10f0c77e8459e4b49bcdee58e7e4a406f3bc76b50e7ccb9f5170ccb1d1fe6efb",
+      "bytes": 6998
+    },
+    {
+      "path": "lib/physicalInput/calibrationProfile.ts",
+      "sha256": "a9a0f0e9ea639dbc3789c07bab2cc0b8bf7a8fec5f1d9c93a60ccb5d641008fe",
+      "bytes": 1717
+    },
+    {
+      "path": "lib/physicalInput/gameSensorTargets.ts",
+      "sha256": "54a0f8ffdc5bd1ad230b8f11b3e72abc9ce8d2a8878792abe3ebcb3dd379371b",
+      "bytes": 5608
+    },
+    {
+      "path": "lib/physicalInput/index.ts",
+      "sha256": "ff9afc1e4b656e76ed65255897c90f52fc0490f2b36392863305b6ce1a312031",
+      "bytes": 1651
+    },
+    {
+      "path": "lib/physicalInput/roleAssignment.ts",
+      "sha256": "3bea40dbf148ba8579160fcee8ee689c660501401a964f744d1e2295a8c57c1f",
+      "bytes": 6909
+    },
+    {
+      "path": "lib/physicalInput/types.ts",
+      "sha256": "d591f6e3e7a458ebe60627614647e0293ce0cbae05b39923c33b2915534b78e6",
+      "bytes": 4482
+    },
+    {
+      "path": "lib/realtime/__tests__/authClient.test.ts",
+      "sha256": "50a9a38f92acb588b7e98dedd12c73e6561a627f02eab074dd053f03dd6ff367",
+      "bytes": 7372
+    },
+    {
+      "path": "lib/realtime/__tests__/bq3LiveRecord.test.ts",
+      "sha256": "668a9907207c9da9aa642d6af68686e77666ebb8f39fdac977a6acc0f94fad7e",
+      "bytes": 4503
+    },
+    {
+      "path": "lib/realtime/__tests__/bubblePopSerialization.test.ts",
+      "sha256": "cac5708effd5fe41982c28060addefd83acc158571e9319e057167187de00a1e",
+      "bytes": 8586
+    },
+    {
+      "path": "lib/realtime/__tests__/displayGuard.test.ts",
+      "sha256": "9510f709f85973c4e8a3f3b3d549e88c3fa0fdd6161dc6719b137f8622d5af27",
+      "bytes": 10826
+    },
+    {
+      "path": "lib/realtime/__tests__/firebaseClient.test.ts",
+      "sha256": "2985f872d8512683cff201e70c6073c75d4f06469dfd8a54b145c296a48e3f67",
+      "bytes": 3912
+    },
+    {
+      "path": "lib/realtime/__tests__/footstepsSerialization.test.ts",
+      "sha256": "258f061b2c69fcec8cd7933fc79e5db8d2b0ea2ce3657bec5c3f1398fad2debf",
+      "bytes": 8372
+    },
+    {
+      "path": "lib/realtime/__tests__/platformRules.emulator.test.ts",
+      "sha256": "0f645675bf5966b71d23b17b3c6e8d52f947426ac2cdfad332305cca1b24b732",
+      "bytes": 15879
+    },
+    {
+      "path": "lib/realtime/__tests__/serialization.test.ts",
+      "sha256": "1e4d0539a10ee37a3d778624773d6ccb63d8842289861c2951f9e9b0aeffcc22",
+      "bytes": 10085
+    },
+    {
+      "path": "lib/realtime/__tests__/sessionRepository.test.ts",
+      "sha256": "9a4d35c97c3c28ac828558872a584f10c8bd778ac68d17a85a9cf0561570a98f",
+      "bytes": 27607
+    },
+    {
+      "path": "lib/realtime/__tests__/staffAuthClient.test.ts",
+      "sha256": "21470ed61ca82ee3deaccb20bbc908199099db9ed5a9c8d8eaf6f9b1bc6c381b",
+      "bytes": 5914
+    },
+    {
+      "path": "lib/realtime/__tests__/staffRepository.test.ts",
+      "sha256": "79a8ce1f03bb61228c832aa272ba33222681c18df63b925a13ecfea1721c3059",
+      "bytes": 1852
+    },
+    {
+      "path": "lib/realtime/authClient.ts",
+      "sha256": "fd34d36dbbc7f8593657fc5c8eff510acd81f090f3913700efb959cf78958089",
+      "bytes": 6365
+    },
+    {
+      "path": "lib/realtime/benignAuthRejections.ts",
+      "sha256": "d29b09894c48129c97247b0454ff0a486f364b9490f3e1c2b390873f0a7a1071",
+      "bytes": 3982
+    },
+    {
+      "path": "lib/realtime/displayGuard.ts",
+      "sha256": "28a1e6846cdd51a33c177dbd85d1c891f09fdf4faa40db152d521667aa1ab95b",
+      "bytes": 3747
+    },
+    {
+      "path": "lib/realtime/firebaseClient.ts",
+      "sha256": "c753cf970e7e1582d231b0a40211de2c989659e822d2053b255546c7fafb0156",
+      "bytes": 7591
+    },
+    {
+      "path": "lib/realtime/serialization.ts",
+      "sha256": "35239fb9b4c53f7275efabb7a34e9e7d61f77352acfd7fab20248813656b60bc",
+      "bytes": 38528
+    },
+    {
+      "path": "lib/realtime/sessionRepository.ts",
+      "sha256": "31f64e071ecaea6a1e30d4844beb74746a3467ed20ab0ab7ca9815f742b0c09e",
+      "bytes": 33269
+    },
+    {
+      "path": "lib/realtime/spacePilotRepository.ts",
+      "sha256": "5beb10abbbc99d53e6232ce93a2667660d8995c058812009dfc2b2e735c3a92b",
+      "bytes": 2312
+    },
+    {
+      "path": "lib/realtime/staffAuthClient.ts",
+      "sha256": "a5ff1981b5c43c590d7d4b1fe35815e93f295c2c6804d96ce23fcbeae246a263",
+      "bytes": 6064
+    },
+    {
+      "path": "lib/realtime/staffRepository.ts",
+      "sha256": "ff93e281efcf45065b62b1899235bfb6bb0cc859ab23034d853815484f91b605",
+      "bytes": 870
+    },
+    {
+      "path": "lib/realtime/types.ts",
+      "sha256": "bd53208c026fa615e16ce9fc074722d328f00f9b31ab7c6eef94c8c7ddcd6dc1",
+      "bytes": 9105
+    },
+    {
+      "path": "lib/realtime/useFirebaseAuth.ts",
+      "sha256": "d05b309cf786ab5405856a3e52fba419814cbbbbe10214edc88e30f7fdc39a36",
+      "bytes": 656
+    },
+    {
+      "path": "lib/realtime/useStaffAuth.ts",
+      "sha256": "37d40e93be3b62e0b1e98f0696afc9f07455d20f7dd34b9285e06eb7aa78dd22",
+      "bytes": 4530
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/engine.test.ts",
+      "sha256": "2f306c683f79ff69d8b05eb46f427c80ff44645cfb96992a3ea8cb127afef5c4",
+      "bytes": 10521
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/floor.test.ts",
+      "sha256": "0240bb216562ad234a3281fef86a38ccac972a63a487a92d173390ec2df04c5e",
+      "bytes": 17472
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/floorDecor.test.ts",
+      "sha256": "e6e0104ead59ca29d1ed74335e819272c9d381faa65480f77aabd4bcca35a5f1",
+      "bytes": 1845
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/floorLayout.test.ts",
+      "sha256": "45e135755950f87b01f5a353ea032e2fb7ee32f70b0a897adb144fb9ee948cb6",
+      "bytes": 3198
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/input.test.ts",
+      "sha256": "9b50690c6a55ff33c2d9df7b4b1086c9ff9666beb8236e14529bc1f14d2ec408",
+      "bytes": 11454
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/integration.test.ts",
+      "sha256": "10f9e10a3d25a3d53c378e7ce05f3c7b838b24d221951a17603fdcd46220b457",
+      "bytes": 5049
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/live.test.ts",
+      "sha256": "7d9ff75c40a1e3f1251fbbe5067293e242da69ba2c8dff3d7e071c741ba81599",
+      "bytes": 7070
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/projection.test.ts",
+      "sha256": "5be50e2c7a94a7d399737159ce2d5e97f3f7a8f4c36a6cec7181a1abd53786b2",
+      "bytes": 4154
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/registry.test.ts",
+      "sha256": "b2284409375e5dc92b26d8c328bacf19f2c8ba218332bb317e5e9e7887377109",
+      "bytes": 1613
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/rules.emulator.test.ts",
+      "sha256": "bbd1ef8343fb40581f24f12d4e56ec27cc78c176566ed5ae2e424500d227853d",
+      "bytes": 13402
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/runtime.test.ts",
+      "sha256": "404b88e6192f6acb4d4628c822b900be55c0ba12ca1626f96ea9123c9ae6cb35",
+      "bytes": 21117
+    },
+    {
+      "path": "lib/runnerquest3d/__tests__/stages.test.ts",
+      "sha256": "a9d80d51e399fd27bfa1b5c69b019ddcee5b702506bedbf08bd6158e6acc7803",
+      "bytes": 8542
+    },
+    {
+      "path": "lib/runnerquest3d/arabic.ts",
+      "sha256": "0df2bcf9da3441520456c4aeb7adc72972c7b88559660ba3e34d0e93649cb150",
+      "bytes": 5647
+    },
+    {
+      "path": "lib/runnerquest3d/availability.ts",
+      "sha256": "7c0837080490eade84a4b756f093a8d72cfb29da14492452cae15a8437db5d0f",
+      "bytes": 794
+    },
+    {
+      "path": "lib/runnerquest3d/controlMount.ts",
+      "sha256": "2098172d940d87bd8220ec0ceeb02c9275461d637151f8b8815116b52d208876",
+      "bytes": 5921
+    },
+    {
+      "path": "lib/runnerquest3d/controlRuntime.ts",
+      "sha256": "d7e1dfeb9c5a17f4ec25b0c4e6ad99903ea9d99f5a3e82b59f115bd23bcdc551",
+      "bytes": 18624
+    },
+    {
+      "path": "lib/runnerquest3d/displayMount.ts",
+      "sha256": "b02d64fef7388fd10df35e94516845e4cdbf9256db39f823922594d42d245749",
+      "bytes": 2428
+    },
+    {
+      "path": "lib/runnerquest3d/encounters.ts",
+      "sha256": "bf7cd32ef94b894185d9f0664fd73eba1116137cffd87b14fcfa93e173fb9b70",
+      "bytes": 4342
+    },
+    {
+      "path": "lib/runnerquest3d/floor.ts",
+      "sha256": "e23f8af2f80b32dee6eaa778ddb3f8fb2dddb8ac08e7879b6212e97aa1b6a169",
+      "bytes": 5171
+    },
+    {
+      "path": "lib/runnerquest3d/floorDecor.ts",
+      "sha256": "36574dd233f270235324ff4f6e13bcee486dafefa356e5bd0806aa13fbca3a61",
+      "bytes": 3879
+    },
+    {
+      "path": "lib/runnerquest3d/floorLayout.ts",
+      "sha256": "3e65a68138cbf769f23db078f89e20c3c6481e2fba21cd1d7a2cfb0346f230b5",
+      "bytes": 3639
+    },
+    {
+      "path": "lib/runnerquest3d/input/footRecognizer.ts",
+      "sha256": "0ae61f11e731ee5d4dcbecd5355cc06be6e9019dae947fc684b204605ade4f21",
+      "bytes": 6842
+    },
+    {
+      "path": "lib/runnerquest3d/input/hub.ts",
+      "sha256": "c28c3cf4100fed7b3d625e74980f096e05d17539a2aa1ecb0a6da3dba6485f83",
+      "bytes": 6954
+    },
+    {
+      "path": "lib/runnerquest3d/input/simulatedFoot.ts",
+      "sha256": "0e72a97881891d305b926416d8125fb9923e3247a61cee33cdb3409ac014d0f0",
+      "bytes": 3147
+    },
+    {
+      "path": "lib/runnerquest3d/live.ts",
+      "sha256": "3356c2f3ee9b9345bb3ab76a6efc919771619ebe116fb407200c997edf5008b1",
+      "bytes": 10949
+    },
+    {
+      "path": "lib/runnerquest3d/projection.ts",
+      "sha256": "79717bc693aa6bb0ca497338022d30dd3b29136f58d8aa066cdf9587a0ba639e",
+      "bytes": 2169
+    },
+    {
+      "path": "lib/runnerquest3d/protocol.ts",
+      "sha256": "f93b2559d0adbb411d761438e6b7699485002ea960461e2a7e098e7bfc8f5032",
+      "bytes": 10812
+    },
+    {
+      "path": "lib/runnerquest3d/registration.ts",
+      "sha256": "2eb064ef4a5cec20af0b870938c2c23f02c2dfc223ca23e541cde820471ee702",
+      "bytes": 1271
+    },
+    {
+      "path": "lib/runnerquest3d/replica.ts",
+      "sha256": "569668036b8fcc86f46ad6eced52948f025bd3619d47b74fd5b020b444487c7e",
+      "bytes": 5511
+    },
+    {
+      "path": "lib/runnerquest3d/rng.ts",
+      "sha256": "f03c715f07d16a82d1256ade2510309a5adfeee8852472d2a6b312d707154c2f",
+      "bytes": 678
+    },
+    {
+      "path": "lib/runnerquest3d/session.ts",
+      "sha256": "cea8b40a6f15b20818c00f540422a2f131b8ce2899a06cb05f21d4800cfea2c7",
+      "bytes": 21188
+    },
+    {
+      "path": "lib/runnerquest3d/stages.ts",
+      "sha256": "a7407e465e4f6412fc1dab9da5fec0211b8ee8f99575a126de25777e1dad61aa",
+      "bytes": 2988
+    },
+    {
+      "path": "lib/runnerquest3d/types.ts",
+      "sha256": "aade20052bf76e133ecadd03273abb613dfb019b2c9070dc55188aaa22cc2bb0",
+      "bytes": 9894
+    },
+    {
+      "path": "lib/safehexarena3d/__tests__/crossDevice.test.ts",
+      "sha256": "b142fb2402a48f4f1d4e45d44bac1e913f53408eba517af7c5ec00287972ca5d",
+      "bytes": 11527
+    },
+    {
+      "path": "lib/safehexarena3d/__tests__/engine.test.ts",
+      "sha256": "659f60259dd75c7c3c52445e7f255327fe57e5e6dddb94b2704a3dc6ca404ce5",
+      "bytes": 23399
+    },
+    {
+      "path": "lib/safehexarena3d/__tests__/libraryIntegration.test.ts",
+      "sha256": "7154f8cd1da4c022df3778c2a1bb0dfb86196471c68bd4c1dd61d0f66b5ec394",
+      "bytes": 2450
+    },
+    {
+      "path": "lib/safehexarena3d/__tests__/rules.emulator.test.ts",
+      "sha256": "9ae7b03e665dce77b792cecc5f977fd38a126528daa3f7ea577ec5cfede42adc",
+      "bytes": 7042
+    },
+    {
+      "path": "lib/safehexarena3d/__tests__/sensorInput.test.ts",
+      "sha256": "f4b2ee1186bb3c7fffdff57c56985aa39ed60f074ef5a70a622e0b5a86f9bb5a",
+      "bytes": 3291
+    },
+    {
+      "path": "lib/safehexarena3d/engine.ts",
+      "sha256": "00d467e6308b2b2917726714bd0c07951b3c68b45697807e1338db81023e0232",
+      "bytes": 17579
+    },
+    {
+      "path": "lib/safehexarena3d/geometry.ts",
+      "sha256": "c9501145b0ce0b9df0da7198ab196f65b8e5c0ed3fef693cf3b7902b02e503bc",
+      "bytes": 8355
+    },
+    {
+      "path": "lib/safehexarena3d/history.ts",
+      "sha256": "a200ee77898fa02a94a2a6304602e06051aaf11639346977efafe48806df9765",
+      "bytes": 5199
+    },
+    {
+      "path": "lib/safehexarena3d/live.ts",
+      "sha256": "370266eea3bd9c690210745933e5646eac213ff22bce8522e32456b19ed75474",
+      "bytes": 5658
+    },
+    {
+      "path": "lib/safehexarena3d/registration.ts",
+      "sha256": "251f5029c1697b29a3d7648110e50493a400327a5bdb42413b66489aaf8fa6a2",
+      "bytes": 963
+    },
+    {
+      "path": "lib/safehexarena3d/sensorInput.ts",
+      "sha256": "ee570cf6f5c32fead76c675d43a19cd9c638fee13772b4f6ac6d02b773fa3a48",
+      "bytes": 6739
+    },
+    {
+      "path": "lib/safehexarena3d/stages.ts",
+      "sha256": "bd540d85ac82a357bfcddb313e6a02ab0fe7f1878dc320bb4b2e97819c5c5638",
+      "bytes": 6377
+    },
+    {
+      "path": "lib/safehexarena3d/useSession.ts",
+      "sha256": "18b0904464418a70172da1b6dbba4f2774852868e5f71c94199903a29342691a",
+      "bytes": 8333
+    },
+    {
+      "path": "lib/sessions/__tests__/balloonQuest3DHistory.test.ts",
+      "sha256": "31d9bb775de270bc0f4ce71e1afb1f54ff2b2ac47db2e49d294675a705226868",
+      "bytes": 8934
+    },
+    {
+      "path": "lib/sessions/__tests__/buildStoredBubblePopSession.test.ts",
+      "sha256": "3677ddc235e7bc78312971945040b9f06737151e7116274633b4c5be4be3d5c5",
+      "bytes": 5417
+    },
+    {
+      "path": "lib/sessions/__tests__/buildStoredColorChaseSession.test.ts",
+      "sha256": "457a1e727253ef58e2a3626c5bd05599d2b062bb0aae8512d73c2ce34010f0d2",
+      "bytes": 1636
+    },
+    {
+      "path": "lib/sessions/__tests__/buildStoredFootstepsSession.test.ts",
+      "sha256": "e9b3d1d24eb3572a81e2747798212204c958e6d4beda9147b2a40a538292f3a0",
+      "bytes": 4409
+    },
+    {
+      "path": "lib/sessions/__tests__/buildStoredSession.test.ts",
+      "sha256": "9c0ec72512e9acccd704503502ca0490e663ff83ec15f6f3c0e81a48653f5fd7",
+      "bytes": 6055
+    },
+    {
+      "path": "lib/sessions/__tests__/incompleteSession.test.ts",
+      "sha256": "189ad3db7b6b43c9428a3b435dda88ec409a5b0f66e2d070f89a186de08fbc7e",
+      "bytes": 1388
+    },
+    {
+      "path": "lib/sessions/__tests__/liveSessionRecovery.test.ts",
+      "sha256": "9d8e9a9b258e7bee7a5b208a8550b1390a1307b6f5797e1656be2eca32bceb14",
+      "bytes": 2864
+    },
+    {
+      "path": "lib/sessions/__tests__/resumeSuggestion.test.ts",
+      "sha256": "5c8c3e602a47bc2aceb1d1828f7a3c30007b0e06fb5d285eda83c55422f5a584",
+      "bytes": 6768
+    },
+    {
+      "path": "lib/sessions/__tests__/retiredFeedAnimals.test.tsx",
+      "sha256": "35f91ddfd297d6cbd5aa215aec7af6d8981451ce73d6cdf0ca725bed17e10e04",
+      "bytes": 3886
+    },
+    {
+      "path": "lib/sessions/__tests__/runnerQuestHistory.test.ts",
+      "sha256": "a86cdfb694612615c34e8c89f09e784dd1f18b1e1906a005f5b6123d6697f9ce",
+      "bytes": 8413
+    },
+    {
+      "path": "lib/sessions/__tests__/sessionHistoryRepository.test.ts",
+      "sha256": "f3dca2cd7a80ba4109f1be2ee6c49b429c4f4fdfecb3cc28f74a109bbfed0d51",
+      "bytes": 18697
+    },
+    {
+      "path": "lib/sessions/__tests__/workflowMetadata.test.ts",
+      "sha256": "0c77f9c8e8a42a924bc943602b246b272ea46d767eaa94d51431e3bf595cc6b3",
+      "bytes": 3301
+    },
+    {
+      "path": "lib/sessions/__tests__/workflowRules.test.ts",
+      "sha256": "927187611be47fc5749c64c7d482a330088f398035454ce353c25e0efc1a7b0f",
+      "bytes": 1127
+    },
+    {
+      "path": "lib/sessions/balloonQuestVersion.ts",
+      "sha256": "7b34d3248aac611c3006fd6bd3a7b1ac97430a23ecce8bf5e90e2c3d48e40f4a",
+      "bytes": 1103
+    },
+    {
+      "path": "lib/sessions/buildStoredBalloonQuest3DSession.ts",
+      "sha256": "95cc6b35c43894461f45a5778d07f9432f82f806e8a0d2522fc5d2169d2dfb91",
+      "bytes": 3313
+    },
+    {
+      "path": "lib/sessions/buildStoredBubblePopSession.ts",
+      "sha256": "fd49e0bd39ff85591a33be8df79079a5de16b34b21b24fd29632f3f7b0b99979",
+      "bytes": 3534
+    },
+    {
+      "path": "lib/sessions/buildStoredColorChaseSession.ts",
+      "sha256": "e8e7a7bf7eae27f11d8cbb4d6e3ca0b97c7f479fda1565b63e0bc699764193e4",
+      "bytes": 2032
+    },
+    {
+      "path": "lib/sessions/buildStoredFootstepsSession.ts",
+      "sha256": "bb323308e330cc0f1a5dfb206525e93caf2e517106926816f2f17d4ead747f5f",
+      "bytes": 3520
+    },
+    {
+      "path": "lib/sessions/buildStoredRunnerQuestSession.ts",
+      "sha256": "2e7239e3baf41a404bf1d703bf7e1295b009edfd0bd983776e3164fb2233d554",
+      "bytes": 3264
+    },
+    {
+      "path": "lib/sessions/buildStoredSession.ts",
+      "sha256": "4b8f2502841be05d979538a2f4bf02c2c7ee129aca360f8e7a244190b113fde6",
+      "bytes": 3382
+    },
+    {
+      "path": "lib/sessions/buildStoredSpacePilotSession.ts",
+      "sha256": "7e83f5dd30a1eb2c74217f683cf9ee7f3b6b4b913fd185b1853cc22d65b4f441",
+      "bytes": 2658
+    },
+    {
+      "path": "lib/sessions/historicalGames.ts",
+      "sha256": "e960f7e855fe45e402dc413f247900673e998dc66cdbd5625e48fb4f2f5b77b2",
+      "bytes": 1129
+    },
+    {
+      "path": "lib/sessions/incompleteSession.ts",
+      "sha256": "6edf75b54c315b69a4b3a334ec9c5c23c49246c3f7b42cce57a8185d09f09ba3",
+      "bytes": 369
+    },
+    {
+      "path": "lib/sessions/liveSessionRecovery.ts",
+      "sha256": "496591e7df8b3aa8e1e47065f919ced90cf94b1cadf03c663bfbfe46f983b4db",
+      "bytes": 1835
+    },
+    {
+      "path": "lib/sessions/resumeSuggestion.ts",
+      "sha256": "a7e82ccb59babd5566cfa0c8e43c8d4f9cdb9e297d39d12a8ea61254c7deb672",
+      "bytes": 4550
+    },
+    {
+      "path": "lib/sessions/retiredFeedAnimals.ts",
+      "sha256": "6bd3bcbe7536e7244b6800efac0e16e2c62e8fcb4d985b97505a961e4ad5f1aa",
+      "bytes": 1049
+    },
+    {
+      "path": "lib/sessions/sessionHistoryRepository.ts",
+      "sha256": "008298412e9a0a262d32185d1d7048a326eb619716282b641bcab31ffa7e330e",
+      "bytes": 24307
+    },
+    {
+      "path": "lib/sessions/types.ts",
+      "sha256": "25a91db1906620ae92b847728f2bbe2966e1ebbe438b430d3ee2e0aa32384196",
+      "bytes": 17530
+    },
+    {
+      "path": "lib/sessions/workflowMetadata.ts",
+      "sha256": "346891d9138ca41f75321fc74b32ba55cf0b33b28801f3d7f74e82ac3527e7eb",
+      "bytes": 5390
+    },
+    {
+      "path": "lib/spacepilot/__tests__/session.test.ts",
+      "sha256": "b89cd2386dd6d35facec3c1d46b5500d80c0946e3b0f6b353b3d9cad251b78ab",
+      "bytes": 25816
+    },
+    {
+      "path": "lib/spacepilot/derived.ts",
+      "sha256": "d874463937a72e7b81b010aedb01d0b9fb038d8dad6a4abd2c6329dfa954bbcc",
+      "bytes": 3177
+    },
+    {
+      "path": "lib/spacepilot/encounters.ts",
+      "sha256": "3f7743a086605996ef55cc8ce0e5ba535cdd093ec99eeea9fd3cec8fe6c71f2f",
+      "bytes": 5639
+    },
+    {
+      "path": "lib/spacepilot/index.ts",
+      "sha256": "625d3d65ef870a3e2a957892185570e9812e7dca23f1398f35ced071e58fc5c5",
+      "bytes": 1346
+    },
+    {
+      "path": "lib/spacepilot/scoring.ts",
+      "sha256": "32f3a5bcee0e905cde5e550ed6e62afc8a0a40b4e6c651603609baeeb78c4a04",
+      "bytes": 1798
+    },
+    {
+      "path": "lib/spacepilot/session.ts",
+      "sha256": "7bdaef5d0c20d3253f93a6c75f1229a32dd2293009ea4549689ea5be23da1c1f",
+      "bytes": 23247
+    },
+    {
+      "path": "lib/spacepilot/types.ts",
+      "sha256": "e158cd56abbfa278bc3c6f3cfcede7b5fe8cc3f506cd8ca0d520a9d475767ebf",
+      "bytes": 4461
+    },
+    {
+      "path": "lib/spacepilot3d/PHASE05.md",
+      "sha256": "3f9ad24a1b7343127d2cc383474423748d351aa47a4d0f37ea2b1acf337c0e5d",
+      "bytes": 12145
+    },
+    {
+      "path": "lib/spacepilot3d/README.md",
+      "sha256": "13b9977aa71ab05865f5af6bfc81398a9dcec07c67048643201bdfbfee917ff2",
+      "bytes": 3112
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/collision.test.ts",
+      "sha256": "9bb54cdc99e6b22f39fd2bcd22e44b83bc8793241b607a4df79e83953f769d40",
+      "bytes": 1998
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/crossDevice.test.ts",
+      "sha256": "687355e502e44d260bcc4f52395c18bf54d007ceffc86b89a2931fec6a2cb18e",
+      "bytes": 8790
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/gameplay.test.ts",
+      "sha256": "d6f161f0dd9ae04a5e38f53b8b22bd2dfbbbe044664c38cb0d9845ebc0e1bd86",
+      "bytes": 11448
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsAsset.test.ts",
+      "sha256": "79599ad4266c4310c1bc4b8b4e951a29f859d491bb89df805d561c9c35fc1f60",
+      "bytes": 1711
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+      "sha256": "8662e8efe251c81cdd616659daa2350fc1cbd90604c92d8e465de4c7d2746cfc",
+      "bytes": 5988
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/guidedFlight.test.ts",
+      "sha256": "abd3e45f3244391d7ed4b9225720eec5046fe5955cc522b1ea0c5e7258a1b77f",
+      "bytes": 8785
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/keyboardInput.test.ts",
+      "sha256": "d4d1bc7f4c13a240d87c64c5ffd885a968d9c987729b321a7d245e778f9638f5",
+      "bytes": 1822
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/nineStage.test.ts",
+      "sha256": "2874e66e7a0b88019e9da12c2d713a870f62964cbe8ab7733f33707b2de5bd26",
+      "bytes": 9004
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/prototypeInput.test.ts",
+      "sha256": "9b36197c911d529004d92e5f9be566810543f951e4de9729c58bb0ec8b7ac389",
+      "bytes": 3063
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/releaseIntegration.test.ts",
+      "sha256": "e15edd73d1ded4602202d61e7cc1666015cc150409cea79a97aed5c22a6bf10c",
+      "bytes": 3936
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/rings.test.ts",
+      "sha256": "4b794c62a2630d0d04902dbab37439063e9b2f26bf603771385c28aeb5c4503e",
+      "bytes": 9957
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/rules.emulator.test.ts",
+      "sha256": "e2c12c2a46a27798e8feda3dfed133ea0ed2ce28697ed33c15b882e770e2fb7a",
+      "bytes": 12744
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/runtime.test.ts",
+      "sha256": "929e1e01ac6810a03764e084916aa13582e40d8280e10424d2f5223c81bd69d9",
+      "bytes": 2661
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/sensorInput.test.ts",
+      "sha256": "7c186491260412579e280ee716a0aee14bb3aa52efb677c93abe2249184b0293",
+      "bytes": 6151
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/sensorRelay.test.ts",
+      "sha256": "9a9eeb2feb7b3fe3dc19037285d4507265cdd28da82dfecac23c7bf13d94b266",
+      "bytes": 1194
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/session.test.ts",
+      "sha256": "8586ea44fbe76158c6c43743b6a8a3c8fa01c71cef54d894fa179cb3df0e8aa6",
+      "bytes": 22926
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/simulation.test.ts",
+      "sha256": "13f204452c11d40837ab6c0bb5726f249a5f8cf195d113a28677c0a617e4eeb4",
+      "bytes": 2714
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/worldFlight.test.ts",
+      "sha256": "9e694a801f70a31827a5cd9c9bfd0ede7824c3f2a0a1a0cc43e861f6ec6c8cd0",
+      "bytes": 10256
+    },
+    {
+      "path": "lib/spacepilot3d/arabic.ts",
+      "sha256": "027867e1354d756d276b4247406388e360bec8ef24e122d98fe062377d534b31",
+      "bytes": 2264
+    },
+    {
+      "path": "lib/spacepilot3d/cloudState.ts",
+      "sha256": "0e274996fdf666f628563b8e045d6275071b6630183db7a0c2e5c14d61dce78b",
+      "bytes": 9592
+    },
+    {
+      "path": "lib/spacepilot3d/collision.ts",
+      "sha256": "2cc7c4b067ddf68e8774d6beb4afdeb6bd1d73df6e507cbf62bfadc996ff3a53",
+      "bytes": 2711
+    },
+    {
+      "path": "lib/spacepilot3d/controlSessionRuntime.ts",
+      "sha256": "b60839c56c18f0415d871897b3438a56c74cb8d55a35efbe8131657617fbfb6c",
+      "bytes": 8794
+    },
+    {
+      "path": "lib/spacepilot3d/curriculum.ts",
+      "sha256": "75b1276870deeac880e45a96d0543dbbf2a90b1af76a0ee359075da028884cf9",
+      "bytes": 3576
+    },
+    {
+      "path": "lib/spacepilot3d/displaySessionRuntime.ts",
+      "sha256": "561024763e6d8d4d72de2412689346205a5654ce9dde3fbbe4837dde2e5dbce7",
+      "bytes": 4875
+    },
+    {
+      "path": "lib/spacepilot3d/firebaseControlRuntime.ts",
+      "sha256": "1e04bfc6d25f19eab94f14d2c201d1322e87be649af7904583d07a7f98b6c683",
+      "bytes": 13933
+    },
+    {
+      "path": "lib/spacepilot3d/firebaseDisplayRuntime.ts",
+      "sha256": "d022f21cf856fd413a04a22dc07c2030ef85182ed0c1477637712e81e853555d",
+      "bytes": 5650
+    },
+    {
+      "path": "lib/spacepilot3d/gameplay.ts",
+      "sha256": "ba86942cc8d47d2256706b17a7ad7cbd06202f1b6ce3a8fd44c9a5c7119f75fa",
+      "bytes": 9153
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "sha256": "cff260a92ee9a690f44ee319fc91b75ac5199ada5c81c80e5498f4975d4bdaf2",
+      "bytes": 22463
+    },
+    {
+      "path": "lib/spacepilot3d/history.ts",
+      "sha256": "4a3f170cb25f79b877c371b7b9a1be4d2cf400043b9dd269a02c0396279b3431",
+      "bytes": 6372
+    },
+    {
+      "path": "lib/spacepilot3d/keyboardInput.ts",
+      "sha256": "8703ca11ec37ed3be9e33eefe60593e93e8cbe2596a6e2587e7e87bd2f7d7f02",
+      "bytes": 2243
+    },
+    {
+      "path": "lib/spacepilot3d/missions.ts",
+      "sha256": "6f0c33ee6f586dc4bc145491064f0d7d3fef0d56940117d841c4a2fc304dc887",
+      "bytes": 3107
+    },
+    {
+      "path": "lib/spacepilot3d/objectiveGuidance.ts",
+      "sha256": "d01b780d5e910b2b0b010f95a79781a99a3a68a5742f3c6619eda39ae35e5fe3",
+      "bytes": 3025
+    },
+    {
+      "path": "lib/spacepilot3d/presentation.ts",
+      "sha256": "50cd021867ea6552f828bb3ecfe99b327306f52d3b3f752cfc5321a84bd4eac0",
+      "bytes": 3087
+    },
+    {
+      "path": "lib/spacepilot3d/prototypeInput.ts",
+      "sha256": "2cb4b4bca8f59681f27c58fe1f65ebd28f1bc7f27e2d1ce33e8a5f8e91b4c260",
+      "bytes": 2277
+    },
+    {
+      "path": "lib/spacepilot3d/releasePolicy.ts",
+      "sha256": "f2d3a3381dc0ac7a517e02c9bf4ff19c1edfacfcdec3baccb6c9101f69ad102c",
+      "bytes": 788
+    },
+    {
+      "path": "lib/spacepilot3d/renderer.ts",
+      "sha256": "e6d0c43585cca3b6bd4b1b1325ec26f20f390da6804d85beec4efc0fe863282a",
+      "bytes": 12347
+    },
+    {
+      "path": "lib/spacepilot3d/rings.ts",
+      "sha256": "dbbb0be392495c177d97780875c086b5c18a6ff9a3252b6798dc27abf14cb7f5",
+      "bytes": 3511
+    },
+    {
+      "path": "lib/spacepilot3d/sensorInput.ts",
+      "sha256": "912c4df623dd618ad6fea73b77605cb6845e2def0080583328b11e42a45776d2",
+      "bytes": 5511
+    },
+    {
+      "path": "lib/spacepilot3d/sensorRelay.ts",
+      "sha256": "a554b879e5ab4df4fb42bb9a3b190f8c655bb5ef8c41e0dd3c8a93e4a7928d2c",
+      "bytes": 1583
+    },
+    {
+      "path": "lib/spacepilot3d/sessionAuthority.ts",
+      "sha256": "0d1aa508f4ff1d9914e34a1372fca8329c1de2ca3d4f1087603848e9d8bc7a48",
+      "bytes": 18626
+    },
+    {
+      "path": "lib/spacepilot3d/sessionChannel.ts",
+      "sha256": "a6a0637536583a49eab77e351a2e3de3a61e1e78f894caecee98bbd73e0e2309",
+      "bytes": 692
+    },
+    {
+      "path": "lib/spacepilot3d/sessionContract.ts",
+      "sha256": "3c9bde561c39981e55d02dd8262e37a3a6e2647d73156d529572094097131fd4",
+      "bytes": 11720
+    },
+    {
+      "path": "lib/spacepilot3d/sessionReplica.ts",
+      "sha256": "028daae898019bcfe6504b50f66f6fa5979fca8a3998e135a5439a2b13b850ef",
+      "bytes": 3966
+    },
+    {
+      "path": "lib/spacepilot3d/sessionStorage.ts",
+      "sha256": "9a9a9eb0ade68fa516b34fd7d29e03111556b99c48cff701162e5bdf43b6b850",
+      "bytes": 1172
+    },
+    {
+      "path": "lib/spacepilot3d/simulation.ts",
+      "sha256": "c5bb4347cbab10b04f829e7450cc1dc3fe5c6fb06bc64496132e0d5444fc3f72",
+      "bytes": 3422
+    },
+    {
+      "path": "lib/spacepilot3d/worldCamera.ts",
+      "sha256": "33d9c83d6277aff900f2f82857d10c9cf0c19efd12cfee61601672cf29a4f2f1",
+      "bytes": 1433
+    },
+    {
+      "path": "lib/spacepilot3d/worldCollision.ts",
+      "sha256": "7647adda7c374cc2de3729f0b7270c472c6d3ac3c144f8ff9c371d16029c1f1f",
+      "bytes": 2157
+    },
+    {
+      "path": "lib/spacepilot3d/worldFlight.ts",
+      "sha256": "068057c3f068d86069340f27c29b5acc849a146be2503f5010eecf2297bc1ab6",
+      "bytes": 7258
+    },
+    {
+      "path": "lib/spacepilot3d/worldGameplay.ts",
+      "sha256": "fdd9963a7852b397123e2cadce3be58fa11d6066b2b96f3398e4419e92bedb91",
+      "bytes": 15787
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "6a961845df7fccaf9ebb46b3d5437062e6ed7229536438ff000800fe7f6187d9",
+      "bytes": 242
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "6b956c419c6eab308368d36981394908c60f0e483ed17197f90b8e4e24bc4862",
+      "bytes": 313599
+    },
+    {
+      "path": "package.json",
+      "sha256": "e1fc588b6eaf420ae7b9d130c6e1b3a9281dc2a95c9dd50812eb2d50c53762d2",
+      "bytes": 805
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+      "bytes": 94
+    },
+    {
+      "path": "public/bloomingworld3d/forest-matte.png",
+      "sha256": "b67212e465d64a0da01894dd2478b8d6dd76c375657548f56a230a074f8b945f",
+      "bytes": 3558019
+    },
+    {
+      "path": "public/brand/shumos-care-logo.png",
+      "sha256": "b49728ffaf97d14fd7878eb6502dbb64b85373a43f6822e6c6d9e2bbfdf3e631",
+      "bytes": 84194
+    },
+    {
+      "path": "public/harvestvalley3d/countryside-matte.png",
+      "sha256": "31468e1f5302e1ab607c337bc713ab2a67198fd620feb7498dce04874f6c1535",
+      "bytes": 3082043
+    },
+    {
+      "path": "public/harvestvalley3d/thumbnail.png",
+      "sha256": "1f33d24d2b8d839b6404fa0572e88dca33ff2081334cf8e2a82d209d26fc657f",
+      "bytes": 1381649
+    },
+    {
+      "path": "public/library-thumbnails/balloon-quest.webp",
+      "sha256": "8d28cf01a39943dcc82c1a26f7a15c690a987298235a971a470e2a214e6f2b49",
+      "bytes": 20164
+    },
+    {
+      "path": "public/library-thumbnails/blooming-world-3d.webp",
+      "sha256": "e7294caa14882ee5b9394ff382a407c89683449361325daffdb8fa0e68404796",
+      "bytes": 103304
+    },
+    {
+      "path": "public/library-thumbnails/bubble-pop-wall.webp",
+      "sha256": "dee52a5cecd183ef60134f080c8c8da6980c9d8b058169601af9a6925c02b082",
+      "bytes": 40060
+    },
+    {
+      "path": "public/library-thumbnails/build-quest-3d.webp",
+      "sha256": "7e63147cf667052778e94ee04d289c1f4206e936e9f74f73fa1397fcb784a71a",
+      "bytes": 8456
+    },
+    {
+      "path": "public/library-thumbnails/color-chase.webp",
+      "sha256": "ddfa73d5fab4596366bfad0dbb184c0e185c0ad05b9899723b8af9312fb1b5f0",
+      "bytes": 54346
+    },
+    {
+      "path": "public/library-thumbnails/fire-rescue-3d.webp",
+      "sha256": "43eba5a08c3776fe7bebb30f2478457bd6501c16b9a46a9c2940b9440285a4bf",
+      "bytes": 50610
+    },
+    {
+      "path": "public/library-thumbnails/follow-the-footsteps.webp",
+      "sha256": "df4f3e77ff8873c56012fa42aea39ce4ad9d863e8febdbb458dcb45d17ae7b5f",
+      "bytes": 43484
+    },
+    {
+      "path": "public/library-thumbnails/harvest-valley-3d.webp",
+      "sha256": "2c03b262dfbeb028f399e17cc54e5df09a1785ac61568b0d3b98cb04fa9db60a",
+      "bytes": 112626
+    },
+    {
+      "path": "public/library-thumbnails/mirror-quest-3d.webp",
+      "sha256": "36091b931ce5617167d54815b823c01eb7f04b0d0ab1229d5a599423833e7fe5",
+      "bytes": 25588
+    },
+    {
+      "path": "public/library-thumbnails/pearl-voyage-3d.webp",
+      "sha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8",
+      "bytes": 33908
+    },
+    {
+      "path": "public/library-thumbnails/runner-quest-3d.webp",
+      "sha256": "56b2c9f0fc0d8dfa7655bea0b609a4a52fef8a09560f2d0522acf76c5aa09611",
+      "bytes": 49290
+    },
+    {
+      "path": "public/library-thumbnails/safe-hex-arena-3d.webp",
+      "sha256": "da6a789aa2742520119db64876b7ee5e108ac9de5e99cf39383f019cdaa0531d",
+      "bytes": 20680
+    },
+    {
+      "path": "public/library-thumbnails/space-pilot.webp",
+      "sha256": "1a05e2f891f8d8b23e05eb8be81304c3a8998c7ab3d337c0c8454f4ae5343693",
+      "bytes": 21670
+    },
+    {
+      "path": "public/pearl-voyage/thumbnail.jpg",
+      "sha256": "9624d6bbe9385913cf36855e70994b6238f739f13ec5d80d36f9ffa24e621a9e",
+      "bytes": 71052
+    },
+    {
+      "path": "public/spacepilot3d/models/aurora.glb",
+      "sha256": "01ad01a3bade4604aa7a0958b0abc34dc96fd7b58b5885fdbaf33e9b8702d597",
+      "bytes": 908760
+    },
+    {
+      "path": "public/spacepilot3d/models/bob.glb",
+      "sha256": "ea2760841fe9d7fc3f0c141ae5b88c55367ef0ba3232e9c014b7097e9533996c",
+      "bytes": 2788144
+    },
+    {
+      "path": "scripts/run-wt901-morning-test.sh",
+      "sha256": "b5cf64374f3d7cfafe84d2bddecbf7f7ccaaf2b39db19a5e835487254e998ed9",
+      "bytes": 1334
+    },
+    {
+      "path": "scripts/start-tts.sh",
+      "sha256": "86148cf73d2066710d5bc99644408c409cc8365898903a2fba296885f3016dbe",
+      "bytes": 5429
+    },
+    {
+      "path": "tools/witmotion_ble/.gitignore",
+      "sha256": "2203add9353c0f5a40a83489a9b2cb6a9b9fabe876355c9e756c7c16c97d9552",
+      "bytes": 38
+    },
+    {
+      "path": "tools/witmotion_ble/README.md",
+      "sha256": "487657269a9aed1e70107c5c595cf42ed51882fa4c4cfd7330c860113a1dd8e6",
+      "bytes": 14550
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_calibration.py",
+      "sha256": "199f175989d29d853bc35fe4c92199393bfe7782102268af736765a7fcc863ad",
+      "bytes": 12863
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_faceid_run.py",
+      "sha256": "b67e94f5c7f5fd25f69154e08917e31a58cec85f1282cd037fd5a6432690be69",
+      "bytes": 7777
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_ground_truth_capture.py",
+      "sha256": "c30ca13e01d6af6257f32af4adc6b55fe7704c88c7e68a575507405655974648",
+      "bytes": 9611
+    },
+    {
+      "path": "tools/witmotion_ble/calibration_engine.py",
+      "sha256": "821713fef288451e40e7f6583a289b19fc214eaa97c03f51c96ba8d6cfc8fba2",
+      "bytes": 11456
+    },
+    {
+      "path": "tools/witmotion_ble/capture_calibration.py",
+      "sha256": "e408ee107dcbaec546b38958a21e81eee4ba706ca1fb1318f9a33bb10b41eab8",
+      "bytes": 11046
+    },
+    {
+      "path": "tools/witmotion_ble/capture_guided_auto.py",
+      "sha256": "68d8d8b6b305083ac47d91854907d5de8d4ce161f1f2dfa692d234d89d8e786f",
+      "bytes": 10238
+    },
+    {
+      "path": "tools/witmotion_ble/capture_guided_calibration.py",
+      "sha256": "81180bfecb159928f1a2881fe73c011650a052f10be014235414602943dc2140",
+      "bytes": 10474
+    },
+    {
+      "path": "tools/witmotion_ble/capture_normal_full_clean.py",
+      "sha256": "d7f00cad85ed8cb42b75b5f0d193ee204ea03de366e2af0a40d38fa3bed4a71f",
+      "bytes": 35376
+    },
+    {
+      "path": "tools/witmotion_ble/capture_small_movements_clean.py",
+      "sha256": "202ec1b6ebc86b18eae8094cc0fc73e9fc6e19be97c57e9b153fc127d5e30a2c",
+      "bytes": 37781
+    },
+    {
+      "path": "tools/witmotion_ble/docs/2026-09-04-overnight-plan-and-deferrals.md",
+      "sha256": "4ec4aa1ed8f79caa177286304c3d3d2dd41d01a438d7ef180c19bbed1332c6ed",
+      "bytes": 11099
+    },
+    {
+      "path": "tools/witmotion_ble/docs/2026-09-05-right-hand-freeze-and-dual-sensor-architecture.md",
+      "sha256": "97971351888afe16af4898973434cf0f387857520a1932f5fc708cc972e08bcf",
+      "bytes": 17140
+    },
+    {
+      "path": "tools/witmotion_ble/docs/balloon-quest-integration-plan.md",
+      "sha256": "6db6f884a45ddcb5353b841eb81356468208e9f0a0762691df8d84f73506e2b1",
+      "bytes": 5220
+    },
+    {
+      "path": "tools/witmotion_ble/docs/ble-device-rename-notes.md",
+      "sha256": "1364a9c159aa2c9c1541154a1ded39a53b362c1639e73ef49eda30a0eae5a58b",
+      "bytes": 9071
+    },
+    {
+      "path": "tools/witmotion_ble/docs/continuous-hand-pipeline-audit.md",
+      "sha256": "1cc94f2a67627fda23a2b545e8667788fb0ed99ab0e8cfbb8c0f52d93834bdd5",
+      "bytes": 4950
+    },
+    {
+      "path": "tools/witmotion_ble/docs/left-hand-phase2-plan.md",
+      "sha256": "047cac7c8c02f7963734dfd7c46951bef1ed760888a0b17de5bb811a88879347",
+      "bytes": 5580
+    },
+    {
+      "path": "tools/witmotion_ble/docs/official-output-rate-notes.md",
+      "sha256": "e9a71dd01246bc91ff5547063382b2c0b095a560bdbcabb800088615a620bdc8",
+      "bytes": 5940
+    },
+    {
+      "path": "tools/witmotion_ble/faceid_calibration.py",
+      "sha256": "e351721946e8573a91da4e3cbc581b8e7894d57e6fd09e8b5d08f82593ae027e",
+      "bytes": 43048
+    },
+    {
+      "path": "tools/witmotion_ble/full_validation_gate.py",
+      "sha256": "fd8af0cc7f70cd2e1e04e5f9c1748e5ca68eaa832d99f4f6c1316ca252db0226",
+      "bytes": 10621
+    },
+    {
+      "path": "tools/witmotion_ble/full_validation_gate_report.json",
+      "sha256": "7d45e9877fd68aa99fc21d36f10c2b72721af1de290504a9124e4af5d7c6d21a",
+      "bytes": 15005
+    },
+    {
+      "path": "tools/witmotion_ble/live_validation.py",
+      "sha256": "a71dd872423f7d9f20b6e0828e576a8e35c2b10b5dcfa0eabc98440325495595",
+      "bytes": 24364
+    },
+    {
+      "path": "tools/witmotion_ble/protocol.py",
+      "sha256": "0433769ec1134414949b6085a67291aeb7c6cde9a2dcc10b48f92068ed7999b8",
+      "bytes": 2645
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/FINDINGS.md",
+      "sha256": "c43fa6068232988398bbaa03777dfbe538a6d4b004fc523a39ac79058343fd57",
+      "bytes": 28223
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_final_session_cross_coupling.py",
+      "sha256": "44149951faa9889e460e54fd391ff6162585404bbd68fb03a991a47ba0c58f1a",
+      "bytes": 17874
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_still_noise.py",
+      "sha256": "c6279069b372d28fff6e6e3a93329a03caaf8e3d22b852114563cc77394f9eef",
+      "bytes": 6475
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_asymmetry.py",
+      "sha256": "720feca34bfd1c02d38b6f4d8a1a3e95be93d3baa4df4505ec6249d31f9a42d9",
+      "bytes": 5679
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_coupling_by_sign.py",
+      "sha256": "6255a0e155ae0a493fe4d0d4ae30347de506c69de6ac485f0e7d50f9792ee60a",
+      "bytes": 5090
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_invariance_capture.py",
+      "sha256": "afc25903a6facc62e303ec4e7811eef2dd85b65b386d5820256df9e6023f2a7b",
+      "bytes": 26591
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/build_manifest.py",
+      "sha256": "b6492cbc038527fbb91a57115826d26c03e0e92d6d0cccd7949898c7b1364f02",
+      "bytes": 11433
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/filter_replay_report.json",
+      "sha256": "184caaa71f445d6045f0b9300c9ece3af1b2db809e9dde3e89163a89c94225f2",
+      "bytes": 2809
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/final_before_after_report.json",
+      "sha256": "819a1bd9d701718b15ef6758b0a7f06a1808dd1c3bb8c4ecf0a84d06e6180734",
+      "bytes": 15711
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/final_session_cross_coupling_report.json",
+      "sha256": "8dbc4eea20b7b7db293adc68728cf605d421a28d38df10905ae240cc987e392f",
+      "bytes": 10196
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/manifest.json",
+      "sha256": "fdbe3fb3e2d0b0c01dab12e11569f8168e41992d21a51bcc6d000dec5f1752b9",
+      "bytes": 20214
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788441394853.json",
+      "sha256": "211128e70855896341c183b88f64ddfee9bd085b13fd0b0d173f867e89b2760f",
+      "bytes": 1712524
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788442512578.json",
+      "sha256": "271c91110a7345b9a138cd2f4fb3000a432ad089085755114c7495bcda3a0fce",
+      "bytes": 1962345
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788443253622.json",
+      "sha256": "ebb948a5b4ea25f970a5b039432125c2d293fd18364c0c743858623a862663c6",
+      "bytes": 1560155
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-final-session-1788527323549.json",
+      "sha256": "0173fd2affc9d6f609ef3a2903a1346bd9cf017d55dab04261193b6bd5c68a1c",
+      "bytes": 15982418
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-twist-invariance-1788531321165.json",
+      "sha256": "66027e634f6a9c677086cce76d660e51fe5dd53e82df1b44e152c2bb9f95a38e",
+      "bytes": 6773688
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_models.py",
+      "sha256": "d90aaa77e67ae0d922c4ec05b709415357a608bdad8dc1887523ca2075263f29",
+      "bytes": 20161
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_report.json",
+      "sha256": "6f4dbb9c604e46ec55b7357081ba416a8f889dfd16fe82c6af1997bb0ba71123",
+      "bytes": 24137
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_twist_rejection.py",
+      "sha256": "a085933e56cdcf3d74e0806e79c83fca75b4d137018327e3b2c0a8f219c8108e",
+      "bytes": 10158
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_twist_rejection_report.json",
+      "sha256": "1eb4871d4205f83b1b6cea498eaa9e93735f9f3bbdba95b0c39dece3d8f2ab26",
+      "bytes": 12336
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/still_noise_report.json",
+      "sha256": "86226ea42b6e1db2e2687589448abd6bfeadca9be815b04ad717a22bad62c5dd",
+      "bytes": 18294
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_continuous_deroll.py",
+      "sha256": "32c283003e0b4aa647217fbcad119b61ad1a917b62fdc5747e6ce190077a57bb",
+      "bytes": 6697
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_coupling_cancellation.py",
+      "sha256": "6e1ff874fb3835090c09a5875153e25bbf7c3788710404e4f0d7b1fbd0e98307",
+      "bytes": 7090
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_intent_gate.py",
+      "sha256": "0c97b12c904b64143385dcbcb97075390413b556b84349800abb8dd3f5dd7323",
+      "bytes": 10650
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_twist_dominance_gate.py",
+      "sha256": "4fc2e4ab73ca21b4b89177140ec776b71aa871c22114066822364ef219b52587",
+      "bytes": 8780
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_asymmetry_report.json",
+      "sha256": "f3ca49ecf5950604fe4d8a62a63ef7daca5698ffb4cb492033d54ee8a29a2c0d",
+      "bytes": 8148
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_coupling_by_sign_report.json",
+      "sha256": "7da414ae56bcab84e9df35643408cbaf1bd1da22d16f37478e7df481f0c940c9",
+      "bytes": 1090
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_dominance_gate_tuning_report.json",
+      "sha256": "bbc8eee539e4edfb1e3b2a6ed7831e9037ffc9edb9164504f4481587ca3ec72c",
+      "bytes": 105913
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_invariance_replay_report.json",
+      "sha256": "df0ffb504fb89b46e3352c12956dfdfd007170c973d4bceca62108b9cab4b578",
+      "bytes": 8074
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/validate_full_pipeline.py",
+      "sha256": "3e3e5c56827e30c9e3140fe4d362425883fbd3c27f47518bd8b4db117f059518",
+      "bytes": 9406
+    },
+    {
+      "path": "tools/witmotion_ble/replay_gate.py",
+      "sha256": "9519ee1be498c897ddb7ee152d8f6d7de095fd0be2f2c5ad50a3c33d1a7ba073",
+      "bytes": 28717
+    },
+    {
+      "path": "tools/witmotion_ble/replay_gate_report.json",
+      "sha256": "7260a80aaac5d59d3327ca9140684b8de4303e1d1ac53887caad49f385b403be",
+      "bytes": 12556
+    },
+    {
+      "path": "tools/witmotion_ble/requirements.txt",
+      "sha256": "d42b03781ccd8042934bdf2db0b778fda5fbed92f6e1a6dc4377c6211ed879d2",
+      "bytes": 14
+    },
+    {
+      "path": "tools/witmotion_ble/semantic_detector.py",
+      "sha256": "f6b5062a14de60f699c33a3f2f4ad5c1d5ea8b15834adc036e8f75de8af0b773",
+      "bytes": 41008
+    },
+    {
+      "path": "tools/witmotion_ble/setup.sh",
+      "sha256": "b0f1216f5c292a2635d6747a7b78b84b4436848a296f811010bb461e01cecf93",
+      "bytes": 269
+    },
+    {
+      "path": "tools/witmotion_ble/simulation.py",
+      "sha256": "5924b6fe6f1674b87e942bdcfd2a2946f9dcc65e65c82cb58c0c34b5dc1609b5",
+      "bytes": 15668
+    },
+    {
+      "path": "tools/witmotion_ble/test_calibration_engine.py",
+      "sha256": "fe10faf2e2188a48fc991c6ada8dd146d43d3981572eca17f96a75d4d5d8c85b",
+      "bytes": 3428
+    },
+    {
+      "path": "tools/witmotion_ble/test_protocol.py",
+      "sha256": "f0325ba8021a2594ec6e20a60faa4db8e643dcad63bb5d643b5c323f4c17e126",
+      "bytes": 1029
+    },
+    {
+      "path": "tools/witmotion_ble/test_replay_gate.py",
+      "sha256": "6c78f91fa1bda7df524a9bb8c0258e00ad7417f5de322880ba21f2690f075ae2",
+      "bytes": 934
+    },
+    {
+      "path": "tools/witmotion_ble/test_simulation.py",
+      "sha256": "5e6294056a202cb87172cb04380a5da4866b8c0d5680af5f22ef1aedd647366a",
+      "bytes": 5822
+    },
+    {
+      "path": "tools/witmotion_ble/wt901ble_test.py",
+      "sha256": "9a19ef09677a4462c554d3165c4e65a8e60d963c354733c67af90ed13cea489c",
+      "bytes": 14118
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "be18523b23b78b6e1a876ddd107d330f0168bddf09d751b57e0b5edce69c66f3",
+      "bytes": 666
+    },
+    {
+      "path": "vitest.config.mts",
+      "sha256": "4e6008c0261236707cc26443881345cd2254d0ae500feeb5171376944d179c37",
+      "bytes": 200
+    }
+  ]
+}

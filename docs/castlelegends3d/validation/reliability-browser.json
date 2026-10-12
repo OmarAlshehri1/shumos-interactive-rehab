@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "name": "fresh native session after completed history",
+      "passed": true
+    },
+    {
+      "name": "network interruption pauses locally and reconnect publishes paused checkpoint",
+      "passed": true
+    },
+    {
+      "name": "second active Control window is blocked",
+      "passed": true
+    },
+    {
+      "name": "explicit takeover disables the original window",
+      "passed": true
+    },
+    {
+      "name": "safe termination after takeover",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

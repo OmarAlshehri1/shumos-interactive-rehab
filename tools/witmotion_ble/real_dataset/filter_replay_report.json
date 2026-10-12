@@ -1,0 +1,83 @@
+[
+  {
+    "file": "wt901-right-hand-diagnostic-1788441394853.json",
+    "smoothing": 0.35,
+    "modes": {
+      "LIGHT_EMA": {
+        "stillStartJitterSum": 0.1834215801175745,
+        "stillEndJitterSum": 0.053247079391532344,
+        "tinyTrackingRatio": 0.9820616966925437,
+        "slowTrackingRatio": 1.0189361652166573,
+        "fastTrackingRatio": 0.9891308326265216
+      },
+      "ADAPTIVE_EMA": {
+        "stillStartJitterSum": 0.18339420846840626,
+        "stillEndJitterSum": 0.054682212720981345,
+        "tinyTrackingRatio": 0.9658860074728346,
+        "slowTrackingRatio": 1.046030476645065,
+        "fastTrackingRatio": 0.9772955983806819
+      },
+      "ONE_EURO": {
+        "stillStartJitterSum": 0.18343265566503994,
+        "stillEndJitterSum": 0.05370218675388275,
+        "tinyTrackingRatio": 0.9844102968552421,
+        "slowTrackingRatio": 1.020203843437262,
+        "fastTrackingRatio": 0.985777268307224
+      }
+    }
+  },
+  {
+    "file": "wt901-right-hand-diagnostic-1788442512578.json",
+    "smoothing": 0.35,
+    "modes": {
+      "LIGHT_EMA": {
+        "stillStartJitterSum": 0.0,
+        "stillEndJitterSum": 0.009879512125539936,
+        "tinyTrackingRatio": 0.9956943596494203,
+        "slowTrackingRatio": 0.9986114810565387,
+        "fastTrackingRatio": 1.0010328078223831
+      },
+      "ADAPTIVE_EMA": {
+        "stillStartJitterSum": 0.0,
+        "stillEndJitterSum": 0.009787902630037815,
+        "tinyTrackingRatio": 0.9886805658835565,
+        "slowTrackingRatio": 0.9927377215753818,
+        "fastTrackingRatio": 1.0017574791250543
+      },
+      "ONE_EURO": {
+        "stillStartJitterSum": 0.0,
+        "stillEndJitterSum": 0.009859803356691801,
+        "tinyTrackingRatio": 0.9943748345283255,
+        "slowTrackingRatio": 0.9975354111806479,
+        "fastTrackingRatio": 1.001049770277692
+      }
+    }
+  },
+  {
+    "file": "wt901-right-hand-diagnostic-1788443253622.json",
+    "smoothing": 0.35,
+    "modes": {
+      "LIGHT_EMA": {
+        "stillStartJitterSum": 0.0026527634009174818,
+        "stillEndJitterSum": 0.01127276617013134,
+        "tinyTrackingRatio": 1.0032952614853856,
+        "slowTrackingRatio": 1.0007015673427047,
+        "fastTrackingRatio": 0.9993893097894521
+      },
+      "ADAPTIVE_EMA": {
+        "stillStartJitterSum": 0.0026115346920141305,
+        "stillEndJitterSum": 0.011459253187729414,
+        "tinyTrackingRatio": 1.0018138547095503,
+        "slowTrackingRatio": 0.9995584995670133,
+        "fastTrackingRatio": 0.998643745536626
+      },
+      "ONE_EURO": {
+        "stillStartJitterSum": 0.002645324647763813,
+        "stillEndJitterSum": 0.011334906222660179,
+        "tinyTrackingRatio": 1.0018582499094233,
+        "slowTrackingRatio": 0.9993608853065715,
+        "fastTrackingRatio": 0.999246509607931
+      }
+    }
+  }
+]

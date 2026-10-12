@@ -1,3 +1,5 @@
+import {reviveBridgeHistory} from '@/lib/balancebridge3d/history';
+import {reviveCastleHistory} from '@/lib/castlelegends3d/history';
 import { reviveHarvestHistory } from '@/lib/harvestvalley3d/history';
 import { reviveBloomHistory } from '@/lib/bloomingworld3d/history';
 import { reviveDomeHistory } from '@/lib/bubblepopwall3d/history';
@@ -289,9 +291,11 @@ function reviveStoredRunnerQuestSession(raw: unknown): StoredRunnerQuestSession 
 export function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
   const gameId = (raw as { gameId?: unknown } | null)?.gameId;
   if (gameId === "harvest-valley-3d") return reviveHarvestHistory(raw);
+  if (gameId === "balance-bridge-3d") return reviveBridgeHistory(raw);
   if (gameId === "blooming-world-3d") return reviveBloomHistory(raw);
   if (gameId === "fire-rescue-3d") return reviveFireHistory(raw);
   if (gameId === "pearl-voyage-3d") return revivePearlHistory(raw);
+  if (gameId === "shumos-castle-legends-3d") return reviveCastleHistory(raw);
   if (gameId === "mirror-quest-3d") return reviveMirrorHistory(raw);
   if (gameId === "safe-hex-arena-3d") return reviveHexHistory(raw);
   if (gameId === "build-quest-3d") return reviveBuildQuestHistory(raw);

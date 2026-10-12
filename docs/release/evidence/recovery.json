@@ -1,0 +1,52 @@
+[
+ {
+  "name": "production Control mounts through the existing staff login",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "child name is prefilled from the selected patient",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display (anonymous, separate window) shows the redesigned ready screen from the Firebase record",
+  "ok": true,
+  "detail": "مغامرة البالونات المستوى سهل — المرحلة ١  استعد!"
+ },
+ {
+  "name": "Control sees the Display as connected (existing presence)",
+  "ok": true,
+  "detail": "شاشة العرض: متصلة"
+ },
+ {
+  "name": "legacy garden (leaves/birds) is not rendered behind the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "session playing",
+  "ok": true,
+  "detail": "قيد اللعب"
+ },
+ {
+  "name": "after a 5 s Control network drop the session is still in progress with its goal count",
+  "ok": true,
+  "detail": "قيد اللعب goal 2"
+ },
+ {
+  "name": "play continues by therapist tap after the drop and the Display follows",
+  "ok": true,
+  "detail": "{\"life\":\"stage-complete\",\"goal\":\"3\",\"text\":\"مغامرة البالونات المس البالون الأزرق سهل ١ ٢ ٣ ★ ★ ★ ٣ من ٣ \"}"
+ },
+ {
+  "name": "Display reload rejoins the live session",
+  "ok": true,
+  "detail": "{\"life\":\"playing\",\"goal\":\"0\",\"text\":\"مغامرة البالونات المس البالون الأصفر سهل ✓ ٢ ٣ ٠ من ٤\"}"
+ },
+ {
+  "name": "after a Control reload the Control is usable (can start a fresh session) and the Display follows it",
+  "ok": true,
+  "detail": "جاهز للبدء"
+ }
+]

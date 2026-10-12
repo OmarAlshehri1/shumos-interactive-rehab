@@ -41,3 +41,6 @@
 .floatSafety { position: fixed; inset-block-end: 18px; inset-inline-start: 18px; z-index: 50; min-height: 64px; box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5); }
 .confirm { background: #c98a12; border-color: #ffd36a; color: #1d1300; font-weight: 800; min-height: 72px; min-width: 220px; font-size: 21px; }
 .stoneNote { font-size: 13px; opacity: 0.75; }
+
+/* Shared Shumos Control surfaces; gameplay previews retain their own world styling. */
+.page{background:var(--control-canvas,#f3f7f8);color:var(--control-ink,#16383d);font-family:var(--font-control),system-ui,sans-serif}.inner{max-width:1152px}.card,.panel{border-color:var(--control-border,#dce7e9);border-radius:18px;background:var(--control-surface,#fff)}

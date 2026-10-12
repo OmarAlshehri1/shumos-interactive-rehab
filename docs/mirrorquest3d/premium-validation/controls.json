@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Directional preset respects selected half movement range and matches scaled target",
+    "Pause/resume/repeat/assist/skip/end preserve correct live flags",
+    "Final production standing/seated screenshots for all four costumes, full raised arms and articulated target"
+  ],
+  "high": {
+    "fps": 60.057103475259446,
+    "drawCalls": 366,
+    "geometries": 34
+  },
+  "low": {
+    "fps": 60.0511911795422,
+    "drawCalls": 212,
+    "geometries": 34
+  },
+  "errors": []
+}

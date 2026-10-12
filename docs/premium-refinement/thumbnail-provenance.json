@@ -1,0 +1,22 @@
+{
+  "gameId": "bubble-pop-wall",
+  "source": "docs/premium-refinement/screenshots/bubble-pop-canvas.png",
+  "stageIndex": 2,
+  "targetSize": 0.2,
+  "highContrast": true,
+  "reducedMotion": true,
+  "crop": {
+    "left": 580,
+    "top": 130,
+    "width": 1280,
+    "height": 720
+  },
+  "output": "public/library-thumbnails/bubble-pop-wall.webp",
+  "dimensions": [
+    960,
+    540
+  ],
+  "bytes": 36462,
+  "sha256": "0cb339856f95fb21962229639b5c36783db41f67164bea2a734c0acd6387c542",
+  "note": "Actual native DomeScene rendered by Chromium software WebGL; crop and WebP encoding only. No generated artwork or changes to gameplay graphics."
+}

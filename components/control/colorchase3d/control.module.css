@@ -60,3 +60,6 @@
 .presets { display: flex; gap: 8px; flex-wrap: wrap; }
 .presets .btn { min-height: 48px; min-width: 0; padding: 6px 14px; font-size: 15px; }
 .lg { font-size: 18px; }
+
+/* Shared Shumos Control surfaces; gameplay previews retain their own world styling. */
+.page{background:var(--control-canvas,#f3f7f8);color:var(--control-ink,#16383d);font-family:var(--font-control),system-ui,sans-serif}.inner{max-width:1152px}.card,.panel{border-color:var(--control-border,#dce7e9);border-radius:18px;background:var(--control-surface,#fff)}

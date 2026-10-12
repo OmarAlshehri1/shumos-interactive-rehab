@@ -1,0 +1,236 @@
+{
+  "status": "passed",
+  "rows": [
+    {
+      "port": 3350,
+      "touchDirections": {
+        "initial": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "up": {
+          "x": 0,
+          "y": 6.727868065807221,
+          "z": -34.68661902516549,
+          "yaw": 0,
+          "pitch": 0.1213219178270808,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "down": {
+          "x": 0,
+          "y": -7.099256461798356,
+          "z": -98.47342938508918,
+          "yaw": 0,
+          "pitch": -0.1213219178270808,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "right": {
+          "x": 11.962518525258293,
+          "y": -7.500496492098351,
+          "z": -131.68900280863102,
+          "yaw": 0.3730641276137877,
+          "pitch": 0,
+          "bank": 0.11000000000000007,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "left": {
+          "x": -11.204402956477315,
+          "y": -7.500496492098351,
+          "z": -188.97718532265765,
+          "yaw": -0.5301437602932761,
+          "pitch": 0,
+          "bank": -0.28,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "neutral": {
+          "x": -16.447572551999176,
+          "y": -7.500496492098351,
+          "z": -210.0419087130179,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": -0.2099999999999561,
+          "controlX": 0.5,
+          "controlY": 0.5
+        }
+      },
+      "wireMethods": {
+        "s:undefined": 3,
+        "m:/presence/display": 2,
+        "auth:undefined": 3,
+        "g:/staff/OyHi9DySlEK1yR4YwNZRdOioqIE1/active": 4,
+        "m:/": 165,
+        "g:/presence/display": 1,
+        "q:/presence/display": 1,
+        "g:/controllerLease": 1,
+        "q:/controllerLease": 1,
+        "o:/presence/controller": 1,
+        "m:/presence/controller": 1,
+        "g:/liveSession": 2,
+        "o:/controllerLease": 1,
+        "g:/liveSessionPrivate": 2,
+        "m:/controllerLease": 2,
+        "q:/liveSession": 1,
+        "q:/liveSessionPrivate": 1,
+        "q:/spacePilot3d/sensor/f40d518b-d205-4fae-8423-6e8613ab411c": 1,
+        "q:/spacePilot3d/presence/f40d518b-d205-4fae-8423-6e8613ab411c": 1
+      },
+      "wireWriteSample": {
+        "durationMs": 10000,
+        "count": 90,
+        "writesPerSecond": 9
+      },
+      "cadence": {
+        "medianFps": 59.880239520962,
+        "p95GapMs": 18.600000000002183
+      },
+      "idle": {
+        "heapBytes": 5029124,
+        "nodes": 93,
+        "documents": 1,
+        "canvases": 0
+      },
+      "active": {
+        "heapBytes": 11117416,
+        "nodes": 135,
+        "documents": 1,
+        "canvases": 1
+      },
+      "after": {
+        "heapBytes": 9783464,
+        "nodes": 272,
+        "documents": 1,
+        "canvases": 0
+      },
+      "heapReleasedBytes": 1333952,
+      "gameUpdatesStopped": true
+    },
+    {
+      "port": 3353,
+      "touchDirections": {
+        "initial": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "up": {
+          "x": 0,
+          "y": 4.396733156417737,
+          "z": -26.144751028906526,
+          "yaw": 0,
+          "pitch": 0.18631389765039483,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "down": {
+          "x": 0,
+          "y": -2.612324639943639,
+          "z": -74.35917728873908,
+          "yaw": 0,
+          "pitch": -0.18088127855138728,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "right": {
+          "x": 6.10600261645175,
+          "y": -3.613892174219003,
+          "z": -100.36511912943843,
+          "yaw": 0.2487094184091922,
+          "pitch": 0,
+          "bank": 0.11000000000000007,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "left": {
+          "x": -7.127622224048164,
+          "y": -3.613892174219003,
+          "z": -146.36177212290386,
+          "yaw": -0.4406956361285693,
+          "pitch": 0,
+          "bank": -0.28,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "neutral": {
+          "x": -11.16425024909576,
+          "y": -3.613892174219003,
+          "z": -162.2560329906788,
+          "yaw": -0.0567232006898163,
+          "pitch": 0,
+          "bank": -0.28,
+          "controlX": 0.5,
+          "controlY": 0.5
+        }
+      },
+      "wireMethods": {
+        "s:undefined": 3,
+        "m:/presence/display": 2,
+        "auth:undefined": 3,
+        "g:/staff/OyHi9DySlEK1yR4YwNZRdOioqIE1/active": 4,
+        "m:/": 165,
+        "g:/presence/display": 1,
+        "q:/presence/display": 1,
+        "g:/controllerLease": 1,
+        "q:/controllerLease": 1,
+        "o:/presence/controller": 1,
+        "m:/presence/controller": 1,
+        "g:/liveSession": 2,
+        "o:/controllerLease": 1,
+        "g:/liveSessionPrivate": 2,
+        "m:/controllerLease": 2,
+        "q:/liveSession": 1,
+        "q:/liveSessionPrivate": 1,
+        "q:/spacePilot3d/sensor/3d69f54c-77df-4f00-b7d7-11e06cb6d15e": 1,
+        "q:/spacePilot3d/presence/3d69f54c-77df-4f00-b7d7-11e06cb6d15e": 1
+      },
+      "wireWriteSample": {
+        "durationMs": 10002,
+        "count": 90,
+        "writesPerSecond": 8.998200359928013
+      },
+      "cadence": {
+        "medianFps": 59.880239520968516,
+        "p95GapMs": 18.700000000000728
+      },
+      "idle": {
+        "heapBytes": 5053208,
+        "nodes": 95,
+        "documents": 1,
+        "canvases": 0
+      },
+      "active": {
+        "heapBytes": 11151412,
+        "nodes": 257,
+        "documents": 1,
+        "canvases": 1
+      },
+      "after": {
+        "heapBytes": 9886400,
+        "nodes": 395,
+        "documents": 1,
+        "canvases": 0
+      },
+      "heapReleasedBytes": 1265012,
+      "gameUpdatesStopped": true
+    }
+  ],
+  "walkInDoesNotWritePatientHistory": true
+}

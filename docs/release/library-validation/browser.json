@@ -1,0 +1,129 @@
+{
+  "checks": [
+    "Unauthenticated staff Control cannot see library cards",
+    "10 canonical registry games once in first category; five honest empty categories; correct projection badges; Safe Hex preserved",
+    "desktop responsive layout, visible categories and large targets",
+    "ipad-landscape responsive layout, visible categories and large targets",
+    "ipad-portrait responsive layout, visible categories and large targets",
+    "phone responsive layout, visible categories and large targets",
+    "Category navigation scrolls without connecting hardware",
+    "Every enabled game card launches its original authenticated Control route",
+    "Shared card works on therapist Home with canonical links"
+  ],
+  "cards": [
+    {
+      "id": "mirror-quest-3d",
+      "route": "/control/mirror-quest-3d",
+      "surface": "WALL",
+      "label": "جداري"
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "route": "/control/safe-hex-arena-3d",
+      "surface": "FLOOR",
+      "label": "أرضي"
+    },
+    {
+      "id": "balloon-quest",
+      "route": "/control/balloon-quest",
+      "surface": "FLOOR",
+      "label": "أرضي"
+    },
+    {
+      "id": "follow-the-footsteps",
+      "route": "/control/follow-the-footsteps",
+      "surface": "FLOOR",
+      "label": "أرضي"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "route": "/control/bubble-pop-wall",
+      "surface": "WALL",
+      "label": "جداري"
+    },
+    {
+      "id": "feed-the-animals",
+      "route": "/control/feed-the-animals",
+      "surface": "WALL",
+      "label": "جداري"
+    },
+    {
+      "id": "space-pilot",
+      "route": "/control/space-pilot",
+      "surface": "WALL",
+      "label": "جداري"
+    },
+    {
+      "id": "color-chase",
+      "route": "/control/color-chase",
+      "surface": "FLOOR",
+      "label": "أرضي"
+    },
+    {
+      "id": "runner-quest-3d",
+      "route": "/control/runner-quest-3d",
+      "surface": "WALL",
+      "label": "جداري"
+    },
+    {
+      "id": "build-quest-3d",
+      "route": "/control/build-quest-3d",
+      "surface": "WALL",
+      "label": "جداري"
+    }
+  ],
+  "routes": [
+    {
+      "id": "mirror-quest-3d",
+      "route": "/control/mirror-quest-3d",
+      "loaded": true
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "route": "/control/safe-hex-arena-3d",
+      "loaded": true
+    },
+    {
+      "id": "balloon-quest",
+      "route": "/control/balloon-quest",
+      "loaded": true
+    },
+    {
+      "id": "follow-the-footsteps",
+      "route": "/control/follow-the-footsteps",
+      "loaded": true
+    },
+    {
+      "id": "bubble-pop-wall",
+      "route": "/control/bubble-pop-wall",
+      "loaded": true
+    },
+    {
+      "id": "feed-the-animals",
+      "route": "/control/feed-the-animals",
+      "loaded": true
+    },
+    {
+      "id": "space-pilot",
+      "route": "/control/space-pilot",
+      "loaded": true
+    },
+    {
+      "id": "color-chase",
+      "route": "/control/color-chase",
+      "loaded": true
+    },
+    {
+      "id": "runner-quest-3d",
+      "route": "/control/runner-quest-3d",
+      "loaded": true
+    },
+    {
+      "id": "build-quest-3d",
+      "route": "/control/build-quest-3d",
+      "loaded": true
+    }
+  ],
+  "errors": [],
+  "liveDataTouched": false
+}

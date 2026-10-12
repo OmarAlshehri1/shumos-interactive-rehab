@@ -1,0 +1,62 @@
+[
+ {
+  "name": "Build: first window plays; one piece placed, Display shows it",
+  "ok": true,
+  "detail": "display placed=1"
+ },
+ {
+  "name": "Build: second window of the same account is blocked from silently taking over",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Build: first window keeps controlling meanwhile (record still its own)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Build: after the take-over the second window holds the session paused with its progress",
+  "ok": true,
+  "detail": "{\"s\":\"paused\",\"p\":\"1\"}"
+ },
+ {
+  "name": "Build: the first window stands down",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Build: only the new window publishes; no history was written by the hand-over; the Display follows (paused, same progress)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Build: the new owner resumes explicitly and the Display follows",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Space Pilot: first window publishes the 3D session into the shared record",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Space Pilot: second window of the same account is blocked from silently taking over",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Space Pilot: after the take-over the second window holds the flight stopped (not running) with the same session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Space Pilot: the first window stands down and nothing was saved by the hand-over",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no console exceptions on any window",
+  "ok": true,
+  "detail": ""
+ }
+]

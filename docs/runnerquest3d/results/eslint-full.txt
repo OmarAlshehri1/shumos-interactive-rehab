@@ -1,0 +1,5 @@
+
+/Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/runnerquest3d/validation/r2b.mjs
+  11:7  warning  'info' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)

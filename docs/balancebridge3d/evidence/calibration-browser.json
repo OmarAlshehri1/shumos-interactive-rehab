@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "Clean thumbnail captured from the native shared Display renderer",
+    "Shared profile import, measured custom width, 90-degree rotation, both-feet guidance, low quality and reduced effects",
+    "390px mobile Control has no horizontal overflow",
+    "Therapist-selected Cloud Garden direction changes the illuminated route"
+  ],
+  "errors": [],
+  "speech": "Network TTS intercepted; physical audio unverified",
+  "rotationBounds": {
+    "x": 488.578125,
+    "y": 45,
+    "width": 462.84375,
+    "height": 810,
+    "viewportWidth": 1440,
+    "viewportHeight": 900
+  }
+}

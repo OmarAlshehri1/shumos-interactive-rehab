@@ -1,0 +1,207 @@
+[
+ {
+  "name": "Display is read-only: the game view has no buttons, inputs or links (only the platform's own mute toggle exists outside it)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch start; Display (other device) is playing",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch LEFT moves the runner left on Control",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the Display (other device) registers the move",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch RIGHT moves back toward centre",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch STEP arms the hurdle (in-game step-over, no physical jump)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "hurdle cleared, star awarded by Control; Display shows the same star count",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "rapid triple-tap moves only ONE lane (duplicate/bounce protection)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "pause by touch freezes the runner; Display shows paused",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume by touch continues; Display follows",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "restart by touch returns the stage to ready at distance 0 on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the runner waits at an obstacle when nobody acts (no failure)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "8 s later still playing and waiting; Display shows the hint",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "therapist ASSIST by touch passes the obstacle and records it",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip by touch -> stage-complete, never automatic; Display shows it",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "it waits for the therapist",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "RIGHT_FOOT (simulated) becomes ready",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "manual touch override works while a sensor mode is active",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor disconnect suspends but does NOT end the session; Display shows the calm pause",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a plain resume is refused while the sensor is gone",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "'continue manually' resumes with the same session; the sensor stays lost without re-suspending",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "still playing 3.5 s later (no repeat suspension)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "manual touch keeps working with the sensor gone",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor reconnects: the manual bypass clears and automatic input is live again",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display reload mid-play re-joins the live session on its own",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a stale command addressed to the old run is refused",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display follows the new run (ready)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "after a Control reload a fresh session starts safely in ready",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display follows the reloaded Control",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a completed session wrote exactly one Runner Quest history record",
+  "ok": true,
+  "detail": "records=1"
+ },
+ {
+  "name": "the legacy Balloon Quest record is byte-identical (never touched or reinterpreted)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "patient profile lists the Runner Quest session (stars, no accuracy) AND the legacy Balloon Quest session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "session detail page renders Runner Quest results without accuracy/incorrect",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "existing route /control/activities still loads",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "existing route /control/balloon-quest still loads",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "existing route /control/space-pilot still loads",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "existing route /control/color-chase still loads",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "library lists all six original games next to Runner Quest",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no console exceptions on either device",
+  "ok": true,
+  "detail": "0,0"
+ },
+ {
+  "name": "a non-staff account cannot reach the Runner Quest Control (existing authorization gate)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "and nothing was written to the live session by the outsider",
+  "ok": true,
+  "detail": ""
+ }
+]

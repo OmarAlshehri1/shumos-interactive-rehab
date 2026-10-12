@@ -1,0 +1,3312 @@
+{
+  "registry": [
+    {
+      "id": "harvest-valley-3d",
+      "nameAr": "موسم الحصاد",
+      "nameEn": "Harvest Valley 3D",
+      "shortDescriptionAr": "قيادة هادئة وحصاد حقول ثلاثية الأبعاد، بأهداف قابلة للتعديل وتحكّم المعالج الكامل.",
+      "focusTagsAr": [
+        "توجيه وقيادة بمساعدة",
+        "حصاد واستكشاف"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/harvest-valley-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "blooming-world-3d",
+      "nameAr": "الحديقة التي تستيقظ",
+      "nameEn": "Blooming World 3D",
+      "shortDescriptionAr": "حديقة سحرية تستيقظ زهرةً بعد زهرة. عرض جداري وأرضي، وأهداف قابلة للتعديل مع تحكّم المعالج الكامل.",
+      "focusTagsAr": [
+        "حركة بمساعدة",
+        "استكشاف وإزهار"
+      ],
+      "status": "ready",
+      "surfaceType": "BOTH",
+      "route": "/control/blooming-world-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "fire-rescue-3d",
+      "nameAr": "مهمة الإطفاء",
+      "nameEn": "Fire Rescue 3D",
+      "shortDescriptionAr": "قد سيارة الإطفاء بهدوء على طرق الجبل، ثم وجّه الماء نحو النار. تحكّم يدوي كامل ومساعدة قابلة للتعديل.",
+      "focusTagsAr": [
+        "قيادة بمساعدة",
+        "توجيه الماء"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/fire-rescue-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "pearl-voyage-3d",
+      "nameAr": "قارب اللؤلؤ",
+      "nameEn": "Pearl Voyage 3D",
+      "shortDescriptionAr": "أبحر بقارب جميل في محيط ساحر، وتعرّف على أسماك ودودة واجمعها. توجيه بالمقود والدواسات أو بالتحكم اليدوي الكامل.",
+      "focusTagsAr": [
+        "توجيه القارب",
+        "اكتشاف وثبات"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/pearl-voyage-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "mirror-quest-3d",
+      "nameAr": "المرآة السحرية",
+      "nameEn": "Mirror Quest 3D",
+      "shortDescriptionAr": "قلّد صديقك في استوديو ثلاثي الأبعاد، بحركات هادئة يوجّهها المعالج.",
+      "focusTagsAr": [
+        "تقليد الحركة",
+        "تحكّم يدوي"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/mirror-quest-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "nameAr": "الأرض الآمنة",
+      "nameEn": "Safe Hex Arena 3D",
+      "shortDescriptionAr": "أرضية سداسية ملوّنة تُعرض على الأرض: تتحوّل بعض البلاطات إلى تحذير، ويقود المعالج الطفل بهدوء إلى بلاطة آمنة قريبة.",
+      "focusTagsAr": [
+        "انتقال وتوازن بمساعدة",
+        "تحكّم يدوي"
+      ],
+      "status": "ready",
+      "surfaceType": "FLOOR",
+      "route": "/control/safe-hex-arena-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "balloon-quest",
+      "nameAr": "مغامرة البالونات",
+      "nameEn": "Balloon Quest",
+      "shortDescriptionAr": "يلمس الطفل البالون الملوّن المطلوب بين بالونات ثابتة أو صاعدة، على ثلاثة مستويات.",
+      "focusTagsAr": [
+        "تمييز الألوان",
+        "وصول وحركة"
+      ],
+      "status": "ready",
+      "surfaceType": "BOTH",
+      "route": "/control/balloon-quest",
+      "sensorCompatible": true
+    },
+    {
+      "id": "follow-the-footsteps",
+      "nameAr": "اتبع الخطوات",
+      "nameEn": "Follow the Footsteps 3D",
+      "shortDescriptionAr": "خطوات كبيرة على أحجار مضيئة في غابة سحرية: يضيء الحجر التالي، ويؤكد المعالج كل خطوة بهدوء وبلا استعجال.",
+      "focusTagsAr": [
+        "اتباع المسار",
+        "حركة بمساعدة"
+      ],
+      "status": "ready",
+      "surfaceType": "FLOOR",
+      "route": "/control/follow-the-footsteps",
+      "sensorCompatible": false
+    },
+    {
+      "id": "bubble-pop-wall",
+      "nameAr": "فرقع الفقاعات",
+      "nameEn": "Bubble Pop Wall 3D",
+      "shortDescriptionAr": "قبة العجائب: يصل الطفل إلى عوالم صغيرة، ويوجّهها ويضيئها بحركة هادئة.",
+      "focusTagsAr": [
+        "وصول وتوجيه",
+        "ثبات وتناوب اليدين"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/bubble-pop-wall",
+      "sensorCompatible": true
+    },
+    {
+      "id": "space-pilot",
+      "nameAr": "قائد الفضاء",
+      "nameEn": "Space Pilot 3D",
+      "shortDescriptionAr": "رحلة ثلاثية الأبعاد عبر الحلقات الذهبية، بتوجيه المعالج أو اليد اليمنى ومزامنة بين الأجهزة.",
+      "focusTagsAr": [
+        "اختيار واتخاذ قرار",
+        "تناسق بصري حركي"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/space-pilot",
+      "sensorCompatible": true
+    },
+    {
+      "id": "color-chase",
+      "nameAr": "مطاردة الألوان",
+      "nameEn": "Color Chase 3D",
+      "shortDescriptionAr": "عالم الألوان المفقودة: يختار الطفل المنطقة الملوّنة المطلوبة على الأرض، فتعود الألوان إلى الحديقة السحرية خطوةً بعد خطوة، بلا استعجال.",
+      "focusTagsAr": [
+        "تمييز الألوان",
+        "حركة بمساعدة"
+      ],
+      "status": "ready",
+      "surfaceType": "FLOOR",
+      "route": "/control/color-chase",
+      "sensorCompatible": false
+    },
+    {
+      "id": "runner-quest-3d",
+      "nameAr": "مغامرة العدّاء",
+      "nameEn": "Runner Quest 3D",
+      "shortDescriptionAr": "يجري العدّاء في الحديقة ويتحرّك يمينًا ويسارًا ويتخطّى الحواجز. جلسة محلية تجريبية لا تُحفظ في سجل المريض. حسّاسات القدم الفعلية قيد التحقق.",
+      "focusTagsAr": [
+        "اتجاهات وتنقّل",
+        "حركة القدمين"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/runner-quest-3d",
+      "sensorCompatible": false
+    },
+    {
+      "id": "build-quest-3d",
+      "nameAr": "عالم البناء",
+      "nameEn": "Build Quest 3D",
+      "shortDescriptionAr": "يبني الطفل قطعة بعد قطعة بالتحكم اليدوي، مع شاشة طفل على جهاز آخر. الحساس ووحدة التحكم بانتظار الاختبار الفعلي.",
+      "focusTagsAr": [
+        "تناسق بصري حركي",
+        "اختيار وبناء",
+        "العتاد بانتظار التحقق"
+      ],
+      "status": "ready",
+      "surfaceType": "WALL",
+      "route": "/control/build-quest-3d",
+      "sensorCompatible": true
+    }
+  ],
+  "curricula": {
+    "follow-the-footsteps": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "level": 1,
+          "stage": 1,
+          "pattern": "hops",
+          "steps": 4,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 1,
+          "level": 1,
+          "stage": 2,
+          "pattern": "straight",
+          "steps": 5,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 2,
+          "level": 1,
+          "stage": 3,
+          "pattern": "zigzag",
+          "steps": 5,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 3,
+          "level": 2,
+          "stage": 1,
+          "pattern": "alternate",
+          "steps": 6,
+          "rests": [],
+          "pairs": false,
+          "alternating": true
+        },
+        {
+          "index": 4,
+          "level": 2,
+          "stage": 2,
+          "pattern": "curve",
+          "steps": 6,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 5,
+          "level": 2,
+          "stage": 3,
+          "pattern": "straight",
+          "steps": 7,
+          "rests": [
+            2,
+            4
+          ],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 6,
+          "level": 3,
+          "stage": 1,
+          "pattern": "varied",
+          "steps": 7,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        },
+        {
+          "index": 7,
+          "level": 3,
+          "stage": 2,
+          "pattern": "memory",
+          "steps": 6,
+          "rests": [],
+          "pairs": true,
+          "alternating": false
+        },
+        {
+          "index": 8,
+          "level": 3,
+          "stage": 3,
+          "pattern": "combined",
+          "steps": 8,
+          "rests": [],
+          "pairs": false,
+          "alternating": false
+        }
+      ]
+    },
+    "color-chase": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "level": 1,
+          "stage": 1,
+          "nameAr": "الألوان الأولى",
+          "nameEn": "First Colors",
+          "colors": [
+            "red",
+            "blue"
+          ],
+          "rounds": [
+            [
+              "red"
+            ],
+            [
+              "blue"
+            ],
+            [
+              "red"
+            ],
+            [
+              "blue"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "row",
+          "assisted": false
+        },
+        {
+          "index": 1,
+          "level": 1,
+          "stage": 2,
+          "nameAr": "ثلاثة ألوان",
+          "nameEn": "Three Colors",
+          "colors": [
+            "red",
+            "blue",
+            "green"
+          ],
+          "rounds": [
+            [
+              "red"
+            ],
+            [
+              "green"
+            ],
+            [
+              "blue"
+            ],
+            [
+              "red"
+            ],
+            [
+              "green"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "arc",
+          "assisted": false
+        },
+        {
+          "index": 2,
+          "level": 1,
+          "stage": 3,
+          "nameAr": "استيقاظ الحديقة",
+          "nameEn": "Garden Awakening",
+          "colors": [
+            "green",
+            "red",
+            "blue"
+          ],
+          "rounds": [
+            [
+              "green"
+            ],
+            [
+              "red"
+            ],
+            [
+              "blue"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "arc",
+          "assisted": false
+        },
+        {
+          "index": 3,
+          "level": 2,
+          "stage": 1,
+          "nameAr": "أربعة ألوان",
+          "nameEn": "Four Colors",
+          "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow"
+          ],
+          "rounds": [
+            [
+              "red"
+            ],
+            [
+              "yellow"
+            ],
+            [
+              "blue"
+            ],
+            [
+              "green"
+            ],
+            [
+              "yellow"
+            ],
+            [
+              "red"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "arc",
+          "assisted": false
+        },
+        {
+          "index": 4,
+          "level": 2,
+          "stage": 2,
+          "nameAr": "تسلسل الألوان",
+          "nameEn": "Color Sequence",
+          "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow"
+          ],
+          "rounds": [
+            [
+              "red",
+              "blue"
+            ],
+            [
+              "green",
+              "yellow"
+            ],
+            [
+              "blue",
+              "green"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "arc",
+          "assisted": false
+        },
+        {
+          "index": 5,
+          "level": 2,
+          "stage": 3,
+          "nameAr": "ممرات الحديقة",
+          "nameEn": "Garden Paths",
+          "colors": [
+            "red",
+            "blue",
+            "purple",
+            "green",
+            "yellow"
+          ],
+          "rounds": [
+            [
+              "red"
+            ],
+            [
+              "blue"
+            ],
+            [
+              "purple"
+            ],
+            [
+              "green"
+            ],
+            [
+              "yellow"
+            ],
+            [
+              "purple"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "path",
+          "assisted": false
+        },
+        {
+          "index": 6,
+          "level": 3,
+          "stage": 1,
+          "nameAr": "مواضع متغيّرة",
+          "nameEn": "Changing Positions",
+          "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow",
+            "purple"
+          ],
+          "rounds": [
+            [
+              "yellow"
+            ],
+            [
+              "purple"
+            ],
+            [
+              "red"
+            ],
+            [
+              "green"
+            ],
+            [
+              "blue"
+            ],
+            [
+              "purple"
+            ],
+            [
+              "yellow"
+            ]
+          ],
+          "shuffle": true,
+          "layout": "ring",
+          "assisted": false
+        },
+        {
+          "index": 7,
+          "level": 3,
+          "stage": 2,
+          "nameAr": "خطوتان متتاليتان",
+          "nameEn": "Two-Step Sequence",
+          "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow",
+            "purple"
+          ],
+          "rounds": [
+            [
+              "red",
+              "purple"
+            ],
+            [
+              "blue",
+              "yellow"
+            ],
+            [
+              "green",
+              "red"
+            ],
+            [
+              "purple",
+              "green"
+            ]
+          ],
+          "shuffle": false,
+          "layout": "ring",
+          "assisted": true
+        },
+        {
+          "index": 8,
+          "level": 3,
+          "stage": 3,
+          "nameAr": "أعِد الحديقة كاملة",
+          "nameEn": "Restore the Garden",
+          "colors": [
+            "red",
+            "blue",
+            "green",
+            "yellow",
+            "purple"
+          ],
+          "rounds": [
+            [
+              "red"
+            ],
+            [
+              "blue",
+              "green"
+            ],
+            [
+              "yellow",
+              "purple"
+            ]
+          ],
+          "shuffle": true,
+          "layout": "ring",
+          "assisted": true
+        }
+      ]
+    },
+    "safe-hex-arena-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "level": 1,
+          "stage": 1,
+          "tiles": 9,
+          "rounds": 3,
+          "maxWarn": 1,
+          "warn": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "level": 1,
+          "stage": 2,
+          "tiles": 9,
+          "rounds": 3,
+          "maxWarn": 1,
+          "warn": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "level": 1,
+          "stage": 3,
+          "tiles": 9,
+          "rounds": 4,
+          "maxWarn": 2,
+          "warn": [
+            1,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "index": 3,
+          "level": 2,
+          "stage": 1,
+          "tiles": 12,
+          "rounds": 4,
+          "maxWarn": 2,
+          "warn": [
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "index": 4,
+          "level": 2,
+          "stage": 2,
+          "tiles": 12,
+          "rounds": 5,
+          "maxWarn": 2,
+          "warn": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "index": 5,
+          "level": 2,
+          "stage": 3,
+          "tiles": 12,
+          "rounds": 5,
+          "maxWarn": 3,
+          "warn": [
+            2,
+            3,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "index": 6,
+          "level": 3,
+          "stage": 1,
+          "tiles": 16,
+          "rounds": 5,
+          "maxWarn": 3,
+          "warn": [
+            2,
+            3,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "index": 7,
+          "level": 3,
+          "stage": 2,
+          "tiles": 16,
+          "rounds": 6,
+          "maxWarn": 3,
+          "warn": [
+            2,
+            3,
+            3,
+            2,
+            3,
+            3
+          ]
+        },
+        {
+          "index": 8,
+          "level": 3,
+          "stage": 3,
+          "tiles": 16,
+          "rounds": 6,
+          "maxWarn": 4,
+          "warn": [
+            3,
+            4,
+            3,
+            4,
+            4,
+            3
+          ]
+        }
+      ]
+    },
+    "build-quest-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "id": "first-shapes",
+          "level": 1,
+          "title": "أشكالي الأولى",
+          "instruction": "اختر القطعة، ثم حرّكها إلى مكانها",
+          "kind": "shapes",
+          "pieces": [
+            {
+              "id": "first-shapes:square",
+              "label": "مربع",
+              "shape": "box",
+              "size": [
+                1.65,
+                0.7,
+                1.65
+              ],
+              "target": [
+                -5,
+                0.47,
+                0
+              ],
+              "source": [
+                2.6,
+                0.47,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "first-shapes:circle",
+              "label": "دائرة",
+              "shape": "circle",
+              "size": [
+                1.65,
+                0.7,
+                1.65
+              ],
+              "target": [
+                -2.5,
+                0.47,
+                0
+              ],
+              "source": [
+                5.2,
+                0.47,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": []
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "id": "three-shapes",
+          "level": 1,
+          "title": "ثلاثة أشكال",
+          "instruction": "ضع كل شكل في مكانه",
+          "kind": "shapes",
+          "pieces": [
+            {
+              "id": "three-shapes:square",
+              "label": "مربع",
+              "shape": "box",
+              "size": [
+                1.45,
+                0.7,
+                1.45
+              ],
+              "target": [
+                -5.4,
+                0.47,
+                -1.6
+              ],
+              "source": [
+                2.6,
+                0.47,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "three-shapes:circle",
+              "label": "دائرة",
+              "shape": "circle",
+              "size": [
+                1.5,
+                0.7,
+                1.5
+              ],
+              "target": [
+                -2.5,
+                0.47,
+                -1.6
+              ],
+              "source": [
+                5.2,
+                0.47,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": []
+            },
+            {
+              "id": "three-shapes:triangle",
+              "label": "مثلث",
+              "shape": "triangle-flat",
+              "size": [
+                1.5,
+                0.7,
+                1.5
+              ],
+              "target": [
+                -4,
+                0.47,
+                1.7
+              ],
+              "source": [
+                2.6,
+                0.505,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": []
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "id": "four-shapes",
+          "level": 1,
+          "title": "أربعة أشكال",
+          "instruction": "اختر الشكل المناسب، خذ وقتك",
+          "kind": "shapes",
+          "pieces": [
+            {
+              "id": "four-shapes:square",
+              "label": "مربع",
+              "shape": "box",
+              "size": [
+                1.4,
+                0.7,
+                1.4
+              ],
+              "target": [
+                -5.4,
+                0.47,
+                -1.5
+              ],
+              "source": [
+                2.6,
+                0.47,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "four-shapes:circle",
+              "label": "دائرة",
+              "shape": "circle",
+              "size": [
+                1.5,
+                0.7,
+                1.5
+              ],
+              "target": [
+                -2.5,
+                0.47,
+                -1.5
+              ],
+              "source": [
+                5.2,
+                0.47,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": []
+            },
+            {
+              "id": "four-shapes:triangle",
+              "label": "مثلث",
+              "shape": "triangle-flat",
+              "size": [
+                1.5,
+                0.7,
+                1.5
+              ],
+              "target": [
+                -5.4,
+                0.47,
+                1.6
+              ],
+              "source": [
+                2.6,
+                0.505,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": []
+            },
+            {
+              "id": "four-shapes:rectangle",
+              "label": "مستطيل",
+              "shape": "rectangle",
+              "size": [
+                1.8,
+                0.7,
+                1.1
+              ],
+              "target": [
+                -2.5,
+                0.47,
+                1.6
+              ],
+              "source": [
+                5.2,
+                0.47,
+                -0.1499999999999999
+              ],
+              "color": "#8586ca",
+              "requires": []
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "id": "house",
+          "level": 2,
+          "title": "ابنِ بيتًا",
+          "instruction": "القاعدة أولًا، ثم الجدران والسقف",
+          "kind": "house",
+          "pieces": [
+            {
+              "id": "house:base",
+              "label": "قاعدة البيت",
+              "shape": "rectangle",
+              "size": [
+                3.7,
+                0.4,
+                2.6
+              ],
+              "target": [
+                -3.8,
+                0.31999999999999995,
+                0.3
+              ],
+              "source": [
+                2.6,
+                0.22,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "house:wall-left",
+              "label": "الجدار الأول",
+              "shape": "box",
+              "size": [
+                1.45,
+                1.65,
+                2
+              ],
+              "target": [
+                -4.6,
+                1.345,
+                0.3
+              ],
+              "source": [
+                5.2,
+                0.8831249999999999,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": [
+                "house:base"
+              ]
+            },
+            {
+              "id": "house:wall-right",
+              "label": "الجدار الثاني",
+              "shape": "box",
+              "size": [
+                1.45,
+                1.65,
+                2
+              ],
+              "target": [
+                -3,
+                1.345,
+                0.3
+              ],
+              "source": [
+                2.6,
+                0.8831249999999999,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "house:base"
+              ]
+            },
+            {
+              "id": "house:roof",
+              "label": "السقف",
+              "shape": "triangle",
+              "size": [
+                3.8,
+                1.55,
+                2.4
+              ],
+              "target": [
+                -3.8,
+                2.945,
+                0.3
+              ],
+              "source": [
+                5.2,
+                0.49730263157894744,
+                -0.1499999999999999
+              ],
+              "color": "#8586ca",
+              "requires": [
+                "house:wall-left",
+                "house:wall-right"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "id": "car",
+          "level": 2,
+          "title": "ابنِ سيارة",
+          "instruction": "ابنِ جسم السيارة وأضف العجلات",
+          "kind": "car",
+          "pieces": [
+            {
+              "id": "car:body",
+              "label": "جسم السيارة",
+              "shape": "rectangle",
+              "size": [
+                3.5,
+                0.75,
+                1.8
+              ],
+              "target": [
+                -3.8,
+                1.15,
+                0.4
+              ],
+              "source": [
+                2.6,
+                0.3182142857142857,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "car:wheel-left",
+              "label": "العجلة الأولى",
+              "shape": "wheel",
+              "size": [
+                1.05,
+                0.5,
+                1.05
+              ],
+              "target": [
+                -4.9,
+                0.645,
+                1.35
+              ],
+              "source": [
+                5.2,
+                0.645,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": [
+                "car:body"
+              ]
+            },
+            {
+              "id": "car:wheel-right",
+              "label": "العجلة الثانية",
+              "shape": "wheel",
+              "size": [
+                1.05,
+                0.5,
+                1.05
+              ],
+              "target": [
+                -2.7,
+                0.645,
+                1.35
+              ],
+              "source": [
+                2.6,
+                0.645,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "car:body"
+              ]
+            },
+            {
+              "id": "car:cabin",
+              "label": "مقصورة السيارة",
+              "shape": "box",
+              "size": [
+                1.8,
+                1.1,
+                1.5
+              ],
+              "target": [
+                -3.65,
+                2.0749999999999997,
+                0.4
+              ],
+              "source": [
+                5.2,
+                0.67,
+                -0.1499999999999999
+              ],
+              "color": "#8586ca",
+              "requires": [
+                "car:body"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "id": "robot",
+          "level": 2,
+          "title": "ابنِ روبوتًا",
+          "instruction": "الجسم، ثم الرأس والذراعان",
+          "kind": "robot",
+          "pieces": [
+            {
+              "id": "robot:body",
+              "label": "جسم الروبوت",
+              "shape": "box",
+              "size": [
+                1.6,
+                1.8,
+                1.2
+              ],
+              "target": [
+                -3.8,
+                1.02,
+                0.6
+              ],
+              "source": [
+                2.6,
+                0.945,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "robot:head",
+              "label": "رأس الروبوت",
+              "shape": "box",
+              "size": [
+                1.35,
+                1.1,
+                1.1
+              ],
+              "target": [
+                -3.8,
+                2.52,
+                0.6
+              ],
+              "source": [
+                5.2,
+                0.67,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": [
+                "robot:body"
+              ]
+            },
+            {
+              "id": "robot:arm-left",
+              "label": "الذراع الأولى",
+              "shape": "rectangle",
+              "size": [
+                0.75,
+                1.65,
+                0.8
+              ],
+              "target": [
+                -5.1,
+                1.2,
+                0.6
+              ],
+              "source": [
+                2.6,
+                0.945,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "robot:body"
+              ]
+            },
+            {
+              "id": "robot:arm-right",
+              "label": "الذراع الثانية",
+              "shape": "rectangle",
+              "size": [
+                0.75,
+                1.65,
+                0.8
+              ],
+              "target": [
+                -2.5,
+                1.2,
+                0.6
+              ],
+              "source": [
+                5.2,
+                0.945,
+                -0.1499999999999999
+              ],
+              "color": "#8586ca",
+              "requires": [
+                "robot:body"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "id": "tower",
+          "level": 3,
+          "title": "ابنِ برجًا",
+          "instruction": "ضع المكعبات فوق بعضها، واحدًا تلو الآخر",
+          "kind": "tower",
+          "pieces": [
+            {
+              "id": "tower:bottom",
+              "label": "المكعب الأول",
+              "shape": "box",
+              "size": [
+                2.1,
+                1.3,
+                2.1
+              ],
+              "target": [
+                -3.8,
+                0.77,
+                0.5
+              ],
+              "source": [
+                2.6,
+                0.6926190476190476,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "tower:middle",
+              "label": "المكعب الثاني",
+              "shape": "box",
+              "size": [
+                1.8,
+                1.3,
+                1.8
+              ],
+              "target": [
+                -3.8,
+                2.07,
+                0.5
+              ],
+              "source": [
+                5.2,
+                0.77,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": [
+                "tower:bottom"
+              ]
+            },
+            {
+              "id": "tower:top",
+              "label": "المكعب الثالث",
+              "shape": "box",
+              "size": [
+                1.5,
+                1.3,
+                1.5
+              ],
+              "target": [
+                -3.8,
+                3.37,
+                0.5
+              ],
+              "source": [
+                2.6,
+                0.77,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "tower:middle"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "id": "bridge",
+          "level": 3,
+          "title": "ابنِ جسرًا",
+          "instruction": "الدعامتان أولًا، ثم طريق الجسر",
+          "kind": "bridge",
+          "pieces": [
+            {
+              "id": "bridge:support-left",
+              "label": "الدعامة الأولى",
+              "shape": "box",
+              "size": [
+                1.15,
+                1.6,
+                2
+              ],
+              "target": [
+                -5.4,
+                0.92,
+                0.5
+              ],
+              "source": [
+                2.6,
+                0.8600000000000001,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "bridge:support-right",
+              "label": "الدعامة الثانية",
+              "shape": "box",
+              "size": [
+                1.15,
+                1.6,
+                2
+              ],
+              "target": [
+                -2.2,
+                0.92,
+                0.5
+              ],
+              "source": [
+                5.2,
+                0.8600000000000001,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": []
+            },
+            {
+              "id": "bridge:deck",
+              "label": "طريق الجسر",
+              "shape": "rectangle",
+              "size": [
+                5,
+                0.45,
+                2.15
+              ],
+              "target": [
+                -3.8,
+                1.9449999999999998,
+                0.5
+              ],
+              "source": [
+                2.6,
+                0.20325,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "bridge:support-left",
+                "bridge:support-right"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "id": "castle",
+          "level": 3,
+          "title": "ابنِ قلعة",
+          "instruction": "القاعدة والجدران، ثم الأبراج والراية",
+          "kind": "castle",
+          "pieces": [
+            {
+              "id": "castle:base",
+              "label": "قاعدة القلعة",
+              "shape": "rectangle",
+              "size": [
+                4.8,
+                0.4,
+                2.8
+              ],
+              "target": [
+                -3.8,
+                0.31999999999999995,
+                0.4
+              ],
+              "source": [
+                2.6,
+                0.19708333333333333,
+                -2.5
+              ],
+              "color": "#ee8069",
+              "requires": []
+            },
+            {
+              "id": "castle:wall",
+              "label": "جدار القلعة",
+              "shape": "rectangle",
+              "size": [
+                2.7,
+                1.7,
+                0.8
+              ],
+              "target": [
+                -3.8,
+                1.3699999999999999,
+                0.8
+              ],
+              "source": [
+                5.2,
+                0.7024074074074074,
+                -2.5
+              ],
+              "color": "#59b9bd",
+              "requires": [
+                "castle:base"
+              ]
+            },
+            {
+              "id": "castle:tower-left",
+              "label": "البرج الأول",
+              "shape": "circle",
+              "size": [
+                1.25,
+                2.7,
+                1.25
+              ],
+              "target": [
+                -5.6,
+                1.8699999999999999,
+                0.4
+              ],
+              "source": [
+                2.6,
+                0.945,
+                -0.1499999999999999
+              ],
+              "color": "#e8be62",
+              "requires": [
+                "castle:base"
+              ]
+            },
+            {
+              "id": "castle:tower-right",
+              "label": "البرج الثاني",
+              "shape": "circle",
+              "size": [
+                1.25,
+                2.7,
+                1.25
+              ],
+              "target": [
+                -2,
+                1.8699999999999999,
+                0.4
+              ],
+              "source": [
+                5.2,
+                0.945,
+                -0.1499999999999999
+              ],
+              "color": "#8586ca",
+              "requires": [
+                "castle:base"
+              ]
+            },
+            {
+              "id": "castle:flag",
+              "label": "راية القلعة",
+              "shape": "flag",
+              "size": [
+                1.4,
+                1.3,
+                0.22
+              ],
+              "target": [
+                -3.8,
+                3.2199999999999998,
+                0.8
+              ],
+              "source": [
+                2.6,
+                0.77,
+                2.2
+              ],
+              "color": "#6fae8b",
+              "requires": [
+                "castle:wall",
+                "castle:tower-left",
+                "castle:tower-right"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "runner-quest-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "difficulty": "easy",
+          "stage": 1,
+          "titleAr": "الخطوات الأولى",
+          "objectiveAr": "تحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.",
+          "length": 0,
+          "baseGap": 26,
+          "count": 6,
+          "kinds": [
+            "side"
+          ],
+          "theme": "meadow",
+          "usesHurdles": false
+        },
+        {
+          "index": 1,
+          "difficulty": "easy",
+          "stage": 2,
+          "titleAr": "اختر المسار",
+          "objectiveAr": "اختر المسار المضيء من بين ثلاثة مسارات آمنة.",
+          "length": 0,
+          "baseGap": 26,
+          "count": 6,
+          "kinds": [
+            "gate"
+          ],
+          "theme": "garden",
+          "usesHurdles": false
+        },
+        {
+          "index": 2,
+          "difficulty": "easy",
+          "stage": 3,
+          "titleAr": "تجنّب بلطف",
+          "objectiveAr": "تجنّب العوائق الجانبية وواصل الجري.",
+          "length": 0,
+          "baseGap": 23,
+          "count": 8,
+          "kinds": [
+            "side"
+          ],
+          "theme": "trail",
+          "usesHurdles": false
+        },
+        {
+          "index": 3,
+          "difficulty": "medium",
+          "stage": 1,
+          "titleAr": "أول حاجز",
+          "objectiveAr": "ارفع قدمك لتتخطّى الحاجز المنخفض.",
+          "length": 0,
+          "baseGap": 28,
+          "count": 5,
+          "kinds": [
+            "hurdle"
+          ],
+          "theme": "lake",
+          "usesHurdles": true
+        },
+        {
+          "index": 4,
+          "difficulty": "medium",
+          "stage": 2,
+          "titleAr": "الاتجاه والخطوة",
+          "objectiveAr": "تحرّك جانبًا ثم تخطَّ الحاجز، خطوة واحدة في كل مرة.",
+          "length": 0,
+          "baseGap": 26,
+          "count": 8,
+          "kinds": [
+            "side",
+            "hurdle"
+          ],
+          "theme": "forest",
+          "usesHurdles": true
+        },
+        {
+          "index": 5,
+          "difficulty": "medium",
+          "stage": 3,
+          "titleAr": "درب العوائق",
+          "objectiveAr": "تخطَّ الحواجز وتجنّب الصخور على الدرب.",
+          "length": 0,
+          "baseGap": 23,
+          "count": 10,
+          "kinds": [
+            "hurdle",
+            "side",
+            "hurdle"
+          ],
+          "theme": "sunset",
+          "usesHurdles": true
+        },
+        {
+          "index": 6,
+          "difficulty": "advanced",
+          "stage": 1,
+          "titleAr": "مسارات متغيّرة",
+          "objectiveAr": "تنقّل بين المسارات المضيئة ونقاط التفتيش.",
+          "length": 0,
+          "baseGap": 22,
+          "count": 9,
+          "kinds": [
+            "gate",
+            "side",
+            "marker"
+          ],
+          "theme": "summit",
+          "usesHurdles": false
+        },
+        {
+          "index": 7,
+          "difficulty": "advanced",
+          "stage": 2,
+          "titleAr": "عوائق متنوعة",
+          "objectiveAr": "اجمع بين التحرّك الجانبي ورفع القدم.",
+          "length": 0,
+          "baseGap": 21,
+          "count": 10,
+          "kinds": [
+            "side",
+            "hurdle",
+            "hurdle",
+            "side"
+          ],
+          "theme": "river",
+          "usesHurdles": true
+        },
+        {
+          "index": 8,
+          "difficulty": "advanced",
+          "stage": 3,
+          "titleAr": "المغامرة الأخيرة",
+          "objectiveAr": "اجمع كل ما تعلّمته حتى تصل إلى الوجهة الجميلة.",
+          "length": 0,
+          "baseGap": 21,
+          "count": 12,
+          "kinds": [
+            "gate",
+            "hurdle",
+            "side",
+            "marker",
+            "hurdle",
+            "side"
+          ],
+          "theme": "festival",
+          "usesHurdles": true
+        }
+      ]
+    },
+    "mirror-quest-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "name": "الذراع اليمنى",
+          "level": 1,
+          "poses": [
+            {
+              "id": "r1",
+              "text": "ارفع ذراعك اليمنى قليلًا",
+              "target": {
+                "RIGHT_HAND": 0.35,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND"
+              ]
+            },
+            {
+              "id": "r2",
+              "text": "افتح ذراعك اليمنى",
+              "target": {
+                "RIGHT_HAND": 0.65,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND"
+              ]
+            },
+            {
+              "id": "r3",
+              "text": "أعد ذراعك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "الذراع اليسرى",
+          "level": 1,
+          "poses": [
+            {
+              "id": "l1",
+              "text": "ارفع ذراعك اليسرى قليلًا",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0.35,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "LEFT_HAND"
+              ]
+            },
+            {
+              "id": "l2",
+              "text": "افتح ذراعك اليسرى",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0.65,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "LEFT_HAND"
+              ]
+            },
+            {
+              "id": "l3",
+              "text": "أعد ذراعك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "LEFT_HAND"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "الذراعان معًا",
+          "level": 1,
+          "poses": [
+            {
+              "id": "b1",
+              "text": "افتح ذراعيك معًا",
+              "target": {
+                "RIGHT_HAND": 0.65,
+                "LEFT_HAND": 0.65,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND"
+              ]
+            },
+            {
+              "id": "b2",
+              "text": "ارفع ذراعيك معًا",
+              "target": {
+                "RIGHT_HAND": 1,
+                "LEFT_HAND": 1,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND"
+              ]
+            },
+            {
+              "id": "b3",
+              "text": "أعد ذراعيك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "القدم اليمنى",
+          "level": 2,
+          "poses": [
+            {
+              "id": "f1",
+              "text": "حرّك قدمك اليمنى قليلًا",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0.35,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_FOOT"
+              ]
+            },
+            {
+              "id": "f2",
+              "text": "مدّ قدمك اليمنى برفق",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0.65,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_FOOT"
+              ]
+            },
+            {
+              "id": "f3",
+              "text": "أعد قدمك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_FOOT"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "القدم اليسرى",
+          "level": 2,
+          "poses": [
+            {
+              "id": "g1",
+              "text": "حرّك قدمك اليسرى قليلًا",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "g2",
+              "text": "مدّ قدمك اليسرى برفق",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.65
+              },
+              "active": [
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "g3",
+              "text": "أعد قدمك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "LEFT_FOOT"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "القدمان بالتبادل",
+          "level": 2,
+          "poses": [
+            {
+              "id": "a1",
+              "text": "مدّ قدمك اليمنى برفق",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0.35,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "a2",
+              "text": "والآن قدمك اليسرى",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "a3",
+              "text": "أعد قدميك بهدوء",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "ذراع وقدم",
+          "level": 3,
+          "poses": [
+            {
+              "id": "c1",
+              "text": "الذراع اليمنى والقدم اليسرى",
+              "target": {
+                "RIGHT_HAND": 0.35,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "c2",
+              "text": "افتح ذراعك مع قدمك",
+              "target": {
+                "RIGHT_HAND": 0.65,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "c3",
+              "text": "عد إلى وضع الراحة",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_FOOT"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "حركات بالتبادل",
+          "level": 3,
+          "poses": [
+            {
+              "id": "d1",
+              "text": "الذراع اليمنى والقدم اليسرى",
+              "target": {
+                "RIGHT_HAND": 0.35,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "d2",
+              "text": "الذراع اليسرى والقدم اليمنى",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0.35,
+                "RIGHT_FOOT": 0.35,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "d3",
+              "text": "عد إلى وضع الراحة",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "تحدّي المرآة",
+          "level": 3,
+          "poses": [
+            {
+              "id": "e1",
+              "text": "افتح ذراعيك معًا",
+              "target": {
+                "RIGHT_HAND": 0.65,
+                "LEFT_HAND": 0.65,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "e2",
+              "text": "الذراع اليمنى والقدم اليسرى",
+              "target": {
+                "RIGHT_HAND": 0.35,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0.35
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "e3",
+              "text": "الذراع اليسرى والقدم اليمنى",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0.35,
+                "RIGHT_FOOT": 0.35,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            },
+            {
+              "id": "e4",
+              "text": "عد إلى وضع الراحة",
+              "target": {
+                "RIGHT_HAND": 0,
+                "LEFT_HAND": 0,
+                "RIGHT_FOOT": 0,
+                "LEFT_FOOT": 0
+              },
+              "active": [
+                "RIGHT_HAND",
+                "LEFT_HAND",
+                "RIGHT_FOOT",
+                "LEFT_FOOT"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "bubble-pop-wall": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "name": "اكتشف الحديقة",
+          "kinds": [
+            "reach"
+          ],
+          "world": "garden"
+        },
+        {
+          "index": 1,
+          "name": "نافذتان للعجائب",
+          "kinds": [
+            "reach",
+            "reach"
+          ],
+          "world": "stars"
+        },
+        {
+          "index": 2,
+          "name": "رحلة والعودة",
+          "kinds": [
+            "reach",
+            "neutral"
+          ],
+          "world": "reef"
+        },
+        {
+          "index": 3,
+          "name": "نهر من الضوء",
+          "kinds": [
+            "guide"
+          ],
+          "world": "garden"
+        },
+        {
+          "index": 4,
+          "name": "منعطف القمر",
+          "kinds": [
+            "guide"
+          ],
+          "world": "stars"
+        },
+        {
+          "index": 5,
+          "name": "أضئ العالم",
+          "kinds": [
+            "guide",
+            "hold"
+          ],
+          "world": "reef"
+        },
+        {
+          "index": 6,
+          "name": "جسر النجمتين",
+          "kinds": [
+            "reach",
+            "reach"
+          ],
+          "world": "stars"
+        },
+        {
+          "index": 7,
+          "name": "يد تلو الأخرى",
+          "kinds": [
+            "reach",
+            "reach"
+          ],
+          "world": "garden"
+        },
+        {
+          "index": 8,
+          "name": "قبة العجائب",
+          "kinds": [
+            "reach",
+            "guide",
+            "hold"
+          ],
+          "world": "reef"
+        }
+      ]
+    },
+    "blooming-world-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "level": 1,
+          "stage": 1,
+          "regions": 4
+        },
+        {
+          "index": 1,
+          "level": 1,
+          "stage": 2,
+          "regions": 5
+        },
+        {
+          "index": 2,
+          "level": 1,
+          "stage": 3,
+          "regions": 6
+        },
+        {
+          "index": 3,
+          "level": 2,
+          "stage": 1,
+          "regions": 7
+        },
+        {
+          "index": 4,
+          "level": 2,
+          "stage": 2,
+          "regions": 8
+        },
+        {
+          "index": 5,
+          "level": 2,
+          "stage": 3,
+          "regions": 9
+        },
+        {
+          "index": 6,
+          "level": 3,
+          "stage": 1,
+          "regions": 10
+        },
+        {
+          "index": 7,
+          "level": 3,
+          "stage": 2,
+          "regions": 11
+        },
+        {
+          "index": 8,
+          "level": 3,
+          "stage": 3,
+          "regions": 12
+        }
+      ]
+    },
+    "harvest-valley-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "name": "صف القمح الأول",
+          "crop": "wheat",
+          "cols": [
+            3
+          ],
+          "rows": 6
+        },
+        {
+          "index": 1,
+          "name": "صفّان متجاوران",
+          "crop": "wheat",
+          "cols": [
+            2,
+            4
+          ],
+          "rows": 8
+        },
+        {
+          "index": 2,
+          "name": "قطعة القمح الصغيرة",
+          "crop": "wheat",
+          "cols": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "rows": 8
+        },
+        {
+          "index": 3,
+          "name": "ثلاثة صفوف هادئة",
+          "crop": "grass",
+          "cols": [
+            1,
+            3,
+            5
+          ],
+          "rows": 9
+        },
+        {
+          "index": 4,
+          "name": "مرج المزرعة",
+          "crop": "grass",
+          "cols": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "rows": 10
+        },
+        {
+          "index": 5,
+          "name": "المنحنى الواسع",
+          "crop": "grass",
+          "cols": [
+            2,
+            3,
+            4
+          ],
+          "rows": 12
+        },
+        {
+          "index": 6,
+          "name": "الحقل الكبير",
+          "crop": "wheat",
+          "cols": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "rows": 12
+        },
+        {
+          "index": 7,
+          "name": "مناطق الحصاد",
+          "crop": "flowers",
+          "cols": [
+            0,
+            1,
+            6,
+            7
+          ],
+          "rows": 12
+        },
+        {
+          "index": 8,
+          "name": "موسم الحصاد الكبير",
+          "crop": "wheat",
+          "cols": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "rows": 12
+        }
+      ]
+    },
+    "fire-rescue-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "name": "المهمة الأولى",
+          "nameEn": "First Mission",
+          "level": 1,
+          "environment": "mountain",
+          "length": 90,
+          "curve": 0,
+          "stops": [
+            90
+          ],
+          "targets": [
+            1
+          ],
+          "sequential": false,
+          "speed": 4
+        },
+        {
+          "index": 1,
+          "name": "لف يمين",
+          "nameEn": "Right Turn",
+          "level": 1,
+          "environment": "mountain",
+          "length": 110,
+          "curve": 1,
+          "stops": [
+            110
+          ],
+          "targets": [
+            1
+          ],
+          "sequential": false,
+          "speed": 4
+        },
+        {
+          "index": 2,
+          "name": "لف يسار",
+          "nameEn": "Left Turn",
+          "level": 1,
+          "environment": "mountain",
+          "length": 110,
+          "curve": -1,
+          "stops": [
+            110
+          ],
+          "targets": [
+            1
+          ],
+          "sequential": false,
+          "speed": 4
+        },
+        {
+          "index": 3,
+          "name": "طريق الغابة",
+          "nameEn": "Winding Road",
+          "level": 2,
+          "environment": "forest",
+          "length": 155,
+          "curve": 2,
+          "stops": [
+            155
+          ],
+          "targets": [
+            1
+          ],
+          "sequential": false,
+          "speed": 5
+        },
+        {
+          "index": 4,
+          "name": "وجّه الماء",
+          "nameEn": "Water Control",
+          "level": 2,
+          "environment": "forest",
+          "length": 95,
+          "curve": 0.4,
+          "stops": [
+            95
+          ],
+          "targets": [
+            2
+          ],
+          "sequential": false,
+          "speed": 4
+        },
+        {
+          "index": 5,
+          "name": "إنقاذ مزدوج",
+          "nameEn": "Double Rescue",
+          "level": 2,
+          "environment": "forest",
+          "length": 125,
+          "curve": -0.6,
+          "stops": [
+            125
+          ],
+          "targets": [
+            2
+          ],
+          "sequential": true,
+          "speed": 5
+        },
+        {
+          "index": 6,
+          "name": "رحلة الجبل",
+          "nameEn": "Mountain Route",
+          "level": 3,
+          "environment": "countryside",
+          "length": 210,
+          "curve": 2.4,
+          "stops": [
+            210
+          ],
+          "targets": [
+            2
+          ],
+          "sequential": false,
+          "speed": 5
+        },
+        {
+          "index": 7,
+          "name": "قيادة وإطفاء",
+          "nameEn": "Steering & Hose",
+          "level": 3,
+          "environment": "countryside",
+          "length": 180,
+          "curve": -2,
+          "stops": [
+            85,
+            180
+          ],
+          "targets": [
+            1,
+            2
+          ],
+          "sequential": false,
+          "speed": 5
+        },
+        {
+          "index": 8,
+          "name": "مهمة الإنقاذ الأخيرة",
+          "nameEn": "Final Rescue",
+          "level": 3,
+          "environment": "countryside",
+          "length": 240,
+          "curve": 2.6,
+          "stops": [
+            75,
+            155,
+            240
+          ],
+          "targets": [
+            1,
+            2,
+            2
+          ],
+          "sequential": true,
+          "speed": 5
+        }
+      ]
+    },
+    "pearl-voyage-3d": {
+      "total": 9,
+      "stages": [
+        {
+          "index": 0,
+          "name": "أول اكتشاف",
+          "nameEn": "First Discovery",
+          "level": 1,
+          "env": "pearl-beach",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 3.6,
+          "markers": [
+            {
+              "x": 6,
+              "y": 38,
+              "species": "orange-stripe",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": -40,
+              "y": 26,
+              "r": 13,
+              "kind": "sand",
+              "seed": 11
+            },
+            {
+              "x": 46,
+              "y": 72,
+              "r": 17,
+              "kind": "lush",
+              "seed": 12
+            },
+            {
+              "x": -30,
+              "y": 110,
+              "r": 22,
+              "kind": "rocky",
+              "seed": 13
+            }
+          ],
+          "reefs": [
+            {
+              "x": 22,
+              "y": 20,
+              "r": 12,
+              "seed": 3
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "name": "سمكتان في البحيرة",
+          "nameEn": "Two Friends",
+          "level": 1,
+          "env": "pearl-beach",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 3.6,
+          "markers": [
+            {
+              "x": -14,
+              "y": 36,
+              "species": "royal-blue",
+              "hold": 1
+            },
+            {
+              "x": 18,
+              "y": 78,
+              "species": "butterfly",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": -52,
+              "y": 52,
+              "r": 15,
+              "kind": "sand",
+              "seed": 21
+            },
+            {
+              "x": 52,
+              "y": 40,
+              "r": 13,
+              "kind": "lush",
+              "seed": 22
+            },
+            {
+              "x": -6,
+              "y": 128,
+              "r": 24,
+              "kind": "lush",
+              "seed": 23
+            }
+          ],
+          "reefs": [
+            {
+              "x": -20,
+              "y": 30,
+              "r": 11,
+              "seed": 4
+            },
+            {
+              "x": 28,
+              "y": 90,
+              "r": 10,
+              "seed": 5
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "name": "قرب المرجان",
+          "nameEn": "Near the Reef",
+          "level": 1,
+          "env": "pearl-beach",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 3.6,
+          "markers": [
+            {
+              "x": 24,
+              "y": 34,
+              "species": "puffer",
+              "hold": 1
+            },
+            {
+              "x": -8,
+              "y": 72,
+              "species": "orange-stripe",
+              "hold": 1
+            },
+            {
+              "x": -34,
+              "y": 110,
+              "species": "parrot",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": -50,
+              "y": 30,
+              "r": 14,
+              "kind": "sand",
+              "seed": 31
+            },
+            {
+              "x": 54,
+              "y": 90,
+              "r": 18,
+              "kind": "lush",
+              "seed": 32
+            },
+            {
+              "x": 14,
+              "y": 140,
+              "r": 22,
+              "kind": "rocky",
+              "seed": 33
+            }
+          ],
+          "reefs": [
+            {
+              "x": 30,
+              "y": 30,
+              "r": 13,
+              "seed": 6
+            },
+            {
+              "x": -12,
+              "y": 68,
+              "r": 12,
+              "seed": 7
+            },
+            {
+              "x": -38,
+              "y": 104,
+              "r": 13,
+              "seed": 8
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "name": "الخليج الواسع",
+          "nameEn": "Wide Lagoon",
+          "level": 2,
+          "env": "coral-bay",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4,
+          "markers": [
+            {
+              "x": -28,
+              "y": 44,
+              "species": "angel",
+              "hold": 1
+            },
+            {
+              "x": 30,
+              "y": 88,
+              "species": "royal-blue",
+              "hold": 1
+            },
+            {
+              "x": -8,
+              "y": 132,
+              "species": "seahorse",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": 50,
+              "y": 30,
+              "r": 15,
+              "kind": "rocky",
+              "seed": 41
+            },
+            {
+              "x": -62,
+              "y": 100,
+              "r": 18,
+              "kind": "lush",
+              "seed": 42
+            },
+            {
+              "x": 62,
+              "y": 142,
+              "r": 20,
+              "kind": "sand",
+              "seed": 43
+            }
+          ],
+          "reefs": [
+            {
+              "x": -30,
+              "y": 40,
+              "r": 14,
+              "seed": 9
+            },
+            {
+              "x": 34,
+              "y": 86,
+              "r": 13,
+              "seed": 10
+            },
+            {
+              "x": -10,
+              "y": 128,
+              "r": 14,
+              "seed": 11
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "name": "الجزيرة الصغيرة",
+          "nameEn": "Little Island",
+          "level": 2,
+          "env": "coral-bay",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4,
+          "markers": [
+            {
+              "x": -32,
+              "y": 48,
+              "species": "turtle",
+              "hold": 1.15
+            },
+            {
+              "x": 36,
+              "y": 84,
+              "species": "dart",
+              "hold": 1.3
+            },
+            {
+              "x": -6,
+              "y": 128,
+              "species": "puffer",
+              "hold": 1.4
+            }
+          ],
+          "islands": [
+            {
+              "x": 62,
+              "y": 116,
+              "r": 15,
+              "kind": "lush",
+              "seed": 51
+            },
+            {
+              "x": -64,
+              "y": 110,
+              "r": 16,
+              "kind": "rocky",
+              "seed": 52
+            },
+            {
+              "x": 56,
+              "y": 24,
+              "r": 12,
+              "kind": "sand",
+              "seed": 53
+            }
+          ],
+          "reefs": [
+            {
+              "x": -34,
+              "y": 46,
+              "r": 12,
+              "seed": 12
+            },
+            {
+              "x": 40,
+              "y": 80,
+              "r": 12,
+              "seed": 13
+            },
+            {
+              "x": -2,
+              "y": 124,
+              "r": 13,
+              "seed": 14
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "name": "حول الشعاب",
+          "nameEn": "Around the Reefs",
+          "level": 2,
+          "env": "coral-bay",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4,
+          "markers": [
+            {
+              "x": 30,
+              "y": 40,
+              "species": "parrot",
+              "hold": 1
+            },
+            {
+              "x": -20,
+              "y": 80,
+              "species": "angel",
+              "hold": 1
+            },
+            {
+              "x": 34,
+              "y": 118,
+              "species": "butterfly",
+              "hold": 1
+            },
+            {
+              "x": -14,
+              "y": 158,
+              "species": "seahorse",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": -58,
+              "y": 36,
+              "r": 14,
+              "kind": "rocky",
+              "seed": 61
+            },
+            {
+              "x": 66,
+              "y": 86,
+              "r": 16,
+              "kind": "lush",
+              "seed": 62
+            },
+            {
+              "x": -54,
+              "y": 130,
+              "r": 17,
+              "kind": "sand",
+              "seed": 63
+            }
+          ],
+          "reefs": [
+            {
+              "x": 34,
+              "y": 38,
+              "r": 13,
+              "seed": 15
+            },
+            {
+              "x": -24,
+              "y": 78,
+              "r": 14,
+              "seed": 16
+            },
+            {
+              "x": 38,
+              "y": 116,
+              "r": 13,
+              "seed": 17
+            },
+            {
+              "x": -16,
+              "y": 154,
+              "r": 13,
+              "seed": 18
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "name": "جزيرتان ذهبيتان",
+          "nameEn": "Two Golden Islands",
+          "level": 3,
+          "env": "golden-archipelago",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4.2,
+          "markers": [
+            {
+              "x": -30,
+              "y": 40,
+              "species": "ray",
+              "hold": 1
+            },
+            {
+              "x": 26,
+              "y": 82,
+              "species": "dolphin",
+              "hold": 1
+            },
+            {
+              "x": -26,
+              "y": 124,
+              "species": "royal-blue",
+              "hold": 1
+            },
+            {
+              "x": 30,
+              "y": 166,
+              "species": "orange-stripe",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": 38,
+              "y": 36,
+              "r": 17,
+              "kind": "karst",
+              "seed": 71
+            },
+            {
+              "x": -50,
+              "y": 98,
+              "r": 19,
+              "kind": "lush",
+              "seed": 72
+            },
+            {
+              "x": 62,
+              "y": 130,
+              "r": 16,
+              "kind": "rocky",
+              "seed": 73
+            }
+          ],
+          "reefs": [
+            {
+              "x": -34,
+              "y": 38,
+              "r": 12,
+              "seed": 19
+            },
+            {
+              "x": -30,
+              "y": 120,
+              "r": 12,
+              "seed": 20
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "name": "أسماك مختلفة",
+          "nameEn": "Varied Friends",
+          "level": 3,
+          "env": "golden-archipelago",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4.2,
+          "markers": [
+            {
+              "x": 28,
+              "y": 42,
+              "species": "turtle",
+              "hold": 0.7
+            },
+            {
+              "x": -26,
+              "y": 86,
+              "species": "angel",
+              "hold": 1
+            },
+            {
+              "x": 30,
+              "y": 130,
+              "species": "dolphin",
+              "hold": 1.35
+            },
+            {
+              "x": -12,
+              "y": 172,
+              "species": "seahorse",
+              "hold": 0.85
+            }
+          ],
+          "islands": [
+            {
+              "x": -52,
+              "y": 40,
+              "r": 16,
+              "kind": "lush",
+              "seed": 81
+            },
+            {
+              "x": 62,
+              "y": 98,
+              "r": 19,
+              "kind": "karst",
+              "seed": 82
+            },
+            {
+              "x": -58,
+              "y": 140,
+              "r": 18,
+              "kind": "sand",
+              "seed": 83
+            }
+          ],
+          "reefs": [
+            {
+              "x": 30,
+              "y": 40,
+              "r": 12,
+              "seed": 21
+            },
+            {
+              "x": -28,
+              "y": 84,
+              "r": 12,
+              "seed": 22
+            },
+            {
+              "x": -14,
+              "y": 168,
+              "r": 12,
+              "seed": 23
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "name": "الرحلة الكبرى",
+          "nameEn": "The Grand Voyage",
+          "level": 3,
+          "env": "golden-archipelago",
+          "start": {
+            "x": 0,
+            "y": 0,
+            "heading": 0
+          },
+          "speed": 4.4,
+          "markers": [
+            {
+              "x": -30,
+              "y": 44,
+              "species": "dart",
+              "hold": 1
+            },
+            {
+              "x": 28,
+              "y": 88,
+              "species": "parrot",
+              "hold": 1
+            },
+            {
+              "x": -24,
+              "y": 132,
+              "species": "ray",
+              "hold": 1
+            },
+            {
+              "x": 34,
+              "y": 176,
+              "species": "dolphin",
+              "hold": 1
+            },
+            {
+              "x": 0,
+              "y": 222,
+              "species": "turtle",
+              "hold": 1
+            }
+          ],
+          "islands": [
+            {
+              "x": 44,
+              "y": 34,
+              "r": 15,
+              "kind": "lush",
+              "seed": 91
+            },
+            {
+              "x": -62,
+              "y": 100,
+              "r": 20,
+              "kind": "karst",
+              "seed": 92
+            },
+            {
+              "x": 66,
+              "y": 140,
+              "r": 17,
+              "kind": "rocky",
+              "seed": 93
+            },
+            {
+              "x": -50,
+              "y": 190,
+              "r": 18,
+              "kind": "lush",
+              "seed": 94
+            },
+            {
+              "x": 56,
+              "y": 214,
+              "r": 16,
+              "kind": "sand",
+              "seed": 95
+            }
+          ],
+          "reefs": [
+            {
+              "x": -34,
+              "y": 42,
+              "r": 12,
+              "seed": 24
+            },
+            {
+              "x": 32,
+              "y": 86,
+              "r": 12,
+              "seed": 25
+            },
+            {
+              "x": -28,
+              "y": 130,
+              "r": 12,
+              "seed": 26
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "balloon": {
+    "total": 9,
+    "difficulties": [
+      "EASY",
+      "MEDIUM",
+      "ADVANCED"
+    ],
+    "stagesPerDifficulty": 3
+  },
+  "space": {
+    "difficulties": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "missions": 3,
+    "configurations": 9
+  },
+  "legacy": {
+    "difficulties": 3,
+    "stagesPerDifficulty": 5
+  }
+}

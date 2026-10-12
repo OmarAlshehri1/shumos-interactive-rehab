@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "featureFlag": false,
+  "production": true,
+  "checks": [
+    "Both dedicated Build Quest routes render Next.js not-found with no game controls",
+    "Normal Display remains available",
+    "Authenticated normal library hides Build Quest and retains existing games"
+  ],
+  "emulatorsOnly": true,
+  "httpStatuses": {
+    "/control/build-quest-3d": 200,
+    "/display/build-quest-3d": 404
+  }
+}

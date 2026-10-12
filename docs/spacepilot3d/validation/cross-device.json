@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "checks": [
+    "Production library: one canonical Space Pilot card; active staff Control and independent anonymous normal /display automatically joins the room.",
+    "Touch press-and-hold advances flight; pointer release returns accepted steering to neutral.",
+    "Pause/resume/restart work across independent contexts.",
+    "Control and Display reload preserve run progress and require safe resume.",
+    "Immutable versioned patient ring history saved from accepted Control state.",
+    "All nine flight-mode/difficulty configurations accept touch steering/cancellation; EASY stays level and ADVANCED accepts native multi-touch diagonals.",
+    "Normalized RIGHT_HAND simulation, manual priority, safe sensor pickup, disconnect suspension and immediate explicit manual fallback.",
+    "Network loss freezes presentation and clears steering; reconnect restores accepted scoring in suspended state.",
+    "A separately authenticated laptop relays the unchanged filtered RIGHT_HAND protocol across Firebase despite two minutes of clock skew; stale relay input suspends and manual override continues immediately.",
+    "A second Control tab using the same authenticated staff account is blocked from silently taking over the live session.",
+    "Actual therapist pointer controls complete all three EASY/LOW missions, collect all 15 rings, avoid all three asteroids, reach both upgrade tiers, and save exactly-once accepted results.",
+    "Walk-in sessions publish no patient binding and do not write patient history."
+  ],
+  "errors": [],
+  "externalFirebase": [],
+  "measurements": [
+    {
+      "flightSeconds": 110.084,
+      "sampledSnapshots": 1044,
+      "sampledPayloadBytes": 5248835,
+      "maxPayloadBytes": 7685,
+      "acceptedRevision": 973
+    },
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "reducedCameraMotion": false,
+      "guidance": null,
+      "worldPose": {
+        "x": 2.7005878930737657,
+        "y": 0,
+        "z": -1798.959890620896,
+        "yaw": 0,
+        "pitch": 0,
+        "bank": 0,
+        "controlX": 0.5,
+        "controlY": 0.5
+      },
+      "cameraPosition": [
+        1.3005840319479076,
+        5.7,
+        -1789.9598912215165
+      ],
+      "landmarks": [
+        {
+          "name": "azure-planet",
+          "world": [
+            -180,
+            -70,
+            -500
+          ],
+          "ndc": [
+            0.13525040666940408,
+            0.9976238374020349,
+            1.000176422961762
+          ]
+        },
+        {
+          "name": "near-moon",
+          "world": [
+            -112,
+            -45,
+            -550
+          ],
+          "ndc": [
+            0.06287351542251961,
+            0.9521921444373532,
+            1.0001824312960204
+          ]
+        },
+        {
+          "name": "ringed-planet",
+          "world": [
+            230,
+            -100,
+            -1550
+          ],
+          "ndc": [
+            -1.852369125818287,
+            2.2533605156909573,
+            1.0011583485566222
+          ]
+        },
+        {
+          "name": "distant-planet",
+          "world": [
+            -250,
+            -400,
+            -3400
+          ],
+          "ndc": [
+            -0.26969397720038046,
+            0.27647053206610833,
+            0.999884213890059
+          ]
+        }
+      ],
+      "dpr": 1,
+      "fps": 59.99850003758847,
+      "meanMs": 16.667083333308497,
+      "p95Ms": 16.80000001192093,
+      "maxMs": 17.700000002980232,
+      "frames": 240,
+      "drawCalls": 41,
+      "triangles": 69552,
+      "geometries": 32,
+      "textures": 3,
+      "programs": 17,
+      "assetLoadMs": 124.5,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    }
+  ],
+  "emulatorsOnly": true
+}

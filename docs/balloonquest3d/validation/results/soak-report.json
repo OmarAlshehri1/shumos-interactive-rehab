@@ -1,0 +1,351 @@
+{
+  "soakSeconds": 601,
+  "selections": 171,
+  "displayFrames": {
+    "frames": 36084,
+    "avgFps": 60,
+    "medianMs": 16.7,
+    "p95Ms": 16.7,
+    "p99Ms": 16.8,
+    "maxMs": 50,
+    "over33ms": 3,
+    "over50ms": 0
+  },
+  "controlFrames": {
+    "frames": 35858,
+    "avgFps": 59.6,
+    "medianMs": 16.7,
+    "p95Ms": 16.8,
+    "p99Ms": 16.8,
+    "maxMs": 67,
+    "over33ms": 45,
+    "over50ms": 1
+  },
+  "latencyMs_pointerToDisplayPop": {
+    "n": 162,
+    "mean": 4.784044053819445,
+    "p50": 4.400146484375,
+    "p95": 6.699951171875,
+    "p99": 11.10009765625,
+    "max": 13.89990234375
+  },
+  "latencyMs_pointerToControlPreviewPop": {
+    "n": 171,
+    "mean": 9.391218932748538,
+    "p50": 9,
+    "p95": 11.199951171875,
+    "p99": 14.2001953125,
+    "max": 15.39990234375
+  },
+  "samples": [
+    {
+      "tag": "start",
+      "tSec": 0,
+      "display": {
+        "nodes": 229,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 11781726
+      },
+      "control": {
+        "nodes": 363,
+        "heap": 17154232
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 1,
+      "display": {
+        "nodes": 229,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 11914111
+      },
+      "control": {
+        "nodes": 367,
+        "heap": 17154557
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 32,
+      "display": {
+        "nodes": 244,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 13250976
+      },
+      "control": {
+        "nodes": 382,
+        "heap": 18645210
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 63,
+      "display": {
+        "nodes": 231,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 13749586
+      },
+      "control": {
+        "nodes": 369,
+        "heap": 19253927
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 93,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14199718
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19637796
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 124,
+      "display": {
+        "nodes": 239,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 15704952
+      },
+      "control": {
+        "nodes": 377,
+        "heap": 19999630
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 155,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14418584
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19938428
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 186,
+      "display": {
+        "nodes": 232,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 14607455
+      },
+      "control": {
+        "nodes": 370,
+        "heap": 20066446
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 216,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14720185
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 20223678
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 247,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14770243
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 20331890
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 278,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14508484
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19698001
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 308,
+      "display": {
+        "nodes": 244,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14654700
+      },
+      "control": {
+        "nodes": 382,
+        "heap": 19738132
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 339,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14705556
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19752733
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 370,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14609199
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19763052
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 400,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14738306
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 19852881
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 430,
+      "display": {
+        "nodes": 243,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 14808151
+      },
+      "control": {
+        "nodes": 381,
+        "heap": 19930991
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 462,
+      "display": {
+        "nodes": 266,
+        "lanes": 9,
+        "svg": 16,
+        "heap": 14829117
+      },
+      "control": {
+        "nodes": 404,
+        "heap": 20042030
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 493,
+      "display": {
+        "nodes": 233,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 14832087
+      },
+      "control": {
+        "nodes": 371,
+        "heap": 20030212
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 526,
+      "display": {
+        "nodes": 243,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 15065689
+      },
+      "control": {
+        "nodes": 381,
+        "heap": 20142945
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 556,
+      "display": {
+        "nodes": 233,
+        "lanes": 7,
+        "svg": 14,
+        "heap": 15000663
+      },
+      "control": {
+        "nodes": 371,
+        "heap": 20189576
+      }
+    },
+    {
+      "tag": "soak",
+      "tSec": 590,
+      "display": {
+        "nodes": 246,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 15230772
+      },
+      "control": {
+        "nodes": 384,
+        "heap": 20332482
+      }
+    },
+    {
+      "tag": "end",
+      "tSec": 601,
+      "display": {
+        "nodes": 245,
+        "lanes": 8,
+        "svg": 15,
+        "heap": 15184226
+      },
+      "control": {
+        "nodes": 383,
+        "heap": 20314822
+      }
+    }
+  ],
+  "note": "Headless Chrome on the dev server (Next dev build, unoptimised); simulated pointer through the real hub; not a physical projector or sensor measurement."
+}

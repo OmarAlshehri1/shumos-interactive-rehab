@@ -1,0 +1,41 @@
+// Production-build smoke test (next start): library card, integrated routes, no dev diagnostics, network audit, frame times.
+import { launch, sleep } from "./cdplib.mjs";
+import { writeFileSync, mkdirSync } from "node:fs";
+const [out, base = "http://127.0.0.1:3220"] = process.argv.slice(2);
+mkdirSync(`${out}/results`, { recursive: true });
+const results = []; const check = (n, ok, d = "") => { results.push({ name: n, ok: !!ok, detail: d }); console.log(`${ok ? "PASS" : "FAIL"}  ${n}${d ? "  — " + d : ""}`); };
+const b = await launch(out, 9565, ["--js-flags=--expose-gc"]);
+const control = await b.open(`${base}/control`, 1400, 1000);
+await control.send("Network.enable");
+await sleep(6000);
+await control.shot(`${out}/r5-library.png`);
+const cardText = await control.eval(`document.body.innerText.includes('مغامرة العدّاء')`);
+check("library lists the Runner Quest card (flag on)", cardText);
+check("card links to the integrated Control route", await control.eval(`!!document.querySelector('a[href="/control/runner-quest-3d"]')`));
+check("existing games still listed", await control.eval(`['مغامرة البالونات','قائد الفضاء','مطاردة الألوان'].every(t => document.body.innerText.includes(t))`));
+await control.eval(`document.querySelector('a[href="/control/runner-quest-3d"]').click()`); await sleep(5000);
+check("clicking the card opens the Control screen", await control.eval(`!!document.querySelector('[data-testid=rq3d-control]')`));
+const display = await b.open(`${base}/display/runner-quest-3d`, 1920, 1080);
+await display.send("Network.enable");
+await sleep(7000);
+check("Display route renders without dev diagnostics", await display.eval(`typeof window.__RQ3D === 'undefined' && !/fps|calls|tris/.test(document.body.innerText) && !document.querySelector('canvas') === false`));
+check("Control sees the Display and the foot sensors are labelled simulated/pending", (await control.text("display-status")).includes("متصلة") && await control.eval(`document.body.innerText.includes('لم تُختبر') || document.body.innerText.includes('حسّاسات القدم الفعلية لم تُختبر')`));
+await control.eval(`document.querySelector('[data-testid=range-single]').click()`);
+await control.eval(`document.querySelector('[data-testid=stage-8]').click()`); await sleep(500);
+await control.click("start"); await sleep(600);
+await display.eval(`(() => { window.__frames = []; let last = performance.now(); const loop = (t) => { window.__frames.push(t - last); last = t; requestAnimationFrame(loop); }; requestAnimationFrame(loop); })()`);
+await control.bringToFront();
+for (let i = 0; i < 40; i++) { const k = ["ArrowLeft", "ArrowRight", " "][i % 3]; await control.key("keyDown", k); await control.key("keyUp", k); await sleep(700); }
+await display.shot(`${out}/r5-prod-display-play.png`); await control.shot(`${out}/r5-prod-control-play.png`);
+check("game is playing in production", (await control.text("lifecycle")) === "تشغيل", await control.text("progress"));
+const frames = await display.eval(`window.__frames.slice(30)`);
+const sorted = [...frames].sort((a, c) => a - c); const pct = (p) => sorted[Math.floor(sorted.length * p)];
+const fr = { frames: frames.length, avgFps: 1000 / (frames.reduce((a, c) => a + c, 0) / frames.length), p95ms: pct(0.95), p99ms: pct(0.99), maxMs: sorted[sorted.length - 1], over33ms: frames.filter((f) => f > 33.4).length };
+console.log("frame stats", JSON.stringify(fr));
+const hosts = new Set(); const bad = [];
+for (const t of [control, display]) for (const e of t.events) if (e.method === "Network.requestWillBeSent") { const u = new URL(e.params.request.url, base); hosts.add(u.host); if (!/^(127\.0\.0\.1|localhost)/.test(u.host) && u.protocol.startsWith("http")) bad.push(u.href); if (/firebase|googleapis|gstatic\.com\/firebase/.test(u.href)) bad.push(u.href); }
+check("network audit: every request stays on localhost, nothing to Firebase", bad.length === 0, `hosts=${[...hosts].join(",")}`);
+check("no console errors", [control, display].every((t) => t.events.filter((e) => e.method === "Runtime.exceptionThrown" || (e.method === "Runtime.consoleAPICalled" && e.params.type === "error")).length === 0));
+writeFileSync(`${out}/results/prod.json`, JSON.stringify({ results, frameStats: fr, hosts: [...hosts] }, null, 1));
+console.log(`${results.filter((r) => r.ok).length}/${results.length} passed`);
+b.close();

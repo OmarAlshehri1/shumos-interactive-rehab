@@ -1,0 +1,66 @@
+{
+  "beforeSource": {
+    "files": 884,
+    "bytes": 5207086
+  },
+  "afterSource": {
+    "files": 814,
+    "bytes": 4733666
+  },
+  "beforePublic": {
+    "files": 3,
+    "bytes": 3781098
+  },
+  "afterPublic": {
+    "files": 3,
+    "bytes": 3781098
+  },
+  "deletedFiles": 76,
+  "deletedExclusiveBytes": 458344,
+  "publicAssetsDeleted": 0,
+  "productionStaticJsBytes": 3657883,
+  "productionStaticCssBytes": 194101,
+  "beforeProductionStatic": {
+    "JavaScript": {
+      "files": 109,
+      "bytes": 3854888,
+      "gzipBytes": 1156002
+    },
+    "CSS": {
+      "files": 13,
+      "bytes": 201543,
+      "gzipBytes": 42789
+    }
+  },
+  "afterProductionStatic": {
+    "JavaScript": {
+      "files": 105,
+      "bytes": 3657883,
+      "gzipBytes": 1106824
+    },
+    "CSS": {
+      "files": 12,
+      "bytes": 194101,
+      "gzipBytes": 41920
+    }
+  },
+  "afterAuthoredSource": {
+    "files": 811,
+    "bytes": 4728059
+  },
+  "concurrentChangesExcludedFromAuthoredSize": [
+    "app/control/follow-the-footsteps-legacy/page.tsx",
+    "lib/footsteps3d/__tests__/displayModule.test.tsx",
+    "lib/footsteps3d/__tests__/resume.test.ts",
+    "components/display/footsteps3d/scene.ts",
+    "lib/sessions/resumeSuggestion.ts"
+  ],
+  "matchedBeforeSource": {
+    "files": 884,
+    "bytes": 5207086
+  },
+  "matchedAfterSource": {
+    "files": 811,
+    "bytes": 4727820
+  }
+}

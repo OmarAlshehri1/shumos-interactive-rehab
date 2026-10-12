@@ -1,0 +1,40 @@
+{
+  "twistActiveThresholdDps": 8.0,
+  "perSession": [
+    {
+      "file": "wt901-right-hand-diagnostic-1788441394853.json",
+      "pos_n": 147,
+      "pos_kPitch": -0.026385364221135642,
+      "pos_kYaw": 0.10483884151831145,
+      "neg_n": 172,
+      "neg_kPitch": -0.03112126196052773,
+      "neg_kYaw": 0.06551202416004756
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788442512578.json",
+      "pos_n": 90,
+      "pos_kPitch": 0.01141432753512863,
+      "pos_kYaw": 0.09285378060624982,
+      "neg_n": 133,
+      "neg_kPitch": 0.008848410229605346,
+      "neg_kYaw": 0.09472863100506082
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788443253622.json",
+      "pos_n": 84,
+      "pos_kPitch": 0.12738461445765695,
+      "pos_kYaw": 0.09681591642615449,
+      "neg_n": 84,
+      "neg_kPitch": 0.13123756725384203,
+      "neg_kYaw": 0.15316079311007372
+    }
+  ],
+  "pooled": {
+    "n_pos": 321,
+    "n_neg": 389,
+    "kPitchPos": 0.013711015816633523,
+    "kYawPos": 0.0968352199621312,
+    "kPitchNeg": 0.008851782252846522,
+    "kYawNeg": 0.09087034194760964
+  }
+}

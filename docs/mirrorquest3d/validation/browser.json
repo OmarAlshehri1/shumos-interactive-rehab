@@ -1,0 +1,187 @@
+{
+  "checks": [
+    "One Arabic library card, real staff login, independent read-only anonymous Display, shared liveSession",
+    "All four articulated costume characters render",
+    "Control reload recovers paused without losing accepted progress",
+    "All nine stages, 28 poses completed through limb controls without sensors or assistance",
+    "History saved exactly once across Control reload",
+    "Display reload restores completed authoritative state",
+    "Versioned history opens through the existing patient detail screen",
+    "Calibrated simulated input accepts poses; sensor loss pauses and preserves progress; manual fallback completes the stage",
+    "Stage selection, low graphics and reduced motion synchronize",
+    "120-second rendering sample keeps geometry counts bounded and publishes only heartbeat while idle",
+    "Repeated costume remounts keep geometry counts bounded",
+    "Another Control window cannot overwrite the live session"
+  ],
+  "metrics": {
+    "inputToDisplayMs": 39.63799999999901,
+    "stabilitySeconds": 120,
+    "resources": [
+      {
+        "fps": 60,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.95802938014865,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.068931560807485,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.982005398559195,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.00983767830792,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.03346127296847,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.02755363099892,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99803285208541,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.05710347614053,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.982005398559195,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.068931560807485,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99400060029756,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99213217956215,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.00393468371387,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 58.03088423313372,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.9685410938998,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60.03346127296847,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99400060029756,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99400060029756,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.95085995085995,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 59.99400059940367,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "fps": 60,
+        "drawCalls": 165,
+        "geometries": 165
+      }
+    ],
+    "idleWritesPerSecond": 0.26666666666666666,
+    "costumeCleanup": [
+      {
+        "name": "الأسد",
+        "fps": 59.99803285208541,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "name": "الأرنب",
+        "fps": 0,
+        "drawCalls": 129,
+        "geometries": 129
+      },
+      {
+        "name": "الأسد",
+        "fps": 61.059680914463186,
+        "drawCalls": 165,
+        "geometries": 165
+      },
+      {
+        "name": "الثعلب",
+        "fps": 61.216429700022154,
+        "drawCalls": 129,
+        "geometries": 129
+      },
+      {
+        "name": "الأسد",
+        "fps": 60.71464118624371,
+        "drawCalls": 165,
+        "geometries": 165
+      }
+    ],
+    "control": {
+      "fps": 59.97001499250375,
+      "drawCalls": 165,
+      "geometries": 165
+    },
+    "display": {
+      "fps": 60.00983767830792,
+      "drawCalls": 165,
+      "geometries": 165
+    }
+  },
+  "errors": [],
+  "physicalDevicesTested": false
+}

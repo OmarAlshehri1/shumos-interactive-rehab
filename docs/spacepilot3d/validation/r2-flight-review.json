@@ -1,0 +1,1606 @@
+{
+  "evidence": [
+    {
+      "name": "neutral",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 12,
+        "inputEpoch": 4,
+        "sequence": 186,
+        "elapsedSeconds": 2.3749999999999942,
+        "ship": {
+          "x": 0,
+          "y": 0,
+          "z": -53.4375,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-1",
+          "kind": "star",
+          "x": -0.02525053083812494,
+          "y": 0.38,
+          "z": -90,
+          "distance": 41.4375,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -48.5625,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -39.5625
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.5365896958010243,
+              0.4591872965674315,
+              0.9995596901597585
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.33151203984978544,
+              0.6096433079204959,
+              0.9995965995001757
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.13049446831226466,
+              0.6815017325434205,
+              0.9998689210200911
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.1507138839033952,
+              0.5622702137784508,
+              0.9999452961553454
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.99850003747672,
+        "meanMs": 16.66708333333954,
+        "p95Ms": 18.5,
+        "maxMs": 18.69999999552965,
+        "frames": 240,
+        "drawCalls": 43,
+        "triangles": 83972,
+        "geometries": 22,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "collection",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 14,
+        "inputEpoch": 4,
+        "sequence": 237,
+        "elapsedSeconds": 4.391666666666675,
+        "ship": {
+          "x": 0,
+          "y": 0,
+          "z": -98.8125,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "star",
+          "x": -0.11637610287212156,
+          "y": 0.38,
+          "z": -202.5,
+          "distance": 109.15372684150762,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -93.5625,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -84.5625
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.5854634932935666,
+              0.41898805284228047,
+              0.9995136453794717
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.35675397331900455,
+              0.5871738861798075,
+              0.999558171981858
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.13620332194577098,
+              0.6765256752020744,
+              0.9998648390596577
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.1518642821264627,
+              0.558540277828238,
+              0.9999444989783302
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.26072248688777,
+        "meanMs": 16.874583333358167,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 68.70000000298023,
+        "frames": 240,
+        "drawCalls": 54,
+        "triangles": 84518,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "left",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 15,
+        "inputEpoch": 4,
+        "sequence": 319,
+        "elapsedSeconds": 7.725000000000174,
+        "ship": {
+          "x": -17.64857261905784,
+          "y": 0,
+          "z": -171.13939713717505,
+          "yaw": -0.01998756232075426,
+          "pitch": 0,
+          "bank": -0.007104718259233505,
+          "controlX": 0.22,
+          "controlY": 0.5
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.22,
+          "y": 0.5
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "star",
+          "x": 0.541878740742125,
+          "y": 0.38,
+          "z": -202.5,
+          "distance": 43.95070995781048,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": -17.089797148331993,
+          "y": 0,
+          "z": -159.9149870913697,
+          "yaw": -0.16738110633615746,
+          "pitch": 0,
+          "bank": -0.2270733970048969,
+          "controlX": 0.22,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -16.00314153503562,
+          5.7,
+          -150.87180294096717
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.2585151561813527,
+              0.387923314543438,
+              0.999478063390432
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.012719902305414902,
+              0.5572842345971829,
+              0.9995070542830159
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.5270163717105406,
+              0.6552373535149196,
+              0.9998473758190128
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              0.19005970444286727,
+              0.5516130204688153,
+              0.9999430184568362
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.2577961037781,
+        "meanMs": 16.875416666672876,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 66.79999999701977,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 84494,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "right",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 16,
+        "inputEpoch": 4,
+        "sequence": 398,
+        "elapsedSeconds": 11.04166666666668,
+        "ship": {
+          "x": -2.4161776480489703,
+          "y": 0,
+          "z": -243.35601053520577,
+          "yaw": 0.32492831819043366,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.78,
+          "controlY": 0.5
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "missed"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.78,
+          "y": 0.5
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": -0.19321999628423686,
+          "y": 0.38,
+          "z": -315,
+          "distance": 90.63060274491087,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": -8.222370711416524,
+          "y": 0,
+          "z": -226.1201967058286,
+          "yaw": 0.32492831819043366,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.78,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -12.421308985132871,
+          5.7,
+          -218.03756610845994
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.4394428711461325,
+              0.038077837989059116,
+              0.9990773454512499
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.9392924209315433,
+              0.4200039968440116,
+              0.9992722757065223
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              -0.2439336353715649,
+              0.6580845865423406,
+              0.999849711461825
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.5853389246978031,
+              0.5180224642473813,
+              0.9999358393471396
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.28121526491294,
+        "meanMs": 16.86875,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 65.30000000447035,
+        "frames": 240,
+        "drawCalls": 40,
+        "triangles": 76526,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "climbing",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 17,
+        "inputEpoch": 4,
+        "sequence": 479,
+        "elapsedSeconds": 14.39166666666649,
+        "ship": {
+          "x": 1.0743473631526552,
+          "y": 9.432460475090743,
+          "z": -317.6427819886628,
+          "yaw": 0,
+          "pitch": 0.017834845229628662,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.22
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "missed"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.5,
+          "y": 0.22
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": 0.78,
+          "y": -0.08,
+          "z": -315,
+          "distance": 11.372078291102055,
+          "obscured": false,
+          "offscreen": true,
+          "angle": 85.13994085189867
+        },
+        "worldPose": {
+          "x": 1.0743473631526552,
+          "y": 9.340261808224497,
+          "z": -315.0202319836058,
+          "yaw": 0,
+          "pitch": 0.06913889124151061,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.22
+        },
+        "cameraPosition": [
+          -0.32565292519636135,
+          13.852644867893229,
+          -306.0989335805895
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.1288234852112953,
+              -0.3574146144677,
+              0.9990081172769033
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.6021528926864969,
+              0.039272232749359606,
+              0.9991913431898531
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.16357041490410762,
+              0.3680796368355068,
+              0.9998454603144383
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.1553577773251855,
+              0.27361322645659775,
+              0.999941748595915
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.28560841862186,
+        "meanMs": 16.867499999981373,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 66.70000000298023,
+        "frames": 240,
+        "drawCalls": 43,
+        "triangles": 83972,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "descending",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 2,
+        "revision": 18,
+        "inputEpoch": 4,
+        "sequence": 560,
+        "elapsedSeconds": 17.716666666666303,
+        "ship": {
+          "x": 1.0743473631526552,
+          "y": 1.856825345945757,
+          "z": -391.87000231397514,
+          "yaw": 0,
+          "pitch": -0.15957446808510636,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.78
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "missed"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "avoided"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.5,
+          "y": 0.78
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-4",
+          "kind": "star",
+          "x": 0.05683200922438454,
+          "y": 0.38,
+          "z": -427.5,
+          "distance": 45.55921767955201,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 1.0743473631526552,
+          "y": 3.376288384031874,
+          "z": -382.4289939819219,
+          "yaw": 0,
+          "pitch": -0.15957446808510636,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.78
+        },
+        "cameraPosition": [
+          -0.3256526368473467,
+          10.50631603764354,
+          -373.5433301963679
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.5658437664071965,
+              -0.19055940814382244,
+              0.9985972233431438
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.8167719518957369,
+              0.42963024729536037,
+              0.998870856604176
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.18981514766250177,
+              0.9552725473880407,
+              0.9998229003702689
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.16823937211639933,
+              0.8476855215060451,
+              0.9999358889928421
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.0159097056149,
+        "meanMs": 16.94458333334575,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 81.5,
+        "frames": 240,
+        "drawCalls": 39,
+        "triangles": 75806,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "intentional-collection",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 3,
+        "revision": 29,
+        "inputEpoch": 5,
+        "sequence": 816,
+        "elapsedSeconds": 9.425000000000106,
+        "ship": {
+          "x": -6.563410595902375,
+          "y": 2.339960291449581,
+          "z": -211.84922599598588,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.520750182438212,
+          "controlY": 0.5119969098337034
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.520750182438212,
+          "y": 0.5119969098337034
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "star",
+          "x": 0.03553327323094173,
+          "y": 0.14249119918610498,
+          "z": -202.5,
+          "distance": 8.648735434254014,
+          "obscured": false,
+          "offscreen": false,
+          "angle": 0
+        },
+        "worldPose": {
+          "x": -5.963937401385804,
+          "y": 2.1301615235525473,
+          "z": -193.86777609986507,
+          "yaw": -0.05820241532105954,
+          "pitch": 0.020795113913475764,
+          "bank": 0,
+          "controlX": 0.4252190344279655,
+          "controlY": 0.4374209882022213
+        },
+        "cameraPosition": [
+          -6.838153952665426,
+          7.643018986897312,
+          -184.80352085784747
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.6281274729551128,
+              0.25608479552276586,
+              0.9993893340476974
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.33626740383468107,
+              0.4713547505157297,
+              0.9994532054962045
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.22816311114783988,
+              0.6173551370944805,
+              0.9998544204263549
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.08009262021704325,
+              0.5091334210110156,
+              0.9999432844486973
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 18.700000002980232,
+        "frames": 240,
+        "drawCalls": 44,
+        "triangles": 84692,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "avoidance",
+      "frame": {
+        "ownerId": "1d4e992d-9d1c-432b-8cf0-93794286c713",
+        "sessionId": "82af266c-c703-4070-8bb7-ad95e9cf50e1",
+        "runId": 3,
+        "revision": 29,
+        "inputEpoch": 5,
+        "sequence": 868,
+        "elapsedSeconds": 11.658333333333312,
+        "ship": {
+          "x": 0.8236647688635058,
+          "y": 2.9130767258862256,
+          "z": -261.5222593015825,
+          "yaw": 0.1595817843233713,
+          "pitch": 0.013419485751366356,
+          "bank": 0,
+          "controlX": 0.6527822995023196,
+          "controlY": 0.44897613898952604
+        },
+        "objects": [
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 0,
+            "scale": 1.3,
+            "z": -90,
+            "id": "mission-1-object-1",
+            "arrivalSeconds": 4,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "star",
+            "x": -6.466921766996999,
+            "y": 2.31,
+            "scale": 1.3,
+            "z": -202.5,
+            "id": "mission-1-object-2",
+            "arrivalSeconds": 9,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "collected"
+          },
+          {
+            "kind": "asteroid",
+            "x": 9.430927576870625,
+            "y": -3.3600000000000003,
+            "scale": 1.8399999999999999,
+            "z": -315,
+            "id": "mission-1-object-3",
+            "arrivalSeconds": 14,
+            "radius": 1.9872,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -427.5,
+            "id": "mission-1-object-4",
+            "arrivalSeconds": 19,
+            "radius": 1.2480000000000002,
+            "presented": true,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": 0,
+            "y": 2.52,
+            "scale": 1.3,
+            "z": -540,
+            "id": "mission-1-object-5",
+            "arrivalSeconds": 24,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          },
+          {
+            "kind": "star",
+            "x": -4.85019132524775,
+            "y": -2.1,
+            "scale": 1.3,
+            "z": -652.5,
+            "id": "mission-1-object-6",
+            "arrivalSeconds": 29,
+            "radius": 1.2480000000000002,
+            "presented": false,
+            "outcome": "pending"
+          }
+        ],
+        "rawPointer": {
+          "x": 0.6527822995023196,
+          "y": 0.44897613898952604
+        }
+      },
+      "graphics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": -0.0395382965408823,
+          "y": 0.27294579755289505,
+          "z": -315,
+          "distance": 77.0451425881483,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": -2.8109671064042505,
+          "y": 2.6061152025887244,
+          "z": -238.93994651580996,
+          "yaw": 0.15958178432337317,
+          "pitch": 0.013419485751366356,
+          "bank": 0,
+          "controlX": 0.652782299502321,
+          "controlY": 0.44897613898952604
+        },
+        "cameraPosition": [
+          -5.620950988792356,
+          8.18576235502237,
+          -230.27683473234546
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.1240794166444832,
+              0.07553276606880406,
+              0.9991763819439091
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.6998304119293285,
+              0.4007719805135045,
+              0.9993187321227462
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              -0.03841273796698207,
+              0.6282868333180986,
+              0.9998516376894586
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.35654611254866686,
+              0.50796047574359,
+              0.9999399022901435
+            ]
+          }
+        ],
+        "dpr": 1,
+        "fps": 59.243168522108,
+        "meanMs": 16.879583333339543,
+        "p95Ms": 18.600000001490116,
+        "maxMs": 66.70000000298023,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 84494,
+        "geometries": 23,
+        "textures": 3,
+        "programs": 16,
+        "assetLoadMs": 287,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    }
+  ],
+  "pageErrors": [],
+  "firebaseRequests": []
+}

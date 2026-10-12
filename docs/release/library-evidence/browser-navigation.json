@@ -1,0 +1,597 @@
+{
+  "sections": [
+    {
+      "id": "hand-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=HAND",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=HAND",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=HAND",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=HAND",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=HAND",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=HAND",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "foot-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=FOOT",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "follow-the-footsteps",
+          "href": "/control/follow-the-footsteps?input=FOOT",
+          "name": "اتبع الخطوات"
+        },
+        {
+          "id": "color-chase",
+          "href": "/control/color-chase?input=FOOT",
+          "name": "مطاردة الألوان"
+        },
+        {
+          "id": "runner-quest-3d",
+          "href": "/control/runner-quest-3d?input=FOOT",
+          "name": "مغامرة العدّاء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=FOOT",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "safe-hex-arena-3d",
+          "href": "/control/safe-hex-arena-3d?input=FOOT",
+          "name": "الأرض الآمنة"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=FOOT",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "handheld",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=JOYSTICK",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=JOYSTICK",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=JOYSTICK",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=JOYSTICK",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=JOYSTICK",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=JOYSTICK",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "steering",
+      "cards": [
+        {
+          "id": "fire-rescue-3d",
+          "href": "/control/fire-rescue-3d?input=DRIVING",
+          "name": "مهمة الإطفاء"
+        },
+        {
+          "id": "harvest-valley-3d",
+          "href": "/control/harvest-valley-3d?input=DRIVING",
+          "name": "موسم الحصاد"
+        },
+        {
+          "id": "pearl-voyage-3d",
+          "href": "/control/pearl-voyage-3d?input=DRIVING",
+          "name": "قارب اللؤلؤ"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "id": "balloon-quest",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/balloon-quest?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/bubble-pop-wall?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "space-pilot",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/space-pilot?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "build-quest-3d",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/build-quest-3d?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/mirror-quest-3d?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "blooming-world-3d",
+      "category": "hand-sensors",
+      "url": "http://localhost:3340/control/blooming-world-3d?input=HAND",
+      "input": "HAND"
+    },
+    {
+      "id": "balloon-quest",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/balloon-quest?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "follow-the-footsteps",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/follow-the-footsteps?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "color-chase",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/color-chase?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "runner-quest-3d",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/runner-quest-3d?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/mirror-quest-3d?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/safe-hex-arena-3d?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "blooming-world-3d",
+      "category": "foot-sensors",
+      "url": "http://localhost:3340/control/blooming-world-3d?input=FOOT",
+      "input": "FOOT"
+    },
+    {
+      "id": "balloon-quest",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/balloon-quest?input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/bubble-pop-wall?input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "space-pilot",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/space-pilot?input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "build-quest-3d",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/build-quest-3d?session=0d8329d2-73d0-40d0-a7ed-416e648ff892&input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/mirror-quest-3d?input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "blooming-world-3d",
+      "category": "handheld",
+      "url": "http://localhost:3340/control/blooming-world-3d?input=JOYSTICK",
+      "input": "JOYSTICK"
+    },
+    {
+      "id": "fire-rescue-3d",
+      "category": "steering",
+      "url": "http://localhost:3340/control/fire-rescue-3d?input=DRIVING",
+      "input": "DRIVING"
+    },
+    {
+      "id": "harvest-valley-3d",
+      "category": "steering",
+      "url": "http://localhost:3340/control/harvest-valley-3d?input=DRIVING",
+      "input": "DRIVING"
+    },
+    {
+      "id": "pearl-voyage-3d",
+      "category": "steering",
+      "url": "http://localhost:3340/control/pearl-voyage-3d?input=DRIVING",
+      "input": "DRIVING"
+    }
+  ],
+  "errors": [],
+  "auth": {
+    "/control/activities": {
+      "login": true,
+      "gameCards": 0,
+      "inputDock": 0
+    },
+    "/control/balloon-quest?input=HAND": {
+      "login": true,
+      "gameCards": 0,
+      "inputDock": 0
+    }
+  },
+  "floor": [
+    {
+      "id": "balloon-quest",
+      "beforeSelectionDisabled": true,
+      "afterSelectionDisabled": false,
+      "live": {
+        "gameId": "balloon-quest",
+        "revision": 4,
+        "session": {
+          "bq3": {
+            "clock": {
+              "running": true,
+              "seq": 6,
+              "simTimeMs": 1050.0999999940395
+            },
+            "controlTabId": "af0f2df2-1d0b-4929-b945-b7b65454b5cc",
+            "heartbeatAt": 1791742158615,
+            "ownerId": "0Vn2qhG9QzkH6XPlTXkO4Fq52Hpi",
+            "ownerStartedAt": 1791742154130,
+            "revision": 3,
+            "runId": 1,
+            "sessionEpoch": 1791742154130,
+            "snapshot": "{\"version\":1,\"sessionId\":\"8b07f225-df44-4d33-866d-b2ac71d50d4c\",\"sessionEpoch\":1791742154130,\"runId\":1,\"seed\":3179835395,\"revision\":3,\"lifecycle\":\"playing\",\"suspendReason\":null,\"settings\":{\"sizeScale\":1,\"speedScale\":1,\"countOffset\":0,\"colorCount\":null,\"contactTolerance\":0.15,\"layout\":\"FLOOR\",\"reducedMotion\":false,\"inputMode\":\"therapist\",\"autoAdvance\":true,\"scope\":\"all\",\"allowNoDisplay\":false},\"startIndex\":0,\"endIndex\":8,\"stageIndex\":0,\"stage\":{\"index\":0,\"attempt\":0,\"seed\":1126748137,\"idPrefix\":\"r1s0a0\",\"spec\":{\"index\":0,\"difficulty\":\"EASY\",\"stage\":1,\"motion\":\"static\",\"layout\":\"FLOOR\",\"goal\":3,\"sizeCqh\":21.488467967999995,\"riseSeconds\":0,\"activeCount\":5,\"palette\":[\"red\",\"blue\",\"yellow\"]},\"target\":\"yellow\",\"goalDone\":0,\"wrongCount\":0,\"correctSeq\":0,\"simTimeMs\":0,\"stepTimeMs\":0,\"balloons\":[{\"id\":\"r1s0a0.0\",\"spawnIndex\":0,\"color\":\"blue\",\"x\":44.79020323411832,\"topY\":55.767298048000015,\"slot\":0,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.1\",\"spawnIndex\":1,\"color\":\"yellow\",\"x\":79.23451410590076,\"topY\":19.999999999999996,\"slot\":1,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.2\",\"spawnIndex\":2,\"color\":\"red\",\"x\":21.19514654316506,\"topY\":55.603057464358656,\"slot\":2,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.3\",\"spawnIndex\":3,\"color\":\"yellow\",\"x\":64.73691580052726,\"topY\":55.68972058675379,\"slot\":3,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.4\",\"spawnIndex\":4,\"color\":\"blue\",\"x\":34.141160293695705,\"topY\":19.999999999999996,\"slot\":4,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000}],\"spawn\":{\"nextSpawnAtMs\":1000,\"lastSpawnAtMs\":0,\"spawnCount\":5,\"recentColors\":[\"red\",\"yellow\",\"blue\"],\"lastSlot\":-1,\"lastX\":-100},\"slots\":[{\"x\":44.79020323411832,\"y\":71.88364902400001},{\"x\":79.23451410590076,\"y\":36.11635097599999},{\"x\":21.19514654316506,\"y\":71.71940844035865},{\"x\":64.73691580052726,\"y\":71.80607156275379},{\"x\":34.141160293695705,\"y\":36.11635097599999},{\"x\":53.444262087335595,\"y\":36.11635097599999},{\"x\":79.89201056672617,\"y\":71.88364902400001}]},\"results\":[],\"selectionSeq\":0,\"selections\":[],\"seenInputEvents\":[],\"restarts\":0,\"summary\":null}",
+            "state": {
+              "balloons": [
+                {
+                  "color": "blue",
+                  "id": "r1s0a0.0",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 55.767298048000015,
+                  "wrongCueCount": 0,
+                  "x": 44.79020323411832
+                },
+                {
+                  "color": "yellow",
+                  "id": "r1s0a0.1",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 19.999999999999996,
+                  "wrongCueCount": 0,
+                  "x": 79.23451410590076
+                },
+                {
+                  "color": "red",
+                  "id": "r1s0a0.2",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 55.603057464358656,
+                  "wrongCueCount": 0,
+                  "x": 21.19514654316506
+                },
+                {
+                  "color": "yellow",
+                  "id": "r1s0a0.3",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 55.68972058675379,
+                  "wrongCueCount": 0,
+                  "x": 64.73691580052726
+                },
+                {
+                  "color": "blue",
+                  "id": "r1s0a0.4",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 19.999999999999996,
+                  "wrongCueCount": 0,
+                  "x": 34.141160293695705
+                }
+              ],
+              "correctSeq": 0,
+              "difficulty": "EASY",
+              "goal": 3,
+              "goalDone": 0,
+              "layout": "FLOOR",
+              "lifecycle": "playing",
+              "motion": "static",
+              "plannedStages": 9,
+              "reducedMotion": false,
+              "riseSeconds": 0,
+              "running": true,
+              "simTimeMs": 0,
+              "sizeCqh": 21.488467967999995,
+              "stage": 1,
+              "stageIndex": 0,
+              "target": "yellow",
+              "totalStages": 9,
+              "wrongCueSeq": 0
+            }
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791742154130,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "bq3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 3179835395,
+          "sessionId": "8b07f225-df44-4d33-866d-b2ac71d50d4c"
+        },
+        "sessionId": "8b07f225-df44-4d33-866d-b2ac71d50d4c",
+        "updatedAt": 1791742158620
+      },
+      "stageLayouts": [
+        "FLOOR"
+      ],
+      "canvases": 0
+    },
+    {
+      "id": "blooming-world-3d",
+      "beforeSelectionDisabled": true,
+      "afterSelectionDisabled": false,
+      "live": {
+        "gameId": "blooming-world-3d",
+        "revision": 5,
+        "session": {
+          "bw3": {
+            "controlTabId": "af0f2df2-1d0b-4929-b945-b7b65454b5cc",
+            "heartbeatAt": 1791742164406,
+            "ownerId": "0Vn2qhG9QzkH6XPlTXkO4Fq52Hpi",
+            "payload": "{\"sessionId\":\"cfb3ba6e-0b1e-4313-8c51-f5c71e09a493\",\"run\":0,\"epoch\":2,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"config\":{\"projection\":\"FLOOR\",\"mode\":\"MANUAL\",\"goal\":0,\"repetitions\":1,\"targetSize\":1,\"movementRange\":1,\"sensitivity\":1,\"smoothing\":0.35,\"deadZone\":0.025,\"width\":4,\"height\":2.25,\"margin\":0.08,\"grid\":false,\"contrast\":false,\"reduced\":false,\"quality\":\"high\",\"audio\":true,\"volume\":0.15,\"sequence\":\"ordered\"},\"regions\":[{\"id\":0,\"hits\":0,\"assisted\":0,\"accepted\":[]},{\"id\":1,\"hits\":0,\"assisted\":0,\"accepted\":[]},{\"id\":2,\"hits\":0,\"assisted\":0,\"accepted\":[]},{\"id\":3,\"hits\":0,\"assisted\":0,\"accepted\":[]}],\"active\":0,\"cursor\":{\"x\":0.5,\"y\":0.5},\"results\":[],\"practiceRegion\":null,\"practiceEvents\":[],\"repeats\":0,\"startedAt\":1791742164406,\"endedAt\":0,\"elapsed\":0,\"lastTick\":0}"
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791742164406,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "bw3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 17,
+          "sessionId": "cfb3ba6e-0b1e-4313-8c51-f5c71e09a493"
+        },
+        "sessionId": "cfb3ba6e-0b1e-4313-8c51-f5c71e09a493",
+        "updatedAt": 1791742164408
+      },
+      "stageLayouts": [],
+      "canvases": 1
+    }
+  ],
+  "cards": [
+    {
+      "id": "balloon-quest",
+      "name": "مغامرة البالونات",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/balloon-quest?input=HAND"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "name": "فرقع الفقاعات",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/bubble-pop-wall?input=HAND"
+    },
+    {
+      "id": "space-pilot",
+      "name": "قائد الفضاء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/space-pilot?input=HAND"
+    },
+    {
+      "id": "build-quest-3d",
+      "name": "عالم البناء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/build-quest-3d?input=HAND"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "name": "المرآة السحرية",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/mirror-quest-3d?input=HAND"
+    },
+    {
+      "id": "blooming-world-3d",
+      "name": "الحديقة التي تستيقظ",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/blooming-world-3d?input=HAND"
+    },
+    {
+      "id": "balloon-quest",
+      "name": "مغامرة البالونات",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/balloon-quest?input=FOOT"
+    },
+    {
+      "id": "follow-the-footsteps",
+      "name": "اتبع الخطوات",
+      "projection": "FLOOR",
+      "image": true,
+      "href": "/control/follow-the-footsteps?input=FOOT"
+    },
+    {
+      "id": "color-chase",
+      "name": "مطاردة الألوان",
+      "projection": "FLOOR",
+      "image": true,
+      "href": "/control/color-chase?input=FOOT"
+    },
+    {
+      "id": "runner-quest-3d",
+      "name": "مغامرة العدّاء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/runner-quest-3d?input=FOOT"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "name": "المرآة السحرية",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/mirror-quest-3d?input=FOOT"
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "name": "الأرض الآمنة",
+      "projection": "FLOOR",
+      "image": true,
+      "href": "/control/safe-hex-arena-3d?input=FOOT"
+    },
+    {
+      "id": "blooming-world-3d",
+      "name": "الحديقة التي تستيقظ",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/blooming-world-3d?input=FOOT"
+    },
+    {
+      "id": "balloon-quest",
+      "name": "مغامرة البالونات",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/balloon-quest?input=JOYSTICK"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "name": "فرقع الفقاعات",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/bubble-pop-wall?input=JOYSTICK"
+    },
+    {
+      "id": "space-pilot",
+      "name": "قائد الفضاء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/space-pilot?input=JOYSTICK"
+    },
+    {
+      "id": "build-quest-3d",
+      "name": "عالم البناء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/build-quest-3d?input=JOYSTICK"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "name": "المرآة السحرية",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/mirror-quest-3d?input=JOYSTICK"
+    },
+    {
+      "id": "blooming-world-3d",
+      "name": "الحديقة التي تستيقظ",
+      "projection": "BOTH",
+      "image": true,
+      "href": "/control/blooming-world-3d?input=JOYSTICK"
+    },
+    {
+      "id": "fire-rescue-3d",
+      "name": "مهمة الإطفاء",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/fire-rescue-3d?input=DRIVING"
+    },
+    {
+      "id": "harvest-valley-3d",
+      "name": "موسم الحصاد",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/harvest-valley-3d?input=DRIVING"
+    },
+    {
+      "id": "pearl-voyage-3d",
+      "name": "قارب اللؤلؤ",
+      "projection": "WALL",
+      "image": true,
+      "href": "/control/pearl-voyage-3d?input=DRIVING"
+    }
+  ],
+  "desktopOverflow": false,
+  "mobileOverflow": false,
+  "unavailableHand": "مغامرة البالونات\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى\nاليد اليسرى\nاليدان\nسطح العرض المنفّذ\nجداريأرضي\n\nاختر السطح صراحةً هنا قبل بدء جلسة جديدة؛ القسم لا يختار الكاميرا نيابةً عنك.\n\nيلزم اتصال اليد المحددة ومعايرتها وإشارة حديثة. لا تُفعّل أجهزة أخرى تلقائيًا. التحكم اليدوي متاح.",
+  "unavailableJoystick": "عالم البناء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nعصا التحكم اليمنى · غير متاح\nعصا التحكم اليسرى · غير متاح\nعصا التحكم معًا · غير متاح\n\nمحوّل عصي التحكم الفعلي وخيارات الأزرار لم تُنفّذ بعد. لا يلزم ضغط زر في التحكم اليدوي.\n\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+  "manualAvailable": true
+}

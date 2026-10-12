@@ -1,0 +1,12 @@
+{
+  "lib/games/library/capabilities.ts": "e9a7c49a7e92dc1b6f39e48c68bab9dfe9b56efdda9627059dd2d8ce9c12d024",
+  "lib/games/registry.ts": "07d765c5883b56f4e0d0a87e8af36d0fba7b2c7061dc72647ff779e7db371ec9",
+  "components/control/library/presentation.ts": "a7830d4594c453959744db594eae2fde71969793729075881235b7061eed65d2",
+  "components/control/library/GameCard.tsx": "1bc750dac505e7421888d38ed3f5f82180d4ca844dcccf8b5df39292d673ca62",
+  "components/control/library/GameLibraryScreen.tsx": "884361a8ec2e6d3ebd3dfbe9ec9c861f8f70dbcdb3647f3fca25ba7ea417adb6",
+  "components/control/library/realGameThumbnails.ts": "043830b98c4dd9c3fb733752ec5ca584350b200f91a302dd103e0d76b9d4d087",
+  "components/control/library/launch/LibraryLaunchBoundary.tsx": "a5752360465c6615eeca70170f60f245d67491865c5a74ab3ee7d7fde5990167",
+  "app/control/layout.tsx": "7a8f74b29e6b5c9d9ed6fabc928212b48e93a940537db7cf08e2afb91e7a4ee8",
+  "app/control/build-quest-3d/page.tsx": "8b4f9722568cd2949e3563d727c4e3dd6b3173184b6412a51ff82f866a1bc785",
+  "database.rules.json": "e7f6d0b715c94a7fe6e202b76f84b0978ad19ec98e98c0911141b33a004a0014"
+}

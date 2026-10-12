@@ -1,0 +1,125 @@
+{
+  "validatedDate": "2026-10-11",
+  "status": "passed",
+  "files": [
+    {
+      "path": "lib/spacepilot3d/curriculum.ts",
+      "sha256": "75b1276870deeac880e45a96d0543dbbf2a90b1af76a0ee359075da028884cf9"
+    },
+    {
+      "path": "lib/spacepilot3d/worldGameplay.ts",
+      "sha256": "fdd9963a7852b397123e2cadce3be58fa11d6066b2b96f3398e4419e92bedb91"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionContract.ts",
+      "sha256": "3c9bde561c39981e55d02dd8262e37a3a6e2647d73156d529572094097131fd4"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionAuthority.ts",
+      "sha256": "0d1aa508f4ff1d9914e34a1372fca8329c1de2ca3d4f1087603848e9d8bc7a48"
+    },
+    {
+      "path": "lib/spacepilot3d/firebaseControlRuntime.ts",
+      "sha256": "1e04bfc6d25f19eab94f14d2c201d1322e87be649af7904583d07a7f98b6c683"
+    },
+    {
+      "path": "lib/spacepilot3d/controlSessionRuntime.ts",
+      "sha256": "b60839c56c18f0415d871897b3438a56c74cb8d55a35efbe8131657617fbfb6c"
+    },
+    {
+      "path": "lib/spacepilot3d/cloudState.ts",
+      "sha256": "0e274996fdf666f628563b8e045d6275071b6630183db7a0c2e5c14d61dce78b"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionStorage.ts",
+      "sha256": "9a9a9eb0ade68fa516b34fd7d29e03111556b99c48cff701162e5bdf43b6b850"
+    },
+    {
+      "path": "lib/spacepilot3d/history.ts",
+      "sha256": "4a3f170cb25f79b877c371b7b9a1be4d2cf400043b9dd269a02c0396279b3431"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/nineStage.test.ts",
+      "sha256": "2874e66e7a0b88019e9da12c2d713a870f62964cbe8ab7733f33707b2de5bd26"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/rules.emulator.test.ts",
+      "sha256": "e2c12c2a46a27798e8feda3dfed133ea0ed2ce28697ed33c15b882e770e2fb7a"
+    },
+    {
+      "path": "lib/sessions/types.ts",
+      "sha256": "25a91db1906620ae92b847728f2bbe2966e1ebbe438b430d3ee2e0aa32384196"
+    },
+    {
+      "path": "lib/analytics/patientAnalytics.ts",
+      "sha256": "b2d2d895c5be5b3522e4fe7afe4147f065f430b17bd5a94941c89ad0297f8a49"
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "sha256": "4c49e4209f307db1be3e87a54c0195f79f814d70fc0321a10c969de358cd9295"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "sha256": "57197e118cd1b9748a419c769c603b411b4f75aada071ddf5f51b480ed466512"
+    },
+    {
+      "path": "components/control/patients/SessionDetailScreen.tsx",
+      "sha256": "5b4ee0085e049d39cf4045358ae79a34f350843cf13f841c341f2be9f2597612"
+    },
+    {
+      "path": "database.rules.json",
+      "sha256": "68950e64fe28fcdf3d946c364e0f2a8350d613415c1c290c05d59d787ee15bc8"
+    },
+    {
+      "path": "docs/release/FINAL_DATABASE_RULES_FOR_FIREBASE_CONSOLE.json",
+      "sha256": "68950e64fe28fcdf3d946c364e0f2a8350d613415c1c290c05d59d787ee15bc8"
+    },
+    {
+      "path": "docs/spacepilot3d/NINE_STAGE_UPGRADE_REPORT.md",
+      "sha256": "3996ccbfb485309e9e45bded159d10e8b8c43f7e829f07ac37360a610ab15152"
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "sha256": "cff260a92ee9a690f44ee319fc91b75ac5199ada5c81c80e5498f4975d4bdaf2"
+    },
+    {
+      "path": "lib/spacepilot3d/worldFlight.ts",
+      "sha256": "068057c3f068d86069340f27c29b5acc849a146be2503f5010eecf2297bc1ab6"
+    },
+    {
+      "path": "lib/spacepilot3d/collision.ts",
+      "sha256": "2cc7c4b067ddf68e8774d6beb4afdeb6bd1d73df6e507cbf62bfadc996ff3a53"
+    },
+    {
+      "path": "lib/spacepilot3d/missions.ts",
+      "sha256": "6f0c33ee6f586dc4bc145491064f0d7d3fef0d56940117d841c4a2fc304dc887"
+    },
+    {
+      "path": "lib/games/registry.ts",
+      "sha256": "07d765c5883b56f4e0d0a87e8af36d0fba7b2c7061dc72647ff779e7db371ec9"
+    },
+    {
+      "path": "components/display/runnerquest3d/floor/FloorScene.ts",
+      "sha256": "ca54ee3577dcb63cc7c476f0cdff6d5ec4524165d26b908c5c4b2f80ca392707"
+    }
+  ],
+  "validation": {
+    "typescriptExit": 0,
+    "eslintErrors": 0,
+    "eslintWarnings": 0,
+    "focusedPassed": 202,
+    "focusedSkipped": 7,
+    "fullPassed": 1961,
+    "fullSkipped": 98,
+    "rulesPassed": 99,
+    "enabledBuildExit": 0,
+    "disabledBuildExit": 0,
+    "manualStagesCompleted": 9,
+    "actualRingScore": 4500,
+    "historyReadChecks": 9,
+    "otherCanonicalStarts": 12,
+    "advancedStageReload": "passed",
+    "manualAssistanceRecovery": "passed",
+    "resourceCleanup": "passed"
+  }
+}

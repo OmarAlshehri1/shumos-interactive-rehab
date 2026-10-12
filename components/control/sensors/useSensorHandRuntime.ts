@@ -53,6 +53,8 @@ export interface SensorRuntime {
   readonly filterMode: MotionFilterMode;
   /** The currently-connected physical device id, or null while disconnected — used by the sibling role's runtime to avoid ever silently claiming the same physical WT901BLECL (see SensorRuntimeProvider's dual-hand wiring). */
   readonly deviceId: string | null;
+  /** Advertised BLE name, for diagnostics; not used for role identity. */
+  readonly deviceName?: string | null;
   /**
    * Increments once per successful recenter() call. Every mounted
    * useSensorPointerTargets/useContactTargets watches this to prime its
@@ -109,6 +111,7 @@ export function useSensorHandRuntime(config: SensorHandRuntimeConfig, getExclude
   const [liveRateHz, setLiveRateHz] = useState<number | null>(null);
   const [recenterEpoch, setRecenterEpoch] = useState(0);
   const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [deviceName, setDeviceName] = useState<string | null>(null);
 
   /** Best-effort RAM-only rate bump for gameplay; never blocks play if it fails. */
   const applyRuntimeRate = useCallback(async (): Promise<void> => {
@@ -202,6 +205,7 @@ export function useSensorHandRuntime(config: SensorHandRuntimeConfig, getExclude
         clearReconnectTimer();
         setReconnecting(false);
         setDeviceId(source.deviceId);
+        setDeviceName(source.deviceName);
         return;
       }
       setConnection(state);
@@ -210,6 +214,7 @@ export function useSensorHandRuntime(config: SensorHandRuntimeConfig, getExclude
         setPointer(null);
         setCentered(false);
         setDeviceId(null);
+        setDeviceName(null);
         sampleTimesRef.current = [];
         setLiveRateHz(null);
         const shouldAutoReconnect = wasConnected && !manualDisconnectRef.current;
@@ -324,12 +329,13 @@ export function useSensorHandRuntime(config: SensorHandRuntimeConfig, getExclude
       rateNote,
       filterMode,
       deviceId,
+      deviceName,
       recenterEpoch,
       connect,
       disconnect,
       recenter,
       selectFilter,
     }),
-    [config.role, connection, reconnecting, sample, pointer, centered, liveRateHz, error, rateNote, filterMode, deviceId, recenterEpoch, connect, disconnect, recenter, selectFilter],
+    [config.role, connection, reconnecting, sample, pointer, centered, liveRateHz, error, rateNote, filterMode, deviceId, deviceName, recenterEpoch, connect, disconnect, recenter, selectFilter],
   );
 }

@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "checks": [
+    "duplicate requests never duplicate a placement",
+    "Display reload recovers accepted progress without scoring",
+    "Control reload restores accepted state paused with a new run",
+    "old-run snapshots and input requests are rejected",
+    "restart clears the stage and keeps total accepted session activity",
+    "skip advances safely and records therapist skip",
+    "only one Control owns a session across tabs",
+    "repeated stage transitions release geometry and keep texture counts bounded",
+    "quality fallback reduces rendering work and preserves gameplay state",
+    "therapist can end safely",
+    "Control disappearance holds Display",
+    "local summary survives Control reopening",
+    "library navigation cleans Build Quest channels; existing library remains intact",
+    "shared library remains unchanged; Build Quest registration conflict is deferred"
+  ],
+  "metrics": {
+    "stageCleanup": [
+      {
+        "level": "3",
+        "geometries": 33,
+        "textures": 5
+      },
+      {
+        "level": "1",
+        "geometries": 34,
+        "textures": 5
+      },
+      {
+        "level": "3",
+        "geometries": 33,
+        "textures": 5
+      },
+      {
+        "level": "1",
+        "geometries": 34,
+        "textures": 5
+      },
+      {
+        "level": "3",
+        "geometries": 33,
+        "textures": 5
+      },
+      {
+        "level": "1",
+        "geometries": 34,
+        "textures": 5
+      }
+    ],
+    "highDisplay": {
+      "fps": 59.99400059993998,
+      "frameMs": 16.666666666666668,
+      "frameP95Ms": 17.80000000000109,
+      "frameMaxMs": 18.700000000000728,
+      "triangles": 26426,
+      "drawCalls": 58,
+      "geometries": 34,
+      "textures": 5,
+      "frames": 897
+    },
+    "highControl": {
+      "fps": 59.97600959616154,
+      "frameMs": 16.667083333333334,
+      "frameP95Ms": 17.80000000000109,
+      "frameMaxMs": 18.600000000000364,
+      "triangles": 26426,
+      "drawCalls": 58,
+      "geometries": 34,
+      "textures": 5,
+      "frames": 840
+    },
+    "inputToDisplayFrameMs": {
+      "samples": 122,
+      "median": 59,
+      "p95": 208,
+      "max": 278
+    },
+    "lowDisplay": {
+      "fps": 60.063016935801585,
+      "frameMs": 16.66208333333334,
+      "frameP95Ms": 18.200000000000728,
+      "frameMaxMs": 18.600000000002183,
+      "triangles": 13411,
+      "drawCalls": 32,
+      "geometries": 32,
+      "textures": 3,
+      "frames": 249
+    },
+    "channelCleanup": {
+      "opened": 2,
+      "closed": 2
+    }
+  },
+  "errors": [],
+  "cloud": [],
+  "session": "4dbb0da0-f759-49b6-8fec-110d9decdb54"
+}

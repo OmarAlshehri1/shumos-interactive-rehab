@@ -1,0 +1,8 @@
+EASY initial balloons=6 labels=أزرق,أحمر,أزرق,أصفر,أزرق,أصفر overlaps=0
+EASY after popping blue: balloons=5, goal="١ من ٣", popped balloon still at same place=false
+EASY 14-round pop test: blue pops=14 wrong-colour pops=5 rounds with no blue available=0 final goal="٣ من ٣" balloons now=3
+MEDIUM 60s run: visible min=5 max=8 maxBodyOverlaps=0 maxWaitingBelowScreen=2 edgeViolations=0
+medium click blue: goal="١ من ٤" count 7 -> 6
+ADVANCED 60s run: visible min=5 max=8 maxBodyOverlaps=0 maxWaitingBelowScreen=2 edgeViolations=0
+advanced click blue: goal="١ من ٥" count 9 -> 8
+MEDIUM forced-still: balloons=7 overlaps=0 motion=static

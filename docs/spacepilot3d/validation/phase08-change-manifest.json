@@ -1,0 +1,104 @@
+{
+  "baselineFileCount": 684,
+  "scope": "rg visible files including hidden, excluding .git/node_modules/.next/tools; ignores respected",
+  "modifiedExisting": [
+    {
+      "path": "docs/spacepilot3d/PHYSICAL_VALIDATION_CHECKLIST.md",
+      "before": "f6eca655fffae8902a7bd1fc3145e13d9f121ad31c0b485432aa9ec1e5de00d6",
+      "after": "590ededadb4b917c139b8e25e5a08da0353ab152281451325d4dc3f38a8babab"
+    },
+    {
+      "path": "components/display/spacepilot3d/prototype.module.css",
+      "before": "553831c5a98cf9de64491312d78291cb5039b422d439b1003258b4d7f63ca875",
+      "after": "de92e207f648e15035cf5091c78cf310ca237f2410828d9850008bb0fe4fa7dc"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "before": "330eabba96febee6984711d8e3df762fc465fab17d14a3839374d96e306c7b31",
+      "after": "46f3cd6c664a9d3862c8b128aa3a7497b9d779b6bdb8171a7ccc166341b1038f"
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "before": "bc5b6bd02e113cd902a484302a8a4cc0bac8afd035aa7ba5c64d3d447a78334d",
+      "after": "4f0e8873959b954564f9db91f1257e48ee8b854a638efa367fc3922ebdedc1ab"
+    },
+    {
+      "path": "lib/spacepilot3d/renderer.ts",
+      "before": "0082b978287419f74bbc0c108c9877d31940e685a1c182a968c2990d2808f225",
+      "after": "3c5b4256398f9eb60b9894c41d41e9471bac99861a469e9ed2ea179fb805e3a3"
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "before": "615fe90f06e32827562cac409c377ff240bb494d5288ac740dde877495f8e6ac",
+      "after": "934496eb87ae1c91805c4800bf9ca227d7aede52ebcc315df47a54f7c78127ef"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+      "before": "b7c6031a98a2591385a19e6f7663018d80d8819f554a4516862b7c7b5756fe1f",
+      "after": "768f950566569e54d45ac23a6fda5361c595755e5a110400f42e573bd1da192c"
+    }
+  ],
+  "created": [
+    "docs/spacepilot3d/PHASE_08_REPORT.md",
+    "docs/spacepilot3d/screenshots/phase08-collection.png",
+    "docs/spacepilot3d/screenshots/phase08-collision-feedback.png",
+    "docs/spacepilot3d/screenshots/phase08-control-setup.png",
+    "docs/spacepilot3d/screenshots/phase08-control.png",
+    "docs/spacepilot3d/screenshots/phase08-flight-complete.png",
+    "docs/spacepilot3d/screenshots/phase08-high-control.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-high-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-high-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-low-control.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-low-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-low-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-control.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-mission-complete.png",
+    "docs/spacepilot3d/screenshots/phase08-start.png",
+    "docs/spacepilot3d/screenshots/phase08-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-tier2.png",
+    "docs/spacepilot3d/screenshots/phase08-tier3.png",
+    "docs/spacepilot3d/validation/phase08-auth-gate.json",
+    "docs/spacepilot3d/validation/phase08-auth-gate.mjs",
+    "docs/spacepilot3d/validation/phase08-browser.mjs",
+    "docs/spacepilot3d/validation/phase08-browser.txt",
+    "docs/spacepilot3d/validation/phase08-build.txt",
+    "docs/spacepilot3d/validation/phase08-change-manifest.json",
+    "docs/spacepilot3d/validation/phase08-difficulties.mjs",
+    "docs/spacepilot3d/validation/phase08-difficulties.txt",
+    "docs/spacepilot3d/validation/phase08-gameplay-metrics.json",
+    "docs/spacepilot3d/validation/phase08-lint.txt",
+    "docs/spacepilot3d/validation/phase08-performance.json",
+    "docs/spacepilot3d/validation/phase08-performance.mjs",
+    "docs/spacepilot3d/validation/phase08-performance.txt",
+    "docs/spacepilot3d/validation/phase08-production.json",
+    "docs/spacepilot3d/validation/phase08-production.mjs",
+    "docs/spacepilot3d/validation/phase08-tests.txt",
+    "docs/spacepilot3d/validation/phase08-typecheck.txt",
+    "docs/spacepilot3d/validation/phase08-visual-review-metrics.json",
+    "docs/spacepilot3d/validation/phase08-visual-review.mjs",
+    "docs/spacepilot3d/validation/phase08-visual-review.txt",
+    "lib/spacepilot3d/arabic.ts"
+  ],
+  "deleted": [],
+  "protectedExistingFilesUnchanged": 677,
+  "unexpectedChanges": [],
+  "note": "Baseline is the actual pre-Phase-08 working tree, including pre-existing uncommitted work. No original gameplay, input, session protocol/runtime, Firebase, auth, registry or route file differs."
+}

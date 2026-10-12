@@ -1,0 +1,263 @@
+{
+  "startedAt": "2026-10-11T03:13:35.703Z",
+  "stages": [
+    {
+      "stage": 1,
+      "stops": 1,
+      "durationMs": 37236,
+      "events": 2
+    },
+    {
+      "stage": 2,
+      "stops": 1,
+      "durationMs": 36955,
+      "events": 4
+    },
+    {
+      "stage": 3,
+      "stops": 1,
+      "durationMs": 36666,
+      "events": 6
+    },
+    {
+      "stage": 4,
+      "stops": 1,
+      "durationMs": 50516,
+      "events": 8
+    },
+    {
+      "stage": 5,
+      "stops": 1,
+      "durationMs": 47302,
+      "events": 11
+    },
+    {
+      "stage": 6,
+      "stops": 1,
+      "durationMs": 49400,
+      "events": 14
+    },
+    {
+      "stage": 7,
+      "stops": 1,
+      "durationMs": 69764,
+      "events": 17
+    },
+    {
+      "stage": 8,
+      "stops": 2,
+      "durationMs": 68855,
+      "events": 22
+    },
+    {
+      "stage": 9,
+      "stops": 3,
+      "durationMs": 98425,
+      "events": 30
+    }
+  ],
+  "checks": [
+    "Actual touch throttle and braking",
+    "Pause freezes and resume continues",
+    "Hose direction and missed stream do not extinguish",
+    "Actual touch right steering",
+    "Actual touch left steering"
+  ],
+  "performance": [
+    {
+      "label": "stage-0",
+      "stats": {
+        "testid": "fr-view",
+        "stage": "0",
+        "phase": "firefighting",
+        "distance": "90.00",
+        "aim": "0.000,0.000",
+        "fires": "1.000",
+        "fps": "4",
+        "drawCalls": "57",
+        "triangles": "78212",
+        "geometries": "42",
+        "textures": "9"
+      }
+    },
+    {
+      "label": "stage-3",
+      "stats": {
+        "testid": "fr-view",
+        "stage": "3",
+        "phase": "firefighting",
+        "distance": "155.00",
+        "aim": "0.000,0.120",
+        "fires": "1.000",
+        "fps": "5",
+        "drawCalls": "55",
+        "triangles": "74100",
+        "geometries": "44",
+        "textures": "9"
+      }
+    },
+    {
+      "label": "stage-6",
+      "stats": {
+        "testid": "fr-view",
+        "stage": "6",
+        "phase": "firefighting",
+        "distance": "210.00",
+        "aim": "-0.550,0.120",
+        "fires": "1.000,1.000",
+        "fps": "3",
+        "drawCalls": "69",
+        "triangles": "77278",
+        "geometries": "51",
+        "textures": "9"
+      }
+    }
+  ],
+  "errors": [],
+  "sync": [
+    {
+      "label": "arrival-0-0",
+      "control": "90.00",
+      "display": "90.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-0-0",
+      "control": "90.00",
+      "display": "90.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-1-0",
+      "control": "110.00",
+      "display": "110.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-1-0",
+      "control": "110.00",
+      "display": "110.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-2-0",
+      "control": "110.00",
+      "display": "110.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-2-0",
+      "control": "110.00",
+      "display": "110.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-3-0",
+      "control": "155.00",
+      "display": "155.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-3-0",
+      "control": "155.00",
+      "display": "155.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-4-0",
+      "control": "95.00",
+      "display": "95.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-4-0",
+      "control": "95.00",
+      "display": "95.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-5-0",
+      "control": "125.00",
+      "display": "125.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-5-0",
+      "control": "125.00",
+      "display": "125.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-6-0",
+      "control": "210.00",
+      "display": "210.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-6-0",
+      "control": "210.00",
+      "display": "210.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-7-0",
+      "control": "85.00",
+      "display": "85.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-7-0",
+      "control": "85.00",
+      "display": "85.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-7-1",
+      "control": "180.00",
+      "display": "180.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-7-1",
+      "control": "180.00",
+      "display": "180.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-8-0",
+      "control": "75.00",
+      "display": "75.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-8-0",
+      "control": "75.00",
+      "display": "75.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-8-1",
+      "control": "155.00",
+      "display": "155.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-8-1",
+      "control": "155.00",
+      "display": "155.00",
+      "delta": 0
+    },
+    {
+      "label": "arrival-8-2",
+      "control": "240.00",
+      "display": "240.00",
+      "delta": 0
+    },
+    {
+      "label": "extinguished-8-2",
+      "control": "240.00",
+      "display": "240.00",
+      "delta": 0
+    }
+  ]
+}

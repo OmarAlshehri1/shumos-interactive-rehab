@@ -38,8 +38,12 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
         <span className="font-semibold text-teal-700">{DIFFICULTY_LABELS[session.endingDifficulty].name}</span>
         <span>{formatCountOrUnavailable(session.completedStageCount)} مراحل مكتملة</span>
-        {session.gameId === "harvest-valley-3d" ? (
+        {session.gameId === "shumos-castle-legends-3d" ? (
+          <span>{session.totalConfirmations} تأكيد ناجح · {session.totalAssists} بمساعدة</span>
+        ) : session.gameId === "harvest-valley-3d" ? (
           <span>{session.harvestedCells} خلايا محصودة · {session.assistedActions} بمساعدة</span>
+        ) : session.gameId === "balance-bridge-3d" ? (
+          <span>{session.checkpointsConfirmed} تأكيدًا · {session.assistedCheckpoints} بمساعدة</span>
         ) : session.gameId === "blooming-world-3d" ? (
           <span>{session.restoredRegions} مناطق مزهرة · {session.assistedRegions} بمساعدة</span>
         ) : session.gameId === "pearl-voyage-3d" ? (

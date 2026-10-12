@@ -1,0 +1,372 @@
+[
+ {
+  "name": "Control opens the 3D game on the canonical route and publishes the shared session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display (separate device) renders from /liveSession",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display 3D garden is rendering (WebGL)",
+  "ok": true,
+  "detail": "{\"fps\":45.5,\"calls\":141,\"triangles\":531680,\"geometries\":50,\"textures\":15,\"zones\":2,\"world\":0,\"quality\":\"high\",\"view\":\"floor\",\"decor\":{\"trees\":10,\"bushes\":18,\"arbors\":1,\"flowers-red\":144,\"flowers-yellow\":27,\"flowers-purple\":64,\"flowers-blue\":0,\"fountain\":1.7},\"restored\":{\"red\":0,\"blue\":0,\"green\":0,\"yellow\":0,\"purple\":0},\"saturation\":{\"red\":0.14,\"blue\":0.14,\"green\":0.14,\"yellow\":0.14,\"purple\":0.14}}"
+ },
+ {
+  "name": "record is the shared liveSession, same game id as the original, tagged cc3",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: 4 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 2: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 2: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: 5 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 3: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 3: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: 3 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 4: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 4: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: 6 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 5: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 5: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: 6 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: sequence pips are shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 6: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 6: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: 6 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 7: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 7: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: 7 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 8: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 8: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: 8 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: sequence pips are shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "stage 9: the next garden starts desaturated again",
+  "ok": true,
+  "detail": "0,0,0,0,0"
+ },
+ {
+  "name": "stage 9: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: 5 objectives on Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: zone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: sequence pips are shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: the whole garden is restored on completion",
+  "ok": true,
+  "detail": "1,1,1,1,1"
+ },
+ {
+  "name": "zone state: therapist map == Display at every objective",
+  "ok": true,
+  "detail": "50/50"
+ },
+ {
+  "name": "restoration never decreases within a stage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a wrong zone never resolves an objective nor changes the accepted count",
+  "ok": true,
+  "detail": "10 wrong choices"
+ },
+ {
+  "name": "writes: shared record revisions during the nine-stage run",
+  "ok": true,
+  "detail": "85 in 32 s = 2.62/s"
+ },
+ {
+  "name": "input-to-Display latency (same machine, emulator): Control tap -> Display accepts the objective",
+  "ok": true,
+  "detail": "p50 19 ms, p95 383 ms, max 518 ms (n=50)"
+ },
+ {
+  "name": "Display render metrics at the end",
+  "ok": true,
+  "detail": "{\"fps\":0,\"calls\":187,\"triangles\":310260,\"geometries\":62,\"textures\":22,\"zones\":5,\"world\":2,\"quality\":\"high\",\"view\":\"floor\",\"decor\":{\"trees\":4,\"bushes\":12,\"ponds\":1,\"arbors\":2,\"columns\":6,\"flowers-red\":48,\"flowers-yellow\":27,\"flowers-purple\":48,\"flowers-blue\":0,\"glowPlants\":36,\"fountain\":1.5},\"restored\":{\"red\":0.63,\"blue\":0.53,\"green\":0,\"yellow\":0,\"purple\":0},\"saturation\":{\"red\":0.74,\"blue\":0.61,\"green\":0.14,\"yellow\":0.14,\"purple\":0.14}}"
+ },
+ {
+  "name": "session ended on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "history saved exactly once",
+  "ok": true,
+  "detail": "[\"495a35ff-ddcc-47d8-a55b-83b2f7dc69d8-r0\"]"
+ },
+ {
+  "name": "history record is the versioned nine-stage format with counts only",
+  "ok": true,
+  "detail": "{\"v\":2,\"stages\":9,\"objectives\":50,\"assists\":6,\"repeats\":8,\"rows\":9}"
+ },
+ {
+  "name": "results summary on Control matches the saved record",
+  "ok": true,
+  "detail": "50 / 6 / 8"
+ },
+ {
+  "name": "public liveSession record carries no patient id",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "maximum map/Display zone position error across all stages",
+  "ok": true,
+  "detail": "0.00000"
+ },
+ {
+  "name": "objectives completed through the UI",
+  "ok": true,
+  "detail": "50/50"
+ },
+ {
+  "name": "no uncaught exceptions on either device",
+  "ok": true,
+  "detail": "[]"
+ }
+]

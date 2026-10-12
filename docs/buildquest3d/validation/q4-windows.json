@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "nativeWindows": 2,
+  "defaultBackgroundThrottling": true,
+  "results": [
+    {
+      "stage": "first-shapes",
+      "pieces": 2,
+      "metrics": {
+        "fps": 57.30092866954842,
+        "frameMs": 17.45172413813657,
+        "frameP95Ms": 17.59999999999991,
+        "frameMaxMs": 116.7700000000001,
+        "triangles": 23278,
+        "drawCalls": 52,
+        "geometries": 34,
+        "textures": 5,
+        "frames": 58
+      }
+    },
+    {
+      "stage": "three-shapes",
+      "pieces": 3,
+      "metrics": {
+        "fps": 58.999999999999986,
+        "frameMs": 17.023728813626672,
+        "frameP95Ms": 17.59999999999991,
+        "frameMaxMs": 116.7700000000001,
+        "triangles": 23536,
+        "drawCalls": 58,
+        "geometries": 39,
+        "textures": 5,
+        "frames": 177
+      }
+    },
+    {
+      "stage": "four-shapes",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.999999999999986,
+        "frameMs": 16.805416666666666,
+        "frameP95Ms": 17.5,
+        "frameMaxMs": 34.30000000000018,
+        "triangles": 26636,
+        "drawCalls": 64,
+        "geometries": 44,
+        "textures": 5,
+        "frames": 357
+      }
+    },
+    {
+      "stage": "house",
+      "pieces": 4,
+      "metrics": {
+        "fps": 60.003934684241635,
+        "frameMs": 16.805416666666662,
+        "frameP95Ms": 17.600000000000364,
+        "frameMaxMs": 34.30000000000018,
+        "triangles": 31108,
+        "drawCalls": 53,
+        "geometries": 39,
+        "textures": 5,
+        "frames": 478
+      }
+    },
+    {
+      "stage": "car",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.99999999999997,
+        "frameMs": 16.805416666666662,
+        "frameP95Ms": 17.600000000000364,
+        "frameMaxMs": 33.30000000000109,
+        "triangles": 28476,
+        "drawCalls": 58,
+        "geometries": 41,
+        "textures": 5,
+        "frames": 597
+      }
+    },
+    {
+      "stage": "robot",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.99803285138186,
+        "frameMs": 16.736250000000002,
+        "frameP95Ms": 17.600000000000364,
+        "frameMaxMs": 33.29999999999927,
+        "triangles": 33324,
+        "drawCalls": 56,
+        "geometries": 40,
+        "textures": 5,
+        "frames": 778
+      }
+    },
+    {
+      "stage": "tower",
+      "pieces": 3,
+      "metrics": {
+        "fps": 60.03346127349669,
+        "frameMs": 16.73375,
+        "frameP95Ms": 17.600000000000364,
+        "frameMaxMs": 33.399999999999636,
+        "triangles": 28668,
+        "drawCalls": 47,
+        "geometries": 34,
+        "textures": 5,
+        "frames": 899
+      }
+    },
+    {
+      "stage": "bridge",
+      "pieces": 3,
+      "metrics": {
+        "fps": 60.0039346842417,
+        "frameMs": 16.805416666666662,
+        "frameP95Ms": 17.599999999998545,
+        "frameMaxMs": 33.399999999999636,
+        "triangles": 30508,
+        "drawCalls": 58,
+        "geometries": 39,
+        "textures": 5,
+        "frames": 1019
+      }
+    },
+    {
+      "stage": "castle",
+      "pieces": 5,
+      "metrics": {
+        "fps": 59.99400059994013,
+        "frameMs": 16.807916666666664,
+        "frameP95Ms": 17.599999999998545,
+        "frameMaxMs": 33.400000000001455,
+        "triangles": 42004,
+        "drawCalls": 79,
+        "geometries": 54,
+        "textures": 5,
+        "frames": 1139
+      }
+    }
+  ],
+  "errors": [],
+  "cloud": []
+}

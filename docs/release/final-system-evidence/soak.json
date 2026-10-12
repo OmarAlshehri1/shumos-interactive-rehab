@@ -1,0 +1,1194 @@
+{
+  "startedAt": "2026-10-12T01:49:10.661Z",
+  "targetMs": 3600000,
+  "samples": [
+    {
+      "elapsedMs": 30758,
+      "revision": 16,
+      "control": {
+        "Documents": 1,
+        "Nodes": 472,
+        "JSHeapUsedSize": 21023668,
+        "JSHeapTotalSize": 82903040
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 136,
+        "JSHeapUsedSize": 14649948,
+        "JSHeapTotalSize": 82378752
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 1806,
+        "maxGap": 250.10000000000218,
+        "gapsOver100": 2,
+        "last": 32795.8
+      },
+      "practiceEvents": 1,
+      "acknowledgementMs": 455,
+      "writesPerSecond": 0.3251186683139346
+    },
+    {
+      "elapsedMs": 61490,
+      "revision": 25,
+      "control": {
+        "Documents": 1,
+        "Nodes": 482,
+        "JSHeapUsedSize": 37702680,
+        "JSHeapTotalSize": 103088128
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 147,
+        "JSHeapUsedSize": 15432384,
+        "JSHeapTotalSize": 84803584
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 3622,
+        "maxGap": 250.10000000000218,
+        "gapsOver100": 4,
+        "last": 63495
+      },
+      "practiceEvents": 2,
+      "acknowledgementMs": 410,
+      "writesPerSecond": 0.3089933322491462
+    },
+    {
+      "elapsedMs": 92484,
+      "revision": 35,
+      "control": {
+        "Documents": 1,
+        "Nodes": 480,
+        "JSHeapUsedSize": 25310740,
+        "JSHeapTotalSize": 102825984
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 151,
+        "JSHeapUsedSize": 15926332,
+        "JSHeapTotalSize": 84017152
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 5419,
+        "maxGap": 317.59999999999127,
+        "gapsOver100": 7,
+        "last": 94494
+      },
+      "practiceEvents": 3,
+      "acknowledgementMs": 586,
+      "writesPerSecond": 0.3135677522598504
+    },
+    {
+      "elapsedMs": 123928,
+      "revision": 44,
+      "control": {
+        "Documents": 1,
+        "Nodes": 484,
+        "JSHeapUsedSize": 26465324,
+        "JSHeapTotalSize": 96796672
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 158,
+        "JSHeapUsedSize": 23356636,
+        "JSHeapTotalSize": 84017152
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 6822,
+        "maxGap": 448.5,
+        "gapsOver100": 9,
+        "last": 125941.9
+      },
+      "practiceEvents": 4,
+      "acknowledgementMs": 797,
+      "writesPerSecond": 0.30662965592924923
+    },
+    {
+      "elapsedMs": 155323,
+      "revision": 53,
+      "control": {
+        "Documents": 1,
+        "Nodes": 488,
+        "JSHeapUsedSize": 26192344,
+        "JSHeapTotalSize": 97845248
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 159,
+        "JSHeapUsedSize": 16187328,
+        "JSHeapTotalSize": 88473600
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 8040,
+        "maxGap": 498.20000000001164,
+        "gapsOver100": 11,
+        "last": 157309.2
+      },
+      "practiceEvents": 5,
+      "acknowledgementMs": 693,
+      "writesPerSecond": 0.3025952370222053
+    },
+    {
+      "elapsedMs": 186438,
+      "revision": 62,
+      "control": {
+        "Documents": 1,
+        "Nodes": 489,
+        "JSHeapUsedSize": 20070084,
+        "JSHeapTotalSize": 99155968
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 163,
+        "JSHeapUsedSize": 25692188,
+        "JSHeapTotalSize": 89260032
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 9166,
+        "maxGap": 498.20000000001164,
+        "gapsOver100": 13,
+        "last": 188457.8
+      },
+      "practiceEvents": 6,
+      "acknowledgementMs": 681,
+      "writesPerSecond": 0.3003679507396561
+    },
+    {
+      "elapsedMs": 217472,
+      "revision": 71,
+      "control": {
+        "Documents": 1,
+        "Nodes": 499,
+        "JSHeapUsedSize": 31318084,
+        "JSHeapTotalSize": 100990976
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 167,
+        "JSHeapUsedSize": 15381384,
+        "JSHeapTotalSize": 89784320
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 10526,
+        "maxGap": 498.20000000001164,
+        "gapsOver100": 15,
+        "last": 219473.2
+      },
+      "practiceEvents": 7,
+      "acknowledgementMs": 489,
+      "writesPerSecond": 0.2988890523837551
+    },
+    {
+      "elapsedMs": 248357,
+      "revision": 80,
+      "control": {
+        "Documents": 1,
+        "Nodes": 503,
+        "JSHeapUsedSize": 34684936,
+        "JSHeapTotalSize": 98435072
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 171,
+        "JSHeapUsedSize": 23546376,
+        "JSHeapTotalSize": 90046464
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 11934,
+        "maxGap": 498.20000000001164,
+        "gapsOver100": 17,
+        "last": 250353.9
+      },
+      "practiceEvents": 8,
+      "acknowledgementMs": 447,
+      "writesPerSecond": 0.2979581811666271
+    },
+    {
+      "elapsedMs": 279882,
+      "revision": 90,
+      "control": {
+        "Documents": 1,
+        "Nodes": 513,
+        "JSHeapUsedSize": 40449596,
+        "JSHeapTotalSize": 103415808
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 175,
+        "JSHeapUsedSize": 16503020,
+        "JSHeapTotalSize": 90832896
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 13198,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 20,
+        "last": 281868.4
+      },
+      "practiceEvents": 9,
+      "acknowledgementMs": 563,
+      "writesPerSecond": 0.30012648187450425
+    },
+    {
+      "elapsedMs": 311242,
+      "revision": 101,
+      "control": {
+        "Documents": 1,
+        "Nodes": 511,
+        "JSHeapUsedSize": 29890488,
+        "JSHeapTotalSize": 104202240
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 179,
+        "JSHeapUsedSize": 16983976,
+        "JSHeapTotalSize": 92667904
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 14462,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 22,
+        "last": 313235.5
+      },
+      "practiceEvents": 10,
+      "acknowledgementMs": 637,
+      "writesPerSecond": 0.30522872877053864
+    },
+    {
+      "elapsedMs": 342489,
+      "revision": 110,
+      "control": {
+        "Documents": 1,
+        "Nodes": 521,
+        "JSHeapUsedSize": 36166380,
+        "JSHeapTotalSize": 104202240
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 189,
+        "JSHeapUsedSize": 39568868,
+        "JSHeapTotalSize": 95551488
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 15650,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 24,
+        "last": 344533.9
+      },
+      "practiceEvents": 11,
+      "acknowledgementMs": 717,
+      "writesPerSecond": 0.30365938760076966
+    },
+    {
+      "elapsedMs": 373887,
+      "revision": 119,
+      "control": {
+        "Documents": 1,
+        "Nodes": 513,
+        "JSHeapUsedSize": 18249656,
+        "JSHeapTotalSize": 92930048
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 190,
+        "JSHeapUsedSize": 29645496,
+        "JSHeapTotalSize": 95027200
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 16746,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 27,
+        "last": 375865.8
+      },
+      "practiceEvents": 12,
+      "acknowledgementMs": 690,
+      "writesPerSecond": 0.30223035302109996
+    },
+    {
+      "elapsedMs": 404829,
+      "revision": 128,
+      "control": {
+        "Documents": 1,
+        "Nodes": 523,
+        "JSHeapUsedSize": 42797200,
+        "JSHeapTotalSize": 95551488
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 191,
+        "JSHeapUsedSize": 25121648,
+        "JSHeapTotalSize": 93716480
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 18080,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 29,
+        "last": 406864
+      },
+      "practiceEvents": 13,
+      "acknowledgementMs": 529,
+      "writesPerSecond": 0.3013618095541574
+    },
+    {
+      "elapsedMs": 435562,
+      "revision": 137,
+      "control": {
+        "Documents": 1,
+        "Nodes": 521,
+        "JSHeapUsedSize": 18215840,
+        "JSHeapTotalSize": 93716480
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 195,
+        "JSHeapUsedSize": 17612780,
+        "JSHeapTotalSize": 93454336
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 19799,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 31,
+        "last": 437562.8
+      },
+      "practiceEvents": 14,
+      "acknowledgementMs": 384,
+      "writesPerSecond": 0.3007608560893742
+    },
+    {
+      "elapsedMs": 466251,
+      "revision": 146,
+      "control": {
+        "Documents": 1,
+        "Nodes": 525,
+        "JSHeapUsedSize": 17524976,
+        "JSHeapTotalSize": 97124352
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 205,
+        "JSHeapUsedSize": 40236648,
+        "JSHeapTotalSize": 96337920
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 21614,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 33,
+        "last": 468261.4
+      },
+      "practiceEvents": 15,
+      "acknowledgementMs": 369,
+      "writesPerSecond": 0.3002674525094852
+    },
+    {
+      "elapsedMs": 496932,
+      "revision": 155,
+      "control": {
+        "Documents": 1,
+        "Nodes": 535,
+        "JSHeapUsedSize": 31279348,
+        "JSHeapTotalSize": 100007936
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 209,
+        "JSHeapUsedSize": 35895708,
+        "JSHeapTotalSize": 97648640
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 23428,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 35,
+        "last": 498943.5
+      },
+      "practiceEvents": 16,
+      "acknowledgementMs": 353,
+      "writesPerSecond": 0.29983981711783503
+    },
+    {
+      "elapsedMs": 527647,
+      "revision": 166,
+      "control": {
+        "Documents": 1,
+        "Nodes": 533,
+        "JSHeapUsedSize": 18432192,
+        "JSHeapTotalSize": 104464384
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 213,
+        "JSHeapUsedSize": 35768412,
+        "JSHeapTotalSize": 95551488
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 25146,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 37,
+        "last": 529658.6
+      },
+      "practiceEvents": 17,
+      "acknowledgementMs": 388,
+      "writesPerSecond": 0.3032330326904161
+    },
+    {
+      "elapsedMs": 558423,
+      "revision": 175,
+      "control": {
+        "Documents": 1,
+        "Nodes": 543,
+        "JSHeapUsedSize": 35958624,
+        "JSHeapTotalSize": 107347968
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 217,
+        "JSHeapUsedSize": 41306148,
+        "JSHeapTotalSize": 97124352
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 26956,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 39,
+        "last": 560423.9
+      },
+      "practiceEvents": 18,
+      "acknowledgementMs": 381,
+      "writesPerSecond": 0.3026379644104917
+    },
+    {
+      "elapsedMs": 589277,
+      "revision": 184,
+      "control": {
+        "Documents": 1,
+        "Nodes": 553,
+        "JSHeapUsedSize": 55549732,
+        "JSHeapTotalSize": 107347968
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 218,
+        "JSHeapUsedSize": 25161600,
+        "JSHeapTotalSize": 97910784
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 28771,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 41,
+        "last": 591289.1
+      },
+      "practiceEvents": 19,
+      "acknowledgementMs": 467,
+      "writesPerSecond": 0.30206507296229107
+    },
+    {
+      "elapsedMs": 620455,
+      "revision": 193,
+      "control": {
+        "Documents": 1,
+        "Nodes": 548,
+        "JSHeapUsedSize": 27648772,
+        "JSHeapTotalSize": 111804416
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 228,
+        "JSHeapUsedSize": 33872936,
+        "JSHeapTotalSize": 99745792
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 30504,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 43,
+        "last": 622470.1
+      },
+      "practiceEvents": 20,
+      "acknowledgementMs": 588,
+      "writesPerSecond": 0.3013917205921461
+    },
+    {
+      "elapsedMs": 651488,
+      "revision": 202,
+      "control": {
+        "Documents": 1,
+        "Nodes": 549,
+        "JSHeapUsedSize": 20106104,
+        "JSHeapTotalSize": 100270080
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 229,
+        "JSHeapUsedSize": 32375636,
+        "JSHeapTotalSize": 98435072
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 32216,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 45,
+        "last": 653502.2
+      },
+      "practiceEvents": 21,
+      "acknowledgementMs": 509,
+      "writesPerSecond": 0.30084974704062084
+    },
+    {
+      "elapsedMs": 682252,
+      "revision": 211,
+      "control": {
+        "Documents": 1,
+        "Nodes": 553,
+        "JSHeapUsedSize": 20630832,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 239,
+        "JSHeapUsedSize": 20129340,
+        "JSHeapTotalSize": 98697216
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 33961,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 47,
+        "last": 684266.2
+      },
+      "practiceEvents": 22,
+      "acknowledgementMs": 428,
+      "writesPerSecond": 0.300475484131963
+    },
+    {
+      "elapsedMs": 713488,
+      "revision": 223,
+      "control": {
+        "Documents": 1,
+        "Nodes": 557,
+        "JSHeapUsedSize": 23223656,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 237,
+        "JSHeapUsedSize": 50647420,
+        "JSHeapTotalSize": 100532224
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 35510,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 49,
+        "last": 715530.9
+      },
+      "practiceEvents": 23,
+      "acknowledgementMs": 747,
+      "writesPerSecond": 0.30413966317583474
+    },
+    {
+      "elapsedMs": 744278,
+      "revision": 233,
+      "control": {
+        "Documents": 1,
+        "Nodes": 561,
+        "JSHeapUsedSize": 20171812,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 397,
+        "JSHeapUsedSize": 32556144,
+        "JSHeapTotalSize": 100270080
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 37207,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 52,
+        "last": 746280.6
+      },
+      "practiceEvents": 24,
+      "acknowledgementMs": 399,
+      "writesPerSecond": 0.3049935642327195
+    },
+    {
+      "elapsedMs": 774983,
+      "revision": 242,
+      "control": {
+        "Documents": 1,
+        "Nodes": 568,
+        "JSHeapUsedSize": 27689348,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 242,
+        "JSHeapUsedSize": 27027364,
+        "JSHeapTotalSize": 101580800
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 39023,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 54,
+        "last": 776996.2
+      },
+      "practiceEvents": 25,
+      "acknowledgementMs": 395,
+      "writesPerSecond": 0.3045228088874208
+    },
+    {
+      "elapsedMs": 805658,
+      "revision": 251,
+      "control": {
+        "Documents": 1,
+        "Nodes": 572,
+        "JSHeapUsedSize": 26303964,
+        "JSHeapTotalSize": 100007936
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 252,
+        "JSHeapUsedSize": 48054912,
+        "JSHeapTotalSize": 101842944
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 40837,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 56,
+        "last": 807660.9
+      },
+      "practiceEvents": 26,
+      "acknowledgementMs": 369,
+      "writesPerSecond": 0.30409925799781046
+    },
+    {
+      "elapsedMs": 836604,
+      "revision": 260,
+      "control": {
+        "Documents": 1,
+        "Nodes": 576,
+        "JSHeapUsedSize": 28590716,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 256,
+        "JSHeapUsedSize": 41059664,
+        "JSHeapTotalSize": 102367232
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 42656,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 58,
+        "last": 838626.4
+      },
+      "practiceEvents": 27,
+      "acknowledgementMs": 526,
+      "writesPerSecond": 0.3036083977604697
+    },
+    {
+      "elapsedMs": 867620,
+      "revision": 269,
+      "control": {
+        "Documents": 1,
+        "Nodes": 580,
+        "JSHeapUsedSize": 28342172,
+        "JSHeapTotalSize": 102105088
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 266,
+        "JSHeapUsedSize": 46117856,
+        "JSHeapTotalSize": 104202240
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 44466,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 60,
+        "last": 869624.9
+      },
+      "practiceEvents": 28,
+      "acknowledgementMs": 460,
+      "writesPerSecond": 0.3031280975542288
+    },
+    {
+      "elapsedMs": 898312,
+      "revision": 279,
+      "control": {
+        "Documents": 1,
+        "Nodes": 584,
+        "JSHeapUsedSize": 26365308,
+        "JSHeapTotalSize": 98172928
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 264,
+        "JSHeapUsedSize": 47422744,
+        "JSHeapTotalSize": 106823680
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 46254,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 62,
+        "last": 900321.2
+      },
+      "practiceEvents": 29,
+      "acknowledgementMs": 370,
+      "writesPerSecond": 0.30390332089519007
+    },
+    {
+      "elapsedMs": 929010,
+      "revision": 288,
+      "control": {
+        "Documents": 1,
+        "Nodes": 588,
+        "JSHeapUsedSize": 28499592,
+        "JSHeapTotalSize": 102105088
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 268,
+        "JSHeapUsedSize": 42879028,
+        "JSHeapTotalSize": 97910784
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 48068,
+        "maxGap": 532.3999999999651,
+        "gapsOver100": 64,
+        "last": 931020
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 388,
+      "writesPerSecond": 0.30354893919333487
+    },
+    {
+      "elapsedMs": 961999,
+      "revision": 300,
+      "control": {
+        "Documents": 1,
+        "Nodes": 589,
+        "JSHeapUsedSize": 29332868,
+        "JSHeapTotalSize": 101056512
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 272,
+        "JSHeapUsedSize": 52559972,
+        "JSHeapTotalSize": 100794368
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 49449,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 67,
+        "last": 964084.5
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 1792,
+      "writesPerSecond": 0.3056136232989847
+    },
+    {
+      "elapsedMs": 993574,
+      "revision": 311,
+      "control": {
+        "Documents": 1,
+        "Nodes": 599,
+        "JSHeapUsedSize": 40100748,
+        "JSHeapTotalSize": 102629376
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 282,
+        "JSHeapUsedSize": 51171004,
+        "JSHeapTotalSize": 102367232
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 50490,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 69,
+        "last": 995584.3
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 702,
+      "writesPerSecond": 0.3069726059659371
+    },
+    {
+      "elapsedMs": 1025028,
+      "revision": 320,
+      "control": {
+        "Documents": 1,
+        "Nodes": 603,
+        "JSHeapUsedSize": 47263232,
+        "JSHeapTotalSize": 103415808
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 292,
+        "JSHeapUsedSize": 21409992,
+        "JSHeapTotalSize": 104202240
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 51508,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 71,
+        "last": 1027049.3
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 723,
+      "writesPerSecond": 0.30633309529105546
+    },
+    {
+      "elapsedMs": 1056107,
+      "revision": 329,
+      "control": {
+        "Documents": 1,
+        "Nodes": 613,
+        "JSHeapUsedSize": 45423332,
+        "JSHeapTotalSize": 108134400
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 284,
+        "JSHeapUsedSize": 45127332,
+        "JSHeapTotalSize": 105250816
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 52678,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 73,
+        "last": 1058114.3
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 474,
+      "writesPerSecond": 0.3058402226289571
+    },
+    {
+      "elapsedMs": 1087055,
+      "revision": 338,
+      "control": {
+        "Documents": 1,
+        "Nodes": 623,
+        "JSHeapUsedSize": 60035532,
+        "JSHeapTotalSize": 116260864
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 288,
+        "JSHeapUsedSize": 36059688,
+        "JSHeapTotalSize": 102105088
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 53959,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 75,
+        "last": 1089062.9
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 448,
+      "writesPerSecond": 0.30541232964293435
+    },
+    {
+      "elapsedMs": 1119210,
+      "revision": 350,
+      "control": {
+        "Documents": 1,
+        "Nodes": 612,
+        "JSHeapUsedSize": 25373352,
+        "JSHeapTotalSize": 50987008
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 298,
+        "JSHeapUsedSize": 47075476,
+        "JSHeapTotalSize": 103677952
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 55102,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 80,
+        "last": 1121227
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 870,
+      "writesPerSecond": 0.3073596554712699
+    },
+    {
+      "elapsedMs": 1157409,
+      "revision": 366,
+      "control": {
+        "Documents": 1,
+        "Nodes": 619,
+        "JSHeapUsedSize": 36844056,
+        "JSHeapTotalSize": 64094208
+      },
+      "display": {
+        "Documents": 1,
+        "Nodes": 303,
+        "JSHeapUsedSize": 59135948,
+        "JSHeapTotalSize": 107347968
+      },
+      "render": {
+        "testid": "bw-view",
+        "stage": "0",
+        "status": "running",
+        "progress": "25",
+        "projection": "WALL"
+      },
+      "frames": {
+        "count": 56245,
+        "maxGap": 766.5999999999767,
+        "gapsOver100": 90,
+        "last": 1160358.2
+      },
+      "practiceEvents": 30,
+      "acknowledgementMs": 2372,
+      "writesPerSecond": 0.3110395720095489
+    }
+  ],
+  "errors": [],
+  "status": "failed",
+  "durationMs": 1157409,
+  "failure": "locator.click: Target page, context or browser has been closed\n    at click (/Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/browser-common.cjs:38:92)\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/soak.cjs:29:13"
+}

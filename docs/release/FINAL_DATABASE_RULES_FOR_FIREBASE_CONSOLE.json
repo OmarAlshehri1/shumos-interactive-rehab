@@ -661,6 +661,176 @@
           }
         }
       }
+    },
+    "therapyVisits": {
+      "$visitPatientId": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('patients').child($visitPatientId).exists()",
+        "$visitId": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && newData.exists() && root.child('patients').child($visitPatientId).exists() && ((!data.exists() && newData.child('ownerUid').val() == auth.uid && root.child('patients').child($visitPatientId).child('active').val() == true) || (data.child('ownerUid').val() == auth.uid && newData.child('ownerUid').val() == auth.uid))",
+          ".validate": "newData.hasChildren(['version','visitId','patientId','childName','ownerUid','controlTabId','title','therapistName','initialNotes','finalNotes','startedAt','plannedMs','pausedMs','revision','updatedAt']) && newData.child('pausedMs').val() <= newData.child('updatedAt').val() - newData.child('startedAt').val() && (!newData.child('endedAt').exists() || !newData.child('pausedAt').exists()) && (!data.child('endedAt').exists() || (newData.child('endedAt').val() == data.child('endedAt').val() && newData.child('plannedMs').val() == data.child('plannedMs').val() && newData.child('pausedMs').val() == data.child('pausedMs').val())) && (!data.exists() && newData.parent().parent().parent().child(\"activeTherapyVisits\").child(auth.uid).child(\"visitId\").val() == $visitId || data.exists()) && ((!data.exists() && newData.child('revision').val() == 0) || (data.exists() && newData.child('revision').val() == data.child('revision').val() + 1))",
+          "version": {
+            ".validate": "newData.val() == 1"
+          },
+          "visitId": {
+            ".validate": "newData.val() == $visitId"
+          },
+          "patientId": {
+            ".validate": "newData.val() == $visitPatientId"
+          },
+          "ownerUid": {
+            ".validate": "newData.val() == auth.uid && (!data.exists() || newData.val() == data.val())"
+          },
+          "controlTabId": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 150 && (!data.exists() || newData.val() == data.val())"
+          },
+          "childName": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50 && (!data.exists() || newData.val() == data.val())"
+          },
+          "title": {
+            ".validate": "newData.isString() && newData.val().length <= 100 && newData.val().length > 0"
+          },
+          "therapistName": {
+            ".validate": "newData.isString() && newData.val().length <= 100 && newData.val().length > 0"
+          },
+          "initialNotes": {
+            ".validate": "newData.isString() && newData.val().length <= 2000"
+          },
+          "finalNotes": {
+            ".validate": "newData.isString() && newData.val().length <= 2000"
+          },
+          "overallRating": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5 && newData.val() % 1 == 0"
+          },
+          "startedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= now + 300000 && (!data.exists() || newData.val() == data.val())"
+          },
+          "plannedMs": {
+            ".validate": "newData.isNumber() && newData.val() >= 60000 && newData.val() <= 28800000"
+          },
+          "pausedMs": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000000"
+          },
+          "pausedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= newData.parent().child(\"startedAt\").val() && newData.val() <= now + 300000"
+          },
+          "endedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= newData.parent().child(\"startedAt\").val() && newData.val() <= now + 300000"
+          },
+          "revision": {
+            ".validate": "newData.isNumber() && newData.val() % 1 == 0 && ((!data.exists() && newData.val() == 0) || (data.exists() && newData.val() == data.val() + 1))"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= newData.parent().child(\"startedAt\").val() && newData.val() <= now + 300000 && (!data.exists() || newData.val() >= data.val())"
+          },
+          "$other": {
+            ".validate": "false"
+          },
+          "entries": {
+            "$entryId": {
+              ".validate": "newData.hasChildren(['kind','evaluation']) && ((!data.exists()) || newData.child('kind').val() == data.child('kind').val()) && ((newData.child('kind').val() == 'game' && newData.hasChildren(['sessionId','gameId','linkedAt']) && root.child('visitResultClaims').child($visitPatientId).child($entryId).val() == $visitId && root.child('sessions').child($visitPatientId).child($entryId).exists() && root.child('sessions').child($visitPatientId).child($entryId).child('gameId').val() == newData.child('gameId').val() && root.child('sessions').child($visitPatientId).child($entryId).child('createdByUid').val() == auth.uid && root.child('sessions').child($visitPatientId).child($entryId).child('startedAt').val() >= newData.parent().parent().child('startedAt').val()) || (newData.child('kind').val() == 'exercise' && newData.hasChildren(['title','goal','repetitions','holdSeconds','confirmed','recordedAt'])))",
+              "kind": {
+                ".validate": "newData.val() == 'game' || newData.val() == 'exercise' && (!data.exists() || newData.val() == data.val())"
+              },
+              "sessionId": {
+                ".validate": "newData.isString() && newData.val() == $entryId && (!data.exists() || newData.val() == data.val())"
+              },
+              "gameId": {
+                ".validate": "root.child('sessions').child($visitPatientId).child($entryId).child('gameId').val() == newData.val() && (!data.exists() || newData.val() == data.val())"
+              },
+              "linkedAt": {
+                ".validate": "newData.isNumber() && newData.val() >= newData.parent().parent().parent().child(\"startedAt\").val() && newData.val() <= now + 300000 && (!data.exists() || newData.val() == data.val())"
+              },
+              "evaluation": {
+                ".validate": "newData.hasChildren(['assistance','notes','completion','updatedAt','updatedByUid'])",
+                "rating": {
+                  ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5 && newData.val() % 1 == 0"
+                },
+                "assistance": {
+                  ".validate": "newData.val() == 'unrecorded' || newData.val() == 'independent' || newData.val() == 'verbal' || newData.val() == 'partial' || newData.val() == 'full'"
+                },
+                "completion": {
+                  ".validate": "newData.val() == 'completed' || newData.val() == 'partial' || newData.val() == 'interrupted'"
+                },
+                "notes": {
+                  ".validate": "newData.isString() && newData.val().length <= 2000"
+                },
+                "updatedAt": {
+                  ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= now + 300000"
+                },
+                "updatedByUid": {
+                  ".validate": "newData.val() == auth.uid"
+                },
+                "$other": {
+                  ".validate": "false"
+                }
+              },
+              "title": {
+                ".validate": "newData.isString() && newData.val().length <= 100 && newData.val().length > 0"
+              },
+              "goal": {
+                ".validate": "newData.isString() && newData.val().length <= 500"
+              },
+              "repetitions": {
+                ".validate": "newData.isNumber() && newData.val() % 1 == 0 && newData.val() >= 0 && newData.val() <= 10000"
+              },
+              "holdSeconds": {
+                ".validate": "newData.isNumber() && newData.val() % 1 == 0 && newData.val() >= 0 && newData.val() <= 10000"
+              },
+              "confirmed": {
+                ".validate": "newData.val() == true"
+              },
+              "recordedAt": {
+                ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000000000000"
+              },
+              "$other": {
+                ".validate": "false"
+              }
+            }
+          },
+          "breaks": {
+            "$breakId": {
+              ".validate": "newData.hasChildren(['startedAt'])",
+              "startedAt": {
+                ".validate": "newData.isNumber() && newData.val() >= newData.parent().parent().parent().child(\"startedAt\").val() && newData.val() <= now + 300000 && (!data.exists() || newData.val() == data.val())"
+              },
+              "endedAt": {
+                ".validate": "newData.isNumber() && newData.val() >= newData.parent().child(\"startedAt\").val() && newData.val() <= now + 300000"
+              },
+              "$other": {
+                ".validate": "false"
+              }
+            }
+          }
+        }
+      }
+    },
+    "visitResultClaims": {
+      "$claimPatientId": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+        "$claimSessionId": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && !data.exists() && newData.exists() && root.child('sessions').child($claimPatientId).child($claimSessionId).child('createdByUid').val() == auth.uid",
+          ".validate": "newData.isString() && root.child('therapyVisits').child($claimPatientId).child(newData.val()).child('ownerUid').val() == auth.uid"
+        }
+      }
+    },
+    "activeTherapyVisits": {
+      "$uid": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && auth.uid == $uid",
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && auth.uid == $uid && newData.exists() && (!data.exists() || root.child('therapyVisits').child(data.child('patientId').val()).child(data.child('visitId').val()).child('endedAt').exists())",
+        ".validate": "newData.hasChildren(['patientId','visitId','controlTabId']) && newData.parent().parent().child('therapyVisits').child(newData.child('patientId').val()).child(newData.child('visitId').val()).child('ownerUid').val() == auth.uid && newData.parent().parent().child('therapyVisits').child(newData.child('patientId').val()).child(newData.child('visitId').val()).child('controlTabId').val() == newData.child('controlTabId').val()",
+        "patientId": {
+          ".validate": "newData.isString() && newData.val().length <= 150 && newData.val().length > 0"
+        },
+        "visitId": {
+          ".validate": "newData.isString() && newData.val().length <= 150 && newData.val().length > 0"
+        },
+        "controlTabId": {
+          ".validate": "newData.isString() && newData.val().length <= 150 && newData.val().length > 0"
+        },
+        "$other": {
+          ".validate": "false"
+        }
+      }
     }
   }
 }

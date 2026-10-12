@@ -1,0 +1,81 @@
+.card {
+  position: absolute;
+  z-index: 30;
+  inset: auto 50% 8% auto;
+  transform: translateX(50%);
+  width: min(860px, 88%);
+  max-height: 82%;
+  overflow: auto;
+  padding: clamp(18px, 3vw, 32px);
+  border: 1px solid #ffffffb3;
+  border-radius: 26px;
+  background: #fffffff0;
+  box-shadow: 0 14px 70px #14344224;
+  text-align: center;
+  color: #16444e;
+  backdrop-filter: blur(12px);
+  font-family: var(--font-display), var(--font-control), system-ui, sans-serif;
+}
+.cue svg {
+  width: 150px;
+  height: 54px;
+  margin: auto;
+  color: #0b8f8b;
+}
+.card h1 {
+  font-size: clamp(19px, 2.3vw, 30px);
+  font-weight: 700;
+  margin: 8px 0 12px;
+}
+.goal {
+  font-size: clamp(24px, 3.2vw, 42px);
+  line-height: 1.6;
+  font-weight: 700;
+}
+.input {
+  font-size: clamp(16px, 2vw, 26px);
+  line-height: 1.7;
+  margin-top: 12px;
+  color: #486b76;
+}
+.card footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #617c85;
+}
+.card button {
+  min-height: 44px;
+  border: 1px solid #bcdcd7;
+  border-radius: 12px;
+  background: #eefaf7;
+  color: #087f81;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.card button:focus-visible {
+  outline: 3px solid #087f81;
+  outline-offset: 3px;
+}
+@media (max-height: 550px) {
+  .cue {
+    display: none;
+  }
+  .card {
+    bottom: 4%;
+    padding: 16px;
+  }
+  .goal {
+    font-size: 23px;
+  }
+  .input {
+    font-size: 17px;
+  }
+  .card footer {
+    margin-top: 10px;
+  }
+}

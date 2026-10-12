@@ -1,0 +1,242 @@
+{
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+    "viewport": [
+      1376,
+      768
+    ],
+    "devicePixelRatio": 2,
+    "hardwareConcurrency": 8
+  },
+  "samples": [
+    {
+      "quality": "low",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "low",
+        "dpr": 0.8,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 16.80000000447035,
+        "maxMs": 17.600000001490116,
+        "frames": 240,
+        "drawCalls": 33,
+        "triangles": 10030,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "low",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "low",
+        "dpr": 0.8,
+        "fps": 59.99850003747672,
+        "meanMs": 16.66708333333954,
+        "p95Ms": 16.80000000447035,
+        "maxMs": 17.5,
+        "frames": 240,
+        "drawCalls": 34,
+        "triangles": 9868,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "medium",
+        "dpr": 1.25,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 17.399999998509884,
+        "maxMs": 17.69999999552965,
+        "frames": 240,
+        "drawCalls": 43,
+        "triangles": 11518,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "medium",
+        "dpr": 1.25,
+        "fps": 59.99400059996236,
+        "meanMs": 16.668333333327123,
+        "p95Ms": 17.599999994039536,
+        "maxMs": 17.80000000447035,
+        "frames": 240,
+        "drawCalls": 44,
+        "triangles": 11356,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "high",
+        "dpr": 1.75,
+        "fps": 59.99550033751938,
+        "meanMs": 16.66791666665425,
+        "p95Ms": 17.100000001490116,
+        "maxMs": 17.700000002980232,
+        "frames": 240,
+        "drawCalls": 43,
+        "triangles": 11518,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "high",
+        "dpr": 1.75,
+        "fps": 60.00150003752329,
+        "meanMs": 16.66624999999379,
+        "p95Ms": 17.400000005960464,
+        "maxMs": 17.69999999552965,
+        "frames": 240,
+        "drawCalls": 44,
+        "triangles": 11356,
+        "geometries": 13,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 229,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    }
+  ],
+  "remounts": [
+    {
+      "quality": "medium",
+      "dpr": 1.25,
+      "fps": 57.405281285789016,
+      "meanMs": 17.420000000027095,
+      "p95Ms": 19.700000002980232,
+      "maxMs": 49.399999998509884,
+      "frames": 55,
+      "drawCalls": 44,
+      "triangles": 11356,
+      "geometries": 12,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 157.60000000149012,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "dpr": 1.25,
+      "fps": 58.127465227409814,
+      "meanMs": 17.20357142854482,
+      "p95Ms": 17.700000002980232,
+      "maxMs": 42,
+      "frames": 56,
+      "drawCalls": 44,
+      "triangles": 11356,
+      "geometries": 12,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 152.40000000596046,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "dpr": 1.25,
+      "fps": 58.24232969318773,
+      "meanMs": 17.169642857142858,
+      "p95Ms": 17.599999994039536,
+      "maxMs": 46.600000001490116,
+      "frames": 56,
+      "drawCalls": 44,
+      "triangles": 11356,
+      "geometries": 12,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 157.69999999552965,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    }
+  ],
+  "frameLatency": {
+    "count": 992,
+    "meanMs": 1.0883099955897177,
+    "p95Ms": 1.499755859375,
+    "maxMs": 91.39990234375
+  },
+  "inputLatency": {
+    "count": 875,
+    "meanMs": 0.6106104910714286,
+    "p95Ms": 0.60009765625,
+    "maxMs": 36.900146484375
+  },
+  "contextLossAndRecovery": true,
+  "assetFailureAndRecovery": true,
+  "pageErrors": [],
+  "firebaseRequests": []
+}

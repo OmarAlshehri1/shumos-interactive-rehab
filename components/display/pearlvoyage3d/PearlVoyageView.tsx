@@ -5,16 +5,17 @@ import { PearlVoyageRenderer, type RenderStats } from '@/lib/pearlvoyage3d/rende
 import { collection, summary, type State } from '@/lib/pearlvoyage3d/engine';
 import { ENVIRONMENTS, SPECIES, STAGES, type SpeciesId } from '@/lib/pearlvoyage3d/stages';
 import { instruction, stageTitle } from '@/lib/pearlvoyage3d/copy';
-import { PearlAudio, speak } from '@/lib/pearlvoyage3d/audio';
+import { PearlAudio } from '@/lib/pearlvoyage3d/audio';
 import { fishPortraits } from '@/lib/pearlvoyage3d/render/portraits';
 import styles from './view.module.css';
+import type {DisplayEventListener} from '../events';
 
 const SPOKEN: Record<string, string> = { sailing: 'اتجه إلى العلامة', celebrate: 'اكتشفت سمكة جديدة!', stage: 'أحسنت!' };
 /**
  * The child's wall display. Read-only: it draws whatever State the therapist's Control publishes. The HUD stays short and
  * large (projector readable), and the collection is shown as an illustrated ocean journal with 3D fish portraits.
  */
-export function PearlVoyageView({ state, full = false, connected = true, muted = false }: { state: State; full?: boolean; connected?: boolean; muted?: boolean }) {
+export function PearlVoyageView({ state, full = false, connected = true, muted = false, onVoice }: { state: State; full?: boolean; connected?: boolean; muted?: boolean; onVoice?: DisplayEventListener }) {
     const host = useRef<HTMLDivElement>(null);
     const renderer = useRef<PearlVoyageRenderer | null>(null);
     const latest = useRef(state);
@@ -38,13 +39,13 @@ export function PearlVoyageView({ state, full = false, connected = true, muted =
         const a = audio.current, p = prior.current;
         prior.current = state;
         if (!a || !p || !connected || p.sessionId !== state.sessionId) return;
-        const say = (key: string) => { if (cfg.voice && cfg.sound && !muted) speak(SPOKEN[key], cfg.volume); };
+        const say = (key: string) => { if (full && cfg.voice && cfg.sound && !muted) onVoice?.({type:'game_feedback',text:SPOKEN[key],milestone:key==='stage',volume:cfg.volume,timestamp:Date.now()}); };
         if (state.phase === 'encounter' && p.phase !== 'encounter') { a.appear(); window.setTimeout(() => a.splash(1), 900); }
         if (state.phase === 'encounter' && state.hold - p.hold >= 0.24) a.tick(state.hold);
         if (state.phase === 'celebrate' && p.phase !== 'celebrate') { a.discover(); say('celebrate'); }
         if (state.status === 'stage-complete' && p.status !== 'stage-complete') { a.stageDone(); say('stage'); }
         if (state.status === 'running' && p.status !== 'running' && state.phase === 'sailing') say('sailing');
-    }, [state, connected, cfg.voice, cfg.sound, cfg.volume, muted]);
+    }, [state, connected, cfg.voice, cfg.sound, cfg.volume, muted, full, onVoice]);
     const collected = useMemo(() => collection(state), [state]);
     const showGallery = state.status === 'stage-complete' || state.status === 'ended';
     const current = state.phase === 'encounter' ? STAGES[state.stage].markers[state.marker].species : null;

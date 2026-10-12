@@ -1,0 +1,53 @@
+{
+  "expectation": "preserved",
+  "errors": [],
+  "before": {
+    "sessionId": "b4af737a-ae53-46cf-81d1-1c97ed6df7a8",
+    "binding": {
+      "patientId": "sp9-patient",
+      "sessionId": "b4af737a-ae53-46cf-81d1-1c97ed6df7a8",
+      "updatedAt": 1791770456232
+    },
+    "placed": 1,
+    "controlTabId": "c126612b-071d-4c3c-845b-0587ccf5c51a"
+  },
+  "after": {
+    "gameId": "build-quest-3d",
+    "revision": 5,
+    "session": {
+      "build3": {
+        "completedCount": 0,
+        "controlTabId": "c126612b-071d-4c3c-845b-0587ccf5c51a",
+        "endedAt": 0,
+        "heartbeatAt": 1791770456186,
+        "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+        "payload": "{\"version\":1,\"session\":\"b4af737a-ae53-46cf-81d1-1c97ed6df7a8\",\"run\":1,\"revision\":0,\"stage\":0,\"status\":\"running\",\"config\":{\"input\":\"mouse\",\"assistance\":\"high\",\"dwellMs\":650,\"tolerance\":1,\"quality\":\"high\"},\"selected\":null,\"placed\":[\"first-shapes:square\"],\"events\":[{\"id\":\"b4af737a-ae53-46cf-81d1-1c97ed6df7a8:1:first-shapes:first-shapes:square\",\"pieceId\":\"first-shapes:square\",\"stageId\":\"first-shapes\",\"run\":1}],\"completed\":[],\"skipped\":[],\"feedback\":\"أحسنت! قطعة في مكانها\"}",
+        "placementCount": 1,
+        "run": 1,
+        "skippedCount": 0,
+        "stage": 0,
+        "startedAt": 1791770455884,
+        "startingStage": 0,
+        "status": "running"
+      },
+      "config": {
+        "childFirstName": "تجربة الفضاء"
+      },
+      "createdAt": 1791770453731,
+      "currentDifficulty": "EASY",
+      "currentStage": {
+        "stageIndex": 0,
+        "stageNumber": 1
+      },
+      "engine": "build3",
+      "engineVersion": 1,
+      "gameState": "PLAYING",
+      "seed": 0,
+      "sessionId": "b4af737a-ae53-46cf-81d1-1c97ed6df7a8"
+    },
+    "sessionId": "b4af737a-ae53-46cf-81d1-1c97ed6df7a8",
+    "updatedAt": 1791770456232
+  },
+  "activeAndPausedPreserved": true,
+  "status": "passed"
+}

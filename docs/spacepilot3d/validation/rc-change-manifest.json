@@ -1,0 +1,2132 @@
+{
+  "baselineFiles": 918,
+  "comparison": "pre-R3 working tree SHA256; not HEAD",
+  "taskChanges": [
+    {
+      "path": "app/control/space-pilot-legacy/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "6d751328625bf21cd2a8394bb195dcb52abba641660c0c93b2adaa4db0e4dd3c"
+    },
+    {
+      "path": "app/control/space-pilot/page.tsx",
+      "status": "modified",
+      "before": "e4d815c8a6cfae3ffd89e71c9df16cfdb34d91996cb11a34e9bee36077e4f237",
+      "sha256": "3417b7d648599dba48819fb3b6ca479c734fa99c0613e576a972638b60d3a976"
+    },
+    {
+      "path": "app/display/space-pilot/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "8dec42e3a4442912f528481cd9c8581df276d51567feec2fd7824cd58f1bc3dc"
+    },
+    {
+      "path": "components/control/library/gameThumbnails.tsx",
+      "status": "modified",
+      "before": "78508729eb3af52e229b4304b1d6d0c022417deef25bb497f5a9d00939588df4",
+      "sha256": "2d7cd50e1b1267dc69bb6fc8ee0fbe023a46bf58ef1247d2907b0fc91297e2a5"
+    },
+    {
+      "path": "components/control/spacepilot3d/PrototypeLocalOnlyBoundary.tsx",
+      "status": "modified",
+      "before": "926ea2545faa8d2c81f0e3f80ec8c4baaa40ffd9352f844b29d32fd7ff0b6fbe",
+      "sha256": "5ea822ca65d85db96d38204a1173a3505e36259cae12f510fd739447f8ffcb57"
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "status": "modified",
+      "before": "4795e754a3bf2000de254cdb53f77ddce6f8f092a71fb73f84c5d47f52f05294",
+      "sha256": "d1a30c31b90b8459e6572d1c0eb3ed40095489a646c9354e04e1e44206004555"
+    },
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DThumbnail.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "5f0f9d64095d38af4ed14f87df91eaebdbf650ebf59e53b30620cf54f38c8c9d"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DPreview.tsx",
+      "status": "modified",
+      "before": "46c8c0eaf919e05d6133c6928f52441800d015f22a8d6d7af35406074e6e9843",
+      "sha256": "a1b09df68bf0ffabdb150199fd4fac6fb59fa2d975373f979a43c5d9540b22bb"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "status": "modified",
+      "before": "c146c390f6dad09a1d764d6e38341cc651013b333022ea5dce788bc2794ce48b",
+      "sha256": "4da677562756b8daba66616bb4e32d6db31d2b88ad2ed75d521624119f04b993"
+    },
+    {
+      "path": "components/display/spacepilot3d/prototype.module.css",
+      "status": "modified",
+      "before": "f8958fbeb0f9f030c1a856c9417a9eb81c2039eeaa5e6da2fdde390e1eaa8d94",
+      "sha256": "25c0206b9b8a35961e556c6f406837ec967b82286b8e7f6fe6294c1575fead38"
+    },
+    {
+      "path": "docs/spacepilot3d/ARTIFACT_MANIFEST.md",
+      "status": "modified",
+      "before": "eea7036b121ff411eecdcd4723683de45f6dc7425bbce07c890b1d7c760cbd3a",
+      "sha256": "f80d5c47de3e0a3ccf75613cd5410093b2b92f52439b85396d42d98a711af88c"
+    },
+    {
+      "path": "docs/spacepilot3d/ASSET_LICENSES.md",
+      "status": "modified",
+      "before": "b01dc4726276d9bf9e25a3680a0c4d46b7624ff03e74186b936505488beba63c",
+      "sha256": "a97091d538a1d532892b7c82d800e0bd796cc5cfcd9817887c6925746c592a4b"
+    },
+    {
+      "path": "docs/spacepilot3d/FINAL_INTEGRATION_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "07f18e715ad87285171dbc2f4b1c1854f10d4e7712b91e47564d92f55fd7f48a"
+    },
+    {
+      "path": "docs/spacepilot3d/PHASE_R3_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "8ec71f6ccc2e225b6fb501eaa0dc002c356d00a4abaa4dc647b82bc7db3a348e"
+    },
+    {
+      "path": "docs/spacepilot3d/PHYSICAL_VALIDATION_CHECKLIST.md",
+      "status": "modified",
+      "before": "7edffa90524e86c31bd9d71090adc8fdf141ccedeeb7e48f73aa2495437b6afa",
+      "sha256": "71b6602a94d4643bc195a6d863b47c7e4ba6fbe28bd6ad11790c71c43097c3f2"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-advanced-high-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "36b684d57390cfb0b3470468ef0498e63f0a6c825037268dec49045f5aa4322b"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-advanced-low-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "449ac6cff7d7917b9783d049474ee52d97bfd3551e8604f69a1691e897a9fb42"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-advanced-medium-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "9456f9f4b62682554ae25d23446c8b3ca6fd01c01f2436717d941c07445890cf"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-easy-high-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "36b684d57390cfb0b3470468ef0498e63f0a6c825037268dec49045f5aa4322b"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-easy-low-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "8031a4ff4a530f2c7e9d2fedd55f82d0469dcb7d18de3f0d684393add579c8d7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-easy-medium-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "4194b24b34352b44dea2615d836933c4145d20489b9387c08f217f17189d8f12"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-fiery-avoidance.png",
+      "status": "new",
+      "before": null,
+      "sha256": "94f1d01701c08ae79ac0f02e5618447d692ae03bbfe4a6a56447d0db4c938d3a"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-neutral.png",
+      "status": "new",
+      "before": null,
+      "sha256": "b2e84d17243d7d5345e799beef243cc300b481fcc811dfad0b3bb05a997555e1"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-opening.png",
+      "status": "new",
+      "before": null,
+      "sha256": "f10af0ee5246d54f09e6a368295c743cfd8244cadd1cc5e76d7ee2155b9c4b72"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-passage.png",
+      "status": "new",
+      "before": null,
+      "sha256": "5609c70761b74c19a2e7d5fb18fb00a642922355bda606faa2247b51120879d5"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-tier2.png",
+      "status": "new",
+      "before": null,
+      "sha256": "6974f2d9c07ef8b9a1040d55d15188b3525bc05c66a5ee21a12b0ef4bbc2e849"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-flight-tier3.png",
+      "status": "new",
+      "before": null,
+      "sha256": "cee847312fc51aac65ce17eaa080d1d7c540f93a90b1a74d91e0b9b1524faebb"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-instructions.png",
+      "status": "new",
+      "before": null,
+      "sha256": "c2eb638501013f7882610e078879fdfb63c7071e52d492f63cc81021125c243e"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-medium-high-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "36b684d57390cfb0b3470468ef0498e63f0a6c825037268dec49045f5aa4322b"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-medium-low-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "449ac6cff7d7917b9783d049474ee52d97bfd3551e8604f69a1691e897a9fb42"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-medium-medium-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "4194b24b34352b44dea2615d836933c4145d20489b9387c08f217f17189d8f12"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-ring-approach.png",
+      "status": "new",
+      "before": null,
+      "sha256": "10f0e3d82d49772714d0f1cf1225ae2d5940f00636dda595dd74a116c1328e06"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-ring-completed.png",
+      "status": "new",
+      "before": null,
+      "sha256": "a42de2d685160fca5dc1f00151464de602474565bb8be59298d3a1382b39322a"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-tier2.png",
+      "status": "new",
+      "before": null,
+      "sha256": "7aab9c729ee30c76ac6338f44a12394809c03238c205acf845b8d8f2e1a9131d"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r3-tier3.png",
+      "status": "new",
+      "before": null,
+      "sha256": "9379ac97fb04a0a6048c7181ac59b04b8718eb0bac0303c2093058b86c5b35d4"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-advanced-high-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "7086f45ffc4a91121775b1a34b282a56bba0b86e089184ce09f0b28b6d0db02e"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-instructions.png",
+      "status": "new",
+      "before": null,
+      "sha256": "c2eb638501013f7882610e078879fdfb63c7071e52d492f63cc81021125c243e"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-legacy-rollback.png",
+      "status": "new",
+      "before": null,
+      "sha256": "0bbfd1f35b9976333101ffc08c46e39ffd18317bc80799b5b877e817cd3e6c4c"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-ring-approach.png",
+      "status": "new",
+      "before": null,
+      "sha256": "6c4e09b50d011d414e00b50966955d3b6ce0ba2f3149e9c2f0495f318a5240da"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-ring-completed.png",
+      "status": "new",
+      "before": null,
+      "sha256": "05eacdf11ebfdf4cda9836b869a13b23bd3cda6864bb65f1f07cdc11f0878393"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-tier2.png",
+      "status": "new",
+      "before": null,
+      "sha256": "359c2c22b5b6042d8b31a27064858def0a0e53f6caa34c59e8ddbb568c604b48"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/rc-tier3.png",
+      "status": "new",
+      "before": null,
+      "sha256": "fdbe0945b5ab4cb00595e6c7a3af60174c4e6f6c21bbffbd8f34286b7ed5ac6d"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-auth-gate.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "0f38c92581b6dbabe901c36ea3bc9138aa6a245f4901aa1fa5d4ec845b043e58"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-browser.json",
+      "status": "new",
+      "before": null,
+      "sha256": "5388a4bd125b13c7186058d1f924f93ae8b9ed333dae94ae78cd2411875c7aac"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-browser.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "0fc8cd0948a29bd74d0e2b591c0042b8f534d1438fc724c67ac86ec33a5f73d4"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-browser.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "f63c289e22d2858c3215f7486fbbf75d3636fc68bbfd13212532984967d92348"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-flight-review.json",
+      "status": "new",
+      "before": null,
+      "sha256": "6c57129b624c6602bf831f17bd22eeeeed7c1af76b621b48556ae2ed7315bdd7"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-flight-review.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "4c6d6a1912cadec1bfc78f2355911c34484f427b2fddefeeea063a0b5b52f33d"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-flight-review.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "3cc44bb8ecc71008c5b0f200d16ef9b01446d66edb893807983dfc0829eb4fa6"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-performance.json",
+      "status": "new",
+      "before": null,
+      "sha256": "ef9309af7597001a26afa7d15ac8858254e90eb9bb6f4bb0a9edb27704a811b3"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-performance.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "5bca0d0505c3653ad6a5488bf49a6ba80e4f3b514d839cf177ccaf88f69d8e46"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-performance.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "3a3e8c7eb4ceee8bb3f602132fcff48b3e9056b1a6cfb769955c6a3423f795e6"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r3-production.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "edc29ee444b7c6e634f9d9ee4549e7d7aae93684cb5fa6351f568c573be26f10"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-auth-gate.json",
+      "status": "new",
+      "before": null,
+      "sha256": "e7d3b1fa77104985cb8dd4908336c56c48d6c1800a624b411c046858cc59c283"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-auth-gate.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "a47413dbcd3f9ff392d6e5fb2633105ba09835152b18c83f677472271de187ba"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-browser.json",
+      "status": "new",
+      "before": null,
+      "sha256": "416fe2acda225b2f2fdcfe3d75e50cf74a050cb9c52e27289bc02146557c7589"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-browser.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "df75e79591ef1484ada7d86abce3542f5cd47b022db708e964601fc639209f36"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-browser.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "973f3ec08fbb2497355cf39196e20060d975249230183d2734b1d035887dc5cd"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-build-default.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "0385e93dc5f38f8269763419e04620a942196e8ee929dda4dcb186d630c1f6de"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-build-enabled.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "103a0e0fc83cd7b96b20e2cc49bd5e5583f21281a5f4d9352bd3597a287e3f39"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-lint.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "12e4db406c6de151c6fa4dfc033de47a310be44c653bceea3ef9fc7f25613d11"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-production-default.json",
+      "status": "new",
+      "before": null,
+      "sha256": "3d2d937365d65096108907db38a4403b643ee9e8c7ee118f61e46621ea130dfa"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-production-enabled.json",
+      "status": "new",
+      "before": null,
+      "sha256": "b84f631c3cf25faee3dcfc151ef66fa382ec63d1f4626f0c132c1b8d926bc45d"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-production.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "2c526dc4debe937525fc72bee1eb3312ad48cce9c684aca7d633ad87ca322600"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-tests.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "9cc4fed027517e236b75d9a8e85f4ea052c95728e3538b5f781ae2f12cadb1d8"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/rc-typecheck.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r3-flight.mp4",
+      "status": "new",
+      "before": null,
+      "sha256": "0abe97cfd70a089291fc8e99648036ac62ec1abe5b5acd4a9a6a6b15df09106a"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r3-flight.webm",
+      "status": "new",
+      "before": null,
+      "sha256": "4ea00f73d15f43571494737e3f1c37f4355d19e69f261a199a033eca24204745"
+    },
+    {
+      "path": "lib/games/registry.ts",
+      "status": "modified",
+      "before": "540750935c15890267b3bc8bb9178ad8bd64defc9971622ce777c6cda910136b",
+      "sha256": "a6a5dd10160610740a16440047a87fd1bfdc8ac8a4fc974b5a635dcf62d21cd5"
+    },
+    {
+      "path": "lib/spacepilot3d/README.md",
+      "status": "modified",
+      "before": "f5ad0a82debea914f48ad9de423323980f95428ec6a9044c4c62e166d6af985b",
+      "sha256": "106f6d79351d3065b6c9cb24c65e16343e8ea6e07efa5a6d6df7726d29296b99"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/gameplay.test.ts",
+      "status": "modified",
+      "before": "895e0c496f189962ea9671dd66a103c1d41a3d6dcc292caea4f810e3bc60962e",
+      "sha256": "d6f161f0dd9ae04a5e38f53b8b22bd2dfbbbe044664c38cb0d9845ebc0e1bd86"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+      "status": "modified",
+      "before": "a1736421f79d34322cf7c8d46bdd1e03137fce1518bb78551e1a58f70ae089f5",
+      "sha256": "8662e8efe251c81cdd616659daa2350fc1cbd90604c92d8e465de4c7d2746cfc"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/guidedFlight.test.ts",
+      "status": "modified",
+      "before": "d145cc36afc896ef89fa5e64769085b3a314023a745f33caf7f75baf885ab709",
+      "sha256": "abd3e45f3244391d7ed4b9225720eec5046fe5955cc522b1ea0c5e7258a1b77f"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/releaseIntegration.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "fcc7cc35fb44f52a767b68617e58f074c12a247c1a565f1423f2587444084815"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/rings.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "4b794c62a2630d0d04902dbab37439063e9b2f26bf603771385c28aeb5c4503e"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/runtime.test.ts",
+      "status": "modified",
+      "before": "5d2bbc762484591c2a88c5d7457a8d63033ecb74a0a2bfffb4d54742987f7613",
+      "sha256": "929e1e01ac6810a03764e084916aa13582e40d8280e10424d2f5223c81bd69d9"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/session.test.ts",
+      "status": "modified",
+      "before": "d12c4c69ea2fa4df282c1a5abd3896cbc5e1e6de71e7af21ba1eea6661ce2cb2",
+      "sha256": "8586ea44fbe76158c6c43743b6a8a3c8fa01c71cef54d894fa179cb3df0e8aa6"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/worldFlight.test.ts",
+      "status": "modified",
+      "before": "9d2ec237d10d5b6d4c7a92c0432c37500df3719f1dc9ea03c627dd5927ea27b3",
+      "sha256": "9e694a801f70a31827a5cd9c9bfd0ede7824c3f2a0a1a0cc43e861f6ec6c8cd0"
+    },
+    {
+      "path": "lib/spacepilot3d/controlSessionRuntime.ts",
+      "status": "modified",
+      "before": "22483f0d40cccd019a5d257f58f8f938d8bf99cd8219fdabd3d517835e9f2f2c",
+      "sha256": "f0a5057107f440b8a96df0486acca00d1bb16740af7bf817d8e5faf66488dd20"
+    },
+    {
+      "path": "lib/spacepilot3d/displaySessionRuntime.ts",
+      "status": "modified",
+      "before": "c7e9d1041ba752154e623ff072c5a64ae1cf3edbfec154aec51060d565b4c67e",
+      "sha256": "561024763e6d8d4d72de2412689346205a5654ce9dde3fbbe4837dde2e5dbce7"
+    },
+    {
+      "path": "lib/spacepilot3d/gameplay.ts",
+      "status": "modified",
+      "before": "e0947b8441c005d560c66f80b0eeae86221b809a9d90876b3e78c07f9a561978",
+      "sha256": "ba86942cc8d47d2256706b17a7ad7cbd06202f1b6ce3a8fd44c9a5c7119f75fa"
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "status": "modified",
+      "before": "6a401378698df1770448806e280c286b597e616ffa018c23473cf2bd33d217b8",
+      "sha256": "cff260a92ee9a690f44ee319fc91b75ac5199ada5c81c80e5498f4975d4bdaf2"
+    },
+    {
+      "path": "lib/spacepilot3d/missions.ts",
+      "status": "modified",
+      "before": "acae6fc455e9374b1e2483009d6171ea8b30074285c67704df271dc1bdf0b7d4",
+      "sha256": "6f0c33ee6f586dc4bc145491064f0d7d3fef0d56940117d841c4a2fc304dc887"
+    },
+    {
+      "path": "lib/spacepilot3d/objectiveGuidance.ts",
+      "status": "modified",
+      "before": "6fcdbc0873787f592f72b25289e64873d5b28e0553ad99050a8b73c905efb1be",
+      "sha256": "d01b780d5e910b2b0b010f95a79781a99a3a68a5742f3c6619eda39ae35e5fe3"
+    },
+    {
+      "path": "lib/spacepilot3d/presentation.ts",
+      "status": "modified",
+      "before": "542d6abd152c4e6cb6987c8cfa38c7d3e9483a71c1247baf67f9dd593d510473",
+      "sha256": "50cd021867ea6552f828bb3ecfe99b327306f52d3b3f752cfc5321a84bd4eac0"
+    },
+    {
+      "path": "lib/spacepilot3d/releasePolicy.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "145642f17efc07130f5ad12859a33f1773426a334b8908d11b67a5813c7dd79c"
+    },
+    {
+      "path": "lib/spacepilot3d/renderer.ts",
+      "status": "modified",
+      "before": "41015843f7ca7ca6a98de64b894e3eb68f14705c14194f56cd5864b001cabc3c",
+      "sha256": "e6d0c43585cca3b6bd4b1b1325ec26f20f390da6804d85beec4efc0fe863282a"
+    },
+    {
+      "path": "lib/spacepilot3d/rings.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "dbbb0be392495c177d97780875c086b5c18a6ff9a3252b6798dc27abf14cb7f5"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionAuthority.ts",
+      "status": "modified",
+      "before": "3ce5cdddbc57b2730e9db3fbf3f808a2e4c78bb8df8085cd07f78cbc0b55b8ac",
+      "sha256": "f6277a97a63b131824d37f4945bc0f8ae61868911cdf12c05eb144ff03e6f456"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionContract.ts",
+      "status": "modified",
+      "before": "1d43a6575ea8778a4ec5ed98900073123fb9ae41c70bcb4362d90bce75cb21b0",
+      "sha256": "e14193d4d3e9fc40e1232a8de797186de0d0f0731f8c89da1ede4982f8c57863"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionReplica.ts",
+      "status": "modified",
+      "before": "37a5624944c33fe1c3f3d743dbe87ebf9fb886efc4638555d91275e4d1dea676",
+      "sha256": "028daae898019bcfe6504b50f66f6fa5979fca8a3998e135a5439a2b13b850ef"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionStorage.ts",
+      "status": "modified",
+      "before": "e33845aa489f3380586e15c777fec47b59ef1fa7cd0ccddee15dcd65bd56b9c0",
+      "sha256": "f3851a2a56a9bd596885987b48b769abd309933d8838be3d383e1a59fc4c43a3"
+    },
+    {
+      "path": "lib/spacepilot3d/simulation.ts",
+      "status": "modified",
+      "before": "0cd3e7483f4df4c03ce067fdc0086b5e4c7301945ce9801d9aaa579f3df62d35",
+      "sha256": "c5bb4347cbab10b04f829e7450cc1dc3fe5c6fb06bc64496132e0d5444fc3f72"
+    },
+    {
+      "path": "lib/spacepilot3d/worldFlight.ts",
+      "status": "modified",
+      "before": "ec9600bcb6c2766fa6719a67623dca0d293cb9662f71fc4b27530f36b69aaccf",
+      "sha256": "068057c3f068d86069340f27c29b5acc849a146be2503f5010eecf2297bc1ab6"
+    },
+    {
+      "path": "lib/spacepilot3d/worldGameplay.ts",
+      "status": "modified",
+      "before": "ff85df43447e508e15476ddafefb025c539e0089cf8b9548929145893266553d",
+      "sha256": "8df06383a2b1b5f14dca5b1f0aa19f9742e0a066f4db6e841c1d34f3ca86b434"
+    }
+  ],
+  "concurrentExternalChanges": [
+    {
+      "path": "app/control/balloon-quest-3d-prototype/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "cd665234d8a4af593200d5c65e7eb6749b734dfc485acb9dacb57837fe697e57"
+    },
+    {
+      "path": "app/control/balloon-quest-legacy/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "f078bf7d0b95ef56067c640757ffd3c3d5a905c176945d8a0145609b7dee7fe4"
+    },
+    {
+      "path": "app/control/balloon-quest/page.tsx",
+      "status": "modified",
+      "before": "424e9cde2d61a1620d9b5b0f37e2bb8b1469e0c2c7bc8e5f4571eb82f74f4d5a",
+      "sha256": "30e2e9a2e20a2933063feb6f518cb4457bde9f25bd4a15a0a9ee11aeb16c2d09"
+    },
+    {
+      "path": "app/display/balloon-quest-3d-prototype/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "966b75d47d44f7446d634f1bddbefe307045657884c201bb0ec85172be2d9e89"
+    },
+    {
+      "path": "app/display/balloon-quest-visual-preview/page.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "622b2765c3487d584f07f76e2f24cc6d00f6f1432d7d5c763fa2b87c38ab3ff6"
+    },
+    {
+      "path": "components/control/balloonquest3d/BalloonQuest3DControl.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "8fb27d2d5d0b71160d26f2f9ce5895c80d264bed1b338549dff1f4d8e23db6cb"
+    },
+    {
+      "path": "components/control/balloonquest3d/BalloonQuestControl.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "913ce2bb7de4dac2815c1593f4636f045bcdeb02ab55c12d2cde799aa97096dc"
+    },
+    {
+      "path": "components/control/balloonquest3d/HandInputBridge.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "a01a2fd70b12638124fba4766209549a76371a41cc2ec2bcbdb15fa19da0211a"
+    },
+    {
+      "path": "components/control/balloonquest3d/SimulatorPad.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "fb825e6f451f739b7f39c774683939f98735110f8ee93e718834c8943133e870"
+    },
+    {
+      "path": "components/control/patients/LastProgressCard.tsx",
+      "status": "modified",
+      "before": "5a18ff0714e9093084616d2f430095be11438e81c572c62dfa558dee526adc6b",
+      "sha256": "7d395d47e389ad23e5c8d3ccbe8ce58f4e2bc034a949f0a8d3223f79892d57f6"
+    },
+    {
+      "path": "components/control/patients/PatientSessionHistorySection.tsx",
+      "status": "modified",
+      "before": "a60137e3a346e154856edc13a5bb5e09da8ccd4853311517e697f6377f0e0895",
+      "sha256": "8e3e7a7b6d83d87c82339fc783a359608988727ff5dc5a74d5784647e3556868"
+    },
+    {
+      "path": "components/control/patients/SessionDetailScreen.tsx",
+      "status": "modified",
+      "before": "a0a83574ad4202b96e1ab684f322e4e3bbb103ffd14c4cd8980742775efd5cc8",
+      "sha256": "6797fa0a149a16f731e6c7a7b3541d2a48839a2216426e8f2e5488fe48ce6f3c"
+    },
+    {
+      "path": "components/display/DisplayScreen.tsx",
+      "status": "modified",
+      "before": "39a194e22105639ecdb3b38ceee5b30b237109708c51f5667fe57501c91c3d70",
+      "sha256": "b7153f91afedb32dcfd9df88ca9cbd97fe190ea6a3851f7ff387baac6bcb0fa6"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DDisplay.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "b365e44195b7ca66b87ae53abbde9752147c6f247dc87494636e6d43bdbf40c6"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DLiveDisplay.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "a771677ce6ee4499f6fa82bd5db62b50ca79bbc4033b86d67035c53e2a9a614f"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonQuest3DView.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "80870126aca85b2203282110aa854e3ceed566fd03a8b5c0d373369ae9ba816e"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/BalloonStage.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "e2eb82f39a525d9f4fa9acbceccfd14a5a8124327dfa6540a937087cc21c857a"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/Bq3SkyBackground.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "4e24d8e8e6c414b510e067cf8ebec7335f9bf7333b939ae99cc0fd1a275f16ce"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/GameHud.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "4c2ad0541f6fb48824b669fc360bdeed913dabeea596cf052f0453f9f719db3f"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/Scenes.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "b4f8573e377b5cc391ed8533ce1cd0fcead762aad4f8296ea27e5d8399abb968"
+    },
+    {
+      "path": "components/display/balloonquest3d/game/game.css",
+      "status": "new",
+      "before": null,
+      "sha256": "e4ceb83e3ce62bb2159f0c275084402d82305faa5123be3de05acdb60de69dcf"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/BalloonArt3D.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "994b8764dbf9b68be041d11698b23ea6b686e9c7caeba4371d679e9588c34573"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/BalloonQuestVisualPreview.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "aaf940250f4a9ae39ba993a1aaf82a2a4a8e1770e03bee8f944b8a81eab68836"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/PreviewHud.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "2fa620ea20a0d4caaf96e488275d5a7ad226b33811be23fae2cf008de87c8624"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/SkyBackdrop.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "431921595d0b588794b2098c7acd799d8673e1ef960e0c12c5df2a4d0b6cf86b"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/__tests__/previewConfig.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "8656269cfc573f58f03c80070dac5ac2d39f9570540cf70aa03dd5adc4916d89"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/__tests__/previewEngine.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "959cc451b973976a1e2aa7213a41e2c23dcf8b20acf5deec394ab8a13ff6f50e"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/balloonQuestPreview.css",
+      "status": "new",
+      "before": null,
+      "sha256": "b47fbc1f61a09d468f4d402be61f917b223c4cb5c2111727a7c489004ddf24b6"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/previewConfig.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "ef24ce055088dae4da594c91568778862a8def568de522f98765e00ff9d28db1"
+    },
+    {
+      "path": "components/display/balloonquest3d/preview/previewEngine.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "87a1750a83400a71b83fbaa45a12b6c35e74e009cda69511801216d3609dfa7f"
+    },
+    {
+      "path": "components/display/gameDisplayRegistry.tsx",
+      "status": "modified",
+      "before": "7d9c7ab39dafd8ac0c9a4ee1eec85f791f0e397dd254bb444c31c4ca531e5fec",
+      "sha256": "ca0401cd6364e551ed78dc56b87b4b21c5721566b844d607e26b42fcd623ccab"
+    },
+    {
+      "path": "components/display/games/BalloonQuestDisplayRouter.tsx",
+      "status": "new",
+      "before": null,
+      "sha256": "fbed46925705a81033e46210afe17e7f82ae6b735abd391af3dfe8309389b40e"
+    },
+    {
+      "path": "docs/balloonquest3d/PHASE_B3_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "ed884f2745804db39019e3a651c2887cde47bf1abf17f2d1fd34b7646bb4c5de"
+    },
+    {
+      "path": "docs/balloonquest3d/PHASE_B3_TO_B5_FINAL_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "f15230780bb2687d99d67b765e20104e47a67cecc3d5812b5a6f5c77e6921782"
+    },
+    {
+      "path": "docs/balloonquest3d/PHASE_B4_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "dedd002d85af6f65d892fe86c319b82a14b721cd9c4e2b2b9c6f650ad3c718b6"
+    },
+    {
+      "path": "docs/balloonquest3d/PHASE_B5_REPORT.md",
+      "status": "new",
+      "before": null,
+      "sha256": "6efcf49dd599e8f6bb574ab50d1c5a26861e1ec9779463443fb10069a7ed863a"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-advanced-reduced-motion-symbols.png",
+      "status": "new",
+      "before": null,
+      "sha256": "8d801e83d2b5b0db182e3d1caa2a285cbdacd7dd120bc82a6320a799fb0b7d62"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-advanced-a.png",
+      "status": "new",
+      "before": null,
+      "sha256": "8cec63b93f98fd16c9cf1c30dd7d76b9ebb383780345c45f3612e0b8c7b57955"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-advanced-b.png",
+      "status": "new",
+      "before": null,
+      "sha256": "087d0c0b70cefa4d1554e8525876473e66e5d5cb6f46cfb5fe9c3cd1da8bd71b"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-easy-pop.png",
+      "status": "new",
+      "before": null,
+      "sha256": "e39155f18b246c8633fce78c8785ca6bc67cf63f5809605fd82885446c99969c"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-easy.png",
+      "status": "new",
+      "before": null,
+      "sha256": "6eaa96076e0594ff45108053fa5b1764ad4020ce3ef4609f716959d9ace5ac0a"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-medium-b.png",
+      "status": "new",
+      "before": null,
+      "sha256": "fade3555ad99bf240a3b9f285b87b60121ce4c6b661227d482ff97ecd49ae2d0"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/b2r-live-medium-reduced.png",
+      "status": "new",
+      "before": null,
+      "sha256": "f975ab177491ccdf451fe1cc3eb098f480f4f86b18a44cd83f1c1f5f2ae813a9"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-control-medium.png",
+      "status": "new",
+      "before": null,
+      "sha256": "7f83d8cada1dad063f2b043857493bb25cd1906354a99678ba335a232c4539e3"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-control-nine-stage-summary.png",
+      "status": "new",
+      "before": null,
+      "sha256": "1e97543e99c88f83f10dc98a65132e23dd4c32723d9a852d20cea6441339dc33"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-control-wrong-cue.png",
+      "status": "new",
+      "before": null,
+      "sha256": "4851dbf34f17d7fadde0b63efd0ed6c30974254fa7d6241659609abec47da80b"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-advanced-black-target.png",
+      "status": "new",
+      "before": null,
+      "sha256": "473c94c209ade6d8a1039d657048a14d61038e29d96007b5b35d71678b1234b5"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-advanced.png",
+      "status": "new",
+      "before": null,
+      "sha256": "cb03069fcdc14366e0919f7ffe80468a8343f03c45ee275f9ba2ad979758062e"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-easy.png",
+      "status": "new",
+      "before": null,
+      "sha256": "acf6091ef0dff6e7b3e8bf84f2ade99905d711164ce0a467136f1b8962850fa2"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-floor-easy.png",
+      "status": "new",
+      "before": null,
+      "sha256": "81c85d0fa3e49ac390f3fe203c0ef51965d5af4a06b34414ec560f6d3a2895d3"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-floor-medium.png",
+      "status": "new",
+      "before": null,
+      "sha256": "b95437430f35be45033bb54cc1b266f45e55a1d74b97abf8d1881710d5508242"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-medium.png",
+      "status": "new",
+      "before": null,
+      "sha256": "a3837913f9b57bfafc09987069967636ef7dd60afd4624ca25f730376eb97f0c"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-paused.png",
+      "status": "new",
+      "before": null,
+      "sha256": "df149c9be051f285cd4f281c8f23a49803f186398f44d22041d3c1ae3e8c17ac"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-reduced-motion.png",
+      "status": "new",
+      "before": null,
+      "sha256": "be342ced28a927d62bf58783aeb5dcd8976f556b1823497138f20732ec1733db"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-session-complete.png",
+      "status": "new",
+      "before": null,
+      "sha256": "52b00a5c58382edcd06cec55f81e7ec8536e0769bfaaea6ba0c5fd389635bf25"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/gameplay-display-stage-complete.png",
+      "status": "new",
+      "before": null,
+      "sha256": "c7923eee8cb1806a3d74138f0e2e6ba9f141a61cb47006cb0190b839796a0b3c"
+    },
+    {
+      "path": "docs/balloonquest3d/screenshots/live-browser-test-log.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "7bf8c162d48769dc7c7a0b6edc7f2123e4f6d0471f0cd50d5fc68cdd62163697"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/README.md",
+      "status": "new",
+      "before": null,
+      "sha256": "7b2fb4de55b3cea66223d2cf1b5af7cf28b4e9ceb7f896c133a8196141468eb1"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/cdplib.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "b4d4d64f9dd51bd82be3846408c7fbe8868d3016401e305c404b2e0b572bd17e"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/e2e.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "7ef31e69a5197684feff21e52aa09f5df0a396228909d3b967e54025c7c8112c"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/e2e2.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "178148f96aa6b60f967238f4f12b080473a41ca87210775f286a16c3b7a2f1be"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/e2e3.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "0d73446a4e8eb2907d6472986c5afd47abe757c8ac8a11875aceb78390ffa8a1"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/build-routes.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "2b39c73dbfb145a8c33e538e777d8f0721897e74210e67ffbb9d62697457e5ec"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/lint-summary.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "ea4987b7ffb725965e3b3eeb6f6bb68061ab166a1b9ed4b54631a071530ad83d"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/prod-browser.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "7b31c59ed4e4ed790a749b86167019e9cec9100d00778216bff7d607621cd83d"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/prod-routes.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "2cf8e2b2a18d1ce4bcb5f513d530ca8f4b5d770c090803791f875e026bd17ea2"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/typecheck-summary.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "8248484935cc8ab127a322e93a5348c06d17f2f38a48198878cf3e1329f0d0d7"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/gates/vitest-full-summary.txt",
+      "status": "new",
+      "before": null,
+      "sha256": "befd6a3a178b986ff5bd851ae2b5fd777de629a8cec9de62b15c8d1f45580f3b"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/perf.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "5848e412de44dbb2d600e989f9a892a846a70b74cb0a2e92cff4d670cabc5a48"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/e2e-results.json",
+      "status": "new",
+      "before": null,
+      "sha256": "7d56a70268fd3a839294f1f0e72a528f69b50bebd5f0e2228129fa7718049825"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/e2e-stagelog.json",
+      "status": "new",
+      "before": null,
+      "sha256": "b79c655b164c6e8fb6c50315c52537d523f39ba6f4f0cf6179e7b7f3a32f190a"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/e2e2-results.json",
+      "status": "new",
+      "before": null,
+      "sha256": "edba0dad43e8050bc7e491c0a0ba5cf2903028ea08adb85668fa7344ffc21f50"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/e2e3-results.json",
+      "status": "new",
+      "before": null,
+      "sha256": "697fccf0839399ae9646e9d530316e73430a035e7c9a10966f5d456c3a93ed33"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/perf-report.json",
+      "status": "new",
+      "before": null,
+      "sha256": "7ab65838911043ae7fc38b99e1075d532bf7a75d604658639b7c9a5a1d188640"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/results/soak-report.json",
+      "status": "new",
+      "before": null,
+      "sha256": "5b2b9fc94cf42ee61363103ee330e538ec8d2e4843f10af143aade7925426016"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/soak.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "c4bdc22c2839767ea484eebf5a3c2cfb1e8d0485111d592076e26c8a8a877e91"
+    },
+    {
+      "path": "docs/balloonquest3d/validation/video.mjs",
+      "status": "new",
+      "before": null,
+      "sha256": "16cf27aa0e6d43e2d0058782d902b10b3a750f9fde849dda4b411419ffdf0e29"
+    },
+    {
+      "path": "docs/balloonquest3d/video/balloon-quest-3d-gameplay.mp4",
+      "status": "new",
+      "before": null,
+      "sha256": "0a943e3f54d831477da38dcfa7d5d76757b8cf2ed791a1ea6106f0b741878e9e"
+    },
+    {
+      "path": "lib/analytics/patientAnalytics.ts",
+      "status": "modified",
+      "before": "a3b4d202717d02eb05b4509af87183db7daeaa1919e18d9528c295017ae1e0c8",
+      "sha256": "7286712b5bcc00b34de86f6ff49078eee1e76c18869512dfd5b123941fda1768"
+    },
+    {
+      "path": "lib/balloonquest/__tests__/harness.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "7f9f670e69153c55efd7c6e3e7fc60aabe72b14356726525a4c7ecdf667f57e7"
+    },
+    {
+      "path": "lib/balloonquest/__tests__/helpers.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "b9efefb0b4bd6520f4e44358762ddb8c9073c109b2d8e2cb6612dd1b09a6b8b7"
+    },
+    {
+      "path": "lib/balloonquest/__tests__/input.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "e6cf8ae260e30ebacb413fa3f76efc564af8245fbb1d518fbb21a0afb3fe9190"
+    },
+    {
+      "path": "lib/balloonquest/__tests__/runtime.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "f97b054f0669f4d0a4e712fb35d3616c9c9f79b3464c9addc9f8a4159ba040f9"
+    },
+    {
+      "path": "lib/balloonquest/__tests__/session.test.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "c75cc2dd0cd440ce469ed118c17ab9914f76ea1395a0775aba6501b9bf7b3632"
+    },
+    {
+      "path": "lib/balloonquest/arabic.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "16b157b32c231be0d608779e0e9f98944a484fd61c1fe9aee9acb1a4cec573f5"
+    },
+    {
+      "path": "lib/balloonquest/colors.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "be34bbf42d91dfbdcc5b0c34d347c9c3e8d769f7189f060a9751f8d5ebe3648c"
+    },
+    {
+      "path": "lib/balloonquest/controlMount.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "a4e6680c514cd601c833f9327eedc8c906fcedd10a96cdfeec3717064d0aad24"
+    },
+    {
+      "path": "lib/balloonquest/controlRuntime.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "60f18a25739cf999ae88f1f5ea4b1c8d7f1c55b3ca1161c4e6ef776aa7b92050"
+    },
+    {
+      "path": "lib/balloonquest/displayMount.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "700dce1ed359b7e6d8aced5daa0c1deadd5ae088b26ce3d580543b31093f88dc"
+    },
+    {
+      "path": "lib/balloonquest/geometry.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "94d912e4e50f8cef4c9d65fdc0e5a9f3baf4b7d50e13185d0e49bedc4dc7c49c"
+    },
+    {
+      "path": "lib/balloonquest/input/hub.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "2a1e4790a2299f5bd79263d0b4fde65d883ec52cda6d5fdf5c8c61878f8c2e3f"
+    },
+    {
+      "path": "lib/balloonquest/input/keyboard.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "6eea89e68663afe999286cc65309ef441f9983105f2c0dcc9576564cd8c73a76"
+    },
+    {
+      "path": "lib/balloonquest/input/pipeline.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "97a140400890d619c3687d69ded39c33b6c6fabfa16283a78bbff099763732ee"
+    },
+    {
+      "path": "lib/balloonquest/input/simulated.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "9fe1aba8a27c065df76565edf18599fb95c841a28fcbbb273e15040f7090d3c8"
+    },
+    {
+      "path": "lib/balloonquest/input/types.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "262d8677b43d30ad1e9d50b71ed2d4f0ec4708b4bb0ef5734e98b64265fcef62"
+    },
+    {
+      "path": "lib/balloonquest/live.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "e76fec30fb2e609d98f43dbd9632037931e77076d700fa5c2e40da6e3fda4916"
+    },
+    {
+      "path": "lib/balloonquest/protocol.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "4c198cc8b4c349229fab1b420b9e62028c24976bb1dd4032883cbe7a93540d00"
+    },
+    {
+      "path": "lib/balloonquest/replica.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "3d0b1fb97bd0a2793e67edf4c102ec3d68d00886ff06ebb4f8a65706b9f80691"
+    },
+    {
+      "path": "lib/balloonquest/rng.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "f03c715f07d16a82d1256ade2510309a5adfeee8852472d2a6b312d707154c2f"
+    },
+    {
+      "path": "lib/balloonquest/rollback.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "9e416d1462971a4ef341889bdfe971f2af003a05c2b2f9e8799e37d6803cc56e"
+    },
+    {
+      "path": "lib/balloonquest/session.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "f26372c2a9337ad258b8a9070b9339169f85e4d3e458a12e3546a1ae15a2a73d"
+    },
+    {
+      "path": "lib/balloonquest/spawner.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "fe4342eac9edfb5eae24ae93f93d24368b5214eb75bfd9be58740f32e8280a1b"
+    },
+    {
+      "path": "lib/balloonquest/stages.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "30c6ce6ae966402600351a49595b109b9b8ce733682771546ad6b7ebf03143da"
+    },
+    {
+      "path": "lib/balloonquest/types.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "ecb20b1daf2c5af27f4b5622c3c9ea6a7f35f630f29fec8268bf607c7c324733"
+    },
+    {
+      "path": "lib/control/balloonquest3d/useBalloonQuest3DRealtimeControl.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "65f2590f19e9696b99e3decf81e453b4ca5173c123448a721386618b3c40f8a4"
+    },
+    {
+      "path": "lib/control/useRealtimeControllerSession.ts",
+      "status": "modified",
+      "before": "4dfacaa8cc9074ea393b4316c1719c3b1cbe8a05056e7558348617774a3cbf75",
+      "sha256": "11d81014a1da3c4bad00867d2ce3280118655e15a038b8661ab1d8b19469ce53"
+    },
+    {
+      "path": "lib/realtime/sessionRepository.ts",
+      "status": "modified",
+      "before": "d16d84cf922ae5adecd41f045fcda62c7f3923b33041b60ca7d4ef270eec4169",
+      "sha256": "07b9eeb7483ecf40df0e653fe8cfb069d5a081e9460246beb41fef94a8cb5c6d"
+    },
+    {
+      "path": "lib/realtime/types.ts",
+      "status": "modified",
+      "before": "fc51191bbf1c0c8de6ae1f791af7d8b68f3b6a62a30f3a7ba1f35b99ccad7aba",
+      "sha256": "800c694b642524d1505233446b1dcf86f7f67ddc665f6d074347697dabac25ef"
+    },
+    {
+      "path": "lib/sessions/balloonQuestVersion.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "3a89d4a3ea0eb1ed1b89c2b03cfe01658c799eaa1eb0ab766aebd4240c94b925"
+    },
+    {
+      "path": "lib/sessions/buildStoredBalloonQuest3DSession.ts",
+      "status": "new",
+      "before": null,
+      "sha256": "c83b756bdd706e3d68d7e5c2dd9114cfda9cfd213cd64aaf44d501802eca44a4"
+    },
+    {
+      "path": "lib/sessions/resumeSuggestion.ts",
+      "status": "modified",
+      "before": "02b69a152e106564dfef14af569e4f595fb63eeda4f78d7c039978160f739e4e",
+      "sha256": "36b5c15d16845c412cd241407b61d9dfd68e68e334c6ded75895730b3cef6ad4"
+    },
+    {
+      "path": "lib/sessions/sessionHistoryRepository.ts",
+      "status": "modified",
+      "before": "aeb8a267e19e7fd095a315d8833718d3760dd3707ef15ca8ebc040af3b0905c2",
+      "sha256": "59e183aba2f5e95487cc11e9472a7aa91b1a0a428cfdb2436685bbd20bbff49e"
+    },
+    {
+      "path": "lib/sessions/types.ts",
+      "status": "modified",
+      "before": "cd818c1dce7206fd781bfdd84e0fcbd7e9e53d557330ab52fa163eb3f714a64a",
+      "sha256": "49c5c3a1b1edbb842539e71e1928ecffcf5491422bfa6f4ec4eebf91f00650ab"
+    }
+  ],
+  "unchangedBaselineFiles": [
+    ".env.example",
+    ".firebaserc",
+    ".gitignore",
+    "AGENTS.md",
+    "ARCHITECTURE.md",
+    "CLAUDE.md",
+    "README.md",
+    "app/api/tts/__tests__/route.test.ts",
+    "app/api/tts/route.ts",
+    "app/control/activities/page.tsx",
+    "app/control/bubble-pop-wall-sensor-play/page.tsx",
+    "app/control/bubble-pop-wall/page.tsx",
+    "app/control/color-chase-sensor-play/page.tsx",
+    "app/control/color-chase/page.tsx",
+    "app/control/control.css",
+    "app/control/feed-the-animals-sensor-play/page.tsx",
+    "app/control/feed-the-animals/page.tsx",
+    "app/control/follow-the-footsteps-sensor-play/page.tsx",
+    "app/control/follow-the-footsteps/page.tsx",
+    "app/control/layout.tsx",
+    "app/control/left-hand-enrollment-session/page.tsx",
+    "app/control/page.tsx",
+    "app/control/patients/[patientId]/page.tsx",
+    "app/control/patients/[patientId]/sessions/[sessionId]/page.tsx",
+    "app/control/patients/page.tsx",
+    "app/control/quick-session/page.tsx",
+    "app/control/right-hand-balloon-play/page.tsx",
+    "app/control/right-hand-final-session/page.tsx",
+    "app/control/right-hand-twist-invariance/page.tsx",
+    "app/control/sensor-hand-demo/page.tsx",
+    "app/control/sensor-setup-prototype/page.tsx",
+    "app/control/space-pilot-3d-prototype/page.tsx",
+    "app/display/balloon-quest.css",
+    "app/display/bubble-pop-wall.css",
+    "app/display/feed-the-animals.css",
+    "app/display/follow-the-footsteps.css",
+    "app/display/layout.tsx",
+    "app/display/page.tsx",
+    "app/display/space-pilot-3d-prototype/page.tsx",
+    "app/display/space-pilot.css",
+    "app/favicon.ico",
+    "app/globals.css",
+    "app/layout.tsx",
+    "app/page.tsx",
+    "components/control/ConnectionBadge.tsx",
+    "components/control/ControlScreen.tsx",
+    "components/control/LeaseContestedOverlay.tsx",
+    "components/control/StatCard.tsx",
+    "components/control/auth/StaffAuthGate.tsx",
+    "components/control/auth/StaffLoginScreen.tsx",
+    "components/control/brand/ShumosBrandMark.tsx",
+    "components/control/bubblepop/BubblePopControlScreen.tsx",
+    "components/control/bubblepop/copy.ts",
+    "components/control/bubblepop/live/BubblePopLiveHeader.tsx",
+    "components/control/bubblepop/live/BubblePopLiveProgress.tsx",
+    "components/control/bubblepop/live/BubblePopLiveSessionScreen.tsx",
+    "components/control/bubblepop/live/BubblePopStageCompleteOverlay.tsx",
+    "components/control/bubblepop/live/BubblePopStageStrip.tsx",
+    "components/control/bubblepop/live/StationBar.tsx",
+    "components/control/bubblepop/ready/BubblePopReadyScreen.tsx",
+    "components/control/bubblepop/setup/BubblePopSetupScreen.tsx",
+    "components/control/bubblepop/summary/BubblePopSessionSummaryScreen.tsx",
+    "components/control/colorchase/ColorChaseControlScreen.tsx",
+    "components/control/copy.ts",
+    "components/control/feedanimals/FeedAnimalsControlScreen.tsx",
+    "components/control/feedanimals/copy.ts",
+    "components/control/feedanimals/live/AnimalFoodMap.tsx",
+    "components/control/feedanimals/live/AnimalPathMap.tsx",
+    "components/control/feedanimals/live/FeedAnimalsLiveHeader.tsx",
+    "components/control/feedanimals/live/FeedAnimalsLiveProgress.tsx",
+    "components/control/feedanimals/live/FeedAnimalsLiveSessionScreen.tsx",
+    "components/control/feedanimals/live/FeedAnimalsStageCompleteOverlay.tsx",
+    "components/control/feedanimals/live/FeedAnimalsStageStrip.tsx",
+    "components/control/feedanimals/ready/FeedAnimalsReadyScreen.tsx",
+    "components/control/feedanimals/setup/FeedAnimalsSetupScreen.tsx",
+    "components/control/feedanimals/summary/FeedAnimalsSessionSummaryScreen.tsx",
+    "components/control/footsteps/FootstepsControlScreen.tsx",
+    "components/control/footsteps/copy.ts",
+    "components/control/footsteps/live/FootMap.tsx",
+    "components/control/footsteps/live/FootstepsLiveHeader.tsx",
+    "components/control/footsteps/live/FootstepsLiveProgress.tsx",
+    "components/control/footsteps/live/FootstepsLiveSessionScreen.tsx",
+    "components/control/footsteps/live/FootstepsStageCompleteOverlay.tsx",
+    "components/control/footsteps/live/FootstepsStageStrip.tsx",
+    "components/control/footsteps/ready/FootstepsReadyScreen.tsx",
+    "components/control/footsteps/setup/FootstepsSetupScreen.tsx",
+    "components/control/footsteps/summary/FootstepsSessionSummaryScreen.tsx",
+    "components/control/home/DisplayAudioControl.tsx",
+    "components/control/home/HomeScreen.tsx",
+    "components/control/home/SystemReadinessCard.tsx",
+    "components/control/home/__tests__/DisplayAudioControl.test.ts",
+    "components/control/home/__tests__/SystemReadinessCard.test.ts",
+    "components/control/library/BalloonQuestThumbnail.tsx",
+    "components/control/library/BubblePopWallThumbnail.tsx",
+    "components/control/library/ColorChaseThumbnail.tsx",
+    "components/control/library/FeedTheAnimalsThumbnail.tsx",
+    "components/control/library/FollowTheFootstepsThumbnail.tsx",
+    "components/control/library/GameCard.tsx",
+    "components/control/library/GameLibraryScreen.tsx",
+    "components/control/library/SpacePilotThumbnail.tsx",
+    "components/control/live/BalloonMap.tsx",
+    "components/control/live/ConfirmSheet.tsx",
+    "components/control/live/LiveHeader.tsx",
+    "components/control/live/LiveNavigationControls.tsx",
+    "components/control/live/LiveProgress.tsx",
+    "components/control/live/LiveSessionScreen.tsx",
+    "components/control/live/ReadyPositionOverlay.tsx",
+    "components/control/live/ResetLiveDisplayOnMount.tsx",
+    "components/control/live/SessionControls.tsx",
+    "components/control/live/StageCompleteOverlay.tsx",
+    "components/control/live/StageStrip.tsx",
+    "components/control/live/StartZoneOverlay.tsx",
+    "components/control/nav/ControlBreadcrumb.tsx",
+    "components/control/nav/ControlNav.tsx",
+    "components/control/patients/AddPatientSheet.tsx",
+    "components/control/patients/PatientAnalyticsDashboard.tsx",
+    "components/control/patients/PatientContextBanner.tsx",
+    "components/control/patients/PatientListItem.tsx",
+    "components/control/patients/PatientProfileScreen.tsx",
+    "components/control/patients/PatientQuickRail.tsx",
+    "components/control/patients/PatientRegistryScreen.tsx",
+    "components/control/patients/PatientSessionOverview.tsx",
+    "components/control/patients/SessionHistoryList.tsx",
+    "components/control/patients/SessionHistoryRow.tsx",
+    "components/control/patients/SessionPerformanceTrend.tsx",
+    "components/control/patients/__tests__/safeFormatting.test.ts",
+    "components/control/patients/formatPatientDate.ts",
+    "components/control/patients/formatSessionDate.ts",
+    "components/control/patients/patientErrorCopy.ts",
+    "components/control/quick-session/QuickSessionScreen.tsx",
+    "components/control/ready/ReadyScreen.tsx",
+    "components/control/sensors/BubblePopSensorContactDemo.tsx",
+    "components/control/sensors/CanonicalBalloonContactDemo.tsx",
+    "components/control/sensors/ColorChaseSensorContactDemo.tsx",
+    "components/control/sensors/DualHandRecenterControls.tsx",
+    "components/control/sensors/FeedAnimalsSensorContactDemo.tsx",
+    "components/control/sensors/FollowFootstepsSensorContactDemo.tsx",
+    "components/control/sensors/LeftHandEnrollmentScreen.tsx",
+    "components/control/sensors/LeftHandPreCaptureCheck.tsx",
+    "components/control/sensors/LocalPointerBroadcastSync.tsx",
+    "components/control/sensors/RightHandBalloonPlayable.tsx",
+    "components/control/sensors/RightHandFinalSessionScreen.tsx",
+    "components/control/sensors/RightHandTwistInvarianceScreen.tsx",
+    "components/control/sensors/SensorConnectionBar.tsx",
+    "components/control/sensors/SensorHandCursor.tsx",
+    "components/control/sensors/SensorHandDemoScreen.tsx",
+    "components/control/sensors/SensorHandLayer.tsx",
+    "components/control/sensors/SensorPlayPage.tsx",
+    "components/control/sensors/SensorPointerDisplaySync.tsx",
+    "components/control/sensors/SensorRoleAssignmentControls.tsx",
+    "components/control/sensors/SensorRuntimeProvider.tsx",
+    "components/control/sensors/SensorSetupPrototypeScreen.tsx",
+    "components/control/sensors/useSensorHandRuntime.ts",
+    "components/control/sensors/useSensorPointerTargets.ts",
+    "components/control/session/EndSessionReasonSheet.tsx",
+    "components/control/session/SessionMetadataDetails.tsx",
+    "components/control/session/SessionSummaryWorkflowPanel.tsx",
+    "components/control/session/SessionWorkflowContext.tsx",
+    "components/control/session/SetupIdentityCard.tsx",
+    "components/control/session/TherapistNoteEditor.tsx",
+    "components/control/session/__tests__/AllGameSetupIdentity.test.tsx",
+    "components/control/session/__tests__/SessionMetadataDetails.test.tsx",
+    "components/control/session/__tests__/SetupIdentityCard.test.tsx",
+    "components/control/setup/DevQuickFill.tsx",
+    "components/control/setup/SegmentedControl.tsx",
+    "components/control/setup/SetupScreen.tsx",
+    "components/control/setup/StageCard.tsx",
+    "components/control/setup/StartingStagePicker.tsx",
+    "components/control/setup/previews/BalloonStagePreview.tsx",
+    "components/control/setup/previews/BubblePopStagePreview.tsx",
+    "components/control/setup/previews/FeedAnimalsStagePreview.tsx",
+    "components/control/setup/previews/FootstepsStagePreview.tsx",
+    "components/control/spacepilot/SpacePilotControlScreen.tsx",
+    "components/control/spacepilot/copy.ts",
+    "components/control/spacepilot/live/LaneControlBar.tsx",
+    "components/control/spacepilot/live/SpacePilotLiveHeader.tsx",
+    "components/control/spacepilot/live/SpacePilotLiveProgress.tsx",
+    "components/control/spacepilot/live/SpacePilotLiveSessionScreen.tsx",
+    "components/control/spacepilot/live/SpacePilotReadyPositionOverlay.tsx",
+    "components/control/spacepilot/live/SpacePilotSessionControls.tsx",
+    "components/control/spacepilot/live/SpacePilotStageCompleteOverlay.tsx",
+    "components/control/spacepilot/ready/SpacePilotReadyScreen.tsx",
+    "components/control/spacepilot/setup/SpacePilotSetupScreen.tsx",
+    "components/control/spacepilot/summary/SpacePilotSessionSummaryScreen.tsx",
+    "components/control/summary/SessionSummaryScreen.tsx",
+    "components/control/ui/SectionCard.tsx",
+    "components/display/DevBadge.tsx",
+    "components/display/LocalGameFeedbackProvider.tsx",
+    "components/display/LocalPointerDiagnosticsOverlay.tsx",
+    "components/display/MuteToggle.tsx",
+    "components/display/PlayStage.tsx",
+    "components/display/SensorPointerLayer.tsx",
+    "components/display/__tests__/stageCompletionPresentation.test.ts",
+    "components/display/balloon/Balloon.tsx",
+    "components/display/balloon/BalloonArt.tsx",
+    "components/display/balloon/BalloonField.tsx",
+    "components/display/balloon/Sparkles.tsx",
+    "components/display/bubblepop/ShapeGlyph.tsx",
+    "components/display/bubblepop/bubbleColors.ts",
+    "components/display/bubblepop/bubbles/BubbleArt.tsx",
+    "components/display/bubblepop/celebration/BubbleShower.tsx",
+    "components/display/bubblepop/celebration/CoralSparkleWave.tsx",
+    "components/display/bubblepop/celebration/FishSwimThrough.tsx",
+    "components/display/bubblepop/celebration/PearlGlow.tsx",
+    "components/display/bubblepop/celebration/TreasureChestCelebration.tsx",
+    "components/display/bubblepop/creatures/FishArt.tsx",
+    "components/display/bubblepop/creatures/JellyfishArt.tsx",
+    "components/display/bubblepop/creatures/SeahorseArt.tsx",
+    "components/display/bubblepop/creatures/TurtleArt.tsx",
+    "components/display/bubblepop/environment/UnderwaterEnvironment.tsx",
+    "components/display/bubblepop/ocean/EnergyPulse.tsx",
+    "components/display/bubblepop/ocean/MissionPrompt.tsx",
+    "components/display/bubblepop/ocean/MovingBubble.tsx",
+    "components/display/bubblepop/ocean/TreasureChest.tsx",
+    "components/display/bubblepop/ocean/__tests__/bubbleMotion.test.ts",
+    "components/display/bubblepop/ocean/bubbleMotion.ts",
+    "components/display/bubblepop/scenes/BubblePopInstructionsScene.tsx",
+    "components/display/bubblepop/scenes/BubblePopPlayingScene.tsx",
+    "components/display/bubblepop/scenes/BubblePopReadyPositionScene.tsx",
+    "components/display/bubblepop/scenes/BubblePopSessionCompleteScene.tsx",
+    "components/display/bubblepop/scenes/BubblePopStageCompleteScene.tsx",
+    "components/display/bubblepop/scenes/BubblePopWelcomeScene.tsx",
+    "components/display/bubblepop/stations/PearlStation.tsx",
+    "components/display/bubblepop/stations/StationDock.tsx",
+    "components/display/bubblepop/stations/stationLayout.ts",
+    "components/display/celebration/Confetti.tsx",
+    "components/display/celebration/CorrectCelebrationBurst.tsx",
+    "components/display/celebration/RisingBalloons.tsx",
+    "components/display/celebration/StarBurst.tsx",
+    "components/display/colorPalette.ts",
+    "components/display/colorchase/ColorChaseEnvironment.tsx",
+    "components/display/colorchase/ColorPadGrid.tsx",
+    "components/display/colorchase/colorPalette.ts",
+    "components/display/copy.ts",
+    "components/display/environment/Environment.tsx",
+    "components/display/events.ts",
+    "components/display/feedanimals/animals/AnimalArt.tsx",
+    "components/display/feedanimals/animals/AnimalWalker.tsx",
+    "components/display/feedanimals/animals/ElephantWalker.tsx",
+    "components/display/feedanimals/animals/GiraffeWalker.tsx",
+    "components/display/feedanimals/animals/MonkeyWalker.tsx",
+    "components/display/feedanimals/animals/PandaWalker.tsx",
+    "components/display/feedanimals/animals/PathAnimalWalker.tsx",
+    "components/display/feedanimals/animals/RabbitHopper.tsx",
+    "components/display/feedanimals/animals/walkerGeometry.ts",
+    "components/display/feedanimals/celebration/AnimalParade.tsx",
+    "components/display/feedanimals/celebration/ButterflyCrossing.tsx",
+    "components/display/feedanimals/celebration/HappyAnimalGroup.tsx",
+    "components/display/feedanimals/celebration/LeafStarBurst.tsx",
+    "components/display/feedanimals/celebration/SafariSparkleWave.tsx",
+    "components/display/feedanimals/environment/SafariEnvironment.tsx",
+    "components/display/feedanimals/environment/WaterFeature.tsx",
+    "components/display/feedanimals/food/BambooCluster.tsx",
+    "components/display/feedanimals/food/BananaBunch.tsx",
+    "components/display/feedanimals/food/CarrotPatch.tsx",
+    "components/display/feedanimals/food/FoodArt.tsx",
+    "components/display/feedanimals/food/GoalArt.tsx",
+    "components/display/feedanimals/food/LeafyTree.tsx",
+    "components/display/feedanimals/food/WatermelonPatch.tsx",
+    "components/display/feedanimals/obstacles/ObstacleArt.tsx",
+    "components/display/feedanimals/path/SafariTrail.tsx",
+    "components/display/feedanimals/path/__tests__/pathAlignment.test.ts",
+    "components/display/feedanimals/path/pathAlignment.ts",
+    "components/display/feedanimals/scenes/FeedAnimalsInstructionsScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsPathPlayingScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsPlayingScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsReadyPositionScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsSessionCompleteScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsStageCompleteScene.tsx",
+    "components/display/feedanimals/scenes/FeedAnimalsWelcomeScene.tsx",
+    "components/display/footsteps/celebration/ConstellationIllumination.tsx",
+    "components/display/footsteps/celebration/CosmicSparkleBurst.tsx",
+    "components/display/footsteps/celebration/PathLightTravel.tsx",
+    "components/display/footsteps/celebration/ShootingStars.tsx",
+    "components/display/footsteps/celebration/StepStarBurst.tsx",
+    "components/display/footsteps/environment/CosmicEnvironment.tsx",
+    "components/display/footsteps/footprints/FootprintArt.tsx",
+    "components/display/footsteps/obstacles/ObstacleArt.tsx",
+    "components/display/footsteps/path/CheckpointStar.tsx",
+    "components/display/footsteps/path/DestinationStar.tsx",
+    "components/display/footsteps/path/PathTrail.tsx",
+    "components/display/footsteps/scenes/FootstepsInstructionsScene.tsx",
+    "components/display/footsteps/scenes/FootstepsPlayingScene.tsx",
+    "components/display/footsteps/scenes/FootstepsSessionCompleteScene.tsx",
+    "components/display/footsteps/scenes/FootstepsStageCompleteScene.tsx",
+    "components/display/footsteps/scenes/FootstepsStartZoneScene.tsx",
+    "components/display/footsteps/scenes/FootstepsWelcomeScene.tsx",
+    "components/display/games/BalloonQuestDisplay.tsx",
+    "components/display/games/BubblePopWallDisplay.tsx",
+    "components/display/games/ColorChaseDisplay.tsx",
+    "components/display/games/FeedTheAnimalsDisplay.tsx",
+    "components/display/games/FollowTheFootstepsDisplay.tsx",
+    "components/display/games/SpacePilotDisplay.tsx",
+    "components/display/scenes/CountdownScene.tsx",
+    "components/display/scenes/InstructionsScene.tsx",
+    "components/display/scenes/PlayingScene.tsx",
+    "components/display/scenes/SessionCompleteScene.tsx",
+    "components/display/scenes/StageCompleteScene.tsx",
+    "components/display/scenes/StartZoneScene.tsx",
+    "components/display/scenes/WelcomeScene.tsx",
+    "components/display/scenes/__tests__/CountdownScene.test.ts",
+    "components/display/spacepilot/celebration/FinalRocketPayoff.tsx",
+    "components/display/spacepilot/controls/LaneControls.tsx",
+    "components/display/spacepilot/environment/SpaceEnvironment.tsx",
+    "components/display/spacepilot/hazards/AlienShipArt.tsx",
+    "components/display/spacepilot/hazards/AsteroidArt.tsx",
+    "components/display/spacepilot/hazards/FireProjectile.tsx",
+    "components/display/spacepilot/lanes.ts",
+    "components/display/spacepilot/progress/EncounterProgressDots.tsx",
+    "components/display/spacepilot/progress/StarProgressDots.tsx",
+    "components/display/spacepilot/rocket/SpacePilotRocket.tsx",
+    "components/display/spacepilot/scenes/SpacePilotEncounterPlayingScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotInstructionsScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotPlayingScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotReadyPositionScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotSessionCompleteScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotStageCompleteScene.tsx",
+    "components/display/spacepilot/scenes/SpacePilotWelcomeScene.tsx",
+    "components/display/spacepilot/stars/CollectibleStarArt.tsx",
+    "components/display/spacepilot3d/SpacePilot3DCanvas.tsx",
+    "components/display/startZone/StartZoneMarker.tsx",
+    "components/display/useDualLocalPointerChannel.ts",
+    "components/display/useInterpolatedPointer.ts",
+    "components/display/useLocalGameFeedback.ts",
+    "components/display/useLocalPointerChannel.ts",
+    "components/display/useStageCompletionPresentation.ts",
+    "components/display/waiting/ShumosWaitingWorld.tsx",
+    "components/shared/SystemStatus.tsx",
+    "database.rules.json",
+    "docs/spacepilot3d/PHASE_05_REPORT.md",
+    "docs/spacepilot3d/PHASE_05_TO_07_FINAL_REPORT.md",
+    "docs/spacepilot3d/PHASE_06_REPORT.md",
+    "docs/spacepilot3d/PHASE_07_REPORT.md",
+    "docs/spacepilot3d/PHASE_08_REPORT.md",
+    "docs/spacepilot3d/PHASE_R1_REPORT.md",
+    "docs/spacepilot3d/PHASE_R2_REPORT.md",
+    "docs/spacepilot3d/assets/aurora-build.json",
+    "docs/spacepilot3d/assets/create-aurora.mjs",
+    "docs/spacepilot3d/screenshots/phase05-control.png",
+    "docs/spacepilot3d/screenshots/phase05-display.png",
+    "docs/spacepilot3d/screenshots/phase05-summary.png",
+    "docs/spacepilot3d/screenshots/phase06-control.png",
+    "docs/spacepilot3d/screenshots/phase06-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase06-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase06-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase06-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase06-summary.png",
+    "docs/spacepilot3d/screenshots/phase06-tier3.png",
+    "docs/spacepilot3d/screenshots/phase07-low-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase07-low-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase07-low-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase07-low-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase07-medium-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase07-medium-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase07-medium-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase07-medium-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase07-tier2.png",
+    "docs/spacepilot3d/screenshots/phase08-collection.png",
+    "docs/spacepilot3d/screenshots/phase08-collision-feedback.png",
+    "docs/spacepilot3d/screenshots/phase08-control-setup.png",
+    "docs/spacepilot3d/screenshots/phase08-control.png",
+    "docs/spacepilot3d/screenshots/phase08-flight-complete.png",
+    "docs/spacepilot3d/screenshots/phase08-high-control.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-high-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-high-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-high-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-low-control.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-low-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-low-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-low-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-control.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-medium-tier3.png",
+    "docs/spacepilot3d/screenshots/phase08-mission-complete.png",
+    "docs/spacepilot3d/screenshots/phase08-start.png",
+    "docs/spacepilot3d/screenshots/phase08-summary.png",
+    "docs/spacepilot3d/screenshots/phase08-tier2.png",
+    "docs/spacepilot3d/screenshots/phase08-tier3.png",
+    "docs/spacepilot3d/screenshots/r1-collection.png",
+    "docs/spacepilot3d/screenshots/r1-control-setup.png",
+    "docs/spacepilot3d/screenshots/r1-control.png",
+    "docs/spacepilot3d/screenshots/r1-flight-avoidance.png",
+    "docs/spacepilot3d/screenshots/r1-flight-climbing.png",
+    "docs/spacepilot3d/screenshots/r1-flight-collection.png",
+    "docs/spacepilot3d/screenshots/r1-flight-complete.png",
+    "docs/spacepilot3d/screenshots/r1-flight-descending.png",
+    "docs/spacepilot3d/screenshots/r1-flight-intentional-collection.png",
+    "docs/spacepilot3d/screenshots/r1-flight-left.png",
+    "docs/spacepilot3d/screenshots/r1-flight-neutral.png",
+    "docs/spacepilot3d/screenshots/r1-flight-right.png",
+    "docs/spacepilot3d/screenshots/r1-low-summary.png",
+    "docs/spacepilot3d/screenshots/r1-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/r1-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/r1-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/r1-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/r1-medium-summary.png",
+    "docs/spacepilot3d/screenshots/r1-mission-complete.png",
+    "docs/spacepilot3d/screenshots/r1-start.png",
+    "docs/spacepilot3d/screenshots/r1-summary.png",
+    "docs/spacepilot3d/screenshots/r1-tier2.png",
+    "docs/spacepilot3d/screenshots/r1-tier3.png",
+    "docs/spacepilot3d/screenshots/r2-collection.png",
+    "docs/spacepilot3d/screenshots/r2-control-setup.png",
+    "docs/spacepilot3d/screenshots/r2-control.png",
+    "docs/spacepilot3d/screenshots/r2-curved-course-reduced-motion.png",
+    "docs/spacepilot3d/screenshots/r2-flight-avoidance.png",
+    "docs/spacepilot3d/screenshots/r2-flight-climbing.png",
+    "docs/spacepilot3d/screenshots/r2-flight-collection.png",
+    "docs/spacepilot3d/screenshots/r2-flight-complete.png",
+    "docs/spacepilot3d/screenshots/r2-flight-descending.png",
+    "docs/spacepilot3d/screenshots/r2-flight-intentional-collection.png",
+    "docs/spacepilot3d/screenshots/r2-flight-left.png",
+    "docs/spacepilot3d/screenshots/r2-flight-neutral.png",
+    "docs/spacepilot3d/screenshots/r2-flight-right.png",
+    "docs/spacepilot3d/screenshots/r2-guided-recovery-collection.png",
+    "docs/spacepilot3d/screenshots/r2-left-boundary.png",
+    "docs/spacepilot3d/screenshots/r2-low-summary.png",
+    "docs/spacepilot3d/screenshots/r2-m1-encounter1.png",
+    "docs/spacepilot3d/screenshots/r2-m1-encounter3.png",
+    "docs/spacepilot3d/screenshots/r2-m1-encounter4.png",
+    "docs/spacepilot3d/screenshots/r2-m3-encounter2.png",
+    "docs/spacepilot3d/screenshots/r2-medium-summary.png",
+    "docs/spacepilot3d/screenshots/r2-mission-complete.png",
+    "docs/spacepilot3d/screenshots/r2-objective-guidance.png",
+    "docs/spacepilot3d/screenshots/r2-right-boundary.png",
+    "docs/spacepilot3d/screenshots/r2-start.png",
+    "docs/spacepilot3d/screenshots/r2-summary.png",
+    "docs/spacepilot3d/screenshots/r2-tier2.png",
+    "docs/spacepilot3d/screenshots/r2-tier3.png",
+    "docs/spacepilot3d/validation/README.md",
+    "docs/spacepilot3d/validation/change-manifest.json",
+    "docs/spacepilot3d/validation/phase05-browser.mjs",
+    "docs/spacepilot3d/validation/phase05-build.txt",
+    "docs/spacepilot3d/validation/phase05-ownership.mjs",
+    "docs/spacepilot3d/validation/phase05-ownership.txt",
+    "docs/spacepilot3d/validation/phase05-tests.txt",
+    "docs/spacepilot3d/validation/phase06-browser.mjs",
+    "docs/spacepilot3d/validation/phase06-browser.txt",
+    "docs/spacepilot3d/validation/phase07-auth.txt",
+    "docs/spacepilot3d/validation/phase07-build.txt",
+    "docs/spacepilot3d/validation/phase07-difficulties.mjs",
+    "docs/spacepilot3d/validation/phase07-difficulties.txt",
+    "docs/spacepilot3d/validation/phase07-lint.txt",
+    "docs/spacepilot3d/validation/phase07-performance.json",
+    "docs/spacepilot3d/validation/phase07-performance.mjs",
+    "docs/spacepilot3d/validation/phase07-performance.txt",
+    "docs/spacepilot3d/validation/phase07-tests.txt",
+    "docs/spacepilot3d/validation/phase07-tiers.mjs",
+    "docs/spacepilot3d/validation/phase07-tiers.txt",
+    "docs/spacepilot3d/validation/phase07-typecheck.txt",
+    "docs/spacepilot3d/validation/phase08-auth-gate.json",
+    "docs/spacepilot3d/validation/phase08-auth-gate.mjs",
+    "docs/spacepilot3d/validation/phase08-browser.mjs",
+    "docs/spacepilot3d/validation/phase08-browser.txt",
+    "docs/spacepilot3d/validation/phase08-build.txt",
+    "docs/spacepilot3d/validation/phase08-change-manifest.json",
+    "docs/spacepilot3d/validation/phase08-difficulties.mjs",
+    "docs/spacepilot3d/validation/phase08-difficulties.txt",
+    "docs/spacepilot3d/validation/phase08-gameplay-metrics.json",
+    "docs/spacepilot3d/validation/phase08-lint.txt",
+    "docs/spacepilot3d/validation/phase08-performance.json",
+    "docs/spacepilot3d/validation/phase08-performance.mjs",
+    "docs/spacepilot3d/validation/phase08-performance.txt",
+    "docs/spacepilot3d/validation/phase08-production.json",
+    "docs/spacepilot3d/validation/phase08-production.mjs",
+    "docs/spacepilot3d/validation/phase08-tests.txt",
+    "docs/spacepilot3d/validation/phase08-typecheck.txt",
+    "docs/spacepilot3d/validation/phase08-visual-review-metrics.json",
+    "docs/spacepilot3d/validation/phase08-visual-review.mjs",
+    "docs/spacepilot3d/validation/phase08-visual-review.txt",
+    "docs/spacepilot3d/validation/r1-auth-gate.json",
+    "docs/spacepilot3d/validation/r1-auth-gate.mjs",
+    "docs/spacepilot3d/validation/r1-browser.mjs",
+    "docs/spacepilot3d/validation/r1-browser.txt",
+    "docs/spacepilot3d/validation/r1-build.txt",
+    "docs/spacepilot3d/validation/r1-change-manifest.json",
+    "docs/spacepilot3d/validation/r1-flight-review.json",
+    "docs/spacepilot3d/validation/r1-flight-review.mjs",
+    "docs/spacepilot3d/validation/r1-flight-review.txt",
+    "docs/spacepilot3d/validation/r1-lint.txt",
+    "docs/spacepilot3d/validation/r1-performance-interruption.txt",
+    "docs/spacepilot3d/validation/r1-performance.json",
+    "docs/spacepilot3d/validation/r1-performance.mjs",
+    "docs/spacepilot3d/validation/r1-performance.txt",
+    "docs/spacepilot3d/validation/r1-presets.json",
+    "docs/spacepilot3d/validation/r1-presets.mjs",
+    "docs/spacepilot3d/validation/r1-presets.txt",
+    "docs/spacepilot3d/validation/r1-production.json",
+    "docs/spacepilot3d/validation/r1-production.mjs",
+    "docs/spacepilot3d/validation/r1-tests.txt",
+    "docs/spacepilot3d/validation/r1-typecheck.txt",
+    "docs/spacepilot3d/validation/r2-auth-gate.json",
+    "docs/spacepilot3d/validation/r2-auth-gate.mjs",
+    "docs/spacepilot3d/validation/r2-browser.mjs",
+    "docs/spacepilot3d/validation/r2-browser.txt",
+    "docs/spacepilot3d/validation/r2-build.txt",
+    "docs/spacepilot3d/validation/r2-change-manifest.json",
+    "docs/spacepilot3d/validation/r2-flight-review.json",
+    "docs/spacepilot3d/validation/r2-flight-review.mjs",
+    "docs/spacepilot3d/validation/r2-flight-review.txt",
+    "docs/spacepilot3d/validation/r2-guided-browser.json",
+    "docs/spacepilot3d/validation/r2-guided-browser.mjs",
+    "docs/spacepilot3d/validation/r2-guided-browser.txt",
+    "docs/spacepilot3d/validation/r2-lint.txt",
+    "docs/spacepilot3d/validation/r2-performance.json",
+    "docs/spacepilot3d/validation/r2-performance.mjs",
+    "docs/spacepilot3d/validation/r2-performance.txt",
+    "docs/spacepilot3d/validation/r2-presets.json",
+    "docs/spacepilot3d/validation/r2-presets.mjs",
+    "docs/spacepilot3d/validation/r2-presets.txt",
+    "docs/spacepilot3d/validation/r2-production.json",
+    "docs/spacepilot3d/validation/r2-production.mjs",
+    "docs/spacepilot3d/validation/r2-tests.txt",
+    "docs/spacepilot3d/validation/r2-typecheck.txt",
+    "docs/spacepilot3d/videos/r1-flight.mp4",
+    "docs/spacepilot3d/videos/r1-flight.webm",
+    "docs/spacepilot3d/videos/r2-flight.mp4",
+    "docs/spacepilot3d/videos/r2-flight.webm",
+    "docs/spacepilot3d/videos/r2-guided-flight.mp4",
+    "docs/spacepilot3d/videos/r2-guided-flight.webm",
+    "eslint.config.mjs",
+    "firebase.json",
+    "lib/analytics/__tests__/patientAnalytics.test.ts",
+    "lib/audio/AudioManager.ts",
+    "lib/audio/__tests__/AudioManager.test.ts",
+    "lib/audio/__tests__/AudioManagerAmbience.test.ts",
+    "lib/audio/__tests__/ambienceSources.test.ts",
+    "lib/audio/__tests__/munsitProvider.test.ts",
+    "lib/audio/__tests__/prefetchLines.test.ts",
+    "lib/audio/__tests__/voiceLines.test.ts",
+    "lib/audio/__tests__/voiceQueue.test.ts",
+    "lib/audio/__tests__/webSpeechMariamProvider.test.ts",
+    "lib/audio/ambience.ts",
+    "lib/audio/audarLocalProvider.ts",
+    "lib/audio/bubblePopVoiceLines.ts",
+    "lib/audio/colorChaseAmbience.ts",
+    "lib/audio/colorChaseEffects.ts",
+    "lib/audio/colorChaseVoiceLines.ts",
+    "lib/audio/cosmicAmbience.ts",
+    "lib/audio/cosmicEffects.ts",
+    "lib/audio/effects.ts",
+    "lib/audio/feedAnimalsVoiceLines.ts",
+    "lib/audio/footstepsVoiceLines.ts",
+    "lib/audio/munsitProvider.ts",
+    "lib/audio/primitives.ts",
+    "lib/audio/safariAmbience.ts",
+    "lib/audio/safariEffects.ts",
+    "lib/audio/spaceAmbience.ts",
+    "lib/audio/spaceEffects.ts",
+    "lib/audio/spacePilotVoiceLines.ts",
+    "lib/audio/speech.ts",
+    "lib/audio/types.ts",
+    "lib/audio/underwaterAmbience.ts",
+    "lib/audio/underwaterEffects.ts",
+    "lib/audio/useAudioManager.ts",
+    "lib/audio/voiceLines.ts",
+    "lib/audio/voiceQueue.ts",
+    "lib/audio/webSpeechMariamProvider.ts",
+    "lib/bubblepop/__tests__/bubbleGenerator.test.ts",
+    "lib/bubblepop/__tests__/mediumAdvancedPlans.test.ts",
+    "lib/bubblepop/__tests__/session.test.ts",
+    "lib/bubblepop/__tests__/stagePlans.test.ts",
+    "lib/bubblepop/bubbleGenerator.ts",
+    "lib/bubblepop/difficultyRules.ts",
+    "lib/bubblepop/index.ts",
+    "lib/bubblepop/scoring.ts",
+    "lib/bubblepop/session.ts",
+    "lib/bubblepop/stagePlans.ts",
+    "lib/bubblepop/types.ts",
+    "lib/colorchase/__tests__/rules.test.ts",
+    "lib/colorchase/__tests__/session.test.ts",
+    "lib/colorchase/__tests__/voiceEventGate.test.ts",
+    "lib/colorchase/index.ts",
+    "lib/colorchase/scoring.ts",
+    "lib/colorchase/session.ts",
+    "lib/colorchase/stagePlans.ts",
+    "lib/colorchase/types.ts",
+    "lib/colorchase/voiceEventGate.ts",
+    "lib/control/__tests__/quickSession.test.ts",
+    "lib/control/__tests__/stagePreset.test.ts",
+    "lib/control/__tests__/topLevelNavigation.test.ts",
+    "lib/control/bubblepop/__tests__/stagePreset.test.ts",
+    "lib/control/bubblepop/smartDefaults.ts",
+    "lib/control/bubblepop/stageCopy.ts",
+    "lib/control/bubblepop/stagePreset.ts",
+    "lib/control/bubblepop/useBubblePopRealtimeControllerSession.ts",
+    "lib/control/bubblepop/useLocalBubblePopControllerSession.ts",
+    "lib/control/colorchase/useColorChaseRealtimeControllerSession.ts",
+    "lib/control/colorchase/useLocalColorChaseControllerSession.ts",
+    "lib/control/feedanimals/__tests__/stagePreset.test.ts",
+    "lib/control/feedanimals/smartDefaults.ts",
+    "lib/control/feedanimals/stageCopy.ts",
+    "lib/control/feedanimals/stagePreset.ts",
+    "lib/control/feedanimals/useFeedAnimalsRealtimeControllerSession.ts",
+    "lib/control/feedanimals/useLocalFeedAnimalsControllerSession.ts",
+    "lib/control/footsteps/__tests__/stagePreset.test.ts",
+    "lib/control/footsteps/smartDefaults.ts",
+    "lib/control/footsteps/stageCopy.ts",
+    "lib/control/footsteps/stagePreset.ts",
+    "lib/control/footsteps/useFootstepsRealtimeControllerSession.ts",
+    "lib/control/footsteps/useLocalFootstepsControllerSession.ts",
+    "lib/control/quickSession.ts",
+    "lib/control/smartDefaults.ts",
+    "lib/control/spacepilot/useLocalSpacePilotControllerSession.ts",
+    "lib/control/spacepilot/useSpacePilotRealtimeControllerSession.ts",
+    "lib/control/stageCopy.ts",
+    "lib/control/stagePreset.ts",
+    "lib/control/topLevelNavigation.ts",
+    "lib/control/useLocalControllerSession.ts",
+    "lib/dataIntegrity/__tests__/numeric.test.ts",
+    "lib/dataIntegrity/numeric.ts",
+    "lib/demo/devSessionParams.ts",
+    "lib/demo/useLocalDemoSession.ts",
+    "lib/display/DualLocalPointerDemuxer.ts",
+    "lib/display/LocalGameFeedbackChannel.ts",
+    "lib/display/LocalGameFeedbackStore.ts",
+    "lib/display/LocalPointerChannel.ts",
+    "lib/display/LocalSessionWakeChannel.ts",
+    "lib/display/PointerInterpolator.ts",
+    "lib/display/__tests__/DualLocalPointerDemuxer.test.ts",
+    "lib/display/__tests__/LocalGameFeedbackChannel.test.ts",
+    "lib/display/__tests__/LocalGameFeedbackStore.test.ts",
+    "lib/display/__tests__/LocalSessionWakeChannel.test.ts",
+    "lib/display/__tests__/PointerInterpolator.test.ts",
+    "lib/display/useFullscreen.ts",
+    "lib/display/useRealtimeDisplaySession.ts",
+    "lib/feedanimals/__tests__/feedGenerator.test.ts",
+    "lib/feedanimals/__tests__/pathStage.test.ts",
+    "lib/feedanimals/__tests__/session.test.ts",
+    "lib/feedanimals/difficultyRules.ts",
+    "lib/feedanimals/feedGenerator.ts",
+    "lib/feedanimals/index.ts",
+    "lib/feedanimals/pathCurve.ts",
+    "lib/feedanimals/pathStages.ts",
+    "lib/feedanimals/scoring.ts",
+    "lib/feedanimals/session.ts",
+    "lib/feedanimals/types.ts",
+    "lib/footsteps/__tests__/centerline.test.ts",
+    "lib/footsteps/__tests__/pathGenerator.test.ts",
+    "lib/footsteps/__tests__/session.test.ts",
+    "lib/footsteps/centerline.ts",
+    "lib/footsteps/difficultyRules.ts",
+    "lib/footsteps/index.ts",
+    "lib/footsteps/journeyPlans.ts",
+    "lib/footsteps/pathGenerator.ts",
+    "lib/footsteps/scoring.ts",
+    "lib/footsteps/session.ts",
+    "lib/footsteps/types.ts",
+    "lib/game/__tests__/difficultyRules.test.ts",
+    "lib/game/__tests__/rng.test.ts",
+    "lib/game/__tests__/scoring.test.ts",
+    "lib/game/__tests__/session.test.ts",
+    "lib/game/__tests__/stageGenerator.test.ts",
+    "lib/game/__tests__/stageProgression.test.ts",
+    "lib/game/__tests__/stateMachine.test.ts",
+    "lib/game/difficultyRules.ts",
+    "lib/game/index.ts",
+    "lib/game/rng.ts",
+    "lib/game/scoring.ts",
+    "lib/game/session.ts",
+    "lib/game/stageGenerator.ts",
+    "lib/game/startZone.ts",
+    "lib/game/stateMachine.ts",
+    "lib/game/types.ts",
+    "lib/games/__tests__/colorChaseRegistry.test.ts",
+    "lib/patients/PatientSessionContext.tsx",
+    "lib/patients/__tests__/patientRepository.test.ts",
+    "lib/patients/patientRepository.ts",
+    "lib/patients/types.ts",
+    "lib/patients/usePatientPrefill.ts",
+    "lib/patients/usePatients.ts",
+    "lib/physicalInput/ContactActivationGate.ts",
+    "lib/physicalInput/ContinuousMotionController.ts",
+    "lib/physicalInput/FinalSessionPhases.ts",
+    "lib/physicalInput/InputSource.ts",
+    "lib/physicalInput/LeftHandEnrollmentPhases.ts",
+    "lib/physicalInput/LeftHandEnrollmentProfile.ts",
+    "lib/physicalInput/MotionDiagnostic.ts",
+    "lib/physicalInput/MotionFilters.ts",
+    "lib/physicalInput/PhysicalInputManager.ts",
+    "lib/physicalInput/RightHandAdultCalibrationEvidence.ts",
+    "lib/physicalInput/RightHandAdultTwistInvariantCalibrationEvidence.ts",
+    "lib/physicalInput/RightHandSessionProfile.ts",
+    "lib/physicalInput/SemanticDetector.ts",
+    "lib/physicalInput/SensorContactRouter.ts",
+    "lib/physicalInput/SensorHandRuntimeConfig.ts",
+    "lib/physicalInput/SimulatedInputSource.ts",
+    "lib/physicalInput/StabilizationProfiles.ts",
+    "lib/physicalInput/TwistInvarianceCapturePhases.ts",
+    "lib/physicalInput/WitmotionBleProtocol.ts",
+    "lib/physicalInput/WitmotionConfigTrial.ts",
+    "lib/physicalInput/WitmotionRateTest.ts",
+    "lib/physicalInput/Wt901BleInputSource.ts",
+    "lib/physicalInput/__tests__/ContactActivationGate.test.ts",
+    "lib/physicalInput/__tests__/ContinuousMotionController.test.ts",
+    "lib/physicalInput/__tests__/LeftHandEnrollmentPhases.test.ts",
+    "lib/physicalInput/__tests__/LeftHandEnrollmentProfile.test.ts",
+    "lib/physicalInput/__tests__/MotionDiagnostic.test.ts",
+    "lib/physicalInput/__tests__/MotionFilters.test.ts",
+    "lib/physicalInput/__tests__/MotionIntentGate.test.ts",
+    "lib/physicalInput/__tests__/PhysicalInputManager.test.ts",
+    "lib/physicalInput/__tests__/RightHandSessionProfile.test.ts",
+    "lib/physicalInput/__tests__/SensorContactRouter.test.ts",
+    "lib/physicalInput/__tests__/SensorHandRuntimeConfig.test.ts",
+    "lib/physicalInput/__tests__/WitmotionBleProtocol.test.ts",
+    "lib/physicalInput/__tests__/WitmotionConfigTrial.test.ts",
+    "lib/physicalInput/__tests__/WitmotionRateTest.test.ts",
+    "lib/physicalInput/__tests__/Wt901BleInputSource.test.ts",
+    "lib/physicalInput/__tests__/dualSensorSimulation.test.ts",
+    "lib/physicalInput/__tests__/gameSensorTargets.test.ts",
+    "lib/physicalInput/__tests__/pointerInvariants.test.ts",
+    "lib/physicalInput/__tests__/roleAssignment.test.ts",
+    "lib/physicalInput/calibrationProfile.ts",
+    "lib/physicalInput/gameSensorTargets.ts",
+    "lib/physicalInput/index.ts",
+    "lib/physicalInput/roleAssignment.ts",
+    "lib/physicalInput/types.ts",
+    "lib/realtime/__tests__/authClient.test.ts",
+    "lib/realtime/__tests__/bubblePopSerialization.test.ts",
+    "lib/realtime/__tests__/displayGuard.test.ts",
+    "lib/realtime/__tests__/feedAnimalsSerialization.test.ts",
+    "lib/realtime/__tests__/firebaseClient.test.ts",
+    "lib/realtime/__tests__/footstepsSerialization.test.ts",
+    "lib/realtime/__tests__/serialization.test.ts",
+    "lib/realtime/__tests__/sessionRepository.test.ts",
+    "lib/realtime/__tests__/staffAuthClient.test.ts",
+    "lib/realtime/__tests__/staffRepository.test.ts",
+    "lib/realtime/authClient.ts",
+    "lib/realtime/benignAuthRejections.ts",
+    "lib/realtime/displayGuard.ts",
+    "lib/realtime/firebaseClient.ts",
+    "lib/realtime/serialization.ts",
+    "lib/realtime/staffAuthClient.ts",
+    "lib/realtime/staffRepository.ts",
+    "lib/realtime/useFirebaseAuth.ts",
+    "lib/realtime/useStaffAuth.ts",
+    "lib/sessions/__tests__/buildStoredBubblePopSession.test.ts",
+    "lib/sessions/__tests__/buildStoredColorChaseSession.test.ts",
+    "lib/sessions/__tests__/buildStoredFeedAnimalsSession.test.ts",
+    "lib/sessions/__tests__/buildStoredFootstepsSession.test.ts",
+    "lib/sessions/__tests__/buildStoredSession.test.ts",
+    "lib/sessions/__tests__/incompleteSession.test.ts",
+    "lib/sessions/__tests__/liveSessionRecovery.test.ts",
+    "lib/sessions/__tests__/resumeSuggestion.test.ts",
+    "lib/sessions/__tests__/sessionHistoryRepository.test.ts",
+    "lib/sessions/__tests__/workflowMetadata.test.ts",
+    "lib/sessions/__tests__/workflowRules.test.ts",
+    "lib/sessions/buildStoredBubblePopSession.ts",
+    "lib/sessions/buildStoredColorChaseSession.ts",
+    "lib/sessions/buildStoredFeedAnimalsSession.ts",
+    "lib/sessions/buildStoredFootstepsSession.ts",
+    "lib/sessions/buildStoredSession.ts",
+    "lib/sessions/buildStoredSpacePilotSession.ts",
+    "lib/sessions/incompleteSession.ts",
+    "lib/sessions/liveSessionRecovery.ts",
+    "lib/sessions/workflowMetadata.ts",
+    "lib/spacepilot/__tests__/session.test.ts",
+    "lib/spacepilot/derived.ts",
+    "lib/spacepilot/encounters.ts",
+    "lib/spacepilot/index.ts",
+    "lib/spacepilot/scoring.ts",
+    "lib/spacepilot/session.ts",
+    "lib/spacepilot/types.ts",
+    "lib/spacepilot3d/PHASE05.md",
+    "lib/spacepilot3d/__tests__/collision.test.ts",
+    "lib/spacepilot3d/__tests__/graphicsAsset.test.ts",
+    "lib/spacepilot3d/__tests__/keyboardInput.test.ts",
+    "lib/spacepilot3d/__tests__/prototypeInput.test.ts",
+    "lib/spacepilot3d/__tests__/sensorInput.test.ts",
+    "lib/spacepilot3d/__tests__/simulation.test.ts",
+    "lib/spacepilot3d/arabic.ts",
+    "lib/spacepilot3d/collision.ts",
+    "lib/spacepilot3d/keyboardInput.ts",
+    "lib/spacepilot3d/prototypeInput.ts",
+    "lib/spacepilot3d/sensorInput.ts",
+    "lib/spacepilot3d/sessionChannel.ts",
+    "lib/spacepilot3d/worldCamera.ts",
+    "lib/spacepilot3d/worldCollision.ts",
+    "next.config.ts",
+    "package-lock.json",
+    "package.json",
+    "postcss.config.mjs",
+    "public/brand/shumos-care-logo.png",
+    "public/spacepilot3d/models/aurora.glb",
+    "public/spacepilot3d/models/bob.glb",
+    "scripts/run-wt901-morning-test.sh",
+    "scripts/start-tts.sh",
+    "tools/witmotion_ble/.gitignore",
+    "tools/witmotion_ble/README.md",
+    "tools/witmotion_ble/analyze_calibration.py",
+    "tools/witmotion_ble/analyze_faceid_run.py",
+    "tools/witmotion_ble/analyze_ground_truth_capture.py",
+    "tools/witmotion_ble/calibration_engine.py",
+    "tools/witmotion_ble/capture_calibration.py",
+    "tools/witmotion_ble/capture_guided_auto.py",
+    "tools/witmotion_ble/capture_guided_calibration.py",
+    "tools/witmotion_ble/capture_normal_full_clean.py",
+    "tools/witmotion_ble/capture_small_movements_clean.py",
+    "tools/witmotion_ble/docs/2026-09-04-overnight-plan-and-deferrals.md",
+    "tools/witmotion_ble/docs/2026-09-05-right-hand-freeze-and-dual-sensor-architecture.md",
+    "tools/witmotion_ble/docs/balloon-quest-integration-plan.md",
+    "tools/witmotion_ble/docs/ble-device-rename-notes.md",
+    "tools/witmotion_ble/docs/continuous-hand-pipeline-audit.md",
+    "tools/witmotion_ble/docs/left-hand-phase2-plan.md",
+    "tools/witmotion_ble/docs/official-output-rate-notes.md",
+    "tools/witmotion_ble/faceid_calibration.py",
+    "tools/witmotion_ble/full_validation_gate.py",
+    "tools/witmotion_ble/full_validation_gate_report.json",
+    "tools/witmotion_ble/live_validation.py",
+    "tools/witmotion_ble/protocol.py",
+    "tools/witmotion_ble/real_dataset/FINDINGS.md",
+    "tools/witmotion_ble/real_dataset/analyze_final_session_cross_coupling.py",
+    "tools/witmotion_ble/real_dataset/analyze_still_noise.py",
+    "tools/witmotion_ble/real_dataset/analyze_twist_asymmetry.py",
+    "tools/witmotion_ble/real_dataset/analyze_twist_coupling_by_sign.py",
+    "tools/witmotion_ble/real_dataset/analyze_twist_invariance_capture.py",
+    "tools/witmotion_ble/real_dataset/build_manifest.py",
+    "tools/witmotion_ble/real_dataset/filter_replay_report.json",
+    "tools/witmotion_ble/real_dataset/final_before_after_report.json",
+    "tools/witmotion_ble/real_dataset/final_session_cross_coupling_report.json",
+    "tools/witmotion_ble/real_dataset/manifest.json",
+    "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788441394853.json",
+    "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788442512578.json",
+    "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788443253622.json",
+    "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-final-session-1788527323549.json",
+    "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-twist-invariance-1788531321165.json",
+    "tools/witmotion_ble/real_dataset/replay_models.py",
+    "tools/witmotion_ble/real_dataset/replay_report.json",
+    "tools/witmotion_ble/real_dataset/replay_twist_rejection.py",
+    "tools/witmotion_ble/real_dataset/replay_twist_rejection_report.json",
+    "tools/witmotion_ble/real_dataset/still_noise_report.json",
+    "tools/witmotion_ble/real_dataset/tune_continuous_deroll.py",
+    "tools/witmotion_ble/real_dataset/tune_coupling_cancellation.py",
+    "tools/witmotion_ble/real_dataset/tune_intent_gate.py",
+    "tools/witmotion_ble/real_dataset/tune_twist_dominance_gate.py",
+    "tools/witmotion_ble/real_dataset/twist_asymmetry_report.json",
+    "tools/witmotion_ble/real_dataset/twist_coupling_by_sign_report.json",
+    "tools/witmotion_ble/real_dataset/twist_dominance_gate_tuning_report.json",
+    "tools/witmotion_ble/real_dataset/twist_invariance_replay_report.json",
+    "tools/witmotion_ble/real_dataset/validate_full_pipeline.py",
+    "tools/witmotion_ble/replay_gate.py",
+    "tools/witmotion_ble/replay_gate_report.json",
+    "tools/witmotion_ble/requirements.txt",
+    "tools/witmotion_ble/semantic_detector.py",
+    "tools/witmotion_ble/setup.sh",
+    "tools/witmotion_ble/simulation.py",
+    "tools/witmotion_ble/test_calibration_engine.py",
+    "tools/witmotion_ble/test_protocol.py",
+    "tools/witmotion_ble/test_replay_gate.py",
+    "tools/witmotion_ble/test_simulation.py",
+    "tools/witmotion_ble/wt901ble_test.py",
+    "tsconfig.json",
+    "tts-service/THIRD_PARTY_NOTICES.md",
+    "tts-service/derive_reference_transcript.py",
+    "tts-service/requirements.txt",
+    "tts-service/server.py",
+    "tts-service/test_first_generation.py",
+    "vitest.config.mts"
+  ],
+  "missingBaselineFiles": [],
+  "selfHashExcluded": "docs/spacepilot3d/validation/rc-change-manifest.json"
+}

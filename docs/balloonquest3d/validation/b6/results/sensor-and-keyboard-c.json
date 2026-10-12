@@ -1,0 +1,52 @@
+[
+  {
+    "name": "production input modes: therapist, right hand, keyboard, left hand (experimental), both hands (experimental) — foot/handheld simulations are not offered",
+    "ok": true,
+    "detail": "[\"therapist\",\"right-hand\",\"keyboard\",\"left-hand\",\"both-hands\"]"
+  },
+  {
+    "name": "unverified modes are labelled experimental in Arabic",
+    "ok": true,
+    "detail": "[\"بنقر المعالج على المعاينة\",\"اليد اليمنى (حساس)\",\"لوحة المفاتيح (للتطوير)\",\"اليد اليسرى (حساس) — تجريبي\",\"اليدان معًا — تجريبي\"]"
+  },
+  {
+    "name": "therapist-tap is the default input mode",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "RIGHT_HAND mode refuses to start without live RIGHT_HAND input (no sensor connected; a different simulated source does not count)",
+    "ok": true,
+    "detail": "لا يوجد إدخال حي من الحساس المختار"
+  },
+  {
+    "name": "with live (simulated) RIGHT_HAND input the session starts",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "a Medium stage (rising balloons) completes with simulated RIGHT_HAND hit testing",
+    "ok": true,
+    "detail": "4 contacts; goal ٤ من ٤"
+  },
+  {
+    "name": "Display (via Firebase) shows the stage-complete scene",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "losing the sensor holds the session and the Display shows only a calm message",
+    "ok": true,
+    "detail": "متوقف تلقائيًا"
+  },
+  {
+    "name": "input recovery resumes automatically",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "keyboard simulation (DOM key events at the window) still selects balloons in the production screen",
+    "ok": true,
+    "detail": "goal 0 -> 1"
+  }
+]

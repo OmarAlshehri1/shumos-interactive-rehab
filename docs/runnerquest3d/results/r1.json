@@ -1,0 +1,22 @@
+{
+ "d1": 5.482887947982187,
+ "d2": 8.534787947973252,
+ "forwardMetresPerSecond": 3.0518999999910648,
+ "laneAfterLeft": -1,
+ "laneAfterRightRight": 1,
+ "stats": {
+  "fps": 60.001500037500946,
+  "frameMsAvg": 16.666249999999998,
+  "frameMsMax": 16.80000000000109,
+  "drawCalls": 256,
+  "triangles": 59600,
+  "geometries": 93,
+  "textures": 11,
+  "quality": "high",
+  "pixelRatio": 1,
+  "shadows": true,
+  "assetLoadMs": 11.200000002980232,
+  "frames": 690
+ },
+ "errors": 0
+}

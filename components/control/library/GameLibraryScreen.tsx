@@ -1,32 +1,94 @@
-'use client';
-import {GAME_REGISTRY} from '@/lib/games/registry';
-import {ControlNav} from '@/components/control/nav/ControlNav';
-import {PatientContextBanner} from '@/components/control/patients/PatientContextBanner';
-import {ResetLiveDisplayOnMount} from '@/components/control/live/ResetLiveDisplayOnMount';
-import {GameCard} from './GameCard';
-import {LibraryArtwork} from './LibraryArtwork';
-import {InteractionIcon} from './InteractionIcon';
-import {librarySections} from './presentation';
-import styles from './library.module.css';
-export function GameLibraryScreen(){
- const sections=librarySections(GAME_REGISTRY);
- return <main dir="rtl" lang="ar" className={styles.library}>
-  <ResetLiveDisplayOnMount/>
-  <div className={styles.inner}>
-   <ControlNav active="library"/>
-   <header className={styles.hero}>
-    <div className={styles.heroCopy}><div className={styles.overline}>SHUMOS CARE · عوالم الحركة</div><h1>مكتبة الأنشطة</h1><p>تجارب تفتح بابًا للّعب والاكتشاف.<br/>اختر ما يناسب جلستك، بإيقاع الطفل وتوجيه المعالج.</p><div className={styles.heroMeta}><span>{GAME_REGISTRY.length} أنشطة متاحة</span><span>كل حركة، حكاية جديدة</span></div></div>
-    <div className={styles.art}><LibraryArtwork/></div>
-   </header>
-   <PatientContextBanner/>
-   <nav className={styles.categories} aria-label="أقسام المكتبة">{sections.map(section=><a className={styles.category} href={`#${section.id}`} key={section.id}><InteractionIcon name={section.icon}/>{section.title}<small>{section.games.length}</small></a>)}</nav>
-   <div className={styles.notice}><span aria-hidden="true">◌</span><span>الأقسام تحدد طريقة المشاركة المطلوبة. دعم الأجهزة واتصالها يُراجعان داخل النشاط، والتحكم اليدوي متاح. شارة العرض مستقلة عن جهاز الإدخال.</span></div>
-   {sections.map(section=><section id={section.id} key={section.id} className={styles.section} aria-labelledby={`${section.id}-heading`} data-library-category={section.id}>
-    <header className={styles.sectionHeader}><span className={styles.sectionIcon}><InteractionIcon name={section.icon}/></span><div><h2 id={`${section.id}-heading`} className={styles.sectionTitle}>{section.title}</h2><span className={styles.english} lang="en" dir="ltr">{section.english}</span></div><span className={styles.count}>{section.games.length} تجربة</span></header>
-    <p className={styles.description}>{section.description}</p>
-    {section.games.length?<div className={styles.gameGrid}>{section.games.map(game=><GameCard key={game.id} game={game} input={section.input}/>)}</div>:<p className={styles.description}>لا توجد أنشطة مفعّلة في هذا القسم في هذا الإصدار.</p>}
-   </section>)}
-   <p className={styles.footer}>شموْس كير · مساحة لكل طفل، وخطوة في كل تجربة</p>
-  </div>
- </main>;
+"use client";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { GAME_REGISTRY } from "@/lib/games/registry";
+import { ControlNav } from "@/components/control/nav/ControlNav";
+import { PatientContextBanner } from "@/components/control/patients/PatientContextBanner";
+import { GameCard } from "./GameCard";
+import { InteractionIcon } from "./InteractionIcon";
+import {
+  LIBRARY_FILTERS,
+  filteredGames,
+  libraryFilter,
+  type LibraryFilter,
+} from "@/lib/games/library/filters";
+import styles from "./library.module.css";
+export function GameLibraryScreen() {
+  return (
+    <Suspense
+      fallback={
+        <main className={styles.library} dir="rtl">
+          <div className={styles.inner}>جاري تحميل الأنشطة…</div>
+        </main>
+      }
+    >
+      <Library />
+    </Suspense>
+  );
+}
+function Library() {
+  const query = useSearchParams(),
+    router = useRouter(),
+    selected = libraryFilter(query.get("filter") ?? query.get("input")),
+    games = filteredGames(GAME_REGISTRY, selected);
+  const select = (filter: LibraryFilter) => {
+    const next = new URLSearchParams(query.toString());
+    next.delete("input");
+    if (filter === "ALL") next.delete("filter");
+    else next.set("filter", filter);
+    router.replace(`/control/activities${next.size ? `?${next}` : ""}`, {
+      scroll: false,
+    });
+  };
+  return (
+    <main dir="rtl" lang="ar" className={styles.library}>
+      <div className={styles.inner}>
+        <ControlNav active="library" />
+        <header className={styles.header}>
+          <div>
+            <h1>مكتبة الأنشطة</h1>
+            <span>{GAME_REGISTRY.length} نشاطًا · اختر تجربة تناسب جلستك</span>
+          </div>
+          <span className={styles.count}>{games.length} نشاط</span>
+        </header>
+        <PatientContextBanner />
+        <nav className={styles.categories} aria-label="تصفية الأنشطة">
+          {LIBRARY_FILTERS.map((f) => (
+            <button
+              type="button"
+              className={styles.category}
+              key={f.id}
+              aria-pressed={selected === f.id}
+              onClick={() => select(f.id)}
+              data-library-filter={f.id}
+            >
+              <InteractionIcon name={f.icon} />
+              {f.label}
+              <small>{filteredGames(GAME_REGISTRY, f.id).length}</small>
+            </button>
+          ))}
+        </nav>
+        <section
+          aria-label={LIBRARY_FILTERS.find((f) => f.id === selected)?.label}
+          data-library-filter-selected={selected}
+        >
+          {games.length ? (
+            <div className={styles.gameGrid}>
+              {games.map((game) => (
+                <GameCard
+                  key={game.id}
+                  game={game}
+                  input={selected === "ALL" ? "MANUAL" : selected}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className={styles.empty}>
+              لا توجد أنشطة مفعّلة ضمن هذا الاختيار.
+            </p>
+          )}
+        </section>
+      </div>
+    </main>
+  );
 }

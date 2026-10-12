@@ -1,0 +1,42 @@
+[
+  {
+    "path": "/control/space-pilot",
+    "status": 200,
+    "notFound": false,
+    "newControl": true,
+    "newDisplay": false,
+    "legacyControl": false
+  },
+  {
+    "path": "/control/space-pilot-legacy",
+    "status": 200,
+    "notFound": false,
+    "newControl": false,
+    "newDisplay": false,
+    "legacyControl": true
+  },
+  {
+    "path": "/display/space-pilot",
+    "status": 200,
+    "notFound": false,
+    "newControl": false,
+    "newDisplay": true,
+    "legacyControl": false
+  },
+  {
+    "path": "/control/space-pilot-3d-prototype",
+    "status": 200,
+    "notFound": true,
+    "newControl": false,
+    "newDisplay": false,
+    "legacyControl": false
+  },
+  {
+    "path": "/display/space-pilot-3d-prototype",
+    "status": 404,
+    "notFound": true,
+    "newControl": false,
+    "newDisplay": false,
+    "legacyControl": false
+  }
+]

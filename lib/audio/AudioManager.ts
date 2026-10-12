@@ -1,3 +1,4 @@
+import { StageSpeechBudget } from "./speechPolicy";
 import { Difficulty, TOTAL_STARS } from "@/lib/spacepilot";
 import type { GameId } from "@/lib/games/registry";
 import type { DisplayEvent } from "@/components/display/events";
@@ -9,7 +10,6 @@ import { startColorChaseAmbience } from "./colorChaseAmbience";
 import { playColorCelebration, playColorCorrect, playColorDanger, playColorPadActivation, playColorWrong } from "./colorChaseEffects";
 import {
   colorChaseDangerLine,
-  colorChaseIncorrectLine,
   colorChaseInstructionLine,
   colorChaseReadyLine,
   colorChaseSessionCompleteLine,
@@ -41,7 +41,6 @@ import {
 } from "./footstepsVoiceLines";
 import { RouteObstacleKind } from "@/lib/footsteps";
 import {
-  bubblePopIncorrectLine,
   bubblePopInstructionLine,
   bubblePopMilestoneLine,
   bubblePopReadyPositionLine,
@@ -84,7 +83,6 @@ import {
   crossedEncouragementBand,
   encouragementLine,
   type EncouragementBand,
-  incorrectLine,
   instructionLine,
   pausedLine,
   sessionCompleteLine,
@@ -96,7 +94,6 @@ import {
 } from "./voiceLines";
 
 /** Minimum time between spoken "try again" lines, so a flurry of wrong guesses doesn't spam voice. */
-const INCORRECT_SPEECH_COOLDOWN_MS = 4000;
 /** How far ambience ducks (as a fraction of its normal level) while voice is speaking. */
 const AMBIENCE_DUCK_FACTOR = 0.35;
 const GAIN_RAMP_SECONDS = 0.35;
@@ -211,6 +208,7 @@ export function buildPrefetchLines(gameId: GameId, childName: string): string[] 
       return buildSpacePilotPrefetchLines(childName);
     case "color-chase":
       return buildColorChasePrefetchLines(childName);
+    case "shumos-castle-legends-3d":
     case "harvest-valley-3d":
     case "blooming-world-3d":
     case "fire-rescue-3d":
@@ -282,9 +280,8 @@ export class AudioManager {
   /** The world whose ambience should be active; null means the waiting/garden world. */
   private activeGameId: GameId | null | undefined;
   private childName: string | null = null;
-  private lastIncorrectSpeechAt = 0;
-  /** Same incorrect-speech cooldown as lastIncorrectSpeechAt above, tracked separately for Bubble Pop Wall so a flurry of wrong balloon taps in one game session never suppresses a genuinely fresh incorrect bubble tap in another (not that both ever run at once, but keeping the two games' cooldowns structurally independent avoids any accidental coupling). */
-  private lastBubblePopIncorrectSpeechAt = 0;
+  private readonly stageSpeech = new StageSpeechBudget();
+  private readonly introductions = new Set<string>();
   /** How many times each encouragement band has already been spoken this session — drives which pool variant plays next. */
   private readonly encouragementBandCounts: Partial<Record<EncouragementBand, number>> = {};
   /** How many times a Follow the Footsteps milestone line has already been spoken this session — drives which pool variant plays next, same cycling convention as encouragementBandCounts above. */
@@ -478,6 +475,7 @@ export class AudioManager {
     const changed = this.activeGameId !== undefined && this.activeGameId !== gameId;
     this.activeGameId = gameId;
     if (changed) {
+      this.stageSpeech.reset();
       this.voice.cancel();
       this.activeSpeechDucks = 0;
       this.applyAmbienceDucking();
@@ -619,8 +617,7 @@ export class AudioManager {
     this.activeSpeechDucks = 0;
     this.applyAmbienceDucking();
     this.pendingSpeech = null;
-    this.lastIncorrectSpeechAt = 0;
-    this.lastBubblePopIncorrectSpeechAt = 0;
+    this.stageSpeech.reset();
     for (const key of Object.keys(this.encouragementBandCounts) as EncouragementBand[]) {
       delete this.encouragementBandCounts[key];
     }
@@ -646,7 +643,8 @@ export class AudioManager {
       case "color-chase":
         this.startColorChaseAmbienceIfNeeded();
         break;
-      case "harvest-valley-3d":
+      case "shumos-castle-legends-3d":
+    case "harvest-valley-3d":
     case "blooming-world-3d":
     case "fire-rescue-3d":
     case "pearl-voyage-3d":
@@ -668,6 +666,24 @@ export class AudioManager {
     // audio event self-heals whenever browser policy permits it.
     this.ensureGraph();
     switch (event.type) {
+      case "bridge_sound":
+        this.playEffect((ctx,dest)=>event.kind==="checkpoint"?playCheckpointChime(ctx,dest):event.kind==="deviation"?playChime(ctx,dest):playCelebration(ctx,dest,event.kind==="final"?"session":"stage1"));
+        break;
+      case "game_feedback":
+        this.speak(event.text, event.milestone ? "high" : "normal", { volume: Math.min(1, Math.max(0, event.volume)) * this.volumes.voice });
+        break;
+      case "game_introduction": {
+        const storageKey = `shumos.display.introduction.${event.key}`;
+        let already = this.introductions.has(event.key);
+        try { already ||= window.sessionStorage?.getItem(storageKey) === "1"; } catch { /* storage may be unavailable */ }
+        if (already) break;
+        this.beginSpeechStage();
+        if (this.speak(event.text, "high")) {
+          this.introductions.add(event.key);
+          try { window.sessionStorage?.setItem(storageKey, "1"); } catch { /* visual instructions remain */ }
+        }
+        break;
+      }
       case "welcome":
         this.beginGameWelcome("balloon-quest");
         this.childName = event.childName;
@@ -679,7 +695,7 @@ export class AudioManager {
         break;
 
       case "instruction":
-        this.speak(instructionLine(event.targetColor), "high");
+        this.beginSpeechStage();        this.speak(instructionLine(event.targetColor), "high");
         break;
 
       case "countdown_3":
@@ -719,11 +735,6 @@ export class AudioManager {
 
       case "incorrect": {
         this.playEffect((ctx, dest) => playOops(ctx, dest));
-        const now = Date.now();
-        if (now - this.lastIncorrectSpeechAt > INCORRECT_SPEECH_COOLDOWN_MS) {
-          this.lastIncorrectSpeechAt = now;
-          this.speak(incorrectLine(), "low");
-        }
         break;
       }
 
@@ -766,7 +777,7 @@ export class AudioManager {
         break;
 
       case "footsteps_instruction":
-        this.speak(footstepsInstructionLine(event.childName, event.stageNumber), "high");
+        this.beginSpeechStage();        this.speak(footstepsInstructionLine(event.childName, event.stageNumber), "high");
         break;
 
       case "footstep_confirm": {
@@ -791,7 +802,7 @@ export class AudioManager {
       case "footsteps_checkpoint_reached": {
         this.playEffect((ctx, dest) => playCheckpointChime(ctx, dest));
         const occurrenceIndex = this.footstepsCheckpointCount;
-        const spoken = this.speak(footstepsCheckpointLine(occurrenceIndex), "high");
+        const spoken = this.speak(footstepsCheckpointLine(occurrenceIndex), "normal");
         if (spoken) this.footstepsCheckpointCount += 1;
         break;
       }
@@ -846,11 +857,11 @@ export class AudioManager {
         break;
 
       case "bubblepop_instruction":
-        this.speak(bubblePopInstructionLine(event.childName, event.stageNumber), "high");
+        this.beginSpeechStage();        this.speak(bubblePopInstructionLine(event.childName, event.stageNumber), "high");
         break;
 
       case "bubblepop_target_request":
-        this.speak(bubblePopTargetRequestLine(event.color, event.shape, event.announceShape), "high");
+        this.speak(bubblePopTargetRequestLine(event.color, event.shape, event.announceShape), "normal");
         break;
 
       case "bubblepop_sequence_request":
@@ -863,7 +874,7 @@ export class AudioManager {
             event.secondShape,
             event.announceSecondShape,
           ),
-          "high",
+          "normal",
         );
         break;
 
@@ -889,11 +900,6 @@ export class AudioManager {
 
       case "bubblepop_incorrect": {
         this.playEffect((ctx, dest) => playBubbleIncorrect(ctx, dest));
-        const now = Date.now();
-        if (now - this.lastBubblePopIncorrectSpeechAt > INCORRECT_SPEECH_COOLDOWN_MS) {
-          this.lastBubblePopIncorrectSpeechAt = now;
-          this.speak(bubblePopIncorrectLine(), "low");
-        }
         break;
       }
 
@@ -933,6 +939,7 @@ export class AudioManager {
         break;
 
       case "space_pilot_instruction": {
+        this.beginSpeechStage();
         const line =
           event.difficulty === Difficulty.MEDIUM
             ? spacePilotMediumInstructionLine()
@@ -1019,10 +1026,10 @@ export class AudioManager {
         this.speak(colorChaseReadyLine(), "high");
         break;
       case "color_chase_instruction":
-        this.speak(colorChaseInstructionLine(event.instruction), "high");
+        this.beginSpeechStage();        this.speak(colorChaseInstructionLine(event.instruction), "high");
         break;
       case "color_chase_target":
-        this.speak(colorChaseTargetLine(event.color), "high");
+        this.speak(colorChaseTargetLine(event.color), "normal");
         break;
       case "color_chase_pad_activation":
         this.playEffect((ctx, dest) => playColorPadActivation(ctx, dest));
@@ -1032,7 +1039,6 @@ export class AudioManager {
         break;
       case "color_chase_incorrect":
         this.playEffect((ctx, dest) => playColorWrong(ctx, dest));
-        this.speak(colorChaseIncorrectLine(), "low");
         break;
       case "color_chase_danger":
         this.playEffect((ctx, dest) => playColorDanger(ctx, dest));
@@ -1054,6 +1060,13 @@ export class AudioManager {
         this.stopColorChaseAmbience();
         break;
     }
+  }
+
+  private beginSpeechStage(): void {
+    this.voice.cancel();
+    this.stageSpeech.reset();
+    this.activeSpeechDucks = 0;
+    this.applyAmbienceDucking();
   }
 
   private playEffect(fn: (ctx: AudioContext, destination: AudioNode) => void): void {
@@ -1159,9 +1172,10 @@ export class AudioManager {
   }
 
   /** Returns whether the request was actually spoken (vs. dropped by VoiceQueue because something more important was speaking). */
-  private speak(text: string, priority: VoicePriority, options?: { rate?: number }): boolean {
+  private speak(text: string, priority: VoicePriority, options?: { rate?: number; volume?: number }): boolean {
     if (this.muted || !text) return false;
-    return this.speakWithRetry(text, priority, { rate: options?.rate });
+    if (priority !== "high" && !this.stageSpeech.allow(text, Date.now())) return false;
+    return this.speakWithRetry(text, priority, { rate: options?.rate, volume: options?.volume });
   }
 
   /**
@@ -1208,7 +1222,7 @@ export class AudioManager {
    * is just dropped, per policy. `onSettled` (if given) fires exactly once,
    * once the (possibly-retried) attempt has fully finished either way.
    */
-  private speakWithRetry(text: string, priority: VoicePriority, options: { rate?: number; onSettled?: () => void }): boolean {
+  private speakWithRetry(text: string, priority: VoicePriority, options: { rate?: number; volume?: number; onSettled?: () => void }): boolean {
     this.acquireAmbienceDuck();
     let attemptId = 0;
     let finished = false;
@@ -1222,7 +1236,7 @@ export class AudioManager {
       const myAttempt = ++attemptId;
       const accepted = this.voice.request(text, priority, {
         rate: options.rate,
-        volume: this.volumes.voice,
+        volume: options.volume ?? this.volumes.voice,
         isRetry,
         onEnd: () => {
           if (myAttempt !== attemptId) return; // superseded by a retry — that attempt's own onEnd will settle instead
@@ -1259,6 +1273,7 @@ export class AudioManager {
 
 function isDeferrableSpeechEvent(event: DisplayEvent): boolean {
   switch (event.type) {
+    case "game_introduction":
     case "welcome":
     case "start_zone":
     case "instruction":

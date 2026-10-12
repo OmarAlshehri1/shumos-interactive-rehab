@@ -1,0 +1,8 @@
+/control/balloon-quest-3d-prototype -> 200
+/display/balloon-quest-3d-prototype -> 404
+/display/balloon-quest-visual-preview -> 404
+/display/balloon-quest-3d-prototype?symbols=1 -> 404
+/control/balloon-quest -> 200
+/control/space-pilot-3d-prototype -> 200
+/display -> 200
+/ -> 200

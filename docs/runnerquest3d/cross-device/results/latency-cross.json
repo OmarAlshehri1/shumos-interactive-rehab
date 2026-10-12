@@ -1,0 +1,10 @@
+{
+ "taps": 40,
+ "displayChanges": 40,
+ "matched": 40,
+ "p50": 18.60009765625,
+ "p95": 23.099853515625,
+ "max": 28.5,
+ "min": 10.5,
+ "note": "same machine, Firebase EMULATOR; not a real WAN"
+}

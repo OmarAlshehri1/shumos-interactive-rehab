@@ -1,0 +1,207 @@
+{
+ "stages": [
+  {
+   "index": 0,
+   "stars": 8,
+   "holds": 0,
+   "resolved": 8,
+   "total": 8,
+   "status": "completed",
+   "ms": 40387,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 1,
+   "stars": 8,
+   "holds": 0,
+   "resolved": 8,
+   "total": 8,
+   "status": "completed",
+   "ms": 40391,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 2,
+   "stars": 10,
+   "holds": 0,
+   "resolved": 10,
+   "total": 10,
+   "status": "completed",
+   "ms": 45905,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 3,
+   "stars": 7,
+   "holds": 0,
+   "resolved": 7,
+   "total": 7,
+   "status": "completed",
+   "ms": 37189,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 4,
+   "stars": 10,
+   "holds": 0,
+   "resolved": 10,
+   "total": 10,
+   "status": "completed",
+   "ms": 49667,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 5,
+   "stars": 12,
+   "holds": 0,
+   "resolved": 12,
+   "total": 12,
+   "status": "completed",
+   "ms": 54120,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 6,
+   "stars": 8,
+   "holds": 0,
+   "resolved": 11,
+   "total": 11,
+   "status": "completed",
+   "ms": 48590,
+   "displayLifecycle": "stage-complete"
+  },
+  {
+   "index": 7,
+   "stars": 12,
+   "holds": 0,
+   "resolved": 12,
+   "total": 12,
+   "status": "completed",
+   "ms": 50960,
+   "displayLifecycle": "stage-complete"
+  }
+ ],
+ "mismatches": [],
+ "keyEvents": 59,
+ "summary": {
+  "reason": "completed",
+  "completedStages": 9,
+  "skippedStages": 0,
+  "totalStars": 88,
+  "totalHolds": 0,
+  "stages": [
+   {
+    "index": 0,
+    "difficulty": "easy",
+    "stage": 1,
+    "status": "completed",
+    "stars": 8,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 8,
+    "obstaclesTotal": 8,
+    "distance": 172
+   },
+   {
+    "index": 1,
+    "difficulty": "easy",
+    "stage": 2,
+    "status": "completed",
+    "stars": 8,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 8,
+    "obstaclesTotal": 8,
+    "distance": 172
+   },
+   {
+    "index": 2,
+    "difficulty": "easy",
+    "stage": 3,
+    "status": "completed",
+    "stars": 10,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 10,
+    "obstaclesTotal": 10,
+    "distance": 197
+   },
+   {
+    "index": 3,
+    "difficulty": "medium",
+    "stage": 1,
+    "status": "completed",
+    "stars": 7,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 7,
+    "obstaclesTotal": 7,
+    "distance": 158
+   },
+   {
+    "index": 4,
+    "difficulty": "medium",
+    "stage": 2,
+    "status": "completed",
+    "stars": 10,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 10,
+    "obstaclesTotal": 10,
+    "distance": 214
+   },
+   {
+    "index": 5,
+    "difficulty": "medium",
+    "stage": 3,
+    "status": "completed",
+    "stars": 12,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 12,
+    "obstaclesTotal": 12,
+    "distance": 234
+   },
+   {
+    "index": 6,
+    "difficulty": "advanced",
+    "stage": 1,
+    "status": "completed",
+    "stars": 8,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 11,
+    "obstaclesTotal": 11,
+    "distance": 209
+   },
+   {
+    "index": 7,
+    "difficulty": "advanced",
+    "stage": 2,
+    "status": "completed",
+    "stars": 12,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 12,
+    "obstaclesTotal": 12,
+    "distance": 219
+   },
+   {
+    "index": 8,
+    "difficulty": "advanced",
+    "stage": 3,
+    "status": "completed",
+    "stars": 13,
+    "holds": 0,
+    "assists": 0,
+    "obstaclesResolved": 14,
+    "obstaclesTotal": 14,
+    "distance": 253
+   }
+  ]
+ },
+ "totalMs": 431945,
+ "displayStats": "{\"fps\":60.001500037500584,\"frameMsAvg\":16.666250000000097,\"frameMsMax\":16.800000000046566,\"drawCalls\":213,\"triangles\":80494,\"geometries\":272,\"textures\":14,\"quality\":\"high\",\"pixelRatio\":1,\"shadows\":true,\"assetLoadMs\":14.5,\"frames\":26307}",
+ "errorsDisplay": 0,
+ "errorsControl": 0
+}

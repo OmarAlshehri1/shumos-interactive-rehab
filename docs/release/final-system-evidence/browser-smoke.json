@@ -1,0 +1,1959 @@
+{
+  "sections": [
+    {
+      "id": "hand-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=HAND",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=HAND",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=HAND",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=HAND",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=HAND",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=HAND",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "foot-sensors",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=FOOT",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "follow-the-footsteps",
+          "href": "/control/follow-the-footsteps?input=FOOT",
+          "name": "اتبع الخطوات"
+        },
+        {
+          "id": "color-chase",
+          "href": "/control/color-chase?input=FOOT",
+          "name": "مطاردة الألوان"
+        },
+        {
+          "id": "runner-quest-3d",
+          "href": "/control/runner-quest-3d?input=FOOT",
+          "name": "مغامرة العدّاء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=FOOT",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "safe-hex-arena-3d",
+          "href": "/control/safe-hex-arena-3d?input=FOOT",
+          "name": "الأرض الآمنة"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=FOOT",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "handheld",
+      "cards": [
+        {
+          "id": "balloon-quest",
+          "href": "/control/balloon-quest?input=JOYSTICK",
+          "name": "مغامرة البالونات"
+        },
+        {
+          "id": "bubble-pop-wall",
+          "href": "/control/bubble-pop-wall?input=JOYSTICK",
+          "name": "فرقع الفقاعات"
+        },
+        {
+          "id": "space-pilot",
+          "href": "/control/space-pilot?input=JOYSTICK",
+          "name": "قائد الفضاء"
+        },
+        {
+          "id": "build-quest-3d",
+          "href": "/control/build-quest-3d?input=JOYSTICK",
+          "name": "عالم البناء"
+        },
+        {
+          "id": "mirror-quest-3d",
+          "href": "/control/mirror-quest-3d?input=JOYSTICK",
+          "name": "المرآة السحرية"
+        },
+        {
+          "id": "blooming-world-3d",
+          "href": "/control/blooming-world-3d?input=JOYSTICK",
+          "name": "الحديقة التي تستيقظ"
+        }
+      ]
+    },
+    {
+      "id": "steering",
+      "cards": [
+        {
+          "id": "fire-rescue-3d",
+          "href": "/control/fire-rescue-3d?input=DRIVING",
+          "name": "مهمة الإطفاء"
+        },
+        {
+          "id": "harvest-valley-3d",
+          "href": "/control/harvest-valley-3d?input=DRIVING",
+          "name": "موسم الحصاد"
+        },
+        {
+          "id": "pearl-voyage-3d",
+          "href": "/control/pearl-voyage-3d?input=DRIVING",
+          "name": "قارب اللؤلؤ"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "space-pilot",
+      "input": "HAND",
+      "launchCarried": "HAND",
+      "launchPanel": "قائد الفضاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى\nاليد اليسرى · غير متاح\nاليدان · غير متاح\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "مكتبة الأنشطة\nإعداد المستشعر\nالنسخة السابقة\n\nشموس · قائد الفضاء ثلاثي الأبعاد\n\nقائد الفضاء\n\nتحكم المعالج · مزامنة آمنة بين الأجهزة\n\nفتح شاشة الطفل\nإعداد الرحلة\nجاهز للانطلاق\nالصعوبة\nسهل · رحلة هادئة\nمتوسط · رحلة متوازنة\nمتقدم · تنوّع المسار\nطريقة التحكم\nتحكم يدوي\nمستشعر اليد اليمنى\nالطيران ومجال الحركة\nنمط الطيران\nسهل · يمين ويسار فقط (البداية الموصى بها)\nمتوسط · يمين ويسار مع مساعدة الارتفاع\nمتقدم · تحكم بالاتجاه والارتفاع\nمساعدة الارتفاع\nلطيفة جدًا\nمتوازنة\nأوضح\nفسحة عبور الحلقة\nدقيقة\nمحدودة\nمتوازنة\nمريحة\nواسعة\nتطوير المركبة\nبعد ٣ و٧ حلقات\nبعد ٢ و٥ حلقات\nبعد ٥ و١٠ حلقات\n\nالارتفاع ثابت؛ حركة اليد العمودية لا تغيّر الطيران. الحلقات أوسع والرحلة أبطأ. مستوى المرحلة يغيّر تنوّع المسار؛ لا يفرض سرعة أعلى أو مساعدة أقل.\n\nنطاق التوجيه\nضيق ومريح\nلطيف\nمتوازن\nواسع · حتى ٦٠° لكل جانب\nعرض مسار الرحلة\nمضغوط\nمتوازن\nواسع\nواسع جدًا\nمجال الصعود والهبوط\nلطيف\nمتوازن\nواسع\nواسع جدًا\nحساسية التوجيه\nمنخفضة\nلطيفة\nمتوازنة\nمرتفعة\nلحركة يد صغيرة\nسرعة الانعطاف القصوى\nهادئة جدًا\nهادئة\nمتوازنة\nسريعة\nسريعة جدًا\nالفاصل بين المواجهات\nمتتابع\nمتوازن\nمريح\nفسحة أطول\nفسحة كبيرة\nمسار الرحلة\nمستقيم\nانحناء لطيف\nمساعدة الوصول للأهداف\nبدون إرشاد\nإرشاد الحلقات\nالحلقات والمرور الآمن\nحركة كاميرا مريحة\nمتابعة طبيعية\nحركة مخفّضة\n\nالمنتصف يتبع مسار الرحلة. الميل يحدد اتجاهًا محدودًا؛ لا يسبب دورانًا متواصلًا. الإرشاد علامة بصرية فقط؛ أنت من يوجّه المركبة. هذه إعدادات اللعبة فقط، ولا تغيّر معايرة المستشعر. تعديلها أثناء الاستراحة يعيد تجهيز المرحلة الحالية ويحافظ على نتائج بقية المراحل.\n\nشاشة الطفل: ١ متصلة\n\nاليد اليمنى: بانتظار اليد اليمنى\n\nاستخدم أزرار التوجيه اليدوي. ارفع إصبعك للعودة إلى المنتصف. أبقِ شاشة الطفل والتحكم مفتوحتين.\n\nتوجيه المعالج\nتحكم يدوي\n\nاضغط باستمرار للتوجيه. ارفع إصبعك للعودة إلى المنتصف. يمكن لمس اتجاهين معًا.\n\n↖\n↑\n↗\n←\n●\n→\n↙\n↓\n↘\n\nمتصل بالمزامنة ·\n\nالمستوى ١ · المرحلة ١ — الحلقات الأولى\nاختر أي مرحلة · تسع مراحل متاحة\n١ / ١ · الحلقات الأولى\nمتاحة\n١ / ٢ · اتجاه لطيف\nمتاحة\n١ / ٣ · الطريق المضيء\nمتاحة\n٢ / ١ · حديقة الكواكب\nمتاحة\n٢ / ٢ · يمين ويسار\nمتاحة\n٢ / ٣ · رحلة بين النجوم\nمتاحة\n٣ / ١ · ألوان المدار\nمتاحة\n٣ / ٢ · مسار الأصدقاء\nمتاحة\n٣ / ٣ · المغامرة الختامية\nمتاحة\n\nاختيار مرحلة يوقف الطيران ويجهّزها للبدء. إعادة مرحلة تستبدل نتيجتها السابقة دون مضاعفة العدد.\n\nالحلقات المكتملة\n\n٠\n\nالنقاط\n\n٠\n\nملامسات النيازك\n\n٠\n\nمستوى المركبة\n\n١\n\nالتقدم: ٠ من ٤٦ · المهام المكتملة: ٠ من ٩\n\nمتابعة · تخطي التعليمات\nبدء الجلسة\nإعادة المرحلة\nتكرار المرحلة\nتخطي المرحلة\nإعادة الرحلة\nإنهاء الجلسة\n\nإعادة الرحلة تمسح نتائج المحاولة وتنتظر الاستعداد. تغيير طريقة التحكم يوقف الرحلة مؤقتًا. إعادة تحميل التحكم تستعيد التقدم بأمان.\n\nإعدادات العرض والراحة\n\nمزامنة Firebase · سجل حلقات بإصدار مستقل\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "↖",
+          "disabled": false
+        },
+        {
+          "name": "↑",
+          "disabled": true
+        },
+        {
+          "name": "↗",
+          "disabled": false
+        },
+        {
+          "name": "←",
+          "disabled": false
+        },
+        {
+          "name": "●",
+          "disabled": false
+        },
+        {
+          "name": "→",
+          "disabled": false
+        },
+        {
+          "name": "↙",
+          "disabled": false
+        },
+        {
+          "name": "↓",
+          "disabled": true
+        },
+        {
+          "name": "↘",
+          "disabled": false
+        },
+        {
+          "name": "١ / ١ · الحلقات الأولىمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "١ / ٢ · اتجاه لطيفمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "١ / ٣ · الطريق المضيءمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٢ / ١ · حديقة الكواكبمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٢ / ٢ · يمين ويسارمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٢ / ٣ · رحلة بين النجوممتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٣ / ١ · ألوان المدارمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٣ / ٢ · مسار الأصدقاءمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "٣ / ٣ · المغامرة الختاميةمتاحة",
+          "disabled": false
+        },
+        {
+          "name": "متابعة · تخطي التعليمات",
+          "disabled": false
+        },
+        {
+          "name": "بدء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "تكرار المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "تخطي المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة الرحلة",
+          "disabled": true
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": true
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualError": "locator.scrollIntoViewIfNeeded: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '→', exact: true }).first()\u001b[22m\n",
+      "live": {
+        "gameId": "space-pilot",
+        "revision": 129,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769548456,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "sp3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 0,
+          "sessionId": "ed70720e-1f00-4a9b-bdc3-312c0e5ea56c",
+          "sp3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "endedAt": 0,
+            "epoch": 1,
+            "heartbeatAt": 1791769568202,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "ownerToken": "49755085-d043-4583-806d-205f610b85a8",
+            "payload": "{\"state\":{\"currentStageAssisted\":true,\"curriculumId\":\"sp3-nine-v1\",\"stageRepeats\":[0,0,0,0,0,0,0,0,0],\"stageResults\":[],\"startingStageIndex\":0,\"version\":4,\"roomId\":\"ed70720e-1f00-4a9b-bdc3-312c0e5ea56c\",\"ownerId\":\"49755085-d043-4583-806d-205f610b85a8\",\"sessionId\":\"ed70720e-1f00-4a9b-bdc3-312c0e5ea56c\",\"runId\":1,\"missionId\":\"mission-1\",\"revision\":10,\"eventSequence\":2,\"inputEpoch\":2,\"lifecycle\":\"running\",\"reason\":null,\"flightSettings\":{\"sensitivity\":1,\"maxTurnRate\":30,\"encounterSpacing\":5,\"horizontalLimit\":32,\"verticalLimit\":12,\"headingLimit\":35,\"course\":0,\"guidance\":2,\"reducedCamera\":0},\"accessibility\":{\"mode\":\"EASY\",\"altitudeAssistance\":1.5,\"ringTolerance\":0.8,\"upgrade2\":3,\"upgrade3\":7},\"instructionsVisible\":false,\"difficulty\":\"LOW\",\"inputMode\":\"keyboard\",\"sensorSource\":\"local\",\"mission\":1,\"missionName\":\"First Rings\",\"elapsedSeconds\":13.758333333333193,\"stats\":{\"ringsPresented\":4,\"ringsCollected\":2,\"ringsMissed\":0,\"asteroidsPresented\":0,\"asteroidsAvoided\":0,\"asteroidCollisions\":0,\"score\":200,\"collectionAccuracy\":0.5,\"upgradeTier\":1,\"resolved\":2,\"totalEncounters\":46,\"completedMissions\":0},\"outcomes\":[{\"sessionId\":\"ed70720e-1f00-4a9b-bdc3-312c0e5ea56c\",\"runId\":1,\"mission\":0,\"objectId\":\"mission-1-object-1\",\"outcome\":\"collected\",\"atSeconds\":5.333333333333388,\"sequence\":1,\"missionId\":\"mission-1\",\"x\":0,\"y\":0,\"z\":-90},{\"sessionId\":\"ed70720e-1f00-4a9b-bdc3-312c0e5ea56c\",\"runId\":1,\"mission\":0,\"objectId\":\"mission-1-object-2\",\"outcome\":\"collected\",\"atSeconds\":11.33333333333333,\"sequence\":2,\"missionId\":\"mission-1\",\"x\":0,\"y\":0,\"z\":-191.25}],\"summary\":null,\"primaryDisplayId\":\"fb638d1a-d414-427b-a3ce-084ef60aa795\",\"displays\":[\"fb638d1a-d414-427b-a3ce-084ef60aa795\"],\"sensorStatus\":\"waiting\"},\"frame\":{\"ownerId\":\"49755085-d043-4583-806d-205f610b85a8\",\"sessionId\":\"ed70720e-1f00-4a9b-bdc3-312c0e5ea56c\",\"runId\":1,\"revision\":10,\"inputEpoch\":2,\"sequence\":129,\"elapsedSeconds\":13.758333333333193,\"ship\":{\"x\":0,\"y\":0,\"z\":-232.171875,\"yaw\":0,\"pitch\":0,\"bank\":0,\"controlX\":0.5,\"controlY\":0.5},\"objects\":[{\"kind\":\"ring\",\"x\":0,\"y\":0,\"scale\":1.3,\"z\":-90,\"id\":\"mission-1-object-1\",\"arrivalSeconds\":5.333333333333333,\"radius\":5.65,\"presented\":true,\"outcome\":\"collected\",\"ring\":{\"innerRadius\":5.2,\"normal\":{\"x\":0,\"y\":0,\"z\":1}}},{\"kind\":\"ring\",\"x\":0,\"y\":0,\"scale\":1.3,\"z\":-191.25,\"id\":\"mission-1-object-2\",\"arrivalSeconds\":11.333333333333334,\"radius\":5.65,\"presented\":true,\"outcome\":\"collected\",\"ring\":{\"innerRadius\":5.2,\"normal\":{\"x\":0,\"y\":0,\"z\":1}}},{\"kind\":\"ring\",\"x\":0,\"y\":0,\"scale\":1.3,\"z\":-292.5,\"id\":\"mission-1-object-3\",\"arrivalSeconds\":17.333333333333332,\"radius\":5.65,\"presented\":true,\"outcome\":\"pending\",\"ring\":{\"innerRadius\":5.2,\"normal\":{\"x\":0,\"y\":0,\"z\":1}}},{\"kind\":\"ring\",\"x\":0,\"y\":0,\"scale\":1.3,\"z\":-393.75,\"id\":\"mission-1-object-4\",\"arrivalSeconds\":23.333333333333332,\"radius\":5.65,\"presented\":true,\"outcome\":\"pending\",\"ring\":{\"innerRadius\":5.2,\"normal\":{\"x\":0,\"y\":0,\"z\":1}}}],\"rawPointer\":null},\"missionSeconds\":13.758333333333193}",
+            "run": 1,
+            "startedAt": 1791769554426,
+            "status": "running"
+          }
+        },
+        "sessionId": "ed70720e-1f00-4a9b-bdc3-312c0e5ea56c",
+        "updatedAt": 1791769568204
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "›\nالحلقة التالية\nشموس · قائد الفضاء\nالحلقات الأولى\n\nالمستوى ١ · المرحلة ١ — ١ / ٩\n\n◎ ٢ الحلقات المكتملة\n٢٠٠ نقطة · المستوى ١\nالرحلة جارية\nشموس\nكل حلقة خطوة جميلة",
+      "after": "مكتبة الأنشطة\nإعداد المستشعر\nالنسخة السابقة\n\nشموس · قائد الفضاء ثلاثي الأبعاد\n\nقائد الفضاء\n\nتحكم المعالج · مزامنة آمنة بين الأجهزة\n\nفتح شاشة الطفل\nإعداد الرحلة\nالرحلة جارية\nالصعوبة\nسهل · رحلة هادئة\nمتوسط · رحلة متوازنة\nمتقدم · تنوّع المسار\nطريقة التحكم\nتحكم يدوي\nمستشعر اليد اليمنى\nالطيران ومجال الحركة\nنمط الطيران\nسهل · يمين ويسار فقط (البداية الموصى بها)\nمتوسط · يمين ويسار مع مساعدة الارتفاع\nمتقدم · تحكم بالاتجاه والارتفاع\nمساعدة الارتفاع\nلطيفة جدًا\nمتوازنة\nأوضح\nفسحة عبور الحلقة\nدقيقة\nمحدودة\nمتوازنة\nمريحة\nواسعة\nتطوير المركبة\nبعد ٣ و٧ حلقات\nبعد ٢ و٥ حلقات\nبعد ٥ و١٠ حلقات\n\nالارتفاع ثابت؛ حركة اليد العمودية لا تغيّر الطيران. الحلقات أوسع والرحلة أبطأ. مستوى المرحلة يغيّر تنوّع المسار؛ لا يفرض سرعة أعلى أو مساعدة أقل.\n\nنطاق التوجيه\nضيق ومريح\nلطيف\nمتوازن\nواسع · حتى ٦٠° لكل جانب\nعرض مسار الرحلة\nمضغوط\nمتوازن\nواسع\nواسع جدًا\nمجال الصعود والهبوط\nلطيف\nمتوازن\nواسع\nواسع جدًا\nحساسية التوجيه\nمنخفضة\nلطيفة\nمتوازنة\nمرتفعة\nلحركة يد صغيرة\nسرعة الانعطاف القصوى\nهادئة جدًا\nهادئة\nمتوازنة\nسريعة\nسريعة جدًا\nالفاصل بين المواجهات\nمتتابع\nمتوازن\nمريح\nفسحة أطول\nفسحة كبيرة\nمسار الرحلة\nمستقيم\nانحناء لطيف\nمساعدة الوصول للأهداف\nبدون إرشاد\nإرشاد الحلقات\nالحلقات والمرور الآمن\nحركة كاميرا مريحة\nمتابعة طبيعية\nحركة مخفّضة\n\nالمنتصف يتبع مسار الرحلة. الميل يحدد اتجاهًا محدودًا؛ لا يسبب دورانًا متواصلًا. الإرشاد علامة بصرية فقط؛ أنت من يوجّه المركبة. هذه إعدادات اللعبة فقط، ولا تغيّر معايرة المستشعر. تعديلها أثناء الاستراحة يعيد تجهيز المرحلة الحالية ويحافظ على نتائج بقية المراحل.\n\nشاشة الطفل: ١ متصلة\n\nاليد اليمنى: بانتظار اليد اليمنى\n\nاستخدم أزرار التوجيه اليدوي. ارفع إصبعك للعودة إلى المنتصف. أبقِ شاشة الطفل والتحكم مفتوحتين.\n\nتوجيه المعالج\nتحكم يدوي\n\nاضغط باستمرار للتوجيه. ارفع إصبعك للعودة إلى المنتصف. يمكن لمس اتجاهين معًا.\n\n↖\n↑\n↗\n←\n●\n→\n↙\n↓\n↘\n\nمتصل بالمزامنة ·\n\nالمستوى ١ · المرحلة ١ — الحلقات الأولى\nاختر أي مرحلة · تسع مراحل متاحة\n١ / ١ · الحلقات الأولى\nمتاحة\n١ / ٢ · اتجاه لطيف\nمتاحة\n١ / ٣ · الطريق المضيء\nمتاحة\n٢ / ١ · حديقة الكواكب\nمتاحة\n٢ / ٢ · يمين ويسار\nمتاحة\n٢ / ٣ · رحلة بين النجوم\nمتاحة\n٣ / ١ · ألوان المدار\nمتاحة\n٣ / ٢ · مسار الأصدقاء\nمتاحة\n٣ / ٣ · المغامرة الختامية\nمتاحة\n\nاختيار مرحلة يوقف الطيران ويجهّزها للبدء. إعادة مرحلة تستبدل نتيجتها السابقة دون مضاعفة العدد.\n\nالحلقات المكتملة\n\n٢\n\nالنقاط\n\n٢٠٠\n\nملامسات النيازك\n\n٠\n\nمستوى المركبة\n\n١\n\nالتقدم: ٢ من ٤٦ · المهام المكتملة: ٠ من ٩\n\nإيقاف مؤقت\nإعادة المرحلة\nتكرار المرحلة\nتخطي المرحلة\nإعادة الرحلة\nإنهاء الجلسة\n\nإعادة الرحلة تمسح نتائج المحاولة وتنتظر الاستعداد. تغيير طريقة التحكم يوقف الرحلة مؤقتًا. إعادة تحميل التحكم تستعيد التقدم بأمان.\n\nإعدادات العرض والراحة\n\nمزامنة Firebase · سجل حلقات بإصدار مستقل\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "balloon-quest",
+      "input": "HAND",
+      "launchCarried": "HAND",
+      "launchPanel": "مغامرة البالونات\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى\nاليد اليسرى\nاليدان\nسطح العرض المنفّذ\nجداريأرضي\n\nاختر السطح صراحةً هنا قبل بدء جلسة جديدة؛ القسم لا يختار الكاميرا نيابةً عنك.\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "→\nالعودة للأنشطة\nمغامرة البالونات\nمتصل\nمغامرة البالونات\nالمستوى سهل — المرحلة ١\n\nاستعد!\n\nهذه معاينة لما يراه الطفل. نقر المعالج على بالون يُحتسب كاختيار (أثناء اللعب فقط).\n\nجاهز للبدء\nشاشة العرض: متصلة\nمصادر الإدخال:\nابدأ\nإعادة المرحلة\nتخطي المرحلة\nإنهاء الجلسة\nإظهار رموز الأشكال (للتمييز بدون الألوان)\nالإعدادات\n\nتُطبَّق إعدادات الحجم والسرعة والعدد والألوان والعرض وتقليل الحركة عند بداية المرحلة التالية أو عند إعادة المرحلة. أما دقة اللمس وطريقة الإدخال فتُطبَّق فورًا.\n\nاسم الطفل\nمطلوب لبدء الجلسة (حتى ٣٠ حرفًا)\nالمستوى\nسهل\nمتوسط\nمتقدم\nالمرحلة\n١ — الهدف ٣\n٢ — الهدف ٤\n٣ — الهدف ٥\nنطاق الجلسة\nكل المراحل حتى النهاية (٩ كحد أقصى)\nهذا المستوى فقط (٣ مراحل)\nحجم البالونات\nأصغر\nعادي\nكبير\nأكبر\nسرعة الصعود\nبطيء جدًا\nبطيء\nعادي\nأسرع قليلًا\nأسرع\nللمستويين المتوسط والمتقدم\nعدد البالونات معًا\n−٢\n−١\nالافتراضي\n+١\n+٢\nبالنسبة للعدد الافتراضي للمرحلة\nعدد الألوان\nالافتراضي\n٢\n٣\nحدود هذا المستوى: ٢–٣\nدقة اللمس (هامش التلامس)\nدقيق\nعادي\nواسع\nأوسع\nالعرض\nجداري (عرض أمامي)\nأرضي (إسقاط على الأرض)\nطريقة الإدخال\nبنقر المعالج على المعاينة\nاليد اليمنى (حساس)\nلوحة المفاتيح (للتطوير)\nاليد اليسرى (حساس) — تجريبي\nاليدان معًا — تجريبي\nتقليل الحركة (بالونات ثابتة بدون تأرجح)\nالانتقال التلقائي بعد إكمال المرحلة\nالسماح بالتشغيل بدون شاشة عرض (معاينة فقط)\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "ابدأ",
+          "disabled": false
+        },
+        {
+          "name": "إعادة المرحلة",
+          "disabled": true
+        },
+        {
+          "name": "تخطي المرحلة",
+          "disabled": true
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualError": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"control-preview\"] [data-testid=\"bq-stage\"]').locator('[data-balloon-id][data-color=\"red\"] button').first()\u001b[22m\n\u001b[2m    - locator resolved to <button tabindex=\"0\" type=\"button\" class=\"bq3-balloon\" aria-label=\"بالون أحمر\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not stable\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    22 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not stable\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "live": {
+        "gameId": "balloon-quest",
+        "revision": 15,
+        "session": {
+          "bq3": {
+            "clock": {
+              "running": true,
+              "seq": 57,
+              "simTimeMs": 13816.5
+            },
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769587105,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "ownerStartedAt": 1791769570173,
+            "revision": 2,
+            "runId": 1,
+            "sessionEpoch": 1791769570174,
+            "snapshot": "{\"version\":1,\"sessionId\":\"ac1f9bc1-716b-4b52-84bb-7fd165d6d352\",\"sessionEpoch\":1791769570174,\"runId\":1,\"seed\":870950182,\"revision\":2,\"lifecycle\":\"playing\",\"suspendReason\":null,\"settings\":{\"sizeScale\":1,\"speedScale\":1,\"countOffset\":0,\"colorCount\":null,\"contactTolerance\":0.15,\"layout\":\"WALL\",\"reducedMotion\":false,\"inputMode\":\"therapist\",\"autoAdvance\":true,\"scope\":\"all\",\"allowNoDisplay\":false},\"startIndex\":0,\"endIndex\":8,\"stageIndex\":0,\"stage\":{\"index\":0,\"attempt\":0,\"seed\":60651254,\"idPrefix\":\"r1s0a0\",\"spec\":{\"index\":0,\"difficulty\":\"EASY\",\"stage\":1,\"motion\":\"static\",\"layout\":\"WALL\",\"goal\":3,\"sizeCqh\":22,\"riseSeconds\":0,\"activeCount\":5,\"palette\":[\"red\",\"blue\",\"yellow\"]},\"target\":\"red\",\"goalDone\":0,\"wrongCount\":0,\"correctSeq\":0,\"simTimeMs\":0,\"stepTimeMs\":0,\"balloons\":[{\"id\":\"r1s0a0.0\",\"spawnIndex\":0,\"color\":\"blue\",\"x\":31.460895197757054,\"topY\":19.264123825589195,\"slot\":0,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.1\",\"spawnIndex\":1,\"color\":\"blue\",\"x\":85.75030878133839,\"topY\":56,\"slot\":1,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.2\",\"spawnIndex\":2,\"color\":\"yellow\",\"x\":57.04547580587678,\"topY\":55.64599421201274,\"slot\":2,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.3\",\"spawnIndex\":3,\"color\":\"red\",\"x\":14.272956413187785,\"topY\":55.77625612844713,\"slot\":3,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000},{\"id\":\"r1s0a0.4\",\"spawnIndex\":4,\"color\":\"red\",\"x\":70.90319151154836,\"topY\":19,\"slot\":4,\"spawnedAtMs\":0,\"popping\":false,\"poppedAtMs\":0,\"wrongCueCount\":0,\"lastWrongAtMs\":-1000000000}],\"spawn\":{\"nextSpawnAtMs\":1000,\"lastSpawnAtMs\":0,\"spawnCount\":5,\"recentColors\":[\"yellow\",\"red\",\"red\"],\"lastSlot\":-1,\"lastX\":-100},\"slots\":[{\"x\":31.460895197757054,\"y\":35.764123825589195},{\"x\":85.75030878133839,\"y\":72.5},{\"x\":57.04547580587678,\"y\":72.14599421201274},{\"x\":14.272956413187785,\"y\":72.27625612844713},{\"x\":70.90319151154836,\"y\":35.5},{\"x\":38.774425212992355,\"y\":72.5},{\"x\":48.72257527461625,\"y\":35.5}]},\"results\":[],\"selectionSeq\":0,\"selections\":[],\"seenInputEvents\":[],\"restarts\":0,\"summary\":null}",
+            "state": {
+              "balloons": [
+                {
+                  "color": "blue",
+                  "id": "r1s0a0.0",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 19.264123825589195,
+                  "wrongCueCount": 0,
+                  "x": 31.460895197757054
+                },
+                {
+                  "color": "blue",
+                  "id": "r1s0a0.1",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 56,
+                  "wrongCueCount": 0,
+                  "x": 85.75030878133839
+                },
+                {
+                  "color": "yellow",
+                  "id": "r1s0a0.2",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 55.64599421201274,
+                  "wrongCueCount": 0,
+                  "x": 57.04547580587678
+                },
+                {
+                  "color": "red",
+                  "id": "r1s0a0.3",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 55.77625612844713,
+                  "wrongCueCount": 0,
+                  "x": 14.272956413187785
+                },
+                {
+                  "color": "red",
+                  "id": "r1s0a0.4",
+                  "poppedAtMs": 0,
+                  "popping": false,
+                  "spawnedAtMs": 0,
+                  "topY": 19,
+                  "wrongCueCount": 0,
+                  "x": 70.90319151154836
+                }
+              ],
+              "correctSeq": 0,
+              "difficulty": "EASY",
+              "goal": 3,
+              "goalDone": 0,
+              "layout": "WALL",
+              "lifecycle": "playing",
+              "motion": "static",
+              "plannedStages": 9,
+              "reducedMotion": false,
+              "riseSeconds": 0,
+              "running": true,
+              "simTimeMs": 0,
+              "sizeCqh": 22,
+              "stage": 1,
+              "stageIndex": 0,
+              "target": "red",
+              "totalStages": 9,
+              "wrongCueSeq": 0
+            }
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769570174,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "bq3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 870950182,
+          "sessionId": "ac1f9bc1-716b-4b52-84bb-7fd165d6d352"
+        },
+        "sessionId": "ac1f9bc1-716b-4b52-84bb-7fd165d6d352",
+        "updatedAt": 1791769587110
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 0,
+      "displayText": "مغامرة البالونات\nالمس البالون الأحمر\nسهل\n١\n٢\n٣\n٠ من ٣",
+      "after": "→\nالعودة للأنشطة\nمغامرة البالونات\nمتصل\nمغامرة البالونات\nالمس البالون الأحمر\nسهل\n١\n٢\n٣\n٠ من ٣\n\nهذه معاينة لما يراه الطفل. نقر المعالج على بالون يُحتسب كاختيار (أثناء اللعب فقط).\n\nقيد اللعب\nشاشة العرض: متصلة\nالمستوى / المرحلة\nسهل / ١\nاللون المطلوب\nأحمر\nالتقدم نحو الهدف\n٠ من ٣\nلمسات ببالونات بلون آخر\n٠ (للمعلومة فقط، لا تُخصم)\nمدة اللعب الفعلية\n٠:٠٠\nالمراحل المنجزة\n٠\nمصادر الإدخال:\nإيقاف مؤقت\nإعادة المرحلة\nتخطي المرحلة\nإنهاء الجلسة\nإظهار رموز الأشكال (للتمييز بدون الألوان)\nالإعدادات\n\nتُطبَّق إعدادات الحجم والسرعة والعدد والألوان والعرض وتقليل الحركة عند بداية المرحلة التالية أو عند إعادة المرحلة. أما دقة اللمس وطريقة الإدخال فتُطبَّق فورًا.\n\nاسم الطفل\nمطلوب لبدء الجلسة (حتى ٣٠ حرفًا)\nالمستوى\nسهل\nمتوسط\nمتقدم\nالمرحلة\n١ — الهدف ٣\n٢ — الهدف ٤\n٣ — الهدف ٥\nنطاق الجلسة\nكل المراحل حتى النهاية (٩ كحد أقصى)\nهذا المستوى فقط (٣ مراحل)\nحجم البالونات\nأصغر\nعادي\nكبير\nأكبر\nسرعة الصعود\nبطيء جدًا\nبطيء\nعادي\nأسرع قليلًا\nأسرع\nللمستويين المتوسط والمتقدم\nعدد البالونات معًا\n−٢\n−١\nالافتراضي\n+١\n+٢\nبالنسبة للعدد الافتراضي للمرحلة\nعدد الألوان\nالافتراضي\n٢\n٣\nحدود هذا المستوى: ٢–٣\nدقة اللمس (هامش التلامس)\nدقيق\nعادي\nواسع\nأوسع\nالعرض\nجداري (عرض أمامي)\nأرضي (إسقاط على الأرض)\nطريقة الإدخال\nبنقر المعالج على المعاينة\nاليد اليمنى (حساس)\nلوحة المفاتيح (للتطوير)\nاليد اليسرى (حساس) — تجريبي\nاليدان معًا — تجريبي\nتقليل الحركة (بالونات ثابتة بدون تأرجح)\nالانتقال التلقائي بعد إكمال المرحلة\nالسماح بالتشغيل بدون شاشة عرض (معاينة فقط)\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "follow-the-footsteps",
+      "input": "FOOT",
+      "launchCarried": "FOOT",
+      "launchPanel": "اتبع الخطوات\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالقدم اليمنى · غير متاح\nالقدم اليسرى · غير متاح\nالقدمان · غير متاح\n\nالمحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.\n\nسطح العرض المنفّذ\nأرضي\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "⛔ إيقاف الأمان\nSHUMOS CARE · THE ENCHANTED FOREST\nاتبع الخطوات\nFollow the Footsteps 3D · المعالج يؤكد كل خطوة، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1\nحديقة مشمسة سحرية\nخطوات قصيرة\nالخطوة 1 من 4\n1\n2\n3\n4\n\nالحجر الذهبي هو الهدف الحالي على شاشة الطفل. لا يتقدم شيء حتى تضغط «تأكيد الخطوة». لا يوجد وقت محدد ولا فشل.\n\nابدأ المرحلة\nإعادة البدء\nإنهاء الجلسة\n0 خطوة · 0 مؤكدة · 0 بمساعدة · 0 متجاوزة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · خطوات قصيرة\nالمستوى 1 · المرحلة 2 · مسار مستقيم\nالمستوى 1 · المرحلة 3 · تعرّج لطيف\nالمستوى 2 · المرحلة 1 · قدم يمين ثم يسار\nالمستوى 2 · المرحلة 2 · مسار منحنٍ\nالمستوى 2 · المرحلة 3 · مسار مستقيم\nالمستوى 3 · المرحلة 1 · مسار متنوع\nالمستوى 3 · المرحلة 2 · ذاكرة خطوتين\nالمستوى 3 · المرحلة 3 · مسار مركّب\nحجم الأحجار: 100٪\nالمسافة بين الأحجار: 100٪\nمدى الحركة الكلي: 100٪\n إظهار الحجر التالي بخفوت (مساعدة اختيارية)\n مرحلة الذاكرة: مساعدة بصرية بعد العرض\nمدة عرض الحجرين (مرحلة الذاكرة)\n3 ثوانٍ\n5 ثوانٍ\n8 ثوانٍ\n12 ثوانٍ\n فترات راحة اختيارية (المرحلة ٣ من المستوى ٢)\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nمعايرة الأرضية وحجم الأحجار\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nأحجار هذه المرحلة: 4 · أطول خطوة بين حجرين: 40٪ من ارتفاع الأرضية\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للأحجار. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي ثابت)\nمعاينة سينمائية فقط\nهامش آمن: 4٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n أصوات هادئة عند النجاح\nجودة الرسومات\nعالية\nمتوسطة\nخفيفة\n\nالصورة تُعرض على الأرض فقط، والنهر زينة مسطّحة لا عمق فيها ولا يُطلب القفز. لا يتتبّع النظام موقع قدم الطفل على الأحجار؛ المعالج هو من يؤكد وصوله. يحدّد المعالج مدى الحركة المناسب لكل طفل.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "⛔ إيقاف الأمان",
+          "disabled": false
+        },
+        {
+          "name": "ابدأ المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة البدء",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "تطبيق الأبعاد",
+          "disabled": true
+        },
+        {
+          "name": "مسح",
+          "disabled": true
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "confirm reached step",
+        "triggered": true,
+        "before": "0",
+        "after": "1",
+        "changed": true
+      },
+      "live": {
+        "gameId": "follow-the-footsteps",
+        "revision": 3,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769592194,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "fp3",
+          "engineVersion": 1,
+          "fp3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769594078,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"90af3e83-8e1d-4c8e-8012-974f5156ba49\",\"seed\":55775583,\"run\":0,\"stage\":0,\"step\":1,\"status\":\"running\",\"phase\":\"step\",\"elapsed\":0,\"lastTick\":0,\"startedAt\":1791769592194,\"endedAt\":0,\"safety\":false,\"rest\":false,\"cue\":0,\"config\":{\"stoneScale\":100,\"spacing\":100,\"reach\":100,\"margin\":4,\"aspect\":\"16:9\",\"floorWidthCm\":0,\"floorHeightCm\":0,\"calibrationConfirmed\":false,\"previewNext\":false,\"memoryAssist\":true,\"previewMs\":5000,\"restPauses\":true,\"inputMode\":\"MANUAL\",\"inputSource\":\"manual\",\"view\":\"floor\",\"grid\":false,\"highContrast\":false,\"reducedMotion\":false,\"intensity\":100,\"sound\":true,\"quality\":\"high\"},\"events\":[{\"key\":\"0:0:0\",\"stage\":0,\"step\":0,\"kind\":\"confirmed\"}],\"completed\":[],\"skipped\":[],\"sensor\":{\"link\":{\"RIGHT_FOOT\":\"none\",\"LEFT_FOOT\":\"none\"},\"lastSeq\":{\"RIGHT_FOOT\":0,\"LEFT_FOOT\":0},\"movements\":0,\"pending\":false,\"lastRole\":null}}"
+          },
+          "gameState": "PLAYING",
+          "seed": 55775583,
+          "sessionId": "90af3e83-8e1d-4c8e-8012-974f5156ba49"
+        },
+        "sessionId": "90af3e83-8e1d-4c8e-8012-974f5156ba49",
+        "updatedAt": 1791769594080
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "المستوى 1 · المرحلة 1\nSHUMOS CARE",
+      "after": "⛔ إيقاف الأمان\nSHUMOS CARE · THE ENCHANTED FOREST\nاتبع الخطوات\nFollow the Footsteps 3D · المعالج يؤكد كل خطوة، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1\nحديقة مشمسة سحرية\nخطوات قصيرة\nالخطوة 2 من 4\n1\n✓\n2\n3\n4\n\nالحجر الذهبي هو الهدف الحالي على شاشة الطفل. لا يتقدم شيء حتى تضغط «تأكيد الخطوة». لا يوجد وقت محدد ولا فشل.\n\nإيقاف مؤقت\n✔ تأكيد الخطوة\nخطوة بمساعدة\nأعد التلميح\nتجاوز الخطوة\nتجاوز المرحلة\nإعادة البدء\nإنهاء الجلسة\n1 خطوة · 1 مؤكدة · 0 بمساعدة · 0 متجاوزة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · خطوات قصيرة\nالمستوى 1 · المرحلة 2 · مسار مستقيم\nالمستوى 1 · المرحلة 3 · تعرّج لطيف\nالمستوى 2 · المرحلة 1 · قدم يمين ثم يسار\nالمستوى 2 · المرحلة 2 · مسار منحنٍ\nالمستوى 2 · المرحلة 3 · مسار مستقيم\nالمستوى 3 · المرحلة 1 · مسار متنوع\nالمستوى 3 · المرحلة 2 · ذاكرة خطوتين\nالمستوى 3 · المرحلة 3 · مسار مركّب\nحجم الأحجار: 100٪\nالمسافة بين الأحجار: 100٪\nمدى الحركة الكلي: 100٪\n\nتُعدَّل أحجام الأحجار والمسافات والمدى والهوامش عند الإيقاف المؤقت أو بين المراحل.\n\n إظهار الحجر التالي بخفوت (مساعدة اختيارية)\n مرحلة الذاكرة: مساعدة بصرية بعد العرض\nمدة عرض الحجرين (مرحلة الذاكرة)\n3 ثوانٍ\n5 ثوانٍ\n8 ثوانٍ\n12 ثوانٍ\n فترات راحة اختيارية (المرحلة ٣ من المستوى ٢)\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nمعايرة الأرضية وحجم الأحجار\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\n\nتُغيَّر الأبعاد والأحجار والمسافات والمدى حين يكون اللعب متوقفًا مؤقتًا أو بين المراحل، فلا تتحرك الأحجار تحت خطوة جارية.\n\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nأحجار هذه المرحلة: 4 · أطول خطوة بين حجرين: 40٪ من ارتفاع الأرضية\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للأحجار. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي ثابت)\nمعاينة سينمائية فقط\nهامش آمن: 4٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n أصوات هادئة عند النجاح\nجودة الرسومات\nعالية\nمتوسطة\nخفيفة\n\nالصورة تُعرض على الأرض فقط، والنهر زينة مسطّحة لا عمق فيها ولا يُطلب القفز. لا يتتبّع النظام موقع قدم الطفل على الأحجار؛ المعالج هو من يؤكد وصوله. يحدّد المعالج مدى الحركة المناسب لكل طفل.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "bubble-pop-wall",
+      "input": "HAND",
+      "launchCarried": "HAND",
+      "launchPanel": "فرقع الفقاعات\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى\nاليد اليسرى\nاليدان\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "SHUMOS CARE / WALL / THE WONDER DOME\nقبة العجائب فرقع الفقاعات 3D\n\nوصول هادئ · توجيه · ثبات · كل حركة تفتح عالمًا\n\nمكتبة الأنشطة\nشاشة الطفل ↗\nاكتشف · المرحلة 1\nالهدف 1 / 1\nاليد اليمنى\nتحكم يدوي\nالمس عالمك برفق\n\nحرّك اليد على الخريطة. اقترب من الحلقة بهدوء.\n\n☆\n✧\n✋\n↑ أعلى\n← يسار\nيمين →\n↓ أسفل\nابدأ المرحلة\nالعودة للمحايد\nمساعدة الحركة\nتكرار الهدف\nتجاوز الهدف\nتجاوز المرحلة\nإنهاء الجلسة\nإعادة البدء\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0 أهداف مكتملة · 0 بمساعدة · 0/9 مراحل · 0 تكرارات\n\n● التحكم وشاشة الطفل متصلان ·\n\nمساحة الطفل\nالمستوى والمرحلة\n1 · 1 — اكتشف الحديقة\n1 · 2 — نافذتان للعجائب\n1 · 3 — رحلة والعودة\n2 · 1 — نهر من الضوء\n2 · 2 — منعطف القمر\n2 · 3 — أضئ العالم\n3 · 1 — جسر النجمتين\n3 · 2 — يد تلو الأخرى\n3 · 3 — قبة العجائب\nاليد النشطة\nاليمنى\nاليسرى\nبالتناوب\nمكان الأهداف\nالجانبان\nاليمين\nاليسار\nمدى الحركة\n0.8\nحجم الهدف\n0.12\nالتسامح\n0.08\nالثبات بالمللي ثانية\n1200\nقوة المساعدة\n0.35\nسرعة التوجيه\n0.65\nحساسية الحساس\n1\nتكرار التسلسل\n1\n2\n3\nمصدر الحركة\nتحكم يدوي\nاستخدام الحساس المعاير\n\nالحساس يحرّك مؤشرًا افتراضيًا من اتجاه المعصم. اسحب الخريطة لاستلام التحكم في أي وقت. المرحلة ٨ تتناوب بين اليدين؛ يلزم اختيار اليدين لتفعيل الحساس، وإلا يبقى التحكم يدويًا لكليهما.\n\nراحة العرض\nتقليل الحركة\nتباين عالٍ\nصوت هادئ اختياري\nمستوى الصوت\n0.3\nجودة العرض\nزجاج وانعكاسات\nخفيفة\n\nيمكن المشاركة جلوسًا. لا وقت إلزامي ولا فقدان للتقدم عند الابتعاد عن الهدف.\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "↑ أعلى",
+          "disabled": true
+        },
+        {
+          "name": "← يسار",
+          "disabled": true
+        },
+        {
+          "name": "يمين →",
+          "disabled": true
+        },
+        {
+          "name": "↓ أسفل",
+          "disabled": true
+        },
+        {
+          "name": "ابدأ المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "العودة للمحايد",
+          "disabled": true
+        },
+        {
+          "name": "مساعدة الحركة",
+          "disabled": true
+        },
+        {
+          "name": "تكرار الهدف",
+          "disabled": true
+        },
+        {
+          "name": "تجاوز الهدف",
+          "disabled": true
+        },
+        {
+          "name": "تجاوز المرحلة",
+          "disabled": true
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة البدء",
+          "disabled": false
+        },
+        {
+          "name": "تحكم يدوي",
+          "disabled": false
+        },
+        {
+          "name": "استخدام الحساس المعاير",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "move virtual hand right",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "bubble-pop-wall",
+        "revision": 4,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769599661,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "dome3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769601699,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"baf5b961-6ae2-4677-8519-0b62d3197bf9\",\"run\":0,\"stage\":0,\"objective\":0,\"status\":\"running\",\"config\":{\"hand\":\"RIGHT_HAND\",\"range\":0.8,\"targetSize\":0.12,\"tolerance\":0.08,\"holdMs\":1200,\"assistance\":0.35,\"speed\":0.65,\"placement\":\"both\",\"objectives\":1,\"reducedMotion\":false,\"highContrast\":false,\"sound\":false,\"volume\":0.3,\"quality\":\"high\",\"sensitivity\":1},\"cursor\":{\"x\":0.5321745639969472,\"y\":0.5},\"desired\":{\"x\":0.54,\"y\":0.5},\"pathProgress\":0,\"hold\":0,\"accepted\":false,\"assisted\":false,\"input\":\"manual\",\"sensorLost\":false,\"seq\":1,\"lastTick\":0,\"startedAt\":1791769599661,\"endedAt\":0,\"events\":[],\"completed\":[],\"skipped\":[],\"repeats\":0,\"startStage\":0}"
+          },
+          "engine": "dome3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 1,
+          "sessionId": "baf5b961-6ae2-4677-8519-0b62d3197bf9"
+        },
+        "sessionId": "baf5b961-6ae2-4677-8519-0b62d3197bf9",
+        "updatedAt": 1791769601702
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE · THE WONDER DOME\nقبة العجائب\nكل حركة تفتح عالمًا صغيرًا\nاكتشف · 1 / 3\n✧ المس عالمك برفق\nاليد اليمنى · اكتشف الحديقة\n◇\n◇\n◇\n◇\n◇\n◇\n◇\n◇\n◇",
+      "after": "SHUMOS CARE / WALL / THE WONDER DOME\nقبة العجائب فرقع الفقاعات 3D\n\nوصول هادئ · توجيه · ثبات · كل حركة تفتح عالمًا\n\nمكتبة الأنشطة\nشاشة الطفل ↗\nاكتشف · المرحلة 1\nالهدف 1 / 1\nاليد اليمنى\nتحكم يدوي\nالمس عالمك برفق\n\nحرّك اليد على الخريطة. اقترب من الحلقة بهدوء.\n\n☆\n✧\n✋\n↑ أعلى\n← يسار\nيمين →\n↓ أسفل\nإيقاف مؤقت\nالعودة للمحايد\nمساعدة الحركة\nتكرار الهدف\nتجاوز الهدف\nتجاوز المرحلة\nإنهاء الجلسة\nإعادة البدء\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0 أهداف مكتملة · 0 بمساعدة · 0/9 مراحل · 0 تكرارات\n\n● التحكم وشاشة الطفل متصلان ·\n\nمساحة الطفل\nالمستوى والمرحلة\n1 · 1 — اكتشف الحديقة\n1 · 2 — نافذتان للعجائب\n1 · 3 — رحلة والعودة\n2 · 1 — نهر من الضوء\n2 · 2 — منعطف القمر\n2 · 3 — أضئ العالم\n3 · 1 — جسر النجمتين\n3 · 2 — يد تلو الأخرى\n3 · 3 — قبة العجائب\nاليد النشطة\nاليمنى\nاليسرى\nبالتناوب\nمكان الأهداف\nالجانبان\nاليمين\nاليسار\nمدى الحركة\n0.8\nحجم الهدف\n0.12\nالتسامح\n0.08\nالثبات بالمللي ثانية\n1200\nقوة المساعدة\n0.35\nسرعة التوجيه\n0.65\nحساسية الحساس\n1\nتكرار التسلسل\n1\n2\n3\nمصدر الحركة\nتحكم يدوي\nاستخدام الحساس المعاير\n\nالحساس يحرّك مؤشرًا افتراضيًا من اتجاه المعصم. اسحب الخريطة لاستلام التحكم في أي وقت. المرحلة ٨ تتناوب بين اليدين؛ يلزم اختيار اليدين لتفعيل الحساس، وإلا يبقى التحكم يدويًا لكليهما.\n\nراحة العرض\nتقليل الحركة\nتباين عالٍ\nصوت هادئ اختياري\nمستوى الصوت\n0.3\nجودة العرض\nزجاج وانعكاسات\nخفيفة\n\nيمكن المشاركة جلوسًا. لا وقت إلزامي ولا فقدان للتقدم عند الابتعاد عن الهدف.\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "assistance": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "color-chase",
+      "input": "FOOT",
+      "launchCarried": "FOOT",
+      "launchPanel": "مطاردة الألوان\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالقدم اليمنى · غير متاح\nالقدم اليسرى · غير متاح\nالقدمان · غير متاح\n\nالمحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.\n\nسطح العرض المنفّذ\nأرضي\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "⛔ إيقاف الأمان\nSHUMOS CARE · THE LOST COLORS\nمطاردة الألوان\nColor Chase 3D · عالم الألوان المفقودة · المعالج يؤكد كل اختيار، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1 · الألوان الأولى\nالحديقة المنسيّة\nمنطقتان كبيرتان\nالهدف 1 من 4\nالألوان المستعادة 0/5\nالأحمر\nالأزرق\n\nالمنطقة المحاطة بخط متقطع هي اللون المطلوب على شاشة الطفل. اضغط المنطقة التي اختارها الطفل ثم «تأكيد الاختيار». لا يوجد وقت محدد ولا فشل، ومنطقة أخرى تعني فقط نظرة ثانية إلى الهدف.\n\nابدأ المرحلة\nإعادة البدء\nإنهاء الجلسة\n0 هدفًا · 0 مؤكدًا · 0 بمساعدة · 0 متجاوزًا · 0 إعادة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · الألوان الأولى (4 أهداف)\nالمستوى 1 · المرحلة 2 · ثلاثة ألوان (5 أهداف)\nالمستوى 1 · المرحلة 3 · استيقاظ الحديقة (3 أهداف)\nالمستوى 2 · المرحلة 1 · أربعة ألوان (6 أهداف)\nالمستوى 2 · المرحلة 2 · تسلسل الألوان (6 أهداف)\nالمستوى 2 · المرحلة 3 · ممرات الحديقة (6 أهداف)\nالمستوى 3 · المرحلة 1 · مواضع متغيّرة (7 أهداف)\nالمستوى 3 · المرحلة 2 · خطوتان متتاليتان (8 أهداف)\nالمستوى 3 · المرحلة 3 · أعِد الحديقة كاملة (5 أهداف)\nإعدادات جاهزة\nقياسي\nمناطق كبيرة\nمدى صغير\nحجم المناطق: 100٪\nالمسافة بين المناطق: 100٪\nمدى الحركة المريح: 100٪\nعدد الألوان الظاهرة: 5\n أشكال وأسماء على المناطق (لا نعتمد على اللون وحده)\nمستوى المساعدة البصرية\nعادي · إضاءة المنطقة المطلوبة\nعالٍ · تخفيت بقية المناطق وتلميح للتالي\n\nأنت من يحدّد مدى الحركة المناسب لكل طفل. المنصة لا تقيس مدى حركة المفاصل ولا التوازن، ولا يُطلب وقوف أو مشي: يمكن المشاركة جالسًا أو بمساعدة.\n\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nمعايرة الأرضية وحجم المناطق\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nمناطق هذه المرحلة: 2 · أبعد مسافة بين منطقتين: 80٪ من ارتفاع الأرضية\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للمناطق. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي ثابت)\nمعاينة سينمائية فقط\nهامش آمن: 4٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n أصوات هادئة عند عودة لون\nجودة الرسومات\nعالية\nمتوسطة\nخفيفة\n\nالصورة تُعرض على الأرض فقط، والحديقة زينة مسطّحة لا عمق فيها ولا حفر ولا ارتفاعات يُطلب تجاوزها. لا يتتبّع النظام موقع قدم الطفل على الأرض؛ المعالج هو من يؤكد اختياره.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "⛔ إيقاف الأمان",
+          "disabled": false
+        },
+        {
+          "name": "الأحمر"
+        },
+        {
+          "name": "الأزرق"
+        },
+        {
+          "name": "ابدأ المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة البدء",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "قياسي",
+          "disabled": false
+        },
+        {
+          "name": "مناطق كبيرة",
+          "disabled": false
+        },
+        {
+          "name": "مدى صغير",
+          "disabled": false
+        },
+        {
+          "name": "تطبيق الأبعاد",
+          "disabled": true
+        },
+        {
+          "name": "مسح",
+          "disabled": true
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "confirm target color",
+        "triggered": true,
+        "before": "TARGET,LATER,LATER,LATER",
+        "after": "DONE,TARGET,LATER,LATER",
+        "changed": true
+      },
+      "live": {
+        "gameId": "color-chase",
+        "revision": 4,
+        "session": {
+          "cc3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769609111,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"8dd55abf-fada-4a7f-b0c8-7c3df31554fc\",\"seed\":1114424948,\"run\":0,\"stage\":0,\"step\":1,\"status\":\"running\",\"startStage\":0,\"startedAt\":1791769606910,\"endedAt\":0,\"safety\":false,\"repeats\":0,\"nudge\":0,\"config\":{\"zoneScale\":100,\"spacing\":100,\"reach\":100,\"margin\":4,\"maxColors\":5,\"symbols\":true,\"assist\":\"standard\",\"aspect\":\"16:9\",\"floorWidthCm\":0,\"floorHeightCm\":0,\"calibrationConfirmed\":false,\"inputMode\":\"MANUAL\",\"inputSource\":\"manual\",\"view\":\"floor\",\"grid\":false,\"highContrast\":false,\"reducedMotion\":false,\"intensity\":100,\"sound\":true,\"quality\":\"high\"},\"events\":[{\"key\":\"0:0:0\",\"stage\":0,\"step\":0,\"kind\":\"confirmed\"}],\"completed\":[],\"skipped\":[],\"sensor\":{\"link\":{\"RIGHT_FOOT\":\"none\",\"LEFT_FOOT\":\"none\"},\"lastSeq\":{\"RIGHT_FOOT\":0,\"LEFT_FOOT\":0},\"movements\":0,\"pending\":false,\"lastRole\":null}}"
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769606910,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "cc3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 1114424948,
+          "sessionId": "8dd55abf-fada-4a7f-b0c8-7c3df31554fc"
+        },
+        "sessionId": "8dd55abf-fada-4a7f-b0c8-7c3df31554fc",
+        "updatedAt": 1791769609116
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "الحديقة المنسيّة · المرحلة 1-1 · الألوان الأولى\nاختر الأزرق\nSHUMOS CARE",
+      "after": "⛔ إيقاف الأمان\nSHUMOS CARE · THE LOST COLORS\nمطاردة الألوان\nColor Chase 3D · عالم الألوان المفقودة · المعالج يؤكد كل اختيار، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1 · الألوان الأولى\nالحديقة المنسيّة\nمنطقتان كبيرتان\nالهدف 2 من 4\nالألوان المستعادة 0/5\nالمطلوب: الأزرق\nعاد ماء النافورة الأزرق\nالأحمر\nالأزرق\n\nالمنطقة المحاطة بخط متقطع هي اللون المطلوب على شاشة الطفل. اضغط المنطقة التي اختارها الطفل ثم «تأكيد الاختيار». لا يوجد وقت محدد ولا فشل، ومنطقة أخرى تعني فقط نظرة ثانية إلى الهدف.\n\nإيقاف مؤقت\n✔ تأكيد الاختيار\nاختيار بمساعدة\nأعد الهدف\nتجاوز الهدف\nتجاوز المرحلة\nإعادة البدء\nإنهاء الجلسة\n1 هدفًا · 1 مؤكدًا · 0 بمساعدة · 0 متجاوزًا · 0 إعادة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · الألوان الأولى (4 أهداف)\nالمستوى 1 · المرحلة 2 · ثلاثة ألوان (5 أهداف)\nالمستوى 1 · المرحلة 3 · استيقاظ الحديقة (3 أهداف)\nالمستوى 2 · المرحلة 1 · أربعة ألوان (6 أهداف)\nالمستوى 2 · المرحلة 2 · تسلسل الألوان (6 أهداف)\nالمستوى 2 · المرحلة 3 · ممرات الحديقة (6 أهداف)\nالمستوى 3 · المرحلة 1 · مواضع متغيّرة (7 أهداف)\nالمستوى 3 · المرحلة 2 · خطوتان متتاليتان (8 أهداف)\nالمستوى 3 · المرحلة 3 · أعِد الحديقة كاملة (5 أهداف)\nإعدادات جاهزة\nقياسي\nمناطق كبيرة\nمدى صغير\nحجم المناطق: 100٪\nالمسافة بين المناطق: 100٪\nمدى الحركة المريح: 100٪\nعدد الألوان الظاهرة: 5\n\nتُعدَّل أحجام المناطق والمسافات والمدى وعدد الألوان عند الإيقاف المؤقت أو بين المراحل، فلا تتحرك المناطق تحت هدف جارٍ.\n\n أشكال وأسماء على المناطق (لا نعتمد على اللون وحده)\nمستوى المساعدة البصرية\nعادي · إضاءة المنطقة المطلوبة\nعالٍ · تخفيت بقية المناطق وتلميح للتالي\n\nأنت من يحدّد مدى الحركة المناسب لكل طفل. المنصة لا تقيس مدى حركة المفاصل ولا التوازن، ولا يُطلب وقوف أو مشي: يمكن المشاركة جالسًا أو بمساعدة.\n\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nمعايرة الأرضية وحجم المناطق\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\n\nتُغيَّر الأبعاد والمناطق والمسافات حين يكون اللعب متوقفًا مؤقتًا أو بين المراحل، فلا تتحرك المناطق أثناء هدف جارٍ.\n\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nمناطق هذه المرحلة: 2 · أبعد مسافة بين منطقتين: 80٪ من ارتفاع الأرضية\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للمناطق. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي ثابت)\nمعاينة سينمائية فقط\nهامش آمن: 4٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n أصوات هادئة عند عودة لون\nجودة الرسومات\nعالية\nمتوسطة\nخفيفة\n\nالصورة تُعرض على الأرض فقط، والحديقة زينة مسطّحة لا عمق فيها ولا حفر ولا ارتفاعات يُطلب تجاوزها. لا يتتبّع النظام موقع قدم الطفل على الأرض؛ المعالج هو من يؤكد اختياره.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "build-quest-3d",
+      "input": "JOYSTICK",
+      "launchCarried": "JOYSTICK",
+      "launchPanel": "عالم البناء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nعصا التحكم اليمنى · غير متاح\nعصا التحكم اليسرى · غير متاح\nعصا التحكم معًا · غير متاح\n\nمحوّل عصي التحكم الفعلي وخيارات الأزرار لم تُنفّذ بعد. لا يلزم ضغط زر في التحكم اليدوي.\n\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "SHUMOS CARE · BUILD QUEST 3D\nعالم البناء\nرحلة هادئة، قطعة بعد قطعة\nمكتبة الأنشطة\nفتح شاشة الطفل\nالصعوبة\n١ · مطابقة الأشكال\n٢ · بناء الأشياء\n٣ · الإنشاء الإبداعي\nالمرحلة\nأشكالي الأولى\nثلاثة أشكال\nأربعة أشكال\nطريقة التحكم\nيدوي · اللمس والفأرة ولوحة المفاتيح\nحساس اليد اليمنى\nوحدة تحكم · تجريبية\nمساعدة الالتقاط\nعالية\nمتوسطة\nمنخفضة\nمدة الثبات (مللي ثانية)\nحجم منطقة الالتقاط\nجودة العرض\nعالية\nخفيفة للأجهزة الأبطأ\n\nالفأرة: انقر القطعة ثم حرّكها إلى الهدف.\nالأسهم أو WASD للحركة، ومسافة للاختيار.\nالحساس: ثبّت المؤشر على القطعة ثم حرّكه إلى الهدف.\n\nمتصل · التغييرات مؤكدة\n\nالتحكم اليدوي · متاح مع جميع طرق الإدخال\n\nاختر قطعة، ثم حرّكها باللمس أو بالأسهم، أو المس مكانها لوضعها. لا تحتاج إلى حساس.\n\nالقطع المتاحة\nمربع\nدائرة\nأماكن البناء\nوضع مربع\nوضع دائرة\n↑\n←\n→\n↓\nأشكالي الأولى\nالقطع: 0 / 2\nالمباني المكتملة: 0\nبدء الجلسة\nإيقاف مؤقت\nمتابعة\nإعادة المرحلة\nالمرحلة التالية\nتخطي المرحلة\nإنهاء الجلسة\n\nلنبدأ البناء معًا\n\nيمكن فتح شاشة الطفل على جهاز آخر عبر الرابط أعلاه. تُحفظ النتيجة للمريض المحدد عند إنهاء الجلسة.اختبار الحساس الفعلي ووحدات التحكم والعرض على جهاز الإسقاط ما زال مطلوبًا.\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "مربع",
+          "disabled": true
+        },
+        {
+          "name": "دائرة",
+          "disabled": true
+        },
+        {
+          "name": "وضع مربع",
+          "disabled": true
+        },
+        {
+          "name": "وضع دائرة",
+          "disabled": true
+        },
+        {
+          "name": "↑",
+          "disabled": true
+        },
+        {
+          "name": "←",
+          "disabled": true
+        },
+        {
+          "name": "→",
+          "disabled": true
+        },
+        {
+          "name": "↓",
+          "disabled": true
+        },
+        {
+          "name": "بدء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "إيقاف مؤقت",
+          "disabled": true
+        },
+        {
+          "name": "متابعة",
+          "disabled": true
+        },
+        {
+          "name": "إعادة المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "المرحلة التالية",
+          "disabled": true
+        },
+        {
+          "name": "تخطي المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "place build piece",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "build-quest-3d",
+        "revision": 5,
+        "session": {
+          "build3": {
+            "completedCount": 0,
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "endedAt": 0,
+            "heartbeatAt": 1791769617028,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"version\":1,\"session\":\"bb0d0d24-3bfd-4b05-bed8-60616f1dc7eb\",\"run\":1,\"revision\":0,\"stage\":0,\"status\":\"running\",\"config\":{\"input\":\"mouse\",\"assistance\":\"high\",\"dwellMs\":650,\"tolerance\":1,\"quality\":\"high\"},\"selected\":null,\"placed\":[\"first-shapes:square\"],\"events\":[{\"id\":\"bb0d0d24-3bfd-4b05-bed8-60616f1dc7eb:1:first-shapes:first-shapes:square\",\"pieceId\":\"first-shapes:square\",\"stageId\":\"first-shapes\",\"run\":1}],\"completed\":[],\"skipped\":[],\"feedback\":\"أحسنت! قطعة في مكانها\"}",
+            "placementCount": 1,
+            "run": 1,
+            "skippedCount": 0,
+            "stage": 0,
+            "startedAt": 1791769614795,
+            "startingStage": 0,
+            "status": "running"
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769611628,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "build3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 0,
+          "sessionId": "bb0d0d24-3bfd-4b05-bed8-60616f1dc7eb"
+        },
+        "sessionId": "bb0d0d24-3bfd-4b05-bed8-60616f1dc7eb",
+        "updatedAt": 1791769617033
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE · BUILD QUEST 3D\nأشكالي الأولى\nالمستوى 1 · المرحلة 1 من ٣\nمكان البناء\nقطعك\nأحسنت! قطعة في مكانها\n1 / 2",
+      "after": "SHUMOS CARE · BUILD QUEST 3D\nعالم البناء\nرحلة هادئة، قطعة بعد قطعة\nمكتبة الأنشطة\nفتح شاشة الطفل\nالصعوبة\n١ · مطابقة الأشكال\n٢ · بناء الأشياء\n٣ · الإنشاء الإبداعي\nالمرحلة\nأشكالي الأولى\nثلاثة أشكال\nأربعة أشكال\nطريقة التحكم\nيدوي · اللمس والفأرة ولوحة المفاتيح\nحساس اليد اليمنى\nوحدة تحكم · تجريبية\nمساعدة الالتقاط\nعالية\nمتوسطة\nمنخفضة\nمدة الثبات (مللي ثانية)\nحجم منطقة الالتقاط\nجودة العرض\nعالية\nخفيفة للأجهزة الأبطأ\n\nالفأرة: انقر القطعة ثم حرّكها إلى الهدف.\nالأسهم أو WASD للحركة، ومسافة للاختيار.\nالحساس: ثبّت المؤشر على القطعة ثم حرّكه إلى الهدف.\n\nمتصل · التغييرات مؤكدة\n\nالتحكم اليدوي · متاح مع جميع طرق الإدخال\n\nاختر قطعة، ثم حرّكها باللمس أو بالأسهم، أو المس مكانها لوضعها. لا تحتاج إلى حساس.\n\nالقطع المتاحة\nمربع ✓\nدائرة\nأماكن البناء\nوضع مربع ✓\nوضع دائرة\n↑\n←\n→\n↓\nأشكالي الأولى\nالقطع: 1 / 2\nالمباني المكتملة: 0\nبدء الجلسة\nإيقاف مؤقت\nمتابعة\nإعادة المرحلة\nالمرحلة التالية\nتخطي المرحلة\nإنهاء الجلسة\n\nأحسنت! قطعة في مكانها\n\nيمكن فتح شاشة الطفل على جهاز آخر عبر الرابط أعلاه. تُحفظ النتيجة للمريض المحدد عند إنهاء الجلسة.اختبار الحساس الفعلي ووحدات التحكم والعرض على جهاز الإسقاط ما زال مطلوبًا.\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "runner-quest-3d",
+      "input": "FOOT",
+      "launchCarried": "FOOT",
+      "launchPanel": "مغامرة العدّاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالقدم اليمنى · غير متاح\nالقدم اليسرى · غير متاح\nالقدمان · غير متاح\n\nالمحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.\n\nسطح العرض المنفّذ\nجداريأرضي\n\nاختر السطح صراحةً هنا قبل بدء جلسة جديدة؛ القسم لا يختار الكاميرا نيابةً عنك.\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "→\nالعودة للأنشطة\nمغامرة العدّاء\nمتصل\nمغامرة العدّاء — Runner Quest 3D\n\nتحكّم من هذا الجهاز؛ تظهر اللعبة للطفل على شاشة العرض في الجهاز الآخر. حسّاسات القدم الفعلية لم تُختبر بعد.\n\nشاشة العرض متصلة\nالإدخال جاهز\nجاهز للبدء\nاسم الطفل (يظهر في الجلسة)\nسطح العرض جداري\nجداري\nالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.\nأرضي\nرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.\nاللعبة الآن\nالمرحلة 1 من 9 — الخطوات الأولى\nسهل — تعلّم الاتجاهات · تحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n0\nنجوم\n0%\nالتقدّم\n0\nوقفات\n0/8\nعوائق\nابدأ\nإنهاء الجلسة\nتحكّم المعالج باللمس متاح دائمًا\n◀\nيسار\n▲\nتخطَّ الحاجز\n▶\nيمين\nتعمل هذه الأزرار مع أي مصدر إدخال، وتمرّ عبر نفس قواعد اللعبة تمامًا؛ لا تحتاج إلى لوحة مفاتيح أو حسّاس. تُمنع الضغطات المتكررة السريعة تلقائيًا.\nالمراحل\nمرحلة واحدة\nمن المرحلة المختارة حتى النهاية\nسهل\n1. الخطوات الأولى\n2. اختر المسار\n3. تجنّب بلطف\nمتوسط\n1. أول حاجز\n2. الاتجاه والخطوة\n3. درب العوائق\nمتقدم\n1. مسارات متغيّرة\n2. عوائق متنوعة\n3. المغامرة الأخيرة\nلا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط عندما تضغط «المرحلة التالية».\nإعدادات المعالج\nمصدر الإدخال\nتحكم المعالج باللمس\nالقدم اليمنى — تجريبي\nالقدم اليسرى — تجريبي\nالقدمان معًا — تجريبي\nلا يحتاج إلى أي حسّاس. يبقى التحكم اليدوي متاحًا في كل الأوضاع.\nالسرعة الأمامية: 2.4 م/ث\nبطيء جدًا\nبطيء\nعادي\nأسرع\nالمسافة بين العوائق: ×1.0\nحساسية الحركة (للحسّاسات)\nمنخفضة\nعادية\nعالية\nعالية = تكفي حركة أصغر لتُحتسب.\nتسامح اكتشاف الحركة\nضيّق\nعادي\nواسع\nالواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.\n يتطلّب رفع القدم لتخطّي الحواجز\nعند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.\n التوقّف قبل العائق بمسافة كبيرة\nيتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.\n تقليل الحركة\nيوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.\nإعادة ضبط وضع الراحة\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "جداريالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.",
+          "disabled": false
+        },
+        {
+          "name": "أرضيرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.",
+          "disabled": false
+        },
+        {
+          "name": "ابدأ",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "◀يسار",
+          "disabled": true
+        },
+        {
+          "name": "▲تخطَّ الحاجز",
+          "disabled": true
+        },
+        {
+          "name": "▶يمين",
+          "disabled": true
+        },
+        {
+          "name": "مرحلة واحدة",
+          "disabled": false
+        },
+        {
+          "name": "من المرحلة المختارة حتى النهاية",
+          "disabled": false
+        },
+        {
+          "name": "1. الخطوات الأولى",
+          "disabled": false
+        },
+        {
+          "name": "2. اختر المسار",
+          "disabled": false
+        },
+        {
+          "name": "3. تجنّب بلطف",
+          "disabled": false
+        },
+        {
+          "name": "1. أول حاجز",
+          "disabled": false
+        },
+        {
+          "name": "2. الاتجاه والخطوة",
+          "disabled": false
+        },
+        {
+          "name": "3. درب العوائق",
+          "disabled": false
+        },
+        {
+          "name": "1. مسارات متغيّرة",
+          "disabled": false
+        },
+        {
+          "name": "2. عوائق متنوعة",
+          "disabled": false
+        },
+        {
+          "name": "3. المغامرة الأخيرة",
+          "disabled": false
+        },
+        {
+          "name": "بطيء جدًا",
+          "disabled": false
+        },
+        {
+          "name": "بطيء",
+          "disabled": false
+        },
+        {
+          "name": "عادي",
+          "disabled": false
+        },
+        {
+          "name": "أسرع",
+          "disabled": false
+        },
+        {
+          "name": "منخفضة",
+          "disabled": false
+        },
+        {
+          "name": "عادية",
+          "disabled": false
+        },
+        {
+          "name": "عالية",
+          "disabled": false
+        },
+        {
+          "name": "ضيّق",
+          "disabled": false
+        },
+        {
+          "name": "عادي",
+          "disabled": false
+        },
+        {
+          "name": "واسع",
+          "disabled": false
+        },
+        {
+          "name": "إعادة ضبط وضع الراحة",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualError": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '▶يمين', exact: true })\u001b[22m\n",
+      "live": {
+        "gameId": "runner-quest-3d",
+        "revision": 16,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769619427,
+          "currentDifficulty": "easy",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "rq3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "rq3": {
+            "clock": {
+              "distance": 30.829343125971153,
+              "running": true,
+              "seq": 102,
+              "speed": 2.4
+            },
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "ownerStartedAt": 1791769619427,
+            "revision": 3,
+            "runId": 0,
+            "sessionEpoch": 1791769619427,
+            "state": {
+              "armed": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "celebrateSeq": 0,
+              "checkpointsPassed": 0,
+              "distance": 18.030383125956753,
+              "footLiftRequired": true,
+              "hint": "move-left",
+              "holding": false,
+              "holds": 0,
+              "inputSource": "MANUAL",
+              "lane": 0,
+              "laneSeq": 0,
+              "lifecycle": "playing",
+              "pauseBeforeObstacle": false,
+              "plannedFrom": 0,
+              "plannedTo": 8,
+              "reducedMotion": false,
+              "resolved": [
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ],
+              "running": true,
+              "seed": 3016310664,
+              "spacingUsed": 1,
+              "speed": 2.4,
+              "stageIndex": 0,
+              "stars": 0,
+              "stepSeq": 0,
+              "targetSpeed": 2.4
+            }
+          },
+          "seed": 3016310664,
+          "sessionId": "518ee09c-fe35-441a-9a1e-375f54a38be4"
+        },
+        "sessionId": "518ee09c-fe35-441a-9a1e-375f54a38be4",
+        "updatedAt": 1791769635991
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "المرحلة 1 من 9 — الخطوات الأولىسهل\nتحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n★\n0\nتحرّك إلى اليسار",
+      "after": "→\nالعودة للأنشطة\nمغامرة العدّاء\nمتصل\nمغامرة العدّاء — Runner Quest 3D\n\nتحكّم من هذا الجهاز؛ تظهر اللعبة للطفل على شاشة العرض في الجهاز الآخر. حسّاسات القدم الفعلية لم تُختبر بعد.\n\nشاشة العرض متصلة\nالإدخال جاهز\nتشغيل\nاسم الطفل (يظهر في الجلسة)\nسطح العرض جداري\nجداري\nالعدّاء يجري على الجدار بين ثلاثة مسارات ويتخطّى الحواجز بتوجيه المعالج.\nأرضي\nرحلة على الأرض من الأعلى: مناطق كبيرة مضيئة يؤكد المعالج حركة الطفل إليها. بلا قفز ولا جري ولا وقت محدد.\nيُحدَّد سطح العرض قبل بدء الجلسة فقط. لتغييره أنهِ الجلسة وابدأ جلسة جديدة.\nاللعبة الآن\nالمرحلة 1 من 9 — الخطوات الأولى\nسهل — تعلّم الاتجاهات · تحرّك يمينًا ويسارًا لتتجاوز الصخور الكبيرة.\n0\nنجوم\n14%\nالتقدّم\n0\nوقفات\n0/8\nعوائق\nالتلميح المعروض للطفل: تحرّك إلى اليسار\nإيقاف مؤقت\nتخطّي المرحلة\nإعادة المرحلة\nإنهاء الجلسة\nتحكّم المعالج باللمس متاح دائمًا\n◀\nيسار\n▲\nتخطَّ الحاجز\n▶\nيمين\nتعمل هذه الأزرار مع أي مصدر إدخال، وتمرّ عبر نفس قواعد اللعبة تمامًا؛ لا تحتاج إلى لوحة مفاتيح أو حسّاس. تُمنع الضغطات المتكررة السريعة تلقائيًا.\nالمراحل\nمرحلة واحدة\nمن المرحلة المختارة حتى النهاية\nسهل\n1. الخطوات الأولى\n2. اختر المسار\n3. تجنّب بلطف\nمتوسط\n1. أول حاجز\n2. الاتجاه والخطوة\n3. درب العوائق\nمتقدم\n1. مسارات متغيّرة\n2. عوائق متنوعة\n3. المغامرة الأخيرة\nلا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط عندما تضغط «المرحلة التالية».\nإعدادات المعالج\nمصدر الإدخال\nتحكم المعالج باللمس\nالقدم اليمنى — تجريبي\nالقدم اليسرى — تجريبي\nالقدمان معًا — تجريبي\nلا يحتاج إلى أي حسّاس. يبقى التحكم اليدوي متاحًا في كل الأوضاع.\nالسرعة الأمامية: 2.4 م/ث\nبطيء جدًا\nبطيء\nعادي\nأسرع\nالمسافة بين العوائق: ×1.0 (تُطبَّق في المرحلة التالية أو عند إعادتها)\nحساسية الحركة (للحسّاسات)\nمنخفضة\nعادية\nعالية\nعالية = تكفي حركة أصغر لتُحتسب.\nتسامح اكتشاف الحركة\nضيّق\nعادي\nواسع\nالواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.\n يتطلّب رفع القدم لتخطّي الحواجز\nعند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.\n التوقّف قبل العائق بمسافة كبيرة\nيتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.\n تقليل الحركة\nيوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.\nإعادة ضبط وضع الراحة\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "mirror-quest-3d",
+      "input": "HAND",
+      "launchCarried": "HAND",
+      "launchPanel": "المرآة السحرية\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى · غير متاح\nاليد اليسرى · غير متاح\nاليدان · غير متاح\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "SHUMOS CARE · MOTION STUDIO\nالمرآة السحرية\nحركة صغيرة، إنجاز جميل · Mirror Quest 3D\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالمستوى 1 · المرحلة 1\nSHUMOS CARE\nMIRROR QUEST\nارفع ذراعك اليمنى قليلًا\n◇ اتبع صديقك بهدوء\nأنت\nYOUR MIRROR\nصديقك\nFOLLOW ME\n🦁\nالأسد\n🐰\nالأرنب\n🐻\nالدب\n🦊\nالثعلب\nتحكّم بالحركة\n\nحرّك الشخصية لتطابق ظلّ صديقها، ثم اثبت بهدوء.\n\nاختيار عشوائي\nالذراع اليمنى\nراحة\nراحة\n↗ قليلًا\n↑ أعلى\n↑ كاملة\nابدأ الرحلة\nإعادة البدء\nإنهاء الجلسة\n0 حركة مقبولة · 0 / 9 مراحل\nإعدادات الرحلة\nالمستوى والمرحلة\nالمستوى 1 · الذراع اليمنى\nالمستوى 1 · الذراع اليسرى\nالمستوى 1 · الذراعان معًا\nالمستوى 2 · القدم اليمنى\nالمستوى 2 · القدم اليسرى\nالمستوى 2 · القدمان بالتبادل\nالمستوى 3 · ذراع وقدم\nالمستوى 3 · حركات بالتبادل\nالمستوى 3 · تحدّي المرآة\nمدة الثبات\n0.5 ثانية\n1.2 ثانية\n2 ثانية\n3 ثانية\nمرونة المطابقة\nدقيقة\nمتوسطة\nواسعة\nحجم الحركة\nصغيرة\nمتوسطة\nكاملة\nعرض الشخصية\nجالس\nواقف\nمصدر الحركة\nيدوي · بدون حساسات\nحساسات محاكاة\nحساسات فعلية · بانتظار التحقق\nجودة العرض\nعالية\nخفيفة\n تقليل الحركة\n\nوضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية تمثّل الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها المعالج، دون تصوير أو تتبّع بالكاميرا.\n\n● التحكم متصل\n● شاشة الطفل متصلة\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "🦁الأسد",
+          "disabled": false
+        },
+        {
+          "name": "🐰الأرنب",
+          "disabled": false
+        },
+        {
+          "name": "🐻الدب",
+          "disabled": false
+        },
+        {
+          "name": "🦊الثعلب",
+          "disabled": false
+        },
+        {
+          "name": "اختيار عشوائي",
+          "disabled": false
+        },
+        {
+          "name": "راحة",
+          "disabled": true
+        },
+        {
+          "name": "راحة",
+          "disabled": true
+        },
+        {
+          "name": "↗ قليلًا",
+          "disabled": true
+        },
+        {
+          "name": "↑ أعلى",
+          "disabled": true
+        },
+        {
+          "name": "↑ كاملة",
+          "disabled": true
+        },
+        {
+          "name": "ابدأ الرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة البدء",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "raise right arm manually",
+        "triggered": true,
+        "before": "0",
+        "after": "0.35",
+        "changed": true
+      },
+      "live": {
+        "gameId": "mirror-quest-3d",
+        "revision": 6,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769641910,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "mirror3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "mirror3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769644105,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"3d185468-4e6d-437a-aac1-6cf9cdd89b60\",\"demonstration\":0,\"run\":0,\"stage\":0,\"pose\":0,\"status\":\"running\",\"config\":{\"character\":\"lion\",\"tolerance\":0.09,\"holdMs\":1200,\"movementScale\":1,\"presentation\":\"standing\",\"quality\":\"high\",\"reducedMotion\":false,\"input\":\"manual\"},\"player\":{\"RIGHT_HAND\":0.35,\"LEFT_HAND\":0,\"RIGHT_FOOT\":0,\"LEFT_FOOT\":0},\"feedback\":\"matched\",\"hold\":299,\"lastTick\":0,\"lastInput\":0,\"sequence\":29,\"accepted\":[],\"completed\":[],\"startedAt\":1791769641910,\"endedAt\":0}"
+          },
+          "seed": 0,
+          "sessionId": "3d185468-4e6d-437a-aac1-6cf9cdd89b60"
+        },
+        "sessionId": "3d185468-4e6d-437a-aac1-6cf9cdd89b60",
+        "updatedAt": 1791769644109
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "المستوى 1 · المرحلة 1\nSHUMOS CARE\nMIRROR QUEST\nارفع ذراعك اليمنى قليلًا\n✓ أحسنت، اثبت قليلًا\nأنت\nYOUR MIRROR\nصديقك\nFOLLOW ME",
+      "after": "SHUMOS CARE · MOTION STUDIO\nالمرآة السحرية\nحركة صغيرة، إنجاز جميل · Mirror Quest 3D\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالمستوى 1 · المرحلة 1\nSHUMOS CARE\nMIRROR QUEST\nارفع ذراعك اليمنى قليلًا\n✓ أحسنت، اثبت قليلًا\nأنت\nYOUR MIRROR\nصديقك\nFOLLOW ME\n🦁\nالأسد\n🐰\nالأرنب\n🐻\nالدب\n🦊\nالثعلب\nتحكّم بالحركة\n\nحرّك الشخصية لتطابق ظلّ صديقها، ثم اثبت بهدوء.\n\nاختيار عشوائي\nالذراع اليمنى\nراحة\nراحة\n↗ قليلًا\n↑ أعلى\n↑ كاملة\nإيقاف مؤقت\nأعد الحركة\nقبول بمساعدة المعالج\nتجاوز الحركة\nإعادة البدء\nإنهاء الجلسة\n0 حركة مقبولة · 0 / 9 مراحل\nإعدادات الرحلة\nالمستوى والمرحلة\nالمستوى 1 · الذراع اليمنى\nالمستوى 1 · الذراع اليسرى\nالمستوى 1 · الذراعان معًا\nالمستوى 2 · القدم اليمنى\nالمستوى 2 · القدم اليسرى\nالمستوى 2 · القدمان بالتبادل\nالمستوى 3 · ذراع وقدم\nالمستوى 3 · حركات بالتبادل\nالمستوى 3 · تحدّي المرآة\nمدة الثبات\n0.5 ثانية\n1.2 ثانية\n2 ثانية\n3 ثانية\nمرونة المطابقة\nدقيقة\nمتوسطة\nواسعة\nحجم الحركة\nصغيرة\nمتوسطة\nكاملة\nعرض الشخصية\nجالس\nواقف\nمصدر الحركة\nيدوي · بدون حساسات\nحساسات محاكاة\nحساسات فعلية · بانتظار التحقق\nجودة العرض\nعالية\nخفيفة\n تقليل الحركة\n\nوضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية تمثّل الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها المعالج، دون تصوير أو تتبّع بالكاميرا.\n\n● التحكم متصل\n● شاشة الطفل متصلة\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "assistance": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "input": "FOOT",
+      "launchCarried": "FOOT",
+      "launchPanel": "الأرض الآمنة\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالقدم اليمنى · غير متاح\nالقدم اليسرى · غير متاح\nالقدمان · غير متاح\n\nالمحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.\n\nسطح العرض المنفّذ\nأرضي\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "⛔ إيقاف الأمان\nSHUMOS CARE · FLOOR PROJECTION\nالأرض الآمنة\nSafe Hex Arena 3D · المعالج يؤكد كل انتقال، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1\nالجولة 1 من 3\n9 بلاطة\nموقع الطفل غير مؤكد\n1\n2\n3\n4\n5\n6\n7\n8\n9\n\nاضغط بلاطة لتحديدها، ثم استخدم الأزرار. لا يتغيّر شيء قبل الضغط على زر. الخطوط الخضراء المتقطعة: بلاطات آمنة مجاورة لبلاطة محذَّرة.\n\nابدأ المرحلة\nإعادة البدء\nإنهاء الجلسة\n0 جولة · 0 مؤكدة · 0 بمساعدة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · 9 بلاطة\nالمستوى 1 · المرحلة 2 · 9 بلاطة\nالمستوى 1 · المرحلة 3 · 9 بلاطة\nالمستوى 2 · المرحلة 1 · 12 بلاطة\nالمستوى 2 · المرحلة 2 · 12 بلاطة\nالمستوى 2 · المرحلة 3 · 12 بلاطة\nالمستوى 3 · المرحلة 1 · 16 بلاطة\nالمستوى 3 · المرحلة 2 · 16 بلاطة\nالمستوى 3 · المرحلة 3 · 16 بلاطة\nمدة التحذير\n3 ثانية\n5 ثانية (افتراضي)\n8 ثانية\n10 ثانية\n15 ثانية\n20 ثانية\n30 ثانية\nمدة التحضير\n2 ثانية\n4 ثانية\n6 ثانية\n10 ثانية\n15 ثانية\n توقيت تلقائي (إلغاؤه يعني التقدّم يدويًا)\n اجعل بلاطة الطفل المؤكدة ضمن التحذير\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nحجم البلاطات والمعايرة\nحجم مناطق الهدف\nقياسي · ٩ / ١٢ / ١٦ بلاطة\nكبير جدًا · ٦ / ٩ / ١٢ بلاطة (تكييف لسهولة الوصول)\nمضغوط · ١٢ / ١٦ / ٢٠ بلاطة\n\nهذه المرحلة: 9 بلاطة، بترتيب 5 + 4.\n\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\n\nتُرتَّب البلاطات لتناسب هذه النسبة (1.78:1) بأكبر حجم ممكن.\n\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nتغطية الساحة للمساحة القابلة للاستخدام: 72٪ (عرضًا 94٪ · ارتفاعًا 68٪ من الشاشة)\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للبلاطات. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي)\nمعاينة سينمائية فقط\nهامش آمن: 3٪\nحجم الشبكة: 100٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n إشارات صوتية هادئة\nجودة العرض\nعالية\nخفيفة\n\nالصورة تُعرض على الأرض فقط. لا يتتبّع النظام موقع قدم الطفل على البلاطات؛ المعالج هو من يؤكد موقعه. يحدّد المعالج مدى الحركة المناسبة لكل طفل.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "⛔ إيقاف الأمان",
+          "disabled": false
+        },
+        {
+          "name": "1"
+        },
+        {
+          "name": "2"
+        },
+        {
+          "name": "3"
+        },
+        {
+          "name": "4"
+        },
+        {
+          "name": "5"
+        },
+        {
+          "name": "6"
+        },
+        {
+          "name": "7"
+        },
+        {
+          "name": "8"
+        },
+        {
+          "name": "9"
+        },
+        {
+          "name": "ابدأ المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة البدء",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "تطبيق الأبعاد",
+          "disabled": true
+        },
+        {
+          "name": "مسح",
+          "disabled": true
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualError": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-tile][data-state=\"safe\"]').first()\u001b[22m\n",
+      "live": {
+        "gameId": "safe-hex-arena-3d",
+        "revision": 6,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769649125,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "hex3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "hex3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769659929,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"58690c13-3485-4a55-b72d-9a57c6c9a2ff\",\"seed\":4123391887,\"run\":0,\"stage\":0,\"round\":0,\"status\":\"running\",\"phase\":\"inactive\",\"warn\":[6],\"elapsed\":4000,\"lastTick\":0,\"startedAt\":1791769649125,\"endedAt\":0,\"safety\":false,\"childTile\":null,\"config\":{\"warnMs\":5000,\"prepMs\":4000,\"auto\":true,\"targetChild\":true,\"inputMode\":\"MANUAL\",\"inputSource\":\"manual\",\"view\":\"floor\",\"margin\":3,\"scale\":100,\"grid\":false,\"highContrast\":false,\"reducedMotion\":false,\"intensity\":100,\"sound\":false,\"quality\":\"high\",\"layoutPreset\":\"STANDARD\",\"aspect\":\"16:9\",\"floorWidthCm\":0,\"floorHeightCm\":0,\"calibrationConfirmed\":false},\"events\":[],\"completed\":[],\"skipped\":[],\"sensor\":{\"link\":{\"RIGHT_FOOT\":\"none\",\"LEFT_FOOT\":\"none\"},\"lastSeq\":{\"RIGHT_FOOT\":0,\"LEFT_FOOT\":0},\"movements\":0,\"pending\":false,\"lastRole\":null}}"
+          },
+          "seed": 1975908240,
+          "sessionId": "58690c13-3485-4a55-b72d-9a57c6c9a2ff"
+        },
+        "sessionId": "58690c13-3485-4a55-b72d-9a57c6c9a2ff",
+        "updatedAt": 1791769659933
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "المستوى 1 · المرحلة 1\nSHUMOS CARE",
+      "after": "⛔ إيقاف الأمان\nSHUMOS CARE · FLOOR PROJECTION\nالأرض الآمنة\nSafe Hex Arena 3D · المعالج يؤكد كل انتقال، والحساسات اختيارية\nمكتبة الأنشطة\nفتح شاشة الأرض ↗\nالمستوى 1 · المرحلة 1\nالجولة 1 من 3\n9 بلاطة\nالبلاطات المحذَّرة غير فعّالة\nموقع الطفل غير مؤكد\n1\n2\n3\n4\n5\n6\n7\n—\n8\n9\n\nاضغط بلاطة لتحديدها، ثم استخدم الأزرار. لا يتغيّر شيء قبل الضغط على زر. الخطوط الخضراء المتقطعة: بلاطات آمنة مجاورة لبلاطة محذَّرة.\n\nإيقاف مؤقت\nهنا يقف الطفل\nأكّد: وصل لبلاطة آمنة\nانتقال بمساعدة\nأعد الجولة\nتجاوز الجولة\nتجاوز المرحلة\nإعادة البدء\nإنهاء الجلسة\n0 جولة · 0 مؤكدة · 0 بمساعدة · 0/9 مراحل\nإعدادات الجلسة\nالمستوى والمرحلة\nالمستوى 1 · المرحلة 1 · 9 بلاطة\nالمستوى 1 · المرحلة 2 · 9 بلاطة\nالمستوى 1 · المرحلة 3 · 9 بلاطة\nالمستوى 2 · المرحلة 1 · 12 بلاطة\nالمستوى 2 · المرحلة 2 · 12 بلاطة\nالمستوى 2 · المرحلة 3 · 12 بلاطة\nالمستوى 3 · المرحلة 1 · 16 بلاطة\nالمستوى 3 · المرحلة 2 · 16 بلاطة\nالمستوى 3 · المرحلة 3 · 16 بلاطة\nمدة التحذير\n3 ثانية\n5 ثانية (افتراضي)\n8 ثانية\n10 ثانية\n15 ثانية\n20 ثانية\n30 ثانية\nمدة التحضير\n2 ثانية\n4 ثانية\n6 ثانية\n10 ثانية\n15 ثانية\n توقيت تلقائي (إلغاؤه يعني التقدّم يدويًا)\n اجعل بلاطة الطفل المؤكدة ضمن التحذير\nمصدر الحركة\nوضع الإدخال\nيدوي · بدون حساسات\nمحاكاة · القدم اليمنى\nمحاكاة · القدم اليسرى\nمحاكاة · القدمان\nحساسات فعلية · بانتظار التحقق\nحجم البلاطات والمعايرة\nحجم مناطق الهدف\nقياسي · ٩ / ١٢ / ١٦ بلاطة\nكبير جدًا · ٦ / ٩ / ١٢ بلاطة (تكييف لسهولة الوصول)\nمضغوط · ١٢ / ١٦ / ٢٠ بلاطة\n\nيمكن تغيير الحجم والأبعاد قبل بدء المرحلة أو بعد إكمالها فقط، حتى لا تتغير هوية البلاطات أثناء الجولة.\n\nهذه المرحلة: 9 بلاطة، بترتيب 5 + 4.\n\nنسبة صورة جهاز العرض\n16:9\n16:10\n4:3\n21:9\n\nتُرتَّب البلاطات لتناسب هذه النسبة (1.78:1) بأكبر حجم ممكن.\n\nعرض الأرضية المُسقَطة (سم)\nارتفاع الأرضية المُسقَطة (سم)\nتطبيق الأبعاد\nمسح\nقِستُ الإسقاط وعايرته بنفسي\nتغطية الساحة للمساحة القابلة للاستخدام: 72٪ (عرضًا 94٪ · ارتفاعًا 68٪ من الشاشة)\n\nأدخل عرض الأرضية وارتفاعها بالسنتيمتر لعرض الحجم الفعلي التقديري للبلاطات. حتى ذلك الحين لا تُعرض أي أبعاد فعلية.\n\nعرض الأرضية\nزاوية العرض\nإسقاط الأرضية (علوي)\nمعاينة سينمائية فقط\nهامش آمن: 3٪\nحجم الشبكة: 100٪\nشدة العرض: 100٪\n شبكة المعايرة\n تباين عالٍ\n تقليل الحركة\n إشارات صوتية هادئة\nجودة العرض\nعالية\nخفيفة\n\nالصورة تُعرض على الأرض فقط. لا يتتبّع النظام موقع قدم الطفل على البلاطات؛ المعالج هو من يؤكد موقعه. يحدّد المعالج مدى الحركة المناسبة لكل طفل.\n\n● التحكم متصل\n● شاشة الأرض متصلة\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "fire-rescue-3d",
+      "input": "DRIVING",
+      "launchCarried": "DRIVING",
+      "launchPanel": "مهمة الإطفاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالمقود\nالدواسة فقط\nالمقود والدواسات\n\nقراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.\n\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "SHUMOS CARE / RESCUE MISSIONS\nمهمة الإطفاء\nFire Rescue 3D\n\nرحلة هادئة. مشاركة صغيرة. إنجاز جميل.\n\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالجلسة لـ تجربة المكتبة · جلسة زائر\n● التحكم متصل\n● شاشة الطفل متصلة\nعرض جداري · مشاركة جلوسًا\nالمقود والدواسات بانتظار التحقق\nالمستوى 1 / المرحلة 1\nالمهمة الأولى\nقيادة إلى موقع الإنقاذ\nمعاينة ثلاثية الأبعاد على جهاز التحكم\nFIRE RESCUE\nSHUMOS CARE\n0 / 90 متر\nابدأ عندما يكون الطفل جاهزًا\n1\n2\n3\n4\n5\n6\n7\n8\n9\nابدأ المهمة ←\n■ توقف آمن\nتحكم مباشر · المعالج له الأولوية\nلنقد السيارة\nتحكّم يدوي\n← يسار\n✣\nيمين →\nالمقود\n▲ تسارع\n■ فرامل\nإعادة السيارة إلى الطريق\nمساعدة المعالج\nأعد الهدف\nتجاوز الهدف\n\nاضغط باستمرار للتحريك أو رش الماء. التحرير يوقف الإدخال؛ زر التوقف الآمن يوقف حتى القيادة التلقائية.\n\nتقدم الجلسة\n0/9\nمراحل مكتملة\n0\nأهداف قيادة\n0\nمناطق أُطفئت\n0\nأهداف بمساعدة\n\n0 أهداف دون مساعدة آلية أو يدوية · 0 أهداف متخطاة · 0 مراحل متخطاة. الأرقام تصف اللعب فقط.\n\nإعادة المرحلة\nتجاوز المرحلة\nإنهاء الجلسة\nإعدادات المشاركة\nعلى قدر حركة الطفل\n\nالمعالج يختار المساعدة المناسبة. كل إدخال يدوي من المعالج يُسجّل كمساعدة.\n\nطريقة القيادة\nقيادة يدوية دون توجيه آلي\nتوجيه بمساعدة\nتسارع آلي + مقود الطفل\nتسارع المعالج\nمشاركة بالمقود فقط\nمشاركة بالدواسة فقط\nمصدر الإدخال\nيدوي · دون أجهزة\nGamepad محلي · يحتاج معايرة\nمقود ودواسات · تحقق فعلي معلق\nحساس اليد · للماء فقط\nالعودة للتحكم اليدوي\nقيادة تلقائية بمساعدة\nتدفق ماء تلقائي\nتقليل حركة الكاميرا\nتباين عالٍ\nإشارات صوتية هادئة\nالسرعة القصوى (م/ث)\n4\nمساعدة التوجيه\n0.8\nمساعدة تصويب الماء\n0.5\nمدى حركة المقود\n1\nحساسية المقود\n1\nالمنطقة المحايدة\n0.1\nعتبة الدواسة\n0.1\nحساسية التصويب\n1\nمستوى الصوت\n0.35\nجودة العرض\nعالية\nخفيفة\nمعايرة المقود والدواسات / Gamepad\nلا حد زمني · لا عقوبة\n\nالتقدم محفوظ في الجلسة المشتركة\n\nلا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "1",
+          "disabled": false
+        },
+        {
+          "name": "2",
+          "disabled": false
+        },
+        {
+          "name": "3",
+          "disabled": false
+        },
+        {
+          "name": "4",
+          "disabled": false
+        },
+        {
+          "name": "5",
+          "disabled": false
+        },
+        {
+          "name": "6",
+          "disabled": false
+        },
+        {
+          "name": "7",
+          "disabled": false
+        },
+        {
+          "name": "8",
+          "disabled": false
+        },
+        {
+          "name": "9",
+          "disabled": false
+        },
+        {
+          "name": "ابدأ المهمة ←",
+          "disabled": false
+        },
+        {
+          "name": "■ توقف آمن",
+          "disabled": false
+        },
+        {
+          "name": "← يسار",
+          "disabled": true
+        },
+        {
+          "name": "يمين →",
+          "disabled": true
+        },
+        {
+          "name": "▲ تسارع",
+          "disabled": true
+        },
+        {
+          "name": "■ فرامل",
+          "disabled": true
+        },
+        {
+          "name": "إعادة السيارة إلى الطريق",
+          "disabled": false
+        },
+        {
+          "name": "مساعدة المعالج",
+          "disabled": false
+        },
+        {
+          "name": "أعد الهدف",
+          "disabled": true
+        },
+        {
+          "name": "تجاوز الهدف",
+          "disabled": true
+        },
+        {
+          "name": "إعادة المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "العودة للتحكم اليدوي",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "hold manual throttle",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "fire-rescue-3d",
+        "revision": 7,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769668390,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "fr3",
+          "engineVersion": 1,
+          "fr3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769670712,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"82bd79d7-39b1-4037-b0bb-1960ab55aef7\",\"run\":0,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"phase\":\"driving\",\"stop\":0,\"distance\":0.25540545000000003,\"lateral\":0,\"heading\":0,\"speed\":0.9268500000000002,\"steering\":0,\"aim\":{\"x\":0,\"y\":0},\"fires\":[1],\"input\":{\"steering\":0,\"throttle\":1,\"brake\":0,\"aimX\":0,\"aimY\":0,\"water\":false},\"config\":{\"mode\":\"assisted\",\"source\":\"manual\",\"autoDrive\":false,\"autoWater\":false,\"steeringAssist\":0.8,\"aimAssist\":0.5,\"sensitivity\":1,\"steeringRange\":1,\"deadZone\":0.1,\"pedalThreshold\":0.1,\"aimSensitivity\":1,\"speedCap\":4,\"therapistThrottle\":0,\"reducedMotion\":false,\"highContrast\":false,\"quality\":\"high\",\"sound\":false,\"volume\":0.35},\"events\":[],\"completed\":[],\"skipped\":[],\"assisted\":true,\"startedAt\":1791769668390,\"endedAt\":0,\"elapsed\":2321,\"lastTick\":0,\"safety\":false,\"inputAt\":1791769670639,\"inputLost\":false,\"repeats\":0}"
+          },
+          "gameState": "PLAYING",
+          "seed": 1,
+          "sessionId": "82bd79d7-39b1-4037-b0bb-1960ab55aef7"
+        },
+        "sessionId": "82bd79d7-39b1-4037-b0bb-1960ab55aef7",
+        "updatedAt": 1791769670714
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE\nمهمة الإطفاء\nالمستوى 1 · المرحلة 1\n↗\nالمهمة الأولى\nقد بهدوء\n3\nكم/س\nإلى منطقة الإطفاء\n0/9\nمراحل",
+      "after": "■ توقف آمن\nSHUMOS CARE / RESCUE MISSIONS\nمهمة الإطفاء\nFire Rescue 3D\n\nرحلة هادئة. مشاركة صغيرة. إنجاز جميل.\n\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالجلسة لـ تجربة المكتبة · جلسة زائر\n● التحكم متصل\n● شاشة الطفل متصلة\nعرض جداري · مشاركة جلوسًا\nالمقود والدواسات بانتظار التحقق\nالمستوى 1 / المرحلة 1\nالمهمة الأولى\nقيادة إلى موقع الإنقاذ\nمعاينة ثلاثية الأبعاد على جهاز التحكم\nFIRE RESCUE\nSHUMOS CARE\n1 / 90 متر\nالمهمة قيد اللعب\n1\n2\n3\n4\n5\n6\n7\n8\n9\nإيقاف مؤقت\n■ توقف آمن\nتحكم مباشر · المعالج له الأولوية\nلنقد السيارة\nتحكّم يدوي\n← يسار\n✣\nيمين →\nالمقود\n▲ تسارع\n■ فرامل\nإعادة السيارة إلى الطريق\nمساعدة المعالج\nأعد الهدف\nتجاوز الهدف\n\nاضغط باستمرار للتحريك أو رش الماء. التحرير يوقف الإدخال؛ زر التوقف الآمن يوقف حتى القيادة التلقائية.\n\nتقدم الجلسة\n0/9\nمراحل مكتملة\n0\nأهداف قيادة\n0\nمناطق أُطفئت\n0\nأهداف بمساعدة\n\n0 أهداف دون مساعدة آلية أو يدوية · 0 أهداف متخطاة · 0 مراحل متخطاة. الأرقام تصف اللعب فقط.\n\nإعادة المرحلة\nتجاوز المرحلة\nإنهاء الجلسة\nإعدادات المشاركة\nعلى قدر حركة الطفل\n\nالمعالج يختار المساعدة المناسبة. كل إدخال يدوي من المعالج يُسجّل كمساعدة.\n\nطريقة القيادة\nقيادة يدوية دون توجيه آلي\nتوجيه بمساعدة\nتسارع آلي + مقود الطفل\nتسارع المعالج\nمشاركة بالمقود فقط\nمشاركة بالدواسة فقط\nمصدر الإدخال\nيدوي · دون أجهزة\nGamepad محلي · يحتاج معايرة\nمقود ودواسات · تحقق فعلي معلق\nحساس اليد · للماء فقط\nالعودة للتحكم اليدوي\nقيادة تلقائية بمساعدة\nتدفق ماء تلقائي\nتقليل حركة الكاميرا\nتباين عالٍ\nإشارات صوتية هادئة\nالسرعة القصوى (م/ث)\n4\nمساعدة التوجيه\n0.8\nمساعدة تصويب الماء\n0.5\nمدى حركة المقود\n1\nحساسية المقود\n1\nالمنطقة المحايدة\n0.1\nعتبة الدواسة\n0.1\nحساسية التصويب\n1\nمستوى الصوت\n0.35\nجودة العرض\nعالية\nخفيفة\nمعايرة المقود والدواسات / Gamepad\nلا حد زمني · لا عقوبة\n\nالتقدم محفوظ في الجلسة المشتركة\n\nلا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "assistance": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "blooming-world-3d",
+      "input": "HAND",
+      "launchCarried": "HAND",
+      "launchPanel": "الحديقة التي تستيقظ\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nاليد اليمنى\nاليد اليسرى\nاليدان\nسطح العرض المنفّذ\nجداريأرضي\n\nاختر السطح صراحةً هنا قبل بدء جلسة جديدة؛ القسم لا يختار الكاميرا نيابةً عنك.\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "مكتبة الأنشطة / الحديقة التي تستيقظ\nحديقة صغيرة. لحظات كبيرة.\n\nBlooming World 3D · تجربة المكتبة\n\nفتح شاشة العرض ↗\n● التحكّم متصل\n● شاشة العرض متصلة\nعرض جداري\nSHUMOS CARE\nTHE AWAKENING GARDEN\nحديقة الجدار · 1 / 1\nزهرةً بعد زهرة\nالحديقة التي تستيقظ\n0%\nحديقتك تنتظرك\nيبدأ المعالج عندما تكون مستعدًا\n1.1\n1.2\n1.3\n2.1\n2.2\n2.3\n3.1\n3.2\n3.3\nخريطة الإزهار\n0% من هدف الجلسة\n\nاختر المنطقة ثم أكّد الحركة. يمكن اللعب جلوسًا وبمساعدة.\n\n1\n0/1\n2\n0/1\n3\n0/1\n4\n0/1\n✿ أكّد الإزهار · 1\nإزهار بمساعدة\nبدء الحديقة\nاستراحة\nتكرار المنطقة\nتجاوز المنطقة\nتجاوز المرحلة\nالمرحلة التالية\nإعادة الجلسة\nإنهاء والنتائج\nمساحة تناسب الطفل\n\nكل هدف قابل للتعديل. لا وقت محدد، ولا حركة إلزامية.\n\nالعرض والمشاركة\nجدار\nأرضية\nطريقة المشاركة\nتحكّم المعالج\nاليد اليمنى\nاليد اليسرى\nتناوب اليدين\nالقدم اليمنى\nالقدم اليسرى\nالقدمان\nهدف المناطق\n0 = هدف المرحلة (4)\nتكرارات كل منطقة\nحجم المنطقة\nنطاق الحركة\nحساسية المؤشر\nتنعيم المؤشر\nالمنطقة الميتة\nتسلسل المناطق\nمنطقة واحدة في كل مرة\nاختيار حر\nمعايرة العرض وإمكانية الوصول\nالمشاركة بالحساس\n\nالتحكّم اليدوي متاح دائمًا\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "1.1",
+          "disabled": false
+        },
+        {
+          "name": "1.2",
+          "disabled": false
+        },
+        {
+          "name": "1.3",
+          "disabled": false
+        },
+        {
+          "name": "2.1",
+          "disabled": false
+        },
+        {
+          "name": "2.2",
+          "disabled": false
+        },
+        {
+          "name": "2.3",
+          "disabled": false
+        },
+        {
+          "name": "3.1",
+          "disabled": false
+        },
+        {
+          "name": "3.2",
+          "disabled": false
+        },
+        {
+          "name": "3.3",
+          "disabled": false
+        },
+        {
+          "name": "10/1",
+          "disabled": false
+        },
+        {
+          "name": "20/1",
+          "disabled": false
+        },
+        {
+          "name": "30/1",
+          "disabled": false
+        },
+        {
+          "name": "40/1",
+          "disabled": false
+        },
+        {
+          "name": "✿ أكّد الإزهار · 1",
+          "disabled": true
+        },
+        {
+          "name": "إزهار بمساعدة",
+          "disabled": true
+        },
+        {
+          "name": "بدء الحديقة",
+          "disabled": false
+        },
+        {
+          "name": "استراحة",
+          "disabled": true
+        },
+        {
+          "name": "تكرار المنطقة",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز المنطقة",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "المرحلة التالية",
+          "disabled": true
+        },
+        {
+          "name": "إعادة الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء والنتائج",
+          "disabled": false
+        },
+        {
+          "name": "جدار",
+          "disabled": false
+        },
+        {
+          "name": "أرضية",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "bloom region manually",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "blooming-world-3d",
+        "revision": 6,
+        "session": {
+          "bw3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769679643,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"07f7a4e3-425c-4759-973c-97be952b0887\",\"run\":0,\"epoch\":2,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"config\":{\"projection\":\"WALL\",\"mode\":\"MANUAL\",\"goal\":0,\"repetitions\":1,\"targetSize\":1,\"movementRange\":1,\"sensitivity\":1,\"smoothing\":0.35,\"deadZone\":0.025,\"width\":4,\"height\":2.25,\"margin\":0.08,\"grid\":false,\"contrast\":false,\"reduced\":false,\"quality\":\"high\",\"audio\":true,\"volume\":0.15,\"sequence\":\"ordered\"},\"regions\":[{\"id\":0,\"hits\":1,\"assisted\":0,\"accepted\":[\"0:2:0:0:0I\"]},{\"id\":1,\"hits\":0,\"assisted\":0,\"accepted\":[]},{\"id\":2,\"hits\":0,\"assisted\":0,\"accepted\":[]},{\"id\":3,\"hits\":0,\"assisted\":0,\"accepted\":[]}],\"active\":1,\"cursor\":{\"x\":0.5,\"y\":0.5},\"results\":[],\"practiceRegion\":null,\"practiceEvents\":[],\"repeats\":0,\"startedAt\":1791769677808,\"endedAt\":0,\"elapsed\":1800,\"lastTick\":0}"
+          },
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769677808,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "bw3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "seed": 17,
+          "sessionId": "07f7a4e3-425c-4759-973c-97be952b0887"
+        },
+        "sessionId": "07f7a4e3-425c-4759-973c-97be952b0887",
+        "updatedAt": 1791769679647
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE\nTHE AWAKENING GARDEN\nحديقة الجدار · 1 / 1\nزهرةً بعد زهرة\nالحديقة التي تستيقظ\n25%\nتفعيل الأصوات الهادئة",
+      "after": "مكتبة الأنشطة / الحديقة التي تستيقظ\nحديقة صغيرة. لحظات كبيرة.\n\nBlooming World 3D · تجربة المكتبة\n\nفتح شاشة العرض ↗\n● التحكّم متصل\n● شاشة العرض متصلة\nعرض جداري\nSHUMOS CARE\nTHE AWAKENING GARDEN\nحديقة الجدار · 1 / 1\nزهرةً بعد زهرة\nالحديقة التي تستيقظ\n25%\n1.1\n1.2\n1.3\n2.1\n2.2\n2.3\n3.1\n3.2\n3.3\nخريطة الإزهار\n25% من هدف الجلسة\n\nاختر المنطقة ثم أكّد الحركة. يمكن اللعب جلوسًا وبمساعدة.\n\n✿\n1/1\n2\n0/1\n3\n0/1\n4\n0/1\n✿ أكّد الإزهار · 2\nإزهار بمساعدة\nبدء الحديقة\nاستراحة\nتكرار المنطقة\nتجاوز المنطقة\nتجاوز المرحلة\nالمرحلة التالية\nإعادة الجلسة\nإنهاء والنتائج\nمساحة تناسب الطفل\n\nكل هدف قابل للتعديل. لا وقت محدد، ولا حركة إلزامية.\n\nالعرض والمشاركة\nجدار\nأرضية\nطريقة المشاركة\nتحكّم المعالج\nاليد اليمنى\nاليد اليسرى\nتناوب اليدين\nالقدم اليمنى\nالقدم اليسرى\nالقدمان\nهدف المناطق\n0 = هدف المرحلة (4)\nتكرارات كل منطقة\nحجم المنطقة\nنطاق الحركة\nحساسية المؤشر\nتنعيم المؤشر\nالمنطقة الميتة\nتسلسل المناطق\nمنطقة واحدة في كل مرة\nاختيار حر\nمعايرة العرض وإمكانية الوصول\nالمشاركة بالحساس\n\nالتحكّم اليدوي متاح دائمًا\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "harvest-valley-3d",
+      "input": "DRIVING",
+      "launchCarried": "DRIVING",
+      "launchPanel": "موسم الحصاد\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالمقود\nالدواسة فقط\nالمقود والدواسات\n\nقراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.\n\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "مكتبة الأنشطة / موسم الحصاد\nحقول واسعة. خطوات هادئة.\n\nHARVEST VALLEY 3D · تجربة المكتبة\n\nفتح شاشة العرض ↗\n● التحكّم متصل\n● شاشة العرض متصلة\nعرض جداري · يمكن اللعب جلوسًا\nSHUMOS CARE\nHARVEST VALLEY\nموسم الحصاد · 1 / 1\nصفًّا بعد صف\nموسم الحصاد\n0%\nحقلك ينتظرك\nيبدأ المعالج عندما تكون مستعدًا\n1.1\n1.2\n1.3\n2.1\n2.2\n2.3\n3.1\n3.2\n3.3\nصف القمح الأول\n0 / 6 خلايا · 0%\n\nالأخضر حصاد مكتمل. اختر خلية للتوجيه أو لتأكيد مساعدة المعالج.\n\n← توجيه يسار\nتقدّم\nتوجيه يمين →\nتوجيه المعالج\nدواسة التقدّم\nفرامل\nقيادة آلية بمساعدة\nإيقاف الحصاد\nأكّد حصاد الخلية بمساعدة\nبدء الحصاد\nاستراحة\nتكرار الصف\nإعادة التموضع\nتجاوز الهدف\nتجاوز المرحلة\nالمرحلة التالية\nإعادة الجلسة\nإنهاء والنتائج\nإعداد تجربة الحصاد\n\nيحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.\n\nالمشاركة\nتحكّم المعالج\nتوجيه فقط\nدواسة فقط\nتوجيه ودواسة\nهدف التغطية (%)\nحجم الحقل\nعرض الحصاد الفعّال\nنطاق الحركة (الصغير متاح)\nالسرعة القصوى\nحساسية التوجيه\nعتبة التوجيه\nعتبة الدواسة\nمساعدة الصفوف\nمدة تثبيت الإدخال (مللي ثانية)\nمستوى الصوت\nتقدّم تلقائي\nتوجيه تلقائي\nحصاد تلقائي\nإرشاد الصفوف وأهداف كبيرة\nحركة وكاميرا منخفضة\nتباين مرتفع\nالأصوات الهادئة\nجودة العرض\nعالية\nمتوسطة\nاقتصادية\nالدركسون والدواسات — إعداد اختياري\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "1.1",
+          "disabled": false
+        },
+        {
+          "name": "1.2",
+          "disabled": false
+        },
+        {
+          "name": "1.3",
+          "disabled": false
+        },
+        {
+          "name": "2.1",
+          "disabled": false
+        },
+        {
+          "name": "2.2",
+          "disabled": false
+        },
+        {
+          "name": "2.3",
+          "disabled": false
+        },
+        {
+          "name": "3.1",
+          "disabled": false
+        },
+        {
+          "name": "3.2",
+          "disabled": false
+        },
+        {
+          "name": "3.3",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "",
+          "disabled": false
+        },
+        {
+          "name": "← توجيه يسار",
+          "disabled": true
+        },
+        {
+          "name": "تقدّم",
+          "disabled": true
+        },
+        {
+          "name": "توجيه يمين →",
+          "disabled": true
+        },
+        {
+          "name": "فرامل",
+          "disabled": true
+        },
+        {
+          "name": "قيادة آلية بمساعدة",
+          "disabled": true
+        },
+        {
+          "name": "إيقاف الحصاد",
+          "disabled": false
+        },
+        {
+          "name": "أكّد حصاد الخلية بمساعدة",
+          "disabled": true
+        },
+        {
+          "name": "بدء الحصاد",
+          "disabled": false
+        },
+        {
+          "name": "استراحة",
+          "disabled": true
+        },
+        {
+          "name": "تكرار الصف",
+          "disabled": false
+        },
+        {
+          "name": "إعادة التموضع",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز الهدف",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "المرحلة التالية",
+          "disabled": true
+        },
+        {
+          "name": "إعادة الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء والنتائج",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "manual driving and harvesting",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "harvest-valley-3d",
+        "revision": 9,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769685556,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "hv3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "hv3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769688217,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"95e82e63-afbe-4365-bfb2-bd541e770b3c\",\"run\":0,\"epoch\":1,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"config\":{\"mode\":\"MANUAL\",\"coverage\":100,\"fieldSize\":1,\"headerWidth\":3.6,\"movementRange\":1,\"speed\":3,\"gain\":1,\"deadZone\":0.08,\"pedalThreshold\":0.08,\"assistance\":0.8,\"autoThrottle\":false,\"autoSteering\":false,\"autoHarvest\":true,\"holdMs\":500,\"reduced\":false,\"contrast\":false,\"guidance\":true,\"audio\":true,\"volume\":0.12,\"quality\":\"high\"},\"cut\":[],\"assisted\":[],\"skippedCells\":[],\"active\":0,\"vehicle\":{\"x\":-1,\"z\":-14.6627295,\"heading\":0,\"speed\":0.9179999999999999,\"distance\":0.3372704999999999},\"input\":{\"steering\":0,\"throttle\":1,\"brake\":0},\"inputSource\":\"MANUAL\",\"inputAt\":0,\"autoDrive\":false,\"harvesting\":true,\"results\":[],\"repeats\":0,\"startedAt\":1791769685556,\"endedAt\":0,\"elapsed\":2429,\"lastTick\":0,\"grain\":0,\"assistedSetup\":false,\"navigation\":{\"cell\":0,\"phase\":\"harvest\"}}"
+          },
+          "seed": 23,
+          "sessionId": "95e82e63-afbe-4365-bfb2-bd541e770b3c"
+        },
+        "sessionId": "95e82e63-afbe-4365-bfb2-bd541e770b3c",
+        "updatedAt": 1791769688222
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE\nHARVEST VALLEY\nموسم الحصاد · 1 / 1\nصفًّا بعد صف\nموسم الحصاد\n16%\nتفعيل الأصوات الهادئة",
+      "after": "مكتبة الأنشطة / موسم الحصاد\nحقول واسعة. خطوات هادئة.\n\nHARVEST VALLEY 3D · تجربة المكتبة\n\nفتح شاشة العرض ↗\n● التحكّم متصل\n● شاشة العرض متصلة\nعرض جداري · يمكن اللعب جلوسًا\nSHUMOS CARE\nHARVEST VALLEY\nموسم الحصاد · 1 / 1\nصفًّا بعد صف\nموسم الحصاد\n16%\n1.1\n1.2\n1.3\n2.1\n2.2\n2.3\n3.1\n3.2\n3.3\nصف القمح الأول\n1 / 6 خلايا · 16%\n\nالأخضر حصاد مكتمل. اختر خلية للتوجيه أو لتأكيد مساعدة المعالج.\n\n← توجيه يسار\nتقدّم\nتوجيه يمين →\nتوجيه المعالج\nدواسة التقدّم\nفرامل\nقيادة آلية بمساعدة\nإيقاف الحصاد\nأكّد حصاد الخلية بمساعدة\nبدء الحصاد\nاستراحة\nتكرار الصف\nإعادة التموضع\nتجاوز الهدف\nتجاوز المرحلة\nالمرحلة التالية\nإعادة الجلسة\nإنهاء والنتائج\nإعداد تجربة الحصاد\n\nيحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.\n\nالمشاركة\nتحكّم المعالج\nتوجيه فقط\nدواسة فقط\nتوجيه ودواسة\nهدف التغطية (%)\nحجم الحقل\nعرض الحصاد الفعّال\nنطاق الحركة (الصغير متاح)\nالسرعة القصوى\nحساسية التوجيه\nعتبة التوجيه\nعتبة الدواسة\nمساعدة الصفوف\nمدة تثبيت الإدخال (مللي ثانية)\nمستوى الصوت\nتقدّم تلقائي\nتوجيه تلقائي\nحصاد تلقائي\nإرشاد الصفوف وأهداف كبيرة\nحركة وكاميرا منخفضة\nتباين مرتفع\nالأصوات الهادئة\nجودة العرض\nعالية\nمتوسطة\nاقتصادية\nالدركسون والدواسات — إعداد اختياري\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "assistance": true,
+      "endClicked": true,
+      "errors": []
+    },
+    {
+      "id": "pearl-voyage-3d",
+      "input": "DRIVING",
+      "launchCarried": "DRIVING",
+      "launchPanel": "قارب اللؤلؤ\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالمقود\nالدواسة فقط\nالمقود والدواسات\n\nقراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.\n\nسطح العرض المنفّذ\nجداري\n\nتحكم المعالج اليدوي متاح داخل النشاط.",
+      "before": "SHUMOS CARE / OCEAN VOYAGES\nقارب اللؤلؤ\nPearl Voyage 3D\n\nرحلة هادئة. اكتشافات جميلة. مشاركة على قدر الطفل.\n\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالجلسة لـ تجربة المكتبة · جلسة زائر\n● التحكم متصل\n● شاشة الطفل متصلة\nعرض جداري · مشاركة جلوسًا\nالمقود والدواسات بانتظار التحقق\nPearl Beach / المرحلة 1\nشاطئ اللؤلؤ · المرحلة 1 · أول اكتشاف\nإلى البرتقالية المخططة\nمعاينة ثلاثية الأبعاد على جهاز التحكم\n1\n38 م إلى العلامة\nابدأ عندما يكون الطفل جاهزًا\n1\n2\n3\n4\n5\n6\n7\n8\n9\nابدأ الرحلة ←\n■ توقف آمن\nتحكم مباشر · المعالج له الأولوية\nلنقد القارب\nيدوي من المعالج\n← يسار\n✣\nيمين →\nالمقود\n▲ تسارع\n■ فرامل\n◉ اضغط وثبّت\nالتثبيت\n0٪\nملاحة تلقائية\nتثبيت تلقائي\nمساعدة التوجيه\nمساعدة المعالج الكاملة\nإعادة وضع القارب\nأعد الاكتشاف\nتجاوز الاكتشاف\n\nاضغط باستمرار للتحريك؛ يمكن الضغط على المقود والتسارع معًا. التحرير يوقف الإدخال، وزر التوقف الآمن يوقف حتى الملاحة التلقائية. لا حد زمني ولا عقوبة.\n\nاختيار الاكتشاف\n1\nالبرتقالية المخططة\nتقدم الجلسة\n0/9\nمراحل مكتملة\n0\nأسماك مكتشفة\n0\nبمساعدة\n0\nمتخطاة\nلم يُكتشف شيء بعد\n\n0 اكتشافات دون مساعدة آلية أو يدوية · 0 مراحل متخطاة · 0 إعادات. الأرقام تصف اللعب فقط، وليست تقييمًا سريريًا.\n\nإعادة المرحلة\nتجاوز المرحلة\nإنهاء الجلسة\nإعدادات المشاركة\nعلى قدر حركة الطفل\n\nالمعالج يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل كمساعدة.\n\nمصدر التحكم\nيدوي من المعالج · دون أجهزة\nمقود فقط · تحقق فعلي معلق\nدواسة فقط · تحقق فعلي معلق\nمقود ودواسة · تحقق فعلي معلق\nالعودة للتحكم اليدوي\nأسلوب المشاركة\nمقود وتسارع معًا\nمشاركة بالمقود فقط (تسارع آلي)\nمشاركة بالدواسة فقط (توجيه آلي)\nطريقة التثبيت\nزر المعالج فقط\nتثبيت المقود في اتجاه مريح\nضغط الدواسة بلطف\nضغطات قصيرة متكررة\nمدة التثبيت (ثوانٍ)\n3\nعتبة التفعيل\n0.35\nعدد الضغطات القصيرة\n4\nالسرعة القصوى (م/ث)\n4\nحجم منطقة الوصول (م)\n8\nمساعدة التوجيه\n0.6\nمدى حركة المقود\n1\nحساسية المقود\n1\nالمنطقة المحايدة\n0.08\nعتبة الدواسة\n0.15\nتقليل الحركة\nتباين عالٍ\nالصوت\nموسيقى هادئة\nتعليمات صوتية بالعربية\nمستوى الصوت\n0.4\nجودة الرسوم\nعالية\nمتوسطة\nخفيفة\nمعايرة المقود والدواسات / Gamepad\nلا حد زمني · لا عقوبة\n\nالتقدم محفوظ في الجلسة المشتركة\n\nلا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.\n\nطريقة المشاركة المطلوبة",
+      "buttons": [
+        {
+          "name": "1",
+          "disabled": false
+        },
+        {
+          "name": "2",
+          "disabled": false
+        },
+        {
+          "name": "3",
+          "disabled": false
+        },
+        {
+          "name": "4",
+          "disabled": false
+        },
+        {
+          "name": "5",
+          "disabled": false
+        },
+        {
+          "name": "6",
+          "disabled": false
+        },
+        {
+          "name": "7",
+          "disabled": false
+        },
+        {
+          "name": "8",
+          "disabled": false
+        },
+        {
+          "name": "9",
+          "disabled": false
+        },
+        {
+          "name": "ابدأ الرحلة ←",
+          "disabled": false
+        },
+        {
+          "name": "■ توقف آمن",
+          "disabled": false
+        },
+        {
+          "name": "← يسار",
+          "disabled": true
+        },
+        {
+          "name": "يمين →",
+          "disabled": true
+        },
+        {
+          "name": "▲ تسارع",
+          "disabled": true
+        },
+        {
+          "name": "■ فرامل",
+          "disabled": true
+        },
+        {
+          "name": "◉ اضغط وثبّت",
+          "disabled": true
+        },
+        {
+          "name": "مساعدة المعالج الكاملة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة وضع القارب",
+          "disabled": false
+        },
+        {
+          "name": "أعد الاكتشاف",
+          "disabled": true
+        },
+        {
+          "name": "تجاوز الاكتشاف",
+          "disabled": true
+        },
+        {
+          "name": "1البرتقالية المخططة",
+          "disabled": false
+        },
+        {
+          "name": "إعادة المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "تجاوز المرحلة",
+          "disabled": false
+        },
+        {
+          "name": "إنهاء الجلسة",
+          "disabled": false
+        },
+        {
+          "name": "العودة للتحكم اليدوي",
+          "disabled": false
+        },
+        {
+          "name": "طريقة المشاركة المطلوبة",
+          "disabled": false
+        }
+      ],
+      "started": true,
+      "manualAction": {
+        "operation": "hold manual throttle",
+        "triggered": true
+      },
+      "live": {
+        "gameId": "pearl-voyage-3d",
+        "revision": 16,
+        "session": {
+          "config": {
+            "childFirstName": "تجربة المكتبة"
+          },
+          "createdAt": 1791769693690,
+          "currentDifficulty": "EASY",
+          "currentStage": {
+            "stageIndex": 0,
+            "stageNumber": 1
+          },
+          "engine": "pv3",
+          "engineVersion": 1,
+          "gameState": "PLAYING",
+          "pv3": {
+            "controlTabId": "085a547b-0f6a-4508-a0a7-6543f6bf5165",
+            "heartbeatAt": 1791769696012,
+            "ownerId": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+            "payload": "{\"sessionId\":\"8737b1ca-8ed2-45a9-a154-a68d824a940c\",\"run\":0,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"phase\":\"sailing\",\"marker\":0,\"x\":0.011941116803604473,\"y\":0.15565764954186612,\"heading\":0.08263600881781351,\"speed\":0.6272,\"steering\":0,\"hold\":0,\"holding\":false,\"pulseAt\":0,\"encounterMs\":0,\"celebrateMs\":0,\"input\":{\"steering\":0,\"throttle\":1,\"brake\":0,\"hold\":false},\"config\":{\"control\":\"manual\",\"mode\":\"combined\",\"autoDrive\":false,\"steeringAssist\":0.6,\"sensitivity\":1,\"steeringRange\":1,\"deadZone\":0.08,\"pedalThreshold\":0.15,\"speedCap\":4,\"markerRadius\":8,\"holdSeconds\":3,\"holdThreshold\":0.35,\"holdMode\":\"manual\",\"holdDirection\":\"any\",\"tapCount\":4,\"autoHold\":false,\"reducedMotion\":false,\"highContrast\":false,\"quality\":\"high\",\"sound\":false,\"music\":true,\"voice\":false,\"volume\":0.4},\"events\":[],\"completed\":[],\"skipped\":[],\"used\":[\"manual\"],\"assisted\":true,\"startedAt\":1791769693690,\"endedAt\":0,\"elapsed\":2277,\"lastTick\":0,\"safety\":false,\"inputAt\":1791769696012,\"inputLost\":false,\"repeats\":0}"
+          },
+          "seed": 1,
+          "sessionId": "8737b1ca-8ed2-45a9-a154-a68d824a940c"
+        },
+        "sessionId": "8737b1ca-8ed2-45a9-a154-a68d824a940c",
+        "updatedAt": 1791769696014
+      },
+      "visibility": {
+        "control": "visible",
+        "display": "visible"
+      },
+      "canvas": 1,
+      "displayText": "SHUMOS CARE\nقارب اللؤلؤ\nشاطئ اللؤلؤ · المرحلة 1\n↑\nشاطئ اللؤلؤ\nاتجه إلى العلامة\n3\nكم/س",
+      "after": "■ توقف آمن\nSHUMOS CARE / OCEAN VOYAGES\nقارب اللؤلؤ\nPearl Voyage 3D\n\nرحلة هادئة. اكتشافات جميلة. مشاركة على قدر الطفل.\n\nمكتبة الأنشطة\nفتح شاشة الطفل ↗\nالجلسة لـ تجربة المكتبة · جلسة زائر\n● التحكم متصل\n● شاشة الطفل متصلة\nعرض جداري · مشاركة جلوسًا\nالمقود والدواسات بانتظار التحقق\nPearl Beach / المرحلة 1\nشاطئ اللؤلؤ · المرحلة 1 · أول اكتشاف\nإلى البرتقالية المخططة\nمعاينة ثلاثية الأبعاد على جهاز التحكم\n1\n38 م إلى العلامة\nالرحلة قيد اللعب\n1\n2\n3\n4\n5\n6\n7\n8\n9\nإيقاف مؤقت\n■ توقف آمن\nتحكم مباشر · المعالج له الأولوية\nلنقد القارب\nيدوي من المعالج\n← يسار\n✣\nيمين →\nالمقود\n▲ تسارع\n■ فرامل\n◉ اضغط وثبّت\nالتثبيت\n0٪\nملاحة تلقائية\nتثبيت تلقائي\nمساعدة التوجيه\nمساعدة المعالج الكاملة\nإعادة وضع القارب\nأعد الاكتشاف\nتجاوز الاكتشاف\n\nاضغط باستمرار للتحريك؛ يمكن الضغط على المقود والتسارع معًا. التحرير يوقف الإدخال، وزر التوقف الآمن يوقف حتى الملاحة التلقائية. لا حد زمني ولا عقوبة.\n\nاختيار الاكتشاف\n1\nالبرتقالية المخططة\nتقدم الجلسة\n0/9\nمراحل مكتملة\n0\nأسماك مكتشفة\n0\nبمساعدة\n0\nمتخطاة\nلم يُكتشف شيء بعد\n\n0 اكتشافات دون مساعدة آلية أو يدوية · 0 مراحل متخطاة · 0 إعادات. الأرقام تصف اللعب فقط، وليست تقييمًا سريريًا.\n\nإعادة المرحلة\nتجاوز المرحلة\nإنهاء الجلسة\nإعدادات المشاركة\nعلى قدر حركة الطفل\n\nالمعالج يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل كمساعدة.\n\nمصدر التحكم\nيدوي من المعالج · دون أجهزة\nمقود فقط · تحقق فعلي معلق\nدواسة فقط · تحقق فعلي معلق\nمقود ودواسة · تحقق فعلي معلق\nالعودة للتحكم اليدوي\nأسلوب المشاركة\nمقود وتسارع معًا\nمشاركة بالمقود فقط (تسارع آلي)\nمشاركة بالدواسة فقط (توجيه آلي)\nطريقة التثبيت\nزر المعالج فقط\nتثبيت المقود في اتجاه مريح\nضغط الدواسة بلطف\nضغطات قصيرة متكررة\nمدة التثبيت (ثوانٍ)\n3\nعتبة التفعيل\n0.35\nعدد الضغطات القصيرة\n4\nالسرعة القصوى (م/ث)\n4\nحجم منطقة الوصول (م)\n8\nمساعدة التوجيه\n0.6\nمدى حركة المقود\n1\nحساسية المقود\n1\nالمنطقة المحايدة\n0.08\nعتبة الدواسة\n0.15\nتقليل الحركة\nتباين عالٍ\nالصوت\nموسيقى هادئة\nتعليمات صوتية بالعربية\nمستوى الصوت\n0.4\nجودة الرسوم\nعالية\nمتوسطة\nخفيفة\nمعايرة المقود والدواسات / Gamepad\nلا حد زمني · لا عقوبة\n\nالتقدم محفوظ في الجلسة المشتركة\n\nلا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.\n\nطريقة المشاركة المطلوبة",
+      "paused": true,
+      "resumed": true,
+      "endClicked": true,
+      "errors": []
+    }
+  ]
+}

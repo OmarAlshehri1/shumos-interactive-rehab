@@ -24,7 +24,7 @@ describe("safe isolated local registration", () => {
   });
   it("inherits existing staff gate and has no Firebase/game-driver imports", () => {
     expect(readFileSync("app/control/layout.tsx", "utf8")).toContain(
-      "<StaffAuthGate><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary></StaffAuthGate>",
+      "<StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>",
     );
     for (const file of [
       "gameplay.ts",

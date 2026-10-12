@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "port": 3353,
+      "id": "sp9-old-stars",
+      "label": "النجوم المجمّعة",
+      "readable": true
+    },
+    {
+      "port": 3353,
+      "id": "sp9-old-rings",
+      "label": "الحلقات المجمعة",
+      "readable": true
+    },
+    {
+      "port": 3353,
+      "sparseLedgerReadable": true
+    },
+    {
+      "port": 3353,
+      "id": "159c5722-93be-43ed-8f3d-0f407c0b4a99",
+      "version": 3,
+      "readable": true
+    },
+    {
+      "port": 3354,
+      "id": "sp9-old-stars",
+      "label": "النجوم المجمّعة",
+      "readable": true
+    },
+    {
+      "port": 3354,
+      "id": "sp9-old-rings",
+      "label": "الحلقات المجمعة",
+      "readable": true
+    },
+    {
+      "port": 3354,
+      "sparseLedgerReadable": true
+    },
+    {
+      "port": 3354,
+      "id": "159c5722-93be-43ed-8f3d-0f407c0b4a99",
+      "version": 3,
+      "readable": true
+    },
+    {
+      "port": 3354,
+      "flagDisabled": true,
+      "legacyRoute": true
+    }
+  ],
+  "fixturesUnchanged": true
+}

@@ -1,0 +1,40 @@
+{
+ "quality": "high",
+ "viewport": "1920x1080",
+ "seconds": 60,
+ "frames": 3604,
+ "avgFps": 60.00246403015441,
+ "p50ms": 16.69999999999709,
+ "p95ms": 16.700000000004366,
+ "p99ms": 16.80000000000291,
+ "maxMs": 16.80000000000291,
+ "over33ms": 0,
+ "scene": {
+  "fps": 60.00300015000745,
+  "frameMsAvg": 16.665833333333346,
+  "frameMsMax": 16.80000000000291,
+  "drawCalls": 244,
+  "triangles": 78799,
+  "geometries": 260,
+  "textures": 14,
+  "quality": "high",
+  "pixelRatio": 1,
+  "shadows": true,
+  "assetLoadMs": 16.200000002980232,
+  "frames": 4028
+ },
+ "heapMB": [
+  19.847974,
+  21.371117
+ ],
+ "latencyMs": {
+  "n": 2,
+  "p50": 3.400146484375,
+  "p95": 3.400146484375,
+  "max": 3.400146484375
+ },
+ "errors": [
+  0,
+  0
+ ]
+}

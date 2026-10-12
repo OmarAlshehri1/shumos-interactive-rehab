@@ -1,0 +1,17 @@
+{
+  "expectation": "deleted",
+  "errors": [],
+  "before": {
+    "sessionId": "9dee00e2-c907-4742-a415-ee6517fb0af8",
+    "binding": {
+      "patientId": "sp9-patient",
+      "sessionId": "9dee00e2-c907-4742-a415-ee6517fb0af8",
+      "updatedAt": 1791770263026
+    },
+    "placed": 1,
+    "controlTabId": "01127fa5-8efd-4576-a06a-61511a40439b"
+  },
+  "after": null,
+  "reproduced": true,
+  "status": "passed"
+}

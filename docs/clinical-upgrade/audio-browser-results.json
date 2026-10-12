@@ -1,0 +1,18 @@
+{
+  "remoteAttempt": {
+    "contextState": "running",
+    "state": "ready",
+    "updatedAt": 1791808164203
+  },
+  "displayInteraction": {
+    "contextState": "running",
+    "state": "ready",
+    "updatedAt": 1791808164203
+  },
+  "checks": [
+    "Remote audio request handled",
+    "Readiness based on actual Display AudioContext running",
+    "Control dashboard reflects Display acknowledgement"
+  ],
+  "errors": []
+}

@@ -1,0 +1,142 @@
+[
+ {
+  "name": "production Control mounts through the existing staff login",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "child name is prefilled from the selected patient",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display (anonymous, separate window) shows the redesigned ready screen from the Firebase record",
+  "ok": true,
+  "detail": "مغامرة البالونات المستوى سهل — المرحلة ١  استعد!"
+ },
+ {
+  "name": "Control sees the Display as connected (existing presence)",
+  "ok": true,
+  "detail": "شاشة العرض: متصلة"
+ },
+ {
+  "name": "legacy garden (leaves/birds) is not rendered behind the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "A0 session playing in a moving stage with 2 accepted selections",
+  "ok": true,
+  "detail": "{\"life\":\"قيد اللعب\",\"goal\":\"٢ من ٤\",\"title\":\"المستوى / المرحلة\"}"
+ },
+ {
+  "name": "A1 after the Control reload the SAME session is recovered, paused, with a recovery notice",
+  "ok": true,
+  "detail": "{\"life\":\"متوقف مؤقتًا\",\"recovered\":true}"
+ },
+ {
+  "name": "A2 stage and progress preserved: same goal, same target colour, same level/stage title",
+  "ok": true,
+  "detail": "{\"pre\":[\"٢ من ٤\",\"blue\",\"المستوى / المرحلة\"],\"post\":[\"٢ من ٤\",\"blue\",\"المستوى / المرحلة\"]}"
+ },
+ {
+  "name": "A3 the same balloon identities come back (shared with the Display)",
+  "ok": true,
+  "detail": "6/6 ids unchanged"
+ },
+ {
+  "name": "A4 the child Display follows: paused, same goal, no new session",
+  "ok": true,
+  "detail": "{\"life\":\"paused\",\"goal\":\"2\",\"ids\":[\"r1s3a0.0\",\"r1s3a0.3\",\"r1s3a0.4\",\"r1s3a0.5\",\"r1s3a0.6\",\"r1s3a0.7\"]}"
+ },
+ {
+  "name": "A5 live record keeps the same session and its revision only moved forward",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "A6 nothing moves or scores while paused (no auto-resume)",
+  "ok": true,
+  "detail": "متوقف مؤقتًا"
+ },
+ {
+  "name": "A7 a therapist tap while paused does not score",
+  "ok": true,
+  "detail": "false"
+ },
+ {
+  "name": "A8 explicit resume continues play on both devices",
+  "ok": true,
+  "detail": "قيد اللعب"
+ },
+ {
+  "name": "A9 exactly one more correct selection scores (no duplicate scoring)",
+  "ok": true,
+  "detail": "٢ من ٤ -> ٣ من ٤"
+ },
+ {
+  "name": "A10 no history was written by recovery",
+  "ok": true,
+  "detail": "0"
+ },
+ {
+  "name": "B1 reload while paused: recovered paused with the same progress",
+  "ok": true,
+  "detail": "{\"pre\":\"٣ من ٤\",\"post\":\"٣ من ٤\"}"
+ },
+ {
+  "name": "C0 ending the recovered session saves exactly one history record",
+  "ok": true,
+  "detail": "1"
+ },
+ {
+  "name": "C1 a full level completes by therapist taps",
+  "ok": true,
+  "detail": "12 taps"
+ },
+ {
+  "name": "C2 completion saved one more history record",
+  "ok": true,
+  "detail": "2"
+ },
+ {
+  "name": "C3 reload after completion restores the completed session (summary visible), no new session started",
+  "ok": true,
+  "detail": "\"اكتملت المغامرة\""
+ },
+ {
+  "name": "C4 no duplicate history record after the reload",
+  "ok": true,
+  "detail": "2"
+ },
+ {
+  "name": "D1 a second window finds a session owned by a live window: it is NOT silently taken over",
+  "ok": true,
+  "detail": "{\"blocked\":true,\"life\":null}"
+ },
+ {
+  "name": "D2 the first window keeps control and keeps playing meanwhile",
+  "ok": true,
+  "detail": "قيد اللعب"
+ },
+ {
+  "name": "D3 after the therapist chooses to take over, the second window holds the session paused with its progress",
+  "ok": true,
+  "detail": "{\"life\":\"متوقف مؤقتًا\",\"goal\":\"١ من ٤\",\"pre\":\"١ من ٤\"}"
+ },
+ {
+  "name": "D4 the first window stands down (no longer controls, does not end or save the session)",
+  "ok": true,
+  "detail": "{\"superseded\":true}"
+ },
+ {
+  "name": "D5 only the second window publishes now, and no history was written by the hand-over",
+  "ok": true,
+  "detail": "31a521f3 vs 8d36976f; hist 2"
+ },
+ {
+  "name": "D6 the new owner resumes and the Display follows",
+  "ok": true,
+  "detail": ""
+ }
+]

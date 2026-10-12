@@ -18,6 +18,9 @@ import type { ChaseColor, PadId } from "@/lib/colorchase";
  * "countdown"/"pop" names, so a subscriber can switch on `type` directly.
  */
 export type DisplayEvent =
+  | {type:"bridge_sound";timestamp:number;kind:"checkpoint"|"deviation"|"stage"|"final";stage:number}
+  | { type: "game_feedback"; timestamp: number; text: string; milestone: boolean; volume: number }
+  | { type: "game_introduction"; timestamp: number; key: string; text: string }
   | { type: "welcome"; timestamp: number; childName: string }
   /** TASK 8.2: fired once when the Start Zone scene appears — isFirstStage distinguishes "before Stage 1" from "returning between stages" wording. */
   | { type: "start_zone"; timestamp: number; isFirstStage: boolean }

@@ -1,0 +1,5 @@
+/control/balloon-quest-3d-prototype        {"text":"SHUMOS CARE شموس كير نظام التأهيل التفاعلي تسجيل دخول الموظفين البريد الإلكتروني كلمة المر","bqControl":false,"bqDisplay":false,"stage":false}
+/display/balloon-quest-3d-prototype        {"text":"404 This page could not be found.","bqControl":false,"bqDisplay":false,"stage":false}
+/display/balloon-quest-visual-preview      {"text":"404 This page could not be found.","bqControl":false,"bqDisplay":false,"stage":false}
+/control/space-pilot-3d-prototype          {"text":"SHUMOS CARE شموس كير نظام التأهيل التفاعلي تسجيل دخول الموظفين البريد الإلكتروني كلمة المر","bqControl":false,"bqDisplay":false,"stage":false}
+/control/balloon-quest                     {"text":"SHUMOS CARE شموس كير نظام التأهيل التفاعلي تسجيل دخول الموظفين البريد الإلكتروني كلمة المر","bqControl":false,"bqDisplay":false,"stage":false}

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checks": [
+    "sensor loss holds selected block; recovery requires pickup",
+    "pause/resume holds accepted state and rearms input",
+    "sensor simulation completes first-shapes",
+    "sensor simulation completes three-shapes",
+    "sensor simulation completes four-shapes",
+    "sensor simulation completes house",
+    "sensor simulation completes car",
+    "sensor simulation completes robot",
+    "sensor simulation completes tower",
+    "sensor simulation completes bridge",
+    "sensor simulation completes castle",
+    "real keyboard arrow movement and Space selection place a piece",
+    "simulated Gamepad stick and button use authoritative placement path"
+  ],
+  "errors": [],
+  "cloud": []
+}

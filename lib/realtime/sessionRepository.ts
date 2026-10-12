@@ -1,3 +1,6 @@
+import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
+import { reportPublishIntent } from './publishIntent';
+import {reviveCastleLive} from '@/lib/castlelegends3d/live';
 import { reviveHarvestLive } from '@/lib/harvestvalley3d/live';
 import { reviveBloomLive } from '@/lib/bloomingworld3d/live';
 import { reviveDomeLive } from '@/lib/bubblepopwall3d/live';
@@ -135,7 +138,10 @@ export async function publishSession(db: Database, input: PublishSessionInput): 
   updates[LIVE_SESSION_PRIVATE_PATH] = input.patientId
     ? { sessionId: input.sessionId, patientId: input.patientId, updatedAt: serverTimestamp() }
     : null;
+  const intent: LiveSessionRecord = { ...input, updatedAt: Date.now(), celebrationReplay: input.celebrationReplay ?? null };
+  reportPublishIntent({ record: intent, acknowledged: false });
   await update(ref(db), updates);
+  reportPublishIntent({ record: intent, acknowledged: true });
 }
 
 /** Normalizes a raw gameId value read back from Firebase — null for anything not a currently-registered game (missing/old/unsupported/malformed), never a guess. See LiveSessionRecord.gameId's doc comment. */
@@ -216,6 +222,11 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
       if (!harvest || harvest.sessionId !== value.sessionId) return null;
       return { ...value, gameId, session: harvest, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
     }
+    if (gameId === "balance-bridge-3d") {
+      const bridge = reviveBridgeLive(value.session);
+      if (!bridge || bridge.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: bridge, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
     if (gameId === "blooming-world-3d") {
       const bloom = reviveBloomLive(value.session);
       if (!bloom || bloom.sessionId !== value.sessionId) return null;
@@ -230,6 +241,11 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
       const fire = reviveFireLive(value.session);
       if (!fire || fire.sessionId !== value.sessionId) return null;
       return { ...value, gameId, session: fire, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "shumos-castle-legends-3d") {
+      const castle = reviveCastleLive(value.session);
+      if (!castle || castle.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: castle, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
     }
     if (gameId === "mirror-quest-3d") {
       const mirror = reviveMirrorLive(value.session);
@@ -454,7 +470,15 @@ export function registerControllerPresence(db: Database): Unsubscribe {
 }
 
 export function registerDisplayPresence(db: Database): Unsubscribe {
-  return registerPresence(db, DISPLAY_PRESENCE_PATH);
+  const stopPresence = registerPresence(db, DISPLAY_PRESENCE_PATH);
+  let connected = false;
+  const stopConnection = onValue(ref(db, ".info/connected"), snapshot => { connected = snapshot.val() === true; });
+  // A real heartbeat is necessary before Control can distinguish stale Display flags.
+  const timer = setInterval(() => {
+    if (!connected) return;
+    void update(ref(db, DISPLAY_PRESENCE_PATH), { updatedAt: serverTimestamp() }).catch(() => {});
+  }, 15000);
+  return () => { clearInterval(timer); stopConnection(); stopPresence(); };
 }
 
 /**

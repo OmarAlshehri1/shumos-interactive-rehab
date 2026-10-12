@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "routes": [
+    {
+      "route": "/control/build-quest-3d",
+      "status": 404,
+      "gameMounted": false
+    },
+    {
+      "route": "/display/build-quest-3d",
+      "status": 404,
+      "gameMounted": false
+    }
+  ],
+  "inheritedStaffAuthUnchanged": true,
+  "productionNotEnabled": true,
+  "physicalHardwareNotClaimed": true
+}

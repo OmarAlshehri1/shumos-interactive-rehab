@@ -1,0 +1,72 @@
+{
+ "seconds": 240,
+ "cycles": 26,
+ "writes": 112,
+ "writesPerSec": 0.47,
+ "samples": [
+  {
+   "t": 0,
+   "fps": 0,
+   "geometries": 4,
+   "textures": 4,
+   "calls": 37,
+   "heapMB": 44.7
+  },
+  {
+   "t": 30,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 32.3
+  },
+  {
+   "t": 60,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 31.6
+  },
+  {
+   "t": 90,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 35.9
+  },
+  {
+   "t": 121,
+   "fps": 60.1,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 33.4
+  },
+  {
+   "t": 150,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 33.1
+  },
+  {
+   "t": 180,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 37,
+   "heapMB": 37.1
+  },
+  {
+   "t": 211,
+   "fps": 60,
+   "geometries": 4,
+   "textures": 6,
+   "calls": 36,
+   "heapMB": 32.3
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+[
+ {
+  "name": "library lists the original six games and the four new ones exactly once",
+  "ok": true,
+  "detail": "الرئيسية الأنشطة المرضى SHUMOS CARE مكتبة الأنشطة  اختر النشاط لبدء جلسة جديدة  "
+ },
+ {
+  "name": "follow-the-footsteps: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"follow-the-footsteps\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "follow-the-footsteps: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 2, text \"FOLLOW THE FOOTSTEPS اتبع الخطوات  رحلة \""
+ },
+ {
+  "name": "bubble-pop-wall: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"bubble-pop-wall\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "bubble-pop-wall: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 2, text \"BUBBLE POP WALL فرقع الفقاعات  عالم تحت \""
+ },
+ {
+  "name": "feed-the-animals: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"feed-the-animals\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "feed-the-animals: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 2, text \"SAFARI ADVENTURE أطعم الحيوانات  رحلة سف\""
+ },
+ {
+  "name": "color-chase: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"color-chase\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "color-chase: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 1, text \"COLOR CHASE مطاردة الألوان  اتبع الألوان\""
+ },
+ {
+  "name": "balloon-quest: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"balloon-quest\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "balloon-quest: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 17, text \"BALLOON QUEST مغامرة البالونات  استعد لم\""
+ },
+ {
+  "name": "space-pilot: Control publishes into the shared live record",
+  "ok": true,
+  "detail": "{\"gameId\":\"space-pilot\",\"patient\":\"patient-1\",\"name\":\"ليلى\"}"
+ },
+ {
+  "name": "space-pilot: the Display device renders the game from the shared record",
+  "ok": true,
+  "detail": "visible elements 2, text \"SPACE PILOT قائد الفضاء  قُد صاروخك عبر \""
+ },
+ {
+  "name": "no console exceptions on either device",
+  "ok": true,
+  "detail": "0,0"
+ }
+]

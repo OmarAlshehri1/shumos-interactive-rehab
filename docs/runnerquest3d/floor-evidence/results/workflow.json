@@ -1,0 +1,177 @@
+[
+  {
+    "name": "calibration: range+pad reach the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "calibration: grid toggled on the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "calibration: projected size stored (300 x 190 cm)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "4:3 projector: canvas has no overflow and keeps its aspect",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "calibration: high contrast reaches the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "projection can no longer be changed once started (buttons disabled, command refused)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "assisted confirmation completes the objective, counts as assisted",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display shows the assisted outcome",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "repeat replays the cue without changing progress",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "skip objective moves on, no star, counted as skipped",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "pause: Display shows the pause card and actions are disabled",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "resume continues at the same objective",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "restart: stage back to ready at objective 1 (same plan) on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "sensor movement is only a HINT in FLOOR: the objective is not completed by it",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "the hint is shown to the therapist with a confirm button",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "therapist confirming the hint completes the objective",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "sensor disconnect suspends safely; progress preserved",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "manual fallback offered",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "manual control works with the sensor disconnected",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display reload: re-joins the live record at the same objective",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "stage finished by touch after the Display reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "history: saved exactly once for the finished session",
+    "ok": true,
+    "detail": "1"
+  },
+  {
+    "name": "history row carries objectives completed / skipped / assisted",
+    "ok": true,
+    "detail": "{\"assists\":1,\"difficulty\":\"MEDIUM\",\"durationMs\":19044,\"engine\":\"rq3\",\"holds\":0,\"objectivesSkipped\":1,\"obstaclesResolved\":9,\"obstaclesTotal\":10,\"projection\":\"FLOOR\",\"stageNumber\":2,\"stars\":6,\"status\":\"COMPLETED\"}"
+  },
+  {
+    "name": "Control reload: starts a fresh safe session (ready), Start blocked until a projection is chosen again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control reload does not create a duplicate history record",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "unauthenticated visitor sees the login, not the Runner controls",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (read-only) exposes no controls or inputs inside the game view",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "skip stage: recorded as skipped, Display shows stage-complete",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "end session (reason sheet) produces results on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "history: second session saved once with the skipped stage and the partial run",
+    "ok": true,
+    "detail": "2"
+  },
+  {
+    "name": "reduced motion reaches the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "GPU resources do not accumulate across nine stage rebuilds",
+    "ok": true,
+    "detail": "[17,17,17,18,17,17,17,18,17]"
+  },
+  {
+    "name": "input-to-Display latency under 1.5 s for every stage (emulator, same machine)",
+    "ok": true,
+    "detail": "[66,68,41,35,30,29,32,33,31]"
+  },
+  {
+    "name": "Firebase writes while FLOOR idles: no periodic clock writes",
+    "ok": true,
+    "detail": "0 writes in 15 s"
+  },
+  {
+    "name": "Firebase writes ~ one per confirmation (+ stage change)",
+    "ok": true,
+    "detail": "6 writes for 6 confirmations"
+  }
+]

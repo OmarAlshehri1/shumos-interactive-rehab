@@ -1,0 +1,114 @@
+{
+ "results": [
+  {
+   "name": "auto-navigation drives the boat with no touch",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "input-to-display latency",
+   "ok": true,
+   "detail": "p50=88ms p95=295ms (includes tap dispatch), n=12"
+  },
+  {
+   "name": "reload recovery keeps progress and pauses safely",
+   "ok": true,
+   "detail": "before events=1 -> after events=1 status=paused"
+  },
+  {
+   "name": "display survives the control reload",
+   "ok": true,
+   "detail": "{\"status\":\"paused\"}"
+  },
+  {
+   "name": "stage completes after recovery",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "skip encounter records a skipped encounter and moves on",
+   "ok": true,
+   "detail": "marker=1"
+  },
+  {
+   "name": "repeat encounter reopens the encounter and counts the repeat",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "encounter selection jumps to the chosen marker",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "restart stage resets position and status",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "skip stage ends the stage as skipped",
+   "ok": true,
+   "detail": "skipped=1"
+  },
+  {
+   "name": "stage selection works from the therapist panel",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "missing wheel pauses safely and flags lost input",
+   "ok": true,
+   "detail": "status=paused"
+  },
+  {
+   "name": "therapist manual fallback resumes play at any time",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "quality medium renders",
+   "ok": true,
+   "detail": "fps=60 draws=50 tris=146796"
+  },
+  {
+   "name": "quality low renders",
+   "ok": true,
+   "detail": "fps=52 draws=51 tris=101632"
+  },
+  {
+   "name": "quality high renders",
+   "ok": true,
+   "detail": "fps=60 draws=51 tris=190496"
+  },
+  {
+   "name": "feature session saved once with honest counts",
+   "ok": true,
+   "detail": "{\"n\":1,\"skipped\":3,\"fish\":2,\"mode\":\"MIXED\",\"repeats\":2}"
+  },
+  {
+   "name": "non-staff account cannot open the Pearl Voyage control",
+   "ok": true,
+   "detail": "🔒 هذا الحساب غير مُفعّل  حساب البريد الإلكتروني صحيح، لكنه غير مُفعّل كموظف في "
+  },
+  {
+   "name": "no console or page errors",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "latencyMs": [
+  88,
+  89,
+  232,
+  84,
+  295,
+  58,
+  85,
+  64,
+  171,
+  67,
+  111,
+  74
+ ],
+ "errors": []
+}

@@ -1,0 +1,157 @@
+[
+ {
+  "name": "safety: both devices enter a paused safety hold",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "safety: nothing advances while held; the target stays identifiable",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "safety: resume is explicit and clearly labelled",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control reload: same stage and step, paused with a safety hold, never auto-resuming",
+  "ok": true,
+  "detail": "{\"testid\":\"foot-control\",\"status\":\"paused\",\"stage\":\"0\",\"step\":\"2\",\"phase\":\"step\",\"safety\":\"1\",\"rest\":\"0\"}"
+ },
+ {
+  "name": "Control reload: still frozen 5 s later",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display reload: shows the same held state and target from the shared record",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "explicit resume restarts both devices with progress kept",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control gone: the Display falls back to the calm safe state with a waiting card",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control gone: no step advanced on the Display by itself",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control returns: adopts the session paused with a safety hold; Display reconnects",
+  "ok": true,
+  "detail": "{\"testid\":\"foot-control\",\"status\":\"paused\",\"stage\":\"0\",\"step\":\"2\",\"phase\":\"step\",\"safety\":\"1\",\"rest\":\"0\"}"
+ },
+ {
+  "name": "a second window of the same account does not silently take over a live session",
+  "ok": true,
+  "detail": "{\"control\":false,\"blocked\":true}"
+ },
+ {
+  "name": "sensor sim: a movement hint is shown to the therapist as a hint only",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor sim: movement never confirms a step or advances anything",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor loss: link reported lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "manual fallback: therapist confirmation still works with the sensor lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stone size / spacing / reach sliders are locked while running",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sliders unlock when paused",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a smaller stone size reaches both devices (radius shrinks, centre fixed)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "calibration: estimated stone diameter appears after entering centimetres, labelled as unverified",
+  "ok": true,
+  "detail": "62 cm; تقدير من الأرقام المُدخلة فقط. الأبعاد الفعلية غير متحقَّق منها حتى يُقاس الإسقاط ويُعاير على الأرض."
+ },
+ {
+  "name": "calibration: the estimate matches the rendered stone width on a 320 cm floor (within 3 %)",
+  "ok": true,
+  "detail": "estimate 62 cm, rendered 62.4 cm"
+ },
+ {
+  "name": "calibration: a mismatched floor shape is flagged as stretched",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "floor view is stable: the camera never moves or rescales during play",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "cinematic perspective is a separate, opt-in preview (floor is the default)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "floor mode restored",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "graphics presets: low < medium < high in draw work, and all stay interactive",
+  "ok": true,
+  "detail": "{\"low\":{\"calls\":30,\"tris\":48594,\"fps\":60.1},\"medium\":{\"calls\":61,\"tris\":92928,\"fps\":60},\"high\":{\"calls\":80,\"tris\":177148,\"fps\":60}}"
+ },
+ {
+  "name": "accessibility toggles reach the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "reduced motion keeps the render interactive",
+  "ok": true,
+  "detail": "{\"fps\":60.1,\"calls\":79,\"triangles\":177064,\"geometries\":25,\"textures\":15,\"stones\":4,\"world\":0,\"quality\":\"high\",\"view\":\"floor\"}"
+ },
+ {
+  "name": "Balloon Quest control still launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Color Chase control still launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the original game's sensor-play route still launches (rollback assets intact)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions",
+  "ok": true,
+  "detail": "[]"
+ }
+]

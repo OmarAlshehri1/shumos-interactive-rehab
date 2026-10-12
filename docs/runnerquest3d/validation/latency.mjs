@@ -1,0 +1,20 @@
+// Input -> Display latency: Control call time vs Display DOM change (both on the same machine clock via timeOrigin).
+import { launch, sleep } from "./cdplib.mjs";
+import { writeFileSync, mkdirSync } from "node:fs";
+const out = process.argv[2];
+mkdirSync(`${out}/results`, { recursive: true });
+const b = await launch(out, 9566);
+const display = await b.open("http://127.0.0.1:3210/display/runner-quest-3d-prototype?auto=0", 1920, 1080);
+const control = await b.open("http://127.0.0.1:3210/control/runner-quest-3d-prototype", 1400, 900);
+await sleep(7000);
+await control.eval(`(() => { const rt = window.__RQ3D_RT; rt.command({type:'settings', patch:{speed:1.0}}); rt.command({type:'range', from:0, to:0}); })()`);
+await display.eval(`(() => { window.__lat = []; const el = document.querySelector('[data-testid=rq3d-display]'); new MutationObserver(() => window.__lat.push(performance.timeOrigin + performance.now())).observe(el, { attributes: true, attributeFilter: ['data-laneseq'] }); })()`);
+await control.click("start"); await sleep(600);
+const sent = await control.eval(`new Promise((resolve) => { const rt = window.__RQ3D_RT; const sent = []; let n = 0; const id = setInterval(() => { const key = n % 2 === 0 ? 'ArrowLeft' : 'ArrowRight'; const t = performance.timeOrigin + performance.now(); const r = rt.key(key, false); if (r.accepted) sent.push(t); if (++n >= 120) { clearInterval(id); resolve(sent); } }, 260); })`);
+await sleep(800);
+const lat = await display.eval(`window.__lat`);
+const d = sent.map((s, i) => lat[i] - s).filter((x) => x >= 0).sort((a, c) => a - c);
+const res = { sent: sent.length, received: lat.length, n: d.length, p50: d[Math.floor(d.length * 0.5)], p95: d[Math.floor(d.length * 0.95)], max: d[d.length - 1], min: d[0] };
+writeFileSync(`${out}/results/latency.json`, JSON.stringify(res, null, 1));
+console.log(JSON.stringify(res));
+b.close();

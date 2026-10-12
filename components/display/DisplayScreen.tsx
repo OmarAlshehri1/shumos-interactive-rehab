@@ -1,4 +1,6 @@
 "use client";
+import {decode as decodeBridgeLive} from '@/lib/balancebridge3d/live';
+import { SharedGameIntroduction } from "./SharedGameIntroduction";
 import { isDomeLive } from "@/lib/bubblepopwall3d/live";
 
 import { useCallback, useEffect, useRef } from "react";
@@ -185,6 +187,20 @@ function RealtimeDisplayScreen() {
     }).catch(() => {});
   }, [audio.readiness.contextState, audio.readiness.ready, realtime.authStatus, realtime.connectionStatus]);
 
+  // Refresh the Display's own observed audio state; heartbeat flags cannot unlock audio.
+  useEffect(() => {
+    if (realtime.authStatus !== "authenticated" || realtime.connectionStatus !== "connected") return;
+    const timer = setInterval(() => {
+      if (processingAudioCommandRef.current) return;
+      void reportDisplayAudioStatus(getDisplayDb(), {
+        state: audio.readiness.ready ? "ready" : "not-ready",
+        commandId: null,
+        contextState: audio.readiness.contextState,
+      }).catch(() => {});
+    }, 15000);
+    return () => clearInterval(timer);
+  }, [audio.readiness.contextState, audio.readiness.ready, realtime.authStatus, realtime.connectionStatus]);
+
   const processedAudioCommandRef = useRef<string | null>(null);
   useEffect(() => {
     if (realtime.authStatus !== "authenticated") return;
@@ -326,7 +342,9 @@ function RealtimeDisplayScreen() {
   // longer type-checks now that a 5th game exists. Each branch below casts
   // `currentStage` to just the one field it actually needs, sound because
   // the branch condition already guarantees which concrete game this is.
+  const bridgeState=activeGame&&realtime.gameId==='balance-bridge-3d'?decodeBridgeLive(activeGame.session):null;
   const environmentBackground =
+    bridgeState ? <div style={{position:'fixed',inset:0,background:'#18392f'}} /> :
     activeGame && realtime.gameId === "follow-the-footsteps" && isFp3Live(activeGame.session) ? (
       <div style={{ position: "fixed", inset: 0, background: "#0b1a12" }} />
     ) : activeGame && realtime.gameId === "follow-the-footsteps" ? (
@@ -402,6 +420,7 @@ function RealtimeDisplayScreen() {
                 celebrationReplayToken={realtime.celebrationReplayToken}
               />
             </LocalGameFeedbackProvider>
+            {realtime.gameId && activeGame.session.gameState === "START_ZONE" && "engine" in activeGame.session && <SharedGameIntroduction gameId={realtime.gameId} session={activeGame.session} onEvent={audio.handleEvent} audioEnabled={bridgeState?.config.audio!==false} speechKey={bridgeState?`balance-bridge-3d:${bridgeState.sessionId}:${bridgeState.run}:${bridgeState.stage}`:undefined} />}
             <SensorPointerLayer authenticated={realtime.authStatus === "authenticated"} gateVisible={sensorHandGateVisible} />
           </motion.div>
         ) : (

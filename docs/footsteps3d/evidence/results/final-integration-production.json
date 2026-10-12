@@ -1,0 +1,142 @@
+[
+ {
+  "name": "library: exactly one Follow the Footsteps card, the 3D one, linking to the canonical route",
+  "ok": true,
+  "detail": "{\"titles\":1,\"links\":1,\"en\":true,\"legacyLinks\":0}"
+ },
+ {
+  "name": "library: the other games are untouched (Mirror Quest, Safe Hex Arena, Balloon Quest, Color Chase, Space Pilot)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the card opens the 3D Control on the canonical route",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the child Display (separate browser) renders the shared session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "start",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "confirm a step",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "assisted step",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "repeat the cue (no progress change)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "pause (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip a step",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip the stage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "restart (new run, ready on both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control reload: same stage and step, paused with a safety hold",
+  "ok": true,
+  "detail": "{\"testid\":\"foot-control\",\"status\":\"paused\",\"stage\":\"0\",\"step\":\"2\",\"phase\":\"step\",\"safety\":\"1\",\"rest\":\"0\"}"
+ },
+ {
+  "name": "no history before the session ends",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "end (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "history saved exactly once, even after Control and Display reloads",
+  "ok": true,
+  "detail": "[\"467ee747-b9d1-445e-a940-6835c623ba25-r1\"]"
+ },
+ {
+  "name": "history reflects the restarted run and is distinguishable from the original five-stage format",
+  "ok": true,
+  "detail": "{\"done\":2,\"assists\":1,\"presented\":4}"
+ },
+ {
+  "name": "public liveSession record carries no patient id",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a signed-in non-staff account cannot reach the game Control",
+  "ok": true,
+  "detail": "🔒 هذا الحساب غير مُفعّل حساب البريد الإلكتروني صحيح، لكنه غير مُفعّل كموظف في النظام. تواصل مع إدارة شموس كير. تسجيل الخروج"
+ },
+ {
+  "name": "a signed-out visitor sees the staff sign-in, not the game",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the original game's Control is still reachable internally (rollback path), not the 3D one",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the original game's sensor-play route still launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Mirror Quest control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Safe Hex Arena control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Balloon Quest control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Color Chase control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions on any window",
+  "ok": true,
+  "detail": "[]"
+ }
+]

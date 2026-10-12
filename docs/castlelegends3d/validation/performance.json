@@ -1,0 +1,30 @@
+{
+  "environment": "local visible Chromium, macOS Metal; dev build; not projector acceptance",
+  "frameTimes": {
+    "medianMs": 16.699999999999818,
+    "p95Ms": 18.199999999999818,
+    "samples": 100
+  },
+  "high": {
+    "calls": 373,
+    "triangles": 272730,
+    "geometries": 260,
+    "textures": 6,
+    "quality": "high"
+  },
+  "low": {
+    "calls": 254,
+    "triangles": 98522,
+    "geometries": 254,
+    "textures": 4,
+    "quality": "low"
+  },
+  "thumbnail": {
+    "source": "docs/castlelegends3d/screenshots/thumbnail-source.png",
+    "asset": "public/castlelegends3d/thumbnail.png",
+    "sourceWidth": 1280,
+    "sourceHeight": 720,
+    "assetWidth": 640,
+    "assetHeight": 360
+  }
+}

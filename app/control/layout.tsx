@@ -10,6 +10,10 @@ import { BuildQuestLocalOnlyBoundary } from "@/components/control/buildquest3d/B
 import "./control.css";
 import { LibraryLaunchBoundary } from "@/components/control/library/launch/LibraryLaunchBoundary";
 
+import { GameSafetyProvider } from '@/components/control/visits/GameSafetyProvider';
+import { VisitProvider } from '@/components/control/visits/VisitProvider';
+import { VisitWorkspace } from '@/components/control/visits/VisitWorkspace';
+
 const plexSansArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-control",
   subsets: ["arabic", "latin"],
@@ -46,13 +50,13 @@ const plexSansArabic = IBM_Plex_Sans_Arabic({
  */
 export default function ControlLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${plexSansArabic.variable} contents`}>
+    <div className={`${plexSansArabic.variable} contents shumos-control`}>
       <SensorRuntimeProvider>
         <BuildQuestLocalOnlyBoundary><PrototypeLocalOnlyBoundary><SensorPointerDisplaySync /></PrototypeLocalOnlyBoundary></BuildQuestLocalOnlyBoundary>
         <LocalPointerBroadcastSync />
         <PatientSessionProvider>
           <SessionWorkflowProvider>
-            <StaffAuthGate><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary></StaffAuthGate>
+            <StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>
           </SessionWorkflowProvider>
         </PatientSessionProvider>
       </SensorRuntimeProvider>

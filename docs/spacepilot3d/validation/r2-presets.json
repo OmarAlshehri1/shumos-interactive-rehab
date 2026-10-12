@@ -1,0 +1,59 @@
+{
+  "evidence": [
+    {
+      "difficulty": "LOW",
+      "stats": {
+        "starsPresented": 11,
+        "starsCollected": 11,
+        "starsMissed": 0,
+        "asteroidsPresented": 7,
+        "asteroidsAvoided": 5,
+        "asteroidCollisions": 2,
+        "score": 1100,
+        "collectionAccuracy": 1,
+        "upgradeTier": 3,
+        "resolved": 18,
+        "totalEncounters": 18,
+        "completedMissions": 3
+      },
+      "pose": {
+        "x": -0.24392652641171544,
+        "y": 0.12022070837836853,
+        "z": -2180.2678481851053,
+        "yaw": 0.0540807806487536,
+        "pitch": -0.026634758838423856,
+        "bank": 2.0349188852003585e-13,
+        "controlX": 0.5716097779272796,
+        "controlY": 0.571727788846864
+      }
+    },
+    {
+      "difficulty": "MEDIUM",
+      "stats": {
+        "starsPresented": 11,
+        "starsCollected": 11,
+        "starsMissed": 0,
+        "asteroidsPresented": 7,
+        "asteroidsAvoided": 5,
+        "asteroidCollisions": 2,
+        "score": 1100,
+        "collectionAccuracy": 1,
+        "upgradeTier": 3,
+        "resolved": 18,
+        "totalEncounters": 18,
+        "completedMissions": 3
+      },
+      "pose": {
+        "x": -0.21497634696536308,
+        "y": 0.10527857024272298,
+        "z": -2911.5036137836123,
+        "yaw": 0.04820620116697432,
+        "pitch": -0.02359409870252428,
+        "bank": 0,
+        "controlX": 0.5588476795648075,
+        "controlY": 0.566964087967288
+      }
+    }
+  ],
+  "pageErrors": []
+}

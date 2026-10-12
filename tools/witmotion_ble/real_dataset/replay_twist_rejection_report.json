@@ -1,0 +1,395 @@
+{
+  "generatedBy": "replay_twist_rejection.py",
+  "sessions": [
+    {
+      "file": "wt901-right-hand-diagnostic-1788441394853.json",
+      "sampleCount": 1186,
+      "models": {
+        "before_fused_angle_geometric": {
+          "rotate_one": {
+            "n": 126,
+            "maxDriftFromPhaseStart": 0.7792406079150163,
+            "xRange": 0.7785181653574018,
+            "yRange": 0.11442280013757561
+          },
+          "rotate_other": {
+            "n": 83,
+            "maxDriftFromPhaseStart": 0.373992447183594,
+            "xRange": 0.36606539141820116,
+            "yRange": 0.08619766808247142
+          },
+          "right": {
+            "n": 73,
+            "maxDriftFromPhaseStart": 0.7308350683311081,
+            "xRange": 0.7295899504712889,
+            "yRange": 0.08651749452902896
+          },
+          "left": {
+            "n": 88,
+            "maxDriftFromPhaseStart": 1.001475456090369,
+            "xRange": 1.0,
+            "yRange": 0.0916713485335312
+          },
+          "up": {
+            "n": 94,
+            "maxDriftFromPhaseStart": 0.41419839618891957,
+            "xRange": 0.10610977102307018,
+            "yRange": 0.4302891911109364
+          },
+          "down": {
+            "n": 78,
+            "maxDriftFromPhaseStart": 0.7969510588221205,
+            "xRange": 0.565560979562137,
+            "yRange": 0.6676942833256533
+          },
+          "diagonal": {
+            "n": 145,
+            "maxDriftFromPhaseStart": 0.6321589268893443,
+            "xRange": 0.614223357317509,
+            "yRange": 0.7005303324856771
+          },
+          "tiny": {
+            "n": 99,
+            "maxDriftFromPhaseStart": 0.26167294031044697,
+            "xRange": 0.25460386466001206,
+            "yRange": 0.13259223021785593
+          },
+          "slow": {
+            "n": 128,
+            "maxDriftFromPhaseStart": 0.06736070850947436,
+            "xRange": 0.09434954814199914,
+            "yRange": 0.06692969241003222
+          },
+          "fast": {
+            "n": 92,
+            "maxDriftFromPhaseStart": 0.9686669355901375,
+            "xRange": 0.9685571790132264,
+            "yRange": 1.0
+          }
+        },
+        "after_gyro_integrated_shipped": {
+          "rotate_one": {
+            "n": 126,
+            "maxDriftFromPhaseStart": 0.12282122499900928,
+            "xRange": 0.030884393628452245,
+            "yRange": 0.1866913578403372
+          },
+          "rotate_other": {
+            "n": 83,
+            "maxDriftFromPhaseStart": 0.11554548538046681,
+            "xRange": 0.20191243810267656,
+            "yRange": 0.02918122168574172
+          },
+          "right": {
+            "n": 73,
+            "maxDriftFromPhaseStart": 0.49896008518453344,
+            "xRange": 0.5,
+            "yRange": 0.06262692547594384
+          },
+          "left": {
+            "n": 88,
+            "maxDriftFromPhaseStart": 0.9097052079544833,
+            "xRange": 0.9080566713093386,
+            "yRange": 0.05474163927133885
+          },
+          "up": {
+            "n": 94,
+            "maxDriftFromPhaseStart": 0.9484110478338731,
+            "xRange": 0.8059054011813949,
+            "yRange": 1.0
+          },
+          "down": {
+            "n": 78,
+            "maxDriftFromPhaseStart": 0.37990145448631835,
+            "xRange": 0.23344598497101487,
+            "yRange": 0.6267081797527269
+          },
+          "diagonal": {
+            "n": 145,
+            "maxDriftFromPhaseStart": 0.7823906058299357,
+            "xRange": 0.6757335250026578,
+            "yRange": 0.5
+          },
+          "tiny": {
+            "n": 99,
+            "maxDriftFromPhaseStart": 0.7201189381704214,
+            "xRange": 0.5,
+            "yRange": 0.5182386372239097
+          },
+          "slow": {
+            "n": 128,
+            "maxDriftFromPhaseStart": 0.06551746008606396,
+            "xRange": 0.09687305388203449,
+            "yRange": 0.046488705125959984
+          },
+          "fast": {
+            "n": 92,
+            "maxDriftFromPhaseStart": 0.6052685574012188,
+            "xRange": 1.0,
+            "yRange": 0.9387678497609946
+          }
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788442512578.json",
+      "sampleCount": 1354,
+      "models": {
+        "before_fused_angle_geometric": {
+          "rotate_one": {
+            "n": 118,
+            "maxDriftFromPhaseStart": 0.5333955683355287,
+            "xRange": 0.5,
+            "yRange": 0.18621761980767282
+          },
+          "rotate_other": {
+            "n": 125,
+            "maxDriftFromPhaseStart": 0.7181330776815115,
+            "xRange": 0.7109201899999578,
+            "yRange": 0.1015263547594597
+          },
+          "right": {
+            "n": 99,
+            "maxDriftFromPhaseStart": 0.5117589317958601,
+            "xRange": 0.5107458142654102,
+            "yRange": 0.11088361514390627
+          },
+          "left": {
+            "n": 81,
+            "maxDriftFromPhaseStart": 0.5019097968899854,
+            "xRange": 0.49592924655150245,
+            "yRange": 0.09332716261595503
+          },
+          "up": {
+            "n": 90,
+            "maxDriftFromPhaseStart": 0.4717197491002837,
+            "xRange": 0.08846229088083157,
+            "yRange": 0.4730561783101359
+          },
+          "down": {
+            "n": 108,
+            "maxDriftFromPhaseStart": 0.4447808090416471,
+            "xRange": 0.133025594538758,
+            "yRange": 0.44566038329284363
+          },
+          "diagonal": {
+            "n": 141,
+            "maxDriftFromPhaseStart": 0.7492994012981908,
+            "xRange": 0.5583526786439655,
+            "yRange": 0.5
+          },
+          "tiny": {
+            "n": 139,
+            "maxDriftFromPhaseStart": 0.28457771284835065,
+            "xRange": 0.28457771284835065,
+            "yRange": 0.15636998520171513
+          },
+          "slow": {
+            "n": 124,
+            "maxDriftFromPhaseStart": 0.229798514996896,
+            "xRange": 0.3080724832765967,
+            "yRange": 0.07447300350208258
+          },
+          "fast": {
+            "n": 152,
+            "maxDriftFromPhaseStart": 0.5540614434373249,
+            "xRange": 1.0,
+            "yRange": 0.9070643121229188
+          }
+        },
+        "after_gyro_integrated_shipped": {
+          "rotate_one": {
+            "n": 118,
+            "maxDriftFromPhaseStart": 0.19026007450747592,
+            "xRange": 0.2413446384496455,
+            "yRange": 0.07596186114472597
+          },
+          "rotate_other": {
+            "n": 125,
+            "maxDriftFromPhaseStart": 0.04618577746859393,
+            "xRange": 0.05825245780684063,
+            "yRange": 0.017413949549187846
+          },
+          "right": {
+            "n": 99,
+            "maxDriftFromPhaseStart": 0.5046195610695793,
+            "xRange": 0.551452801381391,
+            "yRange": 0.06812416174937419
+          },
+          "left": {
+            "n": 81,
+            "maxDriftFromPhaseStart": 0.5095945481493752,
+            "xRange": 0.7482300765271318,
+            "yRange": 0.10302951036748509
+          },
+          "up": {
+            "n": 90,
+            "maxDriftFromPhaseStart": 0.5331971953110666,
+            "xRange": 0.3258916905290998,
+            "yRange": 0.9418484082504464
+          },
+          "down": {
+            "n": 108,
+            "maxDriftFromPhaseStart": 0.4143778824519409,
+            "xRange": 0.20259817903546895,
+            "yRange": 0.6868325148266483
+          },
+          "diagonal": {
+            "n": 141,
+            "maxDriftFromPhaseStart": 0.7071067811865476,
+            "xRange": 0.7308415123596707,
+            "yRange": 0.5
+          },
+          "tiny": {
+            "n": 139,
+            "maxDriftFromPhaseStart": 0.3449717765749236,
+            "xRange": 0.23821127727383723,
+            "yRange": 0.3225210761176044
+          },
+          "slow": {
+            "n": 124,
+            "maxDriftFromPhaseStart": 0.27898121741132736,
+            "xRange": 0.30338169058046693,
+            "yRange": 0.1699528716131175
+          },
+          "fast": {
+            "n": 152,
+            "maxDriftFromPhaseStart": 0.5479928819075662,
+            "xRange": 1.0,
+            "yRange": 1.0
+          }
+        }
+      }
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788443253622.json",
+      "sampleCount": 1080,
+      "models": {
+        "before_fused_angle_geometric": {
+          "rotate_one": {
+            "n": 93,
+            "maxDriftFromPhaseStart": 0.5111457410283688,
+            "xRange": 0.5,
+            "yRange": 0.10786242158074355
+          },
+          "rotate_other": {
+            "n": 104,
+            "maxDriftFromPhaseStart": 0.5257255252417264,
+            "xRange": 0.523884355740371,
+            "yRange": 0.12997683820875267
+          },
+          "right": {
+            "n": 71,
+            "maxDriftFromPhaseStart": 0.606395649540155,
+            "xRange": 0.6123176537215131,
+            "yRange": 0.11580748691071874
+          },
+          "left": {
+            "n": 76,
+            "maxDriftFromPhaseStart": 0.4062938530881574,
+            "xRange": 0.38196966589955667,
+            "yRange": 0.13846974178426952
+          },
+          "up": {
+            "n": 62,
+            "maxDriftFromPhaseStart": 0.5144075010048784,
+            "xRange": 0.12089283307989751,
+            "yRange": 0.5
+          },
+          "down": {
+            "n": 62,
+            "maxDriftFromPhaseStart": 0.49003582383178035,
+            "xRange": 0.15085333688969693,
+            "yRange": 0.48880674418199066
+          },
+          "diagonal": {
+            "n": 154,
+            "maxDriftFromPhaseStart": 0.7839121589695399,
+            "xRange": 1.0,
+            "yRange": 1.0
+          },
+          "tiny": {
+            "n": 120,
+            "maxDriftFromPhaseStart": 0.24184675706045616,
+            "xRange": 0.2802372496924117,
+            "yRange": 0.29024134393541295
+          },
+          "slow": {
+            "n": 146,
+            "maxDriftFromPhaseStart": 0.2644948516398948,
+            "xRange": 0.45614009975154973,
+            "yRange": 0.43293114319734194
+          },
+          "fast": {
+            "n": 92,
+            "maxDriftFromPhaseStart": 0.7195137330218169,
+            "xRange": 1.0,
+            "yRange": 0.7772759217999669
+          }
+        },
+        "after_gyro_integrated_shipped": {
+          "rotate_one": {
+            "n": 93,
+            "maxDriftFromPhaseStart": 0.13243698591420883,
+            "xRange": 0.17388490780053834,
+            "yRange": 0.0
+          },
+          "rotate_other": {
+            "n": 104,
+            "maxDriftFromPhaseStart": 0.10345915733716449,
+            "xRange": 0.0022747179885284075,
+            "yRange": 0.188908540892186
+          },
+          "right": {
+            "n": 71,
+            "maxDriftFromPhaseStart": 0.5346682462789125,
+            "xRange": 0.5786508954935454,
+            "yRange": 0.24223344030895677
+          },
+          "left": {
+            "n": 76,
+            "maxDriftFromPhaseStart": 0.5583135713824557,
+            "xRange": 0.6542576396739521,
+            "yRange": 0.25787885692769047
+          },
+          "up": {
+            "n": 62,
+            "maxDriftFromPhaseStart": 0.5297984018345648,
+            "xRange": 0.18131554275995948,
+            "yRange": 0.6021086137692858
+          },
+          "down": {
+            "n": 62,
+            "maxDriftFromPhaseStart": 0.47755166076703653,
+            "xRange": 0.13918910491593867,
+            "yRange": 0.8100049588505016
+          },
+          "diagonal": {
+            "n": 154,
+            "maxDriftFromPhaseStart": 0.7215710313889034,
+            "xRange": 1.0,
+            "yRange": 1.0
+          },
+          "tiny": {
+            "n": 120,
+            "maxDriftFromPhaseStart": 0.28001191521570606,
+            "xRange": 0.26677142914911806,
+            "yRange": 0.4246269729840056
+          },
+          "slow": {
+            "n": 146,
+            "maxDriftFromPhaseStart": 0.33468788264351584,
+            "xRange": 0.4315561173108233,
+            "yRange": 0.4634541576263441
+          },
+          "fast": {
+            "n": 92,
+            "maxDriftFromPhaseStart": 0.5965426498959918,
+            "xRange": 1.0,
+            "yRange": 0.9014370215134055
+          }
+        }
+      }
+    }
+  ]
+}

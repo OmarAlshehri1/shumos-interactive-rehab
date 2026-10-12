@@ -1,5 +1,9 @@
 "use client";
-import {useLibraryLaunchAdapter} from '@/components/control/library/launch/LibraryLaunchBoundary';
+import {
+  AdditionalOptions,
+  StagePicker,
+} from "@/components/control/setup/ProgressiveStages";
+import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
 import { STAGES, type Pointer } from "@/lib/buildquest3d/stages";
@@ -17,10 +21,26 @@ import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { ManualWorkbench } from "./ManualWorkbench";
 export function BuildQuestControl() {
   const { selectedPatient } = usePatientContext();
-  const session = useBuildQuestSession(true, selectedPatient?.patientId ?? null),
+  const session = useBuildQuestSession(
+      true,
+      selectedPatient?.patientId ?? null,
+    ),
     { state, connected } = session;
   const pointer = useRef<Pointer | null>(null);
-  useLibraryLaunchAdapter('build-quest-3d',{modes:['MANUAL','RIGHT_HAND'],apply:mode=>{if(!state||!connected||session.superseded||!['ready','paused'].includes(state.status))return false;session.configure({input:mode==='RIGHT_HAND'?'sensor':'mouse'});return true;}});
+  useLibraryLaunchAdapter("build-quest-3d", {
+    modes: ["MANUAL", "RIGHT_HAND"],
+    apply: (mode) => {
+      if (
+        !state ||
+        !connected ||
+        session.superseded ||
+        !["ready", "paused"].includes(state.status)
+      )
+        return false;
+      session.configure({ input: mode === "RIGHT_HAND" ? "sensor" : "mouse" });
+      return true;
+    },
+  });
   const send = session.sendPointer;
   const sendPointer = useCallback(
     (p: Pointer, activate = false) => {
@@ -49,15 +69,32 @@ export function BuildQuestControl() {
     return (
       <main className={styles.control}>
         <h1>عالم البناء</h1>
-        <p role="alert" data-testid="bq-superseded">تم نقل هذه الجلسة إلى نافذة تحكم أخرى. هذه النافذة لم تعد تتحكم باللعبة، أغلقها أو أعد تحميلها.</p>
+        <p role="alert" data-testid="bq-superseded">
+          تم نقل هذه الجلسة إلى نافذة تحكم أخرى. هذه النافذة لم تعد تتحكم
+          باللعبة، أغلقها أو أعد تحميلها.
+        </p>
       </main>
     );
   if (!state && session.recoveryBlocked)
     return (
       <main className={styles.control}>
         <h1>عالم البناء</h1>
-        <p role="alert" data-testid="bq-recovery-blocked">توجد جلسة غير منتهية تعمل في نافذة تحكم أخرى.{session.takeoverAllowed ? " إذا كانت تلك النافذة مغلقة أو متوقفة يمكنك استعادة الجلسة هنا، وستعود متوقفة مؤقتًا بتقدّمها كما هو." : " تخص مريضًا آخر غير المختار هنا؛ أغلق النافذة الأخرى أو اختر المريض نفسه لاستعادتها."}</p>
-        {session.takeoverAllowed && <button type="button" className={styles.link} data-testid="bq-take-over" onClick={session.takeOver}>استعادة الجلسة هنا</button>}
+        <p role="alert" data-testid="bq-recovery-blocked">
+          توجد جلسة غير منتهية تعمل في نافذة تحكم أخرى.
+          {session.takeoverAllowed
+            ? " إذا كانت تلك النافذة مغلقة أو متوقفة يمكنك استعادة الجلسة هنا، وستعود متوقفة مؤقتًا بتقدّمها كما هو."
+            : " تخص مريضًا آخر غير المختار هنا؛ أغلق النافذة الأخرى أو اختر المريض نفسه لاستعادتها."}
+        </p>
+        {session.takeoverAllowed && (
+          <button
+            type="button"
+            className={styles.link}
+            data-testid="bq-take-over"
+            onClick={session.takeOver}
+          >
+            استعادة الجلسة هنا
+          </button>
+        )}
       </main>
     );
   if (!state)
@@ -65,12 +102,14 @@ export function BuildQuestControl() {
       <main className={styles.control}>
         <h1>عالم البناء</h1>
         <p>
-          {session.error ?? "جاري تجهيز الجلسة. أغلق أي شاشة تحكم أخرى للجلسة نفسها ثم أعد"}
+          {session.error ??
+            "جاري تجهيز الجلسة. أغلق أي شاشة تحكم أخرى للجلسة نفسها ثم أعد"}
           التحميل.
         </p>
       </main>
     );
-  const editable = connected && (state.status === "ready" || state.status === "paused"),
+  const editable =
+      connected && (state.status === "ready" || state.status === "paused"),
     stage = STAGES[state.stage];
   return (
     <main className={styles.control} lang="ar">
@@ -87,7 +126,11 @@ export function BuildQuestControl() {
             </Link>
             <a
               className={styles.link}
-              href={isRealtimeEnabled() ? "/display" : `/display/build-quest-3d?session=${state.session}`}
+              href={
+                isRealtimeEnabled()
+                  ? "/display"
+                  : `/display/build-quest-3d?session=${state.session}`
+              }
               target="_blank"
               rel="noopener"
             >
@@ -97,36 +140,16 @@ export function BuildQuestControl() {
         </header>
         <div className={styles.panelGrid}>
           <aside className={styles.panel}>
-            <label>
-              الصعوبة
-              <select
-                aria-label="الصعوبة"
-                value={stage.level}
-                disabled={!editable}
-                onChange={(e) =>
-                  session.configure({}, (Number(e.target.value) - 1) * 3)
-                }
-              >
-                <option value="1">١ · مطابقة الأشكال</option>
-                <option value="2">٢ · بناء الأشياء</option>
-                <option value="3">٣ · الإنشاء الإبداعي</option>
-              </select>
-            </label>
-            <label>
-              المرحلة
-              <select
-                aria-label="المرحلة"
-                value={state.stage}
-                disabled={!editable}
-                onChange={(e) => session.configure({}, Number(e.target.value))}
-              >
-                {STAGES.filter((s) => s.level === stage.level).map((s) => (
-                  <option key={s.id} value={STAGES.indexOf(s)}>
-                    {s.title}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <StagePicker
+              value={state.stage}
+              disabled={!editable}
+              items={STAGES.map((stage, index) => ({
+                value: index,
+                label: stage.title,
+                description: `${stage.pieces.length} قطع لإكمال النموذج`,
+              }))}
+              onSelect={(value) => session.configure({}, Number(value))}
+            />
             <label>
               طريقة التحكم
               <select
@@ -137,7 +160,9 @@ export function BuildQuestControl() {
                   session.configure({ input: e.target.value as InputMode })
                 }
               >
-                <option value="mouse">يدوي · اللمس والفأرة ولوحة المفاتيح</option>
+                <option value="mouse">
+                  يدوي · اللمس والفأرة ولوحة المفاتيح
+                </option>
                 <option value="sensor">حساس اليد اليمنى</option>
                 <option value="controller">وحدة تحكم · تجريبية</option>
               </select>
@@ -191,22 +216,24 @@ export function BuildQuestControl() {
                 }
               />
             </label>
-            <label>
-              جودة العرض
-              <select
-                aria-label="جودة العرض"
-                disabled={!editable}
-                value={state.config.quality}
-                onChange={(e) =>
-                  session.configure({
-                    quality: e.target.value as "high" | "low",
-                  })
-                }
-              >
-                <option value="high">عالية</option>
-                <option value="low">خفيفة للأجهزة الأبطأ</option>
-              </select>
-            </label>
+            <AdditionalOptions>
+              <label>
+                جودة العرض
+                <select
+                  aria-label="جودة العرض"
+                  disabled={!editable}
+                  value={state.config.quality}
+                  onChange={(e) =>
+                    session.configure({
+                      quality: e.target.value as "high" | "low",
+                    })
+                  }
+                >
+                  <option value="high">عالية</option>
+                  <option value="low">خفيفة للأجهزة الأبطأ</option>
+                </select>
+              </label>
+            </AdditionalOptions>
             <p className={styles.help}>
               الفأرة: انقر القطعة ثم حرّكها إلى الهدف.
               <br />
@@ -237,15 +264,40 @@ export function BuildQuestControl() {
             )}
           </aside>
           <section className={styles.panel}>
-            <p role="status" data-testid="sync-status">{!connected ? "الاتصال متوقف؛ التحكم معلّق بأمان" : session.pending ? "جارٍ مزامنة التغيير…" : session.cloud ? "متصل · التغييرات مؤكدة" : "جلسة محلية"}</p>
+            <p role="status" data-testid="sync-status">
+              {!connected
+                ? "الاتصال متوقف؛ التحكم معلّق بأمان"
+                : session.pending
+                  ? "جارٍ مزامنة التغيير…"
+                  : session.cloud
+                    ? "متصل · التغييرات مؤكدة"
+                    : "جلسة محلية"}
+            </p>
             {session.error && <p role="alert">{session.error}</p>}
-            {session.recovered && (state.status === "paused" || state.status === "ready") && <p role="status" data-testid="bq-recovered">تمت استعادة الجلسة بعد إعادة تحميل الصفحة، وتم الاحتفاظ بالمرحلة والقطع الموضوعة. اللعبة متوقفة مؤقتًا حتى تضغط «استئناف».</p>}
+            {session.recovered &&
+              (state.status === "paused" || state.status === "ready") && (
+                <p role="status" data-testid="bq-recovered">
+                  تمت استعادة الجلسة بعد إعادة تحميل الصفحة، وتم الاحتفاظ
+                  بالمرحلة والقطع الموضوعة. اللعبة متوقفة مؤقتًا حتى تضغط
+                  «استئناف».
+                </p>
+              )}
             <div className={styles.preview}>
               <WorkshopCanvas state={state} onPointer={sendPointer} />
             </div>
-            <ManualWorkbench state={state} enabled={connected && state.status === "running"}
-              select={id => { pointer.current = null; session.selectPiece(id); }}
-              place={id => { pointer.current = null; session.placePiece(id); }} move={p => sendPointer(p)} />
+            <ManualWorkbench
+              state={state}
+              enabled={connected && state.status === "running"}
+              select={(id) => {
+                pointer.current = null;
+                session.selectPiece(id);
+              }}
+              place={(id) => {
+                pointer.current = null;
+                session.placePiece(id);
+              }}
+              move={(p) => sendPointer(p)}
+            />
             <div
               className={styles.stats}
               data-testid="build-state"
@@ -319,8 +371,25 @@ export function BuildQuestControl() {
               </div>
             )}
             <p className={styles.notice}>
-              {session.cloud ? "يمكن فتح شاشة الطفل على جهاز آخر عبر الرابط أعلاه. تُحفظ النتيجة للمريض المحدد عند إنهاء الجلسة." : "جلسة محلية على المتصفح نفسه. لا تُحفظ في سجل المريض."}
-              {state.status === "ended" && <span data-testid="history-status" data-status={session.historyStatus}>{session.historyStatus === "saved" ? " النتيجة محفوظة." : session.historyStatus === "walk-in" ? " جلسة دون مريض؛ لا حفظ في السجل." : session.historyStatus === "retry" ? " تعذّر الحفظ؛ ستُعاد المحاولة عند الاتصال." : session.historyStatus === "saving" ? " جارٍ حفظ النتيجة…" : ""}</span>}
+              {session.cloud
+                ? "يمكن فتح شاشة الطفل على جهاز آخر عبر الرابط أعلاه. تُحفظ النتيجة للمريض المحدد عند إنهاء الجلسة."
+                : "جلسة محلية على المتصفح نفسه. لا تُحفظ في سجل المريض."}
+              {state.status === "ended" && (
+                <span
+                  data-testid="history-status"
+                  data-status={session.historyStatus}
+                >
+                  {session.historyStatus === "saved"
+                    ? " النتيجة محفوظة."
+                    : session.historyStatus === "walk-in"
+                      ? " جلسة دون مريض؛ لا حفظ في السجل."
+                      : session.historyStatus === "retry"
+                        ? " تعذّر الحفظ؛ ستُعاد المحاولة عند الاتصال."
+                        : session.historyStatus === "saving"
+                          ? " جارٍ حفظ النتيجة…"
+                          : ""}
+                </span>
+              )}
               اختبار الحساس الفعلي ووحدات التحكم والعرض على جهاز الإسقاط ما زال
               مطلوبًا.
             </p>

@@ -1,0 +1,8 @@
+{
+  "activeWritesPerSecond": 4.977876106194691,
+  "simulatedGamepad": "mapping, pedal-only driving, disconnect pause and manual override passed",
+  "walkIn": "completed without patient history",
+  "displayRecordPatientIdentifier": false,
+  "wireBytes": 1682,
+  "note": "Synthetic Gamepad on Control browser only, not real wheel/pedal validation or a remote relay."
+}

@@ -1,0 +1,208 @@
+{
+  "allNineStages": true,
+  "actualCursorInput": true,
+  "pauseResume": true,
+  "reloadRecovery": true,
+  "historySaveOnce": true,
+  "restart": true,
+  "assistance": true,
+  "separateContexts": true,
+  "emulatorOnly": true,
+  "errors": [],
+  "samples": [
+    {
+      "testid": "dome-scene",
+      "fps": "37.2",
+      "calls": "489",
+      "triangles": "116348",
+      "geometries": "268",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "36.7",
+      "calls": "527",
+      "triangles": "126072",
+      "geometries": "313",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "35.4",
+      "calls": "521",
+      "triangles": "120808",
+      "geometries": "356",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "38.9",
+      "calls": "637",
+      "triangles": "136368",
+      "geometries": "388",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "36.4",
+      "calls": "675",
+      "triangles": "146092",
+      "geometries": "412",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "36.7",
+      "calls": "711",
+      "triangles": "149392",
+      "geometries": "423",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "39.5",
+      "calls": "748",
+      "triangles": "157964",
+      "geometries": "447",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "37.2",
+      "calls": "805",
+      "triangles": "154616",
+      "geometries": "471",
+      "textures": "3"
+    },
+    {
+      "testid": "dome-scene",
+      "fps": "35.9",
+      "calls": "844",
+      "triangles": "165492",
+      "geometries": "490",
+      "textures": "3"
+    }
+  ],
+  "postControlCatchupMs": [
+    7,
+    39,
+    11,
+    5,
+    3,
+    24,
+    17,
+    4,
+    117
+  ],
+  "result": {
+    "assistedObjectives": 0,
+    "bestStage": {
+      "difficulty": "ADVANCED",
+      "stageNumber": 3
+    },
+    "completedAt": 1791664895152,
+    "completedStageCount": 9,
+    "createdByUid": "IxfTJoydr31BeKNTO3SQ5KwsGW8P",
+    "durationMs": 37801,
+    "endingDifficulty": "ADVANCED",
+    "endingStage": 3,
+    "engine": "dome3",
+    "gameId": "bubble-pop-wall",
+    "objectivesCompleted": 16,
+    "patientId": "dome-child",
+    "repeatedObjectives": 0,
+    "resultVersion": 2,
+    "sessionCompleted": true,
+    "sessionId": "bc5f980a-e6d0-41a6-9856-78c688a5db5e-r0",
+    "skippedStageCount": 0,
+    "stageResults": [
+      {
+        "difficulty": "EASY",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 1,
+        "status": "COMPLETED",
+        "targetsCompleted": 1,
+        "targetsPresented": 1
+      },
+      {
+        "difficulty": "EASY",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 2,
+        "status": "COMPLETED",
+        "targetsCompleted": 2,
+        "targetsPresented": 2
+      },
+      {
+        "difficulty": "EASY",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 3,
+        "status": "COMPLETED",
+        "targetsCompleted": 2,
+        "targetsPresented": 2
+      },
+      {
+        "difficulty": "MEDIUM",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 1,
+        "status": "COMPLETED",
+        "targetsCompleted": 1,
+        "targetsPresented": 1
+      },
+      {
+        "difficulty": "MEDIUM",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 2,
+        "status": "COMPLETED",
+        "targetsCompleted": 1,
+        "targetsPresented": 1
+      },
+      {
+        "difficulty": "MEDIUM",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 3,
+        "status": "COMPLETED",
+        "targetsCompleted": 2,
+        "targetsPresented": 2
+      },
+      {
+        "difficulty": "ADVANCED",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 1,
+        "status": "COMPLETED",
+        "targetsCompleted": 2,
+        "targetsPresented": 2
+      },
+      {
+        "difficulty": "ADVANCED",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 2,
+        "status": "COMPLETED",
+        "targetsCompleted": 2,
+        "targetsPresented": 2
+      },
+      {
+        "difficulty": "ADVANCED",
+        "engine": "dome3",
+        "incorrectCount": 0,
+        "stageNumber": 3,
+        "status": "COMPLETED",
+        "targetsCompleted": 3,
+        "targetsPresented": 3
+      }
+    ],
+    "startedAt": 1791664857351,
+    "startingDifficulty": "EASY",
+    "startingStage": 1,
+    "totalIncorrect": 0,
+    "totalTargetsCompleted": 16,
+    "totalTargetsPresented": 16
+  }
+}

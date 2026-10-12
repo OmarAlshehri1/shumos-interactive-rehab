@@ -1,0 +1,12 @@
+[
+ {
+  "name": "flag off: exactly one Follow the Footsteps card and it is the original (no 3D name)",
+  "ok": true,
+  "detail": "{\"titles\":1,\"links\":1,\"en3d\":false,\"en\":true}"
+ },
+ {
+  "name": "flag off: the canonical route serves the original game's Control, not the 3D one",
+  "ok": true,
+  "detail": "متصل → العودة للأنشطة ليلى · تغيير المريض اتبع الخطوات إعداد جلسة جديدة — رحلة النجوم بيانات الطفل اسم الطفل المريض ليلى"
+ }
+]

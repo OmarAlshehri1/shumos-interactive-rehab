@@ -1,0 +1,530 @@
+{
+  "generatedBy": "build_manifest.py",
+  "datasetRoot": "tools/witmotion_ble/real_dataset/raw/",
+  "note": "Every REAL WT901BLECL RIGHT_HAND hardware capture found on this machine as of 2026-09-04, recovered from ~/Downloads (the in-app diagnostic/final-session tool's export location) and copied here read-only (original files in ~/Downloads left untouched). tools/witmotion_ble/calibration_data/right_hand_adult_sim_20260902_01/ is SIMULATED data (see its own name) and is intentionally excluded from this real-data manifest - it must not be pooled with these sessions as if it were hardware evidence. Three capture tool/schema eras exist: the 3 2026-09-03 diagnostic captures (9.93Hz, fused-angle controller), the 2026-09-04 FINAL_SESSION capture (11,402 samples, 50Hz/20Hz, gyro-integrated controller), and the 2026-09-04 TWIST_INVARIANCE capture (4,960 samples, 50Hz/20Hz, 0-98deg actual measured wrist roll - the one dataset with real roll-varying evidence) - see each session's own entry below and tools/witmotion_ble/real_dataset/FINDINGS.md for how they compare.",
+  "totalSessions": 5,
+  "totalSamples": 19982,
+  "sessions": [
+    {
+      "file": "wt901-right-hand-diagnostic-1788441394853.json",
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788441394853.json",
+      "date": "2026-09-03T13:16:34.838Z",
+      "sensorRole": "RIGHT_HAND",
+      "controllerVersionAtIndexTime": "df5ea8f",
+      "notes": null,
+      "mountingOrientation": "not recorded by capture tool - unknown, treat as fixed-but-unverified per session",
+      "sampleRateHz": {
+        "measured": 9.93,
+        "meanIntervalMs": 100.71
+      },
+      "controllerConfigAtCapture": {
+        "xAxis": "yaw",
+        "yAxis": "pitch",
+        "rotationAxis": "roll",
+        "invertX": true,
+        "invertY": false,
+        "invertRotation": false,
+        "sensitivity": 1,
+        "deadZoneDeg": 1.25,
+        "smoothing": 0.35,
+        "filterMode": "ADAPTIVE_EMA",
+        "rotationCompensationX": 0,
+        "rotationCompensationY": 0
+      },
+      "recordedRotationCompensationX": 0,
+      "sessionKind": null,
+      "sampleCount": 1186,
+      "phaseCounts": {
+        "still_start": 101,
+        "rotate_one": 126,
+        "rotate_other": 83,
+        "right": 73,
+        "left": 88,
+        "up": 94,
+        "down": 78,
+        "diagonal": 145,
+        "tiny": 99,
+        "slow": 128,
+        "fast": 92,
+        "still_end": 79
+      },
+      "labelsPhases": [
+        "still_start",
+        "rotate_one",
+        "rotate_other",
+        "right",
+        "left",
+        "up",
+        "down",
+        "diagonal",
+        "tiny",
+        "slow",
+        "fast",
+        "still_end"
+      ],
+      "embeddedRotationAnalysis": {
+        "phases": [
+          {
+            "phase": "rotate_one",
+            "pointerDisplacementBeforeRotation": 0.0008651591562109434,
+            "maximumPointerDrift": 0.7848249805982627,
+            "finalPointerDrift": 0.16630908451193693,
+            "visualRotationAmountDeg": 73.11544181978317
+          },
+          {
+            "phase": "rotate_other",
+            "pointerDisplacementBeforeRotation": 0.013672569902023368,
+            "maximumPointerDrift": 0.37389486325581855,
+            "finalPointerDrift": 0.11127128644101145,
+            "visualRotationAmountDeg": 98.89123401510587
+          }
+        ],
+        "suggestedCompensationX": 0.416823262341479,
+        "suggestedCompensationY": -0.0003565576598745961
+      },
+      "embeddedLatency": {
+        "sampleIntervalMs": 100.70928270042194,
+        "parsingLatencyMs": 0.0838111298540403,
+        "controllerLatencyMs": 0.019392917373234918,
+        "filterProcessingMs": 0.007419898823330816,
+        "outputToUiCommitMs": 6.3166947723452695,
+        "outputToVisualFrameMs": -0.7971568293120734,
+        "notificationToVisualFrameMs": -0.574391230655492
+      },
+      "groundTruthQuality": "USABLE",
+      "knownProblems": [
+        "sample rate ~10 Hz (BLE notification default), far below the device's supported output rate - flagged as the primary open reliability risk",
+        "no independent (e.g. camera/mocap) ground truth - phase labels are self-reported by the same person performing the motion, not externally verified"
+      ],
+      "acceptedUse": [
+        "rotation-compensation model replay and comparison (source of truth: raw accelerationG/gyroscopeDps/anglesDeg, not the embedded `output` field, which reflects whatever k was active at capture time)",
+        "sample-rate-problem evidence",
+        "filter behaviour replay (LIGHT_EMA / ADAPTIVE_EMA / ONE_EURO)",
+        "NOT accepted as the sole ground truth for a shipped rotationCompensationX value - see replay_report.json for why a single session's regression should not be trusted alone"
+      ]
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788442512578.json",
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788442512578.json",
+      "date": "2026-09-03T13:35:12.560Z",
+      "sensorRole": "RIGHT_HAND",
+      "controllerVersionAtIndexTime": "df5ea8f",
+      "notes": null,
+      "mountingOrientation": "not recorded by capture tool - unknown, treat as fixed-but-unverified per session",
+      "sampleRateHz": {
+        "measured": 9.93,
+        "meanIntervalMs": 100.7
+      },
+      "controllerConfigAtCapture": {
+        "xAxis": "yaw",
+        "yAxis": "pitch",
+        "rotationAxis": "roll",
+        "invertX": true,
+        "invertY": false,
+        "invertRotation": false,
+        "sensitivity": 1,
+        "deadZoneDeg": 1.25,
+        "smoothing": 0.35,
+        "filterMode": "ADAPTIVE_EMA",
+        "rotationCompensationX": 0,
+        "rotationCompensationY": 0
+      },
+      "recordedRotationCompensationX": 0,
+      "sessionKind": null,
+      "sampleCount": 1354,
+      "phaseCounts": {
+        "still_start": 107,
+        "rotate_one": 118,
+        "rotate_other": 125,
+        "right": 99,
+        "left": 81,
+        "up": 90,
+        "down": 108,
+        "diagonal": 141,
+        "tiny": 139,
+        "slow": 124,
+        "fast": 152,
+        "still_end": 70
+      },
+      "labelsPhases": [
+        "still_start",
+        "rotate_one",
+        "rotate_other",
+        "right",
+        "left",
+        "up",
+        "down",
+        "diagonal",
+        "tiny",
+        "slow",
+        "fast",
+        "still_end"
+      ],
+      "embeddedRotationAnalysis": {
+        "phases": [
+          {
+            "phase": "rotate_one",
+            "pointerDisplacementBeforeRotation": 0.0005171936490178005,
+            "maximumPointerDrift": 0.5299750437784392,
+            "finalPointerDrift": 0.20567451395020145,
+            "visualRotationAmountDeg": 94.71743332443098
+          },
+          {
+            "phase": "rotate_other",
+            "pointerDisplacementBeforeRotation": 0.006694292597990349,
+            "maximumPointerDrift": 0.6800425187289632,
+            "finalPointerDrift": 0.21369338651516306,
+            "visualRotationAmountDeg": 88.3502236314047
+          }
+        ],
+        "suggestedCompensationX": 0.4026661661783474,
+        "suggestedCompensationY": -0.04647172583235559,
+        "directionalCompensationX": {
+          "rotate_one": 0.261448180824653,
+          "rotate_other": 0.29282122146603223,
+          "agree": true
+        },
+        "directionalCompensationY": {
+          "rotate_one": -0.08027779071964869,
+          "rotate_other": 0.01303614543054771,
+          "agree": false
+        }
+      },
+      "embeddedLatency": {
+        "sampleIntervalMs": 100.6994087213598,
+        "parsingLatencyMs": 0.08375184639374914,
+        "controllerLatencyMs": 0.020679468247060014,
+        "filterProcessingMs": 0.008862629250803498,
+        "outputToUiCommitMs": 6.485228951253475,
+        "outputToVisualFrameMs": -1.06019350092093,
+        "notificationToVisualFrameMs": -0.8185391434572857
+      },
+      "groundTruthQuality": "USABLE",
+      "knownProblems": [
+        "sample rate ~10 Hz (BLE notification default), far below the device's supported output rate - flagged as the primary open reliability risk",
+        "no independent (e.g. camera/mocap) ground truth - phase labels are self-reported by the same person performing the motion, not externally verified"
+      ],
+      "acceptedUse": [
+        "rotation-compensation model replay and comparison (source of truth: raw accelerationG/gyroscopeDps/anglesDeg, not the embedded `output` field, which reflects whatever k was active at capture time)",
+        "sample-rate-problem evidence",
+        "filter behaviour replay (LIGHT_EMA / ADAPTIVE_EMA / ONE_EURO)",
+        "NOT accepted as the sole ground truth for a shipped rotationCompensationX value - see replay_report.json for why a single session's regression should not be trusted alone"
+      ]
+    },
+    {
+      "file": "wt901-right-hand-diagnostic-1788443253622.json",
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788443253622.json",
+      "date": "2026-09-03T13:47:33.607Z",
+      "sensorRole": "RIGHT_HAND",
+      "controllerVersionAtIndexTime": "df5ea8f",
+      "notes": null,
+      "mountingOrientation": "not recorded by capture tool - unknown, treat as fixed-but-unverified per session",
+      "sampleRateHz": {
+        "measured": 9.93,
+        "meanIntervalMs": 100.68
+      },
+      "controllerConfigAtCapture": {
+        "xAxis": "yaw",
+        "yAxis": "pitch",
+        "rotationAxis": "roll",
+        "invertX": true,
+        "invertY": false,
+        "invertRotation": false,
+        "sensitivity": 1,
+        "deadZoneDeg": 1.25,
+        "smoothing": 0.35,
+        "filterMode": "ADAPTIVE_EMA",
+        "rotationCompensationX": 0.2771,
+        "rotationCompensationY": 0
+      },
+      "recordedRotationCompensationX": 0.2771,
+      "sessionKind": null,
+      "sampleCount": 1080,
+      "phaseCounts": {
+        "still_start": 44,
+        "rotate_one": 93,
+        "rotate_other": 104,
+        "right": 71,
+        "left": 76,
+        "up": 62,
+        "down": 62,
+        "diagonal": 154,
+        "tiny": 120,
+        "slow": 146,
+        "fast": 92,
+        "still_end": 56
+      },
+      "labelsPhases": [
+        "still_start",
+        "rotate_one",
+        "rotate_other",
+        "right",
+        "left",
+        "up",
+        "down",
+        "diagonal",
+        "tiny",
+        "slow",
+        "fast",
+        "still_end"
+      ],
+      "embeddedRotationAnalysis": {
+        "phases": [
+          {
+            "phase": "rotate_one",
+            "pointerDisplacementBeforeRotation": 0.00015366667165927068,
+            "maximumPointerDrift": 0.3172826934504644,
+            "finalPointerDrift": 0.061270777120991826,
+            "visualRotationAmountDeg": 92.7346838502776
+          },
+          {
+            "phase": "rotate_other",
+            "pointerDisplacementBeforeRotation": 1.2365285734228237e-07,
+            "maximumPointerDrift": 0.4983632605396175,
+            "finalPointerDrift": 0.02240926700380888,
+            "visualRotationAmountDeg": 79.72755467595272
+          }
+        ],
+        "suggestedCompensationX": 0.2872954436491511,
+        "suggestedCompensationY": 0.008042819274017258,
+        "directionalCompensationX": {
+          "rotate_one": 0.2101213688728329,
+          "rotate_other": 0.1906451435315408,
+          "agree": true
+        },
+        "directionalCompensationY": {
+          "rotate_one": -0.02051508709937798,
+          "rotate_other": 0.05972852440622523,
+          "agree": false
+        }
+      },
+      "embeddedLatency": {
+        "sampleIntervalMs": 100.67803521779564,
+        "parsingLatencyMs": 0.08277777777122403,
+        "controllerLatencyMs": 0.024351851852541722,
+        "filterProcessingMs": 0.01027777777225883,
+        "outputToUiCommitMs": 6.339907407415686,
+        "outputToVisualFrameMs": -1.3861166659309,
+        "notificationToVisualFrameMs": -1.1438944437107474
+      },
+      "groundTruthQuality": "USABLE",
+      "knownProblems": [
+        "sample rate ~10 Hz (BLE notification default), far below the device's supported output rate - flagged as the primary open reliability risk",
+        "no independent (e.g. camera/mocap) ground truth - phase labels are self-reported by the same person performing the motion, not externally verified"
+      ],
+      "acceptedUse": [
+        "rotation-compensation model replay and comparison (source of truth: raw accelerationG/gyroscopeDps/anglesDeg, not the embedded `output` field, which reflects whatever k was active at capture time)",
+        "sample-rate-problem evidence",
+        "filter behaviour replay (LIGHT_EMA / ADAPTIVE_EMA / ONE_EURO)",
+        "NOT accepted as the sole ground truth for a shipped rotationCompensationX value - see replay_report.json for why a single session's regression should not be trusted alone"
+      ]
+    },
+    {
+      "file": "wt901-right-hand-final-session-1788527323549.json",
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-final-session-1788527323549.json",
+      "date": "2026-09-04T13:08:43.433Z",
+      "sensorRole": "RIGHT_HAND",
+      "controllerVersionAtIndexTime": "df5ea8f",
+      "notes": null,
+      "mountingOrientation": "not recorded by capture tool - unknown, treat as fixed-but-unverified per session",
+      "sampleRateHz": {
+        "measured": 49.66,
+        "meanIntervalMs": 20.14
+      },
+      "controllerConfigAtCapture": {
+        "xAxis": "yaw",
+        "yAxis": "pitch",
+        "rotationAxis": "roll",
+        "invertX": true,
+        "invertY": false,
+        "invertRotation": false,
+        "sensitivity": 1,
+        "deadZoneDeg": 1.25,
+        "smoothing": 0.35,
+        "filterMode": "ADAPTIVE_EMA",
+        "rotationCompensationX": 0,
+        "rotationCompensationY": 0,
+        "autoCenter": true
+      },
+      "recordedRotationCompensationX": 0,
+      "sessionKind": "FINAL_SESSION_2026_09_04",
+      "sampleCount": 11402,
+      "phaseCounts": {
+        "still_start": 288,
+        "rotate_one": 406,
+        "rotate_other": 330,
+        "right": 290,
+        "left": 254,
+        "up": 276,
+        "down": 264,
+        "diagonal": 736,
+        "tiny": 460,
+        "slow": 534,
+        "fast": 412,
+        "still_end": 306,
+        "edge_right_reverse_left": 734,
+        "edge_left_reverse_right": 492,
+        "edge_top_reverse_down": 442,
+        "edge_bottom_reverse_up": 280,
+        "recenter_test": 1062,
+        "free_play": 3836
+      },
+      "labelsPhases": [
+        "still_start",
+        "rotate_one",
+        "rotate_other",
+        "right",
+        "left",
+        "up",
+        "down",
+        "diagonal",
+        "tiny",
+        "slow",
+        "fast",
+        "still_end",
+        "edge_right_reverse_left",
+        "edge_left_reverse_right",
+        "edge_top_reverse_down",
+        "edge_bottom_reverse_up",
+        "recenter_test",
+        "free_play"
+      ],
+      "embeddedRotationAnalysis": {
+        "phases": [
+          {
+            "phase": "rotate_one",
+            "pointerDisplacementBeforeRotation": 9.903184898463202e-06,
+            "maximumPointerDrift": 0.06688137158343298,
+            "finalPointerDrift": 0.06688137158343298,
+            "visualRotationAmountDeg": 0
+          },
+          {
+            "phase": "rotate_other",
+            "pointerDisplacementBeforeRotation": 0.00038855002508128415,
+            "maximumPointerDrift": 0.053547637736512055,
+            "finalPointerDrift": 0.053547637736512055,
+            "visualRotationAmountDeg": 0
+          }
+        ],
+        "suggestedCompensationX": 0.30297752775970027,
+        "suggestedCompensationY": -0.009548979726946632,
+        "directionalCompensationX": {
+          "rotate_one": 0.30234236043958207,
+          "rotate_other": 0.33798107091918794,
+          "agree": true
+        },
+        "directionalCompensationY": {
+          "rotate_one": -0.027733825177579344,
+          "rotate_other": 0.0018050525703107877,
+          "agree": false
+        }
+      },
+      "embeddedLatency": {
+        "sampleIntervalMs": 42.711175438596364,
+        "parsingLatencyMs": 0.15870022802396241,
+        "controllerLatencyMs": 0.01563760743899066,
+        "filterProcessingMs": 0.011541834766614691,
+        "outputToUiCommitMs": null,
+        "outputToVisualFrameMs": null,
+        "notificationToVisualFrameMs": null
+      },
+      "groundTruthQuality": "USABLE",
+      "knownProblems": [
+        "no independent (e.g. camera/mocap) ground truth - phase labels are self-reported by the same person performing the motion, not externally verified"
+      ],
+      "acceptedUse": [
+        "rotation-compensation model replay and comparison (source of truth: raw accelerationG/gyroscopeDps/anglesDeg, not the embedded `output` field, which reflects whatever k was active at capture time)",
+        "sample-rate-problem evidence",
+        "filter behaviour replay (LIGHT_EMA / ADAPTIVE_EMA / ONE_EURO)",
+        "NOT accepted as the sole ground truth for a shipped rotationCompensationX value - see replay_report.json for why a single session's regression should not be trusted alone"
+      ]
+    },
+    {
+      "file": "wt901-right-hand-twist-invariance-1788531321165.json",
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-twist-invariance-1788531321165.json",
+      "date": "2026-09-04T14:15:21.115Z",
+      "sensorRole": "RIGHT_HAND",
+      "controllerVersionAtIndexTime": "df5ea8f",
+      "notes": null,
+      "mountingOrientation": "not recorded by capture tool - unknown, treat as fixed-but-unverified per session",
+      "sampleRateHz": {
+        "measured": 49.67,
+        "meanIntervalMs": 20.13
+      },
+      "controllerConfigAtCapture": {
+        "xAxis": "yaw",
+        "yAxis": "pitch",
+        "rotationAxis": "roll",
+        "invertX": true,
+        "invertY": false,
+        "invertRotation": false,
+        "sensitivity": 1,
+        "deadZoneDeg": 1.25,
+        "smoothing": 0.35,
+        "filterMode": "ADAPTIVE_EMA",
+        "rotationCompensationX": 0,
+        "rotationCompensationY": 0,
+        "autoCenter": true,
+        "crossAxisCalibration": [
+          [
+            0.9968752603593519,
+            0.11005764226383348
+          ],
+          [
+            -0.18590835990159593,
+            0.9855511407612992
+          ]
+        ],
+        "twistTrackingMode": "CONTINUOUS_GRAVITY_REFERENCED",
+        "stabilizationLevel": "MEDIUM"
+      },
+      "recordedRotationCompensationX": 0,
+      "sessionKind": "TWIST_INVARIANCE_2026_09_04",
+      "sampleCount": 4960,
+      "phaseCounts": {
+        "neutral_up": 794,
+        "neutral_down": 332,
+        "neutral_left": 268,
+        "neutral_right": 226,
+        "twist_45_up": 508,
+        "twist_45_down": 416,
+        "twist_45_left": 316,
+        "twist_45_right": 286,
+        "twist_90_up": 340,
+        "twist_90_down": 252,
+        "twist_90_left": 260,
+        "twist_90_right": 258,
+        "edge_left_reverse_right": 484,
+        "edge_top_reverse_down": 220
+      },
+      "labelsPhases": [
+        "neutral_up",
+        "neutral_down",
+        "neutral_left",
+        "neutral_right",
+        "twist_45_up",
+        "twist_45_down",
+        "twist_45_left",
+        "twist_45_right",
+        "twist_90_up",
+        "twist_90_down",
+        "twist_90_left",
+        "twist_90_right",
+        "edge_left_reverse_right",
+        "edge_top_reverse_down"
+      ],
+      "embeddedRotationAnalysis": null,
+      "embeddedLatency": null,
+      "groundTruthQuality": "USABLE",
+      "knownProblems": [
+        "no independent (e.g. camera/mocap) ground truth - phase labels are self-reported by the same person performing the motion, not externally verified"
+      ],
+      "acceptedUse": [
+        "rotation-compensation model replay and comparison (source of truth: raw accelerationG/gyroscopeDps/anglesDeg, not the embedded `output` field, which reflects whatever k was active at capture time)",
+        "sample-rate-problem evidence",
+        "filter behaviour replay (LIGHT_EMA / ADAPTIVE_EMA / ONE_EURO)",
+        "NOT accepted as the sole ground truth for a shipped rotationCompensationX value - see replay_report.json for why a single session's regression should not be trusted alone"
+      ]
+    }
+  ]
+}

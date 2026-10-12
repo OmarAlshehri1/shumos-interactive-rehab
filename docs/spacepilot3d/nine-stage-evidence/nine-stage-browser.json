@@ -1,0 +1,599 @@
+{
+  "checks": [
+    {
+      "name": "one canonical registration reused in the hand and joystick sections",
+      "ok": true,
+      "detail": [
+        "/control/space-pilot?input=HAND",
+        "/control/space-pilot?input=JOYSTICK"
+      ]
+    },
+    {
+      "name": "nine distinct stage choices exposed",
+      "ok": true
+    },
+    {
+      "name": "arbitrary advanced stage available without prerequisite",
+      "ok": true
+    },
+    {
+      "name": "skipped stage separate from completed",
+      "ok": true
+    },
+    {
+      "name": "repeating skipped stage removes prior result",
+      "ok": true
+    },
+    {
+      "name": "iPad touch up and right affect actual flight",
+      "ok": true,
+      "detail": {
+        "before": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "after": {
+          "x": 1.6958966636359516,
+          "y": 5.250511660868322,
+          "z": -33.42324711255547,
+          "yaw": 0.28361600344907884,
+          "pitch": 0.08246680715673207,
+          "bank": -0.28,
+          "controlX": 1,
+          "controlY": 0.5
+        }
+      }
+    },
+    {
+      "name": "pause synchronizes independently",
+      "ok": true
+    },
+    {
+      "name": "restart current stage preserves identity",
+      "ok": true
+    },
+    {
+      "name": "repeat counter survives native stage restart",
+      "ok": true
+    },
+    {
+      "name": "missing hand input cannot start without takeover",
+      "ok": true
+    },
+    {
+      "name": "missing sensor safely suspends after manual release",
+      "ok": true
+    },
+    {
+      "name": "manual fallback starts without hardware",
+      "ok": true
+    },
+    {
+      "name": "entered stage 1",
+      "ok": true,
+      "detail": "First Rings"
+    },
+    {
+      "name": "reload preserves stage, accepted rings and pending repeats while stopped",
+      "ok": true,
+      "detail": {
+        "rings": 2,
+        "stage": 1,
+        "repeats": 3
+      }
+    },
+    {
+      "name": "stage 1 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 4,
+        "missed": 0,
+        "actions": 2,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 2",
+      "ok": true,
+      "detail": "Gentle Direction"
+    },
+    {
+      "name": "stage 2 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 4,
+        "missed": 0,
+        "actions": 7,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 3",
+      "ok": true,
+      "detail": "Predictable Trail"
+    },
+    {
+      "name": "stage 3 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 6,
+        "missed": 0,
+        "actions": 7,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 4",
+      "ok": true,
+      "detail": "Planet Garden"
+    },
+    {
+      "name": "stage 4 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 5,
+        "missed": 0,
+        "actions": 9,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 5",
+      "ok": true,
+      "detail": "Alternating Flight"
+    },
+    {
+      "name": "stage 5 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 5,
+        "missed": 0,
+        "actions": 7,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 6",
+      "ok": true,
+      "detail": "Starlight Route"
+    },
+    {
+      "name": "stage 6 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 6,
+        "missed": 0,
+        "actions": 9,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 7",
+      "ok": true,
+      "detail": "Orbital Patterns"
+    },
+    {
+      "name": "stage 7 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 5,
+        "missed": 0,
+        "actions": 9,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 8",
+      "ok": true,
+      "detail": "Combined Directions"
+    },
+    {
+      "name": "stage 8 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 5,
+        "missed": 0,
+        "actions": 10,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "entered stage 9",
+      "ok": true,
+      "detail": "Scenic Finale"
+    },
+    {
+      "name": "stage 9 completed through actual manual flight",
+      "ok": true,
+      "detail": {
+        "rings": 5,
+        "missed": 1,
+        "actions": 12,
+        "suspendCount": 0
+      }
+    },
+    {
+      "name": "complete nine-stage summary with no duplicate count",
+      "ok": true
+    },
+    {
+      "name": "Control and Display agree on final count",
+      "ok": true
+    },
+    {
+      "name": "new nine-stage history saved exactly once",
+      "ok": true
+    },
+    {
+      "name": "reload does not duplicate finalized history",
+      "ok": true
+    },
+    {
+      "name": "new history is readable in existing patient detail after Firebase dense-key normalization",
+      "ok": true
+    },
+    {
+      "name": "exactly one finalized nine-stage history remains",
+      "ok": true
+    },
+    {
+      "name": "leaving Control stops game session updates",
+      "ok": true
+    },
+    {
+      "name": "session updates remain stopped",
+      "ok": true
+    },
+    {
+      "name": "staff login still gates Control",
+      "ok": true
+    },
+    {
+      "name": "no application page errors",
+      "ok": true
+    },
+    {
+      "name": "new history is readable in existing patient detail after Firebase dense-key normalization",
+      "ok": true
+    },
+    {
+      "name": "exactly one finalized nine-stage history remains",
+      "ok": true
+    },
+    {
+      "name": "leaving Control stops game session updates",
+      "ok": true
+    },
+    {
+      "name": "session updates remain stopped",
+      "ok": true
+    },
+    {
+      "name": "staff login still gates Control",
+      "ok": true
+    },
+    {
+      "name": "no application page errors",
+      "ok": true
+    }
+  ],
+  "stages": [
+    {
+      "index": 0,
+      "stageIndex": 0,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 23333,
+      "ringsPresented": 4,
+      "ringsCollected": 4,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 3,
+      "manualTouchChanges": 2,
+      "suspendCount": 0
+    },
+    {
+      "index": 1,
+      "stageIndex": 1,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 23358,
+      "ringsPresented": 4,
+      "ringsCollected": 4,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 7,
+      "suspendCount": 0
+    },
+    {
+      "index": 2,
+      "stageIndex": 2,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 35358,
+      "ringsPresented": 6,
+      "ringsCollected": 6,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 7,
+      "suspendCount": 0
+    },
+    {
+      "index": 3,
+      "stageIndex": 3,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 29400,
+      "ringsPresented": 5,
+      "ringsCollected": 5,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 9,
+      "suspendCount": 0
+    },
+    {
+      "index": 4,
+      "stageIndex": 4,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 29392,
+      "ringsPresented": 5,
+      "ringsCollected": 5,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 7,
+      "suspendCount": 0
+    },
+    {
+      "index": 5,
+      "stageIndex": 5,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 35417,
+      "ringsPresented": 6,
+      "ringsCollected": 6,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 9,
+      "suspendCount": 0
+    },
+    {
+      "index": 6,
+      "stageIndex": 6,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 29517,
+      "ringsPresented": 5,
+      "ringsCollected": 5,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 9,
+      "suspendCount": 0
+    },
+    {
+      "index": 7,
+      "stageIndex": 7,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 30017,
+      "ringsPresented": 5,
+      "ringsCollected": 5,
+      "ringsMissed": 0,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 0,
+      "manualTouchChanges": 10,
+      "suspendCount": 0
+    },
+    {
+      "index": 8,
+      "stageIndex": 8,
+      "status": "completed",
+      "assisted": true,
+      "durationMs": 36167,
+      "ringsPresented": 6,
+      "ringsCollected": 5,
+      "ringsMissed": 1,
+      "asteroidsPresented": 0,
+      "asteroidsAvoided": 0,
+      "asteroidCollisions": 0,
+      "repeats": 1,
+      "manualTouchChanges": 12,
+      "suspendCount": 0
+    }
+  ],
+  "errors": [],
+  "performance": {
+    "pauseLatencyMs": 48,
+    "sampleMs": 15061,
+    "rafMedianFps": 59.880239520968516,
+    "rafP95GapMs": 18.399999999997817,
+    "writesPerSecond": 8.365978354690924,
+    "syncSamples": 67,
+    "maxObservedResolvedLag": 0
+  },
+  "status": "passed",
+  "history": {
+    "assistedStageCount": 9,
+    "asteroidCollisions": 0,
+    "asteroidsAvoided": 0,
+    "bestStage": {
+      "difficulty": "MEDIUM",
+      "stageNumber": 3
+    },
+    "collectionRate": 0.9782608695652174,
+    "completedAt": 1791746213104,
+    "completedStageCount": 9,
+    "createdByUid": "OyHi9DySlEK1yR4YwNZRdOioqIE1",
+    "curriculumId": "sp3-nine-v1",
+    "durationMs": 276000,
+    "endingDifficulty": "ADVANCED",
+    "endingStage": 3,
+    "endingStageIndex": 8,
+    "engine": "sp3-rings",
+    "finalUpgradeLevel": 3,
+    "flightMode": "EASY",
+    "gameId": "space-pilot",
+    "patientId": "sp9-patient",
+    "resultVersion": 3,
+    "runId": 1,
+    "score": 4500,
+    "sessionCompleted": true,
+    "sessionId": "159c5722-93be-43ed-8f3d-0f407c0b4a99",
+    "skippedStageCount": 0,
+    "stageResults": [
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 23333,
+        "repeats": 3,
+        "ringsCollected": 4,
+        "ringsMissed": 0,
+        "ringsPresented": 4,
+        "stageIndex": 0,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 23358,
+        "repeats": 0,
+        "ringsCollected": 4,
+        "ringsMissed": 0,
+        "ringsPresented": 4,
+        "stageIndex": 1,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 35358,
+        "repeats": 0,
+        "ringsCollected": 6,
+        "ringsMissed": 0,
+        "ringsPresented": 6,
+        "stageIndex": 2,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 29400,
+        "repeats": 0,
+        "ringsCollected": 5,
+        "ringsMissed": 0,
+        "ringsPresented": 5,
+        "stageIndex": 3,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 29392,
+        "repeats": 0,
+        "ringsCollected": 5,
+        "ringsMissed": 0,
+        "ringsPresented": 5,
+        "stageIndex": 4,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 35417,
+        "repeats": 0,
+        "ringsCollected": 6,
+        "ringsMissed": 0,
+        "ringsPresented": 6,
+        "stageIndex": 5,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 29517,
+        "repeats": 0,
+        "ringsCollected": 5,
+        "ringsMissed": 0,
+        "ringsPresented": 5,
+        "stageIndex": 6,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 30017,
+        "repeats": 0,
+        "ringsCollected": 5,
+        "ringsMissed": 0,
+        "ringsPresented": 5,
+        "stageIndex": 7,
+        "status": "completed"
+      },
+      {
+        "assisted": true,
+        "asteroidCollisions": 0,
+        "asteroidsAvoided": 0,
+        "asteroidsPresented": 0,
+        "durationMs": 36167,
+        "repeats": 1,
+        "ringsCollected": 5,
+        "ringsMissed": 1,
+        "ringsPresented": 6,
+        "stageIndex": 8,
+        "status": "completed"
+      }
+    ],
+    "startedAt": 1791745913947,
+    "startingDifficulty": "EASY",
+    "startingStage": 1,
+    "startingStageIndex": 0,
+    "totalRingsCollected": 45,
+    "totalRingsMissed": 1,
+    "totalRingsPresented": 46
+  },
+  "historyReadContinuation": "Reader-only fix; all nine stages already completed through native touch with unchanged flight/progression sources."
+}

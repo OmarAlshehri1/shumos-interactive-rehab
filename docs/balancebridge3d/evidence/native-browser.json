@@ -1,0 +1,170 @@
+{
+  "checks": [
+    "Shared publisher and read-only Display on independent browser contexts",
+    "Therapist-confirmed gentle deviation feedback",
+    "Pause freezes time; Control and Display reload recover paused",
+    "Manual stage 1",
+    "Manual stage 2",
+    "Manual stage 3",
+    "Manual stage 4",
+    "Manual stage 5",
+    "Manual stage 6",
+    "Manual stage 7",
+    "Manual stage 8",
+    "Manual stage 9",
+    "Immutable save-once history after all nine stages, no duplicate after reload",
+    "Safe restart uses new run identity",
+    "Restart history uses suffixed key",
+    "Patient history detail renders checkpoint metrics"
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "pathWidth": "wide",
+      "confirmed": 5,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 2,
+      "pathWidth": "standard",
+      "confirmed": 6,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 2
+    },
+    {
+      "stage": 3,
+      "pathWidth": "narrower",
+      "confirmed": 5,
+      "assisted": 1,
+      "skipped": 1,
+      "holds": 0
+    },
+    {
+      "stage": 4,
+      "pathWidth": "wide",
+      "confirmed": 6,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 5,
+      "pathWidth": "standard",
+      "confirmed": 7,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 6,
+      "pathWidth": "narrower",
+      "confirmed": 7,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 7,
+      "pathWidth": "wide",
+      "confirmed": 7,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 8,
+      "pathWidth": "standard",
+      "confirmed": 7,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    },
+    {
+      "stage": 9,
+      "pathWidth": "narrower",
+      "confirmed": 7,
+      "assisted": 1,
+      "skipped": 0,
+      "holds": 0
+    }
+  ],
+  "errors": [],
+  "metrics": [
+    {
+      "stage": "0",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "139",
+      "triangles": "336992"
+    },
+    {
+      "stage": "1",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "144",
+      "triangles": "327818"
+    },
+    {
+      "stage": "2",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "138",
+      "triangles": "264370"
+    },
+    {
+      "stage": "3",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "144",
+      "triangles": "259714"
+    },
+    {
+      "stage": "4",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "141",
+      "triangles": "319116"
+    },
+    {
+      "stage": "5",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "147",
+      "triangles": "260428"
+    },
+    {
+      "stage": "6",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "147",
+      "triangles": "262940"
+    },
+    {
+      "stage": "7",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "145",
+      "triangles": "324684"
+    },
+    {
+      "stage": "8",
+      "testid": "bridge-view",
+      "status": "running",
+      "fps": "60",
+      "calls": "161",
+      "triangles": "334988"
+    }
+  ],
+  "audio": "TTS requests intercepted locally; physical audibility unverified"
+}

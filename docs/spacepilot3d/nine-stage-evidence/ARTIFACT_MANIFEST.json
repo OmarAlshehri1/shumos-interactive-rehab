@@ -1,0 +1,394 @@
+{
+  "files": [
+    {
+      "path": "SOURCE_AND_VALIDATION_MANIFEST.json",
+      "bytes": 4365,
+      "sha256": "740475837fcda72850828df6c30bd462c2eea235e8ba4f3bf95d309483c62da2"
+    },
+    {
+      "path": "balloon-quest-control.png",
+      "bytes": 183864,
+      "sha256": "a0291bc07a0d51eff24fe96b4f97e0c57a5031c9aa9d3180327c4c3aa9d7807c"
+    },
+    {
+      "path": "balloon-quest-display.png",
+      "bytes": 330433,
+      "sha256": "68ffb259d2b6a0a05f5a4d96972d2a731c980eb6719c9a102be1ec2499777088"
+    },
+    {
+      "path": "baseline-browser.json",
+      "bytes": 24313,
+      "sha256": "f06e84f4a31333478a5b2c06f83f52316fa95ea2e2acf3e64a854c8457b3981c"
+    },
+    {
+      "path": "baseline-control.png",
+      "bytes": 54028,
+      "sha256": "bd9cb8554a42d3a49e3efe47b0a5b023f0e40b7d45e87981ac2506751d234da6"
+    },
+    {
+      "path": "baseline-display.png",
+      "bytes": 517102,
+      "sha256": "05aeae3d582adf0b4e1d9210df75162ff538e8568e55138ca8b4248be6d0d8a1"
+    },
+    {
+      "path": "blooming-world-3d-control.png",
+      "bytes": 333415,
+      "sha256": "4cae79ef41d1dea2e69f21687123121a76677c03348e06d90f6b95935e81ed57"
+    },
+    {
+      "path": "blooming-world-3d-display.png",
+      "bytes": 1788991,
+      "sha256": "8874fb93bbd5701434b7190dd97dbea855275f063ce7d2ff0d85e707a01a100b"
+    },
+    {
+      "path": "bubble-pop-wall-control.png",
+      "bytes": 140003,
+      "sha256": "7ee9522d93fc95088f2e4b3c9700c716b9e838f7e211a4ae6d532ecc68e36ad5"
+    },
+    {
+      "path": "bubble-pop-wall-display.png",
+      "bytes": 411144,
+      "sha256": "d5b9f9bf89a51b6012d91e13192fefc8f49c11aff359e80f7b21a7f9207f721b"
+    },
+    {
+      "path": "build-quest-3d-control.png",
+      "bytes": 111141,
+      "sha256": "25f04cb3a365a7b022405840b9ddd65c3306fd718109d9742f273e48414e66e8"
+    },
+    {
+      "path": "build-quest-3d-display.png",
+      "bytes": 87731,
+      "sha256": "5dde600359d6e3c66a2273eb06665f00ebb7afdc90bfa95c4315e161ce7bbda7"
+    },
+    {
+      "path": "color-chase-control.png",
+      "bytes": 262404,
+      "sha256": "adbcbfbd5dbe8c5d06cbd404ba66e3608a5827d913299afac8e5763255392dd1"
+    },
+    {
+      "path": "color-chase-display.png",
+      "bytes": 1309443,
+      "sha256": "2553c7415350b96f5a0eda360ab566270a311222ecd0bd794797d48863faf640"
+    },
+    {
+      "path": "disabled-production-build.log",
+      "bytes": 4001,
+      "sha256": "31fdc7d946353f302e875f693b34e8830317254c9a574241e1b46b1b0dcd5ebb"
+    },
+    {
+      "path": "enabled-production-build.log",
+      "bytes": 3007,
+      "sha256": "df9c2cb9b52c7c2e5795d2dc587e5fffdc61607818b7a87bef93e5e069e62cf8"
+    },
+    {
+      "path": "eslint.log",
+      "bytes": 49,
+      "sha256": "b92faec5bda35696ba5ed7a9879afa4210eaee1416bd9f87faf6f293a3e2e6bc"
+    },
+    {
+      "path": "fire-rescue-3d-control.png",
+      "bytes": 82469,
+      "sha256": "a7b42134d95d05fbfc27f6daaf26e22162a91cdf273348eb77ef3d88ec160501"
+    },
+    {
+      "path": "fire-rescue-3d-display.png",
+      "bytes": 1043382,
+      "sha256": "c23b5288c6a4a57031d1416deb1c99af2e9eeca9f071a48d8ba4cbde17bb5d40"
+    },
+    {
+      "path": "focused-tests.log",
+      "bytes": 279,
+      "sha256": "416ef255e1bfe278895c5888d0101369ff846d66b79017efa17449421f0345ee"
+    },
+    {
+      "path": "follow-the-footsteps-control.png",
+      "bytes": 142406,
+      "sha256": "ebadd7437ca20a88308dabcad043514fd71c9977a986592a50f536b6b2f2e411"
+    },
+    {
+      "path": "follow-the-footsteps-display.png",
+      "bytes": 1215898,
+      "sha256": "a60aacd4d51c156cd54bea12fa58df1e82b0324a6ee5446fa57d0ad23603fe0b"
+    },
+    {
+      "path": "full-vitest.log",
+      "bytes": 289,
+      "sha256": "014069f214048e9fe9083783b952e5b19e885e007b2500da3f0d1c067e214dfe"
+    },
+    {
+      "path": "harvest-valley-3d-control.png",
+      "bytes": 58749,
+      "sha256": "a400ec286f498d18437fe8878fc7d70d0cdf5647235146dc9901d5add7aad4e2"
+    },
+    {
+      "path": "harvest-valley-3d-display.png",
+      "bytes": 1787659,
+      "sha256": "7d70c7e9c0bdad149c13478d9de79881a43b54230443007397e444fc62f0ed3e"
+    },
+    {
+      "path": "history-3353-sp9-old-rings.png",
+      "bytes": 41819,
+      "sha256": "30b1c30909f691616039fbc676c699e98ad15b250533127c7a00684ce4a281ca"
+    },
+    {
+      "path": "history-3353-sp9-old-stars.png",
+      "bytes": 41250,
+      "sha256": "7b58c53dd4677536f2f63580217fca98e2ced653d6e879b874c69dfecedc1680"
+    },
+    {
+      "path": "history-3354-sp9-old-rings.png",
+      "bytes": 41819,
+      "sha256": "30b1c30909f691616039fbc676c699e98ad15b250533127c7a00684ce4a281ca"
+    },
+    {
+      "path": "history-3354-sp9-old-stars.png",
+      "bytes": 41250,
+      "sha256": "7b58c53dd4677536f2f63580217fca98e2ced653d6e879b874c69dfecedc1680"
+    },
+    {
+      "path": "history-compatibility-browser.json",
+      "bytes": 1083,
+      "sha256": "586ab91939c3dbd904fa8c874701a9fb30e45b762645758161fe580398871c38"
+    },
+    {
+      "path": "history-compatibility.log",
+      "bytes": 33,
+      "sha256": "58540f7e932fec63fec5484263b88ec232019b457def7b14aafa323752b09b0b"
+    },
+    {
+      "path": "library-desktop-before-assets.png",
+      "bytes": 175579,
+      "sha256": "047776f649cc4005b0a79ee4e05c155db18b0613bec282046a5387b987316a0e"
+    },
+    {
+      "path": "manual-assistance-browser.json",
+      "bytes": 484,
+      "sha256": "96ed1443fc786f11aa7a609431bcaed5beac9c9b1c0dd1f621195fa9be52c948"
+    },
+    {
+      "path": "manual-assistance.log",
+      "bytes": 38,
+      "sha256": "3234f15c70f459c1396551529af32b693f2d65d8fefc87d248e0e87d6fb5303d"
+    },
+    {
+      "path": "mirror-quest-3d-control.png",
+      "bytes": 170223,
+      "sha256": "032e14b547bd7268d275bff417462de3f760e0b7924f33ce8990a6f1a4231e8f"
+    },
+    {
+      "path": "mirror-quest-3d-display.png",
+      "bytes": 294957,
+      "sha256": "179e55b5d856b114a30f0b9de042367e98685457d4e769f0724ebaab89a77a5b"
+    },
+    {
+      "path": "nine-stage-browser.json",
+      "bytes": 14088,
+      "sha256": "0016b9369bc8bc7380925a4b62afbc60e49e3bec60b43b7ac9845e370a46a0b6"
+    },
+    {
+      "path": "nine-stage-gameplay.log",
+      "bytes": 2826,
+      "sha256": "dcc2d2a835d0b4c4b889719903e0e13092065acdea788569173acdb0b7e511f7"
+    },
+    {
+      "path": "nine-stage-history-continuation.log",
+      "bytes": 344,
+      "sha256": "946a56a3e30de2887ff8a30fc22b992998d246def4ad6f9a9313a0c077900499"
+    },
+    {
+      "path": "nine-stage-history.png",
+      "bytes": 82454,
+      "sha256": "18c9bd89f7ad70884d4aa2b320ac1d16327ab43e451bc2cb8e57d8e92fe3881f"
+    },
+    {
+      "path": "other-games-browser.json",
+      "bytes": 138937,
+      "sha256": "1ecbc3ae684728185420a6fa68f2e833ba2be7597aea623908a16d12259c96ea"
+    },
+    {
+      "path": "other-games-final.json",
+      "bytes": 139149,
+      "sha256": "5eb7e7af54cb5dc572647d21dfc3b6009bddf01bb7d5cd04c7e202ac7a9561e6"
+    },
+    {
+      "path": "other-games-followup.json",
+      "bytes": 43751,
+      "sha256": "5ff93d555230eb982eee6e2f1f3785039650fa5e055af71df4acc6c2d69474f9"
+    },
+    {
+      "path": "pearl-voyage-3d-control.png",
+      "bytes": 123201,
+      "sha256": "9b06a868c18103971c5a097bcb62e2fc3b6244eb11d143360d0c3a81fcef9fb6"
+    },
+    {
+      "path": "pearl-voyage-3d-display.png",
+      "bytes": 602286,
+      "sha256": "3422735bd9d817d0e7b6afcbd2b3db24aeb6292005c0d2a21ec35a86091a4d79"
+    },
+    {
+      "path": "resource-cleanup-browser.json",
+      "bytes": 6136,
+      "sha256": "08f724e9065c76350b44159df2dba9f4914788f873250b025d6d96b6302230ad"
+    },
+    {
+      "path": "resource-cleanup.log",
+      "bytes": 1433,
+      "sha256": "8ed83df646fa26b6163baa5ae02f3e6ecefa950638a777927f450e5b9466cffe"
+    },
+    {
+      "path": "rules-before.sha256",
+      "bytes": 64,
+      "sha256": "3b49d83fd844887c531578d745ceb141d15d43fe097b221fc18f396c535965f4"
+    },
+    {
+      "path": "rules-emulator.log",
+      "bytes": 223,
+      "sha256": "8fa5c66331d5629857017cdd2db2446e9dbf8d40ea9d065257c97ca8728a48f4"
+    },
+    {
+      "path": "runner-floor-control.png",
+      "bytes": 130918,
+      "sha256": "89560b48687ee029389a16a7c5a88350e29046a35a95d5885450b924d8c8767b"
+    },
+    {
+      "path": "runner-floor-display.png",
+      "bytes": 646950,
+      "sha256": "a139b71d0afbfd01ed1ca176deb91144e2cfcb78248b2c3fc7e4c4ebd2420771"
+    },
+    {
+      "path": "runner-floor-launch.json",
+      "bytes": 20363,
+      "sha256": "9ace2de3d5c4ecb9ec167c91e8208dc41844f389794f038a9d57dded2db8132a"
+    },
+    {
+      "path": "runner-launch-followup.json",
+      "bytes": 17728,
+      "sha256": "7501f91b51e48b8301bb4734afb143e12537719fd32e736e83ec390e24570b8e"
+    },
+    {
+      "path": "runner-quest-3d-control.png",
+      "bytes": 120337,
+      "sha256": "cb65ad005d13260d71a68f22dd9f659556b001413f670061663e8eb86001a32b"
+    },
+    {
+      "path": "runner-quest-3d-display.png",
+      "bytes": 681216,
+      "sha256": "751d62eebc78a2ee159f92415cd985dc5807667a7d9a8b9240cc6ff2be1e8d4c"
+    },
+    {
+      "path": "safe-hex-arena-3d-control.png",
+      "bytes": 129881,
+      "sha256": "647b194687b133c83a7c2f1c2472b27eb43500b6cb14c59cd8b8cfb829cc2ccb"
+    },
+    {
+      "path": "safe-hex-arena-3d-display.png",
+      "bytes": 174168,
+      "sha256": "0c53ddf24821b083dbf9eb62072d85cfd66aa36d4c19848261463226f75c16a2"
+    },
+    {
+      "path": "space-pilot-control.png",
+      "bytes": 53592,
+      "sha256": "17715e081f90dc944a00e3cddd229b32470846127b2993d3a3cbb72779a1ff68"
+    },
+    {
+      "path": "space-pilot-display.png",
+      "bytes": 516065,
+      "sha256": "14a5a48d11041dec5b1e8603bd8179193f5798a3df51bd59757949e066e0b220"
+    },
+    {
+      "path": "stage-1-control.png",
+      "bytes": 97603,
+      "sha256": "0d27d10d8889113677d337b5e55817d798752a44c9bf1010bb17596d0371d67d"
+    },
+    {
+      "path": "stage-1-display.png",
+      "bytes": 515164,
+      "sha256": "6cba1740c2c1570b792cbe3bbcceea4efe319475dd0b9e710eafe59c5d741efa"
+    },
+    {
+      "path": "stage-2-control.png",
+      "bytes": 98323,
+      "sha256": "9695f83d02f653f19ca9ea3f947434beeb22aa86cb6cd98516da3a508f5721a2"
+    },
+    {
+      "path": "stage-2-display.png",
+      "bytes": 499435,
+      "sha256": "5fae9fe489dfdea29ecfe140b43a84eaf316ada7b694853c3267108ba16e071f"
+    },
+    {
+      "path": "stage-3-control.png",
+      "bytes": 99714,
+      "sha256": "95e19ad03fd7e324457f2750fc4800d3de9c9cccdf3532793166591cd1c08c2d"
+    },
+    {
+      "path": "stage-3-display.png",
+      "bytes": 506757,
+      "sha256": "c679ab621ce6c2f76023e26d95fa42b9989c182a37c6573d83a5255715cd2c3d"
+    },
+    {
+      "path": "stage-4-control.png",
+      "bytes": 100463,
+      "sha256": "a20092d9fab943fd8d19384a862d0089c6e16e2e289cafce31d39ce216b9e3c7"
+    },
+    {
+      "path": "stage-4-display.png",
+      "bytes": 472423,
+      "sha256": "9a3570a2b36768258109c61a39cb09699189a59b2b8653af14acd11e3bfe740c"
+    },
+    {
+      "path": "stage-5-control.png",
+      "bytes": 100530,
+      "sha256": "8f768483eb6e1d85d701b5ff16da5484036bb449fd73fdadec4c5649088626be"
+    },
+    {
+      "path": "stage-5-display.png",
+      "bytes": 485974,
+      "sha256": "b6517a513c2420dac5c3fb4683462a8ddec017634d63c201214ece78add91ee2"
+    },
+    {
+      "path": "stage-6-control.png",
+      "bytes": 101009,
+      "sha256": "a0cfa9f80b57154af107bba1db26e5a14be61b631f5d61aef3a9109740389569"
+    },
+    {
+      "path": "stage-6-display.png",
+      "bytes": 531191,
+      "sha256": "103b2045941e0c53a5531c22d001f9612caa660eaee5b1b1d99aac8acd304bec"
+    },
+    {
+      "path": "stage-7-control.png",
+      "bytes": 101910,
+      "sha256": "c050d0cb5bf561cc3ab9222f200566bf007ef6d025655732731cf0e9cf3512ce"
+    },
+    {
+      "path": "stage-7-display.png",
+      "bytes": 449576,
+      "sha256": "ebc19b5e197c303df970a5716fb3c4413ae7dc55c960ec6240b267d315bae7a7"
+    },
+    {
+      "path": "stage-8-control.png",
+      "bytes": 103240,
+      "sha256": "860b9e4736d60ce6987b3381c1def17459905b8adc8d074d4ba519b7fb80580d"
+    },
+    {
+      "path": "stage-8-display.png",
+      "bytes": 452459,
+      "sha256": "3f308001f33436cb1781258ae7d7a6971d9584775d8059823d34f2f580012cb0"
+    },
+    {
+      "path": "stage-9-control.png",
+      "bytes": 100447,
+      "sha256": "5c8034ffee9f5a0fc373726e6274e74acd9f020874a9983852a5cec724f1d633"
+    },
+    {
+      "path": "stage-9-display.png",
+      "bytes": 463988,
+      "sha256": "404cc0c5d102a11cb79c79f4e869734017dc60c8b1805db40d92a994242640e0"
+    },
+    {
+      "path": "typescript.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

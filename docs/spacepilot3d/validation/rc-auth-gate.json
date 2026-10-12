@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "path": "/control/activities",
+      "existingStaffSignInGateVisible": true,
+      "gameActionsAbsent": true
+    },
+    {
+      "path": "/control/space-pilot",
+      "existingStaffSignInGateVisible": true,
+      "gameActionsAbsent": true
+    },
+    {
+      "path": "/control/space-pilot-legacy",
+      "existingStaffSignInGateVisible": true,
+      "gameActionsAbsent": true
+    },
+    {
+      "path": "/control/space-pilot-3d-prototype",
+      "existingStaffSignInGateVisible": true,
+      "gameActionsAbsent": true
+    }
+  ],
+  "noCredentialsEntered": true,
+  "normalConfiguredServer": true,
+  "hydrationWarnings": []
+}

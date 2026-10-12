@@ -1,0 +1,60 @@
+{
+ "results": [
+  {
+   "name": "library lists the Runner Quest card (flag on)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "card links to the integrated Control route",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "existing games still listed",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "clicking the card opens the Control screen",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Display route renders without dev diagnostics",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Control sees the Display and the foot sensors are labelled simulated/pending",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "game is playing in production",
+   "ok": true,
+   "detail": "22%"
+  },
+  {
+   "name": "network audit: every request stays on localhost, nothing to Firebase",
+   "ok": true,
+   "detail": "hosts=127.0.0.1:3220"
+  },
+  {
+   "name": "no console errors",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "frameStats": {
+  "frames": 1690,
+  "avgFps": 60.00227227539977,
+  "p95ms": 16.700000000004366,
+  "p99ms": 16.80000000000291,
+  "maxMs": 16.80000000000291,
+  "over33ms": 0
+ },
+ "hosts": [
+  "127.0.0.1:3220"
+ ]
+}

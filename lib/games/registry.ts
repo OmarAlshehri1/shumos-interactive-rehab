@@ -1,3 +1,5 @@
+import {BALANCE_BRIDGE_ENABLED,BALANCE_BRIDGE_REGISTRATION} from '@/lib/balancebridge3d/registration';
+import {CASTLE_REGISTRATION} from '@/lib/castlelegends3d/registration';
 import { LEGACY_BALLOON_QUEST } from '@/lib/balloonquest/rollback';
 import { HARVEST_VALLEY_ENABLED, HARVEST_VALLEY_REGISTRATION } from '@/lib/harvestvalley3d/registration';
 import { BLOOMING_WORLD_ENABLED, BLOOMING_WORLD_REGISTRATION } from '@/lib/bloomingworld3d/registration';
@@ -29,7 +31,7 @@ import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 import { RUNNER_QUEST_3D_ENABLED } from '@/lib/runnerquest3d/availability';
 import { RUNNER_QUEST_3D_REGISTRATION as RQ3D } from '@/lib/runnerquest3d/registration';
 import { BUILD_QUEST_3D_ENABLED, BUILD_QUEST_REGISTRATION as BQ3D } from '@/lib/buildquest3d/registration';
-export type GameId = "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
+export type GameId = "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
 /**
  * Retained for source compatibility only. Every game, Build Quest 3D included, now publishes into the shared
  * `/liveSession` record and is a full GameId; there is no longer any game with a separate cloud adapter.
@@ -55,6 +57,8 @@ export interface GameDefinition {
   shortDescriptionAr: string;
   /** Plain-language interaction focus; descriptive only, never an outcome claim. */
   focusTagsAr: readonly string[];
+  /** Optional intended movement categories; not a claim of therapeutic effectiveness. */
+  activitySkills?: readonly import("./library/skillTags").ActivitySkill[];
   status: GameStatus;
   /** Which surface this activity projects onto — GameCard derives its "لعبة أرضية"/"لعبة جدارية" pill from this, never a hardcoded label. */
   surfaceType: SurfaceType;
@@ -75,6 +79,8 @@ export interface GameDefinition {
 }
 
 export const GAME_REGISTRY: readonly GameDefinition[] = [
+  ...(BALANCE_BRIDGE_ENABLED?[BALANCE_BRIDGE_REGISTRATION satisfies GameDefinition]:[]),
+  CASTLE_REGISTRATION,
   ...(HARVEST_VALLEY_ENABLED ? [HARVEST_VALLEY_REGISTRATION satisfies GameDefinition] : []),
   ...(BLOOMING_WORLD_ENABLED ? [BLOOMING_WORLD_REGISTRATION satisfies GameDefinition] : []),
   ...(FIRE_RESCUE_ENABLED ? [FIRE_RESCUE_REGISTRATION satisfies GameDefinition] : []),

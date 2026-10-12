@@ -1,0 +1,1041 @@
+{
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+    "viewport": [
+      1376,
+      768
+    ],
+    "devicePixelRatio": 2,
+    "hardwareConcurrency": 8
+  },
+  "samples": [
+    {
+      "quality": "low",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "low",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "ring",
+          "x": -0.1763935960651323,
+          "y": 0.38,
+          "z": -225,
+          "distance": 77.43285826766551,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -148.125,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -139.125
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.6601570707786015,
+              0.35755175200065775,
+              0.9994432753746721
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.3945188915265541,
+              0.5535569734641946,
+              0.9995006798690627
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.14359606396711216,
+              0.6700818756987792,
+              0.9998595530806574
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.15329986886544023,
+              0.5538856752045632,
+              0.9999435041778092
+            ]
+          }
+        ],
+        "dpr": 0.8,
+        "fps": 60.001500037411525,
+        "meanMs": 16.666250000024835,
+        "p95Ms": 17.100000008940697,
+        "maxMs": 17.700000002980232,
+        "frames": 240,
+        "drawCalls": 32,
+        "triangles": 84504,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "low",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "low",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": 0.03163971675539926,
+          "y": 0.38,
+          "z": -360,
+          "distance": 75.90428671943185,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -284.25,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -275.25
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.9908686152246867,
+              0.08553781692761814,
+              0.9991317067799746
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.5507922744259307,
+              0.4144482735901506,
+              0.9992627742311587
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.1646884756134572,
+              0.6516969149768094,
+              0.9998444715257065
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.15709006049240018,
+              0.5415967375792102,
+              0.9999408777362973
+            ]
+          }
+        ],
+        "dpr": 0.8,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 17.600000008940697,
+        "maxMs": 17.80000001192093,
+        "frames": 240,
+        "drawCalls": 32,
+        "triangles": 84504,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "ring",
+          "x": -0.1567811404679177,
+          "y": 0.38,
+          "z": -225,
+          "distance": 95.51419172432114,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -129.9375,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -120.9375
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.6329976599220336,
+              0.3798906704491635,
+              0.9994688626866832
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.38089888114912895,
+              0.5656809954871556,
+              0.999521414540553
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.14107133890554488,
+              0.6722825235843296,
+              0.9998613583166062
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.15281626212778723,
+              0.5554536732424311,
+              0.9999438392966993
+            ]
+          }
+        ],
+        "dpr": 1.25,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 17.599999994039536,
+        "maxMs": 17.80000001192093,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 87496,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": 0.03651292389187777,
+          "y": 0.38,
+          "z": -360,
+          "distance": 71.60107994042912,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -288.5625,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -279.5625
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.0074299322442197,
+              0.07191594890356501,
+              0.9991161041003683
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.5581809211534414,
+              0.4078711775996293,
+              0.9992515259899012
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.16542759617983038,
+              0.6510526689413436,
+              0.9998439430376594
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.1572152933990914,
+              0.5411906949485362,
+              0.9999407909552221
+            ]
+          }
+        ],
+        "dpr": 1.25,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 17.600000008940697,
+        "maxMs": 17.900000005960464,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 87496,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "high",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-2",
+          "kind": "ring",
+          "x": -0.16536685790180683,
+          "y": 0.38,
+          "z": -225,
+          "distance": 86.74759025183567,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -138.75,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -129.75
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -0.6458423653929543,
+              0.36932575689027525,
+              0.9994567614858026
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.387356044650044,
+              0.5599330709025523,
+              0.9995115843597938
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.1422868751761039,
+              0.6712230152187119,
+              0.9998604891804748
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.15304994454036747,
+              0.5546960047984629,
+              0.9999436773647313
+            ]
+          }
+        ],
+        "dpr": 1.75,
+        "fps": 60.001500037635054,
+        "meanMs": 16.666249999962748,
+        "p95Ms": 17.600000008940697,
+        "maxMs": 18.900000005960464,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 87496,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "high",
+        "reducedEffects": false,
+        "reducedCameraMotion": false,
+        "guidance": {
+          "id": "mission-1-object-3",
+          "kind": "route",
+          "x": 0.04936036803412507,
+          "y": 0.38,
+          "z": -360,
+          "distance": 62.06378869667659,
+          "obscured": false,
+          "offscreen": true,
+          "angle": -90
+        },
+        "worldPose": {
+          "x": 0,
+          "y": 0,
+          "z": -298.125,
+          "yaw": 0,
+          "pitch": 0,
+          "bank": 0,
+          "controlX": 0.5,
+          "controlY": 0.5
+        },
+        "cameraPosition": [
+          -1.4,
+          5.7,
+          -289.125
+        ],
+        "landmarks": [
+          {
+            "name": "azure-planet",
+            "world": [
+              -180,
+              -70,
+              -500
+            ],
+            "ndc": [
+              -1.0463465339084248,
+              0.039906609840180476,
+              0.9990794401523008
+            ]
+          },
+          {
+            "name": "near-moon",
+            "world": [
+              -112,
+              -45,
+              -550
+            ],
+            "ndc": [
+              -0.5753891433732315,
+              0.3925530640749482,
+              0.9992253287385943
+            ]
+          },
+          {
+            "name": "ringed-planet",
+            "world": [
+              230,
+              -100,
+              -1550
+            ],
+            "ndc": [
+              0.1670838221453517,
+              0.6496090384151921,
+              0.9998427587983544
+            ]
+          },
+          {
+            "name": "distant-planet",
+            "world": [
+              -250,
+              -400,
+              -3400
+            ],
+            "ndc": [
+              -0.15749416573400588,
+              0.5402865072275714,
+              0.999940597708561
+            ]
+          }
+        ],
+        "dpr": 1.75,
+        "fps": 60.001500037411525,
+        "meanMs": 16.666250000024835,
+        "p95Ms": 17.5,
+        "maxMs": 17.900000005960464,
+        "frames": 240,
+        "drawCalls": 42,
+        "triangles": 87496,
+        "geometries": 24,
+        "textures": 3,
+        "programs": 17,
+        "assetLoadMs": 176.1000000089407,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    }
+  ],
+  "remounts": [
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "reducedCameraMotion": false,
+      "guidance": null,
+      "worldPose": {
+        "x": 0,
+        "y": 0,
+        "z": -305.25,
+        "yaw": 0,
+        "pitch": 0,
+        "bank": 0,
+        "controlX": 0.5,
+        "controlY": 0.5
+      },
+      "cameraPosition": [
+        -1.4,
+        5.7,
+        -296.25
+      ],
+      "landmarks": [
+        {
+          "name": "azure-planet",
+          "world": [
+            -180,
+            -70,
+            -500
+          ],
+          "ndc": [
+            -1.0774924017222773,
+            0.01428878606719773,
+            0.9990500971359219
+          ]
+        },
+        {
+          "name": "near-moon",
+          "world": [
+            -112,
+            -45,
+            -550
+          ],
+          "ndc": [
+            -0.589007795332782,
+            0.3804302512645926,
+            0.9992045961351164
+          ]
+        },
+        {
+          "name": "ringed-planet",
+          "world": [
+            230,
+            -100,
+            -1550
+          ],
+          "ndc": [
+            0.16833363093439205,
+            0.6485196567986306,
+            0.9998418651565916
+          ]
+        },
+        {
+          "name": "distant-planet",
+          "world": [
+            -250,
+            -400,
+            -3400
+          ],
+          "ndc": [
+            -0.15770301900888645,
+            0.539609342292268,
+            0.999940452982129
+          ]
+        }
+      ],
+      "dpr": 1.25,
+      "fps": 56.197989841313614,
+      "meanMs": 17.794230769173456,
+      "p95Ms": 17.80000001192093,
+      "maxMs": 84,
+      "frames": 52,
+      "drawCalls": 42,
+      "triangles": 87496,
+      "geometries": 24,
+      "textures": 3,
+      "programs": 17,
+      "assetLoadMs": 166.59999999403954,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "reducedCameraMotion": false,
+      "guidance": null,
+      "worldPose": {
+        "x": 0,
+        "y": 0,
+        "z": -305.25,
+        "yaw": 0,
+        "pitch": 0,
+        "bank": 0,
+        "controlX": 0.5,
+        "controlY": 0.5
+      },
+      "cameraPosition": [
+        -1.4,
+        5.7,
+        -296.25
+      ],
+      "landmarks": [
+        {
+          "name": "azure-planet",
+          "world": [
+            -180,
+            -70,
+            -500
+          ],
+          "ndc": [
+            -1.0774924017222773,
+            0.01428878606719773,
+            0.9990500971359219
+          ]
+        },
+        {
+          "name": "near-moon",
+          "world": [
+            -112,
+            -45,
+            -550
+          ],
+          "ndc": [
+            -0.589007795332782,
+            0.3804302512645926,
+            0.9992045961351164
+          ]
+        },
+        {
+          "name": "ringed-planet",
+          "world": [
+            230,
+            -100,
+            -1550
+          ],
+          "ndc": [
+            0.16833363093439205,
+            0.6485196567986306,
+            0.9998418651565916
+          ]
+        },
+        {
+          "name": "distant-planet",
+          "world": [
+            -250,
+            -400,
+            -3400
+          ],
+          "ndc": [
+            -0.15770301900888645,
+            0.539609342292268,
+            0.999940452982129
+          ]
+        }
+      ],
+      "dpr": 1.25,
+      "fps": 54.72740539994068,
+      "meanMs": 18.272380952324188,
+      "p95Ms": 17.599999994039536,
+      "maxMs": 167.70000000298023,
+      "frames": 105,
+      "drawCalls": 42,
+      "triangles": 87496,
+      "geometries": 24,
+      "textures": 3,
+      "programs": 17,
+      "assetLoadMs": 286.69999998807907,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "reducedCameraMotion": false,
+      "guidance": null,
+      "worldPose": {
+        "x": 0,
+        "y": 0,
+        "z": -305.25,
+        "yaw": 0,
+        "pitch": 0,
+        "bank": 0,
+        "controlX": 0.5,
+        "controlY": 0.5
+      },
+      "cameraPosition": [
+        -1.4,
+        5.7,
+        -296.25
+      ],
+      "landmarks": [
+        {
+          "name": "azure-planet",
+          "world": [
+            -180,
+            -70,
+            -500
+          ],
+          "ndc": [
+            -1.0774924017222773,
+            0.01428878606719773,
+            0.9990500971359219
+          ]
+        },
+        {
+          "name": "near-moon",
+          "world": [
+            -112,
+            -45,
+            -550
+          ],
+          "ndc": [
+            -0.589007795332782,
+            0.3804302512645926,
+            0.9992045961351164
+          ]
+        },
+        {
+          "name": "ringed-planet",
+          "world": [
+            230,
+            -100,
+            -1550
+          ],
+          "ndc": [
+            0.16833363093439205,
+            0.6485196567986306,
+            0.9998418651565916
+          ]
+        },
+        {
+          "name": "distant-planet",
+          "world": [
+            -250,
+            -400,
+            -3400
+          ],
+          "ndc": [
+            -0.15770301900888645,
+            0.539609342292268,
+            0.999940452982129
+          ]
+        }
+      ],
+      "dpr": 1.25,
+      "fps": 55.73161403161642,
+      "meanMs": 17.94313725478509,
+      "p95Ms": 19.599999994039536,
+      "maxMs": 72.79999999701977,
+      "frames": 51,
+      "drawCalls": 42,
+      "triangles": 87496,
+      "geometries": 24,
+      "textures": 3,
+      "programs": 17,
+      "assetLoadMs": 164.5,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    }
+  ],
+  "safetyInterruptions": [],
+  "reducedEffects": {
+    "quality": "high",
+    "reducedEffects": true,
+    "reducedCameraMotion": true,
+    "guidance": null,
+    "worldPose": {
+      "x": 0,
+      "y": 0,
+      "z": -300.75,
+      "yaw": 0,
+      "pitch": 0,
+      "bank": 0,
+      "controlX": 0.5,
+      "controlY": 0.5
+    },
+    "cameraPosition": [
+      -1.4,
+      5.7,
+      -291.75
+    ],
+    "landmarks": [
+      {
+        "name": "azure-planet",
+        "world": [
+          -180,
+          -70,
+          -500
+        ],
+        "ndc": [
+          -0.9678914687242756,
+          0.028053394975849,
+          0.999068841403983
+        ]
+      },
+      {
+        "name": "near-moon",
+        "world": [
+          -112,
+          -45,
+          -550
+        ],
+        "ndc": [
+          -0.5311009527758196,
+          0.3552367369963694,
+          0.9992178163101808
+        ]
+      },
+      {
+        "name": "ringed-planet",
+        "world": [
+          230,
+          -100,
+          -1550
+        ],
+        "ndc": [
+          0.15333177799107134,
+          0.5941433521238705,
+          0.9998424306917276
+        ]
+      },
+      {
+        "name": "distant-planet",
+        "world": [
+          -250,
+          -400,
+          -3400
+        ],
+        "ndc": [
+          -0.14420588133555667,
+          0.4942315670640215,
+          0.9999405444619629
+        ]
+      }
+    ],
+    "dpr": 1.75,
+    "fps": 60.00300015005221,
+    "meanMs": 16.665833333320915,
+    "p95Ms": 17.5,
+    "maxMs": 26.600000008940697,
+    "frames": 240,
+    "drawCalls": 25,
+    "triangles": 87464,
+    "geometries": 24,
+    "textures": 3,
+    "programs": 17,
+    "assetLoadMs": 176.1000000089407,
+    "loaded": true,
+    "focused": false,
+    "visible": true
+  },
+  "frameLatency": {
+    "count": 1169,
+    "meanMs": 1.6029813976956802,
+    "p95Ms": 2.699951171875,
+    "maxMs": 134
+  },
+  "inputLatency": {
+    "count": 927,
+    "meanMs": 0.8036556305622977,
+    "p95Ms": 1.5,
+    "maxMs": 46.199951171875
+  },
+  "contextLossAndRecovery": true,
+  "assetFailureAndRecovery": true,
+  "pageErrors": [],
+  "firebaseRequests": []
+}

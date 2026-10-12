@@ -1,0 +1,45 @@
+const {chromium}=require('PLAYWRIGHT_MODULE_PATH');
+const fs=require('fs');const assert=require('assert');const root='EVIDENCE_OUTPUT_DIRECTORY';const url='http://127.0.0.1:3191';const db='http://127.0.0.1:19800';const ns='demo-fire-rescue-default-rtdb';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));const results={startedAt:new Date().toISOString(),stages:[],checks:[],performance:[],errors:[],sync:[]};
+(async()=>{
+for(const path of ['controllerLease','liveSession','liveSessionPrivate','sessions/fr-patient'])await fetch(`${db}/${path}.json?ns=${ns}`,{method:'DELETE',headers:{Authorization:'Bearer owner'}});
+const browser=await chromium.launch({headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']});
+const cc=await browser.newContext({viewport:{width:1024,height:900},hasTouch:true});const dc=await browser.newContext({viewport:{width:1280,height:720},recordVideo:{dir:root+'/video',size:{width:1280,height:720}}});
+const d=await dc.newPage();const c=await cc.newPage();for(const [name,p] of [['Control',c],['Display',d]])p.on('pageerror',e=>results.errors.push(name+': '+e.message));
+await d.goto(url+'/display');await c.goto(url+'/control');await c.locator('input[type=email]').fill('fire-therapist@example.test');await c.locator('input[type=password]').fill('local-test-password');await c.getByRole('button',{name:'تسجيل الدخول',exact:true}).tap();
+console.log('SIGNED IN');await c.goto(url+'/control/patients/fr-patient');await c.getByRole('button',{name:'بدء جلسة جديدة',exact:true}).tap();await c.locator('[data-game-card="fire-rescue-3d"]').tap();await c.getByTestId('fr-control').waitFor();await d.getByTestId('fr-view').waitFor();console.log('CONTROL AND DISPLAY READY');await c.getByLabel('جودة العرض',{exact:true}).selectOption('low');
+const cp=await cc.newCDPSession(c);
+async function info(){return c.getByTestId('fr-control').evaluate(e=>({...e.dataset}));}
+async function checkSync(label){const a=await info();const b=await d.getByTestId('fr-view').evaluate(e=>({...e.dataset}));assert.equal(a.stage,b.stage,label+' stage');assert.equal(a.phase,b.phase,label+' phase');assert(Math.abs(+a.distance- +b.distance)<2,label+' position');results.sync.push({label,control:a.distance,display:b.distance,delta:Math.abs(+a.distance- +b.distance)});}
+async function touchStart(ids){const locs=ids.map(id=>c.getByTestId(id));await locs[0].scrollIntoViewIfNeeded();const points=[];for(let i=0;i<locs.length;i++){const box=await locs[i].boundingBox();assert(box&&box.y>=0&&box.y+box.height<=900,'button visible '+ids[i]);points.push({id:i+1,x:box.x+box.width/2,y:box.y+box.height/2,radiusX:5,radiusY:5});}await cp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:points});}
+async function touchEnd(){await cp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});}
+async function hold(id,ms){await touchStart([id]);await sleep(ms);await touchEnd();}
+async function waitPhase(phase,timeout=90000){await c.waitForFunction(phase=>document.querySelector('[data-testid=fr-control]')?.getAttribute('data-phase')===phase,phase,{timeout});}
+async function waitStatus(status,timeout=90000){await c.waitForFunction(status=>document.querySelector('[data-testid=fr-control]')?.getAttribute('data-status')===status,status,{timeout});}
+async function slider(id,val){const l=c.getByTestId('config-'+id);await l.scrollIntoViewIfNeeded();await l.focus();await l.press(val===0?'Home':'End');}
+await slider('aimAssist',0);await c.getByTestId('start').tap();await hold('throttle',1500);const speed=+(await info()).speed;assert(speed>0,'throttle moves');await hold('brake',400);assert(+(await info()).speed<speed,'brake slows');results.checks.push('Actual touch throttle and braking');
+await c.getByTestId('pause').tap();const paused=+(await info()).distance;await sleep(500);assert.equal(+(await info()).distance,paused);await c.getByTestId('resume').tap();results.checks.push('Pause freezes and resume continues');
+for(let stage=0;stage<9;stage++){
+ const started=Date.now();console.log('START STAGE',stage+1);const state=await info();assert.equal(+state.stage,stage);
+ if(stage>0)await c.getByTestId('start').tap();
+ if(stage===1||stage===2){await c.locator('[class*="controls"]').first().evaluate(e=>e.scrollIntoView({block:'center'}));await touchStart([stage===1?'right':'left','throttle']);await sleep(900);await touchEnd();const lateral=+(await info()).lateral;assert(stage===1?lateral>0:lateral<0,'steering affects lateral');results.checks.push('Actual touch '+(stage===1?'right':'left')+' steering');}
+ let stop=0;
+ while((await info()).status==='running'){
+ if((await info()).phase==='driving'){
+ await touchStart(['throttle']);await waitPhase('firefighting');await touchEnd();await sleep(200);await checkSync('arrival-'+stage+'-'+stop);
+ if([0,3,6].includes(stage)&&stop===0){await sleep(1000);await d.screenshot({path:root+`/environment-${stage===0?'mountain':stage===3?'forest':'countryside'}.png`});results.performance.push({label:'stage-'+stage,stats:await d.getByTestId('fr-view').evaluate(e=>({...e.dataset}))});}
+ }
+ if(stage===0&&stop===0){await hold('aim-right',1000);const before=await d.getByTestId('fr-view').getAttribute('data-fires');await hold('water',700);await sleep(200);assert.equal(await d.getByTestId('fr-view').getAttribute('data-fires'),before,'miss has no effect');await hold('aim-left',1000);results.checks.push('Hose direction and missed stream do not extinguish');}
+ if(stage>0)await slider('aimAssist',1);
+ await touchStart(['water']);
+ await c.waitForFunction(()=>{const e=document.querySelector('[data-testid=fr-control]');return e?.getAttribute('data-phase')==='driving'||e?.getAttribute('data-status')==='stage-complete';},null,{timeout:45000});
+ await touchEnd();await sleep(180);await checkSync('extinguished-'+stage+'-'+stop);stop++;
+ }
+ const done=await info();assert.equal(done.status,'stage-complete');assert.equal(+done.completed,stage+1);results.stages.push({stage:stage+1,stops:stop,durationMs:Date.now()-started,events:+done.events});console.log('DONE STAGE',stage+1,results.stages.at(-1));fs.writeFileSync(root+'/browser-progress.json',JSON.stringify(results,null,2));
+ if(stage<8)await c.getByTestId('next').tap();
+}
+await c.getByTestId('next').tap();await waitStatus('ended');await c.waitForFunction(()=>document.querySelector('[data-testid=fr-control]')?.getAttribute('data-history')==='saved',null,{timeout:15000});await d.screenshot({path:root+'/session-complete.png'});
+const headers={Authorization:'Bearer owner'};let saved=await (await fetch(`${db}/sessions/fr-patient.json?ns=${ns}`,{headers})).json();assert.equal(Object.keys(saved).length,1,'history exactly once');const h=Object.values(saved)[0];assert.equal(h.completedStageCount,9);assert.equal(h.drivingObjectives,12);assert.equal(h.fireTargetsExtinguished,18);results.history={count:1,record:h};
+await c.reload();await c.getByTestId('fr-control').waitFor();await waitStatus('ended');await sleep(1200);saved=await (await fetch(`${db}/sessions/fr-patient.json?ns=${ns}`,{headers})).json();assert.equal(Object.keys(saved).length,1);results.checks.push('Ended Control reload retains results and history save-once');
+results.finishedAt=new Date().toISOString();await cc.close();await dc.close();const video=await d.video().path();fs.renameSync(video,root+'/gameplay-nine-stages.webm');await browser.close();fs.writeFileSync(root+'/browser-gameplay.json',JSON.stringify(results,null,2));console.log('ALL NINE TOUCH STAGES PASSED');
+})().catch(e=>{results.failure=String(e.stack||e);fs.writeFileSync(root+'/browser-gameplay.json',JSON.stringify(results,null,2));console.error(e);process.exit(1)});

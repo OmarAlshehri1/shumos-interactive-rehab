@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-11",
+  "releaseStatus": "PREMIUM_VISUAL_ACCEPTANCE_OPEN",
+  "focusedTests": 13,
+  "fullVitest": {
+    "passed": 1828,
+    "skippedOptIn": 75,
+    "filesPassed": 146
+  },
+  "fireRulesPassed": 8,
+  "existingPlatformRulesPassed": 12,
+  "fullEslintExitCode": 0,
+  "enabledWebpackBuildExitCode": 0,
+  "disabledWebpackBuildExitCode": 0,
+  "allNineTouchStagesCompleted": true,
+  "drivingObjectives": 12,
+  "fireTargets": 18,
+  "historySaveOnceVerified": true,
+  "productionBrowserChecksPassed": 14,
+  "physicalHardwareValidation": "PENDING",
+  "productionPublished": false,
+  "rulesPublishedToProduction": false,
+  "rulesSha256": "cdf34d6f4a58168fad4f0eeadf1634537274e20c8e892400269e95b7ddc0d0ca"
+}

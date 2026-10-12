@@ -1,0 +1,135 @@
+{
+  "checks": [
+    "Driving synchronized",
+    "Control reload recovery synchronized",
+    "Display reload recovery synchronized",
+    "Wheel disconnect safely pauses and manual continuation works",
+    "Stop, reset and restart",
+    "forest synchronized",
+    "countryside synchronized",
+    "Hose and progressive water synchronized",
+    "Repeat resets active fire objective",
+    "Skip stage preserves honest completion",
+    "End, save and a fresh new session",
+    "Same-account competing Control is blocked"
+  ],
+  "performance": [
+    {
+      "label": "high-mountain-driving",
+      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "testid": "fr-view",
+      "status": "running",
+      "events": "0",
+      "heading": "0.000",
+      "lateral": "0.000",
+      "stage": "0",
+      "phase": "driving",
+      "distance": "2.20",
+      "aim": "0.000,0.000",
+      "fires": "1.000",
+      "fps": "60",
+      "drawCalls": "88",
+      "triangles": "213516",
+      "geometries": "43",
+      "textures": "11"
+    },
+    {
+      "label": "high-forest",
+      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "testid": "fr-view",
+      "status": "running",
+      "events": "0",
+      "heading": "-0.014",
+      "lateral": "-0.014",
+      "stage": "3",
+      "phase": "driving",
+      "distance": "1.64",
+      "aim": "0.000,0.000",
+      "fires": "1.000",
+      "fps": "8",
+      "drawCalls": "82",
+      "triangles": "194202",
+      "geometries": "43",
+      "textures": "11"
+    },
+    {
+      "label": "high-countryside",
+      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "testid": "fr-view",
+      "status": "running",
+      "events": "0",
+      "heading": "-0.013",
+      "lateral": "-0.030",
+      "stage": "6",
+      "phase": "driving",
+      "distance": "3.44",
+      "aim": "0.000,0.000",
+      "fires": "1.000,1.000",
+      "fps": "2",
+      "drawCalls": "99",
+      "triangles": "204854",
+      "geometries": "50",
+      "textures": "11"
+    },
+    {
+      "label": "low-water",
+      "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+      "testid": "fr-view",
+      "status": "running",
+      "events": "1",
+      "heading": "0.000",
+      "lateral": "0.000",
+      "stage": "4",
+      "phase": "firefighting",
+      "distance": "95.00",
+      "aim": "-0.550,0.120",
+      "fires": "0.062,1.000",
+      "fps": "55",
+      "drawCalls": "67",
+      "triangles": "63616",
+      "geometries": "52",
+      "textures": "11"
+    },
+    {
+      "label": "low-steady-resources",
+      "measurements": [
+        {
+          "fps": 49,
+          "geometries": 45,
+          "textures": 11
+        },
+        {
+          "fps": 60,
+          "geometries": 45,
+          "textures": 11
+        },
+        {
+          "fps": 60,
+          "geometries": 45,
+          "textures": 11
+        },
+        {
+          "fps": 60,
+          "geometries": 45,
+          "textures": 11
+        },
+        {
+          "fps": 60,
+          "geometries": 45,
+          "textures": 11
+        }
+      ],
+      "writesPerSecond": 5.947812739831159
+    }
+  ],
+  "errors": [],
+  "startedAt": "2026-10-11T03:30:17.107Z",
+  "live": {
+    "gameId": "fire-rescue-3d",
+    "revision": 126,
+    "wireBytes": 1486,
+    "hasPatientId": false
+  },
+  "displayAuthStorage": "Firebase IndexedDB isolation",
+  "finishedAt": "2026-10-11T03:31:03.948Z"
+}

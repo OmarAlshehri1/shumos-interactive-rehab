@@ -140,3 +140,12 @@
     color: #475569 !important;
   }
 }
+
+/* Reserve a real layout inset for the persistent visit bar on fixed game screens. */
+body:has([data-visit-active="true"]) main { top: 64px !important; height: calc(100dvh - 64px) !important; }
+@media (max-width: 650px) { body:has([data-visit-active="true"]) main { top: 96px !important; height: calc(100dvh - 96px) !important; } }
+
+/* Shared clinical Control palette; child Display/game worlds remain independent. */
+.shumos-control { --control-canvas: #f3f7f8; --control-ink: #16383d; --control-primary: #087f81; --control-border: #dce7e9; --control-surface: #fff; }
+.shumos-control main { font-family: var(--font-control), system-ui, sans-serif; }
+.shumos-control main:not([data-projection-grid]) > header h1 { letter-spacing: -.025em; }

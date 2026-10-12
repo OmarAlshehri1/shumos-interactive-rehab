@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Two independent FOOT role connection panels with unavailable hints and no automatic progress",
+    "Selecting RIGHT_FOOT unmounts LEFT_FOOT runtime",
+    "Manual checkpoint confirmation works in foot mode with no connected device",
+    "Another tab cannot launch Bridge over an unresolved Blooming World session"
+  ],
+  "errors": [],
+  "hardware": "No physical Bluetooth devices connected; no chooser opened"
+}

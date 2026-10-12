@@ -1,0 +1,45 @@
+{
+  "baselineFiles": 732,
+  "modifiedExisting": [
+    "app/control/layout.tsx",
+    "app/display/space-pilot-3d-prototype/page.tsx",
+    "components/display/spacepilot3d/prototype.module.css",
+    "lib/spacepilot3d/README.md",
+    "lib/spacepilot3d/renderer.ts",
+    "next-env.d.ts"
+  ],
+  "createdImplementationAndAssets": [
+    "app/control/space-pilot-3d-prototype/page.tsx",
+    "components/control/spacepilot3d/PrototypeLocalOnlyBoundary.tsx",
+    "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+    "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+    "lib/spacepilot3d/PHASE05.md",
+    "lib/spacepilot3d/__tests__/graphicsAsset.test.ts",
+    "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+    "lib/spacepilot3d/__tests__/runtime.test.ts",
+    "lib/spacepilot3d/__tests__/session.test.ts",
+    "lib/spacepilot3d/controlSessionRuntime.ts",
+    "lib/spacepilot3d/displaySessionRuntime.ts",
+    "lib/spacepilot3d/graphics.ts",
+    "lib/spacepilot3d/presentation.ts",
+    "lib/spacepilot3d/sessionAuthority.ts",
+    "lib/spacepilot3d/sessionChannel.ts",
+    "lib/spacepilot3d/sessionContract.ts",
+    "lib/spacepilot3d/sessionReplica.ts",
+    "lib/spacepilot3d/sessionStorage.ts",
+    "public/spacepilot3d/models/bob.glb"
+  ],
+  "dependenciesAdded": [],
+  "protectedCoreHashes": {
+    "lib/spacepilot3d/gameplay.ts": "e0947b8441c005d560c66f80b0eeae86221b809a9d90876b3e78c07f9a561978",
+    "lib/spacepilot3d/collision.ts": "2cc7c4b067ddf68e8774d6beb4afdeb6bd1d73df6e507cbf62bfadc996ff3a53",
+    "lib/spacepilot3d/missions.ts": "acae6fc455e9374b1e2483009d6171ea8b30074285c67704df271dc1bdf0b7d4",
+    "lib/spacepilot3d/sensorInput.ts": "912c4df623dd618ad6fea73b77605cb6845e2def0080583328b11e42a45776d2",
+    "lib/spacepilot3d/keyboardInput.ts": "8703ca11ec37ed3be9e33eefe60593e93e8cbe2596a6e2587e7e87bd2f7d7f02",
+    "lib/games/registry.ts": "540750935c15890267b3bc8bb9178ad8bd64defc9971622ce777c6cda910136b",
+    "lib/realtime/types.ts": "fc51191bbf1c0c8de6ae1f791af7d8b68f3b6a62a30f3a7ba1f35b99ccad7aba",
+    "lib/realtime/staffAuthClient.ts": "a5ff1981b5c43c590d7d4b1fe35815e93f295c2c6804d96ce23fcbeae246a263",
+    "package.json": "e1fc588b6eaf420ae7b9d130c6e1b3a9281dc2a95c9dd50812eb2d50c53762d2",
+    "package-lock.json": "6b956c419c6eab308368d36981394908c60f0e483ed17197f90b8e4e24bc4862"
+  }
+}

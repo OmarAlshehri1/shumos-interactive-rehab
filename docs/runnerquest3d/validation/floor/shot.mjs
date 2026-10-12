@@ -1,0 +1,24 @@
+// Exploratory: FLOOR on a real Control + Display pair (two Chrome processes) against the isolated emulators. node shot.mjs <outDir>
+import { mkdirSync } from "node:fs";
+import { BASE, launch, login, note, openIpad, seed, selectPatient, sleep } from "./lib.mjs";
+const [out] = process.argv.slice(2);
+mkdirSync(out, { recursive: true });
+await seed();
+const A = await launch(`${out}/ipad`, 9810), B = await launch(`${out}/laptop`, 9811);
+const display = await B.open(`${BASE}/display`, 1920, 1080);
+const control = await openIpad(A, `${BASE}/control/runner-quest-3d`);
+await login(control); await selectPatient(control);
+const rt = (js) => control.eval(`(() => { const rt = window.__RQ3D_RT; ${js} })()`);
+console.log("control text", (await control.eval("document.body.innerText")).slice(0, 300));
+await control.shot(`${out}/01-control-initial.png`);
+await control.tap("projection-FLOOR"); await sleep(1000);
+await control.shot(`${out}/02-control-floor-selected.png`);
+note("projection FLOOR selected", (await rt("return rt.session.projection")) === "FLOOR");
+await sleep(2000);
+await display.shot(`${out}/03-display-ready.png`);
+await control.tapThen("start", "window.__RQ3D_RT.session.lifecycle==='playing'");
+await sleep(2500);
+await display.shot(`${out}/04-display-playing.png`);
+await control.shot(`${out}/05-control-playing.png`);
+console.log("display dataset", await display.eval("JSON.stringify(document.querySelector('[data-testid=rq3d-display]')?.dataset)"));
+A.close(); B.close();

@@ -1,0 +1,12 @@
+/control                           200
+/control/activities                200
+/control/balloon-quest             200
+/control/balloon-quest-legacy      200
+/control/follow-the-footsteps      200
+/control/bubble-pop-wall           200
+/control/feed-the-animals          200
+/control/space-pilot               200
+/control/color-chase               200
+/control/patients                  200
+/display                           200
+/display/alignment-qa              404

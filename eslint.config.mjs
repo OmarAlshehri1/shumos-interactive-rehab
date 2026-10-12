@@ -8,13 +8,13 @@ const eslintConfig = defineConfig([
   // Browser evidence scripts are explicitly CommonJS and require synchronous
   // Playwright/helper loading; the TypeScript import-style rule does not apply.
   {
-    files: ["docs/pearlvoyage3d/validation/*.cjs"],
+    files: ["docs/**/validation/*.cjs", "docs/**/qa/*.cjs"],
     rules: { "@typescript-eslint/no-require-imports": "off" },
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
-    ".next/**",
+    ".next*/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

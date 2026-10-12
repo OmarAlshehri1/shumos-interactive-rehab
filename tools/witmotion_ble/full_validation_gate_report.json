@@ -1,0 +1,445 @@
+{
+  "overall_pass": false,
+  "replay_gate_overall_pass": false,
+  "replay_gate_report": {
+    "overall_pass": false,
+    "criteria": [
+      {
+        "number": 0,
+        "description": "[bonus] directional specificity: only the enrolled 'up' motion reads as RIGHT_HAND_RAISE across all 10 enrolled directions (forward/backward excluded - untrusted per existing guidance)",
+        "passed": true,
+        "detail": "event phases in order: ['up', 'backward']; rejected-by-direction phases+similarity: [('down', 0.555), ('right', 0.496), ('left', 0.029), ('up_right', 0.379), ('up_left', 0.254), ('down_right', 0.391), ('down_left', 0.504), ('forward', 0.001), ('forward', 0.383), ('forward', 0.69), ('forward', 0.134), ('forward', 0.142), ('forward', 0.076), ('forward', 0.027), ('forward', 0.131), ('forward', 0.009), ('forward', 0.319), ('forward', 0.34), ('backward', 0.409), ('backward', 0.191), ('backward', 0.001), ('neutral_final', 0.101)]"
+      },
+      {
+        "number": 1,
+        "description": "[very_small_raise_rep01.csv] one intentional raise produces exactly one event (per repetition)",
+        "passed": true,
+        "detail": "expected 5 raises -> 5 events; detected 5 events (detection paths: ['stable_displacement', 'stable_displacement', 'stable_displacement', 'stable_displacement', 'stable_displacement'])"
+      },
+      {
+        "number": 1,
+        "description": "[small_slow_raise_rep01.csv] one intentional raise produces exactly one event (per repetition)",
+        "passed": false,
+        "detail": "expected 4 raises -> 4 events; detected 5 events (detection paths: ['stable_displacement', 'stable_displacement', 'stable_displacement', 'stable_displacement', 'stable_displacement'])"
+      },
+      {
+        "number": 1,
+        "description": "[small_sudden_raise_rep01.csv] one intentional raise produces exactly one event (per repetition)",
+        "passed": false,
+        "detail": "expected 5 raises -> 5 events; detected 4 events (detection paths: ['sudden_coherent', 'sudden_coherent', 'sudden_coherent', 'sudden_coherent'])"
+      },
+      {
+        "number": 1,
+        "description": "[medium_raise_rep01.csv] one intentional raise produces exactly one event (per repetition)",
+        "passed": true,
+        "detail": "expected 5 raises -> 5 events; detected 5 events (detection paths: ['sudden_coherent', 'stable_displacement', 'sudden_coherent', 'sudden_coherent', 'sudden_coherent'])"
+      },
+      {
+        "number": 1,
+        "description": "[normal_full_raise_clean_rep01.csv] one intentional raise produces exactly one event (per repetition)",
+        "passed": true,
+        "detail": "expected 5 raises -> 5 events; detected 5 events (detection paths: ['sudden_coherent', 'sudden_coherent', 'sudden_coherent', 'sudden_coherent', 'sudden_coherent'])"
+      },
+      {
+        "number": 2,
+        "description": "holding the hand raised does not repeat the event",
+        "passed": false,
+        "detail": "[small_slow_raise_rep01.csv] has an explicit 1s hold per cycle; 5 events for 4 raises means the WAIT_FOR_RELEASE state correctly blocked re-triggering during each hold"
+      },
+      {
+        "number": 3,
+        "description": "neutral/rest does not trigger",
+        "passed": true,
+        "detail": "neutral_rep02.csv: 0 RIGHT_HAND_RAISE events over 43 rest samples (expected 0)"
+      },
+      {
+        "number": 4,
+        "description": "jitter/noise does not trigger",
+        "passed": true,
+        "detail": "guided_quick_scan_rep03.csv jitter phase (24 samples, deliberate small rapid wobble): 0 RIGHT_HAND_RAISE events (expected 0)"
+      },
+      {
+        "number": 5,
+        "description": "lowering the hand does not itself count as a raise",
+        "passed": false,
+        "detail": "over-counted files: [('small_slow_raise_rep01.csv', 4, 5)]"
+      },
+      {
+        "number": 6,
+        "description": "release correctly rearms the detector",
+        "passed": true,
+        "detail": "every accepted event was followed by a confirmed release/rearm before file end; TRUNCATED_AFTER_TRIGGER (excluded, not a miss): ['very_small_raise_rep01.csv', 'small_slow_raise_rep01.csv', 'medium_raise_rep01.csv']"
+      },
+      {
+        "number": 7,
+        "description": "a second genuine raise creates one new event",
+        "passed": false,
+        "detail": "at least one multi-repetition file did not match its expected count (see criterion 1 detail)"
+      },
+      {
+        "number": 8,
+        "description": "slow/small movement can trigger when supported by personalized calibration",
+        "passed": false,
+        "detail": "very_small_raise_rep01.csv (weakest ~6.13 deg amplitude on this dataset): 5/5 detected; small_slow_raise_rep01.csv: 5/4 detected"
+      },
+      {
+        "number": 9,
+        "description": "sudden small movement can trigger appropriately",
+        "passed": false,
+        "detail": "small_sudden_raise_rep01.csv: 4/5 detected (detection paths: ['sudden_coherent', 'sudden_coherent', 'sudden_coherent', 'sudden_coherent'])"
+      },
+      {
+        "number": 10,
+        "description": "rejected/contaminated datasets are not treated as calibration truth",
+        "passed": true,
+        "detail": "4 rejected/cancelled recordings replayed for transparency only and excluded from this gate's PASS/FAIL and from baseline/enrollment inputs: ['neutral_rep01.csv (rejected_motion_contamination)', 'guided_quick_scan_rep01.csv (rejected_prompt_timing)', 'guided_quick_scan_rep02.csv (rejected_prompt_timing)', 'faceid_20260902T163642Z_025ea769.csv (cancelled / partial_preserved)']"
+      }
+    ],
+    "file_reports": {
+      "neutral_rep02.csv": {
+        "quality_review": "accepted_neutral_baseline",
+        "samples_replayed": 43,
+        "events": 0,
+        "rejected_movements": 0
+      },
+      "very_small_raise_rep01.csv": {
+        "quality_review": "accepted",
+        "description": "five very small (~1-3cm) raises, 2s rest between",
+        "expected_raises": 5,
+        "detected_events": 5,
+        "rejected_by_direction": 0,
+        "rearm_count": 4,
+        "ends_in_state": "SETTLING",
+        "truncated_after_trigger": true,
+        "event_detection_paths": [
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement"
+        ],
+        "event_peak_angles_deg": [
+          3.52,
+          2.984,
+          3.207,
+          2.537,
+          3.217
+        ]
+      },
+      "small_slow_raise_rep01.csv": {
+        "quality_review": "accepted",
+        "description": "four small slow raises: 4s up, 1s hold, 4s down, 3s rest",
+        "expected_raises": 4,
+        "detected_events": 5,
+        "rejected_by_direction": 0,
+        "rearm_count": 4,
+        "ends_in_state": "SETTLING",
+        "truncated_after_trigger": true,
+        "event_detection_paths": [
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement",
+          "stable_displacement"
+        ],
+        "event_peak_angles_deg": [
+          5.771,
+          6.01,
+          7.542,
+          6.504,
+          6.792
+        ]
+      },
+      "small_sudden_raise_rep01.csv": {
+        "quality_review": "accepted",
+        "description": "five small sudden raises: <1s up, 1s hold, gentle return, 3s rest",
+        "expected_raises": 5,
+        "detected_events": 4,
+        "rejected_by_direction": 0,
+        "rearm_count": 4,
+        "ends_in_state": "GESTURE_ACTIVE",
+        "truncated_after_trigger": false,
+        "event_detection_paths": [
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent"
+        ],
+        "event_peak_angles_deg": [
+          18.006,
+          29.233,
+          22.856,
+          23.722
+        ]
+      },
+      "medium_raise_rep01.csv": {
+        "quality_review": "accepted",
+        "description": "five medium (~20-30cm) raises: 2s up, 1s hold, 2s down, 3s rest",
+        "expected_raises": 5,
+        "detected_events": 5,
+        "rejected_by_direction": 0,
+        "rearm_count": 4,
+        "ends_in_state": "SETTLING",
+        "truncated_after_trigger": true,
+        "event_detection_paths": [
+          "sudden_coherent",
+          "stable_displacement",
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent"
+        ],
+        "event_peak_angles_deg": [
+          38.331,
+          39.133,
+          44.327,
+          45.309,
+          45.21
+        ]
+      },
+      "normal_full_raise_clean_rep01.csv": {
+        "quality_review": "accepted",
+        "description": "five normal/full raises, ground-truth marked (capture_normal_full_clean.py)",
+        "expected_raises": 5,
+        "detected_events": 5,
+        "rejected_by_direction": 6,
+        "rearm_count": 10,
+        "ends_in_state": "SETTLING",
+        "truncated_after_trigger": false,
+        "event_detection_paths": [
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent",
+          "sudden_coherent"
+        ],
+        "event_peak_angles_deg": [
+          17.325,
+          24.45,
+          31.133,
+          34.376,
+          43.501
+        ]
+      },
+      "guided_quick_scan_rep03.csv": {
+        "quality_review": "accepted_with_prompt_latency_caveat",
+        "all_events_by_phase_index": [
+          [
+            218,
+            "fast"
+          ]
+        ],
+        "jitter_phase_events": 0,
+        "hold_phase_events": 0,
+        "total_events": 1
+      },
+      "faceid_20260902T171938Z_6c9ae407.csv": {
+        "quality_review": "accepted_with_final_stillness_rejected",
+        "note": "all 10 enrolled directions in one continuous session; only 'up' should read as RIGHT_HAND_RAISE",
+        "event_phases": [
+          "up",
+          "backward"
+        ],
+        "rejected_movement_phases_and_similarity": [
+          [
+            "down",
+            0.555
+          ],
+          [
+            "right",
+            0.496
+          ],
+          [
+            "left",
+            0.029
+          ],
+          [
+            "up_right",
+            0.379
+          ],
+          [
+            "up_left",
+            0.254
+          ],
+          [
+            "down_right",
+            0.391
+          ],
+          [
+            "down_left",
+            0.504
+          ],
+          [
+            "forward",
+            0.001
+          ],
+          [
+            "forward",
+            0.383
+          ],
+          [
+            "forward",
+            0.69
+          ],
+          [
+            "forward",
+            0.134
+          ],
+          [
+            "forward",
+            0.142
+          ],
+          [
+            "forward",
+            0.076
+          ],
+          [
+            "forward",
+            0.027
+          ],
+          [
+            "forward",
+            0.131
+          ],
+          [
+            "forward",
+            0.009
+          ],
+          [
+            "forward",
+            0.319
+          ],
+          [
+            "forward",
+            0.34
+          ],
+          [
+            "backward",
+            0.409
+          ],
+          [
+            "backward",
+            0.191
+          ],
+          [
+            "backward",
+            0.001
+          ],
+          [
+            "neutral_final",
+            0.101
+          ]
+        ],
+        "non_up_trusted_false_positives": []
+      },
+      "_development_evidence": [
+        {
+          "file": "normal_full_raise_rep01.csv",
+          "quality_review_reason": "superseded_by_ground_truth_clean_capture",
+          "events_if_replayed": 9,
+          "rejected_by_direction_if_replayed": 0,
+          "excluded_from": "PASS/FAIL determination (superseded by the ground-truth clean recapture)"
+        }
+      ]
+    },
+    "rejected_datasets": [
+      {
+        "file": "neutral_rep01.csv",
+        "quality_review_reason": "rejected_motion_contamination",
+        "events_if_replayed": 0,
+        "excluded_from": "PASS/FAIL determination, baseline computation, and enrolled direction vector"
+      },
+      {
+        "file": "guided_quick_scan_rep01.csv",
+        "quality_review_reason": "rejected_prompt_timing",
+        "events_if_replayed": 0,
+        "excluded_from": "PASS/FAIL determination, baseline computation, and enrolled direction vector"
+      },
+      {
+        "file": "guided_quick_scan_rep02.csv",
+        "quality_review_reason": "rejected_prompt_timing",
+        "events_if_replayed": 3,
+        "excluded_from": "PASS/FAIL determination, baseline computation, and enrolled direction vector"
+      },
+      {
+        "file": "faceid_20260902T163642Z_025ea769.csv",
+        "quality_review_reason": "cancelled / partial_preserved",
+        "events_if_replayed": 2,
+        "excluded_from": "PASS/FAIL determination, baseline computation, and enrolled direction vector"
+      }
+    ],
+    "development_evidence_datasets": [
+      {
+        "file": "normal_full_raise_rep01.csv",
+        "quality_review_reason": "superseded_by_ground_truth_clean_capture",
+        "events_if_replayed": 9,
+        "rejected_by_direction_if_replayed": 0,
+        "excluded_from": "PASS/FAIL determination (superseded by the ground-truth clean recapture)"
+      }
+    ],
+    "raise_axis": "pitch_deg",
+    "raise_sign": -1,
+    "_subprocess_exit_code": 1
+  },
+  "ground_truth_datasets": [
+    {
+      "label": "normal_full_raise_clean",
+      "status": "CHECKED",
+      "passed": false,
+      "ground_truth_repetitions": 5,
+      "detected_events": 5,
+      "per_repetition": [
+        {
+          "repetition": 1,
+          "status": "OK",
+          "detected_in_window": 1
+        },
+        {
+          "repetition": 2,
+          "status": "OK",
+          "detected_in_window": 1
+        },
+        {
+          "repetition": 3,
+          "status": "DUPLICATE",
+          "detected_in_window": 2
+        },
+        {
+          "repetition": 4,
+          "status": "OK",
+          "detected_in_window": 1
+        },
+        {
+          "repetition": 5,
+          "status": "MISSING",
+          "detected_in_window": 0
+        }
+      ],
+      "duplicate_repetitions": [
+        3
+      ],
+      "missing_repetitions": [
+        5
+      ],
+      "spurious_events_outside_any_window": 0,
+      "premature_rearms_before_release_marker": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "label": "small_slow_raise_clean",
+      "status": "NOT_YET_CAPTURED",
+      "hint": "run capture_small_movements_clean.py or capture_normal_full_clean.py to produce small_slow_raise_clean_rep01.csv",
+      "passed": false
+    },
+    {
+      "label": "small_sudden_raise_clean",
+      "status": "NOT_YET_CAPTURED",
+      "hint": "run capture_small_movements_clean.py or capture_normal_full_clean.py to produce small_sudden_raise_clean_rep01.csv",
+      "passed": false
+    }
+  ],
+  "all_ground_truth_datasets_present": false
+}

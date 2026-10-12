@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "Fire excluded from library",
+    "Existing cards retained",
+    "Disabled direct route renders notFound"
+  ],
+  "existingGameIds": [
+    "balloon-quest",
+    "follow-the-footsteps",
+    "bubble-pop-wall",
+    "space-pilot",
+    "color-chase"
+  ],
+  "errors": []
+}

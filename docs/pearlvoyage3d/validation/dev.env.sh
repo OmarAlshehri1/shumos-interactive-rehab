@@ -1,0 +1,12 @@
+export SHUMOS_BUILD_DIR=.next-pv3
+export NEXT_PUBLIC_FIREBASE_API_KEY=fake-key
+export NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=demo-pearl-voyage-rules.firebaseapp.com
+export NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://demo-pearl-voyage-rules-default-rtdb.firebaseio.com
+export NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-pearl-voyage-rules
+export NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=demo-pearl-voyage-rules.appspot.com
+export NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=1
+export NEXT_PUBLIC_FIREBASE_APP_ID=1:1:web:1
+export NEXT_PUBLIC_FIREBASE_EMULATOR_HOST=127.0.0.1
+export NEXT_PUBLIC_FIREBASE_EMULATOR_PORT=19700
+export NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_PORT=19799
+export NEXT_PUBLIC_PEARL_VOYAGE_3D=true

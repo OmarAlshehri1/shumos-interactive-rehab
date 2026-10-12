@@ -1,0 +1,97 @@
+[
+  {
+    "name": "FLOOR layout reaches the Display over Firebase (goal bar in the far band)",
+    "ok": true,
+    "detail": "{\"layout\":\"FLOOR\",\"floorGoal\":\"flex\"}"
+  },
+  {
+    "name": "a correct therapist tap scores and the Display follows",
+    "ok": true,
+    "detail": "١ من ٤ / display 1"
+  },
+  {
+    "name": "pause reaches the Display (calm message)",
+    "ok": true,
+    "detail": "مغامرة البالونات\nالمس البالون الأحمر\nمتو"
+  },
+  {
+    "name": "resume continues play",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "restart resets progress (Control and Display)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "skip moves to the next stage",
+    "ok": true,
+    "detail": "متوسط / ٢"
+  },
+  {
+    "name": "reduced motion reaches the Display (stationary layout)",
+    "ok": true,
+    "detail": "motion=static"
+  },
+  {
+    "name": "Display reload recovers the live session from Firebase",
+    "ok": true,
+    "detail": "balloons 8 -> 8"
+  },
+  {
+    "name": "ending opens the existing early-end reason sheet",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "session ended",
+    "ok": true,
+    "detail": "أُنهيت الجلسة"
+  },
+  {
+    "name": "Display shows a gentle thank-you",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "history gained a record carrying the therapist's end reason",
+    "ok": true,
+    "detail": "{\"n\":1,\"endReason\":\"CHILD_TIRED\",\"skipped\":1}"
+  },
+  {
+    "name": "history never stores a derived accuracy for the new game",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "navigating away mid-session clears the live record (Display returns to the waiting world)",
+    "ok": true,
+    "detail": "null"
+  },
+  {
+    "name": "Display is back at the waiting world",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "the interrupted session was saved as ended early",
+    "ok": true,
+    "detail": "1 -> 2"
+  },
+  {
+    "name": "game library lists exactly one Balloon Quest entry pointing at /control/balloon-quest",
+    "ok": true,
+    "detail": "[\"/control/balloon-quest\"]"
+  },
+  {
+    "name": "the legacy implementation remains reachable at /control/balloon-quest-legacy (rollback)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "a legacy session started from the rollback route still renders on the Display with the legacy module",
+    "ok": true,
+    "detail": "BALLOON QUEST مغامرة البالونات  استعد لمغامرة مليئة بالألوان والحركة! "
+  }
+]

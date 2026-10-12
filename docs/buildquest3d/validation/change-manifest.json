@@ -1,0 +1,26 @@
+{
+  "newSourceFiles": [
+    "lib/buildquest3d/useSimulation.ts",
+    "lib/buildquest3d/gameplay.ts",
+    "lib/buildquest3d/stages.ts",
+    "lib/buildquest3d/useSession.ts",
+    "lib/buildquest3d/sensorInput.ts",
+    "lib/buildquest3d/run-local.sh",
+    "lib/buildquest3d/protocol.ts",
+    "lib/buildquest3d/renderer.ts",
+    "lib/buildquest3d/registration.ts",
+    "lib/buildquest3d/__tests__/foundation.test.ts",
+    "lib/buildquest3d/__tests__/registration.test.ts",
+    "lib/buildquest3d/__tests__/gameplay.test.ts",
+    "lib/buildquest3d/__tests__/inputProtocol.test.ts",
+    "components/control/buildquest3d/BuildQuestControl.tsx",
+    "components/control/buildquest3d/BuildQuestThumbnail.tsx",
+    "components/display/buildquest3d/WorkshopCanvas.tsx",
+    "components/display/buildquest3d/workshop.module.css",
+    "components/display/buildquest3d/BuildQuestDisplay.tsx",
+    "app/control/build-quest-3d/page.tsx",
+    "app/display/build-quest-3d/page.tsx"
+  ],
+  "existingFilesModified": [],
+  "noCommitPushDeploy": true
+}

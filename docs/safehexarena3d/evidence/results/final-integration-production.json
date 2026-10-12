@@ -1,0 +1,117 @@
+[
+ {
+  "name": "library: exactly one Safe Hex Arena card, linking to the normal Control route",
+  "ok": true,
+  "detail": "{\"titles\":1,\"links\":1,\"all\":12}"
+ },
+ {
+  "name": "library: existing games, including Mirror Quest, are still listed",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control route opens from the library card",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "child Display (separate browser) renders the shared session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "start",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "pause (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "assisted transition accepted",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip round",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip stage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "restart (new run, ready on both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control reload: same stage/round/warning, paused with safety hold",
+  "ok": true,
+  "detail": "{\"testid\":\"hex-control\",\"status\":\"paused\",\"phase\":\"warning\",\"stage\":\"0\",\"round\":\"0\",\"safety\":\"1\"}"
+ },
+ {
+  "name": "no history before the session ends",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "end (both devices)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "history saved exactly once, even after Control and Display reloads",
+  "ok": true,
+  "detail": "[\"0976cba7-f1a5-4cd2-a4dd-baa472bc02eb-r1\"]"
+ },
+ {
+  "name": "history reflects the restarted run (one assisted-free confirmed round), rows carry the tile count",
+  "ok": true,
+  "detail": "{\"rounds\":1,\"rows\":[{\"assists\":0,\"difficulty\":\"EASY\",\"engine\":\"hex3\",\"rounds\":3,\"roundsCompleted\":1,\"stageNumber\":1,\"status\":\"SKIPPED\",\"tiles\":9}]}"
+ },
+ {
+  "name": "public liveSession carries no patient id",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a signed-in non-staff account cannot reach the game Control",
+  "ok": true,
+  "detail": "🔒 هذا الحساب غير مُفعّل حساب البريد الإلكتروني صحيح، لكنه غير مُفعّل كموظف في النظام. تواصل مع إدارة شموس كير. تسجيل الخروج"
+ },
+ {
+  "name": "a signed-out visitor sees the staff sign-in, not the game",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Mirror Quest control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Balloon Quest control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Color Chase control launches",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions on any window",
+  "ok": true,
+  "detail": "[]"
+ }
+]

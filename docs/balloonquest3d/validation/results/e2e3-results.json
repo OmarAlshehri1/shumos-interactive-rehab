@@ -1,0 +1,47 @@
+[
+  {
+    "name": "PAUSE: authoritative balloon transforms are bit-identical after 3 s (Control)",
+    "ok": true,
+    "detail": "8 balloons"
+  },
+  {
+    "name": "PAUSE: authoritative balloon transforms are bit-identical after 3 s (Display)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "INPUT LOSS: play is held",
+    "ok": true,
+    "detail": "متوقف تلقائيًا"
+  },
+  {
+    "name": "INPUT LOSS: authoritative transforms frozen on Control and Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "INPUT RECOVERY: resumes and motion continues",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "WRONG COLOUR: balloon stays on screen (not removed)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "WRONG COLOUR: gentle wobble cue plays",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "WRONG COLOUR: progress unchanged, no penalty, play continues",
+    "ok": true,
+    "detail": "٠ (للمعلومة فقط، لا تُخصم) -> ١ (للمعلومة فقط، لا تُخصم)"
+  },
+  {
+    "name": "WRONG COLOUR: Display shows the same cue",
+    "ok": true,
+    "detail": ""
+  }
+]

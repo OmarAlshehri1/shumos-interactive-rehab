@@ -1,43 +1,520 @@
-'use client';
-import {useLibraryLaunchAdapter} from '@/components/control/library/launch/LibraryLaunchBoundary';
-import Link from 'next/link';
-import { isRealtimeEnabled } from '@/lib/realtime/firebaseClient';
-import { CHARACTERS, LIMBS, STAGES, randomCharacter, target, type Limb } from '@/lib/mirrorquest3d/engine';
-import { useMirrorSession } from '@/lib/mirrorquest3d/useSession';
-import { MirrorView } from '@/components/display/mirrorquest3d/MirrorView';
-import styles from '@/components/display/mirrorquest3d/mirror.module.css';
-const animals={lion:['🦁','الأسد'],rabbit:['🐰','الأرنب'],bear:['🐻','الدب'],fox:['🦊','الثعلب']};
-const names:Record<Limb,string>={RIGHT_HAND:'الذراع اليمنى',LEFT_HAND:'الذراع اليسرى',RIGHT_FOOT:'القدم اليمنى',LEFT_FOOT:'القدم اليسرى'};
-export function MirrorControl() {return isRealtimeEnabled()?<LiveMirrorControl/>:<main className={styles.control}><h1>المرآة السحرية</h1><p>يلزم إعداد اتصال المنصة المشتركة لفتح جلسة متزامنة.</p><Link href="/control">مكتبة الأنشطة</Link></main>;}
+"use client";
+import {
+  ProgressiveStageSelect,
+  AdditionalOptions,
+} from "@/components/control/setup/ProgressiveStages";
+import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
+import Link from "next/link";
+import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
+import {
+  CHARACTERS,
+  LIMBS,
+  STAGES,
+  randomCharacter,
+  target,
+  type Limb,
+} from "@/lib/mirrorquest3d/engine";
+import { useMirrorSession } from "@/lib/mirrorquest3d/useSession";
+import { MirrorView } from "@/components/display/mirrorquest3d/MirrorView";
+import styles from "@/components/display/mirrorquest3d/mirror.module.css";
+const animals = {
+  lion: ["🦁", "الأسد"],
+  rabbit: ["🐰", "الأرنب"],
+  bear: ["🐻", "الدب"],
+  fox: ["🦊", "الثعلب"],
+};
+const names: Record<Limb, string> = {
+  RIGHT_HAND: "الذراع اليمنى",
+  LEFT_HAND: "الذراع اليسرى",
+  RIGHT_FOOT: "القدم اليمنى",
+  LEFT_FOOT: "القدم اليسرى",
+};
+export function MirrorControl() {
+  return isRealtimeEnabled() ? (
+    <LiveMirrorControl />
+  ) : (
+    <main className={styles.control}>
+      <h1>المرآة السحرية</h1>
+      <p>يلزم إعداد اتصال المنصة المشتركة لفتح جلسة متزامنة.</p>
+      <Link href="/control">مكتبة الأنشطة</Link>
+    </main>
+  );
+}
 function LiveMirrorControl() {
- const session=useMirrorSession(),{state:s,send}=session;
- useLibraryLaunchAdapter('mirror-quest-3d',{modes:['MANUAL'],apply:()=>{if(!s||!session.connected||session.blocked||!['ready','paused'].includes(s.status))return false;send({type:'configure',config:{input:'manual'}});return true;}});
- if(!s)return <main className={styles.control}><h1>المرآة السحرية</h1><p role="status">{session.blocked?'هذه الجلسة تعمل في نافذة أخرى. أغلقها ثم أعد المحاولة.':session.error??'جاري تجهيز الجلسة المشتركة…'}</p><Link href="/control">مكتبة الأنشطة</Link></main>;
- const editable=['ready','paused'].includes(s.status),p=target(s);
- return <main className={styles.control} lang="ar"><div className={styles.inner}>
- <header className={styles.header}><div><div className={styles.eyebrow}>SHUMOS CARE · MOTION STUDIO</div><h1 className={styles.title}>المرآة السحرية</h1><div className={styles.subtitle}>حركة صغيرة، إنجاز جميل · Mirror Quest 3D</div></div><div className={styles.links}><Link href="/control">مكتبة الأنشطة</Link><a href="/display" target="_blank" rel="noopener">فتح شاشة الطفل ↗</a></div></header>
- <div className={styles.grid}><div className={styles.main}>
- <MirrorView state={s}/>
- <div className={styles.characters}>{CHARACTERS.map(character=><button className={styles.character} key={character} disabled={!editable} aria-pressed={s.config.character===character} onClick={()=>send({type:'configure',config:{character}})}><span aria-hidden="true" className={styles.animal}>{animals[character][0]}</span>{animals[character][1]}</button>)}</div>
- <div className={styles.controls}><div className={styles.header}><div><h2 style={{margin:0,fontSize:19}}>تحكّم بالحركة</h2><p className={styles.subtitle}>حرّك الشخصية لتطابق ظلّ صديقها، ثم اثبت بهدوء.</p></div><button className={styles.button} disabled={!editable} onClick={()=>send({type:'configure',config:{character:randomCharacter(Math.random())}})}>اختيار عشوائي</button></div>
- {LIMBS.filter(l=>p.active.includes(l)||s.player[l]!==0).map(l=><div className={styles.limb} key={l}><label htmlFor={l}>{names[l]}</label><input id={l} aria-label={names[l]} type="range" min="0" max="1" step=".01" value={s.player[l]} disabled={s.status!=='running'||!session.connected||session.blocked} onChange={e=>send({type:'input',limb:l,value:Number(e.target.value),sequence:0,at:0,source:'manual'})}/><button className={styles.button} disabled={s.status!=='running'} onClick={()=>send({type:'input',limb:l,value:0,sequence:0,at:0,source:'manual'})}>راحة</button><div className={styles.directional} role="group" aria-label={`خطوات ${names[l]}`}>{[[0,'راحة'],[.35,'↗ قليلًا'],[.65,'↑ أعلى'],[1,'↑ كاملة']].map(([value,label])=><button key={value} className={styles.button} disabled={s.status!=='running'||!session.connected||session.blocked} onClick={()=>send({type:'input',limb:l,value:Number(value)*s.config.movementScale,sequence:0,at:0,source:'manual'})}>{label}</button>)}</div></div>)}
- {s.config.input==='simulated'&&<div><p className={styles.note}>محاكاة الحركة · المعايرة المحايدة: 0. تبقى أشرطة التحكم اليدوي أعلاه متاحة.</p>{p.active.map(l=><div className={styles.limb} key={`sim-${l}`}><label htmlFor={`sim-${l}`}>محاكاة {names[l]}</label><input id={`sim-${l}`} type="range" min="0" max="1" step=".01" value={s.player[l]} disabled={s.status!=='running'} onChange={e=>send({type:'input',limb:l,value:Number(e.target.value),sequence:0,at:0,source:'simulated'})}/><span>{Math.round(s.player[l]*100)}%</span></div>)}<button className={styles.button} disabled={s.status!=='running'} onClick={()=>send({type:'pause'})}>محاكاة فقد الحساس</button></div>}
- <div className={styles.actions}>
- {(s.status==='ready'||s.status==='paused')&&<button className={`${styles.button} ${styles.primary}`} disabled={!session.connected||session.blocked} onClick={()=>send({type:s.status==='ready'?'start':'resume',at:Date.now()})}>{s.status==='ready'?'ابدأ الرحلة':'متابعة'}</button>}
- {s.status==='running'&&<><button className={`${styles.button} ${styles.primary}`} onClick={()=>send({type:'pause'})}>إيقاف مؤقت</button><button className={styles.button} onClick={()=>send({type:'repeat'})}>أعد الحركة</button><button className={styles.button} onClick={()=>send({type:'assist'})}>قبول بمساعدة المعالج</button><button className={styles.button} onClick={()=>send({type:'skip'})}>تجاوز الحركة</button></>}
- {s.status==='stage-complete'&&<button className={`${styles.button} ${styles.primary}`} onClick={()=>send({type:'next',at:Date.now()})}>{s.stage===8?'إنهاء الرحلة':'المرحلة التالية'}</button>}
- <button className={styles.button} onClick={()=>send({type:'restart'})}>إعادة البدء</button>{s.status!=='ended'&&<button className={styles.button} onClick={()=>send({type:'end',at:Date.now()})}>إنهاء الجلسة</button>}</div>
- <div className={styles.progress} aria-label={`${s.completed.length} من 9 مراحل مكتملة`}>{STAGES.map((_,i)=><span key={i} className={`${styles.step} ${s.completed.includes(i)?styles.done:''}`}/>)}</div>
- <div className={styles.stats}>{s.accepted.filter(a=>!a.skipped).length} حركة مقبولة · {s.completed.length} / 9 مراحل</div></div></div>
- <aside className={styles.panel}><h2>إعدادات الرحلة</h2><div><label htmlFor="stage">المستوى والمرحلة</label><select id="stage" value={s.stage} disabled={!editable&&s.status!=='stage-complete'} onChange={e=>send({type:'stage',stage:Number(e.target.value)})}>{STAGES.map((stage,i)=><option key={i} value={i} disabled={s.accepted.some(p=>p.stage===i)}>المستوى {stage.level} · {stage.name}</option>)}</select></div>
- <div><label htmlFor="hold">مدة الثبات</label><select id="hold" value={s.config.holdMs} disabled={!editable} onChange={e=>send({type:'configure',config:{holdMs:Number(e.target.value)}})}>{[500,1200,2000,3000].map(n=><option value={n} key={n}>{n/1000} ثانية</option>)}</select></div>
- <div><label htmlFor="tolerance">مرونة المطابقة</label><select id="tolerance" value={s.config.tolerance} disabled={!editable} onChange={e=>send({type:'configure',config:{tolerance:Number(e.target.value)}})}><option value={.05}>دقيقة</option><option value={.09}>متوسطة</option><option value={.18}>واسعة</option></select></div>
- <div><label htmlFor="scale">حجم الحركة</label><select id="scale" value={s.config.movementScale} disabled={!editable} onChange={e=>send({type:'configure',config:{movementScale:Number(e.target.value)}})}><option value={.5}>صغيرة</option><option value={.75}>متوسطة</option><option value={1}>كاملة</option></select></div>
- <div><label htmlFor="presentation">عرض الشخصية</label><select id="presentation" value={s.config.presentation} disabled={!editable} onChange={e=>send({type:'configure',config:{presentation:e.target.value as 'seated'|'standing'}})}><option value="seated">جالس</option><option value="standing">واقف</option></select></div>
- <div><label htmlFor="input">مصدر الحركة</label><select id="input" value={s.config.input} disabled={!editable} onChange={e=>send({type:'configure',config:{input:e.target.value as 'manual'|'simulated'}})}><option value="manual">يدوي · بدون حساسات</option><option value="simulated">حساسات محاكاة</option><option disabled>حساسات فعلية · بانتظار التحقق</option></select></div>
- <div><label htmlFor="quality">جودة العرض</label><select id="quality" value={s.config.quality} disabled={!editable} onChange={e=>send({type:'configure',config:{quality:e.target.value as 'low'|'high'}})}><option value="high">عالية</option><option value="low">خفيفة</option></select></div>
- <label><input type="checkbox" checked={s.config.reducedMotion} disabled={!editable} onChange={e=>send({type:'configure',config:{reducedMotion:e.target.checked}})}/> تقليل الحركة</label>
- <p className={styles.note}>وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية تمثّل الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها المعالج، دون تصوير أو تتبّع بالكاميرا.</p>
- <div className={styles.status} role="status">{session.error??(session.connected?'● التحكم متصل':'○ التحكم غير متصل')}<br/>{session.displayConnected?'● شاشة الطفل متصلة':'○ افتح شاشة الطفل'}<br/>{session.history==='saved'?'✓ حُفظت الجلسة':session.history==='walk-in'?'جلسة زائر · دون سجل مريض':session.history==='retry'?'تعذّر الحفظ، تجري إعادة المحاولة':''}</div>
- </aside></div></div></main>;
+  const session = useMirrorSession(),
+    { state: s, send } = session;
+  useLibraryLaunchAdapter("mirror-quest-3d", {
+    modes: ["MANUAL"],
+    apply: () => {
+      if (
+        !s ||
+        !session.connected ||
+        session.blocked ||
+        !["ready", "paused"].includes(s.status)
+      )
+        return false;
+      send({ type: "configure", config: { input: "manual" } });
+      return true;
+    },
+  });
+  if (!s)
+    return (
+      <main className={styles.control}>
+        <h1>المرآة السحرية</h1>
+        <p role="status">
+          {session.blocked
+            ? "هذه الجلسة تعمل في نافذة أخرى. أغلقها ثم أعد المحاولة."
+            : (session.error ?? "جاري تجهيز الجلسة المشتركة…")}
+        </p>
+        <Link href="/control">مكتبة الأنشطة</Link>
+      </main>
+    );
+  const editable = ["ready", "paused"].includes(s.status),
+    p = target(s);
+  return (
+    <main className={styles.control} lang="ar">
+      <div className={styles.inner}>
+        <header className={styles.header}>
+          <div>
+            <div className={styles.eyebrow}>SHUMOS CARE · MOTION STUDIO</div>
+            <h1 className={styles.title}>المرآة السحرية</h1>
+            <div className={styles.subtitle}>
+              حركة صغيرة، إنجاز جميل · Mirror Quest 3D
+            </div>
+          </div>
+          <div className={styles.links}>
+            <Link href="/control">مكتبة الأنشطة</Link>
+            <a href="/display" target="_blank" rel="noopener">
+              فتح شاشة الطفل ↗
+            </a>
+          </div>
+        </header>
+        <div className={styles.grid}>
+          <div className={styles.main}>
+            <MirrorView state={s} />
+            <div className={styles.characters}>
+              {CHARACTERS.map((character) => (
+                <button
+                  className={styles.character}
+                  key={character}
+                  disabled={!editable}
+                  aria-pressed={s.config.character === character}
+                  onClick={() =>
+                    send({ type: "configure", config: { character } })
+                  }
+                >
+                  <span aria-hidden="true" className={styles.animal}>
+                    {animals[character][0]}
+                  </span>
+                  {animals[character][1]}
+                </button>
+              ))}
+            </div>
+            <div className={styles.controls}>
+              <div className={styles.header}>
+                <div>
+                  <h2 style={{ margin: 0, fontSize: 19 }}>تحكّم بالحركة</h2>
+                  <p className={styles.subtitle}>
+                    حرّك الشخصية لتطابق ظلّ صديقها، ثم اثبت بهدوء.
+                  </p>
+                </div>
+                <button
+                  className={styles.button}
+                  disabled={!editable}
+                  onClick={() =>
+                    send({
+                      type: "configure",
+                      config: { character: randomCharacter(Math.random()) },
+                    })
+                  }
+                >
+                  اختيار عشوائي
+                </button>
+              </div>
+              {LIMBS.filter(
+                (l) => p.active.includes(l) || s.player[l] !== 0,
+              ).map((l) => (
+                <div className={styles.limb} key={l}>
+                  <label htmlFor={l}>{names[l]}</label>
+                  <input
+                    id={l}
+                    aria-label={names[l]}
+                    type="range"
+                    min="0"
+                    max="1"
+                    step=".01"
+                    value={s.player[l]}
+                    disabled={
+                      s.status !== "running" ||
+                      !session.connected ||
+                      session.blocked
+                    }
+                    onChange={(e) =>
+                      send({
+                        type: "input",
+                        limb: l,
+                        value: Number(e.target.value),
+                        sequence: 0,
+                        at: 0,
+                        source: "manual",
+                      })
+                    }
+                  />
+                  <button
+                    className={styles.button}
+                    disabled={s.status !== "running"}
+                    onClick={() =>
+                      send({
+                        type: "input",
+                        limb: l,
+                        value: 0,
+                        sequence: 0,
+                        at: 0,
+                        source: "manual",
+                      })
+                    }
+                  >
+                    راحة
+                  </button>
+                  <div
+                    className={styles.directional}
+                    role="group"
+                    aria-label={`خطوات ${names[l]}`}
+                  >
+                    {[
+                      [0, "راحة"],
+                      [0.35, "↗ قليلًا"],
+                      [0.65, "↑ أعلى"],
+                      [1, "↑ كاملة"],
+                    ].map(([value, label]) => (
+                      <button
+                        key={value}
+                        className={styles.button}
+                        disabled={
+                          s.status !== "running" ||
+                          !session.connected ||
+                          session.blocked
+                        }
+                        onClick={() =>
+                          send({
+                            type: "input",
+                            limb: l,
+                            value: Number(value) * s.config.movementScale,
+                            sequence: 0,
+                            at: 0,
+                            source: "manual",
+                          })
+                        }
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {s.config.input === "simulated" && (
+                <div>
+                  <p className={styles.note}>
+                    محاكاة الحركة · المعايرة المحايدة: 0. تبقى أشرطة التحكم
+                    اليدوي أعلاه متاحة.
+                  </p>
+                  {p.active.map((l) => (
+                    <div className={styles.limb} key={`sim-${l}`}>
+                      <label htmlFor={`sim-${l}`}>محاكاة {names[l]}</label>
+                      <input
+                        id={`sim-${l}`}
+                        type="range"
+                        min="0"
+                        max="1"
+                        step=".01"
+                        value={s.player[l]}
+                        disabled={s.status !== "running"}
+                        onChange={(e) =>
+                          send({
+                            type: "input",
+                            limb: l,
+                            value: Number(e.target.value),
+                            sequence: 0,
+                            at: 0,
+                            source: "simulated",
+                          })
+                        }
+                      />
+                      <span>{Math.round(s.player[l] * 100)}%</span>
+                    </div>
+                  ))}
+                  <button
+                    className={styles.button}
+                    disabled={s.status !== "running"}
+                    onClick={() => send({ type: "pause" })}
+                  >
+                    محاكاة فقد الحساس
+                  </button>
+                </div>
+              )}
+              <div className={styles.actions}>
+                {(s.status === "ready" || s.status === "paused") && (
+                  <button
+                    className={`${styles.button} ${styles.primary}`}
+                    disabled={!session.connected || session.blocked}
+                    onClick={() =>
+                      send({
+                        type: s.status === "ready" ? "start" : "resume",
+                        at: Date.now(),
+                      })
+                    }
+                  >
+                    {s.status === "ready" ? "ابدأ الرحلة" : "متابعة"}
+                  </button>
+                )}
+                {s.status === "running" && (
+                  <>
+                    <button
+                      className={`${styles.button} ${styles.primary}`}
+                      onClick={() => send({ type: "pause" })}
+                    >
+                      إيقاف مؤقت
+                    </button>
+                    <button
+                      className={styles.button}
+                      onClick={() => send({ type: "repeat" })}
+                    >
+                      أعد الحركة
+                    </button>
+                    <button
+                      className={styles.button}
+                      onClick={() => send({ type: "assist" })}
+                    >
+                      قبول بمساعدة المعالج
+                    </button>
+                    <button
+                      className={styles.button}
+                      onClick={() => send({ type: "skip" })}
+                    >
+                      تجاوز الحركة
+                    </button>
+                  </>
+                )}
+                {s.status === "stage-complete" && (
+                  <button
+                    className={`${styles.button} ${styles.primary}`}
+                    onClick={() => send({ type: "next", at: Date.now() })}
+                  >
+                    {s.stage === 8 ? "إنهاء الرحلة" : "المرحلة التالية"}
+                  </button>
+                )}
+                <button
+                  className={styles.button}
+                  onClick={() => send({ type: "restart" })}
+                >
+                  إعادة البدء
+                </button>
+                {s.status !== "ended" && (
+                  <button
+                    className={styles.button}
+                    onClick={() => send({ type: "end", at: Date.now() })}
+                  >
+                    إنهاء الجلسة
+                  </button>
+                )}
+              </div>
+              <div
+                className={styles.progress}
+                aria-label={`${s.completed.length} من 9 مراحل مكتملة`}
+              >
+                {STAGES.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`${styles.step} ${s.completed.includes(i) ? styles.done : ""}`}
+                  />
+                ))}
+              </div>
+              <div className={styles.stats}>
+                {s.accepted.filter((a) => !a.skipped).length} حركة مقبولة ·{" "}
+                {s.completed.length} / 9 مراحل
+              </div>
+            </div>
+          </div>
+          <aside className={styles.panel}>
+            <h2>إعدادات الرحلة</h2>
+            <div>
+              <label htmlFor="stage">المستوى والمرحلة</label>
+              <ProgressiveStageSelect
+                onSelect={(value) =>
+                  send({ type: "stage", stage: Number(value) })
+                }
+              >
+                <select
+                  id="stage"
+                  value={s.stage}
+                  disabled={!editable && s.status !== "stage-complete"}
+                  onChange={(e) =>
+                    send({ type: "stage", stage: Number(e.target.value) })
+                  }
+                >
+                  {STAGES.map((stage, i) => (
+                    <option
+                      key={i}
+                      value={i}
+                      disabled={s.accepted.some((p) => p.stage === i)}
+                    >
+                      المستوى {stage.level} · {stage.name}
+                    </option>
+                  ))}
+                </select>
+              </ProgressiveStageSelect>
+            </div>
+            <div>
+              <label htmlFor="hold">مدة الثبات</label>
+              <select
+                id="hold"
+                value={s.config.holdMs}
+                disabled={!editable}
+                onChange={(e) =>
+                  send({
+                    type: "configure",
+                    config: { holdMs: Number(e.target.value) },
+                  })
+                }
+              >
+                {[500, 1200, 2000, 3000].map((n) => (
+                  <option value={n} key={n}>
+                    {n / 1000} ثانية
+                  </option>
+                ))}
+              </select>
+            </div>
+            <AdditionalOptions>
+              <div>
+                <label htmlFor="tolerance">مرونة المطابقة</label>
+                <select
+                  id="tolerance"
+                  value={s.config.tolerance}
+                  disabled={!editable}
+                  onChange={(e) =>
+                    send({
+                      type: "configure",
+                      config: { tolerance: Number(e.target.value) },
+                    })
+                  }
+                >
+                  <option value={0.05}>دقيقة</option>
+                  <option value={0.09}>متوسطة</option>
+                  <option value={0.18}>واسعة</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="quality">جودة العرض</label>
+                <select
+                  id="quality"
+                  value={s.config.quality}
+                  disabled={!editable}
+                  onChange={(e) =>
+                    send({
+                      type: "configure",
+                      config: { quality: e.target.value as "low" | "high" },
+                    })
+                  }
+                >
+                  <option value="high">عالية</option>
+                  <option value="low">خفيفة</option>
+                </select>
+              </div>
+            </AdditionalOptions>
+            <div>
+              <label htmlFor="scale">حجم الحركة</label>
+              <select
+                id="scale"
+                value={s.config.movementScale}
+                disabled={!editable}
+                onChange={(e) =>
+                  send({
+                    type: "configure",
+                    config: { movementScale: Number(e.target.value) },
+                  })
+                }
+              >
+                <option value={0.5}>صغيرة</option>
+                <option value={0.75}>متوسطة</option>
+                <option value={1}>كاملة</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="presentation">عرض الشخصية</label>
+              <select
+                id="presentation"
+                value={s.config.presentation}
+                disabled={!editable}
+                onChange={(e) =>
+                  send({
+                    type: "configure",
+                    config: {
+                      presentation: e.target.value as "seated" | "standing",
+                    },
+                  })
+                }
+              >
+                <option value="seated">جالس</option>
+                <option value="standing">واقف</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="input">مصدر الحركة</label>
+              <select
+                id="input"
+                value={s.config.input}
+                disabled={!editable}
+                onChange={(e) =>
+                  send({
+                    type: "configure",
+                    config: { input: e.target.value as "manual" | "simulated" },
+                  })
+                }
+              >
+                <option value="manual">يدوي · بدون حساسات</option>
+                <option value="simulated">حساسات محاكاة</option>
+                <option disabled>حساسات فعلية · بانتظار التحقق</option>
+              </select>
+            </div>
+
+            <label>
+              <input
+                type="checkbox"
+                checked={s.config.reducedMotion}
+                disabled={!editable}
+                onChange={(e) =>
+                  send({
+                    type: "configure",
+                    config: { reducedMotion: e.target.checked },
+                  })
+                }
+              />{" "}
+              تقليل الحركة
+            </label>
+            <p className={styles.note}>
+              وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية
+              تمثّل الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها
+              المعالج، دون تصوير أو تتبّع بالكاميرا.
+            </p>
+            <div className={styles.status} role="status">
+              {session.error ??
+                (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
+              <br />
+              {session.displayConnected
+                ? "● شاشة الطفل متصلة"
+                : "○ افتح شاشة الطفل"}
+              <br />
+              {session.history === "saved"
+                ? "✓ حُفظت الجلسة"
+                : session.history === "walk-in"
+                  ? "جلسة زائر · دون سجل مريض"
+                  : session.history === "retry"
+                    ? "تعذّر الحفظ، تجري إعادة المحاولة"
+                    : ""}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
 }

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Feature-enabled production library contains one Build Quest card; real authenticated touch selection, movement and placement reach independent anonymous normal Display",
+    "Production final-stage skip and strict versioned history-row validators accept the real application result",
+    "Denied history writes retain accepted results, retry at a bounded rate and save exactly once after permissions recover"
+  ],
+  "errors": [],
+  "externalFirebase": [],
+  "emulatorsOnly": true
+}

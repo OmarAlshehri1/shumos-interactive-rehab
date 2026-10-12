@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "native game start",
+    "active navigation blocked",
+    "native pause required before visit break",
+    "native partial completion",
+    "confirmed history linked",
+    "separate therapist evaluation saved",
+    "library transition after save",
+    "visit completion preserves immutable game history",
+    "saved results default collapsed and advanced rows accessible"
+  ],
+  "historyReferences": [
+    "7a376ed4-ef5b-4255-bd07-4221d046ba10"
+  ],
+  "errors": []
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "production build exposes no development hook",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display shows FLOOR",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "FLOOR stage 1 completed by touch in the production build",
+    "ok": true,
+    "detail": "6 confirmations"
+  },
+  {
+    "name": "production history record saved (v2, FLOOR rows)",
+    "ok": true,
+    "detail": ""
+  }
+]

@@ -1,0 +1,8 @@
+
+ RUN  v4.1.10 /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab
+
+
+ Test Files  133 passed | 2 skipped (135)
+      Tests  1708 passed | 17 skipped (1725)
+   Start at  10:55:24
+   Duration  7.58s (transform 6.36s, setup 0ms, import 12.27s, tests 10.56s, environment 11ms)

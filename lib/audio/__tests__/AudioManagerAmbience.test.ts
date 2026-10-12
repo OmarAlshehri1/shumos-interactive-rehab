@@ -276,6 +276,7 @@ describe("Color Chase audio lifecycle smoke", () => {
     expect(effectMocks.playColorCorrect).toHaveBeenCalledOnce();
     expect(effectMocks.playColorWrong).toHaveBeenCalledOnce();
     expect(effectMocks.playColorDanger).toHaveBeenCalledOnce();
-    expect(voice.calls).toHaveLength(4);
+    // Mistakes retain a gentle effect; voice is reserved for welcome, instruction and safety.
+    expect(voice.calls).toHaveLength(3);
   });
 });

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "local mode (no Firebase): no staff login, the redesigned Control mounts",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no child-name field is required without a live record",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display window found over the local channel",
+    "ok": true,
+    "detail": "شاشة العرض: متصلة"
+  },
+  {
+    "name": "Display shows the redesigned ready screen (not the old garden demo)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "session starts",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "a therapist tap scores and the local Display follows",
+    "ok": true,
+    "detail": "٣ من ٣ / display 3"
+  },
+  {
+    "name": "ending works through the existing reason sheet; Display shows a gentle thank-you",
+    "ok": true,
+    "detail": "أُنهيت الجلسة"
+  }
+]

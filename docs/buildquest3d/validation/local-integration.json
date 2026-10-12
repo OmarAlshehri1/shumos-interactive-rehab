@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "Normal library card, Arabic name, thumbnail, pending hardware label and other games",
+    "Library opens session-specific Control; all nine stages and three input methods preserved",
+    "Normal child link renders 3D Display; placement and therapist pause/end synchronize locally",
+    "Return to normal library; demo integration has no Firebase traffic or browser errors",
+    "Configured Firebase development serves both routes, retains staff login gate and blocks unauthenticated gameplay"
+  ],
+  "errors": [],
+  "cloudRequests": [],
+  "configuredDatabaseRequests": [],
+  "credentialsEntered": false,
+  "authenticatedConfiguredSessionTested": false
+}

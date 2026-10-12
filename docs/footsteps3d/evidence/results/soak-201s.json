@@ -1,0 +1,119 @@
+{
+ "seconds": 201,
+ "confirms": 94,
+ "stageRebuilds": 16,
+ "writes": 132,
+ "writesPerSec": 0.66,
+ "samples": [
+  {
+   "t": 0,
+   "fps": 45.5,
+   "calls": 70,
+   "triangles": 184698,
+   "geometries": 22,
+   "textures": 13,
+   "heapMB": 52.5,
+   "longTasks": 4,
+   "maxLongMs": 263
+  },
+  {
+   "t": 21,
+   "fps": 53.6,
+   "calls": 78,
+   "triangles": 199762,
+   "geometries": 26,
+   "textures": 15,
+   "heapMB": 35.4,
+   "longTasks": 6,
+   "maxLongMs": 263
+  },
+  {
+   "t": 41,
+   "fps": 59.9,
+   "calls": 85,
+   "triangles": 199846,
+   "geometries": 34,
+   "textures": 17,
+   "heapMB": 42.3,
+   "longTasks": 7,
+   "maxLongMs": 263
+  },
+  {
+   "t": 61,
+   "fps": 60,
+   "calls": 88,
+   "triangles": 198312,
+   "geometries": 33,
+   "textures": 16,
+   "heapMB": 40.3,
+   "longTasks": 9,
+   "maxLongMs": 263
+  },
+  {
+   "t": 81,
+   "fps": 59.9,
+   "calls": 85,
+   "triangles": 181496,
+   "geometries": 37,
+   "textures": 16,
+   "heapMB": 34.5,
+   "longTasks": 10,
+   "maxLongMs": 263
+  },
+  {
+   "t": 100,
+   "fps": 60,
+   "calls": 87,
+   "triangles": 173368,
+   "geometries": 36,
+   "textures": 18,
+   "heapMB": 64.2,
+   "longTasks": 11,
+   "maxLongMs": 263
+  },
+  {
+   "t": 120,
+   "fps": 60,
+   "calls": 84,
+   "triangles": 189454,
+   "geometries": 28,
+   "textures": 15,
+   "heapMB": 40.4,
+   "longTasks": 13,
+   "maxLongMs": 263
+  },
+  {
+   "t": 142,
+   "fps": 60,
+   "calls": 87,
+   "triangles": 204128,
+   "geometries": 29,
+   "textures": 15,
+   "heapMB": 55,
+   "longTasks": 15,
+   "maxLongMs": 263
+  },
+  {
+   "t": 161,
+   "fps": 51.2,
+   "calls": 86,
+   "triangles": 205312,
+   "geometries": 27,
+   "textures": 15,
+   "heapMB": 61.4,
+   "longTasks": 17,
+   "maxLongMs": 263
+  },
+  {
+   "t": 181,
+   "fps": 60,
+   "calls": 93,
+   "triangles": 202900,
+   "geometries": 34,
+   "textures": 16,
+   "heapMB": 45.8,
+   "longTasks": 18,
+   "maxLongMs": 263
+  }
+ ]
+}

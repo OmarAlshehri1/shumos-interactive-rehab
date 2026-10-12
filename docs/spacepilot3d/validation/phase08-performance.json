@@ -1,0 +1,270 @@
+{
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+    "viewport": [
+      1376,
+      768
+    ],
+    "devicePixelRatio": 2,
+    "hardwareConcurrency": 8
+  },
+  "samples": [
+    {
+      "quality": "low",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "low",
+        "reducedEffects": false,
+        "dpr": 0.8,
+        "fps": 59.97151353109507,
+        "meanMs": 16.674583333327124,
+        "p95Ms": 18.19999999552965,
+        "maxMs": 18.69999999552965,
+        "frames": 240,
+        "drawCalls": 30,
+        "triangles": 8482,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "low",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "low",
+        "reducedEffects": false,
+        "dpr": 0.8,
+        "fps": 60.00150003752329,
+        "meanMs": 16.66624999999379,
+        "p95Ms": 18.100000001490116,
+        "maxMs": 18.700000002980232,
+        "frames": 240,
+        "drawCalls": 30,
+        "triangles": 7984,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "dpr": 1.25,
+        "fps": 59.99999999999999,
+        "meanMs": 16.666666666666668,
+        "p95Ms": 18.299999997019768,
+        "maxMs": 18.899999998509884,
+        "frames": 240,
+        "drawCalls": 40,
+        "triangles": 9970,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "medium",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "medium",
+        "reducedEffects": false,
+        "dpr": 1.25,
+        "fps": 60.00600060014943,
+        "meanMs": 16.664999999975166,
+        "p95Ms": 17.900000005960464,
+        "maxMs": 18.600000001490116,
+        "frames": 240,
+        "drawCalls": 39,
+        "triangles": 9470,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Display (Control unfocused)",
+      "actualFocus": {
+        "control": false,
+        "display": true
+      },
+      "metrics": {
+        "quality": "high",
+        "reducedEffects": false,
+        "dpr": 1.75,
+        "fps": 60.00150003752329,
+        "meanMs": 16.66624999999379,
+        "p95Ms": 18.399999998509884,
+        "maxMs": 19,
+        "frames": 240,
+        "drawCalls": 40,
+        "triangles": 9970,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": true,
+        "visible": true
+      }
+    },
+    {
+      "quality": "high",
+      "focus": "Control (Display unfocused)",
+      "actualFocus": {
+        "control": true,
+        "display": false
+      },
+      "metrics": {
+        "quality": "high",
+        "reducedEffects": false,
+        "dpr": 1.75,
+        "fps": 59.99850003747672,
+        "meanMs": 16.66708333333954,
+        "p95Ms": 18.100000001490116,
+        "maxMs": 18.600000001490116,
+        "frames": 240,
+        "drawCalls": 39,
+        "triangles": 9470,
+        "geometries": 14,
+        "textures": 4,
+        "programs": 10,
+        "assetLoadMs": 245.29999999701977,
+        "loaded": true,
+        "focused": false,
+        "visible": true
+      }
+    }
+  ],
+  "remounts": [
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "dpr": 1.25,
+      "fps": 58.351568198214125,
+      "meanMs": 17.13750000005322,
+      "p95Ms": 18.700000002980232,
+      "maxMs": 42.30000000447035,
+      "frames": 56,
+      "drawCalls": 41,
+      "triangles": 9628,
+      "geometries": 13,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 165.19999999552965,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "dpr": 1.25,
+      "fps": 58.897770298880445,
+      "meanMs": 16.97857142851821,
+      "p95Ms": 18.100000001490116,
+      "maxMs": 42,
+      "frames": 56,
+      "drawCalls": 41,
+      "triangles": 9628,
+      "geometries": 13,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 158.39999999850988,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    },
+    {
+      "quality": "medium",
+      "reducedEffects": false,
+      "dpr": 1.25,
+      "fps": 58.78030859689594,
+      "meanMs": 17.012499999920173,
+      "p95Ms": 18.600000001490116,
+      "maxMs": 42,
+      "frames": 56,
+      "drawCalls": 41,
+      "triangles": 9628,
+      "geometries": 13,
+      "textures": 4,
+      "programs": 10,
+      "assetLoadMs": 160.10000000149012,
+      "loaded": true,
+      "focused": true,
+      "visible": true
+    }
+  ],
+  "reducedEffects": {
+    "quality": "high",
+    "reducedEffects": true,
+    "dpr": 1.75,
+    "fps": 60.02250844066525,
+    "meanMs": 16.660416666666666,
+    "p95Ms": 18.200000002980232,
+    "maxMs": 35.29999999701977,
+    "frames": 240,
+    "drawCalls": 24,
+    "triangles": 9440,
+    "geometries": 14,
+    "textures": 4,
+    "programs": 10,
+    "assetLoadMs": 245.29999999701977,
+    "loaded": true,
+    "focused": false,
+    "visible": true
+  },
+  "frameLatency": {
+    "count": 1143,
+    "meanMs": 1.5464460985345583,
+    "p95Ms": 2.39990234375,
+    "maxMs": 99.10009765625
+  },
+  "inputLatency": {
+    "count": 889,
+    "meanMs": 0.527769417006468,
+    "p95Ms": 0.89990234375,
+    "maxMs": 9.400146484375
+  },
+  "contextLossAndRecovery": true,
+  "assetFailureAndRecovery": true,
+  "pageErrors": [],
+  "firebaseRequests": []
+}

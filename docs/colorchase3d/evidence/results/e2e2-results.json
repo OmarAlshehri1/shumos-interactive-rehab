@@ -1,0 +1,162 @@
+[
+ {
+  "name": "stage can be chosen before starting (Level 3 · Stage 1)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "positions changed BETWEEN rounds (the zones traded places)",
+  "ok": true,
+  "detail": "red,blue,green,yellow,purple -> purple,red,blue,green,yellow"
+ },
+ {
+  "name": "garden is partially restored mid-stage",
+  "ok": true,
+  "detail": "1.00,0.00,0.00,0.50,0.50"
+ },
+ {
+  "name": "Display reload: stage, step, zone order and restoration are reconstructed identically",
+  "ok": true,
+  "detail": "1.00,0.00,0.00,0.50,0.50 == 1.00,0.00,0.00,0.50,0.50"
+ },
+ {
+  "name": "Display reload: the 3D scene starts already restored (no replay from gray)",
+  "ok": true,
+  "detail": "{\"red\":1,\"blue\":0,\"green\":0,\"yellow\":0.5,\"purple\":0.5}"
+ },
+ {
+  "name": "Control reload: session recovered, stage and objective kept, paused behind a safety hold",
+  "ok": true,
+  "detail": "{\"testid\":\"cc-control\",\"status\":\"paused\",\"stage\":\"6\",\"step\":\"3\",\"safety\":\"1\",\"target\":\"green\",\"picked\":\"\"}"
+ },
+ {
+  "name": "Control reload: Display shows the safety pause",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume after the safety hold continues on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "double tap on confirm: exactly one objective accepted",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "repeat objective pulses the target again on the Display without changing the objective",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "pause is shown on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume is shown on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip objective is synchronized",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip stage ends the stage on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a stage with a skipped objective is not shown as fully restored",
+  "ok": true,
+  "detail": "1,0,1,0.5,0.5"
+ },
+ {
+  "name": "restart returns both devices to a fresh first stage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "symbols off reaches the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "large-target preset + stage 4 reach the Display (4 zones)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "zone layout settings are locked while an objective runs",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "fewer visible colors (3) applies when paused and reaches the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the objective is unchanged by the layout edit and stays completable",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "simulated movement raises a hint banner; it never selects a zone or advances",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor disconnect is shown and manual play keeps working",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "manual selection works with the sensor disconnected",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control lost: the Display shows the waiting state",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control back: the Display reconnects",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a visitor who is not signed in cannot open the Control game (sign-in form shown, no game)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "session ended early on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "history saved exactly once for the whole session (restart created no second record before the end)",
+  "ok": true,
+  "detail": "[\"8410aa80-802a-40a5-af67-c06b69485adc-r1\"]"
+ },
+ {
+  "name": "early end is recorded as such and counts are consistent",
+  "ok": true,
+  "detail": "{\"done\":1,\"assisted\":0,\"repeats\":0,\"completed\":false}"
+ },
+ {
+  "name": "reloading an ended session does not save a second record",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no uncaught exceptions on either device",
+  "ok": true,
+  "detail": "[]"
+ }
+]

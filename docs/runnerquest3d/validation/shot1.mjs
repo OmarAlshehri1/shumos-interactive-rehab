@@ -1,0 +1,13 @@
+import { launch, sleep } from "./cdplib.mjs";
+const out = process.argv[2] ?? "/tmp/rq-shots";
+const stage = process.argv[3] ?? "0";
+const b = await launch(out, 9555);
+const t = await b.open(`http://127.0.0.1:3210/display/runner-quest-3d-prototype?preview=1&diag=1&stage=${stage}&quality=high`);
+await sleep(6000);
+await t.shot(`${out}/ready-${stage}.png`);
+await t.key("keyDown", "Enter"); await t.key("keyUp", "Enter");
+await sleep(5000);
+await t.shot(`${out}/run-${stage}.png`);
+console.log(await t.eval("JSON.stringify(window.__RQ3D?.stats())"));
+console.log(JSON.stringify(t.events.filter(e => e.method === "Runtime.exceptionThrown" || (e.method==="Runtime.consoleAPICalled" && e.params.type==="error")).slice(0,5).map(e=>JSON.stringify(e.params).slice(0,400))));
+b.close();

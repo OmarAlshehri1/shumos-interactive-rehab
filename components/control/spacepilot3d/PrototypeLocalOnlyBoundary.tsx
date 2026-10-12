@@ -3,8 +3,8 @@
 import { usePathname } from "next/navigation";
 import { isLocalFlightControl } from '@/lib/spacepilot3d/releasePolicy';
 
-/** The experimental route keeps the existing local publisher but omits cloud pointer writes. */
+/** Local diagnostics and experimental flight omit cloud pointer writes. */
 export function PrototypeLocalOnlyBoundary({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  return isLocalFlightControl(pathname) ? null : children;
+  return pathname === '/control/dual-sensor-test' || isLocalFlightControl(pathname) ? null : children;
 }

@@ -1,0 +1,19 @@
+{
+  "fullVitest": {
+    "passed": 1659,
+    "skipped": 4
+  },
+  "fullTypecheck": "passed",
+  "fullLint": "passed",
+  "focusedTests": 29,
+  "productionBuild": "passed",
+  "nativeWindowStages": 9,
+  "sensorSimulationStages": 9,
+  "browserChecks": "passed",
+  "productionRoutes": "disabled",
+  "originalFilesChecked": 1120,
+  "originalFilesChanged": [],
+  "sharedRegistration": "deferred-dirty-files",
+  "hardwareValidation": "pending",
+  "deployment": "not-performed"
+}

@@ -1,0 +1,277 @@
+[
+ {
+  "name": "Control opens the 3D game on the canonical route and publishes the shared session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display (separate device) renders from /liveSession",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display 3D forest is rendering (WebGL)",
+  "ok": true,
+  "detail": "{\"fps\":47.7,\"calls\":75,\"triangles\":180774,\"geometries\":22,\"textures\":13,\"stones\":4,\"world\":0,\"quality\":\"high\",\"view\":\"floor\"}"
+ },
+ {
+  "name": "record is the shared liveSession, same game id as the original, tagged fp3",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: 4 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 1: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: 5 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 2: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: 5 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 3: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: 6 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 4: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: 6 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 5: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: 7 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: optional rest after step 3 pauses both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: optional rest after step 5 pauses both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 6: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: 7 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 7: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: 6 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8 step 1: pair preview shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8 step 3: pair preview shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8 step 5: pair preview shown on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 8: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: started on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: 8 stones on Display and on the therapist map",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: stone positions identical on both devices (max error 0.0000)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage 9: stage-complete on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "tile/stone state: therapist map == Display at every step",
+  "ok": true,
+  "detail": "54/54"
+ },
+ {
+  "name": "writes: shared record revisions during the nine-stage run",
+  "ok": true,
+  "detail": "71 in 24 s = 2.91/s"
+ },
+ {
+  "name": "input-to-Display latency (same machine, emulator): Control tap -> Display accepts the step",
+  "ok": true,
+  "detail": "p50 127 ms, p95 144 ms, max 153 ms (n=54)"
+ },
+ {
+  "name": "Display render metrics at the end",
+  "ok": true,
+  "detail": "{\"fps\":0,\"calls\":101,\"triangles\":197386,\"geometries\":33,\"textures\":16,\"stones\":8,\"world\":2,\"quality\":\"high\",\"view\":\"floor\"}"
+ },
+ {
+  "name": "session ended on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "history saved exactly once",
+  "ok": true,
+  "detail": "[\"8473c7b0-5eab-4da6-bea2-c3de044ba507-r0\"]"
+ },
+ {
+  "name": "history record is the versioned nine-stage format with counts only",
+  "ok": true,
+  "detail": "{\"v\":2,\"stages\":9,\"steps\":54,\"assists\":13,\"rows\":9}"
+ },
+ {
+  "name": "public liveSession record carries no patient id",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "maximum map/Display stone position error across all stages",
+  "ok": true,
+  "detail": "0.00000"
+ },
+ {
+  "name": "no uncaught exceptions on either device",
+  "ok": true,
+  "detail": "[]"
+ }
+]

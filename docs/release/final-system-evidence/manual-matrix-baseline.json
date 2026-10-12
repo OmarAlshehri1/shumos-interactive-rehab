@@ -1,0 +1,978 @@
+{
+  "results": [
+    {
+      "id": "follow-the-footsteps",
+      "projection": "FLOOR",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 3074,
+          "authoritativeCompleted": [
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "lifecycle": "stage-complete",
+          "actions": 5,
+          "elapsedMs": 1459,
+          "authoritativeCompleted": [
+            0,
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "lifecycle": "stage-complete",
+          "actions": 5,
+          "elapsedMs": 1378,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "index": 3,
+          "lifecycle": "stage-complete",
+          "actions": 6,
+          "elapsedMs": 1576,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 4,
+          "lifecycle": "stage-complete",
+          "actions": 6,
+          "elapsedMs": 1544,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "checks": [
+        "nine choices and arbitrary stage selection",
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "AssertionError [ERR_ASSERTION]: follow-the-footsteps stage 6: paused\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:79:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+    },
+    {
+      "id": "color-chase",
+      "projection": "FLOOR",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 3400,
+          "authoritativeCompleted": [
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "lifecycle": "stage-complete",
+          "actions": 5,
+          "elapsedMs": 1591,
+          "authoritativeCompleted": [
+            0,
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 1077,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "index": 3,
+          "lifecycle": "stage-complete",
+          "actions": 6,
+          "elapsedMs": 1796,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 4,
+          "lifecycle": "stage-complete",
+          "actions": 6,
+          "elapsedMs": 1864,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "index": 5,
+          "lifecycle": "stage-complete",
+          "actions": 6,
+          "elapsedMs": 2217,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "index": 6,
+          "lifecycle": "stage-complete",
+          "actions": 7,
+          "elapsedMs": 2154,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "index": 7,
+          "lifecycle": "stage-complete",
+          "actions": 8,
+          "elapsedMs": 2839,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "index": 8,
+          "lifecycle": "stage-complete",
+          "actions": 5,
+          "elapsedMs": 1637,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "checks": [
+        "nine choices and arbitrary stage selection",
+        "pause, paused Control/Display reload, explicit resume",
+        "one history row, nine completed stages, reload save-once, patient detail"
+      ],
+      "status": "passed",
+      "history": {
+        "assistedObjectives": 0,
+        "bestStage": {
+          "difficulty": "ADVANCED",
+          "stageNumber": 3
+        },
+        "completedAt": 1791769885867,
+        "completedStageCount": 9,
+        "createdByUid": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+        "durationMs": 22650,
+        "endingDifficulty": "ADVANCED",
+        "endingStage": 3,
+        "engine": "cc3-garden",
+        "gameId": "color-chase",
+        "inputSource": "MANUAL",
+        "objectivesCompleted": 50,
+        "patientId": "sp9-patient",
+        "repeatedObjectives": 0,
+        "resultVersion": 2,
+        "sessionCompleted": true,
+        "sessionId": "ef5478ea-d9bb-457c-a1c2-478668b3b403-r0",
+        "skippedStageCount": 0,
+        "stageResults": [
+          {
+            "assists": 0,
+            "difficulty": "EASY",
+            "engine": "cc3",
+            "objectivesCompleted": 4,
+            "objectivesPresented": 4,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "EASY",
+            "engine": "cc3",
+            "objectivesCompleted": 5,
+            "objectivesPresented": 5,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "EASY",
+            "engine": "cc3",
+            "objectivesCompleted": 3,
+            "objectivesPresented": 3,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "MEDIUM",
+            "engine": "cc3",
+            "objectivesCompleted": 6,
+            "objectivesPresented": 6,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "MEDIUM",
+            "engine": "cc3",
+            "objectivesCompleted": 6,
+            "objectivesPresented": 6,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "MEDIUM",
+            "engine": "cc3",
+            "objectivesCompleted": 6,
+            "objectivesPresented": 6,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "ADVANCED",
+            "engine": "cc3",
+            "objectivesCompleted": 7,
+            "objectivesPresented": 7,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "ADVANCED",
+            "engine": "cc3",
+            "objectivesCompleted": 8,
+            "objectivesPresented": 8,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 0,
+            "difficulty": "ADVANCED",
+            "engine": "cc3",
+            "objectivesCompleted": 5,
+            "objectivesPresented": 5,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          }
+        ],
+        "startedAt": 1791769863217,
+        "startingDifficulty": "EASY",
+        "startingStage": 1,
+        "totalTargetsPresented": 50
+      },
+      "historyText": "الرئيسية\n/\nالمرضى\n/\nتجربة الفضاء\n/\nجلسة 12 أكتوبر 2026\nملخص الجلسة\n\nتجربة الفضاء\n\nمطاردة الألوان\n\n12 أكتوبر 2026 — 4:51 ص\n\nملخص الجلسة\n00:23\nالمدة\nمتقدم\nالمستوى\n9\nالمراحل المكتملة\n0\nالمراحل المتخطاة\nملاحظات الجلسة\nأكمل 9 من 9 مراحل مسجلة.\nمطاردة الألوان — عالم الألوان المفقودة\n50\nأهداف مكتملة\n0\nبمساعدة\n0\nتكرارات\n9 / 9\nمراحل مكتملة\nمكتملة\nالجلسة\nتفاصيل المراحل\nالمستوى 1 · المرحلة 1 · 4 / 4 أهداف · مكتملة\nالمستوى 1 · المرحلة 2 · 5 / 5 أهداف · مكتملة\nالمستوى 1 · المرحلة 3 · 3 / 3 أهداف · مكتملة\nالمستوى 2 · المرحلة 1 · 6 / 6 أهداف · مكتملة\nالمستوى 2 · المرحلة 2 · 6 / 6 أهداف · مكتملة\nالمستوى 2 · المرحلة 3 · 6 / 6 أهداف · مكتملة\nالمستوى 3 · المرحلة 1 · 7 / 7 أهداف · مكتملة\nالمستوى 3 · المرحلة 2 · 8 / 8 أهداف · مكتملة\nالمستوى 3 · المرحلة 3 · 5 / 5 أهداف · مكتملة\n🖨️ طباعة التقرير\nالعودة لملف المريض"
+    },
+    {
+      "id": "build-quest-3d",
+      "projection": "WALL",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "complete",
+          "actions": 2,
+          "elapsedMs": 2915,
+          "authoritativeCompleted": [
+            "first-shapes"
+          ]
+        },
+        {
+          "index": 1,
+          "lifecycle": "complete",
+          "actions": 3,
+          "elapsedMs": 857,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes"
+          ]
+        },
+        {
+          "index": 2,
+          "lifecycle": "complete",
+          "actions": 4,
+          "elapsedMs": 1213,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes"
+          ]
+        },
+        {
+          "index": 3,
+          "lifecycle": "complete",
+          "actions": 4,
+          "elapsedMs": 1450,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house"
+          ]
+        },
+        {
+          "index": 4,
+          "lifecycle": "complete",
+          "actions": 4,
+          "elapsedMs": 1247,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house",
+            "car"
+          ]
+        },
+        {
+          "index": 5,
+          "lifecycle": "complete",
+          "actions": 4,
+          "elapsedMs": 1306,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house",
+            "car",
+            "robot"
+          ]
+        },
+        {
+          "index": 6,
+          "lifecycle": "complete",
+          "actions": 3,
+          "elapsedMs": 1029,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house",
+            "car",
+            "robot",
+            "tower"
+          ]
+        },
+        {
+          "index": 7,
+          "lifecycle": "complete",
+          "actions": 3,
+          "elapsedMs": 1002,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house",
+            "car",
+            "robot",
+            "tower",
+            "bridge"
+          ]
+        },
+        {
+          "index": 8,
+          "lifecycle": "complete",
+          "actions": 5,
+          "elapsedMs": 1534,
+          "authoritativeCompleted": [
+            "first-shapes",
+            "three-shapes",
+            "four-shapes",
+            "house",
+            "car",
+            "robot",
+            "tower",
+            "bridge",
+            "castle"
+          ]
+        }
+      ],
+      "checks": [
+        "pause, paused Control/Display reload, explicit resume",
+        "one history row, nine completed stages, reload save-once, patient detail"
+      ],
+      "status": "passed",
+      "history": {
+        "bestStage": {
+          "difficulty": "ADVANCED",
+          "stageNumber": 3
+        },
+        "completedAt": 1791769911031,
+        "completedStageCount": 9,
+        "createdByUid": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+        "durationMs": 14846,
+        "endingDifficulty": "ADVANCED",
+        "endingStage": 3,
+        "gameId": "build-quest-3d",
+        "patientId": "sp9-patient",
+        "resultVersion": 1,
+        "sessionId": "255576de-ab1b-4564-b5d9-42450381b15a",
+        "skippedStageCount": 0,
+        "stageResults": [
+          {
+            "difficulty": "EASY",
+            "engine": "build3",
+            "piecesPlaced": 2,
+            "stageId": "first-shapes",
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "EASY",
+            "engine": "build3",
+            "piecesPlaced": 3,
+            "stageId": "three-shapes",
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "EASY",
+            "engine": "build3",
+            "piecesPlaced": 4,
+            "stageId": "four-shapes",
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "MEDIUM",
+            "engine": "build3",
+            "piecesPlaced": 4,
+            "stageId": "house",
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "MEDIUM",
+            "engine": "build3",
+            "piecesPlaced": 4,
+            "stageId": "car",
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "MEDIUM",
+            "engine": "build3",
+            "piecesPlaced": 4,
+            "stageId": "robot",
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "ADVANCED",
+            "engine": "build3",
+            "piecesPlaced": 3,
+            "stageId": "tower",
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "ADVANCED",
+            "engine": "build3",
+            "piecesPlaced": 3,
+            "stageId": "bridge",
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "difficulty": "ADVANCED",
+            "engine": "build3",
+            "piecesPlaced": 5,
+            "stageId": "castle",
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          }
+        ],
+        "startedAt": 1791769896185,
+        "startingDifficulty": "EASY",
+        "startingStage": 1,
+        "totalPiecesPlaced": 32
+      },
+      "historyText": "الرئيسية\n/\nالمرضى\n/\nتجربة الفضاء\n/\nجلسة 12 أكتوبر 2026\nملخص الجلسة\n\nتجربة الفضاء\n\nعالم البناء\n\n12 أكتوبر 2026 — 4:51 ص\n\nملخص الجلسة\n00:15\nالمدة\nمتقدم\nالمستوى\n9\nالمراحل المكتملة\n0\nالمراحل المتخطاة\nملاحظات الجلسة\nأكمل 9 من 9 مراحل مسجلة.\nنتائج عالم البناء\n9\nالمباني المكتملة\n0\nالمراحل المتخطاة\n32\nالقطع الموضوعة\n00:15\nمدة الجلسة\nتفاصيل مراحل البناء\nسهل · المرحلة 1\nمكتملة · 2 قطعة\nسهل · المرحلة 2\nمكتملة · 3 قطعة\nسهل · المرحلة 3\nمكتملة · 4 قطعة\nمتوسط · المرحلة 1\nمكتملة · 4 قطعة\nمتوسط · المرحلة 2\nمكتملة · 4 قطعة\nمتوسط · المرحلة 3\nمكتملة · 4 قطعة\nمتقدم · المرحلة 1\nمكتملة · 3 قطعة\nمتقدم · المرحلة 2\nمكتملة · 3 قطعة\nمتقدم · المرحلة 3\nمكتملة · 5 قطعة\n🖨️ طباعة التقرير\nالعودة لملف المريض"
+    },
+    {
+      "id": "mirror-quest-3d",
+      "projection": "WALL",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 2618,
+          "authoritativeCompleted": [
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 1077,
+          "authoritativeCompleted": [
+            0,
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 951,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "index": 3,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 914,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 4,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 945,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "index": 5,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 827,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "index": 6,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 759,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "index": 7,
+          "lifecycle": "stage-complete",
+          "actions": 3,
+          "elapsedMs": 986,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "index": 8,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 1131,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "checks": [
+        "nine choices and arbitrary stage selection",
+        "pause, paused Control/Display reload, explicit resume",
+        "one history row, nine completed stages, reload save-once, patient detail"
+      ],
+      "status": "passed",
+      "history": {
+        "bestStage": {
+          "difficulty": "ADVANCED",
+          "stageNumber": 3
+        },
+        "completedAt": 1791769933301,
+        "completedStageCount": 9,
+        "createdByUid": "fwZJXhbDxoI7JxN6jYqX7BYteKuy",
+        "durationMs": 13722,
+        "endingDifficulty": "ADVANCED",
+        "endingStage": 3,
+        "gameId": "mirror-quest-3d",
+        "patientId": "sp9-patient",
+        "resultVersion": 1,
+        "sessionId": "af785ee5-3a08-44bc-bcd4-82f0f3ce1f20-r0",
+        "skippedStageCount": 0,
+        "stageResults": [
+          {
+            "assists": 3,
+            "difficulty": "EASY",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "EASY",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "EASY",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "MEDIUM",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "MEDIUM",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "MEDIUM",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "ADVANCED",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 1,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 3,
+            "difficulty": "ADVANCED",
+            "engine": "mirror3",
+            "poses": 3,
+            "stageNumber": 2,
+            "status": "COMPLETED"
+          },
+          {
+            "assists": 4,
+            "difficulty": "ADVANCED",
+            "engine": "mirror3",
+            "poses": 4,
+            "stageNumber": 3,
+            "status": "COMPLETED"
+          }
+        ],
+        "startedAt": 1791769919579,
+        "startingDifficulty": "EASY",
+        "startingStage": 1,
+        "totalAssists": 28,
+        "totalPoses": 28
+      },
+      "historyText": "الرئيسية\n/\nالمرضى\n/\nتجربة الفضاء\n/\nجلسة 12 أكتوبر 2026\nملخص الجلسة\n\nتجربة الفضاء\n\nالمرآة السحرية\n\n12 أكتوبر 2026 — 4:52 ص\n\nملخص الجلسة\n00:14\nالمدة\nمتقدم\nالمستوى\n9\nالمراحل المكتملة\n0\nالمراحل المتخطاة\nملاحظات الجلسة\nأكمل 9 من 9 مراحل مسجلة.\nنتائج المرآة السحرية\n9\nالمراحل المكتملة\n28\nالحركات المقبولة\n28\nبمساعدة المعالج\n00:14\nمدة الجلسة\nتفاصيل المراحل\nسهل · المرحلة 1\n3 حركة · 3 بمساعدة\nسهل · المرحلة 2\n3 حركة · 3 بمساعدة\nسهل · المرحلة 3\n3 حركة · 3 بمساعدة\nمتوسط · المرحلة 1\n3 حركة · 3 بمساعدة\nمتوسط · المرحلة 2\n3 حركة · 3 بمساعدة\nمتوسط · المرحلة 3\n3 حركة · 3 بمساعدة\nمتقدم · المرحلة 1\n3 حركة · 3 بمساعدة\nمتقدم · المرحلة 2\n3 حركة · 3 بمساعدة\nمتقدم · المرحلة 3\n4 حركة · 4 بمساعدة\n🖨️ طباعة التقرير\nالعودة لملف المريض"
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "projection": "FLOOR",
+      "stages": [],
+      "checks": [
+        "nine choices and arbitrary stage selection",
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ undefined\n- 'safe-hex-arena-3d'\n\n    at state (/Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:22:85)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:48:57"
+    },
+    {
+      "id": "bubble-pop-wall",
+      "projection": "WALL",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 1,
+          "elapsedMs": 3958,
+          "authoritativeCompleted": [
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "lifecycle": "stage-complete",
+          "actions": 2,
+          "elapsedMs": 1648,
+          "authoritativeCompleted": [
+            0,
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "lifecycle": "stage-complete",
+          "actions": 2,
+          "elapsedMs": 1634,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "index": 3,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 3517,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 4,
+          "lifecycle": "stage-complete",
+          "actions": 5,
+          "elapsedMs": 3742,
+          "authoritativeCompleted": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "checks": [
+        "nine choices and arbitrary stage selection",
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'مساعدة الحركة', exact: true }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"\" disabled>مساعدة الحركة</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    39 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at click (/Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/browser-common.cjs:38:92)\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:69:21"
+    },
+    {
+      "id": "blooming-world-3d",
+      "projection": "WALL",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 6490,
+          "authoritativeCompleted": [
+            {
+              "stage": 0,
+              "goal": 4,
+              "repetitions": 1,
+              "regions": [
+                {
+                  "id": 0,
+                  "hits": 1,
+                  "assisted": 1,
+                  "accepted": [
+                    "0:2:0:0:0A"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "hits": 1,
+                  "assisted": 0,
+                  "accepted": [
+                    "0:2:0:1:0I"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "hits": 1,
+                  "assisted": 0,
+                  "accepted": [
+                    "0:2:0:2:0I"
+                  ]
+                },
+                {
+                  "id": 3,
+                  "hits": 1,
+                  "assisted": 1,
+                  "accepted": [
+                    "0:2:0:3:0A"
+                  ]
+                }
+              ],
+              "completed": true,
+              "skipped": false
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /^(ابدأ المرحلة|بدء الجلسة|ابدأ الرحلة|بدء الحديقة|ابدأ)$/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button disabled>بدء الحديقة</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    34 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:40:138"
+    },
+    {
+      "id": "blooming-world-3d",
+      "projection": "FLOOR",
+      "stages": [
+        {
+          "index": 0,
+          "lifecycle": "stage-complete",
+          "actions": 4,
+          "elapsedMs": 2810,
+          "authoritativeCompleted": [
+            {
+              "stage": 0,
+              "goal": 4,
+              "repetitions": 1,
+              "regions": [
+                {
+                  "id": 0,
+                  "hits": 1,
+                  "assisted": 1,
+                  "accepted": [
+                    "0:2:0:0:0A"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "hits": 1,
+                  "assisted": 0,
+                  "accepted": [
+                    "0:2:0:1:0I"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "hits": 1,
+                  "assisted": 0,
+                  "accepted": [
+                    "0:2:0:2:0I"
+                  ]
+                },
+                {
+                  "id": 3,
+                  "hits": 1,
+                  "assisted": 1,
+                  "accepted": [
+                    "0:2:0:3:0A"
+                  ]
+                }
+              ],
+              "completed": true,
+              "skipped": false
+            }
+          ]
+        }
+      ],
+      "checks": [
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /^(ابدأ المرحلة|بدء الجلسة|ابدأ الرحلة|بدء الحديقة|ابدأ)$/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button disabled>بدء الحديقة</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    37 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:40:138"
+    },
+    {
+      "id": "balloon-quest",
+      "projection": "WALL",
+      "stages": [],
+      "checks": [],
+      "status": "incomplete",
+      "failure": "locator.click: Timeout 20000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /^(إيقاف مؤقت|استراحة)$/ }).first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-testid=\"pause\" class=\"rounded-xl bg-teal-700 px-4 py-2.5 text-sm font-bold text-white hover:enabled:bg-teal-800 disabled:cursor-default disabled:opacity-35\">إيقاف مؤقت</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is not stable\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:43:106"
+    },
+    {
+      "id": "balloon-quest",
+      "projection": "FLOOR",
+      "stages": [],
+      "checks": [
+        "pause, paused Control/Display reload, explicit resume"
+      ],
+      "status": "incomplete",
+      "failure": "AssertionError [ERR_ASSERTION]: balloon-quest stage 1: suspended\n    at /Users/omaralshehri/All/Visual projects/shumos-interactive-rehab/docs/release/final-system-evidence/manual-matrix.cjs:79:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)"
+    }
+  ],
+  "errors": []
+}

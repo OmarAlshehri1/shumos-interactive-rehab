@@ -1,0 +1,208 @@
+{
+  "images": [
+    {
+      "label": "desktop",
+      "cards": [
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        }
+      ],
+      "icons": 4,
+      "overflow": false
+    },
+    {
+      "label": "mobile",
+      "cards": [
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        },
+        {
+          "loaded": true,
+          "width": 960
+        }
+      ],
+      "icons": 4,
+      "overflow": false
+    }
+  ],
+  "screenshots": [
+    "library-desktop-hand-sensors.png",
+    "library-desktop-foot-sensors.png",
+    "library-desktop-handheld.png",
+    "library-desktop-steering.png",
+    "library-mobile-hand-sensors.png",
+    "library-mobile-foot-sensors.png",
+    "library-mobile-handheld.png",
+    "library-mobile-steering.png"
+  ],
+  "errors": [],
+  "wheelRejected": "مهمة الإطفاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالمقود\nالدواسة فقط\nالمقود والدواسات\n\nقراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.\n\nسطح العرض المنفّذ\nجداري\n\nيلزم اتصال التحكم ووضع إعداد مسموح؛ وللمقود جهاز معاير وإشارة حديثة. أوقف النشاط مؤقتًا عند الحاجة. أدوات المعالج اليدوية داخل النشاط متاحة.",
+  "manualEnabled": true,
+  "manualMessage": "مهمة الإطفاء\n×\n\nاختيار القسم هو تفضيل؛ لا يُفعّل عتادًا تلقائيًا. يمكنك تأكيد وضع متاح هنا، أو استخدام إعدادات النشاط وتحكم المعالج.\n\nتحكم المعالج اليدوي\nالمقود\nالدواسة فقط\nالمقود والدواسات\n\nقراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.\n\nسطح العرض المنفّذ\nجداري\n\nأُرسل اختيار «تحكم المعالج اليدوي» إلى إعدادات النشاط. راجع حالته قبل البدء؛ هذا ليس إثباتًا للتحقق المادي."
+}

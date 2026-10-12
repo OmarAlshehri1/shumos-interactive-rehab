@@ -1,0 +1,1 @@
+tsc --noEmit (whole repository): 0 errors

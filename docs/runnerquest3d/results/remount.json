@@ -1,0 +1,215 @@
+{
+ "samples": [
+  {
+   "cycle": 0,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 20418347
+  },
+  {
+   "cycle": 1,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 27806414
+  },
+  {
+   "cycle": 2,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 22725463
+  },
+  {
+   "cycle": 3,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 28934015
+  },
+  {
+   "cycle": 4,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 27766051
+  },
+  {
+   "cycle": 5,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 30186342
+  },
+  {
+   "cycle": 6,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 41120195
+  },
+  {
+   "cycle": 7,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 42370015
+  },
+  {
+   "cycle": 8,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 43392291
+  },
+  {
+   "cycle": 9,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 43534397
+  },
+  {
+   "cycle": 10,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 23090417
+  },
+  {
+   "cycle": 11,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44557925
+  },
+  {
+   "cycle": 12,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44382039
+  },
+  {
+   "cycle": 13,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 29630141
+  },
+  {
+   "cycle": 14,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 32261126
+  },
+  {
+   "cycle": 15,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 42925183
+  },
+  {
+   "cycle": 16,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44259391
+  },
+  {
+   "cycle": 17,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44582527
+  },
+  {
+   "cycle": 18,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44988167
+  },
+  {
+   "cycle": 19,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 50867695
+  },
+  {
+   "cycle": 20,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 51357851
+  },
+  {
+   "cycle": 21,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 45441105
+  },
+  {
+   "cycle": 22,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44938871
+  },
+  {
+   "cycle": 23,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 48822501
+  },
+  {
+   "cycle": 24,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 44850627
+  },
+  {
+   "cycle": 25,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 46593457
+  },
+  {
+   "cycle": 26,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 49774955
+  },
+  {
+   "cycle": 27,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 26350597
+  },
+  {
+   "cycle": 28,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 31637675
+  },
+  {
+   "cycle": 29,
+   "geometries": 255,
+   "materials": 194,
+   "textures": 10,
+   "heap": 35448554
+  }
+ ],
+ "webglWarnings": 31
+}

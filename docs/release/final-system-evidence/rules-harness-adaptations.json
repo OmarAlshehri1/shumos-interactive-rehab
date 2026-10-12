@@ -1,0 +1,20 @@
+{
+  "onlySnapshotModified": true,
+  "changes": "Only loopback ports and demo namespace changed; assertions unchanged; sequential suites reset namespace before each run",
+  "files": [
+    "lib/balloonquest/__tests__/rules.emulator.test.ts",
+    "lib/bloomingworld3d/__tests__/rules.emulator.test.ts",
+    "lib/bubblepopwall3d/__tests__/rules.emulator.test.ts",
+    "lib/buildquest3d/__tests__/rules.emulator.test.ts",
+    "lib/colorchase3d/__tests__/rules.emulator.test.ts",
+    "lib/firerescue3d/__tests__/rules.emulator.test.ts",
+    "lib/footsteps3d/__tests__/rules.emulator.test.ts",
+    "lib/harvestvalley3d/__tests__/rules.emulator.test.ts",
+    "lib/mirrorquest3d/__tests__/rules.emulator.test.ts",
+    "lib/pearlvoyage3d/__tests__/rules.emulator.test.ts",
+    "lib/runnerquest3d/__tests__/rules.emulator.test.ts",
+    "lib/safehexarena3d/__tests__/rules.emulator.test.ts",
+    "lib/spacepilot3d/__tests__/rules.emulator.test.ts",
+    "lib/realtime/__tests__/platformRules.emulator.test.ts"
+  ]
+}

@@ -1,0 +1,176 @@
+{
+ "results": [
+  {
+   "name": "Control mounts through the existing staff login on an iPad-like touch device",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "child name is prefilled from the selected patient",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "Display (separate browser/profile) already shows the ready screen published by Control (name present)",
+   "ok": true,
+   "detail": "ready"
+  },
+  {
+   "name": "Control sees the Display as connected (existing presence)",
+   "ok": true,
+   "detail": "شاشة العرض متصلة"
+  },
+  {
+   "name": "touch pad buttons are large (>= 88 px tall, >= 120 px wide) and the start button >= 56 px",
+   "ok": true,
+   "detail": "160x110, start 64px"
+  },
+  {
+   "name": "start by TOUCH starts the session; the Display on the other device follows",
+   "ok": true,
+   "detail": "taps needed: 1"
+  },
+  {
+   "name": "live record uses its own game id, patient id and child name",
+   "ok": true,
+   "detail": "gameId=runner-quest-3d"
+  },
+  {
+   "name": "live record carries no obstacle positions and stays small",
+   "ok": true,
+   "detail": "1111 bytes"
+  },
+  {
+   "name": "all nine stages completed from the iPad by touch",
+   "ok": true,
+   "detail": "7.3 min"
+  },
+  {
+   "name": "Display shows the completion/summary",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "every stage-complete moment matched on both devices",
+   "ok": true,
+   "detail": "[\"0:8/8\",\"1:8/8\",\"2:10/10\",\"3:7/7\",\"4:10/10\",\"5:12/12\",\"6:9/9\",\"7:12/12\"]"
+  },
+  {
+   "name": "Firebase write rate is bounded (<= 3 writes/s on average)",
+   "ok": true,
+   "detail": "526 revisions in 435 s = 1.21/s"
+  },
+  {
+   "name": "touch -> other device latency measured",
+   "ok": false,
+   "detail": "no samples"
+  },
+  {
+   "name": "exactly ONE history record was saved for the patient, with its own game id and result version",
+   "ok": true,
+   "detail": "records=1"
+  },
+  {
+   "name": "history record: 9 completed stages and stars equal the Control summary",
+   "ok": true,
+   "detail": "stars 88/88"
+  },
+  {
+   "name": "history record has no accuracy/incorrect fields",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "no unexpected console exceptions",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "log": {
+  "stages": [
+   {
+    "index": 0,
+    "stars": 8,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "8"
+    }
+   },
+   {
+    "index": 1,
+    "stars": 8,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "8"
+    }
+   },
+   {
+    "index": 2,
+    "stars": 10,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "10"
+    }
+   },
+   {
+    "index": 3,
+    "stars": 7,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "7"
+    }
+   },
+   {
+    "index": 4,
+    "stars": 10,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "10"
+    }
+   },
+   {
+    "index": 5,
+    "stars": 12,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "12"
+    }
+   },
+   {
+    "index": 6,
+    "stars": 9,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "9"
+    }
+   },
+   {
+    "index": 7,
+    "stars": 12,
+    "status": "completed",
+    "holds": 0,
+    "display": {
+     "lc": "stage-complete",
+     "stars": "12"
+    }
+   }
+  ],
+  "sends": []
+ },
+ "writesPerSec": 1.209039755801552,
+ "latencyMs": null
+}

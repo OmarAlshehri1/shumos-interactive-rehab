@@ -1,0 +1,379 @@
+{
+  "mode": "wall",
+  "top": [
+    "controllerLease",
+    "liveSession",
+    "liveSessionPrivate",
+    "patients",
+    "presence",
+    "sessions",
+    "staff"
+  ],
+  "results": [
+    {
+      "name": "Start is blocked until a projection is chosen explicitly",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "projection WALL chosen on Control",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Display reflects the chosen projection (correct camera/layout)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "WALL Display mounts the lane-runner canvas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 1: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 1: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 1: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 1: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "46 s"
+    },
+    {
+      "name": "stage 1: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 1: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":0,\"difficulty\":\"easy\",\"stage\":1,\"status\":\"completed\",\"stars\":8,\"holds\":0,\"assists\":0,\"activeMs\":45024,\"obstaclesResolved\":8,\"obstaclesTotal\":8,\"distance\":198,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 1: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 2: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 2: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 2: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 2: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "45 s"
+    },
+    {
+      "name": "stage 2: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 2: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":1,\"difficulty\":\"easy\",\"stage\":2,\"status\":\"completed\",\"stars\":8,\"holds\":0,\"assists\":0,\"activeMs\":45015,\"obstaclesResolved\":8,\"obstaclesTotal\":8,\"distance\":198,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 2: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 3: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 3: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 3: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 3: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "52 s"
+    },
+    {
+      "name": "stage 3: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 3: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":2,\"difficulty\":\"easy\",\"stage\":3,\"status\":\"completed\",\"stars\":10,\"holds\":0,\"assists\":0,\"activeMs\":51915,\"obstaclesResolved\":10,\"obstaclesTotal\":10,\"distance\":229,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 3: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 4: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 4: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 4: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 4: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "41 s"
+    },
+    {
+      "name": "stage 4: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 4: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":3,\"difficulty\":\"medium\",\"stage\":1,\"status\":\"completed\",\"stars\":7,\"holds\":0,\"assists\":0,\"activeMs\":41024,\"obstaclesResolved\":7,\"obstaclesTotal\":7,\"distance\":180,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 4: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 5: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 5: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 5: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 5: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "57 s"
+    },
+    {
+      "name": "stage 5: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 5: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":4,\"difficulty\":\"medium\",\"stage\":2,\"status\":\"completed\",\"stars\":10,\"holds\":0,\"assists\":0,\"activeMs\":56581,\"obstaclesResolved\":10,\"obstaclesTotal\":10,\"distance\":250,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 5: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 6: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 6: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 6: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 6: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "62 s"
+    },
+    {
+      "name": "stage 6: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 6: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":5,\"difficulty\":\"medium\",\"stage\":3,\"status\":\"completed\",\"stars\":12,\"holds\":0,\"assists\":0,\"activeMs\":62135,\"obstaclesResolved\":12,\"obstaclesTotal\":12,\"distance\":275,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 6: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 7: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 7: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 7: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 7: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "55 s"
+    },
+    {
+      "name": "stage 7: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 7: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":6,\"difficulty\":\"advanced\",\"stage\":1,\"status\":\"completed\",\"stars\":10,\"holds\":0,\"assists\":0,\"activeMs\":55247,\"obstaclesResolved\":11,\"obstaclesTotal\":11,\"distance\":244,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 7: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 8: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 8: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 8: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 8: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "58 s"
+    },
+    {
+      "name": "stage 8: Display shows stage-complete",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 8: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":7,\"difficulty\":\"advanced\",\"stage\":2,\"status\":\"completed\",\"stars\":12,\"holds\":0,\"assists\":0,\"activeMs\":58132,\"obstaclesResolved\":12,\"obstaclesTotal\":12,\"distance\":257,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "stage 8: therapist advances to the next stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 9: Control is on the right stage and ready",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 9: Display shows the same stage",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 9: started by touch",
+      "ok": true,
+      "detail": "tries 1"
+    },
+    {
+      "name": "stage 9: completed through lane/step actions (no sensor, no time limit)",
+      "ok": true,
+      "detail": "67 s"
+    },
+    {
+      "name": "stage 9: Display shows completed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "stage 9: result row recorded with projection WALL and status completed",
+      "ok": true,
+      "detail": "{\"index\":8,\"difficulty\":\"advanced\",\"stage\":3,\"status\":\"completed\",\"stars\":13,\"holds\":0,\"assists\":0,\"activeMs\":67466,\"obstaclesResolved\":14,\"obstaclesTotal\":14,\"distance\":299,\"projection\":\"WALL\",\"objectivesSkipped\":0}"
+    },
+    {
+      "name": "session completed with 9 stages",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "history: exactly ONE Runner Quest record saved for the patient",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "history: version 2 with nine stage rows, every row tagged with the projection",
+      "ok": true,
+      "detail": "v2 rows 9"
+    },
+    {
+      "name": "history: completedStageCount 9, no accuracy fields",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "history: reloading Control does not save a second copy (save-once)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "shared liveSession used (no new top-level tree)",
+      "ok": true,
+      "detail": "liveSession engine rq3"
+    },
+    {
+      "name": "no new top-level Firebase tree",
+      "ok": true,
+      "detail": "controllerLease,liveSession,liveSessionPrivate,patients,presence,sessions,staff"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "gameId": "balance-bridge-3d",
+  "revision": 623,
+  "session": {
+    "bb3": {
+      "controlTabId": "c8099ccd-04fc-4097-b462-6aed13fdee80",
+      "heartbeatAt": 1791820226893,
+      "ownerId": "ZKfMyjvTCB7fdsN9kIHRLI1umSPN",
+      "payload": "{\"sessionId\":\"f1883deb-9fbd-4849-a3ba-7a4b908cdd3d\",\"run\":1,\"epoch\":4,\"stage\":0,\"startingStage\":0,\"status\":\"running\",\"config\":{\"projection\":\"FLOOR\",\"mode\":\"RIGHT_FOOT\",\"pathWidth\":\"wide\",\"customWidthCm\":70,\"measuredWidthCm\":null,\"measuredHeightCm\":null,\"rotation\":0,\"margin\":0.08,\"difficulty\":\"gentle\",\"routeChoice\":\"left\",\"guidance\":\"either\",\"holdSeconds\":0,\"reduced\":false,\"quality\":\"high\",\"audio\":true},\"checkpoints\":[{\"id\":0,\"outcome\":\"confirmed\",\"attempts\":1,\"holdCompleted\":false},{\"id\":1,\"outcome\":\"pending\",\"attempts\":0,\"holdCompleted\":false},{\"id\":2,\"outcome\":\"pending\",\"attempts\":0,\"holdCompleted\":false},{\"id\":3,\"outcome\":\"pending\",\"attempts\":0,\"holdCompleted\":false},{\"id\":4,\"outcome\":\"pending\",\"attempts\":0,\"holdCompleted\":false}],\"active\":1,\"deviations\":0,\"repeats\":0,\"feedback\":0,\"instructions\":0,\"holdElapsed\":0,\"holding\":false,\"countdown\":0,\"elapsed\":499,\"stageElapsed\":499,\"startedAt\":1791820223334,\"endedAt\":0,\"lastTick\":0,\"results\":[]}"
+    },
+    "config": {
+      "childFirstName": "بطل"
+    },
+    "createdAt": 1791820223334,
+    "currentDifficulty": "EASY",
+    "currentStage": {
+      "stageIndex": 0,
+      "stageNumber": 1
+    },
+    "engine": "bb3",
+    "engineVersion": 1,
+    "gameState": "PLAYING",
+    "seed": 31,
+    "sessionId": "f1883deb-9fbd-4849-a3ba-7a4b908cdd3d"
+  },
+  "sessionId": "f1883deb-9fbd-4849-a3ba-7a4b908cdd3d",
+  "updatedAt": 1791820226895
+}

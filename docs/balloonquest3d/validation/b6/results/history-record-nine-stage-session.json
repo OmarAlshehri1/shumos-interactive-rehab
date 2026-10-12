@@ -1,0 +1,101 @@
+{
+  "completedAt": 1791570520709,
+  "completedStageCount": 9,
+  "createdByUid": "AwSxcjCZyaOEvj1dEBxNoKOyMEFK",
+  "durationMs": 88254,
+  "endingDifficulty": "ADVANCED",
+  "endingStage": 3,
+  "gameId": "balloon-quest",
+  "patientId": "patient-1",
+  "sessionId": "60cd131a-4d54-41c6-9164-f1ffb92df6ca",
+  "skippedStageCount": 0,
+  "stageResults": [
+    {
+      "correct": 3,
+      "difficulty": "EASY",
+      "durationMs": 3722,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 1,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 4,
+      "difficulty": "EASY",
+      "durationMs": 1400,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 2,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 5,
+      "difficulty": "EASY",
+      "durationMs": 1766,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 3,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 4,
+      "difficulty": "MEDIUM",
+      "durationMs": 9158,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 1,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 5,
+      "difficulty": "MEDIUM",
+      "durationMs": 15498,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 2,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 6,
+      "difficulty": "MEDIUM",
+      "durationMs": 15532,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 3,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 5,
+      "difficulty": "ADVANCED",
+      "durationMs": 12619,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 1,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 6,
+      "difficulty": "ADVANCED",
+      "durationMs": 11982,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 2,
+      "status": "COMPLETED"
+    },
+    {
+      "correct": 7,
+      "difficulty": "ADVANCED",
+      "durationMs": 16577,
+      "engine": "bq3",
+      "incorrect": 0,
+      "stageNumber": 3,
+      "status": "COMPLETED"
+    }
+  ],
+  "startedAt": 1791570394626,
+  "startingDifficulty": "EASY",
+  "startingStage": 1,
+  "therapistName": "أ. سارة",
+  "totalCorrect": 45,
+  "totalIncorrect": 0
+}

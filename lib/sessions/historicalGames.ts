@@ -1,3 +1,4 @@
+import {BALANCE_BRIDGE_REGISTRATION} from '@/lib/balancebridge3d/registration';
 import { HARVEST_VALLEY_REGISTRATION } from '@/lib/harvestvalley3d/registration';
 import { BLOOMING_WORLD_REGISTRATION } from '@/lib/bloomingworld3d/registration';
 import { FIRE_RESCUE_REGISTRATION } from '@/lib/firerescue3d/registration';
@@ -8,6 +9,7 @@ import { RETIRED_FEED_ANIMALS_ID, RETIRED_FEED_ANIMALS_NAME_AR } from "./retired
 /** Historical IDs are deliberately separate from launchable games. */
 export type HistoricalGameId = GameId | LocalGameId | typeof RETIRED_FEED_ANIMALS_ID;
 export function getHistoricalGameNameAr(id: HistoricalGameId): string {
+  if (id === "balance-bridge-3d") return BALANCE_BRIDGE_REGISTRATION.nameAr;
   if (id === 'harvest-valley-3d') return HARVEST_VALLEY_REGISTRATION.nameAr;
   if (id === 'blooming-world-3d') return BLOOMING_WORLD_REGISTRATION.nameAr;
   if (id === 'fire-rescue-3d') return FIRE_RESCUE_REGISTRATION.nameAr;

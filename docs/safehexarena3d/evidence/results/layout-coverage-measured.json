@@ -1,0 +1,53 @@
+[
+ {
+  "label": "easy",
+  "layout": "9:5-4",
+  "tiles": 9,
+  "width": 94,
+  "height": 67.5,
+  "screenCoverage": 63.5,
+  "centred": true
+ },
+ {
+  "label": "medium",
+  "layout": "12:4-4-4",
+  "tiles": 12,
+  "width": 82.4,
+  "height": 94,
+  "screenCoverage": 77.5,
+  "centred": true
+ },
+ {
+  "label": "advanced",
+  "layout": "16:5-6-5",
+  "tiles": 16,
+  "width": 94,
+  "height": 80.4,
+  "screenCoverage": 75.6,
+  "centred": true
+ },
+ {
+  "label": "EXTRA_LARGE-stage2",
+  "layout": "6:3-3",
+  "tiles": 6,
+  "width": 91.6,
+  "height": 94,
+  "screenCoverage": 86.1
+ },
+ {
+  "label": "COMPACT-stage3",
+  "layout": "12:4-4-4",
+  "tiles": 12,
+  "width": 82.4,
+  "height": 94,
+  "screenCoverage": 77.5
+ },
+ {
+  "label": "STANDARD-4:3-advanced",
+  "layout": "16:4-4-4-4",
+  "tiles": 16,
+  "width": 84.5,
+  "height": 94,
+  "screenCoverage": 79.5
+ }
+]

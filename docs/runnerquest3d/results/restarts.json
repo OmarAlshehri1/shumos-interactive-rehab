@@ -1,0 +1,85 @@
+{
+ "transitions": 36,
+ "restarts": 36,
+ "samples": [
+  {
+   "label": "run0-end",
+   "own": {
+    "geometries": 253,
+    "materials": 213,
+    "textures": 11
+   },
+   "gpu": {
+    "geometries": 132,
+    "textures": 10
+   },
+   "heap": 20609095
+  },
+  {
+   "label": "run1-end",
+   "own": {
+    "geometries": 253,
+    "materials": 213,
+    "textures": 11
+   },
+   "gpu": {
+    "geometries": 132,
+    "textures": 10
+   },
+   "heap": 21318982
+  },
+  {
+   "label": "run2-end",
+   "own": {
+    "geometries": 253,
+    "materials": 213,
+    "textures": 11
+   },
+   "gpu": {
+    "geometries": 132,
+    "textures": 10
+   },
+   "heap": 21008942
+  },
+  {
+   "label": "run3-end",
+   "own": {
+    "geometries": 253,
+    "materials": 213,
+    "textures": 11
+   },
+   "gpu": {
+    "geometries": 132,
+    "textures": 10
+   },
+   "heap": 21083030
+  }
+ ],
+ "first": {
+  "label": "run0-end",
+  "own": {
+   "geometries": 253,
+   "materials": 213,
+   "textures": 11
+  },
+  "gpu": {
+   "geometries": 132,
+   "textures": 10
+  },
+  "heap": 20609095
+ },
+ "last": {
+  "label": "run3-end",
+  "own": {
+   "geometries": 253,
+   "materials": 213,
+   "textures": 11
+  },
+  "gpu": {
+   "geometries": 132,
+   "textures": 10
+  },
+  "heap": 21083030
+ },
+ "heapGrowthMB": 0.473935
+}

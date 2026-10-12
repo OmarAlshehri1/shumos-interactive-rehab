@@ -1,0 +1,237 @@
+[
+ {
+  "name": "keyboard: start accepted, Display mirrors lifecycle",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "keyboard: real ArrowLeft moves lane -1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "keyboard: real 'd' moves lane back to 0",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display shows the same lane as Control",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "idle child: runner stops and holds before an obstacle (no collision)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "idle child: runner holds ~1.6 m short of the obstacle",
+  "ok": true,
+  "detail": "gap=1.60 m"
+ },
+ {
+  "name": "idle child: Display shows an Arabic hint",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "idle child: 20 s later still playing, still holding, one hold counted, nothing failed",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "idle child: acting releases the hold and the runner continues",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "therapist assist: the button is visible while the runner waits",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "therapist assist: passes the obstacle, records an assist, runner continues",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "RIGHT_FOOT: input becomes ready after the rest pose settles",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "RIGHT_FOOT mode: LEFT_FOOT simulated gesture is ignored",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "RIGHT_FOOT mode: real arrow key drives the SIMULATED right foot -> lane +1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "RIGHT_FOOT mode: simulated tilt-left -> lane 0",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "unrelated hand/handheld samples are ignored and counted",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "LEFT_FOOT mode: right foot ignored",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "LEFT_FOOT mode: left foot tilt-right -> lane +1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "DUAL_FOOT: left foot tilting right is ignored (crossed mapping)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "DUAL_FOOT: left foot -> lane -1",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "DUAL_FOOT: right foot -> lane 0 (back)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "foot lift far from a hurdle does nothing",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "foot lift near the hurdle arms it (simulated)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "armed hurdle is cleared without a collision",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor loss suspends play with reason input-lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "nothing moves while the sensor is lost",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display shows the calm pause overlay while suspended",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume is refused while the sensor is still gone",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume is refused until the foot has settled again",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "after settling, resume continues the same stage",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "pause freezes the runner",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "resume",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "restart returns to ready at distance 0",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "skip -> stage-complete (never automatic)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "stage-complete waits for the therapist",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "advance -> next stage ready",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "end shows a session summary on both windows",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "reduced motion reaches the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display reload re-syncs to the live session",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "closing the Display suspends play (display-unavailable)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "reopening the Display resumes automatically",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "hidden Control window suspends (control-hidden) and does not auto-resume",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "returning to the Control window stays suspended until the therapist resumes",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "a second Control window cannot take over (waits for the lock)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "after a Control reload a fresh run starts safely in ready",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display follows the new Control (ready)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "no unexpected console errors in either window",
+  "ok": true,
+  "detail": ""
+ }
+]

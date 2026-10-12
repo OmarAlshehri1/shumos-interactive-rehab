@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "stage": "first-shapes",
+      "pieces": 2,
+      "metrics": {
+        "fps": 58.62480127151286,
+        "frameMs": 17.057627118745092,
+        "drawCalls": 48,
+        "geometries": 34,
+        "textures": 4,
+        "frames": 59
+      }
+    },
+    {
+      "stage": "three-shapes",
+      "pieces": 3,
+      "metrics": {
+        "fps": 59.99999999999997,
+        "frameMs": 16.889887640482925,
+        "drawCalls": 52,
+        "geometries": 39,
+        "textures": 4,
+        "frames": 178
+      }
+    },
+    {
+      "stage": "four-shapes",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.99400059993995,
+        "frameMs": 16.805833333333336,
+        "drawCalls": 56,
+        "geometries": 44,
+        "textures": 4,
+        "frames": 297
+      }
+    },
+    {
+      "stage": "house",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.999999999999936,
+        "frameMs": 16.736250000000002,
+        "drawCalls": 53,
+        "geometries": 39,
+        "textures": 4,
+        "frames": 477
+      }
+    },
+    {
+      "stage": "car",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.99999999999996,
+        "frameMs": 16.73625,
+        "drawCalls": 58,
+        "geometries": 41,
+        "textures": 4,
+        "frames": 598
+      }
+    },
+    {
+      "stage": "robot",
+      "pieces": 4,
+      "metrics": {
+        "fps": 59.999999999999986,
+        "frameMs": 16.736249999999995,
+        "drawCalls": 56,
+        "geometries": 40,
+        "textures": 4,
+        "frames": 717
+      }
+    },
+    {
+      "stage": "tower",
+      "pieces": 3,
+      "metrics": {
+        "fps": 59.99999999999997,
+        "frameMs": 16.805833333333332,
+        "drawCalls": 47,
+        "geometries": 34,
+        "textures": 4,
+        "frames": 836
+      }
+    },
+    {
+      "stage": "bridge",
+      "pieces": 3,
+      "metrics": {
+        "fps": 59.99803285138201,
+        "frameMs": 16.805833333333332,
+        "drawCalls": 58,
+        "geometries": 39,
+        "textures": 4,
+        "frames": 957
+      }
+    },
+    {
+      "stage": "castle",
+      "pieces": 5,
+      "metrics": {
+        "fps": 59.998032851382135,
+        "frameMs": 16.805833333333325,
+        "drawCalls": 79,
+        "geometries": 54,
+        "textures": 4,
+        "frames": 1078
+      }
+    }
+  ],
+  "errors": [],
+  "cloud": []
+}

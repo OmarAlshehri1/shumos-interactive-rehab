@@ -1,0 +1,755 @@
+{
+  "phase": "R2",
+  "date": "2026-10-09",
+  "baselineFileCount": 793,
+  "baselineCapturedAtUnix": 1791543753.5018973,
+  "unchangedExistingFileCount": 770,
+  "changedExistingFiles": [
+    {
+      "path": "components/control/spacepilot3d/SpacePilot3DControl.tsx",
+      "before": "5e9d43e0f745d82f6264aff4ab90b8f6902510c57fb6bfcb98a2785ae32852c5",
+      "after": "4795e754a3bf2000de254cdb53f77ddce6f8f092a71fb73f84c5d47f52f05294"
+    },
+    {
+      "path": "components/display/spacepilot3d/SpacePilot3DSessionDisplay.tsx",
+      "before": "6d07036242b9fca540e118380a3317a383d26efb679a235c513c683839b7946c",
+      "after": "c146c390f6dad09a1d764d6e38341cc651013b333022ea5dce788bc2794ce48b"
+    },
+    {
+      "path": "components/display/spacepilot3d/prototype.module.css",
+      "before": "de92e207f648e15035cf5091c78cf310ca237f2410828d9850008bb0fe4fa7dc",
+      "after": "f8958fbeb0f9f030c1a856c9417a9eb81c2039eeaa5e6da2fdde390e1eaa8d94"
+    },
+    {
+      "path": "docs/spacepilot3d/ARTIFACT_MANIFEST.md",
+      "before": "f584de96b1363a9b951e09c5231806814d0193a30806277c9f6cca885b0e81b5",
+      "after": "eea7036b121ff411eecdcd4723683de45f6dc7425bbce07c890b1d7c760cbd3a"
+    },
+    {
+      "path": "docs/spacepilot3d/ASSET_LICENSES.md",
+      "before": "67e72d28e5cf0ebc29d005832a42dbeca9e59db38828c336d073c10a595ddbcf",
+      "after": "b01dc4726276d9bf9e25a3680a0c4d46b7624ff03e74186b936505488beba63c"
+    },
+    {
+      "path": "docs/spacepilot3d/PHYSICAL_VALIDATION_CHECKLIST.md",
+      "before": "4b6ed214703ca2e03208e9d634ce037664aa806df8272d14aa81101649661061",
+      "after": "7edffa90524e86c31bd9d71090adc8fdf141ccedeeb7e48f73aa2495437b6afa"
+    },
+    {
+      "path": "lib/spacepilot3d/README.md",
+      "before": "aaef121e80133488f8620714e5012b5a98e8439f34f7db429465c4564094477b",
+      "after": "f5ad0a82debea914f48ad9de423323980f95428ec6a9044c4c62e166d6af985b"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/graphicsLifecycle.test.ts",
+      "before": "f0a193972049df96f772183d6d5b0ca2070ae928c53459ec900297709bae203a",
+      "after": "a1736421f79d34322cf7c8d46bdd1e03137fce1518bb78551e1a58f70ae089f5"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/runtime.test.ts",
+      "before": "9e81ad82fc1670b8e86a56a804701cc2db6032cacccac9c6c162b12474c6d0fc",
+      "after": "5d2bbc762484591c2a88c5d7457a8d63033ecb74a0a2bfffb4d54742987f7613"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/session.test.ts",
+      "before": "b48be1d455f3fce4469e1eb03f5d93d22d99ab7d08620554acf60dce85f614d5",
+      "after": "d12c4c69ea2fa4df282c1a5abd3896cbc5e1e6de71e7af21ba1eea6661ce2cb2"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/worldFlight.test.ts",
+      "before": "b27f264b4b4a6bc5957e744893bdc6dc26c161370efe7744f43fdce8e1d0b5f7",
+      "after": "9d2ec237d10d5b6d4c7a92c0432c37500df3719f1dc9ea03c627dd5927ea27b3"
+    },
+    {
+      "path": "lib/spacepilot3d/controlSessionRuntime.ts",
+      "before": "117e1a51b5d61d03f5211ce72053d30024590e8c34b3e3e02a81e474dda91ae1",
+      "after": "22483f0d40cccd019a5d257f58f8f938d8bf99cd8219fdabd3d517835e9f2f2c"
+    },
+    {
+      "path": "lib/spacepilot3d/displaySessionRuntime.ts",
+      "before": "f749ba0ed9d44f9d407a124ad28503415f58d71c1e078d7c712524e68fcf6aec",
+      "after": "c7e9d1041ba752154e623ff072c5a64ae1cf3edbfec154aec51060d565b4c67e"
+    },
+    {
+      "path": "lib/spacepilot3d/graphics.ts",
+      "before": "dbe30c198a81ce38e173c9421840ae8e4f37fc54302995dc56b0ac95a30c8918",
+      "after": "6a401378698df1770448806e280c286b597e616ffa018c23473cf2bd33d217b8"
+    },
+    {
+      "path": "lib/spacepilot3d/presentation.ts",
+      "before": "408983e3eea5a024e33a3e454dcb2da63bafdaeae0c583177e71ddd00f9a07ce",
+      "after": "542d6abd152c4e6cb6987c8cfa38c7d3e9483a71c1247baf67f9dd593d510473"
+    },
+    {
+      "path": "lib/spacepilot3d/renderer.ts",
+      "before": "71c0c607bf1601865e3f30f3f025b466cca6c5124b445418329dee7a9989a6f0",
+      "after": "41015843f7ca7ca6a98de64b894e3eb68f14705c14194f56cd5864b001cabc3c"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionAuthority.ts",
+      "before": "7bf0560ec3941a0945283bbb6dbc46c74616fb398df9b5b378e33685773499c7",
+      "after": "3ce5cdddbc57b2730e9db3fbf3f808a2e4c78bb8df8085cd07f78cbc0b55b8ac"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionContract.ts",
+      "before": "c90f39ac5ed3e1b03af26e3b2116f0577f90fbbc5eab9d6022891fb21b75a711",
+      "after": "1d43a6575ea8778a4ec5ed98900073123fb9ae41c70bcb4362d90bce75cb21b0"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionReplica.ts",
+      "before": "3efec671a0a3aaaeb723e3dde315bcf7343990186b6d5621d4606d5df6d15c80",
+      "after": "37a5624944c33fe1c3f3d743dbe87ebf9fb886efc4638555d91275e4d1dea676"
+    },
+    {
+      "path": "lib/spacepilot3d/sessionStorage.ts",
+      "before": "3325283def2e9f6c81d87fa0490f3803538d7d80e66abc230e64a6400563e864",
+      "after": "e33845aa489f3380586e15c777fec47b59ef1fa7cd0ccddee15dcd65bd56b9c0"
+    },
+    {
+      "path": "lib/spacepilot3d/worldCamera.ts",
+      "before": "7718ab9eefce45a6ec53b609d47b59cf7ac1453d15227e76d651e12088db1137",
+      "after": "33d9c83d6277aff900f2f82857d10c9cf0c19efd12cfee61601672cf29a4f2f1"
+    },
+    {
+      "path": "lib/spacepilot3d/worldFlight.ts",
+      "before": "7f7c2899500165f7bae29c5dbe0c4000dad3194c0e4b778f827127a891b3c3b3",
+      "after": "ec9600bcb6c2766fa6719a67623dca0d293cb9662f71fc4b27530f36b69aaccf"
+    },
+    {
+      "path": "lib/spacepilot3d/worldGameplay.ts",
+      "before": "018b1c92d5dddd8a3a3a8eb6b00e9a3407fe114c4336e698209e3fbe392bf669",
+      "after": "ff85df43447e508e15476ddafefb025c539e0089cf8b9548929145893266553d"
+    }
+  ],
+  "newExperimentalFiles": [
+    {
+      "path": "docs/spacepilot3d/PHASE_R2_REPORT.md",
+      "sha256": "abe0d83fffadb2fbd184f817052833ef2f59a0194141f1dc5a594df21723ad93"
+    },
+    {
+      "path": "docs/spacepilot3d/assets/aurora-build.json",
+      "sha256": "fad5ba7958d0931f10903fc6a44da238da499074bf92860b6414ab2da4d3e6d5"
+    },
+    {
+      "path": "docs/spacepilot3d/assets/create-aurora.mjs",
+      "sha256": "990e770a6d817801afd62a3fc9a1d6ffd3db41709dcaaf2dfd6d6e4e012155b4"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-collection.png",
+      "sha256": "f15b513437f0fe50238158773aa2773b62620cb3e698189bea530bb36cbc1251"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-control-setup.png",
+      "sha256": "536a3076c355f04accb0cf0e3adbb4168374471fc105bfb5c6a78e5bb33eabf7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-control.png",
+      "sha256": "4ebf98d6410363c1e1fce447e998bc824b9cc59f4b4db6c54f4edf57fc4c53a8"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-curved-course-reduced-motion.png",
+      "sha256": "07c0a4aff79ebe9372560cf16f82b22a3cac9d65404e133bd252b8b57fb71d9a"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-avoidance.png",
+      "sha256": "f36b4a78f7e413becc34c714c76b213f0422e292c9be918a3fcdaca749ab2864"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-climbing.png",
+      "sha256": "be5ed3ea73fb96ac5f631ff9961dd8006f2a71b11cf24d0642ca1d8ca3a745f4"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-collection.png",
+      "sha256": "885b074b8f12cfbd0f1641f1676fc52011f0d2db73051a3b4fb3f32e92b8b87e"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-complete.png",
+      "sha256": "a970697e656d982702af41f5ca5102ceb770749e7002a1cddb66c2c0c8ad0a66"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-descending.png",
+      "sha256": "8a223a7762450179e4e6f9f2cd157ba811089ab34ea1875cae282fd64264b015"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-intentional-collection.png",
+      "sha256": "e0acc5d5f89c9d28777ab33253813392f4eafd55356457ce5c524a70054d625c"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-left.png",
+      "sha256": "cffe0558f2ca8610a730dd940df6400969fc1f7fe162df1778b2d2582b51c6f7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-neutral.png",
+      "sha256": "2e9e581ae80689a97bfe1c707deadd928b3b93535ea2ea23eb7d9645e29a17f8"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-flight-right.png",
+      "sha256": "64dc107fdf1285e2f767911ceff3e505778d41effcc542dd3e6fc95053e28665"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-guided-recovery-collection.png",
+      "sha256": "1ad05012813dc7424988843e72b5bc234628733c513a8cd51788a40dcd142c4a"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-left-boundary.png",
+      "sha256": "64c2ae6a31b5c77a8ad021cd130f5cd419ae8b5f1c70c78ab5d5ab4472995a73"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-low-summary.png",
+      "sha256": "b1706c109f9a6223b9fda368ad6b632d6ad6fc088285204d8d11ab4f52f49157"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-m1-encounter1.png",
+      "sha256": "d1ee8013f4e873e5ca964c1e73113e79d2ea0959f84a560bdafba754da9756a6"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-m1-encounter3.png",
+      "sha256": "b0153809178b83a0990605ddfba5cd6cc25012a49cc96a00130a142c28248430"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-m1-encounter4.png",
+      "sha256": "315a26c9605a1819433c64562c6b816a40e267c2e5230af2ad66466e12896ccb"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-m3-encounter2.png",
+      "sha256": "536fe98474b294f6161825ffdb7464208aee6454effcd0177263483f46b38e57"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-medium-summary.png",
+      "sha256": "3b9a477b17938c6887cef7138c5c9ef1b7b6b432e3246f962c6499ebabc552e7"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-mission-complete.png",
+      "sha256": "849d660ff7124af5797ed11a6bf0b25a859482e0bdff55391997760b0f08d3ce"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-objective-guidance.png",
+      "sha256": "9154e489a2f5bab3a593eb49227674384deca5b547e3176410ccb238ae20780a"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-right-boundary.png",
+      "sha256": "7e1817f6b1c047b530ee4f2aeadd1f177fce3216ed7736b447de8509d958143c"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-start.png",
+      "sha256": "c39db55220650baab035c72d972ad785d5d23087edff6b02124f7bc0f3811cc6"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-summary.png",
+      "sha256": "9f707f960c0b6ac6a18c2a5e2b90e2ccba0ba99bc660dc2def77e61f64bfed6d"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-tier2.png",
+      "sha256": "6ef08a0874a96ec0c04f7236f5cc26f4a555dd5c88464c5ba9d492fc77bb63b6"
+    },
+    {
+      "path": "docs/spacepilot3d/screenshots/r2-tier3.png",
+      "sha256": "1dc42424e6bf052c4426c03438bcf051e918a461dfedf389352a8cc47c32d162"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-auth-gate.json",
+      "sha256": "9f4f744a7ce8639d9f929ce3f09241eb6f585689d2f815939590455299e882e5"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-auth-gate.mjs",
+      "sha256": "db9cc99e7f1620a7e2aa2b9c12bfb177ed3a95eac86bf14f926554485738e3dc"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-browser.mjs",
+      "sha256": "d07eb8308d30800852d35eca9d64d8c621a127dbeb52dd60482dada71c6705bd"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-browser.txt",
+      "sha256": "5483b696bcc700f2608b4491dd3719351ffff8cf80c742482a049b656492e2ae"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-build.txt",
+      "sha256": "9e9129458d4d2fa4e8b2bdd9b3738871549d6a79e39d3d9fa8b70a6b358066c0"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-flight-review.json",
+      "sha256": "ac18eaee8aae93d8ab2e33a6c2b40b18ef5736318a71a1d50de732dca05df49a"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-flight-review.mjs",
+      "sha256": "1dc8f22f721b264ddf8855b1da33966d89b2c242921e4ba189630d5732ce81c3"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-flight-review.txt",
+      "sha256": "b18da7a126b27976371086c4cacf629742529b16f988bd3999c38851df9f18f7"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-guided-browser.json",
+      "sha256": "b12bfc3503d572303dbfacda0bb919c3192073b46fdd2fa0028cf8f38322ecb8"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-guided-browser.mjs",
+      "sha256": "0ec119344a33237c92c1935cf780c6abeb416efd7940071ba8a5ead734279bf6"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-guided-browser.txt",
+      "sha256": "8e3cd848810bdfe3b6274e6e824bf0f93743b03c3d71df7ecccac25efafe02f4"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-lint.txt",
+      "sha256": "b92faec5bda35696ba5ed7a9879afa4210eaee1416bd9f87faf6f293a3e2e6bc"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-performance.json",
+      "sha256": "6cd308bd482f82cde9cc32f1763930c809ea9575aeb986ad3df0982f1ac7c9ce"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-performance.mjs",
+      "sha256": "4293c70d06ab6672a225b5b1966ac54ed2166366eb388e3eab57c204af9f7b3a"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-performance.txt",
+      "sha256": "ce0de8510a643806942bf6a63354ea6575d506d7fe4ba4076e4bfd7cc22f48b5"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-presets.json",
+      "sha256": "b9af251415315c2b38b959bc554a5059a4b0e9f9a2c14f8d874a2976fb6963a3"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-presets.mjs",
+      "sha256": "cbae6135da0fd92c18a3d5692aad8bbbe941aa53463775d79be8a61fa3905cf6"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-presets.txt",
+      "sha256": "a505e81a36cea8640ecb9473ffb9e95f1b01eca89c798a286ffc8913ae4818eb"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-production.json",
+      "sha256": "d1b8ad3aecaf069c088931c91cfe3356eb71d2145be7e9222bb39ff8dcd02b18"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-production.mjs",
+      "sha256": "cc4e8e171e3860ca7a5bbef740ea88eac8ae269a907833eb8fb9a93a677d962b"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-tests.txt",
+      "sha256": "ef0c865396d9f13ec337e11f0b85de7978e57302110420c88c30826522e4b4bd"
+    },
+    {
+      "path": "docs/spacepilot3d/validation/r2-typecheck.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r2-flight.mp4",
+      "sha256": "89d250232ed0006c7ee52275b92dd38fa5df081f13db0b7e2be92a5850fa38ea"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r2-flight.webm",
+      "sha256": "7b3c8f3c157a39ac5ff563eb1bff94642a96fcb64db5e1618c0e0eecd151653b"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r2-guided-flight.mp4",
+      "sha256": "7ce7192e6aa4b766c0e80d21bc7b06708d07ef62698b19ff9a9d63366b39bd16"
+    },
+    {
+      "path": "docs/spacepilot3d/videos/r2-guided-flight.webm",
+      "sha256": "40616604dd1179bb34be617512666adc155297afae41fe6555c27d547a70b8aa"
+    },
+    {
+      "path": "lib/spacepilot3d/__tests__/guidedFlight.test.ts",
+      "sha256": "d145cc36afc896ef89fa5e64769085b3a314023a745f33caf7f75baf885ab709"
+    },
+    {
+      "path": "lib/spacepilot3d/objectiveGuidance.ts",
+      "sha256": "6fcdbc0873787f592f72b25289e64873d5b28e0553ad99050a8b73c905efb1be"
+    },
+    {
+      "path": "public/spacepilot3d/models/aurora.glb",
+      "sha256": "01ad01a3bade4604aa7a0958b0abc34dc96fd7b58b5885fdbaf33e9b8702d597"
+    }
+  ],
+  "missingFiles": [],
+  "outsideExperimentalChanges": [],
+  "preExistingFilesWithoutBaselineHashes": [
+    {
+      "path": "tools/witmotion_ble/.gitignore",
+      "currentSha256": "2203add9353c0f5a40a83489a9b2cb6a9b9fabe876355c9e756c7c16c97d9552",
+      "modifiedAt": 1788363131.1653306,
+      "createdAt": 1788360632.5646267
+    },
+    {
+      "path": "tools/witmotion_ble/README.md",
+      "currentSha256": "487657269a9aed1e70107c5c595cf42ed51882fa4c4cfd7330c860113a1dd8e6",
+      "modifiedAt": 1788381220.7620547,
+      "createdAt": 1788381220.7618043
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_calibration.py",
+      "currentSha256": "199f175989d29d853bc35fe4c92199393bfe7782102268af736765a7fcc863ad",
+      "modifiedAt": 1788365907.1631787,
+      "createdAt": 1788365763.2143521
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_faceid_run.py",
+      "currentSha256": "b67e94f5c7f5fd25f69154e08917e31a58cec85f1282cd037fd5a6432690be69",
+      "modifiedAt": 1788369915.648137,
+      "createdAt": 1788369893.6921396
+    },
+    {
+      "path": "tools/witmotion_ble/analyze_ground_truth_capture.py",
+      "currentSha256": "c30ca13e01d6af6257f32af4adc6b55fe7704c88c7e68a575507405655974648",
+      "modifiedAt": 1788378619.8270314,
+      "createdAt": 1788377024.732789
+    },
+    {
+      "path": "tools/witmotion_ble/calibration_engine.py",
+      "currentSha256": "821713fef288451e40e7f6583a289b19fc214eaa97c03f51c96ba8d6cfc8fba2",
+      "modifiedAt": 1788367417.20231,
+      "createdAt": 1788366528.8548832
+    },
+    {
+      "path": "tools/witmotion_ble/capture_calibration.py",
+      "currentSha256": "e408ee107dcbaec546b38958a21e81eee4ba706ca1fb1318f9a33bb10b41eab8",
+      "modifiedAt": 1788366929.5717826,
+      "createdAt": 1788363131.2571917
+    },
+    {
+      "path": "tools/witmotion_ble/capture_guided_auto.py",
+      "currentSha256": "68d8d8b6b305083ac47d91854907d5de8d4ce161f1f2dfa692d234d89d8e786f",
+      "modifiedAt": 1788365481.1189876,
+      "createdAt": 1788365481.1188288
+    },
+    {
+      "path": "tools/witmotion_ble/capture_guided_calibration.py",
+      "currentSha256": "81180bfecb159928f1a2881fe73c011650a052f10be014235414602943dc2140",
+      "modifiedAt": 1788365067.1221645,
+      "createdAt": 1788365067.1220033
+    },
+    {
+      "path": "tools/witmotion_ble/capture_normal_full_clean.py",
+      "currentSha256": "d7f00cad85ed8cb42b75b5f0d193ee204ea03de366e2af0a40d38fa3bed4a71f",
+      "modifiedAt": 1788377084.0640783,
+      "createdAt": 1788377084.0637717
+    },
+    {
+      "path": "tools/witmotion_ble/capture_small_movements_clean.py",
+      "currentSha256": "202ec1b6ebc86b18eae8094cc0fc73e9fc6e19be97c57e9b153fc127d5e30a2c",
+      "modifiedAt": 1788380419.8871245,
+      "createdAt": 1788380419.8869133
+    },
+    {
+      "path": "tools/witmotion_ble/docs/2026-09-04-overnight-plan-and-deferrals.md",
+      "currentSha256": "4ec4aa1ed8f79caa177286304c3d3d2dd41d01a438d7ef180c19bbed1332c6ed",
+      "modifiedAt": 1788480956.6484175,
+      "createdAt": 1788480956.6481943
+    },
+    {
+      "path": "tools/witmotion_ble/docs/2026-09-05-right-hand-freeze-and-dual-sensor-architecture.md",
+      "currentSha256": "97971351888afe16af4898973434cf0f387857520a1932f5fc708cc972e08bcf",
+      "modifiedAt": 1788623259.4019935,
+      "createdAt": 1788623259.401739
+    },
+    {
+      "path": "tools/witmotion_ble/docs/balloon-quest-integration-plan.md",
+      "currentSha256": "6db6f884a45ddcb5353b841eb81356468208e9f0a0762691df8d84f73506e2b1",
+      "modifiedAt": 1788381147.376234,
+      "createdAt": 1788381147.375861
+    },
+    {
+      "path": "tools/witmotion_ble/docs/ble-device-rename-notes.md",
+      "currentSha256": "1364a9c159aa2c9c1541154a1ded39a53b362c1639e73ef49eda30a0eae5a58b",
+      "modifiedAt": 1788621714.429087,
+      "createdAt": 1788621714.4287684
+    },
+    {
+      "path": "tools/witmotion_ble/docs/continuous-hand-pipeline-audit.md",
+      "currentSha256": "1cc94f2a67627fda23a2b545e8667788fb0ed99ab0e8cfbb8c0f52d93834bdd5",
+      "modifiedAt": 1788432357.5043626,
+      "createdAt": 1788432357.5042024
+    },
+    {
+      "path": "tools/witmotion_ble/docs/left-hand-phase2-plan.md",
+      "currentSha256": "047cac7c8c02f7963734dfd7c46951bef1ed760888a0b17de5bb811a88879347",
+      "modifiedAt": 1788381176.616779,
+      "createdAt": 1788381176.6164455
+    },
+    {
+      "path": "tools/witmotion_ble/docs/official-output-rate-notes.md",
+      "currentSha256": "e9a71dd01246bc91ff5547063382b2c0b095a560bdbcabb800088615a620bdc8",
+      "modifiedAt": 1788480863.3105793,
+      "createdAt": 1788480863.310357
+    },
+    {
+      "path": "tools/witmotion_ble/faceid_calibration.py",
+      "currentSha256": "e351721946e8573a91da4e3cbc581b8e7894d57e6fd09e8b5d08f82593ae027e",
+      "modifiedAt": 1788369893.6298215,
+      "createdAt": 1788366905.2773361
+    },
+    {
+      "path": "tools/witmotion_ble/full_validation_gate.py",
+      "currentSha256": "fd8af0cc7f70cd2e1e04e5f9c1748e5ca68eaa832d99f4f6c1316ca252db0226",
+      "modifiedAt": 1788380662.750601,
+      "createdAt": 1788380662.749802
+    },
+    {
+      "path": "tools/witmotion_ble/full_validation_gate_report.json",
+      "currentSha256": "7d45e9877fd68aa99fc21d36f10c2b72721af1de290504a9124e4af5d7c6d21a",
+      "modifiedAt": 1788380669.2081861,
+      "createdAt": 1788380669.2080455
+    },
+    {
+      "path": "tools/witmotion_ble/live_validation.py",
+      "currentSha256": "a71dd872423f7d9f20b6e0828e576a8e35c2b10b5dcfa0eabc98440325495595",
+      "modifiedAt": 1788380555.8368356,
+      "createdAt": 1788380555.8365114
+    },
+    {
+      "path": "tools/witmotion_ble/protocol.py",
+      "currentSha256": "0433769ec1134414949b6085a67291aeb7c6cde9a2dcc10b48f92068ed7999b8",
+      "modifiedAt": 1788360172.4106793,
+      "createdAt": 1788360172.410568
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/FINDINGS.md",
+      "currentSha256": "c43fa6068232988398bbaa03777dfbe538a6d4b004fc523a39ac79058343fd57",
+      "modifiedAt": 1788532473.5739634,
+      "createdAt": 1788532473.5737855
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_final_session_cross_coupling.py",
+      "currentSha256": "44149951faa9889e460e54fd391ff6162585404bbd68fb03a991a47ba0c58f1a",
+      "modifiedAt": 1788530679.3061087,
+      "createdAt": 1788530679.3058739
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_still_noise.py",
+      "currentSha256": "c6279069b372d28fff6e6e3a93329a03caaf8e3d22b852114563cc77394f9eef",
+      "modifiedAt": 1788480475.8042698,
+      "createdAt": 1788480475.8038368
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_asymmetry.py",
+      "currentSha256": "720feca34bfd1c02d38b6f4d8a1a3e95be93d3baa4df4505ec6249d31f9a42d9",
+      "modifiedAt": 1788472917.729217,
+      "createdAt": 1788472917.7288961
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_coupling_by_sign.py",
+      "currentSha256": "6255a0e155ae0a493fe4d0d4ae30347de506c69de6ac485f0e7d50f9792ee60a",
+      "modifiedAt": 1788473011.543114,
+      "createdAt": 1788473011.542835
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/analyze_twist_invariance_capture.py",
+      "currentSha256": "afc25903a6facc62e303ec4e7811eef2dd85b65b386d5820256df9e6023f2a7b",
+      "modifiedAt": 1788532057.1142051,
+      "createdAt": 1788532057.1139464
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/build_manifest.py",
+      "currentSha256": "b6492cbc038527fbb91a57115826d26c03e0e92d6d0cccd7949898c7b1364f02",
+      "modifiedAt": 1788532423.3931937,
+      "createdAt": 1788532423.3928468
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/filter_replay_report.json",
+      "currentSha256": "184caaa71f445d6045f0b9300c9ece3af1b2db809e9dde3e89163a89c94225f2",
+      "modifiedAt": 1788444165.2438796,
+      "createdAt": 1788444165.2436795
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/final_before_after_report.json",
+      "currentSha256": "819a1bd9d701718b15ef6758b0a7f06a1808dd1c3bb8c4ecf0a84d06e6180734",
+      "modifiedAt": 1788474012.8973267,
+      "createdAt": 1788474012.8966823
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/final_session_cross_coupling_report.json",
+      "currentSha256": "8dbc4eea20b7b7db293adc68728cf605d421a28d38df10905ae240cc987e392f",
+      "modifiedAt": 1788530688.0616667,
+      "createdAt": 1788528658.0444417
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/manifest.json",
+      "currentSha256": "fdbe3fb3e2d0b0c01dab12e11569f8168e41992d21a51bcc6d000dec5f1752b9",
+      "modifiedAt": 1788532429.739052,
+      "createdAt": 1788444219.1281877
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788441394853.json",
+      "currentSha256": "211128e70855896341c183b88f64ddfee9bd085b13fd0b0d173f867e89b2760f",
+      "modifiedAt": 1788441394.857241,
+      "createdAt": 1788441394.857241
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788442512578.json",
+      "currentSha256": "271c91110a7345b9a138cd2f4fb3000a432ad089085755114c7495bcda3a0fce",
+      "modifiedAt": 1788442512.5833,
+      "createdAt": 1788442512.5833
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-diagnostic-1788443253622.json",
+      "currentSha256": "ebb948a5b4ea25f970a5b039432125c2d293fd18364c0c743858623a862663c6",
+      "modifiedAt": 1788443253.6266472,
+      "createdAt": 1788443253.6266472
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-final-session-1788527323549.json",
+      "currentSha256": "0173fd2affc9d6f609ef3a2903a1346bd9cf017d55dab04261193b6bd5c68a1c",
+      "modifiedAt": 1788528596.2687309,
+      "createdAt": 1788528596.261028
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/raw/wt901-right-hand-twist-invariance-1788531321165.json",
+      "currentSha256": "66027e634f6a9c677086cce76d660e51fe5dd53e82df1b44e152c2bb9f95a38e",
+      "modifiedAt": 1788531691.8609545,
+      "createdAt": 1788531691.8568707
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_models.py",
+      "currentSha256": "d90aaa77e67ae0d922c4ec05b709415357a608bdad8dc1887523ca2075263f29",
+      "modifiedAt": 1788444158.6595159,
+      "createdAt": 1788443851.6585557
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_report.json",
+      "currentSha256": "6f4dbb9c604e46ec55b7357081ba416a8f889dfd16fe82c6af1997bb0ba71123",
+      "modifiedAt": 1788444165.1949306,
+      "createdAt": 1788443856.986393
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_twist_rejection.py",
+      "currentSha256": "a085933e56cdcf3d74e0806e79c83fca75b4d137018327e3b2c0a8f219c8108e",
+      "modifiedAt": 1788448426.1973095,
+      "createdAt": 1788448426.1969347
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/replay_twist_rejection_report.json",
+      "currentSha256": "1eb4871d4205f83b1b6cea498eaa9e93735f9f3bbdba95b0c39dece3d8f2ab26",
+      "modifiedAt": 1788473501.5421746,
+      "createdAt": 1788448387.8874176
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/still_noise_report.json",
+      "currentSha256": "86226ea42b6e1db2e2687589448abd6bfeadca9be815b04ad717a22bad62c5dd",
+      "modifiedAt": 1788480483.0682423,
+      "createdAt": 1788480483.0675547
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_continuous_deroll.py",
+      "currentSha256": "32c283003e0b4aa647217fbcad119b61ad1a917b62fdc5747e6ce190077a57bb",
+      "modifiedAt": 1788473284.7695484,
+      "createdAt": 1788473284.7692826
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_coupling_cancellation.py",
+      "currentSha256": "6e1ff874fb3835090c09a5875153e25bbf7c3788710404e4f0d7b1fbd0e98307",
+      "modifiedAt": 1788473370.6886754,
+      "createdAt": 1788473370.688235
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_intent_gate.py",
+      "currentSha256": "0c97b12c904b64143385dcbcb97075390413b556b84349800abb8dd3f5dd7323",
+      "modifiedAt": 1788473595.7321992,
+      "createdAt": 1788473595.7319052
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/tune_twist_dominance_gate.py",
+      "currentSha256": "4fc2e4ab73ca21b4b89177140ec776b71aa871c22114066822364ef219b52587",
+      "modifiedAt": 1788473122.8570538,
+      "createdAt": 1788473122.8566697
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_asymmetry_report.json",
+      "currentSha256": "f3ca49ecf5950604fe4d8a62a63ef7daca5698ffb4cb492033d54ee8a29a2c0d",
+      "modifiedAt": 1788472922.190075,
+      "createdAt": 1788472922.189667
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_coupling_by_sign_report.json",
+      "currentSha256": "7da414ae56bcab84e9df35643408cbaf1bd1da22d16f37478e7df481f0c940c9",
+      "modifiedAt": 1788473016.2435966,
+      "createdAt": 1788473016.2434137
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_dominance_gate_tuning_report.json",
+      "currentSha256": "bbc8eee539e4edfb1e3b2a6ed7831e9037ffc9edb9164504f4481587ca3ec72c",
+      "modifiedAt": 1788473127.6205258,
+      "createdAt": 1788473127.6172671
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/twist_invariance_replay_report.json",
+      "currentSha256": "df0ffb504fb89b46e3352c12956dfdfd007170c973d4bceca62108b9cab4b578",
+      "modifiedAt": 1788531881.163501,
+      "createdAt": 1788531881.1630058
+    },
+    {
+      "path": "tools/witmotion_ble/real_dataset/validate_full_pipeline.py",
+      "currentSha256": "3e3e5c56827e30c9e3140fe4d362425883fbd3c27f47518bd8b4db117f059518",
+      "modifiedAt": 1788474007.02003,
+      "createdAt": 1788474007.0195796
+    },
+    {
+      "path": "tools/witmotion_ble/replay_gate.py",
+      "currentSha256": "9519ee1be498c897ddb7ee152d8f6d7de095fd0be2f2c5ad50a3c33d1a7ba073",
+      "modifiedAt": 1788378680.5325859,
+      "createdAt": 1788378680.5323539
+    },
+    {
+      "path": "tools/witmotion_ble/replay_gate_report.json",
+      "currentSha256": "7260a80aaac5d59d3327ca9140684b8de4303e1d1ac53887caad49f385b403be",
+      "modifiedAt": 1788430308.0015223,
+      "createdAt": 1788371149.2760391
+    },
+    {
+      "path": "tools/witmotion_ble/requirements.txt",
+      "currentSha256": "d42b03781ccd8042934bdf2db0b778fda5fbed92f6e1a6dc4377c6211ed879d2",
+      "modifiedAt": 1788360172.6173747,
+      "createdAt": 1788360172.6172857
+    },
+    {
+      "path": "tools/witmotion_ble/semantic_detector.py",
+      "currentSha256": "f6b5062a14de60f699c33a3f2f4ad5c1d5ea8b15834adc036e8f75de8af0b773",
+      "modifiedAt": 1788379472.06025,
+      "createdAt": 1788379472.0599883
+    },
+    {
+      "path": "tools/witmotion_ble/setup.sh",
+      "currentSha256": "b0f1216f5c292a2635d6747a7b78b84b4436848a296f811010bb461e01cecf93",
+      "modifiedAt": 1788360172.675478,
+      "createdAt": 1788360172.6753964
+    },
+    {
+      "path": "tools/witmotion_ble/simulation.py",
+      "currentSha256": "5924b6fe6f1674b87e942bdcfd2a2946f9dcc65e65c82cb58c0c34b5dc1609b5",
+      "modifiedAt": 1788380248.6377578,
+      "createdAt": 1788380248.6374483
+    },
+    {
+      "path": "tools/witmotion_ble/test_calibration_engine.py",
+      "currentSha256": "fe10faf2e2188a48fc991c6ada8dd146d43d3981572eca17f96a75d4d5d8c85b",
+      "modifiedAt": 1788367424.8567142,
+      "createdAt": 1788366528.9172454
+    },
+    {
+      "path": "tools/witmotion_ble/test_protocol.py",
+      "currentSha256": "f0325ba8021a2594ec6e20a60faa4db8e643dcad63bb5d643b5c323f4c17e126",
+      "modifiedAt": 1788360195.8429832,
+      "createdAt": 1788360172.557724
+    },
+    {
+      "path": "tools/witmotion_ble/test_replay_gate.py",
+      "currentSha256": "6c78f91fa1bda7df524a9bb8c0258e00ad7417f5de322880ba21f2690f075ae2",
+      "modifiedAt": 1788373113.0437558,
+      "createdAt": 1788373113.0434918
+    },
+    {
+      "path": "tools/witmotion_ble/test_simulation.py",
+      "currentSha256": "5e6294056a202cb87172cb04380a5da4866b8c0d5680af5f22ef1aedd647366a",
+      "modifiedAt": 1788380306.009674,
+      "createdAt": 1788380306.009434
+    },
+    {
+      "path": "tools/witmotion_ble/wt901ble_test.py",
+      "currentSha256": "9a19ef09677a4462c554d3165c4e65a8e60d963c354733c67af90ed13cea489c",
+      "modifiedAt": 1788360788.5653894,
+      "createdAt": 1788360172.497009
+    }
+  ],
+  "selfPathNotHashed": "docs/spacepilot3d/validation/r2-change-manifest.json"
+}

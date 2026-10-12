@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Control and Display balloon positions agree while rising",
+    "ok": true,
+    "detail": "max |Δy| = 0.06% of stage height over 84 samples"
+  },
+  {
+    "name": "pause freezes balloons on both Control and Display",
+    "ok": true,
+    "detail": "max drift over 3 s = 0.211%"
+  },
+  {
+    "name": "Display shows a calm pause message (no technical text)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "resume continues smoothly upward without a jump",
+    "ok": true,
+    "detail": "max rise over 1 s = 3.7% of height"
+  },
+  {
+    "name": "a correct pop advances goal (rising level)",
+    "ok": true,
+    "detail": "١ من ٤"
+  },
+  {
+    "name": "restart resets progress and keeps the same stage",
+    "ok": true,
+    "detail": "٠ من ٤ / متوسط / ١"
+  },
+  {
+    "name": "Display follows the restart",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "skip moves to the next stage",
+    "ok": true,
+    "detail": "متوسط / ٢"
+  },
+  {
+    "name": "skipping all stages of a level completes the session",
+    "ok": true,
+    "detail": "اكتملت المغامرة"
+  },
+  {
+    "name": "summary records the skips as skipped, never failed",
+    "ok": true,
+    "detail": "ملخص الجلسةاكتملت الجلسة — مراحل مكتملة ٠، متخطاة ٣، اختيارات صحيحة ٠، لمسات ببالونات بلون آخر ٠ (لا تُخصم)، مدة اللعب ا"
+  },
+  {
+    "name": "therapist can end the session; Display shows a gentle thank-you",
+    "ok": true,
+    "detail": "أُنهيت الجلسة"
+  },
+  {
+    "name": "FLOOR/Easy: targets stay clear of the near edge",
+    "ok": true,
+    "detail": "lowest balloon+string bottom = 88.9%"
+  },
+  {
+    "name": "FLOOR/Easy: horizontal safe margins respected",
+    "ok": true,
+    "detail": "x range 18.3%–84.2%"
+  },
+  {
+    "name": "FLOOR/Medium: rising balloons stay inside the horizontal safe lanes",
+    "ok": true,
+    "detail": "x range 20.8%–80.6%, 7 balloons"
+  },
+  {
+    "name": "FLOOR layout moves the goal bar to the far (top) band",
+    "ok": true,
+    "detail": "flex"
+  },
+  {
+    "name": "reduced motion forces the stationary layout",
+    "ok": true,
+    "detail": "motion=static, balloons=6"
+  },
+  {
+    "name": "reduced motion disables sway on the Display",
+    "ok": true,
+    "detail": "none"
+  },
+  {
+    "name": "simulated LEFT_HAND in \"left-hand\" mode selects a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "simulated LEFT_HAND in \"both-hands\" mode selects a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "simulated RIGHT_FOOT in \"foot\" mode selects a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "simulated LEFT_FOOT in \"foot\" mode selects a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "simulated HANDHELD in \"handheld\" mode selects a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "a simulated source that is not enabled for the mode cannot start/score",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "real keyboard events (arrows + Space) select a target",
+    "ok": true,
+    "detail": "١ من ٣"
+  },
+  {
+    "name": "input loss holds play automatically",
+    "ok": true,
+    "detail": "متوقف تلقائيًا | فُقد إدخال الحساس — تتوقف اللعبة حتى يعود"
+  },
+  {
+    "name": "Display shows a calm hold message",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "nothing moves while input is lost",
+    "ok": false,
+    "detail": ""
+  },
+  {
+    "name": "play resumes automatically when input returns",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "closing the Display holds play (display-unavailable)",
+    "ok": true,
+    "detail": "شاشة العرض غير متاحة"
+  },
+  {
+    "name": "reopening the Display resumes play and re-syncs state",
+    "ok": true,
+    "detail": "قيد اللعب"
+  },
+  {
+    "name": "Display reload recovers the live session",
+    "ok": true,
+    "detail": "lanes 7 -> 7"
+  },
+  {
+    "name": "Control reload starts a clean ready session and Display follows",
+    "ok": true,
+    "detail": "جاهز للبدء"
+  },
+  {
+    "name": "an interrupted-session hint is offered after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "a second Control window waits instead of competing (single authority)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "no external (Firebase/Google) network hosts contacted by Control or Display",
+    "ok": true,
+    "detail": "[]"
+  }
+]

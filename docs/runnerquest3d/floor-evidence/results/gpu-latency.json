@@ -1,0 +1,119 @@
+[
+  {
+    "stage": 1,
+    "latencyMs": 66,
+    "fps": 60.00150003750092,
+    "drawCalls": 46,
+    "triangles": 36708,
+    "counts": {
+      "geometries": 17,
+      "materials": 101,
+      "textures": 11
+    },
+    "heapMB": 39
+  },
+  {
+    "stage": 2,
+    "latencyMs": 68,
+    "fps": 60.00300015000745,
+    "drawCalls": 47,
+    "triangles": 45416,
+    "counts": {
+      "geometries": 17,
+      "materials": 101,
+      "textures": 11
+    },
+    "heapMB": 55
+  },
+  {
+    "stage": 3,
+    "latencyMs": 41,
+    "fps": 60.00300015000745,
+    "drawCalls": 47,
+    "triangles": 36744,
+    "counts": {
+      "geometries": 17,
+      "materials": 125,
+      "textures": 11
+    },
+    "heapMB": 55
+  },
+  {
+    "stage": 4,
+    "latencyMs": 35,
+    "fps": 60.00300015000745,
+    "drawCalls": 47,
+    "triangles": 34940,
+    "counts": {
+      "geometries": 18,
+      "materials": 126,
+      "textures": 11
+    },
+    "heapMB": 45
+  },
+  {
+    "stage": 5,
+    "latencyMs": 30,
+    "fps": 60.001500037500804,
+    "drawCalls": 50,
+    "triangles": 40184,
+    "counts": {
+      "geometries": 17,
+      "materials": 149,
+      "textures": 11
+    },
+    "heapMB": 60
+  },
+  {
+    "stage": 6,
+    "latencyMs": 29,
+    "fps": 60.00450033752536,
+    "drawCalls": 49,
+    "triangles": 44528,
+    "counts": {
+      "geometries": 17,
+      "materials": 149,
+      "textures": 11
+    },
+    "heapMB": 51
+  },
+  {
+    "stage": 7,
+    "latencyMs": 32,
+    "fps": 60.00300015000745,
+    "drawCalls": 48,
+    "triangles": 27720,
+    "counts": {
+      "geometries": 17,
+      "materials": 173,
+      "textures": 11
+    },
+    "heapMB": 51
+  },
+  {
+    "stage": 8,
+    "latencyMs": 33,
+    "fps": 60.00300015000767,
+    "drawCalls": 47,
+    "triangles": 46156,
+    "counts": {
+      "geometries": 18,
+      "materials": 174,
+      "textures": 11
+    },
+    "heapMB": 47
+  },
+  {
+    "stage": 9,
+    "latencyMs": 31,
+    "fps": 60.001500037501025,
+    "drawCalls": 52,
+    "triangles": 67108,
+    "counts": {
+      "geometries": 17,
+      "materials": 197,
+      "textures": 11
+    },
+    "heapMB": 62
+  }
+]

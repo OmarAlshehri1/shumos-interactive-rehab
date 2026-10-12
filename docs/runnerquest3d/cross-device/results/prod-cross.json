@@ -1,0 +1,92 @@
+[
+ {
+  "name": "production: the Runner Quest card is in the game library (flag on) next to the six original games",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "tapping the card opens the Control screen (existing staff gate passed)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "child name prefilled from the selected patient",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "the production build has no simulator and no development hooks",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "sensor modes are offered but labelled experimental; MANUAL is the default",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Display (other device) shows the ready screen from Firebase",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "Control sees the Display connected",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch START -> playing on both devices",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch LEFT is accepted by Control and reaches the Display",
+  "ok": true,
+  "detail": "آخر إدخال مقبول: المعالج: يسار"
+ },
+ {
+  "name": "touch PAUSE -> paused on both",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch RESUME -> playing on both",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "with no input the runner waits at an obstacle; session stays playing (no failure)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch ASSIST passes the obstacle",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "touch SKIP -> stage complete on both",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "END opens the platform's end-reason sheet (production flow)",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "ended: summary on Control and on the Display",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "one Runner Quest history record saved with the end reason, no accuracy fields",
+  "ok": true,
+  "detail": "records=1, endReason=undefined"
+ },
+ {
+  "name": "no console exceptions on either device",
+  "ok": true,
+  "detail": "0,0"
+ }
+]

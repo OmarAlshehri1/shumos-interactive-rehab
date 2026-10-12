@@ -10,6 +10,7 @@ export function librarySections(games:readonly GameDefinition[]){return INTERACT
 export function projectionLabel(surface:unknown){return surface==='BOTH'?'جداري وأرضي':surface==='WALL'?'جداري':surface==='FLOOR'?'أرضي':'العرض غير محدد';}
 export function projectionNotice(game:Pick<GameDefinition,'id'|'surfaceType'>){return TARGET_PROJECTION[game.id]==='BOTH'&&game.surfaceType!=='BOTH'?`${game.surfaceType==='WALL'?'العرض الأرضي':'العرض الجداري'} بانتظار التنفيذ`:null;}
 export function hardwareNotice(game:Pick<GameDefinition,'id'>,input?:RequestedInput){
+ if(game.id==='shumos-castle-legends-3d')return 'حركات بتأكيد المعالج · الحساسات الفعلية بانتظار التحقق';
  if(input==='JOYSTICK')return 'محوّل عصي التحكم الفعلي غير متاح بعد';
  if(input==='FOOT')return 'حساسات القدم: محاكاة فقط · العتاد بانتظار التحقق';
  if(['fire-rescue-3d','harvest-valley-3d','pearl-voyage-3d'].includes(game.id))return 'المقود والدواسات بانتظار التحقق';

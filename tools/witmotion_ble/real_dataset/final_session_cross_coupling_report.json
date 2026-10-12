@@ -1,0 +1,347 @@
+{
+  "sample_rate": {
+    "n_records": 11402,
+    "span_s": 243.45369999999926,
+    "big_gaps_ms": [
+      13875.20000000298
+    ],
+    "effective_hz_excl_gaps": 49.656217807853025,
+    "zero_dt_fraction": 0.5000438558021226,
+    "note": "~half of consecutive records share an identical timestampMs (separate accel/gyro/angle BLE packets landing in the same ms) -> naive mean-interval math undercounts true rate by ~2x; effective_hz_excl_gaps corrects for this and for the single long pause."
+  },
+  "phase_counts": {
+    "still_start": 288,
+    "rotate_one": 406,
+    "rotate_other": 330,
+    "right": 290,
+    "left": 254,
+    "up": 276,
+    "down": 264,
+    "diagonal": 736,
+    "tiny": 460,
+    "slow": 534,
+    "fast": 412,
+    "still_end": 306,
+    "edge_right_reverse_left": 734,
+    "edge_left_reverse_right": 492,
+    "edge_top_reverse_down": 442,
+    "edge_bottom_reverse_up": 280,
+    "recenter_test": 1062,
+    "free_play": 3836
+  },
+  "cross_axis_pca_unfiltered": {
+    "up": {
+      "meanX": 0.5291855925793076,
+      "meanY": 0.4369490491438903,
+      "majorStd": 0.309001684022119,
+      "minorStd": 0.01690468723935332,
+      "principalAngleDeg": -82.94453909217101,
+      "eccentricity_minor_over_major": 0.05470742754315619
+    },
+    "down": {
+      "meanX": 0.4860956389408005,
+      "meanY": 0.7204958929781566,
+      "majorStd": 0.21140588964468163,
+      "minorStd": 0.0075034416608371,
+      "principalAngleDeg": -85.75276271828432,
+      "eccentricity_minor_over_major": 0.03549305874802464
+    },
+    "left": {
+      "meanX": 0.32692602330940496,
+      "meanY": 0.3865330263332359,
+      "majorStd": 0.1905723624216912,
+      "minorStd": 0.013998076565726733,
+      "principalAngleDeg": 8.972625140653113,
+      "eccentricity_minor_over_major": 0.07345281544420552
+    },
+    "right": {
+      "meanX": 0.622186866426772,
+      "meanY": 0.4262816980124453,
+      "majorStd": 0.26116277987576997,
+      "minorStd": 0.020055459544316444,
+      "principalAngleDeg": 10.751103365990046,
+      "eccentricity_minor_over_major": 0.07679294711848463
+    },
+    "diagonal": {
+      "meanX": 0.4993504880030148,
+      "meanY": 0.5242460886512674,
+      "majorStd": 0.3091103328705439,
+      "minorStd": 0.29770988495450196,
+      "principalAngleDeg": -30.03852053131301,
+      "eccentricity_minor_over_major": 0.9631185156116523
+    },
+    "tiny": {
+      "meanX": 0.5055037099414292,
+      "meanY": 0.48348854620908666,
+      "majorStd": 0.02806501603377004,
+      "minorStd": 0.0227896162133155,
+      "principalAngleDeg": 39.25369294231403,
+      "eccentricity_minor_over_major": 0.8120293316737548
+    },
+    "slow": {
+      "meanX": 0.4818821783294168,
+      "meanY": 0.4403173511331203,
+      "majorStd": 0.038455970226287155,
+      "minorStd": 0.02006501413491399,
+      "principalAngleDeg": -77.64328680548708,
+      "eccentricity_minor_over_major": 0.5217659057057998
+    },
+    "fast": {
+      "meanX": 0.5134116471406217,
+      "meanY": 0.48124425657182124,
+      "majorStd": 0.21680681155241172,
+      "minorStd": 0.2037888994755364,
+      "principalAngleDeg": 10.04327938041763,
+      "eccentricity_minor_over_major": 0.9399561665813793
+    }
+  },
+  "cross_axis_angle_deviation_deg": {
+    "up_deg_off_vertical": 7.055460907829001,
+    "down_deg_off_vertical": 4.247237281715684,
+    "left_deg_off_horizontal": 8.972625140653108,
+    "right_deg_off_horizontal": 10.751103365990048
+  },
+  "linear_coupling": {
+    "vertical_phase_dx_per_unit_dy": -0.10999513196327868,
+    "horizontal_phase_dy_per_unit_dx": 0.18746438442466049,
+    "note": "slope of the UNINTENDED pointer axis vs the INTENDED axis, pooled across up+down (sign-aligned) and left+right (sign-aligned); 0 = no coupling, +-1 = coupling as strong as the intended motion itself."
+  },
+  "calibration_matrix": {
+    "e_h": [
+      0.9826697704028565,
+      0.18536483576017657
+    ],
+    "e_v": [
+      -0.109735876284349,
+      0.9939607826549829
+    ],
+    "angle_between_h_v_deg": 85.61768636908381,
+    "M_inverse": [
+      [
+        0.9968752603593519,
+        0.11005764226383348
+      ],
+      [
+        -0.18590835990159593,
+        0.9855511407612992
+      ]
+    ],
+    "det": 0.9970763867654631,
+    "post_calibration_angle_deviation_deg": {
+      "up": 0.7700088391717657,
+      "down": -2.0589625872474926,
+      "left": -1.734613699818624,
+      "right": 0.04277882267199118
+    },
+    "diagonal_principal_angle_before_deg": -30.03852053131301,
+    "diagonal_principal_angle_after_deg": -42.87800777604255,
+    "sign_check": {
+      "up": {
+        "beforeValue": -0.06305095085610968,
+        "afterValue": -0.06756578219149878,
+        "expectedSign": -1,
+        "preserved": true
+      },
+      "down": {
+        "beforeValue": 0.22049589297815664,
+        "afterValue": 0.21989491581779902,
+        "expectedSign": 1,
+        "preserved": true
+      },
+      "left": {
+        "beforeValue": -0.17307397669059504,
+        "afterValue": -0.18502107317144187,
+        "expectedSign": -1,
+        "preserved": true
+      },
+      "right": {
+        "beforeValue": 0.12218686642677201,
+        "afterValue": 0.11369180177323818,
+        "expectedSign": 1,
+        "preserved": true
+      }
+    },
+    "sign_check_all_preserved": true
+  },
+  "twist_in_place": {
+    "rotate_one": {
+      "n": 406,
+      "maxPointerDriftFromPhaseStart": 0.06688137158343298,
+      "finalPointerDriftFromPhaseStart": 0.06688137158343298,
+      "meanAbsTwistRateDps": 14.163914572429187,
+      "maxAbsTwistRateDps": 157.40966796875,
+      "anglesRollRangeDeg": 89.483642578125
+    },
+    "rotate_other": {
+      "n": 330,
+      "maxPointerDriftFromPhaseStart": 0.05354763773651206,
+      "finalPointerDriftFromPhaseStart": 0.05354763773651206,
+      "meanAbsTwistRateDps": 25.727797999526516,
+      "maxAbsTwistRateDps": 259.3994140625,
+      "anglesRollRangeDeg": 151.0675048828125
+    }
+  },
+  "still_jitter": {
+    "still_start__pointer": {
+      "n": 288,
+      "rms_dist_from_mean": 0.004846536605935722,
+      "p95_dist_from_mean": 0.00905101645718015,
+      "peak_to_peak_x": 0.0,
+      "peak_to_peak_y": 0.020331872255187733,
+      "gyro_mad_dps": [
+        0.79345703125,
+        0.79345703125,
+        0.67138671875
+      ]
+    },
+    "still_start__unfilteredPointer": {
+      "n": 288,
+      "rms_dist_from_mean": 0.004842164901325302,
+      "p95_dist_from_mean": 0.009072839265298782,
+      "peak_to_peak_x": 0.0,
+      "peak_to_peak_y": 0.020449998012322834,
+      "gyro_mad_dps": [
+        0.79345703125,
+        0.79345703125,
+        0.67138671875
+      ]
+    },
+    "still_end__pointer": {
+      "n": 306,
+      "rms_dist_from_mean": 0.007298276393796017,
+      "p95_dist_from_mean": 0.012325761885011019,
+      "peak_to_peak_x": 0.023563421352312375,
+      "peak_to_peak_y": 0.015871163870261995,
+      "gyro_mad_dps": [
+        0.48828125,
+        0.3662109375,
+        0.3662109375
+      ]
+    },
+    "still_end__unfilteredPointer": {
+      "n": 306,
+      "rms_dist_from_mean": 0.007285316169520929,
+      "p95_dist_from_mean": 0.01207795050928368,
+      "peak_to_peak_x": 0.02360894658439394,
+      "peak_to_peak_y": 0.01591712053225791,
+      "gyro_mad_dps": [
+        0.48828125,
+        0.3662109375,
+        0.3662109375
+      ]
+    }
+  },
+  "latency_stages_ms": {
+    "parsing_ble_to_parsed": {
+      "mean": 0.16024381687076933,
+      "median": 0.10000000149011612,
+      "p95": 0.30000000074505806,
+      "max": 0.5
+    },
+    "controller_parsed_to_controllerStarted": {
+      "mean": 0.05863883528859077,
+      "median": 0.0,
+      "p95": 0.19999999925494194,
+      "max": 0.30000000074505806
+    },
+    "filter_stage": {
+      "mean": 0.011541834766614691,
+      "median": 0.0,
+      "p95": 0.10000000149011612,
+      "max": 0.20000000298023224
+    },
+    "total_ble_to_pointerOutput": {
+      "mean": 0.23452025959835077,
+      "median": 0.20000000298023224,
+      "p95": 0.3999999985098839,
+      "max": 0.5
+    }
+  },
+  "hardware_comparison_trials": [
+    {
+      "label": "50Hz + \u0627\u0644\u0641\u0644\u062a\u0631 \u0627\u0644\u062d\u0627\u0644\u064a (20Hz)",
+      "rateHz": 50,
+      "bandwidthHz": 20,
+      "originalRateCode": 6,
+      "originalBandwidthCode": 4,
+      "measuredHz": 49.935362855168584,
+      "stillNoiseGyroDps_std": [
+        8.245630199533108,
+        10.741748637733279,
+        18.435482621577563
+      ]
+    },
+    {
+      "label": "50Hz + \u0641\u0644\u062a\u0631 \u0623\u0636\u064a\u0642 (20Hz)",
+      "rateHz": 50,
+      "bandwidthHz": 20,
+      "originalRateCode": 6,
+      "originalBandwidthCode": 4,
+      "measuredHz": 50.06667169845543,
+      "stillNoiseGyroDps_std": [
+        0.7006921003403493,
+        0.3437119376177435,
+        0.7020353112059782
+      ]
+    },
+    {
+      "label": "100Hz + \u0641\u0644\u062a\u0631 \u0645\u062a\u0648\u0627\u0641\u0642 (42Hz)",
+      "rateHz": 100,
+      "bandwidthHz": 42,
+      "originalRateCode": 6,
+      "originalBandwidthCode": 4,
+      "measuredHz": 100.05015045135406,
+      "stillNoiseGyroDps_std": [
+        0.7347153517911117,
+        0.47763741441893237,
+        0.6141632080002305
+      ]
+    }
+  ],
+  "profile_edge_and_range": {
+    "edgeReversal": [
+      {
+        "phase": "edge_right_reverse_left",
+        "reversalResponseMs": 254
+      },
+      {
+        "phase": "edge_left_reverse_right",
+        "reversalResponseMs": null
+      },
+      {
+        "phase": "edge_top_reverse_down",
+        "reversalResponseMs": null
+      },
+      {
+        "phase": "edge_bottom_reverse_up",
+        "reversalResponseMs": 120.20000000298023
+      }
+    ],
+    "achievedRange": {
+      "maxRightX": 0.9999999999866838,
+      "maxLeftX": 5.454322400511304e-12,
+      "maxUpY": 5.197100723287705e-25,
+      "maxDownY": 1
+    },
+    "noiseEnvelope": {
+      "sampleCount": 594,
+      "gyroDps": [
+        {
+          "mean": -0.3188419020938552,
+          "std": 1.4128601242054573,
+          "mad": 0.6103515625
+        },
+        {
+          "mean": -0.11693267308501684,
+          "std": 1.1305472179648257,
+          "mad": 0.48828125
+        },
+        {
+          "mean": 0.18176968250210437,
+          "std": 0.8975077270385287,
+          "mad": 0.48828125
+        }
+      ]
+    }
+  }
+}

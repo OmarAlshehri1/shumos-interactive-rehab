@@ -1,0 +1,412 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "buildQuest3d": {
+      "rooms": {
+        "$sessionId": {
+          ".read": "auth != null",
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && newData.exists() && ((!data.exists() && newData.child('epoch').val() == 1 && newData.child('revision').val() == 1) || (data.child('ownerUid').val() == auth.uid && data.child('ownerToken').val() == newData.child('ownerToken').val() && data.child('expiresAt').val() > now && newData.child('epoch').val() == data.child('epoch').val() && ((newData.child('revision').val() == data.child('revision').val() + 1) || (newData.child('revision').val() == data.child('revision').val() && newData.child('payload').val() == data.child('payload').val() && newData.child('stage').val() == data.child('stage').val() && newData.child('run').val() == data.child('run').val() && newData.child('status').val() == data.child('status').val() && newData.child('placementCount').val() == data.child('placementCount').val() && newData.child('completedCount').val() == data.child('completedCount').val() && newData.child('skippedCount').val() == data.child('skippedCount').val() && newData.child('startedAt').val() == data.child('startedAt').val() && newData.child('endedAt').val() == data.child('endedAt').val() && newData.child('startingStage').val() == data.child('startingStage').val()))) || (data.exists() && (data.child('expiresAt').val() <= now || (data.child('ownerUid').val() == auth.uid && data.child('ownerToken').val() == newData.child('ownerToken').val())) && newData.child('epoch').val() == data.child('epoch').val() + 1 && newData.child('revision').val() == data.child('revision').val() + 1))",
+          ".validate": "newData.hasChildren([\"schemaVersion\", \"sessionId\", \"ownerUid\", \"ownerToken\", \"epoch\", \"revision\", \"expiresAt\", \"updatedAt\", \"createdAt\", \"startedAt\", \"endedAt\", \"startingStage\", \"stage\", \"run\", \"status\", \"placementCount\", \"completedCount\", \"skippedCount\", \"payload\"]) && (!data.exists() || (newData.child('createdAt').val() == data.child('createdAt').val() && newData.child('run').val() >= data.child('run').val() && newData.child('placementCount').val() >= data.child('placementCount').val() && (data.child('startedAt').val() == 0 || (newData.child('startedAt').val() == data.child('startedAt').val() && newData.child('startingStage').val() == data.child('startingStage').val())) && (data.child('endedAt').val() == 0 || newData.child('endedAt').val() == data.child('endedAt').val())))",
+          "schemaVersion": {
+            ".validate": "newData.val() == 1"
+          },
+          "sessionId": {
+            ".validate": "newData.isString() && newData.val() == $sessionId && newData.val().length >= 8 && newData.val().length <= 80"
+          },
+          "ownerUid": {
+            ".validate": "newData.isString() && newData.val() == auth.uid"
+          },
+          "ownerToken": {
+            ".validate": "newData.isString() && newData.val().length >= 8 && newData.val().length <= 80"
+          },
+          "epoch": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 1000000000 && newData.val() % 1 == 0"
+          },
+          "revision": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 1000000000 && newData.val() % 1 == 0"
+          },
+          "expiresAt": {
+            ".validate": "newData.isNumber() && newData.val() >= now - 1000 && newData.val() <= now + 15000"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() == now"
+          },
+          "createdAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= now"
+          },
+          "startedAt": {
+            ".validate": "newData.isNumber() && (newData.val() == 0 || (newData.val() >= newData.parent().child('createdAt').val() && newData.val() <= now))"
+          },
+          "endedAt": {
+            ".validate": "newData.isNumber() && (newData.val() == 0 || (newData.parent().child('status').val() == 'ended' && newData.val() >= newData.parent().child('startedAt').val() && newData.val() <= now))"
+          },
+          "startingStage": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 8 && newData.val() % 1 == 0"
+          },
+          "stage": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 8 && newData.val() % 1 == 0"
+          },
+          "run": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 1000000000 && newData.val() % 1 == 0"
+          },
+          "status": {
+            ".validate": "newData.isString() && (newData.val() == 'ready' || newData.val() == 'running' || newData.val() == 'paused' || newData.val() == 'complete' || newData.val() == 'ended')"
+          },
+          "placementCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000 && newData.val() % 1 == 0"
+          },
+          "completedCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 9 && newData.val() % 1 == 0"
+          },
+          "skippedCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 9 && newData.val() % 1 == 0"
+          },
+          "payload": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 32768"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      },
+      "active": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && ((!newData.exists() && data.child('ownerUid').val() == auth.uid) || (newData.exists() && root.child('buildQuest3d').child('rooms').child(newData.child('sessionId').val()).child('ownerUid').val() == auth.uid && root.child('buildQuest3d').child('rooms').child(newData.child('sessionId').val()).child('ownerToken').val() == newData.child('ownerToken').val() && root.child('buildQuest3d').child('rooms').child(newData.child('sessionId').val()).child('epoch').val() == newData.child('epoch').val() && root.child('buildQuest3d').child('rooms').child(newData.child('sessionId').val()).child('expiresAt').val() > now && (!data.exists() || data.child('ownerUid').val() == auth.uid || root.child('buildQuest3d').child('rooms').child(data.child('sessionId').val()).child('expiresAt').val() <= now)))",
+        ".validate": "newData.hasChildren(['sessionId','ownerUid','ownerToken','epoch','selectedAt'])",
+        "sessionId": {
+          ".validate": "newData.isString()"
+        },
+        "ownerUid": {
+          ".validate": "newData.val() == auth.uid"
+        },
+        "ownerToken": {
+          ".validate": "newData.isString()"
+        },
+        "epoch": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 1000000000 && newData.val() % 1 == 0"
+        },
+        "$other": {
+          ".validate": false
+        },
+        "selectedAt": {
+          ".validate": "newData.isNumber() && newData.val() == now"
+        }
+      },
+      "patients": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+        "$sessionId": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && !data.exists() && root.child('buildQuest3d').child('rooms').child($sessionId).child('ownerUid').val() == auth.uid",
+          ".validate": "newData.hasChildren(['sessionId','patientId','ownerUid'])",
+          "sessionId": {
+            ".validate": "newData.val() == $sessionId"
+          },
+          "patientId": {
+            ".validate": "newData.isString() && newData.val().length <= 60 && (newData.val() == '' || root.child('patients').child(newData.val()).exists())"
+          },
+          "ownerUid": {
+            ".validate": "newData.val() == auth.uid"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    },
+    "liveSession": {
+      ".read": "auth != null",
+      ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && (!data.exists() || !newData.exists() || newData.child('revision').val() > data.child('revision').val())",
+      ".validate": "newData.hasChildren(['gameId', 'sessionId', 'revision', 'session', 'updatedAt'])",
+      "gameId": {
+        ".validate": "newData.isString() && (newData.val() == 'balloon-quest' || newData.val() == 'follow-the-footsteps' || newData.val() == 'bubble-pop-wall' || newData.val() == 'feed-the-animals' || newData.val() == 'space-pilot' || newData.val() == 'color-chase' || newData.val() == 'runner-quest-3d')"
+      },
+      "sessionId": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 100"
+      },
+      "revision": {
+        ".validate": "newData.isNumber() && newData.val() > 0"
+      },
+      "session": {
+        ".validate": "newData.hasChildren(['sessionId', 'seed', 'config', 'gameState', 'currentDifficulty', 'currentStage', 'createdAt'])",
+        "config": {
+          "childFirstName": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 30"
+          },
+          "$other": {
+            ".validate": true
+          }
+        },
+        "$other": {
+          ".validate": true
+        }
+      },
+      "lastInteraction": {
+        ".validate": "newData.val() == null || newData.hasChildren(['id', 'type', 'balloonId', 'revision', 'timestamp'])"
+      },
+      "celebrationReplay": {
+        ".validate": "newData.val() == null || newData.hasChildren(['token', 'timestamp'])"
+      },
+      "patientId": {
+        ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 60)"
+      },
+      "updatedAt": {
+        ".validate": true
+      }
+    },
+    "controllerLease": {
+      ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+      ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && (!data.exists() || data.child('ownerId').val() == auth.uid || (now - data.child('updatedAt').val()) > 45000)",
+      ".validate": "!newData.exists() || (newData.hasChildren(['ownerId', 'claimedAt']) && newData.child('ownerId').val() == auth.uid)"
+    },
+    "presence": {
+      "controller": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+        ".validate": "!newData.exists() || newData.hasChild('connected')"
+      },
+      "display": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        ".validate": "!newData.exists() || newData.hasChild('connected')"
+      }
+    },
+    "staff": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false,
+        ".validate": "newData.hasChildren(['active', 'role'])",
+        "active": {
+          ".validate": "newData.isBoolean()"
+        },
+        "role": {
+          ".validate": "newData.isString() && (newData.val() == 'therapist' || newData.val() == 'admin')"
+        },
+        "$other": {
+          ".validate": true
+        }
+      }
+    },
+    "patients": {
+      ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+      "$patientId": {
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+        ".validate": "newData.hasChildren(['patientNumber', 'firstName', 'createdAt', 'updatedAt', 'createdByUid', 'active'])",
+        "patientNumber": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 40 && (!data.exists() || newData.val() == data.val())"
+        },
+        "firstName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+        },
+        "createdAt": {
+          ".validate": "newData.isNumber() && (!data.exists() || newData.val() == data.val())"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "createdByUid": {
+          ".validate": "newData.isString() && (!data.exists() || newData.val() == data.val())"
+        },
+        "active": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "patientNumbers": {
+      ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+      "$normalizedNumber": {
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && !data.exists()",
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 40"
+      }
+    },
+    "sessions": {
+      ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+      "$historyPatientId": {
+        "$sessionId": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && !data.exists() && (newData.child('gameId').val() != 'build-quest-3d' || (root.child('buildQuest3d').child('rooms').child($sessionId).child('ownerUid').val() == auth.uid && root.child('buildQuest3d').child('rooms').child($sessionId).child('status').val() == 'ended' && root.child('buildQuest3d').child('patients').child($sessionId).child('patientId').val() == $historyPatientId && newData.child('totalPiecesPlaced').val() == root.child('buildQuest3d').child('rooms').child($sessionId).child('placementCount').val() && newData.child('completedStageCount').val() == root.child('buildQuest3d').child('rooms').child($sessionId).child('completedCount').val() && newData.child('skippedStageCount').val() == root.child('buildQuest3d').child('rooms').child($sessionId).child('skippedCount').val()))",
+          ".validate": "newData.hasChildren(['sessionId', 'patientId', 'gameId', 'startedAt', 'completedAt', 'createdByUid', 'startingDifficulty', 'startingStage', 'endingDifficulty', 'endingStage', 'completedStageCount', 'skippedStageCount']) && newData.child('patientId').val() == $historyPatientId && newData.child('sessionId').val() == $sessionId && ((newData.child('gameId').val() == 'balloon-quest' && newData.hasChildren(['totalCorrect', 'totalIncorrect'])) || (newData.child('gameId').val() == 'follow-the-footsteps' && newData.hasChildren(['totalStepsPresented', 'totalStepsCompleted'])) || (newData.child('gameId').val() == 'bubble-pop-wall' && newData.hasChildren(['totalTargetsPresented', 'totalTargetsCompleted', 'totalIncorrect'])) || (newData.child('gameId').val() == 'feed-the-animals' && newData.hasChildren(['totalRoundsPresented', 'totalRoundsCompleted', 'totalIncorrect'])) || (newData.child('gameId').val() == 'space-pilot' && newData.hasChildren(['totalStarsPresented', 'totalStarsCollected'])) || (newData.child('gameId').val() == 'color-chase' && newData.hasChildren(['totalTargetsPresented', 'totalCorrect', 'totalIncorrect', 'totalDangerPresses'])) || (newData.child('gameId').val() == 'runner-quest-3d' && newData.hasChildren(['resultVersion', 'totalStars', 'totalHolds', 'totalAssists', 'totalObstaclesPresented', 'totalObstaclesResolved'])) || (newData.child('gameId').val() == 'build-quest-3d' && newData.hasChildren(['resultVersion','totalPiecesPlaced']) && newData.child('resultVersion').val() == 1))",
+          "sessionId": {
+            ".validate": "newData.isString() && newData.val() == $sessionId"
+          },
+          "patientId": {
+            ".validate": "newData.isString() && newData.val() == $historyPatientId"
+          },
+          "gameId": {
+            ".validate": "newData.isString() && (newData.val() == 'balloon-quest' || newData.val() == 'follow-the-footsteps' || newData.val() == 'bubble-pop-wall' || newData.val() == 'feed-the-animals' || newData.val() == 'space-pilot' || newData.val() == 'color-chase' || newData.val() == 'runner-quest-3d' || newData.val() == 'build-quest-3d')"
+          },
+          "startedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "completedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= newData.parent().child('startedAt').val()"
+          },
+          "createdByUid": {
+            ".validate": "newData.isString() && newData.val() == auth.uid"
+          },
+          "therapistName": {
+            ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 80)"
+          },
+          "sessionGoal": {
+            ".validate": "newData.val() == null || (newData.isString() && (newData.val() == 'MOVEMENT_REACH' || newData.val() == 'VISUAL_DISCRIMINATION' || newData.val() == 'FOLLOWING_INSTRUCTIONS' || newData.val() == 'BALANCE_TRANSITION' || newData.val() == 'INTERACTION_RESPONSE' || newData.val() == 'OTHER'))"
+          },
+          "customSessionGoal": {
+            ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 100)"
+          },
+          "endReason": {
+            ".validate": "newData.val() == null || (newData.isString() && (newData.val() == 'CHILD_SATISFIED' || newData.val() == 'CHILD_TIRED' || newData.val() == 'CHANGE_ACTIVITY' || newData.val() == 'OTHER'))"
+          },
+          "customEndReason": {
+            ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 120)"
+          },
+          "therapistNote": {
+            ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && data.parent().child('createdByUid').val() == auth.uid",
+            ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 750)"
+          },
+          "startingDifficulty": {
+            ".validate": "newData.isString() && (newData.val() == 'EASY' || newData.val() == 'MEDIUM' || newData.val() == 'ADVANCED')"
+          },
+          "startingStage": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5"
+          },
+          "endingDifficulty": {
+            ".validate": "newData.isString() && (newData.val() == 'EASY' || newData.val() == 'MEDIUM' || newData.val() == 'ADVANCED')"
+          },
+          "endingStage": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5"
+          },
+          "completedStageCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "skippedStageCount": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalCorrect": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalIncorrect": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "accuracy": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+          },
+          "averageReactionTimeMs": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "totalStepsPresented": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalStepsCompleted": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "completionRate": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+          },
+          "averageStepTimeMs": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "totalTargetsPresented": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalTargetsCompleted": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalDangerPresses": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "averageResponseTimeMs": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "totalRoundsPresented": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalRoundsCompleted": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalStarsPresented": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalStarsCollected": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "collectionRate": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+          },
+          "finalUpgradeLevel": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "asteroidsCleared": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "asteroidsAvoided": {
+            ".validate": "newData.val() == null || (newData.isNumber() && newData.val() >= 0)"
+          },
+          "resultVersion": {
+            ".validate": "(newData.isNumber() && newData.val() >= 1) || (newData.parent().child('gameId').val() == 'build-quest-3d' && newData.val() == 1)"
+          },
+          "totalStars": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalHolds": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalAssists": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalObstaclesPresented": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "totalObstaclesResolved": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "inputSource": {
+            ".validate": "newData.val() == null || (newData.isString() && newData.val().length > 0 && newData.val().length <= 20)"
+          },
+          "durationMs": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "bestStage": {
+            ".validate": "newData.val() == null || newData.hasChildren(['difficulty', 'stageNumber'])"
+          },
+          "stageResults": {
+            ".validate": true,
+            "$row": {
+              ".validate": "newData.parent().parent().child('gameId').val() != 'build-quest-3d' || (($row == '0' || $row == '1' || $row == '2' || $row == '3' || $row == '4' || $row == '5' || $row == '6' || $row == '7' || $row == '8') && newData.hasChildren(['engine','stageId','difficulty','stageNumber','status','piecesPlaced']))",
+              "engine": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || newData.val() == 'build3'"
+              },
+              "stageId": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || (newData.isString() && newData.val().length > 0 && newData.val().length <= 80)"
+              },
+              "difficulty": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || (newData.val() == 'EASY' || newData.val() == 'MEDIUM' || newData.val() == 'ADVANCED')"
+              },
+              "stageNumber": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || (newData.isNumber() && newData.val() >= 1 && newData.val() <= 3 && newData.val() % 1 == 0)"
+              },
+              "status": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || (newData.val() == 'COMPLETED' || newData.val() == 'SKIPPED')"
+              },
+              "piecesPlaced": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || (newData.isNumber() && newData.val() >= 0 && newData.val() <= 10 && newData.val() % 1 == 0)"
+              },
+              "durationMs": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d' || newData.val() == null"
+              },
+              "$other": {
+                ".validate": "newData.parent().parent().parent().child('gameId').val() != 'build-quest-3d'"
+              }
+            }
+          },
+          "$other": {
+            ".validate": false
+          },
+          "totalPiecesPlaced": {
+            ".validate": "newData.parent().child('gameId').val() == 'build-quest-3d' && newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000 && newData.val() % 1 == 0"
+          }
+        }
+      }
+    }
+  }
+}

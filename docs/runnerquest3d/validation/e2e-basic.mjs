@@ -1,0 +1,21 @@
+import { launch, sleep } from "./cdplib.mjs";
+const out = process.argv[2];
+const b = await launch(out, 9558);
+const display = await b.open("http://127.0.0.1:3210/display/runner-quest-3d-prototype?diag=1");
+const control = await b.open("http://127.0.0.1:3210/control/runner-quest-3d-prototype", 1400, 1000);
+await sleep(7000);
+await control.shot(`${out}/control-ready.png`);
+console.log("display status:", await control.text("display-status"), "| input:", await control.text("input-status"), "| lifecycle:", await control.text("lifecycle"));
+await control.click("start");
+await sleep(500);
+console.log("after start:", await control.text("lifecycle"), await display.eval("document.querySelector('[data-testid=rq3d-display]')?.dataset.lifecycle"));
+await sleep(9000);
+await control.shot(`${out}/control-playing.png`);
+await display.shot(`${out}/display-playing.png`);
+console.log("progress:", await control.text("progress"), "holding?", await control.text("holding"));
+// real key events on Control
+await control.bringToFront();
+await control.key("keyDown", "ArrowLeft"); await control.key("keyUp", "ArrowLeft");
+await sleep(600);
+console.log("last input:", await control.text("last-input"));
+b.close();

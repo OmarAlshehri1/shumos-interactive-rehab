@@ -1,0 +1,15 @@
+# Q3 — Input and local synchronization passed
+
+BuildQuestSensor consumes only existing `shumos-sensor-pointer` messages for RIGHT_HAND, using final normalized X/Y. No WT901 driver, calibration, filter, auto-centering, role assignment or protocol was changed; no second BLE connection was created. Freshness budget is 250 ms. Malformed, future, stale and reordered packets are rejected. Silence, invisibility and large discontinuities disengage tracking; recovery requires pickup near the held pointer. Small recenter changes cannot be explicitly identified because the upstream normalized protocol has no recenter marker; large jumps use a conservative clutch. Physical usability requires testing.
+
+Keyboard/mouse and future Gamepad input all enter the same pure Control engine. Mouse/Space/button activation selects a source piece; movement snaps only into that piece's valid target; selecting again away from a target releases it without a penalty. Sensor selection uses configurable dwell, with no button. Simulation uses bounded axes, a dead zone and a rising-edge button. Joy-Con compatibility is not claimed.
+
+Local transport uses a distinct Build Quest BroadcastChannel per unpredictable session ID. Control alone owns outcomes. Web Locks serialize authorities across tabs; run/stage/revision guards, ordered client sequences, timestamp freshness and unique placement IDs prevent stale or duplicate acceptance. Display renders validated snapshots and never scores. Display silence shows a hold overlay. A validated local snapshot saves accepted placements and session summary, without patient identifiers or Firebase history; reload pauses a running session and increments the run guard. Resume requires therapist action. Local sessions require the same browser/origin on one machine.
+
+Therapist controls: difficulty, stage, input mode, independent assistance, dwell, tolerance, quality, start/pause/resume/restart/skip/end and completion statistics. Child screen has the workbench, short Arabic feedback and progress, with no gameplay buttons or internal developer telemetry. Unsupported WebGL displays a readable error.
+
+Validation: 29 focused tests passed, typecheck and focused lint passed. `validation/q3-browser.mjs` completed all nine stages via normalized RIGHT_HAND simulation, tested sensor loss/pickup, pause/resume, real keyboard arrow/Space interaction and simulated Gamepad stick/button interaction. No authoritative gameplay state was injected. Zero console/page errors and zero Firebase requests. Results: `validation/q3-browser.json`. Real recorded gameplay: `video/buildquest-gameplay.webm` (source captures also retained under `video/raw`). Keyboard testing explicitly focuses the Display window, matching actual keyboard use.
+
+A mouse-to-keyboard local-pointer pickup race discovered in validation was fixed by sharing the latest intentional pointer between simulation adapters. The installed formatter was used only on new Build Quest files.
+
+Q3 critical software acceptance passes. Physical WT901, handheld-controller, projector and rehabilitation-user validation remain pending. Proceed to Q4.

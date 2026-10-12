@@ -54,3 +54,22 @@ tts-service/voices/*.json
 *.gguf
 database-debug.log
 tts-service/test_output.wav
+
+# Isolated Next.js outputs (SHUMOS_BUILD_DIR); also exclude from Tailwind source scanning.
+/.next-*/
+.next-balancebridge*/
+
+# Local validation artifacts; retain on disk, exclude from release commits.
+**/.venv/
+**/__pycache__/
+firebase-debug.log
+/docs/**/*.log
+/docs/**/*.mp4
+/docs/**/*.webm
+/docs/**/*.png
+/docs/**/*.webp
+/tools/witmotion_ble/real_dataset/raw/
+/docs/**/*.diff
+/docs/**/*.patch
+/docs/**/validation/*.txt
+/docs/**/final-system-evidence/*.txt

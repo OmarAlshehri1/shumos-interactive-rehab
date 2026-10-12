@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "advancedMode": true,
+  "ringTolerance": 0,
+  "manualInputMarkedAssisted": true,
+  "reloadPreservedAssistance": true,
+  "reloadPreservedAdvancedStage": true,
+  "result": {
+    "stageIndex": 7,
+    "status": "skipped",
+    "assisted": true,
+    "durationMs": 667,
+    "ringsPresented": 2,
+    "ringsCollected": 0,
+    "ringsMissed": 0,
+    "asteroidsPresented": 0,
+    "asteroidsAvoided": 0,
+    "asteroidCollisions": 0,
+    "repeats": 0
+  },
+  "errors": []
+}

@@ -21,13 +21,19 @@
   },
   {
     "gameId": "bubble-pop-wall",
-    "source": "docs/release/library-evidence/bubble-pop-wall-display.png",
+    "source": "docs/premium-refinement/screenshots/bubble-pop-canvas.png",
     "asset": "public/library-thumbnails/bubble-pop-wall.webp",
     "width": 960,
     "height": 540,
-    "bytes": 40060,
-    "sourceSha256": "1b561fe717b117e142bf8f8c5a1d273d61bb42ef42b19fe98d71519b4662cf61",
-    "assetSha256": "dee52a5cecd183ef60134f080c8c8da6980c9d8b058169601af9a6925c02b082"
+    "bytes": 36462,
+    "sourceSha256": "fcc25bcb279cca66b2fa611af5fe0863338710c4293401792a91d693da4d5475",
+    "assetSha256": "0cb339856f95fb21962229639b5c36783db41f67164bea2a734c0acd6387c542",
+    "crop": {
+      "left": 580,
+      "top": 130,
+      "width": 1280,
+      "height": 720
+    }
   },
   {
     "gameId": "space-pilot",
@@ -128,5 +134,23 @@
     "bytes": 33908,
     "sourceSha256": "d99f949b7b6bb923b901ef0311fb8d208fcaa8eb9dada7cce2575dd5689485ba",
     "assetSha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8"
+  },
+  {
+    "gameId": "shumos-castle-legends-3d",
+    "source": "docs/castlelegends3d/screenshots/thumbnail-source.png",
+    "asset": "public/castlelegends3d/thumbnail.png",
+    "width": 640,
+    "height": 360,
+    "bytes": 362730,
+    "sourceSha256": "7d0f7e7682d00e7bb851e6e94141f934ccaa14312772b69113eb30e0b7920566",
+    "assetSha256": "0468da6383a8cbf1973b8d174f02c396b27287eef27cb6bafc476ee7cc87f797"
+  },
+  {
+    "gameId": "balance-bridge-3d",
+    "width": 1280,
+    "height": 720,
+    "source": "docs/balancebridge3d/evidence/thumbnail-source.png",
+    "asset": "public/balancebridge3d/thumbnail.webp",
+    "capture": "Native shared Display canvas screenshot without HTML development overlays, resized and center-cropped to 1280x720."
   }
 ]

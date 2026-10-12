@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "name": "Home has no duplicated game cards",
+      "ok": true
+    },
+    {
+      "name": "Quick session goes directly to library",
+      "ok": true
+    },
+    {
+      "name": "60-minute setup available",
+      "ok": true
+    },
+    {
+      "name": "Custom duration editable",
+      "ok": true
+    },
+    {
+      "name": "Guest visit starts",
+      "ok": true
+    },
+    {
+      "name": "Therapist-confirmed exercise added",
+      "ok": true
+    },
+    {
+      "name": "Exercise evaluation remains editable",
+      "ok": true
+    },
+    {
+      "name": "Guest pause survives reload",
+      "ok": true
+    },
+    {
+      "name": "Guest ended without permanent patient",
+      "ok": true
+    },
+    {
+      "name": "Guest created no permanent visit records",
+      "ok": true
+    },
+    {
+      "name": "Saved-patient visit starts after server ack",
+      "ok": true
+    },
+    {
+      "name": "Saved-patient visit recovers after reload",
+      "ok": true
+    },
+    {
+      "name": "Duration extension persisted",
+      "ok": true
+    },
+    {
+      "name": "Patient visit ends after server ack",
+      "ok": true
+    },
+    {
+      "name": "Completed visit appears with final notes",
+      "ok": true
+    },
+    {
+      "name": "New patient uses canonical creation and starts linked visit",
+      "ok": true
+    },
+    {
+      "name": "Calibration profile reloads",
+      "ok": true
+    },
+    {
+      "name": "iPad has no horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "Separate Display connected status",
+      "ok": true
+    }
+  ],
+  "errors": []
+}

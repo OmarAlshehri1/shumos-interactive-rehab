@@ -1,0 +1,53 @@
+{
+  "runs": [
+    {
+      "mode": "standing",
+      "character": "الأسد",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "standing",
+      "character": "الأرنب",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "standing",
+      "character": "الدب",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "standing",
+      "character": "الثعلب",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "seated",
+      "character": "الأسد",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "seated",
+      "character": "الأرنب",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "seated",
+      "character": "الدب",
+      "stages": 9,
+      "poses": 28
+    },
+    {
+      "mode": "seated",
+      "character": "الثعلب",
+      "stages": 9,
+      "poses": 28
+    }
+  ],
+  "errors": []
+}

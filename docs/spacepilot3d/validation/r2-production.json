@@ -1,0 +1,16 @@
+[
+  {
+    "section": "display",
+    "status": 404,
+    "streamedNotFound": true,
+    "experimentalComponentPresent": false,
+    "startLabelPresent": false
+  },
+  {
+    "section": "control",
+    "status": 200,
+    "streamedNotFound": true,
+    "experimentalComponentPresent": false,
+    "startLabelPresent": false
+  }
+]

@@ -1,0 +1,3408 @@
+{
+  "baseline": {
+    "summary": {
+      "maxRotDrift": 0.19026007450747592,
+      "meanRotDrift": 0.11845145093448654,
+      "minAimRange": 0.5
+    },
+    "perSession": [
+      {
+        "file": "wt901-right-hand-diagnostic-1788441394853.json",
+        "metrics": {
+          "rotate_one": {
+            "maxDrift": 0.12282122499900928,
+            "xRange": 0.030884393628452245,
+            "yRange": 0.1866913578403372
+          },
+          "rotate_other": {
+            "maxDrift": 0.11554548538046681,
+            "xRange": 0.20191243810267656,
+            "yRange": 0.02918122168574172
+          },
+          "right": {
+            "maxDrift": 0.49896008518453344,
+            "xRange": 0.5,
+            "yRange": 0.06262692547594384
+          },
+          "left": {
+            "maxDrift": 0.9097052079544833,
+            "xRange": 0.9080566713093386,
+            "yRange": 0.05474163927133885
+          },
+          "up": {
+            "maxDrift": 0.9484110478338731,
+            "xRange": 0.8059054011813949,
+            "yRange": 1.0
+          },
+          "down": {
+            "maxDrift": 0.37990145448631835,
+            "xRange": 0.23344598497101487,
+            "yRange": 0.6267081797527269
+          },
+          "diagonal": {
+            "maxDrift": 0.7823906058299357,
+            "xRange": 0.6757335250026578,
+            "yRange": 0.5
+          }
+        }
+      },
+      {
+        "file": "wt901-right-hand-diagnostic-1788442512578.json",
+        "metrics": {
+          "rotate_one": {
+            "maxDrift": 0.19026007450747592,
+            "xRange": 0.2413446384496455,
+            "yRange": 0.07596186114472597
+          },
+          "rotate_other": {
+            "maxDrift": 0.04618577746859393,
+            "xRange": 0.05825245780684063,
+            "yRange": 0.017413949549187846
+          },
+          "right": {
+            "maxDrift": 0.5046195610695793,
+            "xRange": 0.551452801381391,
+            "yRange": 0.06812416174937419
+          },
+          "left": {
+            "maxDrift": 0.5095945481493752,
+            "xRange": 0.7482300765271318,
+            "yRange": 0.10302951036748509
+          },
+          "up": {
+            "maxDrift": 0.5331971953110666,
+            "xRange": 0.3258916905290998,
+            "yRange": 0.9418484082504464
+          },
+          "down": {
+            "maxDrift": 0.4143778824519409,
+            "xRange": 0.20259817903546895,
+            "yRange": 0.6868325148266483
+          },
+          "diagonal": {
+            "maxDrift": 0.7071067811865476,
+            "xRange": 0.7308415123596707,
+            "yRange": 0.5
+          }
+        }
+      },
+      {
+        "file": "wt901-right-hand-diagnostic-1788443253622.json",
+        "metrics": {
+          "rotate_one": {
+            "maxDrift": 0.13243698591420883,
+            "xRange": 0.17388490780053834,
+            "yRange": 0.0
+          },
+          "rotate_other": {
+            "maxDrift": 0.10345915733716449,
+            "xRange": 0.0022747179885284075,
+            "yRange": 0.188908540892186
+          },
+          "right": {
+            "maxDrift": 0.5346682462789125,
+            "xRange": 0.5786508954935454,
+            "yRange": 0.24223344030895677
+          },
+          "left": {
+            "maxDrift": 0.5583135713824557,
+            "xRange": 0.6542576396739521,
+            "yRange": 0.25787885692769047
+          },
+          "up": {
+            "maxDrift": 0.5297984018345648,
+            "xRange": 0.18131554275995948,
+            "yRange": 0.6021086137692858
+          },
+          "down": {
+            "maxDrift": 0.47755166076703653,
+            "xRange": 0.13918910491593867,
+            "yRange": 0.8100049588505016
+          },
+          "diagonal": {
+            "maxDrift": 0.7215710313889034,
+            "xRange": 1.0,
+            "yRange": 1.0
+          }
+        }
+      }
+    ]
+  },
+  "grid": [
+    {
+      "threshold": 0.4,
+      "maxSuppression": 0.3,
+      "summary": {
+        "maxRotDrift": 0.1274282973544155,
+        "meanRotDrift": 0.07696267696989147,
+        "minAimRange": 0.4508547016364865
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.07953532132428434,
+              "xRange": 0.01377278543407695,
+              "yRange": 0.11776401176770424
+            },
+            "rotate_other": {
+              "maxDrift": 0.07518311157229847,
+              "xRange": 0.12916542494524802,
+              "yRange": 0.014631926946707396
+            },
+            "right": {
+              "maxDrift": 0.5039240798357054,
+              "xRange": 0.5,
+              "yRange": 0.06276526299046603
+            },
+            "left": {
+              "maxDrift": 0.8998200738119109,
+              "xRange": 0.8981478113417646,
+              "yRange": 0.05483314888706242
+            },
+            "up": {
+              "maxDrift": 0.9457235406902009,
+              "xRange": 0.8027409391675562,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37719483977655616,
+              "xRange": 0.21705227801775384,
+              "yRange": 0.6392492510606902
+            },
+            "diagonal": {
+              "maxDrift": 0.7620301752392984,
+              "xRange": 0.6598129120575467,
+              "yRange": 0.4508547016364865
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.1274282973544155,
+              "xRange": 0.1604619502756015,
+              "yRange": 0.04849057718447014
+            },
+            "rotate_other": {
+              "maxDrift": 0.02446684063539718,
+              "xRange": 0.027233474459098017,
+              "yRange": 0.005707882581649781
+            },
+            "right": {
+              "maxDrift": 0.5044799135873469,
+              "xRange": 0.5482695262480367,
+              "yRange": 0.06708191420268939
+            },
+            "left": {
+              "maxDrift": 0.5092261547203523,
+              "xRange": 0.7410401632555389,
+              "yRange": 0.09934831072159389
+            },
+            "up": {
+              "maxDrift": 0.5324188562135417,
+              "xRange": 0.3211285896097005,
+              "yRange": 0.93555373965919
+            },
+            "down": {
+              "maxDrift": 0.41105940544375086,
+              "xRange": 0.19972111972900647,
+              "yRange": 0.6841917836294629
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7204894074520037,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08619940010360855,
+              "xRange": 0.1075565260787324,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.06896309082934476,
+              "xRange": 0.0,
+              "yRange": 0.12325103205702176
+            },
+            "right": {
+              "maxDrift": 0.534872699398422,
+              "xRange": 0.5727509066273775,
+              "yRange": 0.24057337058076994
+            },
+            "left": {
+              "maxDrift": 0.5580625495466799,
+              "xRange": 0.6503962467382349,
+              "yRange": 0.25560288877401327
+            },
+            "up": {
+              "maxDrift": 0.5291182591962905,
+              "xRange": 0.18081006161352758,
+              "yRange": 0.6004444118817178
+            },
+            "down": {
+              "maxDrift": 0.47761344922777194,
+              "xRange": 0.1356331612829974,
+              "yRange": 0.7947791906429876
+            },
+            "diagonal": {
+              "maxDrift": 0.7154500245654586,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.4,
+      "maxSuppression": 0.5,
+      "summary": {
+        "maxRotDrift": 0.0856054978790639,
+        "meanRotDrift": 0.049574890068536305,
+        "minAimRange": 0.41735733118766316
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.051180098844393784,
+              "xRange": 0.003907230009524587,
+              "yRange": 0.0718124477192823
+            },
+            "rotate_other": {
+              "maxDrift": 0.0484481780259437,
+              "xRange": 0.08066741617362927,
+              "yRange": 0.005243796542370782
+            },
+            "right": {
+              "maxDrift": 0.5039355750467401,
+              "xRange": 0.5,
+              "yRange": 0.06285748800014768
+            },
+            "left": {
+              "maxDrift": 0.8932302816833282,
+              "xRange": 0.8915419046967152,
+              "yRange": 0.054894155297545044
+            },
+            "up": {
+              "maxDrift": 0.9439335119895569,
+              "xRange": 0.800631297824997,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37544295638229214,
+              "xRange": 0.2061231400489133,
+              "yRange": 0.6476099652659986
+            },
+            "diagonal": {
+              "maxDrift": 0.748469885066123,
+              "xRange": 0.6491991700941393,
+              "yRange": 0.41735733118766316
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0856054978790639,
+              "xRange": 0.10654015815957202,
+              "yRange": 0.030176387877632993
+            },
+            "rotate_other": {
+              "maxDrift": 0.010875509607809919,
+              "xRange": 0.010875509607809919,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5043879902649471,
+              "xRange": 0.5461473428258004,
+              "yRange": 0.06638708250489933
+            },
+            "left": {
+              "maxDrift": 0.508984458136445,
+              "xRange": 0.7362468877411438,
+              "yRange": 0.09689417762433306
+            },
+            "up": {
+              "maxDrift": 0.5319046321165475,
+              "xRange": 0.3179531889967676,
+              "yRange": 0.9313572939316859
+            },
+            "down": {
+              "maxDrift": 0.4088497747048541,
+              "xRange": 0.197803080191365,
+              "yRange": 0.6824312961646725
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7158644463004894,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05537434289654164,
+              "xRange": 0.06333760493086171,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.045965713157464894,
+              "xRange": 0.0,
+              "yRange": 0.07947935950024554
+            },
+            "right": {
+              "maxDrift": 0.5350093030842173,
+              "xRange": 0.568817580716599,
+              "yRange": 0.23946665742864548
+            },
+            "left": {
+              "maxDrift": 0.5578954564222427,
+              "xRange": 0.6478219847810899,
+              "yRange": 0.25408557667156173
+            },
+            "up": {
+              "maxDrift": 0.5283197878937816,
+              "xRange": 0.1804730741825729,
+              "yRange": 0.5993349439566722
+            },
+            "down": {
+              "maxDrift": 0.4776548205020794,
+              "xRange": 0.13326253219436984,
+              "yRange": 0.7846286785046451
+            },
+            "diagonal": {
+              "maxDrift": 0.7113774093083762,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.4,
+      "maxSuppression": 0.7,
+      "summary": {
+        "maxRotDrift": 0.04400820908215199,
+        "meanRotDrift": 0.0227650211153016,
+        "minAimRange": 0.3945697263443696
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.02331554335115027,
+              "xRange": 0.0,
+              "yRange": 0.026055396420107235
+            },
+            "rotate_other": {
+              "maxDrift": 0.021748753083447703,
+              "xRange": 0.03216940740201035,
+              "yRange": 0.001695773953153401
+            },
+            "right": {
+              "maxDrift": 0.503947086873235,
+              "xRange": 0.5,
+              "yRange": 0.06294971300982943
+            },
+            "left": {
+              "maxDrift": 0.8866407335815635,
+              "xRange": 0.8849359980516657,
+              "yRange": 0.0549551617080275
+            },
+            "up": {
+              "maxDrift": 0.9421448062115806,
+              "xRange": 0.798521656482438,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37367218184613304,
+              "xRange": 0.19519400208007243,
+              "yRange": 0.6559706794713073
+            },
+            "diagonal": {
+              "maxDrift": 0.7349209478273521,
+              "xRange": 0.6385854281307317,
+              "yRange": 0.3945697263443696
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.04400820908215199,
+              "xRange": 0.05261836604354242,
+              "yRange": 0.011862198570795901
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5042970075422857,
+              "xRange": 0.5440251594035641,
+              "yRange": 0.0656922508071095
+            },
+            "left": {
+              "maxDrift": 0.5087458859758826,
+              "xRange": 0.7314536122267487,
+              "yRange": 0.09444004452707222
+            },
+            "up": {
+              "maxDrift": 0.531394155588587,
+              "xRange": 0.31477778838383474,
+              "yRange": 0.9271608482041818
+            },
+            "down": {
+              "maxDrift": 0.4066423346703022,
+              "xRange": 0.19588504065372353,
+              "yRange": 0.6806708086998823
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7126640539280882,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.024549285689474676,
+              "xRange": 0.024549285689474676,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.022968335485584968,
+              "xRange": 0.0,
+              "yRange": 0.03570768694346926
+            },
+            "right": {
+              "maxDrift": 0.5351461478393883,
+              "xRange": 0.5648842548058204,
+              "yRange": 0.23835994427652102
+            },
+            "left": {
+              "maxDrift": 0.5577285673244171,
+              "xRange": 0.6452477228239448,
+              "yRange": 0.25256826456911025
+            },
+            "up": {
+              "maxDrift": 0.5275980602492879,
+              "xRange": 0.1801360867516183,
+              "yRange": 0.5982254760316265
+            },
+            "down": {
+              "maxDrift": 0.477696334906727,
+              "xRange": 0.13089190310574222,
+              "yRange": 0.7744781663663023
+            },
+            "diagonal": {
+              "maxDrift": 0.707311368722554,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.4,
+      "maxSuppression": 0.85,
+      "summary": {
+        "maxRotDrift": 0.014081041456995513,
+        "meanRotDrift": 0.004245759413656634,
+        "minAimRange": 0.3833954647918276
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0025135058296445467,
+              "xRange": 0.0,
+              "yRange": 0.0025135058296445467
+            },
+            "rotate_other": {
+              "maxDrift": 0.001724184376575566,
+              "xRange": 0.001724184376575566,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5039557316463169,
+              "xRange": 0.5,
+              "yRange": 0.06301888176709058
+            },
+            "left": {
+              "maxDrift": 0.8816987359392041,
+              "xRange": 0.8799815680678786,
+              "yRange": 0.05500091651588945
+            },
+            "up": {
+              "maxDrift": 0.9408041495854755,
+              "xRange": 0.7969394254755187,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3723188151995827,
+              "xRange": 0.18699714860344196,
+              "yRange": 0.6622412151252891
+            },
+            "diagonal": {
+              "maxDrift": 0.724767078297633,
+              "xRange": 0.6306251216581762,
+              "yRange": 0.3833954647918276
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.014081041456995513,
+              "xRange": 0.014081041456995513,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5042293880753594,
+              "xRange": 0.5424335218368866,
+              "yRange": 0.06517112703376715
+            },
+            "left": {
+              "maxDrift": 0.5085690099055438,
+              "xRange": 0.7278586555909521,
+              "yRange": 0.09296471285549734
+            },
+            "up": {
+              "maxDrift": 0.5310137640393993,
+              "xRange": 0.31239623792413496,
+              "yRange": 0.9240135139085532
+            },
+            "down": {
+              "maxDrift": 0.4049882138447089,
+              "xRange": 0.19444651100049215,
+              "yRange": 0.6802313207613296
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7102637596487875,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0014355225870490984,
+              "xRange": 0.0014355225870490984,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0057203022316750785,
+              "xRange": 0.0,
+              "yRange": 0.0057203022316750785
+            },
+            "right": {
+              "maxDrift": 0.5352489394963279,
+              "xRange": 0.5619342603727365,
+              "yRange": 0.23752990941242758
+            },
+            "left": {
+              "maxDrift": 0.5576035345037227,
+              "xRange": 0.6433170263560861,
+              "yRange": 0.2514302804922717
+            },
+            "up": {
+              "maxDrift": 0.5273546051813427,
+              "xRange": 0.18063824971843928,
+              "yRange": 0.5973933750878423
+            },
+            "down": {
+              "maxDrift": 0.4777275646170566,
+              "xRange": 0.12911393128927146,
+              "yRange": 0.7668652822625452
+            },
+            "diagonal": {
+              "maxDrift": 0.7042662214213355,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.4,
+      "maxSuppression": 1.0,
+      "summary": {
+        "maxRotDrift": 0.0,
+        "meanRotDrift": 0.0,
+        "minAimRange": 0.37226636145701025
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5039643857644737,
+              "xRange": 0.5,
+              "yRange": 0.06308805052435185
+            },
+            "left": {
+              "maxDrift": 0.876756881015177,
+              "xRange": 0.8750271380840917,
+              "yRange": 0.055046671323751295
+            },
+            "up": {
+              "maxDrift": 0.9394642445526925,
+              "xRange": 0.7953571944685993,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3698903661781086,
+              "xRange": 0.1788002951268114,
+              "yRange": 0.6685117507792706
+            },
+            "diagonal": {
+              "maxDrift": 0.7146202411361415,
+              "xRange": 0.6457018080478529,
+              "yRange": 0.37226636145701025
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5041622981953062,
+              "xRange": 0.5408418842702096,
+              "yRange": 0.0646500032604247
+            },
+            "left": {
+              "maxDrift": 0.50839389563491,
+              "xRange": 0.7242636989551556,
+              "yRange": 0.09200191910411326
+            },
+            "up": {
+              "maxDrift": 0.5306354911259861,
+              "xRange": 0.3100146874644354,
+              "yRange": 0.9208661796129252
+            },
+            "down": {
+              "maxDrift": 0.4055153425913094,
+              "xRange": 0.19300798134726105,
+              "yRange": 0.680405071013497
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.707863465369487,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.535351866572745,
+              "xRange": 0.5589842659396523,
+              "yRange": 0.23669987454833424
+            },
+            "left": {
+              "maxDrift": 0.5574786166283404,
+              "xRange": 0.6413863298882274,
+              "yRange": 0.25029229641543305
+            },
+            "up": {
+              "maxDrift": 0.5272010522334489,
+              "xRange": 0.1820164126850079,
+              "yRange": 0.596561274144058
+            },
+            "down": {
+              "maxDrift": 0.47775887480143225,
+              "xRange": 0.1273359594728008,
+              "yRange": 0.7592523981587883
+            },
+            "diagonal": {
+              "maxDrift": 0.7012248854848843,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.5,
+      "maxSuppression": 0.3,
+      "summary": {
+        "maxRotDrift": 0.12809992698649145,
+        "meanRotDrift": 0.07722481333704476,
+        "minAimRange": 0.451629159877624
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0797501999454829,
+              "xRange": 0.013840845243642708,
+              "yRange": 0.11800691996275303
+            },
+            "rotate_other": {
+              "maxDrift": 0.07535646843554454,
+              "xRange": 0.1293388228034995,
+              "yRange": 0.014753435915985713
+            },
+            "right": {
+              "maxDrift": 0.503865498789301,
+              "xRange": 0.5,
+              "yRange": 0.06229318478125068
+            },
+            "left": {
+              "maxDrift": 0.9015400994225818,
+              "xRange": 0.8998799730420536,
+              "yRange": 0.0546862412743061
+            },
+            "up": {
+              "maxDrift": 0.9466299155923237,
+              "xRange": 0.803808557490109,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3778794079121042,
+              "xRange": 0.21864099290406291,
+              "yRange": 0.6370649725621486
+            },
+            "diagonal": {
+              "maxDrift": 0.7641124376218074,
+              "xRange": 0.6604803289070085,
+              "yRange": 0.451629159877624
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.12809992698649145,
+              "xRange": 0.16124610208773205,
+              "yRange": 0.048947380697871024
+            },
+            "rotate_other": {
+              "maxDrift": 0.02448543235849067,
+              "xRange": 0.027294014663771793,
+              "yRange": 0.005835862617224352
+            },
+            "right": {
+              "maxDrift": 0.5045553620586888,
+              "xRange": 0.5477026849018163,
+              "yRange": 0.06764697614952608
+            },
+            "left": {
+              "maxDrift": 0.5092687714422552,
+              "xRange": 0.7445849155995484,
+              "yRange": 0.10042435503745034
+            },
+            "up": {
+              "maxDrift": 0.5328202830748152,
+              "xRange": 0.3237230865455819,
+              "yRange": 0.939342369462866
+            },
+            "down": {
+              "maxDrift": 0.4123172463107704,
+              "xRange": 0.2001038264021865,
+              "yRange": 0.6853209538288481
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7270830635512748,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08627032559123493,
+              "xRange": 0.1074977168381619,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.06938652670502404,
+              "xRange": 0.0,
+              "yRange": 0.12365258924917705
+            },
+            "right": {
+              "maxDrift": 0.5348617319937103,
+              "xRange": 0.5751184249497804,
+              "yRange": 0.24124768723221846
+            },
+            "left": {
+              "maxDrift": 0.5581183751744293,
+              "xRange": 0.6510093201683,
+              "yRange": 0.2558313384704049
+            },
+            "up": {
+              "maxDrift": 0.5293048196407024,
+              "xRange": 0.180995520042182,
+              "yRange": 0.600738058159274
+            },
+            "down": {
+              "maxDrift": 0.4777033224979297,
+              "xRange": 0.1360798092672431,
+              "yRange": 0.7973356528911809
+            },
+            "diagonal": {
+              "maxDrift": 0.7153998582678234,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.5,
+      "maxSuppression": 0.5,
+      "summary": {
+        "maxRotDrift": 0.08671404301850404,
+        "meanRotDrift": 0.04999631482336404,
+        "minAimRange": 0.4186480949228919
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05152995874939725,
+              "xRange": 0.004020663025467719,
+              "yRange": 0.07221729471103033
+            },
+            "rotate_other": {
+              "maxDrift": 0.048671803876294994,
+              "xRange": 0.08095641260404784,
+              "yRange": 0.006180274296199828
+            },
+            "right": {
+              "maxDrift": 0.5038380401273103,
+              "xRange": 0.5,
+              "yRange": 0.06207069098478879
+            },
+            "left": {
+              "maxDrift": 0.8960968130584158,
+              "xRange": 0.8944288408638635,
+              "yRange": 0.05464930927628442
+            },
+            "up": {
+              "maxDrift": 0.945443213526482,
+              "xRange": 0.802410661695918,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37657421868279145,
+              "xRange": 0.20877099819276168,
+              "yRange": 0.6439695011017629
+            },
+            "diagonal": {
+              "maxDrift": 0.7519298490348917,
+              "xRange": 0.6503115315099088,
+              "yRange": 0.4186480949228919
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08671404301850404,
+              "xRange": 0.10784707784645631,
+              "yRange": 0.030937727066634446
+            },
+            "rotate_other": {
+              "maxDrift": 0.010898091636471818,
+              "xRange": 0.010898091636471818,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5045128089233167,
+              "xRange": 0.5452026072487667,
+              "yRange": 0.06732885241629416
+            },
+            "left": {
+              "maxDrift": 0.50905462864309,
+              "xRange": 0.7421548083144931,
+              "yRange": 0.09868758481742712
+            },
+            "up": {
+              "maxDrift": 0.5325700947825469,
+              "xRange": 0.3222773505565699,
+              "yRange": 0.9376716769378124
+            },
+            "down": {
+              "maxDrift": 0.4109465103501336,
+              "xRange": 0.19844092464666496,
+              "yRange": 0.6843132464969812
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7245774310123448,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05549255204258563,
+              "xRange": 0.06323958952991082,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.04667143961693049,
+              "xRange": 0.0,
+              "yRange": 0.08014862148717111
+            },
+            "right": {
+              "maxDrift": 0.5349909926395624,
+              "xRange": 0.5727634445872705,
+              "yRange": 0.240590518514393
+            },
+            "left": {
+              "maxDrift": 0.557988398315292,
+              "xRange": 0.6488437738311982,
+              "yRange": 0.254466326165548
+            },
+            "up": {
+              "maxDrift": 0.5286815308594477,
+              "xRange": 0.18078217156366355,
+              "yRange": 0.5998243544192658
+            },
+            "down": {
+              "maxDrift": 0.47780455682396505,
+              "xRange": 0.1340069455014462,
+              "yRange": 0.7888894489183005
+            },
+            "diagonal": {
+              "maxDrift": 0.71129724855486,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.5,
+      "maxSuppression": 0.7,
+      "summary": {
+        "maxRotDrift": 0.04550980341457305,
+        "meanRotDrift": 0.023339934168174637,
+        "minAimRange": 0.39860070924263963
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.023796841297762106,
+              "xRange": 0.0,
+              "yRange": 0.026613676288161636
+            },
+            "rotate_other": {
+              "maxDrift": 0.022061829273939515,
+              "xRange": 0.0325740024045964,
+              "yRange": 0.0030068428085143206
+            },
+            "right": {
+              "maxDrift": 0.5038106782268972,
+              "xRange": 0.5,
+              "yRange": 0.061848197188327014
+            },
+            "left": {
+              "maxDrift": 0.8906536241951825,
+              "xRange": 0.8889777086856734,
+              "yRange": 0.054612377278262625
+            },
+            "up": {
+              "maxDrift": 0.9442570895352257,
+              "xRange": 0.8010127659017272,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37530372145253077,
+              "xRange": 0.19890100348146011,
+              "yRange": 0.6508740296413777
+            },
+            "diagonal": {
+              "maxDrift": 0.7397496776955576,
+              "xRange": 0.6401427341128091,
+              "yRange": 0.39860070924263963
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.04550980341457305,
+              "xRange": 0.05444805360518051,
+              "yRange": 0.012928073435397869
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5044704528103058,
+              "xRange": 0.5427025295957166,
+              "yRange": 0.06701072868306213
+            },
+            "left": {
+              "maxDrift": 0.5088429227709973,
+              "xRange": 0.7397247010294374,
+              "yRange": 0.09695081459740407
+            },
+            "up": {
+              "maxDrift": 0.5323207771462808,
+              "xRange": 0.3208316145675581,
+              "yRange": 0.936000984412759
+            },
+            "down": {
+              "maxDrift": 0.40957821988263854,
+              "xRange": 0.1967780228911432,
+              "yRange": 0.6833055391651144
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7220717984734142,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.024714778493936274,
+              "xRange": 0.024714778493936274,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.023956352528836877,
+              "xRange": 0.0,
+              "yRange": 0.03664465372516512
+            },
+            "right": {
+              "maxDrift": 0.5351204692381789,
+              "xRange": 0.5704084642247604,
+              "yRange": 0.23993334979656744
+            },
+            "left": {
+              "maxDrift": 0.5578585447135689,
+              "xRange": 0.6466782274940965,
+              "yRange": 0.253101313860691
+            },
+            "up": {
+              "maxDrift": 0.5280320602353802,
+              "xRange": 0.1805688230851452,
+              "yRange": 0.598910650679258
+            },
+            "down": {
+              "maxDrift": 0.4779058922793288,
+              "xRange": 0.13193408173564908,
+              "yRange": 0.78044324494542
+            },
+            "diagonal": {
+              "maxDrift": 0.7072040303454344,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.5,
+      "maxSuppression": 0.85,
+      "summary": {
+        "maxRotDrift": 0.015605654292800808,
+        "meanRotDrift": 0.00489405002600915,
+        "minAimRange": 0.3882902297397274
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.003097939050530407,
+              "xRange": 0.0,
+              "yRange": 0.003097939050530407
+            },
+            "rotate_other": {
+              "maxDrift": 0.002104348322172933,
+              "xRange": 0.002104348322172933,
+              "yRange": 0.0006267691927501762
+            },
+            "right": {
+              "maxDrift": 0.5037902203108591,
+              "xRange": 0.5,
+              "yRange": 0.0616813268409806
+            },
+            "left": {
+              "maxDrift": 0.886571297613061,
+              "xRange": 0.8848893595520309,
+              "yRange": 0.054584678279746335
+            },
+            "up": {
+              "maxDrift": 0.9433678772149711,
+              "xRange": 0.799964344056084,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37434280534497605,
+              "xRange": 0.19149850744798413,
+              "yRange": 0.6560524260460883
+            },
+            "diagonal": {
+              "maxDrift": 0.7306162082362765,
+              "xRange": 0.6325161360649845,
+              "yRange": 0.3882902297397274
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.015605654292800808,
+              "xRange": 0.015605654292800808,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5044388150513363,
+              "xRange": 0.5408274713559296,
+              "yRange": 0.06677213588313813
+            },
+            "left": {
+              "maxDrift": 0.5086857444319595,
+              "xRange": 0.737902120565646,
+              "yRange": 0.09564823693238678
+            },
+            "up": {
+              "maxDrift": 0.532134361023417,
+              "xRange": 0.3197473125757991,
+              "yRange": 0.934747965018969
+            },
+            "down": {
+              "maxDrift": 0.40855362166933423,
+              "xRange": 0.19553084657450215,
+              "yRange": 0.6833895552558967
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7201925740692166,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0016363212777841252,
+              "xRange": 0.0016363212777841252,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.006920037212766628,
+              "xRange": 0.0,
+              "yRange": 0.006920037212766628
+            },
+            "right": {
+              "maxDrift": 0.5352177183118726,
+              "xRange": 0.5686422289528781,
+              "yRange": 0.2394404732581984
+            },
+            "left": {
+              "maxDrift": 0.5577612354517446,
+              "xRange": 0.6450540677412704,
+              "yRange": 0.25207755463204834
+            },
+            "up": {
+              "maxDrift": 0.5277332772102502,
+              "xRange": 0.1804088117262564,
+              "yRange": 0.5982253728742519
+            },
+            "down": {
+              "maxDrift": 0.477981960198283,
+              "xRange": 0.13037943391130125,
+              "yRange": 0.7741085919657595
+            },
+            "diagonal": {
+              "maxDrift": 0.7048626020992712,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.5,
+      "maxSuppression": 1.0,
+      "summary": {
+        "maxRotDrift": 0.0,
+        "meanRotDrift": 0.0,
+        "minAimRange": 0.3780339400980841
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5037698168387098,
+              "xRange": 0.5,
+              "yRange": 0.06151445649363407
+            },
+            "left": {
+              "maxDrift": 0.8824890276611639,
+              "xRange": 0.8808010104183883,
+              "yRange": 0.0545569792812301
+            },
+            "up": {
+              "maxDrift": 0.9424789922122188,
+              "xRange": 0.798915922210441,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37335569297740717,
+              "xRange": 0.18409601141450793,
+              "yRange": 0.6612308224507993
+            },
+            "diagonal": {
+              "maxDrift": 0.7214842208231492,
+              "xRange": 0.6248895380171594,
+              "yRange": 0.3780339400980841
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5044072881662257,
+              "xRange": 0.538952413116142,
+              "yRange": 0.06653354308321413
+            },
+            "left": {
+              "maxDrift": 0.508529939849301,
+              "xRange": 0.7360795401018543,
+              "yRange": 0.09434565926736943
+            },
+            "up": {
+              "maxDrift": 0.5319484358486477,
+              "xRange": 0.3186630105840401,
+              "yRange": 0.9334949456251787
+            },
+            "down": {
+              "maxDrift": 0.40957791319809816,
+              "xRange": 0.19428367025786075,
+              "yRange": 0.6841206410071055
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.719492390627781,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5353150887046905,
+              "xRange": 0.5668759936809956,
+              "yRange": 0.23894759671982924
+            },
+            "left": {
+              "maxDrift": 0.5576639956069624,
+              "xRange": 0.6434299079884443,
+              "yRange": 0.2510537954034056
+            },
+            "up": {
+              "maxDrift": 0.5274887590385275,
+              "xRange": 0.18125471068998522,
+              "yRange": 0.597540095069246
+            },
+            "down": {
+              "maxDrift": 0.47805808493916907,
+              "xRange": 0.1288247860869534,
+              "yRange": 0.7677739389860992
+            },
+            "diagonal": {
+              "maxDrift": 0.704575112435331,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.6,
+      "maxSuppression": 0.3,
+      "summary": {
+        "maxRotDrift": 0.1290830778323917,
+        "meanRotDrift": 0.07757438528746677,
+        "minAimRange": 0.4510353765183021
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08006472310662119,
+              "xRange": 0.013909700052151697,
+              "yRange": 0.1183820731509937
+            },
+            "rotate_other": {
+              "maxDrift": 0.07550188356228167,
+              "xRange": 0.12954742151446424,
+              "yRange": 0.014883841231987383
+            },
+            "right": {
+              "maxDrift": 0.5039211873489943,
+              "xRange": 0.5,
+              "yRange": 0.0627420358230445
+            },
+            "left": {
+              "maxDrift": 0.9031699930685787,
+              "xRange": 0.9015097288868802,
+              "yRange": 0.054737967644043484
+            },
+            "up": {
+              "maxDrift": 0.9477322515004561,
+              "xRange": 0.8051064653411522,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3783888969040723,
+              "xRange": 0.22125332855708557,
+              "yRange": 0.6366323383618541
+            },
+            "diagonal": {
+              "maxDrift": 0.7668513038454434,
+              "xRange": 0.663053999344114,
+              "yRange": 0.4510353765183021
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.1290830778323917,
+              "xRange": 0.16233644112789936,
+              "yRange": 0.049605363790809265
+            },
+            "rotate_other": {
+              "maxDrift": 0.02451054458789831,
+              "xRange": 0.027414776936183494,
+              "yRange": 0.005980589180055618
+            },
+            "right": {
+              "maxDrift": 0.5045942890467772,
+              "xRange": 0.5476235241859122,
+              "yRange": 0.0679367098012742
+            },
+            "left": {
+              "maxDrift": 0.5093546785756589,
+              "xRange": 0.747187659139725,
+              "yRange": 0.10162512003797075
+            },
+            "up": {
+              "maxDrift": 0.532981709944526,
+              "xRange": 0.32497526837346896,
+              "yRange": 0.9415289296038802
+            },
+            "down": {
+              "maxDrift": 0.41272667421067516,
+              "xRange": 0.20032156648106714,
+              "yRange": 0.6859273902648266
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7300585173784618,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08637123503819849,
+              "xRange": 0.10740585255791729,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.06991484759740924,
+              "xRange": 0.0,
+              "yRange": 0.12416001254105385
+            },
+            "right": {
+              "maxDrift": 0.5348449771804905,
+              "xRange": 0.5773131241203304,
+              "yRange": 0.24194337620010675
+            },
+            "left": {
+              "maxDrift": 0.5582025960256078,
+              "xRange": 0.6518732191165757,
+              "yRange": 0.25619986119346383
+            },
+            "up": {
+              "maxDrift": 0.5293943426796481,
+              "xRange": 0.18112103892172443,
+              "yRange": 0.6010264066153919
+            },
+            "down": {
+              "maxDrift": 0.4776659664289026,
+              "xRange": 0.1365918077873367,
+              "yRange": 0.7997746257366285
+            },
+            "diagonal": {
+              "maxDrift": 0.7192731348913999,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.6,
+      "maxSuppression": 0.5,
+      "summary": {
+        "maxRotDrift": 0.08833927098720493,
+        "meanRotDrift": 0.050570046140961555,
+        "minAimRange": 0.41765845599068835
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05204172862072498,
+              "xRange": 0.004135421039649312,
+              "yRange": 0.07284255002476481
+            },
+            "rotate_other": {
+              "maxDrift": 0.048895499293270084,
+              "xRange": 0.0813040771223229,
+              "yRange": 0.006390517796174722
+            },
+            "right": {
+              "maxDrift": 0.503930747846347,
+              "xRange": 0.5,
+              "yRange": 0.06281877605444519
+            },
+            "left": {
+              "maxDrift": 0.8988132779826365,
+              "xRange": 0.8971451006052413,
+              "yRange": 0.05473551989251335
+            },
+            "up": {
+              "maxDrift": 0.9472798247307072,
+              "xRange": 0.8045738414476569,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3774038025018499,
+              "xRange": 0.2131248909477994,
+              "yRange": 0.6432484441012721
+            },
+            "diagonal": {
+              "maxDrift": 0.7564959403975322,
+              "xRange": 0.654600982238418,
+              "yRange": 0.41765845599068835
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08833927098720493,
+              "xRange": 0.10966430958006868,
+              "yRange": 0.03203436555486472
+            },
+            "rotate_other": {
+              "maxDrift": 0.010931069052805387,
+              "xRange": 0.010931069052805387,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5045774790166672,
+              "xRange": 0.5450706727222592,
+              "yRange": 0.06781174183587413
+            },
+            "left": {
+              "maxDrift": 0.5091964064715292,
+              "xRange": 0.746492714214787,
+              "yRange": 0.10068885981829445
+            },
+            "up": {
+              "maxDrift": 0.5328384070972023,
+              "xRange": 0.324364320269715,
+              "yRange": 0.9413159438395029
+            },
+            "down": {
+              "maxDrift": 0.41162873416924656,
+              "xRange": 0.19880382477813252,
+              "yRange": 0.6853239738902789
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7295365207243226,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05566073445419156,
+              "xRange": 0.06308648239616982,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.047551974437572364,
+              "xRange": 0.0,
+              "yRange": 0.08099432697363235
+            },
+            "right": {
+              "maxDrift": 0.534963023254221,
+              "xRange": 0.5764212765381871,
+              "yRange": 0.2417500001275401
+            },
+            "left": {
+              "maxDrift": 0.5581286621637869,
+              "xRange": 0.6502836054116581,
+              "yRange": 0.2550805307039794
+            },
+            "up": {
+              "maxDrift": 0.5291291707793879,
+              "xRange": 0.18099136969623447,
+              "yRange": 0.6003049351794624
+            },
+            "down": {
+              "maxDrift": 0.47774227617873793,
+              "xRange": 0.13486027636826875,
+              "yRange": 0.792954403660713
+            },
+            "diagonal": {
+              "maxDrift": 0.7177412604496557,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.6,
+      "maxSuppression": 0.7,
+      "summary": {
+        "maxRotDrift": 0.04772592500094779,
+        "meanRotDrift": 0.0241234705406006,
+        "minAimRange": 0.3996165538770236
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.024500560237031066,
+              "xRange": 0.0,
+              "yRange": 0.02747627484679982
+            },
+            "rotate_other": {
+              "maxDrift": 0.02237500285770455,
+              "xRange": 0.03306073273018162,
+              "yRange": 0.0033011837084790385
+            },
+            "right": {
+              "maxDrift": 0.5039403198483557,
+              "xRange": 0.5,
+              "yRange": 0.06289551628584578
+            },
+            "left": {
+              "maxDrift": 0.8944566400605144,
+              "xRange": 0.8927804723236024,
+              "yRange": 0.05473307214098316
+            },
+            "up": {
+              "maxDrift": 0.9468274813956229,
+              "xRange": 0.8040412175541616,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3764375009176299,
+              "xRange": 0.20499645333851324,
+              "yRange": 0.6498645498406901
+            },
+            "diagonal": {
+              "maxDrift": 0.7461440760152712,
+              "xRange": 0.6461479651327221,
+              "yRange": 0.3996165538770236
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.04772592500094779,
+              "xRange": 0.05699217803223805,
+              "yRange": 0.014463367318920284
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5045606993781746,
+              "xRange": 0.5425178212586066,
+              "yRange": 0.06768677387047406
+            },
+            "left": {
+              "maxDrift": 0.5090394485534736,
+              "xRange": 0.7457977692898493,
+              "yRange": 0.09975259959861832
+            },
+            "up": {
+              "maxDrift": 0.5326953877676026,
+              "xRange": 0.3237533721659611,
+              "yRange": 0.9411029580751258
+            },
+            "down": {
+              "maxDrift": 0.41053310795324544,
+              "xRange": 0.1972860830751979,
+              "yRange": 0.6847205575157311
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7290145240701835,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.024950233870184635,
+              "xRange": 0.024950233870184635,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.02518910127773555,
+              "xRange": 0.0,
+              "yRange": 0.03782864140621078
+            },
+            "right": {
+              "maxDrift": 0.5350812495668423,
+              "xRange": 0.5755294289560438,
+              "yRange": 0.24155662405497358
+            },
+            "left": {
+              "maxDrift": 0.5580547680879361,
+              "xRange": 0.6486939917067401,
+              "yRange": 0.253961200214495
+            },
+            "up": {
+              "maxDrift": 0.5287817453244509,
+              "xRange": 0.1808617004707444,
+              "yRange": 0.599583463743533
+            },
+            "down": {
+              "maxDrift": 0.47781867066139677,
+              "xRange": 0.13312874494920068,
+              "yRange": 0.7861341815847975
+            },
+            "diagonal": {
+              "maxDrift": 0.7162094315918931,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.6,
+      "maxSuppression": 0.85,
+      "summary": {
+        "maxRotDrift": 0.01789423227266083,
+        "meanRotDrift": 0.0057783767013518,
+        "minAimRange": 0.3895237553671932
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.00395245490535695,
+              "xRange": 0.0,
+              "yRange": 0.00395245490535695
+            },
+            "rotate_other": {
+              "maxDrift": 0.0024846305310305405,
+              "xRange": 0.0024846305310305405,
+              "yRange": 0.0009841831427073178
+            },
+            "right": {
+              "maxDrift": 0.5039475063993986,
+              "xRange": 0.5,
+              "yRange": 0.06295307145939633
+            },
+            "left": {
+              "maxDrift": 0.8911892129384454,
+              "xRange": 0.889507001112373,
+              "yRange": 0.05473123632733562
+            },
+            "up": {
+              "maxDrift": 0.946488278720271,
+              "xRange": 0.8036417496340402,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37572519484636985,
+              "xRange": 0.19890012513154853,
+              "yRange": 0.6548266291452539
+            },
+            "diagonal": {
+              "maxDrift": 0.7383825625224428,
+              "xRange": 0.6398082023034501,
+              "yRange": 0.3895237553671932
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.01789423227266083,
+              "xRange": 0.017848025624814023,
+              "yRange": 0.0013180165368192331
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5045481345956283,
+              "xRange": 0.5406031826608668,
+              "yRange": 0.06759304789642395
+            },
+            "left": {
+              "maxDrift": 0.5089225932813854,
+              "xRange": 0.7452765605961458,
+              "yRange": 0.09905040443386126
+            },
+            "up": {
+              "maxDrift": 0.5325883094663257,
+              "xRange": 0.32329516108814577,
+              "yRange": 0.9409432187518427
+            },
+            "down": {
+              "maxDrift": 0.4097129179071116,
+              "xRange": 0.1961477767979971,
+              "yRange": 0.6850461702189662
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7286230265795792,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0019219960912046363,
+              "xRange": 0.0019219960912046363,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.00841694640785784,
+              "xRange": 0.0,
+              "yRange": 0.00841694640785784
+            },
+            "right": {
+              "maxDrift": 0.5351700375112297,
+              "xRange": 0.5748605432694361,
+              "yRange": 0.24141159200054857
+            },
+            "left": {
+              "maxDrift": 0.5579993736500997,
+              "xRange": 0.6475017814280521,
+              "yRange": 0.2531217023473816
+            },
+            "up": {
+              "maxDrift": 0.5284537767606892,
+              "xRange": 0.18076444855162677,
+              "yRange": 0.5990423601665862
+            },
+            "down": {
+              "maxDrift": 0.47787602210486263,
+              "xRange": 0.13183009638489962,
+              "yRange": 0.7810190150278609
+            },
+            "diagonal": {
+              "maxDrift": 0.7150605900392901,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.6,
+      "maxSuppression": 1.0,
+      "summary": {
+        "maxRotDrift": 0.0,
+        "meanRotDrift": 0.0,
+        "minAimRange": 0.37949869418394966
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5039546994211649,
+              "xRange": 0.5,
+              "yRange": 0.06301062663294688
+            },
+            "left": {
+              "maxDrift": 0.8879218303441071,
+              "xRange": 0.8862335299011439,
+              "yRange": 0.05472940051368802
+            },
+            "up": {
+              "maxDrift": 0.9461491230947593,
+              "xRange": 0.8032422817139184,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3750236020744495,
+              "xRange": 0.19280379692458383,
+              "yRange": 0.6597887084498175
+            },
+            "diagonal": {
+              "maxDrift": 0.7306231655231027,
+              "xRange": 0.6334684394741781,
+              "yRange": 0.37949869418394966
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5045355869113499,
+              "xRange": 0.5386885440631275,
+              "yRange": 0.06749932192237396
+            },
+            "left": {
+              "maxDrift": 0.5088064784329549,
+              "xRange": 0.7447553519024422,
+              "yRange": 0.09834820926910409
+            },
+            "up": {
+              "maxDrift": 0.5324813908685466,
+              "xRange": 0.3228369500103304,
+              "yRange": 0.9407834794285599
+            },
+            "down": {
+              "maxDrift": 0.4107446715645117,
+              "xRange": 0.19500947052079604,
+              "yRange": 0.686069599787187
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7282315290889749,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.535258926722388,
+              "xRange": 0.5741916575828286,
+              "yRange": 0.24126655994612373
+            },
+            "left": {
+              "maxDrift": 0.5579440016074311,
+              "xRange": 0.6463095711493636,
+              "yRange": 0.2522822044802683
+            },
+            "up": {
+              "maxDrift": 0.5281275379353668,
+              "xRange": 0.1806671966325093,
+              "yRange": 0.5985012565896392
+            },
+            "down": {
+              "maxDrift": 0.4779334211705349,
+              "xRange": 0.1305314478205986,
+              "yRange": 0.7759038484709242
+            },
+            "diagonal": {
+              "maxDrift": 0.7139117744170823,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.7,
+      "maxSuppression": 0.3,
+      "summary": {
+        "maxRotDrift": 0.13026647356849594,
+        "meanRotDrift": 0.07802438562504302,
+        "minAimRange": 0.45443211501073527
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08052349471287416,
+              "xRange": 0.014024069393758498,
+              "yRange": 0.11894737093890928
+            },
+            "rotate_other": {
+              "maxDrift": 0.0757222477510403,
+              "xRange": 0.12987660738290985,
+              "yRange": 0.015062386496017932
+            },
+            "right": {
+              "maxDrift": 0.5039351380399161,
+              "xRange": 0.5,
+              "yRange": 0.06285398437099476
+            },
+            "left": {
+              "maxDrift": 0.905781390644589,
+              "xRange": 0.9041243330768323,
+              "yRange": 0.05476420342174859
+            },
+            "up": {
+              "maxDrift": 0.9484477476799662,
+              "xRange": 0.8059485902209897,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3788950918837508,
+              "xRange": 0.22501164959540354,
+              "yRange": 0.63103396366447
+            },
+            "diagonal": {
+              "maxDrift": 0.7729281504711765,
+              "xRange": 0.6668186079773999,
+              "yRange": 0.45443211501073527
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.13026647356849594,
+              "xRange": 0.16384957815854745,
+              "yRange": 0.05029867363133861
+            },
+            "rotate_other": {
+              "maxDrift": 0.02456753908364888,
+              "xRange": 0.027637515184617045,
+              "yRange": 0.006138423832941664
+            },
+            "right": {
+              "maxDrift": 0.5046187266553603,
+              "xRange": 0.5487251372885549,
+              "yRange": 0.06811798067527619
+            },
+            "left": {
+              "maxDrift": 0.5094822315291282,
+              "xRange": 0.7479669729918506,
+              "yRange": 0.10255164888336399
+            },
+            "up": {
+              "maxDrift": 0.5332346339608912,
+              "xRange": 0.3260415148502717,
+              "yRange": 0.9416951213940188
+            },
+            "down": {
+              "maxDrift": 0.4135329131692629,
+              "xRange": 0.20040716840482642,
+              "yRange": 0.6865889852232898
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7311011251322725,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0865388811648869,
+              "xRange": 0.1072523881068062,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.07052767746931193,
+              "xRange": 0.0,
+              "yRange": 0.1248775077677588
+            },
+            "right": {
+              "maxDrift": 0.534820732231369,
+              "xRange": 0.5774040279517586,
+              "yRange": 0.24197022985820438
+            },
+            "left": {
+              "maxDrift": 0.5582426511460689,
+              "xRange": 0.652671533649374,
+              "yRange": 0.2566396834892406
+            },
+            "up": {
+              "maxDrift": 0.5295349690575845,
+              "xRange": 0.18118929276160423,
+              "yRange": 0.6014593527692221
+            },
+            "down": {
+              "maxDrift": 0.47762485518530545,
+              "xRange": 0.13734408502608847,
+              "yRange": 0.8032064329519135
+            },
+            "diagonal": {
+              "maxDrift": 0.7199013706033581,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.7,
+      "maxSuppression": 0.5,
+      "summary": {
+        "maxRotDrift": 0.09030183124799467,
+        "meanRotDrift": 0.051310091161033744,
+        "minAimRange": 0.42331968681141074
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.052790750674273135,
+              "xRange": 0.004326036608993944,
+              "yRange": 0.07378471300462403
+            },
+            "rotate_other": {
+              "maxDrift": 0.049235399474488295,
+              "xRange": 0.081852720236399,
+              "yRange": 0.006694170744571626
+            },
+            "right": {
+              "maxDrift": 0.5039540405697991,
+              "xRange": 0.5,
+              "yRange": 0.06300535696769538
+            },
+            "left": {
+              "maxDrift": 0.9031655539283775,
+              "xRange": 0.9015027742551611,
+              "yRange": 0.0547792461886884
+            },
+            "up": {
+              "maxDrift": 0.948472214547683,
+              "xRange": 0.8059773829140531,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3782311489925877,
+              "xRange": 0.21938875934499547,
+              "yRange": 0.633917819605632
+            },
+            "diagonal": {
+              "maxDrift": 0.7666200732590273,
+              "xRange": 0.6608753299605608,
+              "yRange": 0.42331968681141074
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.09030183124799467,
+              "xRange": 0.11218620463114864,
+              "yRange": 0.033189881955747014
+            },
+            "rotate_other": {
+              "maxDrift": 0.011019063346697333,
+              "xRange": 0.011019063346697333,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046181704205102,
+              "xRange": 0.546906694559997,
+              "yRange": 0.06811385995921082
+            },
+            "left": {
+              "maxDrift": 0.5094077109696902,
+              "xRange": 0.7477915706349965,
+              "yRange": 0.10223307456061659
+            },
+            "up": {
+              "maxDrift": 0.5332596036980868,
+              "xRange": 0.32614139773105305,
+              "yRange": 0.9415929301564006
+            },
+            "down": {
+              "maxDrift": 0.4129709531485098,
+              "xRange": 0.19894649465106473,
+              "yRange": 0.6864266321543842
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7312742003140072,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.055940144665338865,
+              "xRange": 0.06283070831098464,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.04857335755741016,
+              "xRange": 0.0,
+              "yRange": 0.08219015235147381
+            },
+            "right": {
+              "maxDrift": 0.5349225574589657,
+              "xRange": 0.5765727829239008,
+              "yRange": 0.2417947562243694
+            },
+            "left": {
+              "maxDrift": 0.5581953912800817,
+              "xRange": 0.6516141296329886,
+              "yRange": 0.2558135678636074
+            },
+            "up": {
+              "maxDrift": 0.5293595878084083,
+              "xRange": 0.18110512609603419,
+              "yRange": 0.6010265121025129
+            },
+            "down": {
+              "maxDrift": 0.47767372208058134,
+              "xRange": 0.13611407176618823,
+              "yRange": 0.7986740823528544
+            },
+            "diagonal": {
+              "maxDrift": 0.7187882853646409,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.7,
+      "maxSuppression": 0.7,
+      "summary": {
+        "maxRotDrift": 0.05043110374682743,
+        "meanRotDrift": 0.025128389830092083,
+        "minAimRange": 0.40801063342233995
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.025527926311015747,
+              "xRange": 0.0,
+              "yRange": 0.028774038217620146
+            },
+            "rotate_other": {
+              "maxDrift": 0.022850863111410102,
+              "xRange": 0.0338288330898881,
+              "yRange": 0.0037262978362347376
+            },
+            "right": {
+              "maxDrift": 0.5039729878567604,
+              "xRange": 0.5,
+              "yRange": 0.06315672956439622
+            },
+            "left": {
+              "maxDrift": 0.9005497507419242,
+              "xRange": 0.8988812154334904,
+              "yRange": 0.054794288955628434
+            },
+            "up": {
+              "maxDrift": 0.9484966816583019,
+              "xRange": 0.8060061756071166,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37757281284165,
+              "xRange": 0.2137658690945876,
+              "yRange": 0.6368016755467938
+            },
+            "diagonal": {
+              "maxDrift": 0.7603121823937025,
+              "xRange": 0.6549320519437218,
+              "yRange": 0.40801063342233995
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05043110374682743,
+              "xRange": 0.06052283110374995,
+              "yRange": 0.01608109028015553
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046176142186966,
+              "xRange": 0.5450882518314394,
+              "yRange": 0.06810973924314556
+            },
+            "left": {
+              "maxDrift": 0.5093334763065652,
+              "xRange": 0.7476161682781421,
+              "yRange": 0.10191450023786924
+            },
+            "up": {
+              "maxDrift": 0.5332845819437376,
+              "xRange": 0.32624128061183433,
+              "yRange": 0.9414907389187824
+            },
+            "down": {
+              "maxDrift": 0.4124100805580258,
+              "xRange": 0.19748582089730288,
+              "yRange": 0.6862642790854786
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7314472754957416,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.025341408165790835,
+              "xRange": 0.025341408165790835,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.02661903764550838,
+              "xRange": 0.0,
+              "yRange": 0.03950279693518893
+            },
+            "right": {
+              "maxDrift": 0.5350245169378579,
+              "xRange": 0.5757415378960429,
+              "yRange": 0.2416192825905345
+            },
+            "left": {
+              "maxDrift": 0.5581481476521886,
+              "xRange": 0.6505567256166032,
+              "yRange": 0.25498745223797437
+            },
+            "up": {
+              "maxDrift": 0.5291843992642499,
+              "xRange": 0.18102095943046392,
+              "yRange": 0.6005936714358038
+            },
+            "down": {
+              "maxDrift": 0.4777226454487787,
+              "xRange": 0.13488405850628787,
+              "yRange": 0.7941417317537955
+            },
+            "diagonal": {
+              "maxDrift": 0.7176752177825699,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.7,
+      "maxSuppression": 0.85,
+      "summary": {
+        "maxRotDrift": 0.020915363839300486,
+        "meanRotDrift": 0.00695461575810465,
+        "minAimRange": 0.3997165662436487
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.005199970852338309,
+              "xRange": 0.0,
+              "yRange": 0.005199970852338309
+            },
+            "rotate_other": {
+              "maxDrift": 0.0030624608391014996,
+              "xRange": 0.0030624608391014996,
+              "yRange": 0.001500393154982127
+            },
+            "right": {
+              "maxDrift": 0.5039872276907775,
+              "xRange": 0.5,
+              "yRange": 0.06327025901192163
+            },
+            "left": {
+              "maxDrift": 0.8985879205321351,
+              "xRange": 0.8969150463172368,
+              "yRange": 0.05480557103083339
+            },
+            "up": {
+              "maxDrift": 0.9485150321506589,
+              "xRange": 0.8060277701269141,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3770827578265229,
+              "xRange": 0.2095487014067816,
+              "yRange": 0.6389645675026655
+            },
+            "diagonal": {
+              "maxDrift": 0.7555813893423632,
+              "xRange": 0.6504745934310926,
+              "yRange": 0.3997165662436487
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.020915363839300486,
+              "xRange": 0.021775300958200905,
+              "yRange": 0.003313926139035306
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046171970890169,
+              "xRange": 0.5437244197850212,
+              "yRange": 0.0681066487060965
+            },
+            "left": {
+              "maxDrift": 0.5092779880039027,
+              "xRange": 0.7474846165105015,
+              "yRange": 0.1016755694958088
+            },
+            "up": {
+              "maxDrift": 0.5333033212109305,
+              "xRange": 0.3263161927724202,
+              "yRange": 0.9414140954905688
+            },
+            "down": {
+              "maxDrift": 0.4119901424132583,
+              "xRange": 0.19639031558198156,
+              "yRange": 0.686817986592051
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.731577081882043,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.00239660130630559,
+              "xRange": 0.00239660130630559,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.010153297711582021,
+              "xRange": 0.0,
+              "yRange": 0.010153297711582021
+            },
+            "right": {
+              "maxDrift": 0.5351010746032787,
+              "xRange": 0.5751181041251495,
+              "yRange": 0.24148767736515842
+            },
+            "left": {
+              "maxDrift": 0.5581127255899987,
+              "xRange": 0.6497636726043141,
+              "yRange": 0.2543678655187494
+            },
+            "up": {
+              "maxDrift": 0.529053134433967,
+              "xRange": 0.18095783443128627,
+              "yRange": 0.6002690409357716
+            },
+            "down": {
+              "maxDrift": 0.4777593750248456,
+              "xRange": 0.13396154856136283,
+              "yRange": 0.7907424688045015
+            },
+            "diagonal": {
+              "maxDrift": 0.7168404287326687,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.7,
+      "maxSuppression": 1.0,
+      "summary": {
+        "maxRotDrift": 0.0,
+        "meanRotDrift": 0.0,
+        "minAimRange": 0.3915128155004071
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5040014926956784,
+              "xRange": 0.5,
+              "yRange": 0.06338378845944714
+            },
+            "left": {
+              "maxDrift": 0.896626109472477,
+              "xRange": 0.8949488772009837,
+              "yRange": 0.05481685310603829
+            },
+            "up": {
+              "maxDrift": 0.9485333827796297,
+              "xRange": 0.8060493646467116,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37659588550556383,
+              "xRange": 0.20533153371897583,
+              "yRange": 0.6411274594585366
+            },
+            "diagonal": {
+              "maxDrift": 0.7508507057695541,
+              "xRange": 0.6460171349184635,
+              "yRange": 0.3915128155004071
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046167799779203,
+              "xRange": 0.5423605877386033,
+              "yRange": 0.06810355816904756
+            },
+            "left": {
+              "maxDrift": 0.5092226606408453,
+              "xRange": 0.7473530647428608,
+              "yRange": 0.10143663875374831
+            },
+            "up": {
+              "maxDrift": 0.5333220652629526,
+              "xRange": 0.32639110493300627,
+              "yRange": 0.9413374520623548
+            },
+            "down": {
+              "maxDrift": 0.41310239219711153,
+              "xRange": 0.1952948102666603,
+              "yRange": 0.688154089637875
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7317068882683437,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5351777077094994,
+              "xRange": 0.574494670354256,
+              "yRange": 0.24135607213978222
+            },
+            "left": {
+              "maxDrift": 0.5580773126657961,
+              "xRange": 0.6489706195920248,
+              "yRange": 0.2537482787995244
+            },
+            "up": {
+              "maxDrift": 0.5289219781887304,
+              "xRange": 0.18089470943210867,
+              "yRange": 0.5999444104357399
+            },
+            "down": {
+              "maxDrift": 0.47779613634984897,
+              "xRange": 0.13303903861643757,
+              "yRange": 0.7873432058552072
+            },
+            "diagonal": {
+              "maxDrift": 0.7160056496958035,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "maxSuppression": 0.3,
+      "summary": {
+        "maxRotDrift": 0.13181094319391096,
+        "meanRotDrift": 0.0787328608198635,
+        "minAimRange": 0.45960031249881433
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08139450888332277,
+              "xRange": 0.01424542907880244,
+              "yRange": 0.12004507164871858
+            },
+            "rotate_other": {
+              "maxDrift": 0.07611852289512037,
+              "xRange": 0.13049480865535873,
+              "yRange": 0.015410280449919544
+            },
+            "right": {
+              "maxDrift": 0.503902004325345,
+              "xRange": 0.5,
+              "yRange": 0.06258777806489113
+            },
+            "left": {
+              "maxDrift": 0.9080089844839331,
+              "xRange": 0.9063578115363904,
+              "yRange": 0.05473420658517364
+            },
+            "up": {
+              "maxDrift": 0.9485197111160653,
+              "xRange": 0.80603327622109,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3794799973545139,
+              "xRange": 0.23024929838918073,
+              "yRange": 0.6231180179349476
+            },
+            "diagonal": {
+              "maxDrift": 0.781473605802735,
+              "xRange": 0.6720688319611131,
+              "yRange": 0.45960031249881433
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.13181094319391096,
+              "xRange": 0.16622482957545626,
+              "yRange": 0.05103605909216752
+            },
+            "rotate_other": {
+              "maxDrift": 0.024723787752084312,
+              "xRange": 0.028024970462411092,
+              "yRange": 0.006427161182228969
+            },
+            "right": {
+              "maxDrift": 0.5046248455973047,
+              "xRange": 0.5504739097422691,
+              "yRange": 0.06816329506489283
+            },
+            "left": {
+              "maxDrift": 0.5095421339434799,
+              "xRange": 0.7480077410938086,
+              "yRange": 0.10282362127970424
+            },
+            "up": {
+              "maxDrift": 0.5332492291458836,
+              "xRange": 0.3260327467166668,
+              "yRange": 0.9417416226447195
+            },
+            "down": {
+              "maxDrift": 0.41410972310005817,
+              "xRange": 0.2006113950870677,
+              "yRange": 0.6868266418000853
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7315098773861151,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.08688210443556676,
+              "xRange": 0.10800956584854526,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.07146729775917582,
+              "xRange": 0.0,
+              "yRange": 0.12614616156499459
+            },
+            "right": {
+              "maxDrift": 0.5347751126260714,
+              "xRange": 0.5776974308399105,
+              "yRange": 0.2420060806201293
+            },
+            "left": {
+              "maxDrift": 0.5582619902117909,
+              "xRange": 0.653362899353857,
+              "yRange": 0.25717182099108127
+            },
+            "up": {
+              "maxDrift": 0.5297073051303436,
+              "xRange": 0.18131554275995954,
+              "yRange": 0.6015735766254693
+            },
+            "down": {
+              "maxDrift": 0.4775560195970305,
+              "xRange": 0.13856158039000005,
+              "yRange": 0.8077565099136005
+            },
+            "diagonal": {
+              "maxDrift": 0.7207541657835538,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "maxSuppression": 0.5,
+      "summary": {
+        "maxRotDrift": 0.09287067570958556,
+        "meanRotDrift": 0.052475631564519204,
+        "minAimRange": 0.4319333492915425
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.054215610072096576,
+              "xRange": 0.004694969417400718,
+              "yRange": 0.07561421418763953
+            },
+            "rotate_other": {
+              "maxDrift": 0.04984814046818864,
+              "xRange": 0.08288305569048038,
+              "yRange": 0.007210771982571862
+            },
+            "right": {
+              "maxDrift": 0.5038987634220327,
+              "xRange": 0.5,
+              "yRange": 0.06256167979085603
+            },
+            "left": {
+              "maxDrift": 0.9068781743538177,
+              "xRange": 0.9052252383544247,
+              "yRange": 0.05472925146106361
+            },
+            "up": {
+              "maxDrift": 0.9485921559656328,
+              "xRange": 0.8061185262475534,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3791993618384007,
+              "xRange": 0.22811817400129142,
+              "yRange": 0.6207245767230946
+            },
+            "diagonal": {
+              "maxDrift": 0.7808781145905996,
+              "xRange": 0.6696257032667501,
+              "yRange": 0.4319333492915425
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.09287067570958556,
+              "xRange": 0.1161449569926633,
+              "yRange": 0.034418857723795215
+            },
+            "rotate_other": {
+              "maxDrift": 0.0112677883135891,
+              "xRange": 0.0112677883135891,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046283702710109,
+              "xRange": 0.5498213153161882,
+              "yRange": 0.06818938394190521
+            },
+            "left": {
+              "maxDrift": 0.5095072686648815,
+              "xRange": 0.7478595174715932,
+              "yRange": 0.10268636188785024
+            },
+            "up": {
+              "maxDrift": 0.5332839389112012,
+              "xRange": 0.32612678417504504,
+              "yRange": 0.9416704322409017
+            },
+            "down": {
+              "maxDrift": 0.41393143065122867,
+              "xRange": 0.19928687245480042,
+              "yRange": 0.6868227264490432
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7319554540704115,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05651218344980535,
+              "xRange": 0.06409267121388307,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.050139391373849984,
+              "xRange": 0.0,
+              "yRange": 0.08430457534686692
+            },
+            "right": {
+              "maxDrift": 0.5348464394035729,
+              "xRange": 0.5770617877374873,
+              "yRange": 0.24185450749424453
+            },
+            "left": {
+              "maxDrift": 0.5582276134961037,
+              "xRange": 0.6527664058071265,
+              "yRange": 0.25670046370000854
+            },
+            "up": {
+              "maxDrift": 0.5296465742912705,
+              "xRange": 0.18131554275995948,
+              "yRange": 0.6012168851962582
+            },
+            "down": {
+              "maxDrift": 0.47755893046188924,
+              "xRange": 0.13814323070604106,
+              "yRange": 0.8062575439556665
+            },
+            "diagonal": {
+              "maxDrift": 0.7202096237774088,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "maxSuppression": 0.7,
+      "summary": {
+        "maxRotDrift": 0.05400322372972325,
+        "meanRotDrift": 0.026690978591814143,
+        "minAimRange": 0.4210064736871347
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.027480199866002808,
+              "xRange": 0.0,
+              "yRange": 0.031292810271875804
+            },
+            "rotate_other": {
+              "maxDrift": 0.023708700502590663,
+              "xRange": 0.03527130272560208,
+              "yRange": 0.0044495395694351125
+            },
+            "right": {
+              "maxDrift": 0.5038955238495842,
+              "xRange": 0.5,
+              "yRange": 0.06253558151682115
+            },
+            "left": {
+              "maxDrift": 0.9057473686565226,
+              "xRange": 0.904092665172459,
+              "yRange": 0.054724296336953415
+            },
+            "up": {
+              "maxDrift": 0.9486646029437827,
+              "xRange": 0.8062037762740168,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37891899574302285,
+              "xRange": 0.22598704961340177,
+              "yRange": 0.6183311355112415
+            },
+            "diagonal": {
+              "maxDrift": 0.7802953310322913,
+              "xRange": 0.6671825745723867,
+              "yRange": 0.4210064736871347
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.05400322372972325,
+              "xRange": 0.06606508440987041,
+              "yRange": 0.01783406561732015
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.504631896268863,
+              "xRange": 0.5491687208901067,
+              "yRange": 0.06821547281891771
+            },
+            "left": {
+              "maxDrift": 0.5094724654214068,
+              "xRange": 0.7477112938493776,
+              "yRange": 0.10254910249599636
+            },
+            "up": {
+              "maxDrift": 0.5333186651064608,
+              "xRange": 0.32622082163342314,
+              "yRange": 0.941599241837084
+            },
+            "down": {
+              "maxDrift": 0.4137535231441914,
+              "xRange": 0.1979623498225328,
+              "yRange": 0.6868188110980011
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7324010307547079,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.02614226246404394,
+              "xRange": 0.02614226246404394,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.028811484988524205,
+              "xRange": 0.0,
+              "yRange": 0.042462989128739304
+            },
+            "right": {
+              "maxDrift": 0.5349178321871088,
+              "xRange": 0.576426144635064,
+              "yRange": 0.2417029343683596
+            },
+            "left": {
+              "maxDrift": 0.5581932453674053,
+              "xRange": 0.6521699122603963,
+              "yRange": 0.2562291064089358
+            },
+            "up": {
+              "maxDrift": 0.5295858436899524,
+              "xRange": 0.18131554275995942,
+              "yRange": 0.6008601937670469
+            },
+            "down": {
+              "maxDrift": 0.4775618453092198,
+              "xRange": 0.1377248810220819,
+              "yRange": 0.8047585779977325
+            },
+            "diagonal": {
+              "maxDrift": 0.7196651098968231,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "maxSuppression": 0.85,
+      "summary": {
+        "maxRotDrift": 0.025104724499211514,
+        "meanRotDrift": 0.008827211986645033,
+        "minAimRange": 0.41549722942232814
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.007570588740536843,
+              "xRange": 0.0,
+              "yRange": 0.007570588740536843
+            },
+            "rotate_other": {
+              "maxDrift": 0.004104120528392097,
+              "xRange": 0.004104120528392097,
+              "yRange": 0.002378615259582495
+            },
+            "right": {
+              "maxDrift": 0.503893095043643,
+              "xRange": 0.5,
+              "yRange": 0.06251600781129485
+            },
+            "left": {
+              "maxDrift": 0.9048992673025869,
+              "xRange": 0.9032432352859848,
+              "yRange": 0.054720579993870755
+            },
+            "up": {
+              "maxDrift": 0.9487189395739842,
+              "xRange": 0.8062677137938645,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.37870889833882754,
+              "xRange": 0.22438870632248487,
+              "yRange": 0.616536054602352
+            },
+            "diagonal": {
+              "maxDrift": 0.7798665999225121,
+              "xRange": 0.6653502280516145,
+              "yRange": 0.41549722942232814
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.025104724499211514,
+              "xRange": 0.02850517997277574,
+              "yRange": 0.005466248386149897
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046345416362059,
+              "xRange": 0.5486792750705458,
+              "yRange": 0.06823503947667708
+            },
+            "left": {
+              "maxDrift": 0.5094464037069999,
+              "xRange": 0.747600126132716,
+              "yRange": 0.10244615795210599
+            },
+            "up": {
+              "maxDrift": 0.5333447205331241,
+              "xRange": 0.32629134972720664,
+              "yRange": 0.9415458490342206
+            },
+            "down": {
+              "maxDrift": 0.4136203454308107,
+              "xRange": 0.19696895784833235,
+              "yRange": 0.6872859415411825
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.7327352132679299,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0033682829521998747,
+              "xRange": 0.0033682829521998747,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.012815555199529871,
+              "xRange": 0.0,
+              "yRange": 0.012815555199529871
+            },
+            "right": {
+              "maxDrift": 0.5349714200753247,
+              "xRange": 0.5759494123082466,
+              "yRange": 0.24158925452394592
+            },
+            "left": {
+              "maxDrift": 0.5581674749070471,
+              "xRange": 0.6517225421003487,
+              "yRange": 0.25587558844063124
+            },
+            "up": {
+              "maxDrift": 0.5295402958950399,
+              "xRange": 0.18131554275995948,
+              "yRange": 0.6005926751951384
+            },
+            "down": {
+              "maxDrift": 0.4775640340581709,
+              "xRange": 0.1374111187591126,
+              "yRange": 0.8036343535292818
+            },
+            "diagonal": {
+              "maxDrift": 0.7192567429822083,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "threshold": 0.8,
+      "maxSuppression": 1.0,
+      "summary": {
+        "maxRotDrift": 0.00030769094973004396,
+        "meanRotDrift": 5.128182495500733e-05,
+        "minAimRange": 0.4101234598106949
+      },
+      "perSession": [
+        {
+          "file": "wt901-right-hand-diagnostic-1788441394853.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.00030769094973004396,
+              "xRange": 0.0,
+              "yRange": 0.00030769094973004396
+            },
+            "right": {
+              "maxDrift": 0.5038906669863381,
+              "xRange": 0.5,
+              "yRange": 0.06249643410576855
+            },
+            "left": {
+              "maxDrift": 0.9040511684585053,
+              "xRange": 0.9023938053995106,
+              "yRange": 0.054716863650788206
+            },
+            "up": {
+              "maxDrift": 0.948773277401033,
+              "xRange": 0.806331651313712,
+              "yRange": 1.0
+            },
+            "down": {
+              "maxDrift": 0.3784989530733447,
+              "xRange": 0.22279036303156763,
+              "yRange": 0.6147409736934621
+            },
+            "diagonal": {
+              "maxDrift": 0.779445044728681,
+              "xRange": 0.663517881530842,
+              "yRange": 0.4101234598106949
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788442512578.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5046371877483535,
+              "xRange": 0.5481898292509848,
+              "yRange": 0.06825460613443635
+            },
+            "left": {
+              "maxDrift": 0.509420376899859,
+              "xRange": 0.7474889584160543,
+              "yRange": 0.10234321340821562
+            },
+            "up": {
+              "maxDrift": 0.5333707851984705,
+              "xRange": 0.32636187782099024,
+              "yRange": 0.9414924562313571
+            },
+            "down": {
+              "maxDrift": 0.41438406301972763,
+              "xRange": 0.19597556587413156,
+              "yRange": 0.6887046248721476
+            },
+            "diagonal": {
+              "maxDrift": 0.7071067811865476,
+              "xRange": 0.733069395781152,
+              "yRange": 0.5
+            }
+          }
+        },
+        {
+          "file": "wt901-right-hand-diagnostic-1788443253622.json",
+          "metrics": {
+            "rotate_one": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "rotate_other": {
+              "maxDrift": 0.0,
+              "xRange": 0.0,
+              "yRange": 0.0
+            },
+            "right": {
+              "maxDrift": 0.5350250450659193,
+              "xRange": 0.575472679981429,
+              "yRange": 0.24147557467953218
+            },
+            "left": {
+              "maxDrift": 0.5581417092784315,
+              "xRange": 0.651275171940301,
+              "yRange": 0.25552207047232683
+            },
+            "up": {
+              "maxDrift": 0.5294947482339448,
+              "xRange": 0.18131554275995948,
+              "yRange": 0.6003251566232303
+            },
+            "down": {
+              "maxDrift": 0.47756622504719054,
+              "xRange": 0.1370973564961433,
+              "yRange": 0.8025101290608314
+            },
+            "diagonal": {
+              "maxDrift": 0.7188483919511782,
+              "xRange": 1.0,
+              "yRange": 1.0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

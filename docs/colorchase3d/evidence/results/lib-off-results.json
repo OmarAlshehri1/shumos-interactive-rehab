@@ -1,0 +1,42 @@
+[
+ {
+  "name": "flag off: exactly one Color Chase card and it is the original (no 3D name)",
+  "ok": true,
+  "detail": "{\"titles\":1,\"links\":1,\"en3d\":false,\"en\":true,\"floor\":true}"
+ },
+ {
+  "name": "library still renders its other games",
+  "ok": true,
+  "detail": "2699"
+ },
+ {
+  "name": "flag off: the canonical route serves the original game's Control",
+  "ok": true,
+  "detail": "متصل → العودة للأنشطة ليلى · تغيير المريض مطاردة الألوان إعداد جلسة جديدة — لعبة أرضية بيانات الطفل "
+ },
+ {
+  "name": "the original game stays reachable at /control/color-chase-legacy (rollback path)",
+  "ok": true,
+  "detail": "متصل → العودة للأنشطة ليلى · تغيير المريض مطاردة الألوان إعداد جلسة جديدة — لعبة أرضية بيانات الطفل "
+ },
+ {
+  "name": "other game route still renders: /control/follow-the-footsteps",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "other game route still renders: /control/balloon-quest",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "other game route still renders: /control/space-pilot",
+  "ok": true,
+  "detail": ""
+ },
+ {
+  "name": "other game route still renders: /control/bubble-pop-wall",
+  "ok": true,
+  "detail": ""
+ }
+]

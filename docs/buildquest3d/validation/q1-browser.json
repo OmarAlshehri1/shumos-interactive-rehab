@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "placed": 1,
+  "errors": [],
+  "metrics": {
+    "fps": 0,
+    "frameMs": 0,
+    "drawCalls": 0,
+    "geometries": 0,
+    "textures": 0,
+    "frames": 0
+  }
+}

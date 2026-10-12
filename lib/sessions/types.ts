@@ -1,3 +1,5 @@
+import type {StoredBridgeSession} from '@/lib/balancebridge3d/history';
+import type {StoredCastleSession} from '@/lib/castlelegends3d/history';
 import type { StoredHarvestSession } from '@/lib/harvestvalley3d/history';
 import type { StoredBloomSession } from '@/lib/bloomingworld3d/history';
 import type { StoredFireSession } from '@/lib/firerescue3d/history';
@@ -388,6 +390,8 @@ export interface StoredRunnerQuestSession extends StoredSessionWorkflowFields {
  * the minimal common shape that needs no narrowing at all.
  */
 export type AnyStoredSession =
+  | StoredBridgeSession
+  | StoredCastleSession
   | StoredHarvestSession
   | StoredBloomSession
   | StoredFireSession
