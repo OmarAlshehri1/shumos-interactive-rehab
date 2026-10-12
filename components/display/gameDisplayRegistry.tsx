@@ -19,6 +19,7 @@ import { ColorChaseDisplay, type ColorChaseDisplayProps } from "./games/ColorCha
 import { RunnerQuestDisplayModule } from "./games/RunnerQuestDisplayModule";
 import { BuildQuestDisplayModule } from "./games/BuildQuestDisplayModule";
 import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
+import { RhythmStepsDisplayModule } from "./games/RhythmStepsDisplayModule";
 import type { DisplayEventListener } from "./events";
 
 /**
@@ -76,6 +77,8 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   "mirror-quest-3d": MirrorQuestDisplayModule,
   // Safe Hex Arena 3D: live-session module (cross-device, read-only Display).
   "safe-hex-arena-3d": SafeHexDisplayModule,
+  // Rhythm Steps 3D: live-session module (cross-device, read-only Display).
+  "rhythm-steps-3d": RhythmStepsDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript

@@ -128,5 +128,15 @@
     "bytes": 33908,
     "sourceSha256": "d99f949b7b6bb923b901ef0311fb8d208fcaa8eb9dada7cce2575dd5689485ba",
     "assetSha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8"
+  },
+  {
+    "gameId": "rhythm-steps-3d",
+    "source": "docs/release/library-evidence/rhythm-steps-3d-display.png",
+    "asset": "public/library-thumbnails/rhythm-steps-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 53846,
+    "sourceSha256": "8d418984ebbeeca1b3e13cbd5e181f6fe71911a53b228438f9d90503fe0c2554",
+    "assetSha256": "4e930eef58e96a3d71f54fa9167cf487e2fc012b42c2748d91b42a2aee5970ee"
   }
 ]
