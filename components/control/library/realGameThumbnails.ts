@@ -19,6 +19,7 @@ export const REAL_GAME_THUMBNAILS: Partial<Record<GameId,string>> = {
  'blooming-world-3d':'/library-thumbnails/blooming-world-3d.webp',
  'harvest-valley-3d':'/library-thumbnails/harvest-valley-3d.webp',
  'pearl-voyage-3d':'/library-thumbnails/pearl-voyage-3d.webp',
+ 'foot-maze-3d':'/library-thumbnails/foot-maze-3d.webp',
 };
 /** Rollbacks retain their safe original artwork rather than showing a different engine's scene. */
 export function realGameThumbnail(id:GameId):string|undefined {

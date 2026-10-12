@@ -128,5 +128,15 @@
     "bytes": 33908,
     "sourceSha256": "d99f949b7b6bb923b901ef0311fb8d208fcaa8eb9dada7cce2575dd5689485ba",
     "assetSha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8"
+  },
+  {
+    "gameId": "foot-maze-3d",
+    "source": "docs/release/library-evidence/foot-maze-3d-display.png",
+    "asset": "public/library-thumbnails/foot-maze-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 80278,
+    "sourceSha256": "a5b55a75ef8cf1fcf3aaa882512c03fc36d7c5e54901369b4a2f830f5cc71186",
+    "assetSha256": "a32f2219bb67138e9fc115a465ad20adc65d626e66e1f97b5325a34d71c695d6"
   }
 ]

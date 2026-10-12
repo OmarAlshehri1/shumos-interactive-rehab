@@ -5,6 +5,7 @@ import { reviveFireHistory } from '@/lib/firerescue3d/history';
 import { revivePearlHistory } from '@/lib/pearlvoyage3d/history';
 import { reviveMirrorHistory } from '@/lib/mirrorquest3d/history';
 import { reviveHexHistory } from '@/lib/safehexarena3d/history';
+import { reviveFootMazeHistory } from '@/lib/footmaze3d/history';
 import { isFootsteps3History, reviveFootsteps3History } from '@/lib/footsteps3d/history';
 import { isColorChase3History, reviveColorChase3History } from '@/lib/colorchase3d/history';
 import { isRingHistory, reviveRingHistory } from '@/lib/spacepilot3d/history';
@@ -294,6 +295,7 @@ export function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
   if (gameId === "pearl-voyage-3d") return revivePearlHistory(raw);
   if (gameId === "mirror-quest-3d") return reviveMirrorHistory(raw);
   if (gameId === "safe-hex-arena-3d") return reviveHexHistory(raw);
+  if (gameId === "foot-maze-3d") return reviveFootMazeHistory(raw);
   if (gameId === "build-quest-3d") return reviveBuildQuestHistory(raw);
   // original five-stage records have no `resultVersion`/`engine` and are never reinterpreted
   if (gameId === "follow-the-footsteps") return isFootsteps3History(raw) ? reviveFootsteps3History(raw) : reviveStoredFootstepsSession(raw);
