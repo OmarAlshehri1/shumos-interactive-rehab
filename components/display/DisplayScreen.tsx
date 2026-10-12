@@ -1,32 +1,41 @@
 "use client";
+import { isDomeLive } from "@/lib/bubblepopwall3d/live";
 
 import { useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
-import { GameState } from "@/lib/game";
+import { Difficulty, GameState } from "@/lib/game";
 import { useLocalDemoSession } from "@/lib/demo/useLocalDemoSession";
 import { useRealtimeDisplaySession } from "@/lib/display/useRealtimeDisplaySession";
 import { useFullscreen } from "@/lib/display/useFullscreen";
 import { useAudioManager } from "@/lib/audio/useAudioManager";
 import { getDisplayDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
-import { BALLOON_QUEST_GAME_ID } from "@/lib/games/registry";
+import { BALLOON_QUEST_GAME_ID, getGameById } from "@/lib/games/registry";
 import {
   reportCountdownComplete,
   reportDisplayAudioStatus,
   reportDisplayFullscreen,
   subscribeToDisplayAudioEnableCommand,
 } from "@/lib/realtime/sessionRepository";
+import { SensorPointerLayer } from "./SensorPointerLayer";
+import { LocalGameFeedbackProvider } from "./LocalGameFeedbackProvider";
 import { DevBadge } from "./DevBadge";
 import { MuteToggle } from "./MuteToggle";
 import { Environment } from "./environment/Environment";
 import { CosmicEnvironment } from "./footsteps/environment/CosmicEnvironment";
 import { UnderwaterEnvironment } from "./bubblepop/environment/UnderwaterEnvironment";
-import { SafariEnvironment } from "./feedanimals/environment/SafariEnvironment";
 import { SpaceEnvironment } from "./spacepilot/environment/SpaceEnvironment";
 import { ColorChaseEnvironment } from "./colorchase/ColorChaseEnvironment";
 import { PlayStage } from "./PlayStage";
 import { BalloonQuestDisplay } from "./games/BalloonQuestDisplay";
 import { GAME_DISPLAY_MODULES } from "./gameDisplayRegistry";
 import { ShumosWaitingWorld } from "./waiting/ShumosWaitingWorld";
+import { isBq3Session } from "@/lib/balloonquest/live";
+import { isSpacePilotLive } from "@/lib/spacepilot3d/cloudState";
+import { isFp3Live } from "@/lib/footsteps3d/live";
+import { isCc3Live } from "@/lib/colorchase3d/live";
+import { LEGACY_BALLOON_QUEST } from "@/lib/balloonquest/rollback";
+import { BalloonQuest3DDisplay } from "./balloonquest3d/game/BalloonQuest3DDisplay";
+import { Bq3SkyBackground } from "./balloonquest3d/game/Bq3SkyBackground";
 
 /**
  * TASK 6: picks between the realtime experience (driven by /control through
@@ -49,7 +58,18 @@ import { ShumosWaitingWorld } from "./waiting/ShumosWaitingWorld";
  * even resolved yet, changed.
  */
 export function DisplayScreen() {
-  return isRealtimeEnabled() ? <RealtimeDisplayScreen /> : <LocalDisplayScreen />;
+  if (isRealtimeEnabled()) return <RealtimeDisplayScreen />;
+  // Local mode (no Firebase): the redesigned game talks to /control through the local BroadcastChannel; the original local demo stays available via the rollback flag.
+  return LEGACY_BALLOON_QUEST ? <LocalDisplayScreen /> : <LocalBalloonQuest3DDisplayScreen />;
+}
+
+function LocalBalloonQuest3DDisplayScreen() {
+  const audio = useAudioManager();
+  return (
+    <DisplayShell muted={audio.muted} onToggleMute={audio.toggleMute} gameState={null} background={<Bq3SkyBackground />}>
+      <BalloonQuest3DDisplay embedded />
+    </DisplayShell>
+  );
 }
 
 function LocalDisplayScreen() {
@@ -216,6 +236,13 @@ function RealtimeDisplayScreen() {
   useEffect(() => {
     const session = realtime.session;
     if (!session || !realtime.gameId || prefetchedSessionIdRef.current === session.sessionId) return;
+    // The redesigned Balloon Quest has no voice lines: do not warm the legacy line set (paid TTS) for it.
+    if (isBq3Session(session)) return;
+    // Space Pilot 3D has no voice lines either: never warm the original Space Pilot's paid line set for it.
+    if (isSpacePilotLive(session)) return;
+    // The Enchanted Forest has no voice lines: never warm the original Follow the Footsteps' paid line set for it.
+    if (isFp3Live(session) || isCc3Live(session)) return;
+    if (isDomeLive(session)) return;
     prefetchedSessionIdRef.current = session.sessionId;
     audio.prefetchForSession(session.config.childFirstName, realtime.gameId);
     // audio's identity isn't a meaningful dependency here.
@@ -231,7 +258,26 @@ function RealtimeDisplayScreen() {
   // never guess it must be Balloon Quest.
   const session = realtime.session;
   const activeGame = session && realtime.gameId ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
-  const activeAudioGameId = session && realtime.gameId ? realtime.gameId : null;
+  // Space Pilot 3D is silent by design (no ambience, no voice): it uses the same silent audio profile as the other 3D games.
+  const activeAudioGameId = session && realtime.gameId ? (isSpacePilotLive(session) || isFp3Live(session) || isCc3Live(session) || isDomeLive(session) ? "build-quest-3d" : realtime.gameId) : null;
+
+  // DISPLAY REQUIREMENT: the child only ever sees the mirrored hand while a
+  // sensor-compatible game (lib/games/registry.ts's `sensorCompatible`) is
+  // actually PLAYING — never during WELCOME/INSTRUCTIONS/COUNTDOWN/
+  // STAGE_COMPLETE/SESSION_COMPLETE, and never for a game with no discrete
+  // contact action (Space Pilot). Mirrors exactly what gates contact
+  // detection on /control's own live maps (see SensorHandLayer callers).
+  // The pointer's OWN visibility is checked separately, inside
+  // SensorPointerLayer (see its own doc comment for why that state lives
+  // there and not here) — this only ever expresses the game/session-level
+  // gate, never "where is the hand right now."
+  const sensorHandGateVisible = !!(
+    activeGame &&
+    realtime.gameId &&
+    getGameById(realtime.gameId)?.sensorCompatible &&
+    !isDomeLive(activeGame.session) &&
+    activeGame.session.gameState === GameState.PLAYING
+  );
 
   // Welcome events normally start ambience, but they do not mount when a
   // refreshed display reconnects directly into START_ZONE, COUNTDOWN,
@@ -281,19 +327,25 @@ function RealtimeDisplayScreen() {
   // `currentStage` to just the one field it actually needs, sound because
   // the branch condition already guarantees which concrete game this is.
   const environmentBackground =
-    activeGame && realtime.gameId === "follow-the-footsteps" ? (
+    activeGame && realtime.gameId === "follow-the-footsteps" && isFp3Live(activeGame.session) ? (
+      <div style={{ position: "fixed", inset: 0, background: "#0b1a12" }} />
+    ) : activeGame && realtime.gameId === "follow-the-footsteps" ? (
       <CosmicEnvironment stageNumber={(activeGame.session.currentStage as { stageNumber: 1 | 2 | 3 | 4 | 5 }).stageNumber} />
+    ) : activeGame && isDomeLive(activeGame.session) ? (
+      <div style={{ position: "fixed", inset: 0, background: "#dde8ed" }} />
     ) : activeGame && realtime.gameId === "bubble-pop-wall" ? (
       <UnderwaterEnvironment
         stageNumber={(activeGame.session.currentStage as { stageNumber: 1 | 2 | 3 | 4 | 5 }).stageNumber}
-        difficulty={activeGame.session.currentDifficulty}
+        difficulty={activeGame.session.currentDifficulty as Difficulty}
       />
-    ) : activeGame && realtime.gameId === "feed-the-animals" ? (
-      <SafariEnvironment stageNumber={(activeGame.session.currentStage as { stageNumber: 1 | 2 | 3 | 4 | 5 }).stageNumber} />
     ) : activeGame && realtime.gameId === "space-pilot" ? (
       <SpaceEnvironment />
+    ) : activeGame && realtime.gameId === "color-chase" && isCc3Live(activeGame.session) ? (
+      <div style={{ position: "fixed", inset: 0, background: "#26402a" }} />
     ) : activeGame && realtime.gameId === "color-chase" ? (
       <ColorChaseEnvironment />
+    ) : activeGame && isBq3Session(activeGame.session) ? (
+      <Bq3SkyBackground />
     ) : (
       <Environment />
     );
@@ -336,17 +388,21 @@ function RealtimeDisplayScreen() {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.1, ease: "easeInOut" }}
           >
-            <activeGame.Component
-              session={activeGame.session}
-              onEvent={audio.handleEvent}
-              onWelcomeStart={() => {}}
-              onCountdownComplete={handleCountdownComplete}
-              onSelectBalloon={() => {}}
-              onStageCompleteDone={() => {}}
-              externalIncorrectSignal={realtime.incorrectSignal}
-              speakCountdownTick={audio.speakCountdownTick}
-              celebrationReplayToken={realtime.celebrationReplayToken}
-            />
+            <LocalGameFeedbackProvider gameId={realtime.gameId} sessionId={activeGame.session.sessionId}>
+              <activeGame.Component
+                session={activeGame.session}
+                muted={audio.muted}
+                onEvent={audio.handleEvent}
+                onWelcomeStart={() => {}}
+                onCountdownComplete={handleCountdownComplete}
+                onSelectBalloon={() => {}}
+                onStageCompleteDone={() => {}}
+                externalIncorrectSignal={realtime.incorrectSignal}
+                speakCountdownTick={audio.speakCountdownTick}
+                celebrationReplayToken={realtime.celebrationReplayToken}
+              />
+            </LocalGameFeedbackProvider>
+            <SensorPointerLayer authenticated={realtime.authStatus === "authenticated"} gateVisible={sensorHandGateVisible} />
           </motion.div>
         ) : (
           <motion.div

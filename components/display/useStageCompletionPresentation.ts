@@ -12,8 +12,6 @@ export const FINAL_ACTION_FAILSAFE_MS = {
   balloonQuest: 1_300,
   footsteps: 1_250,
   bubblePop: 1_800,
-  feedAnimalsChoice: 1_600,
-  feedAnimalsPath: 1_500,
   spacePilot: 1_600,
   colorChase: 1_150,
 } as const;

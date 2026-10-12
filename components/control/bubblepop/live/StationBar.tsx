@@ -1,7 +1,10 @@
 "use client";
 
-import { currentTargetId, getBubbleStagePlan, type BubbleColor, type BubblePopStageRuntime, type BubbleShape } from "@/lib/bubblepop";
+import { useCallback, useMemo } from "react";
+import { type BubbleColor, type BubblePopStageRuntime, type BubbleShape } from "@/lib/bubblepop";
 import { BUBBLE_COLOR_HEX } from "../copy";
+import { SensorHandLayer } from "@/components/control/sensors/SensorHandLayer";
+import { bubblePopSensorTargets, bubblePopStationItems, resolveBubblePopStationContact } from "@/lib/physicalInput/gameSensorTargets";
 
 interface StationBarProps {
   stage: BubblePopStageRuntime;
@@ -27,19 +30,18 @@ interface StationBarProps {
  * the correct answer station before selection").
  */
 export function StationBar({ stage, disabled, offline, onConfirm }: StationBarProps) {
-  const targetId = currentTargetId(stage);
-  const target = stage.bubbles.find((b) => b.id === targetId) ?? null;
-  const plan = getBubbleStagePlan(stage.difficulty, stage.stageNumber);
+  // Same source lib/physicalInput/gameSensorTargets.ts's sensor wiring reads from — one derivation, so the sensor's hit-test can never drift from what this bar actually renders.
+  const items = bubblePopStationItems(stage);
 
-  const items: { key: string; color: BubbleColor; shape?: BubbleShape; isCurrent: boolean }[] =
-    target?.requiresShape && target.stationTokens.length > 0
-      ? target.stationTokens.map((t, i) => ({
-          key: `${t.color}-${t.shape}-${i}`,
-          color: t.color,
-          shape: t.shape,
-          isCurrent: t.color === target.color && t.shape === target.shape,
-        }))
-      : plan.stations.map((color) => ({ key: color, color, isCurrent: color === target?.color }));
+  // PRODUCTION SENSOR INTEGRATION — see lib/physicalInput/gameSensorTargets.ts and SensorHandLayer's doc comment.
+  const sensorTargets = useMemo(() => bubblePopSensorTargets(items), [items]);
+  const handleSensorContact = useCallback(
+    (stationKey: string) => {
+      const resolved = resolveBubblePopStationContact(items, stationKey);
+      if (resolved) onConfirm(resolved.color, resolved.shape);
+    },
+    [items, onConfirm],
+  );
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2">
@@ -76,6 +78,8 @@ export function StationBar({ stage, disabled, offline, onConfirm }: StationBarPr
             )}
           </button>
         ))}
+
+        <SensorHandLayer targets={sensorTargets} active={!disabled} onContact={handleSensorContact} />
       </div>
 
       <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-slate-400">

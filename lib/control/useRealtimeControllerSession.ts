@@ -24,6 +24,8 @@ import {
 } from "@/lib/game";
 import { TICK_DURATION_MS, TICKS } from "@/components/display/scenes/CountdownScene";
 import { BALLOON_QUEST_GAME_ID } from "@/lib/games/registry";
+import { publishLocalGameFeedback } from "@/lib/display/LocalGameFeedbackChannel";
+import { publishSessionWake } from "@/lib/display/LocalSessionWakeChannel";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import {
@@ -59,6 +61,8 @@ type BalloonLiveSessionRecord = Omit<LiveSessionRecord, "session"> & { session: 
 
 function asBalloonQuestRecord(record: LiveSessionRecord | null): BalloonLiveSessionRecord | null {
   if (!record || record.gameId !== BALLOON_QUEST_GAME_ID) return null;
+  // A record published by the redesigned engine (see lib/balloonquest/live.ts) is not a legacy SessionState: the legacy controller never adopts it.
+  if ((record.session as { engine?: unknown }).engine === "bq3") return null;
   return record as unknown as BalloonLiveSessionRecord;
 }
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
@@ -513,6 +517,14 @@ export function useRealtimeControllerSession() {
       setUnconfirmedActionCount((n) => n + 1);
       try {
         await publishSession(db, { gameId: BALLOON_QUEST_GAME_ID, sessionId, revision: nextRevision, session: nextSession, lastInteraction, patientId });
+        // PROJECTOR START/FOCUS FIX (see useRealtimeDisplaySession.ts's doc
+        // comment): every real publish — game start, stage advance, restart,
+        // everything — nudges a same-Mac Display to re-fetch the current
+        // canonical record right now, instead of depending entirely on its
+        // own persistent listener (which can silently stall in an unfocused
+        // projector window). Carries no session data itself, so it can never
+        // go stale or be applied instead of the real thing.
+        publishSessionWake();
         return nextRevision;
       } catch (error) {
         console.error(`[realtime] publishSession failed for revision ${nextRevision} (${nextSession.gameState}):`, error);
@@ -753,13 +765,30 @@ export function useRealtimeControllerSession() {
       const wasCorrect = balloon.isTarget;
       const myToken = sequenceTokenRef.current;
       const result = engineSelectBalloon(record.session, balloonId, Date.now());
+      const nextRevision = (record.revision ?? 0) + 1;
       const interaction: LiveInteraction = {
-        id: `${(record.revision ?? 0) + 1}-${balloonId}`,
+        id: `${nextRevision}-${balloonId}`,
         type: wasCorrect ? "CORRECT" : "INCORRECT",
         balloonId,
-        revision: (record.revision ?? 0) + 1,
+        revision: nextRevision,
         timestamp: Date.now(),
       };
+      // LOCAL GAME-FEEDBACK FAST PATH (see lib/display/LocalGameFeedbackChannel.ts):
+      // only on a CORRECT pop, matching engine.selectBalloon's own semantics
+      // exactly (lib/game/session.ts) — an incorrect tap never sets
+      // isPopped, so there is nothing for a same-Mac Display to accelerate.
+      // Sent from right here, after the canonical engine has already
+      // decided `wasCorrect`, never before — a rejected/incorrect contact
+      // can never produce this message.
+      if (wasCorrect) {
+        publishLocalGameFeedback({
+          gameId: BALLOON_QUEST_GAME_ID,
+          sessionId: record.sessionId,
+          revision: nextRevision,
+          actionId: interaction.id,
+          targetId: balloonId,
+        });
+      }
       void publish(record.sessionId, result.state, interaction, myToken);
       return wasCorrect;
     },

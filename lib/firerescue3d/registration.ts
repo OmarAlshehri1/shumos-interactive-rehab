@@ -1,0 +1,2 @@
+export const FIRE_RESCUE_ENABLED = process.env.NODE_ENV === 'development' ? process.env.NEXT_PUBLIC_FIRE_RESCUE_3D !== 'false' : process.env.NEXT_PUBLIC_FIRE_RESCUE_3D === 'true';
+export const FIRE_RESCUE_REGISTRATION = { id: 'fire-rescue-3d', nameAr: 'مهمة الإطفاء', nameEn: 'Fire Rescue 3D', shortDescriptionAr: 'قد سيارة الإطفاء بهدوء على طرق الجبل، ثم وجّه الماء نحو النار. تحكّم يدوي كامل ومساعدة قابلة للتعديل.', focusTagsAr: ['قيادة بمساعدة', 'توجيه الماء'], status: 'ready', surfaceType: 'WALL', route: '/control/fire-rescue-3d', sensorCompatible: false } as const;

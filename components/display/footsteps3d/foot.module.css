@@ -1,0 +1,16 @@
+.world { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #0b1a12; color: #eaf1ff; font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif; border-radius: 14px; }
+.full { position: fixed; inset: 0; width: auto; aspect-ratio: auto; border-radius: 0; z-index: 5; }
+.canvas { position: absolute; inset: 0; }
+.badge { position: absolute; top: 14px; inset-inline-start: 18px; display: flex; gap: 12px; align-items: center; padding: 6px 12px; border-radius: 999px; background: rgba(8, 18, 44, 0.62); font-size: 15px; letter-spacing: 0.01em; pointer-events: none; }
+.dots { display: inline-flex; gap: 5px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; border: 2px solid #8fb4ff; box-sizing: border-box; }
+.dotDone { background: #8fb4ff; }
+.dotNow { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,0.25); }
+.brand { position: absolute; bottom: 12px; inset-inline-end: 18px; font-size: 11px; letter-spacing: 0.22em; opacity: 0.45; pointer-events: none; }
+.overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(4, 10, 26, 0.55); text-align: center; padding: 24px; }
+.card { min-width: min(70%, 520px); padding: 26px 34px; border-radius: 22px; background: rgba(10, 24, 58, 0.92); border: 2px solid rgba(143, 180, 255, 0.45); box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45); }
+.card h2 { margin: 6px 0 4px; font-size: clamp(26px, 4.2vw, 52px); }
+.card p { margin: 0; font-size: clamp(15px, 2vw, 24px); opacity: 0.85; }
+.icon { font-size: clamp(40px, 6vw, 84px); line-height: 1; }
+.safety { border-color: #ffb347; }
+.hc .card { background: #000; border-color: #fff; }

@@ -17,14 +17,6 @@ import type {
 } from "@/lib/bubblepop";
 import { BubbleColor, BubbleMoveDirection, BubblePopStageStatus, BubbleShape } from "@/lib/bubblepop";
 import type {
-  FeedAnimalsSessionState,
-  FeedAnimalsSessionSummary,
-  FeedAnimalsStageResult,
-  FeedAnimalsStageRuntime,
-  FeedRound,
-} from "@/lib/feedanimals";
-import { ANIMAL_FOOD_MAP, Animal, FeedAnimalsStageStatus, Food } from "@/lib/feedanimals";
-import type {
   CollectibleStar,
   SpaceEncounter,
   SpacePilotAnyStageRuntime,
@@ -36,7 +28,6 @@ import type {
 import { CollectibleStarStatus, EncounterOutcome, EncounterType, StarLane } from "@/lib/spacepilot";
 import type { ColorChaseSessionState, ColorChaseStageResult, ColorChaseStageRuntime } from "@/lib/colorchase";
 import { ColorChaseStageStatus, getColorChaseStagePlan, PAD_IDS } from "@/lib/colorchase";
-import { getFeedAnimalsPathStage } from "@/lib/feedanimals/pathStages";
 import { assertFirebaseSafeValue, finiteCount, finiteNumber, nonNegativeFiniteNumber, safeRatio, sumFinite } from "@/lib/dataIntegrity/numeric";
 import { normalizeSessionWorkflowMetadata } from "@/lib/sessions/workflowMetadata";
 
@@ -614,133 +605,6 @@ function reviveBubblePopSummary(raw: unknown): BubblePopSessionSummary {
     totalIncorrect: requiredCount(s.totalIncorrect ?? 0, "totalIncorrect"),
     completionRate: safeRatio(s.totalTargetsCompleted, s.totalTargetsPresented),
     accuracy: safeRatio(s.totalTargetsCompleted, sumFinite([finiteCount(s.totalTargetsCompleted), finiteCount(s.totalIncorrect ?? 0)])),
-    totalDurationMs: requiredTime(s.totalDurationMs, "totalDurationMs"),
-    averageResponseTimeMs: nullableTime(s.averageResponseTimeMs, "averageResponseTimeMs"),
-    bestStage: optionalBestStage(s.bestStage),
-    completedAt: requiredIsoDate(s.completedAt, "completedAt"),
-  };
-}
-
-/**
- * MULTI-GAME PLATFORM — Feed the Animals' own revive function, same
- * "RTDB drops empty arrays / null scalars on read-back" repair job
- * reviveSessionState performs for Balloon Quest, applied to
- * FeedAnimalsSessionState's field names instead. See
- * lib/realtime/sessionRepository.ts's parseLiveSessionValue, which picks
- * between this and the other three revivers by the record's own `gameId`.
- */
-export function reviveFeedAnimalsSessionState(raw: unknown): FeedAnimalsSessionState {
-  validateSessionEnvelope(raw);
-  const s = raw as Partial<FeedAnimalsSessionState> & { results?: unknown; summary?: unknown };
-  return {
-    sessionId: s.sessionId as string,
-    seed: s.seed as string,
-    config: s.config as FeedAnimalsSessionState["config"],
-    ...workflowField(s.workflow),
-    gameState: s.gameState as FeedAnimalsSessionState["gameState"],
-    currentDifficulty: s.currentDifficulty as Difficulty,
-    currentStage: reviveFeedAnimalsStageRuntime(s.currentStage),
-    results: valuesArray(s.results).map(reviveFeedAnimalsStageResult),
-    createdAt: requiredTime(s.createdAt, "createdAt"),
-    endedAt: nullableTime(s.endedAt, "endedAt"),
-    summary: s.summary ? reviveFeedAnimalsSummary(s.summary as FeedAnimalsSessionSummary) : null,
-  };
-}
-
-function reviveFeedAnimalsStageRuntime(raw: unknown): FeedAnimalsStageRuntime {
-  record(raw, "Feed Animals stage");
-  const s = raw as Partial<FeedAnimalsStageRuntime> & { rounds?: unknown; responseTimesMs?: unknown };
-  const kind = s.kind === undefined ? "rounds" : requiredEnumValue(s.kind, ["rounds", "path"] as const, "Feed Animals stage kind");
-  const rounds = valuesArray(s.rounds).map(reviveFeedRound);
-  const currentRoundIndex = requiredCount(s.currentRoundIndex ?? 0, "currentRoundIndex");
-  if (kind === "rounds" && (rounds.length === 0 || currentRoundIndex > rounds.length)) throw new Error("Invalid Feed Animals rounds");
-  const legIndex = requiredCount(s.legIndex ?? 0, "legIndex");
-  const pathProgressStep = requiredCount(s.pathProgressStep ?? 0, "pathProgressStep");
-  if (kind === "path") {
-    const path = getFeedAnimalsPathStage(requiredDifficulty(s.difficulty), requiredStageNumber(s.stageNumber));
-    const leg = path?.legs[legIndex];
-    if (!leg || pathProgressStep > leg.totalSteps) throw new Error("Invalid Feed Animals path progress");
-  }
-  return {
-    // SAFARI ANIMAL ADVENTURE PROTOTYPE — defaults to "rounds" so an
-    // in-flight OLD session record (published before this field existed)
-    // still revives correctly as the original mechanic.
-    kind,
-    difficulty: requiredDifficulty(s.difficulty),
-    stageNumber: requiredStageNumber(s.stageNumber),
-    rounds,
-    currentRoundIndex,
-    legIndex,
-    pathProgressStep,
-    incorrectCount: requiredCount(s.incorrectCount ?? 0, "incorrectCount"),
-    responseTimesMs: valuesArray(s.responseTimesMs).map((value) => requiredTime(value, "responseTime")),
-    startedAt: nullableTime(s.startedAt, "startedAt"),
-    completedAt: nullableTime(s.completedAt, "completedAt"),
-    pausedAt: nullableTime(s.pausedAt, "pausedAt"),
-    totalPausedMs: requiredTime(s.totalPausedMs ?? 0, "totalPausedMs"),
-    roundStartedAt: nullableTime(s.roundStartedAt, "roundStartedAt"),
-    roundPausedMs: requiredTime(s.roundPausedMs ?? 0, "roundPausedMs"),
-  };
-}
-
-function reviveFeedRound(raw: unknown): FeedRound {
-  const s = record(raw, "Feed Animals round");
-  const animal = requiredEnumValue(s.animal, Object.values(Animal), "round.animal");
-  const correctFood = requiredEnumValue(s.correctFood, Object.values(Food), "round.correctFood");
-  const choices = valuesArray(s.choices).map((rawChoice) => {
-    const choice = record(rawChoice, "food choice");
-    return {
-      id: requiredString(choice.id, "foodChoice.id"),
-      food: requiredEnumValue(choice.food, Object.values(Food), "foodChoice.food"),
-      position: requiredUnitPosition(choice.position, "foodChoice.position"),
-      size: requiredNormalizedSize(choice.size, "foodChoice.size"),
-    };
-  });
-  if (ANIMAL_FOOD_MAP[animal] !== correctFood || choices.filter((choice) => choice.food === correctFood).length !== 1) {
-    throw new Error("Invalid Feed Animals correct choice");
-  }
-  return {
-    id: requiredString(s.id, "round.id"),
-    animal,
-    correctFood,
-    animalPosition: requiredUnitPosition(s.animalPosition, "round.animalPosition"),
-    choices,
-    fed: s.fed === undefined ? false : requiredBoolean(s.fed, "round.fed"),
-  };
-}
-
-function reviveFeedAnimalsStageResult(raw: unknown): FeedAnimalsStageResult {
-  record(raw, "Feed Animals stage result");
-  const s = raw as Partial<FeedAnimalsStageResult>;
-  return {
-    difficulty: requiredDifficulty(s.difficulty),
-    stageNumber: requiredStageNumber(s.stageNumber),
-    status:
-      s.status === undefined
-        ? FeedAnimalsStageStatus.COMPLETED
-        : requiredEnumValue(s.status, Object.values(FeedAnimalsStageStatus), "Feed Animals result status"),
-    roundsPresented: requiredCount(s.roundsPresented, "roundsPresented"),
-    roundsCompleted: requiredCount(s.roundsCompleted, "roundsCompleted"),
-    incorrectCount: requiredCount(s.incorrectCount ?? 0, "incorrectCount"),
-    durationMs: nullableTime(s.durationMs, "durationMs"),
-    averageResponseTimeMs: nullableTime(s.averageResponseTimeMs, "averageResponseTimeMs"),
-  };
-}
-
-function reviveFeedAnimalsSummary(raw: unknown): FeedAnimalsSessionSummary {
-  record(raw, "Feed Animals summary");
-  const s = raw as Partial<FeedAnimalsSessionSummary> & { stageResults?: unknown; difficultiesPlayed?: unknown };
-  return {
-    sessionId: requiredString(s.sessionId, "sessionId"),
-    childFirstName: requiredString(s.childFirstName, "childFirstName"),
-    startingDifficulty: requiredDifficulty(s.startingDifficulty),
-    difficultiesPlayed: requiredDifficulties(s.difficultiesPlayed),
-    stageResults: valuesArray(s.stageResults).map(reviveFeedAnimalsStageResult),
-    totalRoundsPresented: requiredCount(s.totalRoundsPresented, "totalRoundsPresented"),
-    totalRoundsCompleted: requiredCount(s.totalRoundsCompleted, "totalRoundsCompleted"),
-    totalIncorrect: requiredCount(s.totalIncorrect ?? 0, "totalIncorrect"),
-    completionRate: safeRatio(s.totalRoundsCompleted, s.totalRoundsPresented),
-    accuracy: safeRatio(s.totalRoundsCompleted, sumFinite([finiteCount(s.totalRoundsCompleted), finiteCount(s.totalIncorrect ?? 0)])),
     totalDurationMs: requiredTime(s.totalDurationMs, "totalDurationMs"),
     averageResponseTimeMs: nullableTime(s.averageResponseTimeMs, "averageResponseTimeMs"),
     bestStage: optionalBestStage(s.bestStage),

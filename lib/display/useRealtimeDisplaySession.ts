@@ -1,21 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameId } from "@/lib/games/registry";
 import { getDisplayDb } from "@/lib/realtime/firebaseClient";
 import { applyLiveRecord, createInitialGuardState } from "@/lib/realtime/displayGuard";
 import {
+  fetchLiveSession,
   registerDisplayPresence,
   subscribeToConnectionStatus,
   subscribeToLiveSession,
 } from "@/lib/realtime/sessionRepository";
-import type { AnySessionState, ConnectionStatus } from "@/lib/realtime/types";
+import type { AnySessionState, ConnectionStatus, LiveSessionRecord } from "@/lib/realtime/types";
 import { useFirebaseAuth } from "@/lib/realtime/useFirebaseAuth";
+import { isBroadcastChannelSupported } from "./LocalPointerChannel";
+import { isSessionWakeMessage, LOCAL_SESSION_WAKE_CHANNEL_NAME } from "./LocalSessionWakeChannel";
 
 export interface IncorrectSignal {
   balloonId: string;
   token: number;
 }
+
+/**
+ * Bounded safety-net reconciliation cadence — see this hook's own doc
+ * comment on `reconcile` for why this exists at all. One small RTDB read
+ * every tick while a Display tab is open; negligible cost for a single
+ * clinic session, and it's the ONE mechanism here that needs no external
+ * trigger to work at all — the final backstop if a same-Mac wake message,
+ * a focus/visibility event, AND the persistent listener all miss.
+ */
+const RECONCILE_POLL_MS = 4000;
 
 /**
  * TASK 6/8 REALTIME DISPLAY ADAPTER.
@@ -49,6 +62,38 @@ export interface IncorrectSignal {
  * The actual stale/out-of-order and no-replay-on-reconnect logic lives in
  * lib/realtime/displayGuard.ts as a pure, unit-tested function — this hook
  * is just the React glue around it.
+ *
+ * PROJECTOR START/FOCUS FIX — "stuck on ابدأ" real-hardware bug: this used
+ * to depend ENTIRELY on `subscribeToLiveSession`'s persistent onValue()
+ * listener delivering every real change live. That listener is a long-lived
+ * connection; an UNFOCUSED (not hidden/minimized — plainly visible on an
+ * external projector, but not the OS-focused window) tab's background JS
+ * and network task scheduling can be throttled by the browser enough to
+ * silently stall its delivery, with Firebase never reporting a disconnect
+ * (`connectionStatus` stays "connected" throughout — this is not a real
+ * network drop, so nothing here would previously notice or recover). The
+ * only thing that ever unstuck it before was a full page reload, which
+ * forces a fresh subscription (and this hook's own `subscribeWithInitialGet`
+ * one-shot get()) — matching exactly the "click around / refresh / retry"
+ * workaround reported.
+ *
+ * `reconcile` below re-fetches the CURRENT canonical record with a plain
+ * one-shot get() (bypassing whatever's stuck in the persistent listener's
+ * OWN delivery path entirely) and applies it through the exact same guard
+ * every other delivery path already uses — so it can only ever catch this
+ * display up to the truth, never invent a second source of it, and it's
+ * always safe to over-call. Three independent triggers call it, layered
+ * so the common case resolves almost instantly and the worst case is still
+ * bounded:
+ *   1. a same-Mac BroadcastChannel "wake" nudge Control posts right after a
+ *      real publish (see LocalSessionWakeChannel.ts) — normally the FIRST
+ *      to fire, well under a second;
+ *   2. this tab becoming visible/focused again — also covers a genuinely
+ *      separate-device projector, where (1) never arrives at all;
+ *   3. a bounded periodic poll (RECONCILE_POLL_MS) — the final backstop,
+ *      independent of any single event ever having been observed at all.
+ * None of this pauses, tears down, or recreates the persistent listener
+ * itself on blur/hidden — losing focus must never mean disconnected.
  */
 export function useRealtimeDisplaySession() {
   const auth = useFirebaseAuth();
@@ -80,34 +125,75 @@ export function useRealtimeDisplaySession() {
   const [celebrationReplayToken, setCelebrationReplayToken] = useState<string | null>(null);
   const guardRef = useRef(createInitialGuardState());
 
+  const applyRecord = useCallback((record: LiveSessionRecord | null) => {
+    const result = applyLiveRecord(guardRef.current, record);
+    guardRef.current = result.state;
+    if (!result.accept) return;
+
+    setSession(record?.session ?? null);
+    setGameId(record?.gameId ?? null);
+    setRevision(record?.revision ?? null);
+    if (result.newIncorrectBalloonId) {
+      setIncorrectSignal({ balloonId: result.newIncorrectBalloonId, token: Date.now() });
+    }
+    if (result.newCelebrationReplayToken) {
+      setCelebrationReplayToken(result.newCelebrationReplayToken);
+    }
+    setHasLoadedInitialSession(true);
+  }, []);
+
   useEffect(() => {
     if (auth.status !== "authenticated") return;
     const db = getDisplayDb();
     const unregisterPresence = registerDisplayPresence(db);
     const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
     const unsubscribeSession = subscribeToLiveSession(db, (record) => {
-      const result = applyLiveRecord(guardRef.current, record);
-      guardRef.current = result.state;
-      if (!result.accept) return;
-
-      setSession(record?.session ?? null);
-      setGameId(record?.gameId ?? null);
-      setRevision(record?.revision ?? null);
-      if (result.newIncorrectBalloonId) {
-        setIncorrectSignal({ balloonId: result.newIncorrectBalloonId, token: Date.now() });
+      if (process.env.NODE_ENV !== "production") {
+        console.debug(`[DISPLAY SESSION] onValue gameState=${record?.session.gameState ?? "none"} revision=${record?.revision ?? "none"}`);
       }
-      if (result.newCelebrationReplayToken) {
-        setCelebrationReplayToken(result.newCelebrationReplayToken);
-      }
-      setHasLoadedInitialSession(true);
+      applyRecord(record);
     });
+
+    let reconcileReason = "";
+    const reconcile = (reason: string) => {
+      reconcileReason = reason;
+      void fetchLiveSession(db)
+        .then((record) => {
+          if (process.env.NODE_ENV !== "production") {
+            console.debug(`[DISPLAY RECONCILE] reason=${reconcileReason} gameState=${record?.session.gameState ?? "none"} revision=${record?.revision ?? "none"}`);
+          }
+          applyRecord(record);
+        })
+        .catch(() => {});
+    };
+
+    let wakeChannel: BroadcastChannel | null = null;
+    if (isBroadcastChannelSupported()) {
+      wakeChannel = new BroadcastChannel(LOCAL_SESSION_WAKE_CHANNEL_NAME);
+      wakeChannel.onmessage = (event) => {
+        if (isSessionWakeMessage(event.data)) reconcile("local-wake");
+      };
+    }
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") reconcile("visibilitychange");
+    };
+    const onFocus = () => reconcile("focus");
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", onFocus);
+
+    const pollTimer = setInterval(() => reconcile("poll"), RECONCILE_POLL_MS);
 
     return () => {
       unregisterPresence();
       unsubscribeConnection();
       unsubscribeSession();
+      wakeChannel?.close();
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", onFocus);
+      clearInterval(pollTimer);
     };
-  }, [auth.status]);
+  }, [auth.status, applyRecord]);
 
   return { session, gameId, revision, connectionStatus, incorrectSignal, celebrationReplayToken, authStatus: auth.status, hasLoadedInitialSession };
 }

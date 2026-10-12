@@ -5,6 +5,12 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Browser evidence scripts are explicitly CommonJS and require synchronous
+  // Playwright/helper loading; the TypeScript import-style rule does not apply.
+  {
+    files: ["docs/pearlvoyage3d/validation/*.cjs"],
+    rules: { "@typescript-eslint/no-require-imports": "off" },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

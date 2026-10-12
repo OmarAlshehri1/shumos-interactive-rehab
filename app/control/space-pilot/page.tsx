@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { SpacePilotControlScreen } from "@/components/control/spacepilot/SpacePilotControlScreen";
+import { SpacePilot3DControl } from '@/components/control/spacepilot3d/SpacePilot3DControl';
+import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 
 export const metadata: Metadata = {
   title: "Shumos Interactive Rehab — قائد الفضاء",
@@ -12,5 +14,5 @@ export const metadata: Metadata = {
  * lives entirely behind SpacePilotControlScreen.
  */
 export default function SpacePilotControlPage() {
-  return <SpacePilotControlScreen />;
+  return SPACE_PILOT_3D_ENABLED ? <SpacePilot3DControl integrated /> : <SpacePilotControlScreen />;
 }

@@ -1,4 +1,5 @@
 import { Difficulty, getAdjacentDifficulty, STAGES_PER_DIFFICULTY, StageStatus, type StageNumber } from "@/lib/game";
+import { BQ3_STAGES_PER_DIFFICULTY } from "./balloonQuestVersion";
 
 /**
  * MULTI-GAME PLATFORM — the minimal shape suggestResumePoint actually needs.
@@ -13,7 +14,7 @@ import { Difficulty, getAdjacentDifficulty, STAGES_PER_DIFFICULTY, StageStatus, 
 export interface StoredSessionLike {
   startingDifficulty: Difficulty;
   startingStage: StageNumber;
-  stageResults: readonly { status: StageStatus; difficulty: Difficulty; stageNumber: StageNumber }[];
+  stageResults: readonly { status: StageStatus; difficulty: Difficulty; stageNumber: StageNumber; engine?: "bq3" | "dome3" | "fp3" | "cc3" }[];
 }
 
 export type ResumeReason =
@@ -71,7 +72,9 @@ export function suggestResumePoint(mostRecentSession: StoredSessionLike): Resume
     return { difficulty: lastResult.difficulty, startingStage: lastResult.stageNumber, reason: "resume-skipped" };
   }
 
-  if (lastResult.stageNumber < STAGES_PER_DIFFICULTY) {
+  // Balloon Quest 3D records have three stages per difficulty; legacy records have five and are never reinterpreted.
+  const stagesPerDifficulty = (lastResult.engine === "bq3" || lastResult.engine === "dome3" || lastResult.engine === "fp3" || lastResult.engine === "cc3") ? BQ3_STAGES_PER_DIFFICULTY : STAGES_PER_DIFFICULTY;
+  if (lastResult.stageNumber < stagesPerDifficulty) {
     return { difficulty: lastResult.difficulty, startingStage: (lastResult.stageNumber + 1) as StageNumber, reason: "next-stage" };
   }
 

@@ -1,8 +1,11 @@
 "use client";
 
+import { useMemo } from "react";
 import type { Balloon } from "@/lib/game";
 import { START_ZONE } from "@/lib/game";
 import { BALLOON_COLOR_THEME } from "@/components/display/colorPalette";
+import { SensorHandLayer } from "@/components/control/sensors/SensorHandLayer";
+import { balloonSensorTargets } from "@/lib/physicalInput/gameSensorTargets";
 
 interface IncorrectSignal {
   balloonId: string;
@@ -52,6 +55,13 @@ interface BalloonMapProps {
  * same near/bottom edge "جهة الطفل" already pointed to.
  */
 export function BalloonMap({ balloons, incorrectSignal, disabled, offline, onSelect }: BalloonMapProps) {
+  // PRODUCTION SENSOR INTEGRATION: same normalized coordinate space this
+  // map already renders balloons in — see lib/physicalInput/gameSensorTargets.ts
+  // and SensorHandLayer's doc comment. `active` mirrors this map's own
+  // `disabled` exactly, so the sensor is never a separate on/off switch from
+  // mouse/touch.
+  const sensorTargets = useMemo(() => balloonSensorTargets(balloons), [balloons]);
+
   return (
     <div className="flex h-full min-h-0 flex-col gap-2">
       <div
@@ -122,6 +132,8 @@ export function BalloonMap({ balloons, incorrectSignal, disabled, offline, onSel
             </button>
           );
         })}
+
+        <SensorHandLayer targets={sensorTargets} active={!disabled} onContact={onSelect} />
       </div>
 
       <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-slate-400">

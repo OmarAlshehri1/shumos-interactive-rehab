@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { startAmbience } from "../ambience";
 import { startCosmicAmbience } from "../cosmicAmbience";
-import { startSafariAmbience } from "../safariAmbience";
 import { startSpaceAmbience } from "../spaceAmbience";
 import { startUnderwaterAmbience } from "../underwaterAmbience";
 
@@ -119,7 +118,6 @@ describe("ambience source lifecycles", () => {
 
   it.each([
     ["Follow the Footsteps", startCosmicAmbience],
-    ["Feed the Animals", startSafariAmbience],
     ["Space Pilot", startSpaceAmbience],
   ] as const)("%s starts with true silence and cancels every future accent on stop", (_name, start) => {
     const graph = createGraph();

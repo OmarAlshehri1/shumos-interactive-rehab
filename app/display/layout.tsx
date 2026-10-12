@@ -2,7 +2,6 @@ import { Baloo_Bhaijaan_2 } from "next/font/google";
 import "./balloon-quest.css";
 import "./follow-the-footsteps.css";
 import "./bubble-pop-wall.css";
-import "./feed-the-animals.css";
 import "./space-pilot.css";
 
 const balooBhaijaan = Baloo_Bhaijaan_2({

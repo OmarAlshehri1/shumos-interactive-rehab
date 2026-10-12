@@ -109,6 +109,61 @@ describe("authClient", () => {
     expect(states.at(-1)).toBe("failed");
   });
 
+  it("retries and recovers when signInAnonymously() hits the known-benign 'Database is closing/hidden' Firebase Auth persistence hiccup, instead of permanently reporting 'failed'", async () => {
+    vi.useFakeTimers();
+    try {
+      let stateCallback!: StateCallback;
+      onAuthStateChangedMock.mockImplementation((_auth: unknown, next: StateCallback) => {
+        stateCallback = next;
+        return vi.fn();
+      });
+      signInAnonymouslyMock
+        .mockRejectedValueOnce(new Error("Database is closing/hidden"))
+        .mockRejectedValueOnce(new Error("Database is closing/hidden"))
+        .mockResolvedValueOnce({ user: { uid: "recovered-uid" } });
+
+      const { subscribeToAuthState } = await import("../authClient");
+      const states: { status: string; uid: string | null }[] = [];
+      subscribeToAuthState((state) => states.push(state));
+      stateCallback(null);
+
+      // Drain the retry backoff (400ms, 800ms) plus microtask flushes between each attempt.
+      for (let i = 0; i < 10; i += 1) {
+        await vi.advanceTimersByTimeAsync(1000);
+      }
+
+      // The real fix path: signInAnonymously() eventually resolves, so onAuthStateChanged fires again
+      // with the recovered user (simulated here directly, matching how the real SDK would behave).
+      stateCallback({ uid: "recovered-uid" });
+
+      expect(signInAnonymouslyMock).toHaveBeenCalledTimes(3);
+      expect(states.some((state) => state.status === "failed")).toBe(false);
+      expect(states.at(-1)).toEqual({ status: "authenticated", uid: "recovered-uid" });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("still reports 'failed' immediately for a genuinely different sign-in error, without retrying", async () => {
+    let stateCallback!: StateCallback;
+    onAuthStateChangedMock.mockImplementation((_auth: unknown, next: StateCallback) => {
+      stateCallback = next;
+      return vi.fn();
+    });
+    signInAnonymouslyMock.mockRejectedValue(new Error("auth/network-request-failed"));
+
+    const { subscribeToAuthState } = await import("../authClient");
+    const states: string[] = [];
+    subscribeToAuthState((state) => states.push(state.status));
+    stateCallback(null);
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(signInAnonymouslyMock).toHaveBeenCalledTimes(1);
+    expect(states.at(-1)).toBe("failed");
+  });
+
   it("reports 'failed' when onAuthStateChanged itself reports an error", async () => {
     let errorCallback!: ErrorCallback;
     onAuthStateChangedMock.mockImplementation((_auth: unknown, _next: StateCallback, errorCb?: ErrorCallback) => {

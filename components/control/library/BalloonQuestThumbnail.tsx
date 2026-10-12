@@ -1,34 +1,26 @@
-import { BalloonColor } from "@/lib/game";
-import { BALLOON_COLOR_THEME } from "@/components/display/colorPalette";
-import { BalloonArt } from "@/components/display/balloon/BalloonArt";
+import { BalloonArt3D, BalloonDefs } from "@/components/display/balloonquest3d/preview/BalloonArt3D";
+import type { PreviewColor } from "@/components/display/balloonquest3d/preview/previewConfig";
 
-/** Fixed, hand-placed (not randomized) — same rationale as WelcomeScene's own ambient balloon set: reproducible, no hydration mismatch risk. Sized for a short/compact thumbnail (see aspect ratio below). */
-const THUMBNAIL_BALLOONS = [
-  { color: BalloonColor.BLUE, left: "18%", bottom: "0%", size: "30%" },
-  { color: BalloonColor.YELLOW, left: "56%", bottom: "26%", size: "22%" },
-  { color: BalloonColor.RED, left: "74%", bottom: "-4%", size: "26%" },
-] as const;
+/** Fixed, hand-placed (not randomized): reproducible and free of hydration mismatches. */
+const THUMBNAIL_BALLOONS: ReadonlyArray<{ color: PreviewColor; left: string; bottom: string; size: string }> = [
+  { color: "blue", left: "14%", bottom: "-6%", size: "26%" },
+  { color: "yellow", left: "46%", bottom: "20%", size: "21%" },
+  { color: "red", left: "68%", bottom: "-8%", size: "26%" },
+];
 
 /**
- * Card thumbnail — a lightweight, static composition of the SAME balloon
- * artwork used in the real game (BalloonArt.tsx), not a stock image or a
- * new illustration system. Deliberately still (no motion): this sits in a
- * grid of activity cards, so a looping animation here would compete with
- * the "professional library" framing the task asks for, not the playful
- * in-game feel. COMPACT LIBRARY TASK: a shorter aspect ratio than the
- * original card — the thumbnail should read at a glance, not dominate.
+ * Card thumbnail for the redesigned Balloon Quest: the same volumetric balloon
+ * artwork and calm sky as the game itself (no leaves, no birds). Deliberately
+ * still: it sits in a grid of activity cards.
  */
 export function BalloonQuestThumbnail() {
   return (
-    <div
-      className="relative aspect-[16/7] w-full overflow-hidden rounded-t-2xl"
-      style={{ background: "linear-gradient(150deg, #5B6FE8 0%, #7C4CC7 55%, #2AA6A0 100%)" }}
-      aria-hidden="true"
-    >
-      <div className="absolute inset-0 opacity-25" style={{ background: "radial-gradient(circle at 30% 20%, #FFFFFF 0%, transparent 55%)" }} />
+    <div className="relative aspect-[16/7] w-full overflow-hidden rounded-t-2xl" style={{ background: "linear-gradient(180deg, #7cc6f7 0%, #b5e1fb 60%, #e6f6ff 100%)" }} aria-hidden="true">
+      <BalloonDefs />
+      <div className="absolute -top-[30%] right-[-10%] h-[90%] w-[55%]" style={{ background: "radial-gradient(closest-side, rgba(255,244,205,0.7), rgba(255,244,205,0))" }} />
       {THUMBNAIL_BALLOONS.map((b, i) => (
-        <div key={i} className="absolute" style={{ left: b.left, bottom: b.bottom, width: b.size, height: b.size }}>
-          <BalloonArt theme={BALLOON_COLOR_THEME[b.color]} />
+        <div key={i} className="absolute [&_svg]:block [&_svg]:h-auto [&_svg]:w-full" style={{ left: b.left, bottom: b.bottom, width: b.size }}>
+          <BalloonArt3D color={b.color} />
         </div>
       ))}
     </div>

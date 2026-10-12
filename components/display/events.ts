@@ -1,7 +1,6 @@
 import type { BalloonColor, StageNumber } from "@/lib/game";
 import type { Foot, RouteObstacleKind } from "@/lib/footsteps";
 import type { BubbleColor, BubbleShape } from "@/lib/bubblepop";
-import type { Animal, Food } from "@/lib/feedanimals";
 import type { Difficulty, StarLane } from "@/lib/spacepilot";
 import type { ChaseColor, PadId } from "@/lib/colorchase";
 
@@ -93,39 +92,6 @@ export type DisplayEvent =
   | { type: "bubblepop_session_complete"; timestamp: number; childName: string }
   | { type: "underwater_ambience_start"; timestamp: number }
   | { type: "underwater_ambience_stop"; timestamp: number }
-  // MULTI-GAME PLATFORM — Feed the Animals' own events (task section 45-54's
-  // "completely unique game world" requirement, a fourth time over). Its own
-  // event vocabulary again: this game DOES have an incorrect branch (like
-  // Bubble Pop Wall, unlike Follow the Footsteps), but its own gentle safari
-  // tone, and a per-ROUND announcement (`feed_animals_request` — "help the
-  // monkey, give it the banana!") rather than Balloon Quest's per-STAGE
-  // `instruction` or Bubble Pop Wall's per-TARGET color/shape request.
-  | { type: "feed_animals_welcome"; timestamp: number; childName: string }
-  | { type: "feed_animals_ready_position"; timestamp: number; childName: string; isFirstStage: boolean }
-  | { type: "feed_animals_instruction"; timestamp: number; childName: string; stageNumber: StageNumber }
-  /** Fired whenever a NEW round becomes the current request — at the moment PLAYING begins, and again after every correct feed. */
-  | { type: "feed_animals_request"; timestamp: number; childName: string; animal: Animal; food: Food }
-  /** Fired the instant an animal is correctly fed — drives the safari success SFX. */
-  | { type: "feed_animals_fed"; timestamp: number }
-  /** Fired when the arcing food actually reaches the animal (see FoodDeliveryFx's ARC_DURATION_MS) — drives the tiny character-specific accent (task section 16), distinct from feed_animals_fed's own "chosen" sound. */
-  | { type: "feed_animals_animal_reaction"; timestamp: number; animal: Animal }
-  | { type: "feed_animals_correct"; timestamp: number; correctCount: number; totalRounds: number }
-  | { type: "feed_animals_incorrect"; timestamp: number }
-  | { type: "feed_animals_stage_complete"; timestamp: number; childName: string; stageNumber: StageNumber }
-  | { type: "feed_animals_session_complete"; timestamp: number; childName: string }
-  | { type: "safari_ambience_start"; timestamp: number }
-  | { type: "safari_ambience_stop"; timestamp: number }
-  // SAFARI ANIMAL ADVENTURE PROTOTYPE — the new "control the animal along a
-  // path" mechanic's own two events, additive to everything above (every
-  // existing Feed the Animals event is unchanged and still fires for the
-  // original round-based stages). Fired once when PLAYING begins for a path
-  // stage, and once per LEFT/RIGHT press respectively.
-  | { type: "feed_animals_path_request"; timestamp: number; childName: string; animal: Animal; food: Food }
-  | { type: "feed_animals_monkey_step"; timestamp: number; direction: "left" | "right" | "jump"; animal: Animal }
-  /** SAFARI ANIMAL ADVENTURE — fired once, the first time the active animal is one step away from a jump-requiring obstacle (task's "visible cue + Mariam says اقفز!"), never repeated for the same obstacle. */
-  | { type: "feed_animals_jump_cue"; timestamp: number; animal: Animal }
-  /** MULTI-ANIMAL STAGES — fired once a leg's animal reaches ITS destination in a stage with more than one animal, but the stage itself isn't finished yet (another animal still to come). Distinct from feed_animals_stage_complete. */
-  | { type: "feed_animals_leg_complete"; timestamp: number; animal: Animal; legIndex: number; totalLegs: number }
   // SPACE PILOT — Level 1 "رحلة النجوم" own events (own event vocabulary,
   // same convention as every other game above): the child pilots a rocket
   // through 3 fixed lanes and collects a sequence of large stars in real

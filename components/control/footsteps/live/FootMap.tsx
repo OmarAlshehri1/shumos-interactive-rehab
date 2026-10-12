@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Foot, type Footprint, type RouteCheckpoint, type RouteObstacle, START_ZONE } from "@/lib/footsteps";
 import { ObstacleArt } from "@/components/display/footsteps/obstacles/ObstacleArt";
+import { SensorHandLayer } from "@/components/control/sensors/SensorHandLayer";
+import { footstepsSensorTargets } from "@/lib/physicalInput/gameSensorTargets";
 
 interface FootMapProps {
   footprints: Footprint[];
@@ -43,6 +45,9 @@ export function FootMap({ footprints, checkpoints, obstacles, destination, curre
 
   const currentFootprint = footprints.find((f) => f.index === currentIndex) ?? null;
   const otherFootprints = footprints.filter((f) => f.index !== currentIndex);
+  // PRODUCTION SENSOR INTEGRATION — confirmCurrentFootstep takes no target id, so the contact callback ignores it. See lib/physicalInput/gameSensorTargets.ts.
+  const sensorTargets = useMemo(() => footstepsSensorTargets(currentFootprint), [currentFootprint]);
+  const handleSensorContact = useCallback(() => onConfirm(), [onConfirm]);
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-2">
@@ -183,6 +188,8 @@ export function FootMap({ footprints, checkpoints, obstacles, destination, curre
             </span>
           </button>
         )}
+
+        <SensorHandLayer targets={sensorTargets} active={!disabled} onContact={handleSensorContact} />
       </div>
 
       <div className="flex items-center justify-center gap-1.5 text-xs font-medium text-slate-400">

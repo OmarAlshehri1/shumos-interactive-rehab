@@ -22,6 +22,10 @@ import {
 } from "@/lib/colorchase";
 import { getStageDecisionTarget } from "@/lib/game";
 import { COLOR_CHASE_GAME_ID } from "@/lib/games/registry";
+import { isCc3Live } from "@/lib/colorchase3d/live";
+
+/** A live record tagged `engine: "cc3"` belongs to Color Chase 3D: the original controller (rollback path) must never adopt it. */
+const isOriginal = (r: { gameId?: string | null; session?: unknown } | null | undefined) => r?.gameId === COLOR_CHASE_GAME_ID && !isCc3Live(r.session);
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { useSessionWorkflow } from "@/components/control/session/SessionWorkflowContext";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
@@ -62,7 +66,7 @@ export function useColorChaseRealtimeControllerSession() {
   useEffect(() => { recordRef.current = record; }, [record]);
   useEffect(() => {
     if (auth.phase !== "authorized") return;
-    const live = subscribeToLiveSession(db, (next) => { const ours = next?.gameId === COLOR_CHASE_GAME_ID ? next : null; recordRef.current = ours; setRecord(ours); setLoaded(true); });
+    const live = subscribeToLiveSession(db, (next) => { const ours = isOriginal(next) ? next : null; recordRef.current = ours; setRecord(ours); setLoaded(true); });
     const connection = subscribeToConnectionStatus(db, setConnectionStatus);
     const display = subscribeToDisplayPresence(db, setDisplayPresence);
     const leaseSubscription = subscribeToControllerLease(db, (next) => { setLease(next); setLeaseKnown(true); });
@@ -88,7 +92,7 @@ export function useColorChaseRealtimeControllerSession() {
   const resync = useCallback(async (token: number) => {
     const canonical = await fetchLiveSession(db).catch(() => null);
     if (token !== tokenRef.current) return;
-    const ours = canonical?.gameId === COLOR_CHASE_GAME_ID ? canonical : null;
+    const ours = isOriginal(canonical) ? canonical : null;
     recordRef.current = ours; setRecord(ours); setSyncRestoredAt(Date.now());
   }, [db]);
 

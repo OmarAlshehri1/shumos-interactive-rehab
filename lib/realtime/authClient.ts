@@ -1,5 +1,8 @@
 import { type Auth, type User, connectAuthEmulator, getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { getDisplayFirebaseApp, getEmulatorConfig } from "./firebaseClient";
+import { installBenignAuthRejectionFilter, isKnownBenignFirebaseAuthRejection } from "./benignAuthRejections";
+
+installBenignAuthRejectionFilter();
 
 /**
  * TASK 8: centralized Firebase Auth bootstrap for /display ONLY — the ONE
@@ -45,6 +48,45 @@ function getAuthInstance(): Auth {
 
 let signInPromise: Promise<User> | null = null;
 
+/** A handful of quick retries, not an indefinite loop — this error is a one-tab-visibility-transition hiccup, not a real outage; if it's still happening after this many attempts something else is wrong and the caller should see the real failure. */
+const BENIGN_REJECTION_MAX_ATTEMPTS = 4;
+const BENIGN_REJECTION_RETRY_DELAY_MS = 400;
+
+function delay(durationMs: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, durationMs));
+}
+
+/**
+ * ROOT CAUSE of /display's presence never registering after a "Database is
+ * closing/hidden" hiccup (see benignAuthRejections.ts for the full
+ * mechanism): that error can strike signInAnonymously() ITSELF, not just
+ * an unrelated background timer. Before this fix, that single transient
+ * rejection permanently left ensureSignedIn()'s promise rejected — nothing
+ * ever called signInAnonymously() again (onAuthStateChanged only fires on
+ * an actual auth state transition, which never happens for a sign-in that
+ * never succeeded), so subscribeToAuthState's listener stayed on "failed"
+ * forever, useRealtimeDisplaySession never reached the auth-gated
+ * registerDisplayPresence() call, and /control never saw the display come
+ * online — despite the page having loaded fine (HTTP 200) and the physical
+ * projector being on. This retries ONLY this precisely-identified,
+ * known-transient error class; any other sign-in failure (offline, wrong
+ * project config, etc.) still fails immediately and reports "failed", same
+ * as before.
+ */
+async function signInAnonymouslyWithBenignRetry(authInstance: Auth, attempt = 1): Promise<User> {
+  try {
+    const credential = await signInAnonymously(authInstance);
+    return credential.user;
+  } catch (error) {
+    if (isKnownBenignFirebaseAuthRejection(error) && attempt < BENIGN_REJECTION_MAX_ATTEMPTS) {
+      console.warn(`[authClient] Anonymous sign-in hit the known-benign "Database is closing/hidden" hiccup — retrying (attempt ${attempt + 1}/${BENIGN_REJECTION_MAX_ATTEMPTS})`, error);
+      await delay(BENIGN_REJECTION_RETRY_DELAY_MS * attempt);
+      return signInAnonymouslyWithBenignRetry(authInstance, attempt + 1);
+    }
+    throw error;
+  }
+}
+
 /**
  * Ensures exactly one signInAnonymously() network call is ever in flight
  * for this page, no matter how many times this is reached — including
@@ -57,12 +99,10 @@ let signInPromise: Promise<User> | null = null;
  */
 function ensureSignedIn(authInstance: Auth): Promise<User> {
   if (!signInPromise) {
-    signInPromise = signInAnonymously(authInstance)
-      .then((credential) => credential.user)
-      .catch((error: unknown) => {
-        signInPromise = null; // allow a retry on the next subscriber/mount
-        throw error;
-      });
+    signInPromise = signInAnonymouslyWithBenignRetry(authInstance).catch((error: unknown) => {
+      signInPromise = null; // allow a retry on the next subscriber/mount
+      throw error;
+    });
   }
   return signInPromise;
 }

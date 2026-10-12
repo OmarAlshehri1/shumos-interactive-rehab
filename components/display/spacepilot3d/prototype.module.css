@@ -1,0 +1,99 @@
+.preview { position: fixed; inset: 0; overflow: hidden; background: #050d1b; color: #e7f0fa; font-family: Arial, sans-serif; }
+.canvas { display: block; width: 100%; height: 100%; outline: none; }
+.canvas:focus-visible { outline: 2px solid #7dd3fc; outline-offset: -3px; }
+.header { position: absolute; top: 30px; left: 32px; pointer-events: none; }
+.badge { display: inline-block; color: #9ed9eb; border: 1px solid #7dd3fc30; border-radius: 5px; padding: 6px 9px; font-size: 10px; letter-spacing: 2px; background: #09172a99; }
+.header h1 { margin: 16px 0 8px; font-size: 29px; font-weight: 600; letter-spacing: -1px; }
+.header h1 span { color: #8c9eb5; font-size: 16px; font-weight: 400; letter-spacing: 0; margin-left: 10px; }
+.header p { color: #8496ae; font-size: 12px; }
+.panel { position: absolute; top: 30px; right: 30px; width: 280px; max-height: calc(100vh - 95px); overflow-y: auto; background: #0a1728e8; border: 1px solid #b8d7ff20; border-radius: 12px; padding: 18px; box-shadow: 0 8px 35px #0003; }
+.panelTitle { display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: 2px; color: #a5b7ce; }
+.status { font-size: 10px; letter-spacing: .5px; color: #a6e9df; border-radius: 20px; background: #76d9cf15; padding: 5px 8px; text-transform: uppercase; }
+.panel p { font-size: 12px; color: #92a4bb; line-height: 1.9; margin: 15px 0; }
+.panel strong { color: #dce8f5; font-size: 11px; }
+.buttons { display: flex; gap: 8px; }
+.preview button { border: 1px solid #aacaff35; background: #14283e; color: #e8f4ff; border-radius: 7px; padding: 9px 12px; cursor: pointer; font-size: 12px; }
+.preview button:hover:not(:disabled) { background: #24445f; border-color: #8fcfff; }
+.preview button:disabled { opacity: .35; cursor: default; }
+.preview button:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; }
+.panel small { display: block; color: #71859f; font-size: 10px; line-height: 1.8; margin-top: 15px; }
+.inputLabel { display: block; color: #92a4bb; font-size: 11px; margin-top: 15px; }
+.inputLabel select { display: block; width: 100%; color: #e8f4ff; background: #14283e; border: 1px solid #aacaff35; border-radius: 7px; padding: 8px; margin-top: 7px; }
+.sensorState { margin-bottom: 0 !important; }.panel > button { margin-bottom: 12px; }
+.guide { position: absolute; left: 32px; bottom: 55px; pointer-events: none; }
+.guide small { display: block; color: #8ca2ba; font-size: 10px; line-height: 1.6; margin-top: 8px; }
+.inputMap { width: 140px; height: 85px; position: relative; border: 1px solid #9ed9eb35; border-radius: 6px; background: #0a1728c0; --ship-x: 50%; --ship-y: 50%; --pointer-x: 50%; --pointer-y: 50%; }
+.shipDot, .pointerDot { position: absolute; width: 9px; height: 9px; border-radius: 50%; transform: translate(-50%, -50%); }
+.shipDot { left: var(--ship-x); top: var(--ship-y); background: #85d7ff; box-shadow: 0 0 6px #85d7ff; }
+.pointerDot { left: var(--pointer-x); top: var(--pointer-y); border: 2px solid #ffcd46; width: 13px; height: 13px; }
+.inputMap:not([data-pointer-visible="true"]) .pointerDot { display: none; }
+.hint { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); text-align: center; font-size: 17px; letter-spacing: 1px; pointer-events: none; text-shadow: 0 2px 10px #000; }
+.hint span { display: block; color: #8ca2ba; margin-top: 9px; font-size: 11px; letter-spacing: .5px; }
+.footer { position: absolute; bottom: 24px; left: 32px; right: 32px; display: flex; justify-content: space-between; color: #6e839d; font-size: 9px; letter-spacing: 1.5px; pointer-events: none; }
+.message { position: absolute; top: 48%; width: 100%; text-align: center; color: #9bb2ca; }
+.failure { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(420px, 85vw); padding: 25px; border-radius: 12px; background: #132238; border: 1px solid #9fb7d240; text-align: center; }
+.failure h2 { font-size: 20px; }.failure p { color: #adbed0; font-size: 13px; line-height: 1.7; }
+.stats { margin-top: 18px; padding-top: 14px; border-top: 1px solid #b8d7ff20; }
+.stats h2 { color: #e5c56b; font-size: 12px; font-weight: 500; margin: 0 0 12px; }
+.stats dl { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 0; font-size: 10px; }
+.stats dt { color: #92a4bb; }.stats dd { margin: 0; font-variant-numeric: tabular-nums; color: #dce8f5; }
+.stats progress { width: 100%; height: 5px; accent-color: #e5c56b; margin-top: 15px; }
+.nextMission { margin-top: 14px; width: 100%; }
+.sessionHud { position: absolute; right: 32px; top: 32px; display: flex; flex-direction: column; gap: 10px; min-width: 180px; padding: 18px; border-radius: 12px; background: #0a1728c0; color: #e5c56b; pointer-events: none; }
+.sessionHud strong { font-size: 28px; }.sessionHud span { font-size: 12px; color: #a5b7ce; }.sessionHud progress { width: 100%; height: 5px; accent-color: #e5c56b; }
+.sessionStatus { position: absolute; left: 32px; top: 165px; color: #8ca2ba; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+@media (max-width: 700px) { .header { top: 18px; left: 18px; }.header h1 { font-size: 23px; }.header h1 span { display: block; margin: 6px 0; font-size: 13px; }.header p { display: none; }.panel { top: auto; bottom: 42px; right: 14px; padding: 12px; width: 240px; }.panel p { margin: 10px 0; }.panel small { display: none; }.footer { bottom: 15px; left: 18px; right: 18px; font-size: 7px; }.footer span { display: none; }.hint { bottom: auto; top: 32%; width: 90%; } }
+
+.quality { position: absolute; right: 2rem; bottom: 4rem; z-index: 3; color: #9bb0c5; font-size: .75rem; }
+.quality select { margin-left: .5rem; padding: .35rem .5rem; color: #d7e9f5; background: #0d1a2b; border: 1px solid #2d4359; border-radius: .4rem; }
+
+/* Phase 08: child presentation is deliberately independent of the legacy debug UI. */
+.childDisplay { font-family: var(--font-balloon-quest), Tahoma, sans-serif; }
+.childDisplay .header { left: auto; right: clamp(22px, 4vw, 64px); top: 30px; text-align: right; }
+.childDisplay .badge { border: 0; padding: 0; background: none; letter-spacing: 0; font-size: 17px; color: #94c5da; }
+.childDisplay .header h1 { margin: 5px 0 0; font-size: clamp(27px, 3vw, 42px); letter-spacing: 0; font-weight: 600; }
+.childDisplay .header p { margin-top: 3px; font-size: 17px; color: #b5cbdc; }
+.childDisplay .sessionHud { right: auto; left: clamp(22px, 4vw, 64px); top: 32px; min-width: 210px; background: linear-gradient(145deg,#132237d9,#081624b0); border: 1px solid #99c8ef24; border-radius: 22px; padding: 16px 24px; gap: 7px; }
+.childDisplay .sessionHud strong { font-size: 36px; font-weight: 600; line-height: 1.2; }
+.childDisplay .sessionHud strong span { color: #ffdb78; font-size: 34px; text-shadow: 0 0 18px #ffc55355; }
+.childDisplay .sessionHud small { font-size: 17px; font-weight: 400; color: #e8d8a9; }
+.childDisplay .sessionHud > span { color: #c3d3df; font-size: 17px; }
+.childDisplay .sessionHud i { font-style: normal; margin: 0 8px; color: #65809b; }
+.childDisplay progress { appearance: none; border: none; border-radius: 6px; overflow: hidden; background: #29405a; }
+.childDisplay progress::-webkit-progress-bar { background: #29405a; }.childDisplay progress::-webkit-progress-value { background: #edc969; border-radius: 6px; }.childDisplay progress::-moz-progress-bar { background: #edc969; }
+.flightMessage { position: absolute; top: 24%; left: 50%; transform: translateX(-50%); text-align: center; width: min(580px, 65vw); pointer-events: none; text-shadow: 0 2px 18px #000; animation: gentleArrival .5s ease-out both; }
+.flightMessage h2 { font-size: clamp(25px, 3vw, 40px); font-weight: 600; margin: 0; }.flightMessage p { margin-top: 5px; font-size: clamp(17px, 1.6vw, 22px); color: #b8cfe0; }
+.messageIcon { color: #f4d47d; font-size: 32px; line-height: 1.5; }
+.reward { position: absolute; top: 23%; left: 50%; transform: translateX(-50%); padding: 10px 28px; border: 1px solid #eac87355; border-radius: 40px; background: #102131dd; color: #ffe39a; font-size: clamp(22px,2vw,30px); text-align: center; pointer-events: none; animation: gentleArrival .25s ease-out both; }
+.childDisplay .guide { left: 4vw; bottom: 65px; }.childDisplay .guide small { font-size: 17px; color: #bdcddd; }
+.childDisplay .inputMap { width: 150px; height: 90px; border-radius: 12px; }
+.childFooter { position: absolute; bottom: 22px; inset-inline: 4vw; display: flex; justify-content: space-between; pointer-events: none; font-size: 19px; color: #9ab9cf; }.childFooter span { font-size: 15px; color: #859fb4; }
+.displaySettings { position: absolute; right: 24px; bottom: 60px; background: #102033ed; border: 1px solid #8ec5df44; border-radius: 15px; padding: 14px; min-width: 200px; font-size: 17px; }.displaySettings summary { cursor: pointer; }.displaySettings label { display: block; margin: 12px 0; }.displaySettings select { background: #20374c; padding: 5px; border-radius: 6px; }.displaySettings input { accent-color: #64cfda; }.displaySettings button { font: inherit; }
+.childDisplay .failure { font-size: 20px; }.childDisplay .failure h2 { font-size: 26px; }.childDisplay .failure p { font-size: 18px; }.childDisplay .failure button { font: inherit; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@keyframes gentleArrival { from { opacity: 0; } to { opacity: 1; } }
+.childDisplay[data-reduced-effects="true"] *, .childDisplay[data-reduced-effects="true"] *::before { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) { .flightMessage, .reward { animation: none; } }
+@media (max-width: 700px) { .childDisplay .header { right: 18px; top: 18px; }.childDisplay .badge { font-size: 14px; }.childDisplay .sessionHud { left: 16px; top: 18px; min-width: 155px; padding: 10px 14px; }.childDisplay .sessionHud strong { font-size: 28px; }.childDisplay .sessionHud > span { font-size: 13px; }.flightMessage { top: 25%; width: 90vw; }.childDisplay .guide { bottom: 50px; }.childFooter { bottom: 12px; } }
+
+/* Hide Next’s development launcher only on the experimental child canvas. */
+:global(body):has(.childDisplay) :global(nextjs-portal) { display: none; }
+
+/* R2: one quiet guidance cue, kept above the spacecraft and below the HUD. */
+.objective { position:absolute;z-index:3;transform:translate(-50%,-50%);pointer-events:none;display:grid;place-items:center;width:40px;height:40px;color:#ffe19a;filter:drop-shadow(0 1px 4px #000); }
+.objective[hidden] { display:none; }
+.objectiveSymbol { width:38px;height:38px;border:1px solid currentColor;border-radius:50%;opacity:.65;font-size:0; }
+.objective small { position:absolute;top:44px;left:50%;transform:translateX(-50%);font-size:12px;white-space:nowrap;background:#071625c4;border:1px solid #e7c47840;padding:4px 9px;border-radius:20px; }
+.objectiveArrow { display:none;font-size:0;width:11px;height:11px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(calc(var(--guidance-angle) + 45deg)); }
+.objective[data-offscreen="true"] .objectiveArrow { display:block; }
+.objective[data-offscreen="true"] .objectiveSymbol { display:none; }
+.objective[data-kind="route"] { color:#a1e4e9; }
+
+.instructions { position:absolute;inset:24% 12% auto;display:grid;grid-template-columns:1fr 1fr;gap:22px;text-align:center;z-index:4; }
+.instructions article { padding:24px;background:#071525eb;border:1px solid #9dc4d536;border-radius:24px; }
+.instructions h2 { font-size:clamp(18px,2vw,26px);line-height:1.8;margin:16px 0 0; }
+.instructions p { grid-column:1/-1;color:#c3d8e8;font-size:16px; }
+.instructionRing { display:inline-block;width:64px;height:64px;border:8px solid #efbf51;border-radius:50%;box-shadow:inset 0 0 8px #ffeabe,0 0 18px #e9b24144; }
+.instructionRock { display:inline-block;width:64px;height:64px;background:radial-gradient(circle at 35% 30%,#b3b2aa,#393f48 70%);clip-path:polygon(22% 4%,65% 0,96% 24%,87% 76%,60% 100%,15% 85%,0 40%); }
+.assistBadge { position:absolute;bottom:7%;left:50%;transform:translateX(-50%);color:#b9d9e4;background:#0b2133bb;padding:6px 14px;border-radius:20px; }
+@media(max-width:650px){.instructions{inset:23% 6% auto;gap:12px}.instructions article{padding:14px}.instructions h2{font-size:17px}}

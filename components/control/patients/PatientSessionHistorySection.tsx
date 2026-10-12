@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, COLOR_CHASE_GAME_ID, FEED_THE_ANIMALS_GAME_ID, FOLLOW_THE_FOOTSTEPS_GAME_ID, getGameById } from "@/lib/games/registry";
+import { isBalloonQuest3DSession } from "@/lib/sessions/balloonQuestVersion";
+import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, COLOR_CHASE_GAME_ID, FOLLOW_THE_FOOTSTEPS_GAME_ID, getGameById } from "@/lib/games/registry";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import type { Patient } from "@/lib/patients/types";
 import { suggestResumePoint } from "@/lib/sessions/resumeSuggestion";
 import { subscribeToPatientSessions } from "@/lib/sessions/sessionHistoryRepository";
-import type { AnyStoredSession, StoredBubblePopSession, StoredColorChaseSession, StoredFeedAnimalsSession, StoredFootstepsSession, StoredSession } from "@/lib/sessions/types";
+import type { AnyStoredSession, StoredBubblePopSession, StoredColorChaseSession, StoredFootstepsSession, StoredSession } from "@/lib/sessions/types";
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { formatSessionDate, formatSessionTime } from "./formatSessionDate";
 import { LastProgressCard } from "./LastProgressCard";
@@ -64,8 +65,6 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
   const mostRecentFootsteps = footstepsSessions[0] ?? null;
   const bubblePopSessions = sessions.filter((s): s is StoredBubblePopSession => s.gameId === BUBBLE_POP_WALL_GAME_ID);
   const mostRecentBubblePop = bubblePopSessions[0] ?? null;
-  const feedAnimalsSessions = sessions.filter((s): s is StoredFeedAnimalsSession => s.gameId === FEED_THE_ANIMALS_GAME_ID);
-  const mostRecentFeedAnimals = feedAnimalsSessions[0] ?? null;
   const colorChaseSessions = sessions.filter((s): s is StoredColorChaseSession => s.gameId === COLOR_CHASE_GAME_ID);
   const mostRecentColorChase = colorChaseSessions[0] ?? null;
   const incomplete = incompleteSessionForPatient(liveRecord, patient.patientId);
@@ -73,7 +72,8 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
 
   const handleResumeBalloonQuest = () => {
     if (!mostRecentBalloonQuest) return;
-    const suggestion = suggestResumePoint(mostRecentBalloonQuest);
+    // A legacy five-stage record is never reinterpreted as three-stage progress: the updated game starts fresh (the therapist can still pick a level).
+    const suggestion = isBalloonQuest3DSession(mostRecentBalloonQuest) ? suggestResumePoint(mostRecentBalloonQuest) : undefined;
     selectPatient({
       patientId: patient.patientId,
       patientNumber: patient.patientNumber,
@@ -97,19 +97,7 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
 
   const handleResumeBubblePop = () => {
     if (!mostRecentBubblePop) return;
-    const suggestion = suggestResumePoint(mostRecentBubblePop);
-    selectPatient({
-      patientId: patient.patientId,
-      patientNumber: patient.patientNumber,
-      firstName: patient.firstName,
-      resumeSuggestion: suggestion,
-    });
-    router.push("/control/activities");
-  };
-
-  const handleResumeFeedAnimals = () => {
-    if (!mostRecentFeedAnimals) return;
-    const suggestion = suggestResumePoint(mostRecentFeedAnimals);
+    const suggestion = mostRecentBubblePop.engine === "dome3" ? suggestResumePoint(mostRecentBubblePop) : undefined;
     selectPatient({
       patientId: patient.patientId,
       patientNumber: patient.patientNumber,
@@ -142,7 +130,6 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
       {mostRecentBalloonQuest && <LastProgressCard session={mostRecentBalloonQuest} onResume={handleResumeBalloonQuest} />}
       {mostRecentFootsteps && <LastProgressCard session={mostRecentFootsteps} onResume={handleResumeFootsteps} />}
       {mostRecentBubblePop && <LastProgressCard session={mostRecentBubblePop} onResume={handleResumeBubblePop} />}
-      {mostRecentFeedAnimals && <LastProgressCard session={mostRecentFeedAnimals} onResume={handleResumeFeedAnimals} />}
       {mostRecentColorChase && <LastProgressCard session={mostRecentColorChase} onResume={handleResumeColorChase} />}
       <SectionCard>
         <SessionHistoryList patientId={patient.patientId} sessions={sessions} />

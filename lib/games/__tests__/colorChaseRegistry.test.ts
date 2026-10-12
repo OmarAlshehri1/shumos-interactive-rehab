@@ -12,11 +12,12 @@ describe("Color Chase platform registration", () => {
     expect(GAME_DISPLAY_MODULES["color-chase"]).toBeTypeOf("function");
   });
 
-  it("keeps every registered activity in exactly one textual wall/floor group", () => {
+  it("keeps every registered activity in exactly one implemented projection group, including BOTH", () => {
     const floor = GAME_REGISTRY.filter((game) => game.surfaceType === "FLOOR");
     const wall = GAME_REGISTRY.filter((game) => game.surfaceType === "WALL");
-    expect([...floor, ...wall]).toHaveLength(GAME_REGISTRY.length);
-    expect(new Set([...floor, ...wall].map((game) => game.id)).size).toBe(GAME_REGISTRY.length);
+    const both = GAME_REGISTRY.filter((game) => game.surfaceType === "BOTH");
+    expect([...floor, ...wall, ...both]).toHaveLength(GAME_REGISTRY.length);
+    expect(new Set([...floor, ...wall, ...both].map((game) => game.id)).size).toBe(GAME_REGISTRY.length);
     for (const game of GAME_REGISTRY) expect(existsSync(join(process.cwd(), "app", game.route, "page.tsx"))).toBe(true);
   });
 });

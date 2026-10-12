@@ -4,7 +4,6 @@ import type { DisplayEvent } from "@/components/display/events";
 import { type AmbienceHandle, startAmbience } from "./ambience";
 import { startCosmicAmbience } from "./cosmicAmbience";
 import { startUnderwaterAmbience } from "./underwaterAmbience";
-import { startSafariAmbience } from "./safariAmbience";
 import { startSpaceAmbience } from "./spaceAmbience";
 import { startColorChaseAmbience } from "./colorChaseAmbience";
 import { playColorCelebration, playColorCorrect, playColorDanger, playColorPadActivation, playColorWrong } from "./colorChaseEffects";
@@ -30,7 +29,6 @@ import {
   playRockDissolveEffect,
 } from "./cosmicEffects";
 import { playBubbleIncorrect, playBubblePop, playUnderwaterCelebration, playUnderwaterIntroSting } from "./underwaterEffects";
-import { playAnimalAccent, playAnimalStep, playFeedCorrect, playFeedIncorrect, playSafariCelebration, playSafariIntroSting } from "./safariEffects";
 import {
   footstepsCheckpointLine,
   footstepsInstructionLine,
@@ -53,18 +51,6 @@ import {
   bubblePopTargetRequestLine,
   bubblePopWelcomeLine,
 } from "./bubblePopVoiceLines";
-import {
-  feedAnimalsIncorrectLine,
-  feedAnimalsInstructionLine,
-  feedAnimalsJumpCueLine,
-  feedAnimalsMilestoneLine,
-  feedAnimalsPathRequestLine,
-  feedAnimalsReadyPositionLine,
-  feedAnimalsRequestLine,
-  feedAnimalsSessionCompleteLine,
-  feedAnimalsStageCompleteLine,
-  feedAnimalsWelcomeLine,
-} from "./feedAnimalsVoiceLines";
 import {
   spacePilotAdvancedInstructionLine,
   spacePilotFinalStarLine,
@@ -199,10 +185,6 @@ function buildBubblePopPrefetchLines(childName: string): string[] {
   return [bubblePopWelcomeLine(childName), ...COUNTDOWN_PREFETCH_LINES];
 }
 
-function buildFeedAnimalsPrefetchLines(childName: string): string[] {
-  return [feedAnimalsWelcomeLine(childName), ...COUNTDOWN_PREFETCH_LINES];
-}
-
 function buildSpacePilotPrefetchLines(childName: string): string[] {
   return [spacePilotWelcomeLine(childName), ...COUNTDOWN_PREFETCH_LINES];
 }
@@ -225,12 +207,21 @@ export function buildPrefetchLines(gameId: GameId, childName: string): string[] 
       return buildFootstepsPrefetchLines(childName);
     case "bubble-pop-wall":
       return buildBubblePopPrefetchLines(childName);
-    case "feed-the-animals":
-      return buildFeedAnimalsPrefetchLines(childName);
     case "space-pilot":
       return buildSpacePilotPrefetchLines(childName);
     case "color-chase":
       return buildColorChasePrefetchLines(childName);
+    case "harvest-valley-3d":
+    case "blooming-world-3d":
+    case "fire-rescue-3d":
+    case "pearl-voyage-3d":
+    case "runner-quest-3d":
+    case "mirror-quest-3d":
+    case "safe-hex-arena-3d":
+    case "build-quest-3d":
+      return []; // These games never request paid TTS.
+    default:
+      return []; // Unknown or retired runtime IDs cannot prefetch audio.
   }
 }
 
@@ -249,8 +240,6 @@ export class AudioManager {
   private cosmicAmbienceHandle: AmbienceHandle | null = null;
   /** Bubble Pop Wall's own underwater ambience — same independent-handle story as cosmicAmbienceHandle above. */
   private underwaterAmbienceHandle: AmbienceHandle | null = null;
-  /** Feed the Animals' own safari ambience — same independent-handle story as the other game ambience handles above. */
-  private safariAmbienceHandle: AmbienceHandle | null = null;
   /** Space Pilot's own deep-space ambience — same independent-handle story as the other game ambience handles above. */
   private spaceAmbienceHandle: AmbienceHandle | null = null;
   /** Color Chase's sparse magical accents; never a continuous tone or noise layer. */
@@ -296,8 +285,6 @@ export class AudioManager {
   private lastIncorrectSpeechAt = 0;
   /** Same incorrect-speech cooldown as lastIncorrectSpeechAt above, tracked separately for Bubble Pop Wall so a flurry of wrong balloon taps in one game session never suppresses a genuinely fresh incorrect bubble tap in another (not that both ever run at once, but keeping the two games' cooldowns structurally independent avoids any accidental coupling). */
   private lastBubblePopIncorrectSpeechAt = 0;
-  /** Same independent-cooldown convention as lastBubblePopIncorrectSpeechAt above, for Feed the Animals. */
-  private lastFeedAnimalsIncorrectSpeechAt = 0;
   /** How many times each encouragement band has already been spoken this session — drives which pool variant plays next. */
   private readonly encouragementBandCounts: Partial<Record<EncouragementBand, number>> = {};
   /** How many times a Follow the Footsteps milestone line has already been spoken this session — drives which pool variant plays next, same cycling convention as encouragementBandCounts above. */
@@ -306,10 +293,6 @@ export class AudioManager {
   private footstepsCheckpointCount = 0;
   /** Same cycling convention as footstepsMilestoneCount above, for Bubble Pop Wall's own milestone pool. */
   private bubblePopMilestoneCount = 0;
-  /** Same cycling convention as footstepsMilestoneCount above, for Feed the Animals' own milestone pool. */
-  private feedAnimalsMilestoneCount = 0;
-  /** How many times a "help the animal" request line has already been spoken this session — drives which of the 4 request templates (task section 31's "voice variation") plays next. */
-  private feedAnimalsRequestCount = 0;
   /** Same cycling convention as footstepsMilestoneCount above, for Space Pilot's own milestone pool. */
   private spacePilotMilestoneCount = 0;
   /** Number of accepted speech groups that have not settled yet. */
@@ -512,13 +495,11 @@ export class AudioManager {
     this.ambienceHandle?.stop();
     this.cosmicAmbienceHandle?.stop();
     this.underwaterAmbienceHandle?.stop();
-    this.safariAmbienceHandle?.stop();
     this.spaceAmbienceHandle?.stop();
     this.colorChaseAmbienceHandle?.stop();
     this.ambienceHandle = null;
     this.cosmicAmbienceHandle = null;
     this.underwaterAmbienceHandle = null;
-    this.safariAmbienceHandle = null;
     this.spaceAmbienceHandle = null;
     this.colorChaseAmbienceHandle = null;
     if (this.ctx) {
@@ -617,10 +598,6 @@ export class AudioManager {
       case "underwater_ambience_start":
         this.activeGameId = "bubble-pop-wall";
         break;
-      case "feed_animals_welcome":
-      case "safari_ambience_start":
-        this.activeGameId = "feed-the-animals";
-        break;
       case "space_pilot_welcome":
       case "space_ambience_start":
         this.activeGameId = "space-pilot";
@@ -644,15 +621,12 @@ export class AudioManager {
     this.pendingSpeech = null;
     this.lastIncorrectSpeechAt = 0;
     this.lastBubblePopIncorrectSpeechAt = 0;
-    this.lastFeedAnimalsIncorrectSpeechAt = 0;
     for (const key of Object.keys(this.encouragementBandCounts) as EncouragementBand[]) {
       delete this.encouragementBandCounts[key];
     }
     this.footstepsMilestoneCount = 0;
     this.footstepsCheckpointCount = 0;
     this.bubblePopMilestoneCount = 0;
-    this.feedAnimalsMilestoneCount = 0;
-    this.feedAnimalsRequestCount = 0;
     this.spacePilotMilestoneCount = 0;
     this.activeGameId = gameId;
     this.startActiveAmbience();
@@ -666,15 +640,21 @@ export class AudioManager {
       case "bubble-pop-wall":
         this.startUnderwaterAmbienceIfNeeded();
         break;
-      case "feed-the-animals":
-        this.startSafariAmbienceIfNeeded();
-        break;
       case "space-pilot":
         this.startSpaceAmbienceIfNeeded();
         break;
       case "color-chase":
         this.startColorChaseAmbienceIfNeeded();
         break;
+      case "harvest-valley-3d":
+    case "blooming-world-3d":
+    case "fire-rescue-3d":
+    case "pearl-voyage-3d":
+      case "runner-quest-3d":
+      case "mirror-quest-3d":
+      case "safe-hex-arena-3d":
+    case "build-quest-3d":
+        break; // silent by design: no ambience, no music
       case "balloon-quest":
       case null:
         this.startAmbienceIfNeeded();
@@ -935,109 +915,6 @@ export class AudioManager {
         this.stopUnderwaterAmbience();
         break;
 
-      // MULTI-GAME PLATFORM — Feed the Animals' own events (see
-      // components/display/events.ts). Routed through safariEffects.ts/
-      // feedAnimalsVoiceLines.ts/safariAmbience.ts — this game DOES have an
-      // incorrect branch (like Bubble Pop Wall), with the same
-      // gentle cooldown-gated tone, and a per-ROUND spoken request
-      // ("help the monkey, give it the banana!") rather than a per-target
-      // color/shape request or a per-stage instruction line.
-      case "feed_animals_welcome":
-        this.beginGameWelcome("feed-the-animals");
-        this.childName = event.childName;
-        this.playEffect((ctx, dest) => playSafariIntroSting(ctx, dest));
-        this.speak(feedAnimalsWelcomeLine(event.childName), "high");
-        break;
-
-      case "feed_animals_ready_position":
-        this.speak(feedAnimalsReadyPositionLine(event.childName, event.isFirstStage), "high");
-        break;
-
-      case "feed_animals_instruction":
-        this.speak(feedAnimalsInstructionLine(event.childName, event.stageNumber), "high");
-        break;
-
-      case "feed_animals_request": {
-        const occurrenceIndex = this.feedAnimalsRequestCount;
-        const spoken = this.speak(feedAnimalsRequestLine(event.childName, event.animal, event.food, occurrenceIndex), "high");
-        if (spoken) this.feedAnimalsRequestCount += 1;
-        break;
-      }
-
-      case "feed_animals_fed":
-        this.playEffect((ctx, dest) => playFeedCorrect(ctx, dest));
-        break;
-
-      case "feed_animals_animal_reaction":
-        this.playEffect((ctx, dest) => playAnimalAccent(ctx, dest, event.animal));
-        break;
-
-      case "feed_animals_correct": {
-        // Milestone encouragement every 3rd fed animal — same "never after
-        // every single one" cycling convention as Bubble Pop Wall's
-        // bubblepop_correct handling above.
-        const isLastRound = event.correctCount >= event.totalRounds;
-        if (!isLastRound && event.correctCount > 0 && event.correctCount % 3 === 0 && this.childName) {
-          const occurrenceIndex = this.feedAnimalsMilestoneCount;
-          const line = feedAnimalsMilestoneLine(this.childName, occurrenceIndex);
-          const spoken = this.speak(line, "normal");
-          if (spoken) this.feedAnimalsMilestoneCount += 1;
-        }
-        break;
-      }
-
-      case "feed_animals_incorrect": {
-        this.playEffect((ctx, dest) => playFeedIncorrect(ctx, dest));
-        const now = Date.now();
-        if (now - this.lastFeedAnimalsIncorrectSpeechAt > INCORRECT_SPEECH_COOLDOWN_MS) {
-          this.lastFeedAnimalsIncorrectSpeechAt = now;
-          this.speak(feedAnimalsIncorrectLine(), "low");
-        }
-        break;
-      }
-
-      case "feed_animals_stage_complete":
-        this.playEffect((ctx, dest) => playSafariCelebration(ctx, dest, `stage${event.stageNumber}`));
-        this.speak(feedAnimalsStageCompleteLine(event.childName, event.stageNumber), "high");
-        break;
-
-      case "feed_animals_session_complete":
-        this.playEffect((ctx, dest) => playSafariCelebration(ctx, dest, "session"));
-        this.speak(feedAnimalsSessionCompleteLine(event.childName), "high");
-        break;
-
-      case "safari_ambience_start":
-        this.activeGameId = "feed-the-animals";
-        this.startActiveAmbience();
-        break;
-      case "safari_ambience_stop":
-        this.stopSafariAmbience();
-        break;
-
-      // SAFARI ANIMAL ADVENTURE — the path mechanic's own events (see
-      // components/display/events.ts). feed_animals_fed/
-      // feed_animals_animal_reaction/feed_animals_correct/
-      // feed_animals_stage_complete above are all REUSED as-is for the
-      // arrival moment — see FeedAnimalsPathPlayingScene's doc comment.
-      case "feed_animals_path_request":
-        this.speak(feedAnimalsPathRequestLine(event.childName, event.animal, event.food), "high");
-        break;
-
-      case "feed_animals_monkey_step":
-        this.playEffect((ctx, dest) => playAnimalStep(ctx, dest, event.animal, event.direction));
-        break;
-
-      case "feed_animals_jump_cue":
-        this.speak(feedAnimalsJumpCueLine(), "high");
-        break;
-
-      case "feed_animals_leg_complete":
-        // MULTI-ANIMAL STAGES — the arrival sound/accent already played via
-        // feed_animals_fed/feed_animals_animal_reaction above; this event
-        // exists purely for the display's own gathering-area animation
-        // timing and needs no separate audio of its own.
-        break;
-
       // SPACE PILOT — Level 1's own events (see components/display/events.ts).
       // Routed through spaceEffects.ts/spacePilotVoiceLines.ts/spaceAmbience.ts.
       // No "incorrect" branch (a missed star is never a failure, task's "no
@@ -1191,7 +1068,6 @@ export class AudioManager {
   private startAmbienceIfNeeded(): void {
     this.stopCosmicAmbience();
     this.stopUnderwaterAmbience();
-    this.stopSafariAmbience();
     this.stopSpaceAmbience();
     this.stopColorChaseAmbience();
     if (this.ambienceHandle || !this.ctx || !this.ambienceGain) return;
@@ -1206,7 +1082,6 @@ export class AudioManager {
   private startCosmicAmbienceIfNeeded(): void {
     this.stopAmbience();
     this.stopUnderwaterAmbience();
-    this.stopSafariAmbience();
     this.stopSpaceAmbience();
     this.stopColorChaseAmbience();
     if (this.cosmicAmbienceHandle || !this.ctx || !this.ambienceGain) return;
@@ -1221,7 +1096,6 @@ export class AudioManager {
   private startUnderwaterAmbienceIfNeeded(): void {
     this.stopAmbience();
     this.stopCosmicAmbience();
-    this.stopSafariAmbience();
     this.stopSpaceAmbience();
     this.stopColorChaseAmbience();
     if (this.underwaterAmbienceHandle || !this.ctx || !this.ambienceGain) return;
@@ -1232,27 +1106,11 @@ export class AudioManager {
     }
   }
 
-  /** Starts the safari ambience, stopping any other game's ambience first — same four-way mutual exclusion as every other start*IfNeeded method. */
-  private startSafariAmbienceIfNeeded(): void {
-    this.stopAmbience();
-    this.stopCosmicAmbience();
-    this.stopUnderwaterAmbience();
-    this.stopSpaceAmbience();
-    this.stopColorChaseAmbience();
-    if (this.safariAmbienceHandle || !this.ctx || !this.ambienceGain) return;
-    try {
-      this.safariAmbienceHandle = startSafariAmbience(this.ctx, this.ambienceGain);
-    } catch {
-      this.safariAmbienceHandle = null;
-    }
-  }
-
   /** Starts the deep-space ambience, stopping any other game's ambience first — same five-way mutual exclusion as every other start*IfNeeded method. */
   private startSpaceAmbienceIfNeeded(): void {
     this.stopAmbience();
     this.stopCosmicAmbience();
     this.stopUnderwaterAmbience();
-    this.stopSafariAmbience();
     this.stopColorChaseAmbience();
     if (this.spaceAmbienceHandle || !this.ctx || !this.ambienceGain) return;
     try {
@@ -1272,11 +1130,6 @@ export class AudioManager {
     this.underwaterAmbienceHandle = null;
   }
 
-  private stopSafariAmbience(): void {
-    this.safariAmbienceHandle?.stop();
-    this.safariAmbienceHandle = null;
-  }
-
   private stopSpaceAmbience(): void {
     this.spaceAmbienceHandle?.stop();
     this.spaceAmbienceHandle = null;
@@ -1286,7 +1139,6 @@ export class AudioManager {
     this.stopAmbience();
     this.stopCosmicAmbience();
     this.stopUnderwaterAmbience();
-    this.stopSafariAmbience();
     this.stopSpaceAmbience();
     if (this.colorChaseAmbienceHandle || !this.ctx || !this.ambienceGain) return;
     try {
@@ -1427,14 +1279,6 @@ function isDeferrableSpeechEvent(event: DisplayEvent): boolean {
     case "bubblepop_sequence_request":
     case "bubblepop_stage_complete":
     case "bubblepop_session_complete":
-    case "feed_animals_welcome":
-    case "feed_animals_ready_position":
-    case "feed_animals_instruction":
-    case "feed_animals_request":
-    case "feed_animals_stage_complete":
-    case "feed_animals_session_complete":
-    case "feed_animals_path_request":
-    case "feed_animals_jump_cue":
     case "space_pilot_welcome":
     case "space_pilot_ready_position":
     case "space_pilot_instruction":

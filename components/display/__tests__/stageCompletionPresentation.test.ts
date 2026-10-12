@@ -13,8 +13,6 @@ describe("final-action presentation handoff", () => {
     expect(FINAL_ACTION_FAILSAFE_MS.balloonQuest).toBeGreaterThanOrEqual(1_000);
     expect(FINAL_ACTION_FAILSAFE_MS.footsteps).toBeGreaterThanOrEqual(950);
     expect(FINAL_ACTION_FAILSAFE_MS.bubblePop).toBeGreaterThanOrEqual(1_450);
-    expect(FINAL_ACTION_FAILSAFE_MS.feedAnimalsChoice).toBeGreaterThanOrEqual(1_300);
-    expect(FINAL_ACTION_FAILSAFE_MS.feedAnimalsPath).toBeGreaterThanOrEqual(900);
     expect(FINAL_ACTION_FAILSAFE_MS.spacePilot).toBeGreaterThanOrEqual(1_000);
     expect(FINAL_ACTION_FAILSAFE_MS.colorChase).toBeGreaterThanOrEqual(850);
     expect(new Set(Object.values(FINAL_ACTION_FAILSAFE_MS)).size).toBeGreaterThan(3);

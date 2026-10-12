@@ -6,7 +6,7 @@ import type { GameId } from "@/lib/games/registry";
  * COST INCIDENT REGRESSION TEST — ROUND 2. Round 1 scoped prefetch to the
  * active game only, but Bubble Pop Wall alone still bought 110 real Munsit
  * requests from a session simply appearing (color x shape x sequence-pair
- * matrix), Feed the Animals 45 (animal x template matrix). Round 2 removed
+ * matrix). Round 2 removed
  * every speculative/combinatorial line from prefetch entirely: each game's
  * list is now just its own welcome line + the 4 shared, fixed countdown
  * words (task's "ideally 0-5 lines PER ACTIVE GAME"). Everything else now
@@ -14,15 +14,16 @@ import type { GameId } from "@/lib/games/registry";
  * AudioManager.test.ts for proof dispatch still speaks every removed line
  * when its real event actually fires.
  */
+/** Runner Quest 3D is silent by design (empty prefetch list, see its own assertion in lib/runnerquest3d tests). */
+type VoicedGameId = Exclude<GameId, "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d" | "fire-rescue-3d" | "blooming-world-3d" | "harvest-valley-3d" | "pearl-voyage-3d">;
 describe("buildPrefetchLines — session-start prefetch is tiny, per game, non-speculative", () => {
-  const ALL_GAME_IDS: GameId[] = ["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "feed-the-animals", "space-pilot", "color-chase"];
+  const ALL_GAME_IDS: VoicedGameId[] = ["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "space-pilot", "color-chase"];
 
   /** BEFORE (round 1) -> AFTER (round 2), per the task's required report. */
-  const BEFORE_COUNTS: Record<GameId, number> = {
+  const BEFORE_COUNTS: Record<VoicedGameId, number> = {
     "balloon-quest": 26,
     "follow-the-footsteps": 22,
     "bubble-pop-wall": 110,
-    "feed-the-animals": 45,
     "space-pilot": 8,
     "color-chase": 6,
   };
@@ -40,9 +41,8 @@ describe("buildPrefetchLines — session-start prefetch is tiny, per game, non-s
       const after = buildPrefetchLines(gameId, "سارة").length;
       expect(after).toBeLessThan(BEFORE_COUNTS[gameId]);
     }
-    // The two combinatorial-matrix games specifically — the task's named acceptance criteria.
+    // The combinatorial-matrix game specifically — the task's named acceptance criteria.
     expect(buildPrefetchLines("bubble-pop-wall", "سارة").length).toBe(5); // was 110
-    expect(buildPrefetchLines("feed-the-animals", "سارة").length).toBe(5); // was 45
   });
 
   it("Bubble Pop Wall's prefetch no longer contains ANY color/shape/sequence request line — those are on-demand only now", () => {
@@ -54,16 +54,9 @@ describe("buildPrefetchLines — session-start prefetch is tiny, per game, non-s
     }
   });
 
-  it("Feed the Animals' prefetch no longer contains any animal/food request line — those are on-demand only now", () => {
-    const lines = buildPrefetchLines("feed-the-animals", "سارة").join(" ||| ");
-    for (const animalWord of ["القرد", "الأرنب", "الباندا", "الفيل", "الزرافة"]) {
-      expect(lines).not.toContain(animalWord);
-    }
-  });
-
-  it("the total across all six games combined is tiny (<=30)", () => {
+  it("the total across all remaining voiced games combined is tiny (<=25)", () => {
     const total = ALL_GAME_IDS.reduce((sum, id) => sum + buildPrefetchLines(id, "سارة").length, 0);
-    expect(total).toBeLessThanOrEqual(30);
+    expect(total).toBeLessThanOrEqual(25);
   });
 
   it("every game's list includes its own welcome line plus the 4 shared, identical countdown words", () => {
@@ -86,11 +79,10 @@ describe("buildPrefetchLines — session-start prefetch is tiny, per game, non-s
   });
 
   it("never returns another game's welcome line", () => {
-    const markers: Record<GameId, string> = {
+    const markers: Record<VoicedGameId, string> = {
       "balloon-quest": "مغامرة البالونات",
       "follow-the-footsteps": "امشِ على الخطوات",
       "bubble-pop-wall": "فرقعة الفقاعات",
-      "feed-the-animals": "الحيوانات",
       "space-pilot": "الصاروخ",
       "color-chase": "نطارد الألوان",
     };

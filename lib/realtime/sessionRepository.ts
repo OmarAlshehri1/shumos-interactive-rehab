@@ -1,3 +1,16 @@
+import { reviveHarvestLive } from '@/lib/harvestvalley3d/live';
+import { reviveBloomLive } from '@/lib/bloomingworld3d/live';
+import { reviveDomeLive } from '@/lib/bubblepopwall3d/live';
+import { reviveFireLive } from '@/lib/firerescue3d/live';
+import { revivePearlLive } from '@/lib/pearlvoyage3d/live';
+import { reviveMirrorLive } from '@/lib/mirrorquest3d/live';
+import { reviveHexLive } from '@/lib/safehexarena3d/live';
+import { isFp3Live, reviveFootstepsLive } from '@/lib/footsteps3d/live';
+import { isCc3Live, reviveColorChaseLive } from '@/lib/colorchase3d/live';
+import { isBq3Session, reviveBq3Session } from "@/lib/balloonquest/live";
+import { isRunnerSession, reviveRunnerSession } from "@/lib/runnerquest3d/live";
+import { isBuildQuestLive, reviveBuildQuestLive } from "@/lib/buildquest3d/cloudState";
+import { isSpacePilotLive, reviveSpacePilotLive } from "@/lib/spacepilot3d/cloudState";
 import {
   type Database,
   get,
@@ -13,7 +26,6 @@ import { getGameById, type GameId } from "@/lib/games/registry";
 import { assertFirebaseSafeValue } from "@/lib/dataIntegrity/numeric";
 import {
   reviveBubblePopSessionState,
-  reviveFeedAnimalsSessionState,
   reviveFootstepsSessionState,
   reviveSessionState,
   reviveSpacePilotSessionState,
@@ -59,6 +71,14 @@ import type {
  */
 
 const LIVE_SESSION_PATH = "liveSession";
+/** Staff-only sibling of the live record: the saved-patient binding. The anonymous Display can read LIVE_SESSION_PATH but never this node. */
+const LIVE_SESSION_PRIVATE_PATH = "liveSessionPrivate";
+const STAFF_APP_NAME = "shumos-staff";
+
+/** Only the staff Firebase app may read LIVE_SESSION_PRIVATE_PATH; the Display app (anonymous auth) must never try. Unknown handles (test doubles) are treated as non-staff. */
+function canReadPrivate(db: Database): boolean {
+  return (db as { app?: { name?: string } }).app?.name === STAFF_APP_NAME;
+}
 const CONTROLLER_LEASE_PATH = "controllerLease";
 const CONTROLLER_PRESENCE_PATH = "presence/controller";
 const DISPLAY_PRESENCE_PATH = "presence/display";
@@ -102,12 +122,20 @@ export async function publishSession(db: Database, input: PublishSessionInput): 
     // passing through an undefined it read back from RTDB. See
     // subscribeToLiveSession below for why that's a real, not hypothetical, risk.
     lastInteraction: input.lastInteraction ?? null,
-    patientId: input.patientId,
     updatedAt: serverTimestamp(),
   };
   if (input.celebrationReplay !== undefined) payload.celebrationReplay = input.celebrationReplay;
   assertFirebaseSafeValue(payload);
-  await update(ref(db, LIVE_SESSION_PATH), payload);
+  // PRIVACY: the patient binding is NOT part of the Display-readable record. It lives in the staff-only
+  // liveSessionPrivate node and rides in the same multi-location update, so the two never diverge.
+  // `liveSession/patientId: null` also scrubs the field from records written by an older client.
+  const updates: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(payload)) updates[`${LIVE_SESSION_PATH}/${key}`] = value;
+  updates[`${LIVE_SESSION_PATH}/patientId`] = null;
+  updates[LIVE_SESSION_PRIVATE_PATH] = input.patientId
+    ? { sessionId: input.sessionId, patientId: input.patientId, updatedAt: serverTimestamp() }
+    : null;
+  await update(ref(db), updates);
 }
 
 /** Normalizes a raw gameId value read back from Firebase — null for anything not a currently-registered game (missing/old/unsupported/malformed), never a guess. See LiveSessionRecord.gameId's doc comment. */
@@ -117,7 +145,18 @@ function normalizeGameId(raw: unknown): GameId | null {
 
 /** Therapist tapped "جلسة جديدة" (or there is nothing to clean up yet): removes the whole node, taking the child's name and every stage result with it. */
 export async function clearLiveSession(db: Database): Promise<void> {
-  await remove(ref(db, LIVE_SESSION_PATH));
+  await update(ref(db), { [LIVE_SESSION_PATH]: null, [LIVE_SESSION_PRIVATE_PATH]: null });
+}
+
+/** Re-attaches the staff-only patient binding to a raw live value. A binding that belongs to another session is ignored; a legacy in-record patientId (older client) is kept only when no binding exists. */
+function mergePrivate(liveRaw: unknown, privateRaw: unknown): unknown {
+  if (!liveRaw || typeof liveRaw !== "object") return liveRaw;
+  const live = liveRaw as { sessionId?: unknown };
+  const priv = privateRaw as { sessionId?: unknown; patientId?: unknown } | null | undefined;
+  if (priv && typeof priv === "object" && typeof priv.patientId === "string" && priv.sessionId === live.sessionId) {
+    return { ...live, patientId: priv.patientId };
+  }
+  return liveRaw;
 }
 
 function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
@@ -151,13 +190,91 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
     // LiveSessionRecord.gameId's doc comment), so it's safe to default to
     // Balloon Quest's reviver here without ever silently misinterpreting a
     // genuine Follow the Footsteps/Bubble Pop Wall session as one.
+    // BALLOON QUEST 3D: same game id, new engine — a record tagged `engine: "bq3"` is revived by its own validator (null = malformed -> treated as no session). Untagged balloon-quest records stay on the legacy reviver, unchanged.
+    if (gameId === "balloon-quest" && isBq3Session(value.session)) {
+      const bq3 = reviveBq3Session(value.session);
+      if (!bq3 || bq3.sessionId !== value.sessionId) return null;
+      return {
+        ...value,
+        gameId,
+        session: bq3,
+        lastInteraction: value.lastInteraction ?? null,
+        celebrationReplay: value.celebrationReplay ?? null,
+        patientId: typeof rawPatientId === "string" ? rawPatientId : null,
+      };
+    }
+    // RUNNER QUEST 3D: its own game id and its own strict reviver; malformed => no session (waiting world), never a guess.
+    if (gameId === "runner-quest-3d") {
+      if (!isRunnerSession(value.session)) return null;
+      const rq = reviveRunnerSession(value.session);
+      if (!rq || rq.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: rq, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    // BUILD QUEST 3D: same shared record, its own strict reviver; malformed => no session (waiting world), never a guess.
+    if (gameId === "harvest-valley-3d") {
+      const harvest = reviveHarvestLive(value.session);
+      if (!harvest || harvest.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: harvest, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "blooming-world-3d") {
+      const bloom = reviveBloomLive(value.session);
+      if (!bloom || bloom.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: bloom, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "pearl-voyage-3d") {
+      const pearl = revivePearlLive(value.session);
+      if (!pearl || pearl.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: pearl, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "fire-rescue-3d") {
+      const fire = reviveFireLive(value.session);
+      if (!fire || fire.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: fire, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "mirror-quest-3d") {
+      const mirror = reviveMirrorLive(value.session);
+      if (!mirror || mirror.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: mirror, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "bubble-pop-wall" && (value.session as { engine?: string }).engine === "dome3") {
+      const dome = reviveDomeLive(value.session);
+      if (!dome || dome.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: dome, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "safe-hex-arena-3d") {
+      const hex = reviveHexLive(value.session);
+      if (!hex || hex.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: hex, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "build-quest-3d") {
+      if (!isBuildQuestLive(value.session)) return null;
+      const bq = reviveBuildQuestLive(value.session);
+      if (!bq || bq.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: bq, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    // SPACE PILOT 3D: same game id, new engine (`engine: "sp3"`): its own strict reviver. Untagged space-pilot records stay on the legacy reviver, unchanged.
+    if (gameId === "space-pilot" && isSpacePilotLive(value.session)) {
+      const sp = reviveSpacePilotLive(value.session);
+      if (!sp || sp.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: sp, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    // FOLLOW THE FOOTSTEPS 3D: same game id, new engine (`engine: "fp3"`): its own strict reviver. Untagged records stay on the original reviver, unchanged.
+    if (gameId === "follow-the-footsteps" && isFp3Live(value.session)) {
+      const fp = reviveFootstepsLive(value.session);
+      if (!fp || fp.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: fp, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    // COLOR CHASE 3D: same game id, new engine (`engine: "cc3"`): its own strict reviver. Untagged records stay on the original reviver, unchanged.
+    if (gameId === "color-chase" && isCc3Live(value.session)) {
+      const cc = reviveColorChaseLive(value.session);
+      if (!cc || cc.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: cc, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
     const session =
       gameId === "follow-the-footsteps"
         ? reviveFootstepsSessionState(value.session)
         : gameId === "bubble-pop-wall"
           ? reviveBubblePopSessionState(value.session)
-          : gameId === "feed-the-animals"
-            ? reviveFeedAnimalsSessionState(value.session)
             : gameId === "space-pilot"
               ? reviveSpacePilotSessionState(value.session)
               : gameId === "color-chase"
@@ -202,7 +319,36 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
  * duplicate revision.
  */
 export function subscribeToLiveSession(db: Database, callback: (record: LiveSessionRecord | null) => void): Unsubscribe {
-  return subscribeWithInitialGet(db, LIVE_SESSION_PATH, parseLiveSessionValue, callback);
+  if (!canReadPrivate(db)) return subscribeWithInitialGet(db, LIVE_SESSION_PATH, parseLiveSessionValue, callback);
+  // Staff: combine the public record with the staff-only binding. The two nodes are updated atomically on the server but
+  // delivered as separate events, so emission is coalesced to one macrotask; otherwise a controller could briefly see the new
+  // record with the old binding and republish a walk-in (null) binding.
+  let liveRaw: unknown;
+  let privateRaw: unknown;
+  let liveLoaded = false;
+  let privateLoaded = false;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let stopped = false;
+  const flush = () => {
+    timer = undefined;
+    if (stopped || !liveLoaded || !privateLoaded) return;
+    callback(parseLiveSessionValue(mergePrivate(liveRaw, privateRaw)));
+  };
+  const schedule = () => { if (timer === undefined) timer = setTimeout(flush, 0); };
+  const stopLive = subscribeRaw(db, LIVE_SESSION_PATH, (raw) => { liveRaw = raw; liveLoaded = true; schedule(); }, () => {});
+  const stopPrivate = subscribeRaw(db, LIVE_SESSION_PRIVATE_PATH, (raw) => { privateRaw = raw; privateLoaded = true; schedule(); },
+    // Unreadable (rules not yet published / inactive staff): behave as "no binding", never block the live record.
+    () => { privateRaw = null; privateLoaded = true; schedule(); });
+  return () => { stopped = true; if (timer !== undefined) clearTimeout(timer); stopLive(); stopPrivate(); };
+}
+
+/** Same onValue + one-shot get() pairing as subscribeWithInitialGet, but raw values and an error hook. */
+function subscribeRaw(db: Database, path: string, onRaw: (raw: unknown) => void, onError: () => void): Unsubscribe {
+  const valueRef = ref(db, path);
+  // The listener is authoritative: a one-shot get() that resolves after the first listener event is older data and is dropped.
+  let listenerDelivered = false;
+  void get(valueRef).then((snapshot) => { if (!listenerDelivered) onRaw(snapshot.val()); }).catch(onError);
+  return onValue(valueRef, (snapshot) => { listenerDelivered = true; onRaw(snapshot.val()); }, onError);
 }
 
 /**
@@ -219,7 +365,9 @@ export function subscribeToLiveSession(db: Database, callback: (record: LiveSess
  */
 export async function fetchLiveSession(db: Database): Promise<LiveSessionRecord | null> {
   const snapshot = await get(ref(db, LIVE_SESSION_PATH));
-  return parseLiveSessionValue(snapshot.val());
+  if (!canReadPrivate(db)) return parseLiveSessionValue(snapshot.val());
+  const priv = await get(ref(db, LIVE_SESSION_PRIVATE_PATH)).then((s) => s.val(), () => null);
+  return parseLiveSessionValue(mergePrivate(snapshot.val(), priv));
 }
 
 /**
@@ -335,6 +483,38 @@ export async function reportDisplayAudioStatus(
   await update(ref(db, DISPLAY_PRESENCE_PATH), {
     audioStatus: { ...status, updatedAt: serverTimestamp() },
   });
+}
+
+/**
+ * SENSOR INTEGRATION: throttled control -> display pointer mirror (see
+ * PresenceRecord.controllerPointer's doc comment) — called from
+ * components/control/sensors/SensorPointerDisplaySync.tsx, never at the raw
+ * 50Hz BLE sample rate. `null` clears the field (sensor disconnected, or no
+ * pointer to show), same "merge onto presence/display" shape every other
+ * control->display command here uses — no new path, no rules change.
+ */
+export async function reportControllerPointer(db: Database, pointer: { x: number; y: number; visible: boolean } | null): Promise<void> {
+  await update(ref(db, DISPLAY_PRESENCE_PATH), {
+    controllerPointer: pointer ? { ...pointer, updatedAt: serverTimestamp() } : null,
+  });
+}
+
+/** Display-side read of the mirrored pointer — see reportControllerPointer above. Never throws on malformed/partial data; treats it as "no pointer" defensively. */
+export function subscribeToControllerPointer(
+  db: Database,
+  callback: (pointer: { x: number; y: number; visible: boolean } | null) => void,
+): Unsubscribe {
+  return subscribeWithInitialGet(
+    db,
+    `${DISPLAY_PRESENCE_PATH}/controllerPointer`,
+    (raw) => {
+      const value = raw as { x?: unknown; y?: unknown; visible?: unknown } | null;
+      return value && typeof value.x === "number" && typeof value.y === "number" && typeof value.visible === "boolean"
+        ? { x: value.x, y: value.y, visible: value.visible }
+        : null;
+    },
+    callback,
+  );
 }
 
 export function subscribeToDisplayAudioEnableCommand(

@@ -1,6 +1,7 @@
+import { RETIRED_FEED_ANIMALS_ID as FEED_THE_ANIMALS_GAME_ID } from "../retiredFeedAnimals";
 import { describe, expect, it } from "vitest";
 import { Difficulty, StageStatus } from "@/lib/game";
-import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, FEED_THE_ANIMALS_GAME_ID } from "@/lib/games/registry";
+import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID } from "@/lib/games/registry";
 import { suggestResumePoint } from "../resumeSuggestion";
 import type { StoredBubblePopSession, StoredFeedAnimalsSession, StoredSession, StoredStageResult } from "../types";
 

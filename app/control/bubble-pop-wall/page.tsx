@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { DomeControl } from "@/components/control/bubblepopwall3d/DomeControl";
+import { WONDER_DOME_ENABLED } from "@/lib/bubblepopwall3d/releasePolicy";
 import { BubblePopControlScreen } from "@/components/control/bubblepop/BubblePopControlScreen";
 
 export const metadata: Metadata = {
@@ -12,5 +14,5 @@ export const metadata: Metadata = {
  * lives entirely behind BubblePopControlScreen.
  */
 export default function BubblePopWallControlPage() {
-  return <BubblePopControlScreen />;
+  return WONDER_DOME_ENABLED ? <DomeControl /> : <BubblePopControlScreen />;
 }

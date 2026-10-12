@@ -9,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getEmulatorConfig, getStaffFirebaseApp } from "./firebaseClient";
+import { installBenignAuthRejectionFilter } from "./benignAuthRejections";
 
 /**
  * STAFF AUTHENTICATION FOUNDATION — the ONE file that signs a /control tab
@@ -47,39 +48,13 @@ export interface StaffAuthState {
 
 /**
  * RELIABILITY FIX — "Database is closing/hidden" unhandled rejections
- * observed during real device testing. Root-caused by reading
- * @firebase/auth's own bundled source (node_modules/@firebase/auth/dist/esm/index-*.js,
- * class `IndexedDBLocalPersistence`): `browserLocalPersistence` (enabled
- * below, in ensurePersistence) is backed internally by IndexedDB, and that
- * persistence layer runs its OWN background cross-tab-sync polling and
- * token-refresh persistence on internal `setInterval`/`setTimeout` timers we
- * never call directly. When this tab's `document.visibilityState` goes
- * "hidden" (an iPad screen lock or app switch — exactly the scenario
- * lib/control/useRealtimeControllerSession.ts's delayWakeAware already
- * anticipates) while one of those internal timers has an IndexedDB
- * operation in flight, its `_openDb()` guard throws
- * `Error("Database is closing/hidden")` — an expected internal state
- * transition on Firebase's side (the tab going background), not a failure
- * of anything this app published or read.
- *
- * There is no first-party call site in this codebase to attach a `.catch()`
- * to — it originates entirely from @firebase/auth's own scheduled
- * persistence machinery — so this is the one narrow, PRECISELY
- * message-matched exception to "never swallow unhandledrejection globally":
- * every OTHER unhandled rejection (including any future genuine bug) is
- * left completely untouched and still surfaces normally. Still logged
- * (visibly, via console.warn), never silently dropped.
+ * observed during real device testing. This used to install its own
+ * window-level listener here; that listener is now shared with /display
+ * (which hits the identical @firebase/auth internal quirk on its own
+ * anonymous Auth instance) — see benignAuthRejections.ts for the full root
+ * cause and why /display needed the exact same protection.
  */
-const KNOWN_BENIGN_UNHANDLED_REJECTIONS = new Set(["Database is closing/hidden"]);
-
-if (typeof window !== "undefined") {
-  window.addEventListener("unhandledrejection", (event) => {
-    const message = event.reason instanceof Error ? event.reason.message : String(event.reason);
-    if (!KNOWN_BENIGN_UNHANDLED_REJECTIONS.has(message)) return;
-    event.preventDefault();
-    console.warn("[staffAuth] Suppressed known-benign Firebase Auth persistence rejection (tab was hidden):", event.reason);
-  });
-}
+installBenignAuthRejectionFilter();
 
 let auth: Auth | null = null;
 let authEmulatorConnected = false;

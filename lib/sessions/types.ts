@@ -1,5 +1,15 @@
+import type { StoredHarvestSession } from '@/lib/harvestvalley3d/history';
+import type { StoredBloomSession } from '@/lib/bloomingworld3d/history';
+import type { StoredFireSession } from '@/lib/firerescue3d/history';
+import type { StoredPearlSession } from '@/lib/pearlvoyage3d/history';
+import type { StoredMirrorSession } from '@/lib/mirrorquest3d/history';
+import type { StoredHexSession } from '@/lib/safehexarena3d/history';
+import type { StoredFootsteps3Session } from '@/lib/footsteps3d/history';
+import type { StoredColorChase3Session } from '@/lib/colorchase3d/history';
+import type { StoredSpacePilotRingSession, StoredSpacePilotNineSession } from '@/lib/spacepilot3d/history';
 import type { Difficulty, StageNumber, StageStatus } from "@/lib/game";
 import type { GameId } from "@/lib/games/registry";
+import type { StoredBuildQuestSession } from "@/lib/buildquest3d/history";
 import type { StoredSessionWorkflowFields } from "./workflowMetadata";
 
 /**
@@ -17,6 +27,8 @@ import type { StoredSessionWorkflowFields } from "./workflowMetadata";
  * STORE DUPLICATED CHILD IDENTITY").
  */
 export interface StoredStageResult {
+  /** Present only on Balloon Quest 3D records (three stages per difficulty). Absent = the original five-stage game. See lib/sessions/balloonQuestVersion.ts. */
+  engine?: "bq3";
   difficulty: Difficulty;
   stageNumber: StageNumber;
   status: StageStatus;
@@ -128,6 +140,7 @@ export interface StoredFootstepsSession extends StoredSessionWorkflowFields {
  * BubblePopSessionSummary doc comment.
  */
 export interface StoredBubblePopStageResult {
+  engine?: "dome3";
   difficulty: Difficulty;
   stageNumber: StageNumber;
   status: StageStatus;
@@ -139,6 +152,12 @@ export interface StoredBubblePopStageResult {
 }
 
 export interface StoredBubblePopSession extends StoredSessionWorkflowFields {
+  resultVersion?: 2;
+  engine?: "dome3";
+  objectivesCompleted?: number;
+  assistedObjectives?: number;
+  repeatedObjectives?: number;
+  sessionCompleted?: boolean;
   sessionId: string;
   patientId: string;
   gameId: Extract<GameId, "bubble-pop-wall">;
@@ -178,8 +197,7 @@ export interface StoredBubblePopSession extends StoredSessionWorkflowFields {
  * durationMs/bestStage) and replaces the game-specific scoring fields with
  * this game's own honest metrics: BOTH completion (roundsCompleted /
  * roundsPresented — "how many animals got fed") AND accuracy (correct /
- * (correct + incorrect)) — see lib/feedanimals/types.ts's
- * FeedAnimalsSessionSummary doc comment.
+ * (correct + incorrect)). Retained solely for historical records.
  */
 export interface StoredFeedAnimalsStageResult {
   difficulty: Difficulty;
@@ -195,7 +213,8 @@ export interface StoredFeedAnimalsStageResult {
 export interface StoredFeedAnimalsSession extends StoredSessionWorkflowFields {
   sessionId: string;
   patientId: string;
-  gameId: Extract<GameId, "feed-the-animals">;
+  /** Retired game: readable history only, never a launchable GameId. */
+  gameId: "feed-the-animals";
   startedAt: number | null;
   completedAt: number | null;
   createdByUid: string;
@@ -211,9 +230,9 @@ export interface StoredFeedAnimalsSession extends StoredSessionWorkflowFields {
   /** "ساعدت N حيوان" — every completed round is one animal successfully fed. */
   totalRoundsCompleted: number | null;
   totalIncorrect: number | null;
-  /** totalRoundsCompleted / totalRoundsPresented — see lib/feedanimals/scoring.ts's calculateCompletionRate. */
+  /** totalRoundsCompleted / totalRoundsPresented. */
   completionRate: number | null;
-  /** totalRoundsCompleted / (totalRoundsCompleted + totalIncorrect) — see lib/feedanimals/scoring.ts's calculateAccuracy. Activity interaction accuracy, never a clinical measurement. */
+  /** totalRoundsCompleted / (totalRoundsCompleted + totalIncorrect). Activity interaction accuracy, never a clinical measurement. */
   accuracy: number | null;
   durationMs: number | null;
   averageResponseTimeMs: number | null;
@@ -304,6 +323,64 @@ export interface StoredColorChaseSession extends StoredSessionWorkflowFields {
 }
 
 /**
+ * RUNNER QUEST 3D — its own permanent per-patient record, at the SAME `/sessions/{patientId}/{sessionId}`
+ * path, validated by its own `gameId` branch (see database.rules.json). A SIBLING type: no other game's record
+ * is touched or reinterpreted. `resultVersion` makes the result schema versioned. No accuracy is stored or
+ * derived: the game has no wrong answers, collisions or failure; `totalHolds` counts obstacles at which the
+ * runner waited for the child (informational only, never a penalty).
+ */
+export const RUNNER_QUEST_RESULT_VERSION = 2;
+/**
+ * Version history: 1 = WALL-only runner (no projection fields). 2 = adds `projection` and `objectivesSkipped` on every stage row.
+ * A row without `projection` is a version-1 WALL row and is never reinterpreted. For FLOOR rows `obstaclesTotal/Resolved` count
+ * objectives (completed, assisted included; skipped excluded) and `holds` is always 0. The projection is stored per row (the
+ * history rules allow extra row fields for this game but no new top-level ones), so it is derived for the session from its rows.
+ */
+export interface StoredRunnerQuestStageResult {
+  /** Always "rq3": marks the Runner Quest result schema on every stage row. */
+  engine: "rq3";
+  difficulty: Difficulty;
+  stageNumber: StageNumber;
+  status: StageStatus;
+  stars: number | null;
+  holds: number | null;
+  assists: number | null;
+  obstaclesResolved: number | null;
+  obstaclesTotal: number | null;
+  durationMs: number | null;
+  /** Version 2+. Absent on version-1 rows (always WALL). */
+  projection?: "WALL" | "FLOOR";
+  /** Version 2+ FLOOR rows: objectives the therapist skipped. */
+  objectivesSkipped?: number | null;
+}
+
+export interface StoredRunnerQuestSession extends StoredSessionWorkflowFields {
+  sessionId: string;
+  patientId: string;
+  gameId: Extract<GameId, "runner-quest-3d">;
+  resultVersion: number;
+  startedAt: number | null;
+  completedAt: number | null;
+  createdByUid: string;
+  startingDifficulty: Difficulty;
+  startingStage: StageNumber;
+  endingDifficulty: Difficulty;
+  endingStage: StageNumber;
+  completedStageCount: number | null;
+  skippedStageCount: number | null;
+  totalStars: number | null;
+  totalHolds: number | null;
+  totalAssists: number | null;
+  totalObstaclesPresented: number | null;
+  totalObstaclesResolved: number | null;
+  /** MANUAL / KEYBOARD / RIGHT_FOOT / LEFT_FOOT / DUAL_FOOT at the end of the session (informational). */
+  inputSource: string | null;
+  durationMs: number | null;
+  bestStage: { difficulty: Difficulty; stageNumber: StageNumber } | null;
+  stageResults: StoredRunnerQuestStageResult[];
+}
+
+/**
  * MULTI-GAME HISTORY — the union every generic history-reading surface
  * (sessionHistoryRepository.ts, PatientSessionHistorySection and its
  * children) actually works with; narrow on `gameId` to reach a specific
@@ -311,9 +388,21 @@ export interface StoredColorChaseSession extends StoredSessionWorkflowFields {
  * the minimal common shape that needs no narrowing at all.
  */
 export type AnyStoredSession =
+  | StoredHarvestSession
+  | StoredBloomSession
+  | StoredFireSession
+  | StoredPearlSession
   | StoredSession
   | StoredFootstepsSession
   | StoredBubblePopSession
   | StoredFeedAnimalsSession
   | StoredSpacePilotSession
-  | StoredColorChaseSession;
+  | StoredSpacePilotRingSession
+  | StoredSpacePilotNineSession
+  | StoredColorChaseSession
+  | StoredRunnerQuestSession
+  | StoredBuildQuestSession
+  | StoredMirrorSession
+  | StoredHexSession
+  | StoredFootsteps3Session
+  | StoredColorChase3Session;

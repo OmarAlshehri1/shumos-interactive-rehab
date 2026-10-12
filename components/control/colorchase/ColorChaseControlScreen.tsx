@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { formatAccuracyPercent, formatDurationClock, formatReactionTimeSeconds } from "@/components/display/copy";
 import { CHASE_COLOR_HEX } from "@/components/display/colorchase/colorPalette";
 import { ConnectionBadge } from "@/components/control/ConnectionBadge";
@@ -48,6 +48,8 @@ import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { usePatientPrefill } from "@/lib/patients/usePatientPrefill";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { getAdjacentDifficulty, getNextStageTarget } from "@/lib/game";
+import { SensorHandLayer } from "@/components/control/sensors/SensorHandLayer";
+import { colorChaseSensorTargets, isColorChasePadId } from "@/lib/physicalInput/gameSensorTargets";
 
 const STAGE_NUMBERS = Array.from({ length: STAGES_PER_DIFFICULTY }, (_, index) => (index + 1) as StageNumber);
 const DIFFICULTY_OPTIONS = Object.values(Difficulty).map((value) => ({
@@ -566,6 +568,15 @@ function LiveScreen({
   const isPaused = stage.pausedAt !== null;
   const hasMeaningfulProgress = stage.correctCount + stage.incorrectCount + stage.dangerPressCount > 0;
   const lastResult = session.results[session.results.length - 1] ?? null;
+  const isPadGridActive = !offline && !isPaused && !isStageComplete && !isAwaitingStartZone && !isTransitioning;
+
+  // PRODUCTION SENSOR INTEGRATION — confirmColorChasePad is documented as
+  // "the canonical controller/sensor boundary" (lib/colorchase/session.ts);
+  // targets mirror ColorPadGrid.tsx's real fixed 3x3 region, the same
+  // geometry ColorChaseSensorContactDemo.tsx already validated. See
+  // lib/physicalInput/gameSensorTargets.ts.
+  const sensorTargets = useMemo(() => colorChaseSensorTargets(), []);
+  const handleSensorContact = useCallback((padId: string) => { if (isColorChasePadId(padId)) onPad(padId); }, [onPad]);
 
   return (
     <div className="relative flex h-full min-h-0 flex-1 flex-col overflow-hidden">
@@ -594,7 +605,7 @@ function LiveScreen({
                   </div>
                 </div>
               ) : (
-                <div className="mx-auto grid min-h-72 w-full max-w-xl flex-1 grid-cols-3 gap-2.5 sm:gap-4">
+                <div className="relative mx-auto grid min-h-72 w-full max-w-xl flex-1 grid-cols-3 gap-2.5 sm:gap-4">
                   {PAD_IDS.map((pad, index) => (
                     <PadButton
                       key={pad}
@@ -605,6 +616,8 @@ function LiveScreen({
                       onPress={() => onPad(pad)}
                     />
                   ))}
+
+                  <SensorHandLayer targets={sensorTargets} active={isPadGridActive} onContact={handleSensorContact} />
                 </div>
               )}
             </div>

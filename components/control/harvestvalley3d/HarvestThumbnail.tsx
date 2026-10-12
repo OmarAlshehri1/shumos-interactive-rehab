@@ -1,0 +1,3 @@
+import {useId} from 'react';
+/** Original in-browser 3D combine render and generated countryside; no third-party game artwork. */
+export function HarvestThumbnail(){const id=useId();return <svg viewBox="0 0 640 360" role="img" aria-label="حقول القمح وحصّادة شُموس" style={{width:'100%',height:'100%'}}><defs><linearGradient id={id} x2="0" y2="1"><stop stopColor="#182d21" stopOpacity="0"/><stop offset="1" stopColor="#182d21" stopOpacity=".7"/></linearGradient></defs><image href="/harvestvalley3d/thumbnail.png" width="640" height="360" preserveAspectRatio="xMidYMid slice"/><rect width="640" height="360" fill={`url(#${id})`}/><text x="30" y="321" fill="#fff5d7" fontFamily="Arial" fontSize="13" letterSpacing="3">HARVEST VALLEY · SHUMOS CARE</text></svg>;}

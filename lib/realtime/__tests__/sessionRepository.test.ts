@@ -66,11 +66,21 @@ describe("sessionRepository", () => {
 
     await publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: null, patientId: null });
 
-    expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
     expect(updateMock).toHaveBeenCalledTimes(1);
     const [, payload] = updateMock.mock.calls[0]!;
-    expect(payload).toMatchObject({ gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: null });
-    expect(payload).toHaveProperty("updatedAt");
+    expect(payload).toMatchObject({ "liveSession/gameId": "balloon-quest", "liveSession/sessionId": "abc", "liveSession/revision": 3, "liveSession/session": session, "liveSession/lastInteraction": null });
+    expect(payload).toHaveProperty("liveSession/updatedAt");
+    // Walk-in: no patient binding, and no patient id in the Display-readable record.
+    expect(payload).toMatchObject({ "liveSession/patientId": null, liveSessionPrivate: null });
+  });
+
+  it("publishSession() keeps the patient binding OUT of the Display-readable record (staff-only liveSessionPrivate, same atomic update)", async () => {
+    const { publishSession } = await import("../sessionRepository");
+    await publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session: { gameState: "PLAYING" } as never, lastInteraction: null, patientId: "p-1" });
+    const [, payload] = updateMock.mock.calls[0]! as [unknown, Record<string, unknown>];
+    expect(payload["liveSession/patientId"]).toBeNull();
+    expect(payload.liveSessionPrivate).toMatchObject({ sessionId: "abc", patientId: "p-1" });
+    expect(JSON.stringify(Object.entries(payload).filter(([k]) => k.startsWith("liveSession/")))).not.toContain("p-1");
   });
 
   it("publishSession() coerces an undefined lastInteraction to null (Firebase update() rejects raw undefined)", async () => {
@@ -83,7 +93,7 @@ describe("sessionRepository", () => {
     await publishSession(fakeDb, { gameId: "balloon-quest", sessionId: "abc", revision: 3, session, lastInteraction: undefined as never, patientId: null });
 
     const [, payload] = updateMock.mock.calls[0]!;
-    expect(payload).toMatchObject({ lastInteraction: null });
+    expect(payload).toMatchObject({ "liveSession/lastInteraction": null });
   });
 
   it("publishSession() blocks NaN/Infinity before Firebase can receive a corrupt live state", async () => {
@@ -155,11 +165,10 @@ describe("sessionRepository", () => {
     expect(callback.mock.calls[0]![0]).toMatchObject({ sessionId: "x", revision: 9 });
   });
 
-  it("clearLiveSession() removes the whole liveSession node (not a partial field)", async () => {
+  it("clearLiveSession() removes the whole liveSession node and its staff-only binding in one update (not a partial field)", async () => {
     const { clearLiveSession } = await import("../sessionRepository");
     await clearLiveSession(fakeDb);
-    expect(refMock).toHaveBeenCalledWith(fakeDb, "liveSession");
-    expect(removeMock).toHaveBeenCalledTimes(1);
+    expect(updateMock).toHaveBeenCalledWith(expect.anything(), { liveSession: null, liveSessionPrivate: null });
   });
 
   it("subscribeToLiveSession() treats a missing/malformed snapshot as null (no session), never as a partial session", async () => {
@@ -216,6 +225,61 @@ describe("sessionRepository", () => {
     expect(delivered.session.results).toEqual([]);
     expect(delivered.session.endedAt).toBeNull();
     expect(delivered.session.summary).toBeNull();
+  });
+
+  describe("patient binding (staff-only liveSessionPrivate)", () => {
+    const staffDb = { app: { name: "shumos-staff" } } as never;
+    const displayDb = { app: { name: "shumos-display" } } as never;
+    const raw = (sessionId: string) => ({
+      gameId: "balloon-quest", sessionId, revision: 1, lastInteraction: null, updatedAt: 1,
+      session: { sessionId, seed: "seed", config: { childFirstName: "سارة", difficulty: "EASY", targetSize: "LARGE", targetSpacing: "CLOSE", playArea: "FULL" }, gameState: "WELCOME", currentDifficulty: "EASY",
+        currentStage: { difficulty: "EASY", stageNumber: 1, targetColor: "BLUE", balloons: RAW_BALLOONS, totalTargets: 2, correctCount: 0, incorrectCount: 0, totalPausedMs: 0 }, createdAt: 1 },
+    });
+    const byPath = (values: Record<string, unknown>) => getMock.mockImplementation(async (r: unknown) => ({ val: () => values[(r as { __path: string }).__path] ?? null }));
+
+    it("fetchLiveSession() re-attaches the binding for staff only when it belongs to the same session", async () => {
+      const { fetchLiveSession } = await import("../sessionRepository");
+      byPath({ liveSession: raw("s1"), liveSessionPrivate: { sessionId: "s1", patientId: "p-1" } });
+      expect((await fetchLiveSession(staffDb))?.patientId).toBe("p-1");
+      byPath({ liveSession: raw("s2"), liveSessionPrivate: { sessionId: "s1", patientId: "p-1" } });
+      expect((await fetchLiveSession(staffDb))?.patientId).toBeNull();
+    });
+
+    it("a failing binding read never hides the live record (treated as walk-in)", async () => {
+      const { fetchLiveSession } = await import("../sessionRepository");
+      getMock.mockImplementation(async (r: unknown) => {
+        if ((r as { __path: string }).__path === "liveSessionPrivate") throw new Error("PERMISSION_DENIED");
+        return { val: () => raw("s1") };
+      });
+      expect((await fetchLiveSession(staffDb))?.sessionId).toBe("s1");
+    });
+
+    it("the Display handle never reads the binding", async () => {
+      const { fetchLiveSession, subscribeToLiveSession } = await import("../sessionRepository");
+      byPath({ liveSession: raw("s1"), liveSessionPrivate: { sessionId: "s1", patientId: "p-1" } });
+      expect((await fetchLiveSession(displayDb))?.patientId).toBeNull();
+      subscribeToLiveSession(displayDb, vi.fn());
+      const paths = [...getMock.mock.calls.map((c) => (c[0] as { __path: string }).__path), ...onValueMock.mock.calls.map((c) => (c[0] as { __path: string }).__path)];
+      expect(paths).not.toContain("liveSessionPrivate");
+    });
+
+    it("subscribeToLiveSession() coalesces the record and the binding into one delivery for staff", async () => {
+      vi.useFakeTimers();
+      try {
+        const { subscribeToLiveSession } = await import("../sessionRepository");
+        const handlers: Record<string, SnapshotHandler> = {};
+        onValueMock.mockImplementation((r: unknown, h: SnapshotHandler) => { handlers[(r as { __path: string }).__path] = h; return vi.fn(); });
+        byPath({});
+        const cb = vi.fn();
+        subscribeToLiveSession(staffDb, cb);
+        handlers.liveSession!({ val: () => raw("s1") });
+        expect(cb).not.toHaveBeenCalled();
+        handlers.liveSessionPrivate!({ val: () => ({ sessionId: "s1", patientId: "p-1" }) });
+        await vi.advanceTimersByTimeAsync(5);
+        expect(cb).toHaveBeenCalledTimes(1);
+        expect(cb.mock.calls[0]![0].patientId).toBe("p-1");
+      } finally { vi.useRealTimers(); }
+    });
   });
 
   // RELIABILITY FIX — FAILED-WRITE RESYNC: fetchLiveSession is the one-shot
@@ -375,6 +439,50 @@ describe("sessionRepository", () => {
       subscribeToDisplayAudioEnableCommand(fakeDb, callback);
       expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display/audioEnableCommand");
       expect(callback).toHaveBeenCalledWith({ id: "audio-2", requestedAt: 456 });
+    });
+  });
+
+  describe("shared RIGHT_HAND pointer mirror (sensor -> display)", () => {
+    it("reportControllerPointer() writes onto presence/display, the same command-delivery node the audio handshake uses", async () => {
+      const { reportControllerPointer } = await import("../sessionRepository");
+      await reportControllerPointer(fakeDb, { x: 0.42, y: 0.61, visible: true });
+
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display");
+      expect(updateMock).toHaveBeenCalledWith(expect.anything(), {
+        controllerPointer: { x: 0.42, y: 0.61, visible: true, updatedAt: { ".sv": "timestamp" } },
+      });
+    });
+
+    it("reportControllerPointer(null) clears the field (sensor disconnected, or nothing to show)", async () => {
+      const { reportControllerPointer } = await import("../sessionRepository");
+      await reportControllerPointer(fakeDb, null);
+
+      expect(updateMock).toHaveBeenCalledWith(expect.anything(), { controllerPointer: null });
+    });
+
+    it("subscribeToControllerPointer() subscribes to the mirrored path and rejects malformed values", async () => {
+      const { subscribeToControllerPointer } = await import("../sessionRepository");
+      const callback = vi.fn();
+      onValueMock.mockImplementationOnce((_ref: unknown, handler: SnapshotHandler) => {
+        handler({ val: () => ({ x: 0.3, y: 0.7, visible: true }) });
+        return vi.fn();
+      });
+
+      subscribeToControllerPointer(fakeDb, callback);
+      expect(refMock).toHaveBeenCalledWith(fakeDb, "presence/display/controllerPointer");
+      expect(callback).toHaveBeenCalledWith({ x: 0.3, y: 0.7, visible: true });
+    });
+
+    it("subscribeToControllerPointer() treats absent/malformed data as no pointer, never a guess", async () => {
+      const { subscribeToControllerPointer } = await import("../sessionRepository");
+      const callback = vi.fn();
+      onValueMock.mockImplementationOnce((_ref: unknown, handler: SnapshotHandler) => {
+        handler({ val: () => ({ x: 0.3 }) }); // missing y/visible
+        return vi.fn();
+      });
+
+      subscribeToControllerPointer(fakeDb, callback);
+      expect(callback).toHaveBeenCalledWith(null);
     });
   });
 

@@ -1,0 +1,76 @@
+/* Balloon Quest 3D — game scenes. Builds on the bq3-* classes from the approved B2 preview. */
+
+.bq3g-lane { position: absolute; width: var(--w); top: 0; }
+.bq3g-lane.is-static { translate: -50% 0; } /* x is the centre; topY is already the top edge (the engine hit-tests exactly this box) */
+.bq3g-lane.is-rising { translate: -50% 0; will-change: transform; }
+.bq3g-lane .bq3-balloon { cursor: default; pointer-events: none; }
+.bq3g-stage.is-interactive .bq3g-lane .bq3-balloon { cursor: pointer; pointer-events: auto; }
+.bq3g-lane.is-fresh { animation: bq3g-appear 0.8s ease-out; }
+@keyframes bq3g-appear { from { opacity: 0; } to { opacity: 1; } }
+.bq3g-lane .bq3-sway { animation: bq3-bob 6.5s ease-in-out var(--bob-delay) infinite; }
+.bq3g-lane.is-rising .bq3-sway { animation-name: bq3-sway; animation-duration: 8s; }
+
+/* Fade rising balloons gently under the HUD */
+.bq3g-stage[data-motion="rising"] .bq3g-field {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 5cqh, #000 17cqh);
+  mask-image: linear-gradient(to bottom, transparent 5cqh, #000 17cqh);
+}
+.bq3g-field { position: absolute; inset: 0; }
+
+/* Gentle wrong-colour cue: a small sway only (no flash, no shake). */
+.bq3-balloon.is-wobbling { animation: bq3-wobble 0.7s ease-in-out; }
+
+/* Success toast: pure CSS, replays when the keyed element changes; ends invisible. */
+.bq3g-toast {
+  position: absolute; left: 50%; top: 24cqh; translate: -50% 0;
+  padding: 1cqh 3.2cqw; border-radius: 999px; background: #fff; color: #0b5c36;
+  font-size: 6.4cqh; font-weight: 800; box-shadow: 0 0.8cqh 2.6cqh rgba(25, 60, 100, 0.2);
+  pointer-events: none; animation: bq3-success 1.5s ease-out forwards;
+}
+.bq3g-toast span { color: #f0a81b; }
+
+.bq3g-overlay {
+  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  background: rgba(18, 52, 96, 0.22); animation: bq3g-fade 0.5s ease-out;
+}
+@keyframes bq3g-fade { from { opacity: 0; } to { opacity: 1; } }
+.bq3g-card {
+  background: rgba(255, 255, 255, 0.96); border-radius: 4cqh; padding: 4cqh 6cqw;
+  box-shadow: 0 1.2cqh 4cqh rgba(25, 60, 100, 0.22); color: #12355f; max-width: 80cqw;
+}
+.bq3g-card h1 { margin: 0; font-size: 8cqh; font-weight: 800; line-height: 1.25; }
+.bq3g-card h2 { margin: 1cqh 0 0; font-size: 4.6cqh; font-weight: 700; color: #1a4f8b; }
+.bq3g-card p { margin: 1.2cqh 0 0; font-size: 3.6cqh; color: #3f5f86; }
+.bq3g-stars { display: flex; justify-content: center; gap: 1.2cqw; margin-top: 2cqh; font-size: 6cqh; color: #f0a81b; }
+.bq3g-stars .is-skipped { color: #c9d4e2; }
+.bq3g-welcome { background: transparent; }
+
+/* Floor projection: HUD lives in the far (top) band, near edge stays clear for the child's feet. */
+.bq3g-stage[data-layout="FLOOR"] .bq3-hud-bottom { display: none; }
+.bq3g-stage[data-layout="FLOOR"] .bq3g-floor-goal { display: flex; }
+.bq3g-floor-goal { display: none; position: absolute; inset: 11.5cqh 0 auto; justify-content: center; pointer-events: none; }
+.bq3g-floor-goal .bq3-goal { padding: 0.6cqh 1.8cqw; }
+.bq3g-floor-goal .bq3-segments span { height: 3cqh; }
+
+/* Control preview pointers (dev) */
+.bq3g-pointer {
+  position: absolute; width: 3cqh; height: 3cqh; margin: -1.5cqh; border-radius: 50%;
+  border: 0.5cqh solid #fff; background: rgba(240, 168, 27, 0.9); box-shadow: 0 0 0 0.4cqh #12355f; pointer-events: none; display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bq3g-lane .bq3-sway { animation: none; }
+  .bq3g-lane.is-fresh, .bq3g-overlay { animation: none; }
+  .bq3g-toast { animation: bq3g-toast-still 1.5s linear forwards; }
+}
+.bq3-force-still .bq3g-lane .bq3-sway { animation: none; }
+.bq3-force-still .bq3g-lane.is-fresh, .bq3-force-still .bq3g-overlay { animation: none; }
+.bq3-force-still .bq3g-toast { animation: bq3g-toast-still 1.5s linear forwards; }
+@keyframes bq3g-toast-still { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Therapist preview: the same stage, scaled to its container. */
+.bq3g-preview { width: 100%; border-radius: 14px; overflow: hidden; }
+.bq3g-preview .bq3-stage { width: 100%; }
+
+/* Inside the platform's 16:9 PlayStage the stage simply fills its parent. */
+.bq3-stage.bq3g-embedded { width: 100%; height: 100%; aspect-ratio: auto; }

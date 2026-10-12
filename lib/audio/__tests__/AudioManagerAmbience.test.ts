@@ -4,13 +4,11 @@ const ambienceMocks = vi.hoisted(() => ({
   gardenStop: vi.fn(),
   cosmicStop: vi.fn(),
   underwaterStop: vi.fn(),
-  safariStop: vi.fn(),
   spaceStop: vi.fn(),
   colorChaseStop: vi.fn(),
   garden: vi.fn(() => ({ stop: ambienceMocks.gardenStop })),
   cosmic: vi.fn(() => ({ stop: ambienceMocks.cosmicStop })),
   underwater: vi.fn(() => ({ stop: ambienceMocks.underwaterStop })),
-  safari: vi.fn(() => ({ stop: ambienceMocks.safariStop })),
   space: vi.fn(() => ({ stop: ambienceMocks.spaceStop })),
   colorChase: vi.fn(() => ({ stop: ambienceMocks.colorChaseStop })),
 }));
@@ -33,12 +31,6 @@ const effectMocks = vi.hoisted(() => ({
   playBubblePop: vi.fn(),
   playUnderwaterCelebration: vi.fn(),
   playUnderwaterIntroSting: vi.fn(),
-  playAnimalAccent: vi.fn(),
-  playAnimalStep: vi.fn(),
-  playFeedCorrect: vi.fn(),
-  playFeedIncorrect: vi.fn(),
-  playSafariCelebration: vi.fn(),
-  playSafariIntroSting: vi.fn(),
   playAlienPassSound: vi.fn(),
   playAsteroidClearSound: vi.fn(),
   playFinalStarChord: vi.fn(),
@@ -60,7 +52,6 @@ const effectMocks = vi.hoisted(() => ({
 vi.mock("../ambience", () => ({ startAmbience: ambienceMocks.garden }));
 vi.mock("../cosmicAmbience", () => ({ startCosmicAmbience: ambienceMocks.cosmic }));
 vi.mock("../underwaterAmbience", () => ({ startUnderwaterAmbience: ambienceMocks.underwater }));
-vi.mock("../safariAmbience", () => ({ startSafariAmbience: ambienceMocks.safari }));
 vi.mock("../spaceAmbience", () => ({ startSpaceAmbience: ambienceMocks.space }));
 vi.mock("../colorChaseAmbience", () => ({ startColorChaseAmbience: ambienceMocks.colorChase }));
 vi.mock("../colorChaseEffects", () => ({
@@ -93,14 +84,6 @@ vi.mock("../underwaterEffects", () => ({
   playUnderwaterCelebration: effectMocks.playUnderwaterCelebration,
   playUnderwaterIntroSting: effectMocks.playUnderwaterIntroSting,
 }));
-vi.mock("../safariEffects", () => ({
-  playAnimalAccent: effectMocks.playAnimalAccent,
-  playAnimalStep: effectMocks.playAnimalStep,
-  playFeedCorrect: effectMocks.playFeedCorrect,
-  playFeedIncorrect: effectMocks.playFeedIncorrect,
-  playSafariCelebration: effectMocks.playSafariCelebration,
-  playSafariIntroSting: effectMocks.playSafariIntroSting,
-}));
 vi.mock("../spaceEffects", () => ({
   playAlienPassSound: effectMocks.playAlienPassSound,
   playAsteroidClearSound: effectMocks.playAsteroidClearSound,
@@ -119,7 +102,6 @@ import { AudioManager } from "../AudioManager";
 import type { SpeakOptions, VoiceProvider } from "../speech";
 import { BalloonColor, Difficulty } from "@/lib/game";
 import { BubbleColor, BubbleShape } from "@/lib/bubblepop";
-import { Animal, Food } from "@/lib/feedanimals";
 import { Foot } from "@/lib/footsteps";
 import { StarLane } from "@/lib/spacepilot";
 
@@ -182,12 +164,8 @@ describe("AudioManager active-game ambience", () => {
     expect(ambienceMocks.cosmicStop).toHaveBeenCalledOnce();
     expect(ambienceMocks.underwater).toHaveBeenCalledOnce();
 
-    manager.setActiveGame("feed-the-animals");
-    expect(ambienceMocks.underwaterStop).toHaveBeenCalledOnce();
-    expect(ambienceMocks.safari).toHaveBeenCalledOnce();
-
     manager.setActiveGame("space-pilot");
-    expect(ambienceMocks.safariStop).toHaveBeenCalledOnce();
+    expect(ambienceMocks.underwaterStop).toHaveBeenCalledOnce();
     expect(ambienceMocks.space).toHaveBeenCalledOnce();
 
     manager.setActiveGame("color-chase");
@@ -262,22 +240,6 @@ describe("five-game audio lifecycle smoke", () => {
     expect(ambienceMocks.underwater).toHaveBeenCalledOnce();
     expect(effectMocks.playBubblePop).toHaveBeenCalledOnce();
     expect(voice.calls).toHaveLength(4);
-  });
-
-  it("Feed the Animals: welcome, safari ambience, instruction, countdown, movement SFX, and jump voice", async () => {
-    installRunningAudioContext();
-    const voice = recordingVoice();
-    const manager = new AudioManager(voice.provider);
-    manager.unlock();
-    manager.handleEvent({ type: "feed_animals_welcome", timestamp: 1, childName: "سارة" });
-    manager.handleEvent({ type: "feed_animals_instruction", timestamp: 2, childName: "سارة", stageNumber: 1 });
-    await manager.speakCountdownTick("3");
-    manager.handleEvent({ type: "feed_animals_monkey_step", timestamp: 3, direction: "jump", animal: Animal.MONKEY });
-    manager.handleEvent({ type: "feed_animals_jump_cue", timestamp: 4, animal: Animal.MONKEY });
-    manager.handleEvent({ type: "feed_animals_request", timestamp: 5, childName: "سارة", animal: Animal.MONKEY, food: Food.BANANA });
-    expect(ambienceMocks.safari).toHaveBeenCalledOnce();
-    expect(effectMocks.playAnimalStep).toHaveBeenCalledOnce();
-    expect(voice.calls).toHaveLength(5);
   });
 
   it("Space Pilot: welcome, space ambience, one coherent instruction, countdown, FIRE SFX, and feedback voice", async () => {

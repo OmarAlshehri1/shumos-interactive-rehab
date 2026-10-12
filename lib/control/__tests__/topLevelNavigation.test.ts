@@ -10,7 +10,7 @@ describe("logout visibility", () => {
   });
 
   it("is hidden throughout every game workflow route", () => {
-    for (const id of ["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "feed-the-animals", "space-pilot", "color-chase"]) {
+    for (const id of ["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "space-pilot", "color-chase"]) {
       expect(shouldShowLogout(`/control/${id}`)).toBe(false);
     }
     expect(shouldShowLogout("/control/patients/patient-1")).toBe(false);

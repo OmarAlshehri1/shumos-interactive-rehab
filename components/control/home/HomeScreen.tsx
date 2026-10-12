@@ -45,7 +45,7 @@ export function HomeScreen() {
           <p className="text-base text-slate-500">مرحبًا، ماذا تريد أن تفعل؟</p>
         </header>
 
-        {isRealtimeEnabled() && <SystemReadinessCard />}
+        <SystemReadinessCard />
         <QuickStartSection />
         {isRealtimeEnabled() && <QuickPatientsSection />}
         <ActivitiesPreviewSection />

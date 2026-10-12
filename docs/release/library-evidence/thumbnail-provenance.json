@@ -1,0 +1,132 @@
+[
+  {
+    "gameId": "balloon-quest",
+    "source": "docs/release/library-evidence/balloon-quest-display.png",
+    "asset": "public/library-thumbnails/balloon-quest.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 20164,
+    "sourceSha256": "dab5d9ea3dbc9e0acf163eb2a1533e496c68fc57ed90927c278150ab111dbebe",
+    "assetSha256": "8d28cf01a39943dcc82c1a26f7a15c690a987298235a971a470e2a214e6f2b49"
+  },
+  {
+    "gameId": "follow-the-footsteps",
+    "source": "docs/release/library-evidence/follow-the-footsteps-display.png",
+    "asset": "public/library-thumbnails/follow-the-footsteps.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 43484,
+    "sourceSha256": "8d1609a41af003ba0621f54f80251080be8b66655e56422f4e0d3f33ce6d60b8",
+    "assetSha256": "df4f3e77ff8873c56012fa42aea39ce4ad9d863e8febdbb458dcb45d17ae7b5f"
+  },
+  {
+    "gameId": "bubble-pop-wall",
+    "source": "docs/release/library-evidence/bubble-pop-wall-display.png",
+    "asset": "public/library-thumbnails/bubble-pop-wall.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 40060,
+    "sourceSha256": "1b561fe717b117e142bf8f8c5a1d273d61bb42ef42b19fe98d71519b4662cf61",
+    "assetSha256": "dee52a5cecd183ef60134f080c8c8da6980c9d8b058169601af9a6925c02b082"
+  },
+  {
+    "gameId": "space-pilot",
+    "source": "docs/release/library-evidence/space-pilot-display.png",
+    "asset": "public/library-thumbnails/space-pilot.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 21670,
+    "sourceSha256": "58cfe77eacdddb860b38d4ea91d39c21f9a9b45acff63dccf7f684619eecc82d",
+    "assetSha256": "1a05e2f891f8d8b23e05eb8be81304c3a8998c7ab3d337c0c8454f4ae5343693"
+  },
+  {
+    "gameId": "color-chase",
+    "source": "docs/release/library-evidence/color-chase-display.png",
+    "asset": "public/library-thumbnails/color-chase.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 54346,
+    "sourceSha256": "9c00695edc2bdb0d5b633ee7e8fd7c6daffbb978bc8097abb3bbe1ba158dae45",
+    "assetSha256": "ddfa73d5fab4596366bfad0dbb184c0e185c0ad05b9899723b8af9312fb1b5f0"
+  },
+  {
+    "gameId": "build-quest-3d",
+    "source": "docs/release/library-evidence/build-quest-3d-display.png",
+    "asset": "public/library-thumbnails/build-quest-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 8456,
+    "sourceSha256": "160cdfac70175f076701931ab20d1f3a3d2b3510ceb84c031430550c9c9b5dd2",
+    "assetSha256": "7e63147cf667052778e94ee04d289c1f4206e936e9f74f73fa1397fcb784a71a"
+  },
+  {
+    "gameId": "runner-quest-3d",
+    "source": "docs/release/library-evidence/runner-quest-3d-display.png",
+    "asset": "public/library-thumbnails/runner-quest-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 49290,
+    "sourceSha256": "2a41248879c2a87cf033d9371ad80567293196121280b9948f174f404e7ed557",
+    "assetSha256": "56b2c9f0fc0d8dfa7655bea0b609a4a52fef8a09560f2d0522acf76c5aa09611"
+  },
+  {
+    "gameId": "mirror-quest-3d",
+    "source": "docs/release/library-evidence/mirror-quest-3d-display.png",
+    "asset": "public/library-thumbnails/mirror-quest-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 25588,
+    "sourceSha256": "39ba563f2032de7325e34b35cd39394c539150b3f1da42252ad37f4c6d22c416",
+    "assetSha256": "36091b931ce5617167d54815b823c01eb7f04b0d0ab1229d5a599423833e7fe5"
+  },
+  {
+    "gameId": "safe-hex-arena-3d",
+    "source": "docs/release/library-evidence/safe-hex-arena-3d-display.png",
+    "asset": "public/library-thumbnails/safe-hex-arena-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 20680,
+    "sourceSha256": "ad5f223a162e54ab1d01e4c6b77732364eaaae17c644942f9c1cd712fc0987a2",
+    "assetSha256": "da6a789aa2742520119db64876b7ee5e108ac9de5e99cf39383f019cdaa0531d"
+  },
+  {
+    "gameId": "fire-rescue-3d",
+    "source": "docs/release/library-evidence/fire-rescue-3d-display.png",
+    "asset": "public/library-thumbnails/fire-rescue-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 50610,
+    "sourceSha256": "71decb007188f9426288a798615c73ea2f6bf0c0661cc2afa0ee06ddcad6137d",
+    "assetSha256": "43eba5a08c3776fe7bebb30f2478457bd6501c16b9a46a9c2940b9440285a4bf"
+  },
+  {
+    "gameId": "blooming-world-3d",
+    "source": "docs/release/library-evidence/blooming-world-3d-display.png",
+    "asset": "public/library-thumbnails/blooming-world-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 103304,
+    "sourceSha256": "5df5f5bcd2d59fae53887a4b333007ca32c4e7d2215f4e9392992ee78950e04d",
+    "assetSha256": "e7294caa14882ee5b9394ff382a407c89683449361325daffdb8fa0e68404796"
+  },
+  {
+    "gameId": "harvest-valley-3d",
+    "source": "docs/release/library-evidence/harvest-valley-3d-display.png",
+    "asset": "public/library-thumbnails/harvest-valley-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 112626,
+    "sourceSha256": "ed585cdd96c2b0dc377faf96f76f8e8dd08c1d1f172099e16df0799896a8ee16",
+    "assetSha256": "2c03b262dfbeb028f399e17cc54e5df09a1785ac61568b0d3b98cb04fa9db60a"
+  },
+  {
+    "gameId": "pearl-voyage-3d",
+    "source": "docs/release/library-evidence/pearl-voyage-3d-display.png",
+    "asset": "public/library-thumbnails/pearl-voyage-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 33908,
+    "sourceSha256": "d99f949b7b6bb923b901ef0311fb8d208fcaa8eb9dada7cce2575dd5689485ba",
+    "assetSha256": "283dd09f79776437f72e53c303e986ea0bd3f698854702aad9477bc5eb10ddd8"
+  }
+]

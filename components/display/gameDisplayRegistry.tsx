@@ -1,12 +1,24 @@
+import { HarvestDisplayModule } from './games/HarvestDisplayModule';
+import { BloomDisplayModule } from './games/BloomDisplayModule';
+import { FireRescueDisplayModule } from './games/FireRescueDisplayModule';
+import { PearlVoyageDisplayModule } from './games/PearlVoyageDisplayModule';
+import { BubblePopDomeDisplayRouter } from './games/BubblePopDomeDisplayRouter';
+import { MirrorQuestDisplayModule } from './games/MirrorQuestDisplayModule';
+import { SafeHexDisplayModule } from './games/SafeHexDisplayModule';
+import { FootstepsDisplayModule } from './games/FootstepsDisplayModule';
+import { ColorChaseDisplayModule } from './games/ColorChaseDisplayModule';
 import type { ComponentType } from "react";
 import type { AnySessionState } from "@/lib/realtime/types";
 import type { GameId } from "@/lib/games/registry";
-import { BalloonQuestDisplay, type BalloonQuestDisplayProps } from "./games/BalloonQuestDisplay";
+import type { BalloonQuestDisplayProps } from "./games/BalloonQuestDisplay";
+import { BalloonQuestDisplayRouter } from "./games/BalloonQuestDisplayRouter";
 import { FollowTheFootstepsDisplay, type FollowTheFootstepsDisplayProps } from "./games/FollowTheFootstepsDisplay";
-import { BubblePopWallDisplay, type BubblePopWallDisplayProps } from "./games/BubblePopWallDisplay";
-import { FeedTheAnimalsDisplay, type FeedTheAnimalsDisplayProps } from "./games/FeedTheAnimalsDisplay";
+import { type BubblePopWallDisplayProps } from "./games/BubblePopWallDisplay";
 import { SpacePilotDisplay, type SpacePilotDisplayProps } from "./games/SpacePilotDisplay";
 import { ColorChaseDisplay, type ColorChaseDisplayProps } from "./games/ColorChaseDisplay";
+import { RunnerQuestDisplayModule } from "./games/RunnerQuestDisplayModule";
+import { BuildQuestDisplayModule } from "./games/BuildQuestDisplayModule";
+import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
 import type { DisplayEventListener } from "./events";
 
 /**
@@ -31,6 +43,7 @@ import type { DisplayEventListener } from "./events";
  * structurally across a heterogeneous registry.
  */
 export interface SharedGameDisplayProps {
+  muted?: boolean;
   session: AnySessionState;
   onEvent: DisplayEventListener;
   onWelcomeStart: () => void;
@@ -43,14 +56,28 @@ export interface SharedGameDisplayProps {
 }
 
 export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDisplayProps>> = {
-  "balloon-quest": BalloonQuestDisplay as unknown as ComponentType<SharedGameDisplayProps>,
-  "follow-the-footsteps": FollowTheFootstepsDisplay as unknown as ComponentType<SharedGameDisplayProps>,
-  "bubble-pop-wall": BubblePopWallDisplay as unknown as ComponentType<SharedGameDisplayProps>,
-  "feed-the-animals": FeedTheAnimalsDisplay as unknown as ComponentType<SharedGameDisplayProps>,
-  "space-pilot": SpacePilotDisplay as unknown as ComponentType<SharedGameDisplayProps>,
-  "color-chase": ColorChaseDisplay as unknown as ComponentType<SharedGameDisplayProps>,
+  "harvest-valley-3d": HarvestDisplayModule,
+  "blooming-world-3d": BloomDisplayModule,
+  "fire-rescue-3d": FireRescueDisplayModule,
+  "pearl-voyage-3d": PearlVoyageDisplayModule,
+  // Router: the redesigned engine (session tagged `engine: "bq3"`) or the legacy one kept for rollback — see BalloonQuestDisplayRouter.
+  "balloon-quest": BalloonQuestDisplayRouter as unknown as ComponentType<SharedGameDisplayProps>,
+  // Router: the Enchanted Forest (session tagged `engine: "fp3"`) or the original game kept for rollback — see FootstepsDisplayModule.
+  "follow-the-footsteps": ((props: SharedGameDisplayProps) => <FootstepsDisplayModule {...props} Legacy={FollowTheFootstepsDisplay as unknown as ComponentType<SharedGameDisplayProps>} />) as ComponentType<SharedGameDisplayProps>,
+  "bubble-pop-wall": BubblePopDomeDisplayRouter,
+  // Router: the 3D engine (session tagged `engine: "sp3"`) or the original one kept for rollback — see SpacePilotDisplayModule.
+  "space-pilot": ((props: SharedGameDisplayProps) => <SpacePilotDisplayModule {...props} Legacy={SpacePilotDisplay as unknown as ComponentType<SharedGameDisplayProps>} />) as ComponentType<SharedGameDisplayProps>,
+  // Router: The Lost Colors garden (session tagged `engine: "cc3"`) or the original game kept for rollback — see ColorChaseDisplayModule.
+  "color-chase": ((props: SharedGameDisplayProps) => <ColorChaseDisplayModule {...props} Legacy={ColorChaseDisplay as unknown as ComponentType<SharedGameDisplayProps>} />) as ComponentType<SharedGameDisplayProps>,
+  // Runner Quest 3D: live-session module (cross-device, read-only Display).
+  "runner-quest-3d": RunnerQuestDisplayModule,
+  // Build Quest 3D: live-session module (cross-device, read-only Display).
+  "build-quest-3d": BuildQuestDisplayModule,
+  "mirror-quest-3d": MirrorQuestDisplayModule,
+  // Safe Hex Arena 3D: live-session module (cross-device, read-only Display).
+  "safe-hex-arena-3d": SafeHexDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript
 // needs for every concrete prop type — never imported elsewhere.
-export type { BalloonQuestDisplayProps, FollowTheFootstepsDisplayProps, BubblePopWallDisplayProps, FeedTheAnimalsDisplayProps, SpacePilotDisplayProps, ColorChaseDisplayProps };
+export type { BalloonQuestDisplayProps, FollowTheFootstepsDisplayProps, BubblePopWallDisplayProps, SpacePilotDisplayProps, ColorChaseDisplayProps };

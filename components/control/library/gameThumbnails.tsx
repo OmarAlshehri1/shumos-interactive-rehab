@@ -1,11 +1,24 @@
+import { HarvestThumbnail } from '../harvestvalley3d/HarvestThumbnail';
+import { BloomThumbnail } from '../bloomingworld3d/BloomThumbnail';
+import { FireRescueThumbnail } from '../firerescue3d/FireRescueThumbnail';
+import { PearlVoyageThumbnail } from '../pearlvoyage3d/PearlVoyageThumbnail';
+import { MirrorThumbnail } from '../mirrorquest3d/MirrorThumbnail';
+import { HexThumbnail } from '../safehexarena3d/HexThumbnail';
+import { FootstepsForestThumbnail } from '../footsteps3d/FootstepsForestThumbnail';
+import { FOOTSTEPS_3D_ENABLED } from '@/lib/footsteps3d/registration';
+import { ColorChaseGardenThumbnail } from '../colorchase3d/ColorChaseGardenThumbnail';
+import { COLOR_CHASE_3D_ENABLED } from '@/lib/colorchase3d/registration';
 import type { ComponentType } from "react";
-import type { GameId } from "@/lib/games/registry";
+import type { GameId, LocalGameId } from "@/lib/games/registry";
 import { BalloonQuestThumbnail } from "./BalloonQuestThumbnail";
 import { FollowTheFootstepsThumbnail } from "./FollowTheFootstepsThumbnail";
 import { BubblePopWallThumbnail } from "./BubblePopWallThumbnail";
-import { FeedTheAnimalsThumbnail } from "./FeedTheAnimalsThumbnail";
 import { SpacePilotThumbnail } from "./SpacePilotThumbnail";
 import { ColorChaseThumbnail } from "./ColorChaseThumbnail";
+import { SpacePilot3DThumbnail } from '../spacepilot3d/SpacePilot3DThumbnail';
+import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
+import { RunnerQuestThumbnail } from '../runnerquest3d/RunnerQuestThumbnail';
+import { BuildQuestThumbnail } from '../buildquest3d/BuildQuestThumbnail';
 
 /**
  * Kept separate from lib/games/registry.ts on purpose: the registry is
@@ -14,11 +27,18 @@ import { ColorChaseThumbnail } from "./ColorChaseThumbnail";
  * a game means adding one entry here alongside its registry entry — see
  * registry.ts's doc comment for the full "adding a game" checklist.
  */
-export const GAME_THUMBNAILS: Record<GameId, ComponentType> = {
+export const GAME_THUMBNAILS: Record<GameId | LocalGameId, ComponentType> = {
+  "harvest-valley-3d": HarvestThumbnail,
+  "blooming-world-3d": BloomThumbnail,
+  "fire-rescue-3d": FireRescueThumbnail,
+  "pearl-voyage-3d": PearlVoyageThumbnail,
   "balloon-quest": BalloonQuestThumbnail,
-  "follow-the-footsteps": FollowTheFootstepsThumbnail,
+  "follow-the-footsteps": FOOTSTEPS_3D_ENABLED ? FootstepsForestThumbnail : FollowTheFootstepsThumbnail,
   "bubble-pop-wall": BubblePopWallThumbnail,
-  "feed-the-animals": FeedTheAnimalsThumbnail,
-  "space-pilot": SpacePilotThumbnail,
-  "color-chase": ColorChaseThumbnail,
+  "space-pilot": SPACE_PILOT_3D_ENABLED ? SpacePilot3DThumbnail : SpacePilotThumbnail,
+  "color-chase": COLOR_CHASE_3D_ENABLED ? ColorChaseGardenThumbnail : ColorChaseThumbnail,
+  "runner-quest-3d": RunnerQuestThumbnail,
+  "build-quest-3d": BuildQuestThumbnail,
+  "mirror-quest-3d": MirrorThumbnail,
+  "safe-hex-arena-3d": HexThumbnail,
 };

@@ -163,3 +163,51 @@ describe("applyLiveRecord", () => {
     });
   });
 });
+
+describe("recovery from a missed live transition (PROJECTOR START/FOCUS FIX)", () => {
+  // useRealtimeDisplaySession.ts's `reconcile` re-fetches the CURRENT
+  // canonical record (via fetchLiveSession, a plain one-shot get()) and
+  // feeds it through this SAME applyLiveRecord — whether that record
+  // arrived via the persistent onValue() listener or a one-shot get() is
+  // invisible to the guard; both are just "the next record." These tests
+  // confirm the guarantee the fix actually depends on: a display that
+  // never observed the live WELCOME->...->PLAYING transition at all still
+  // ends up correctly in PLAYING once ANY delivery path hands it the
+  // current snapshot.
+
+  it("a display that missed every intermediate revision still accepts the current snapshot once it arrives", () => {
+    // Display was stuck at revision 1 (e.g. its persistent listener stalled
+    // in an unfocused window) while Control moved through several real
+    // publishes (2, 3, 4) it never observed live.
+    const stuckAt = applyLiveRecord(createInitialGuardState(), makeRecord({ revision: 1 }));
+    // A reconcile (BroadcastChannel wake, focus regain, or the periodic
+    // poll) fetches the CURRENT record directly — jumping straight to
+    // revision 5, skipping 2/3/4 entirely, exactly like a one-shot get()
+    // would.
+    const recovered = applyLiveRecord(stuckAt.state, makeRecord({ revision: 5 }));
+    expect(recovered.accept).toBe(true);
+    expect(recovered.state.lastRevision).toBe(5);
+  });
+
+  it("reconciling with the SAME current record the display already has is a harmless no-op, never a revert", () => {
+    // A reconcile trigger (e.g. the periodic poll) firing when nothing
+    // actually changed since the last live delivery must not do anything
+    // destructive — this is exactly `applyLiveRecord`'s existing duplicate-
+    // revision rejection, exercised here in the reconcile's own context.
+    const live = applyLiveRecord(createInitialGuardState(), makeRecord({ revision: 5 }));
+    const reconciled = applyLiveRecord(live.state, makeRecord({ revision: 5 }));
+    expect(reconciled.accept).toBe(false);
+    expect(reconciled.state.lastRevision).toBe(5); // unchanged, never reverted
+  });
+
+  it("a reconcile that lands BEHIND what the live listener already delivered is safely ignored (no tearing/flicker back)", () => {
+    // Rare ordering: the persistent listener's live delivery actually beat
+    // a concurrently in-flight reconcile fetch to the display. The guard's
+    // ordinary stale-revision rejection already covers this — the display
+    // must keep showing the newer, already-applied state.
+    const live = applyLiveRecord(createInitialGuardState(), makeRecord({ revision: 5 }));
+    const staleReconcile = applyLiveRecord(live.state, makeRecord({ revision: 4 }));
+    expect(staleReconcile.accept).toBe(false);
+    expect(staleReconcile.state.lastRevision).toBe(5);
+  });
+});

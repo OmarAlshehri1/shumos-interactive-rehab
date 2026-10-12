@@ -1,9 +1,21 @@
+import type { HarvestLiveSession } from '@/lib/harvestvalley3d/live';
+import type { BloomLiveSession } from '@/lib/bloomingworld3d/live';
+import type { FireLiveSession } from '@/lib/firerescue3d/live';
+import type { PearlLiveSession } from '@/lib/pearlvoyage3d/live';
+import type { DomeLiveSession } from '@/lib/bubblepopwall3d/live';
+import type { MirrorLiveSession } from '@/lib/mirrorquest3d/live';
+import type { HexLiveSession } from '@/lib/safehexarena3d/live';
+import type { FootstepsLiveSession } from '@/lib/footsteps3d/live';
+import type { ColorChaseLiveSession } from '@/lib/colorchase3d/live';
 import type { SessionState } from "@/lib/game";
 import type { FootstepsSessionState } from "@/lib/footsteps";
 import type { BubblePopSessionState } from "@/lib/bubblepop";
-import type { FeedAnimalsSessionState } from "@/lib/feedanimals";
 import type { SpacePilotSessionState } from "@/lib/spacepilot";
 import type { ColorChaseSessionState } from "@/lib/colorchase";
+import type { Bq3LiveSession } from "@/lib/balloonquest/live";
+import type { RunnerLiveSession } from "@/lib/runnerquest3d/live";
+import type { BuildQuestLiveSession } from "@/lib/buildquest3d/cloudState";
+import type { SpacePilotLiveSession } from "@/lib/spacepilot3d/cloudState";
 import type { GameId } from "@/lib/games/registry";
 
 /**
@@ -20,7 +32,7 @@ import type { GameId } from "@/lib/games/registry";
  * concrete shape a given record's `session` actually is; nothing here ever
  * guesses.
  */
-export type AnySessionState = SessionState | FootstepsSessionState | BubblePopSessionState | FeedAnimalsSessionState | SpacePilotSessionState | ColorChaseSessionState;
+export type AnySessionState = PearlLiveSession | HarvestLiveSession | BloomLiveSession | FireLiveSession | SessionState | FootstepsSessionState | BubblePopSessionState | SpacePilotSessionState | ColorChaseSessionState | Bq3LiveSession | RunnerLiveSession | BuildQuestLiveSession | SpacePilotLiveSession | MirrorLiveSession | HexLiveSession | FootstepsLiveSession | ColorChaseLiveSession | DomeLiveSession;
 
 /**
  * Firebase Realtime Database schema (see report for the full rationale).
@@ -134,6 +146,18 @@ export interface PresenceRecord {
   audioEnableCommand?: DisplayAudioEnableCommand | null;
   /** Written only after /display inspects its own AudioContext. */
   audioStatus?: DisplayAudioStatus | null;
+  /**
+   * SENSOR INTEGRATION — Control -> display command, same "control writes
+   * onto presence/display" pattern as audioEnableCommand above (never a new
+   * path, never a rules change): the shared RIGHT_HAND pointer, mirrored
+   * here at a throttled rate so the child-facing /display can render the
+   * SAME virtual hand the therapist sees on /control (see
+   * components/control/sensors/SensorPointerDisplaySync.tsx and
+   * DisplayScreen.tsx's controllerPointer subscription). null/absent hides
+   * the hand — no sensor connected, or the therapist device stopped
+   * publishing (e.g. navigated away from /control entirely).
+   */
+  controllerPointer?: { x: number; y: number; visible: boolean; updatedAt: number | object } | null;
 }
 
 export interface DisplayAudioEnableCommand {

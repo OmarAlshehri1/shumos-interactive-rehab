@@ -1,0 +1,255 @@
+/* Balloon Quest 3D — B2 visual preview. All classes are bq3-* scoped; nothing here touches production styles. */
+
+.bq3-page {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #0b1b2e;
+  overflow: hidden;
+}
+
+/* Responsive 16:9 projector stage; cqh/cqw units make every size scale with it. */
+.bq3-stage {
+  position: relative;
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  container-type: size;
+  overflow: hidden;
+  color: #0f2b4a;
+  user-select: none;
+  background: linear-gradient(180deg, #7cc6f7 0%, #b5e1fb 52%, #e6f6ff 100%);
+}
+
+/* ---------- Sky ---------- */
+.bq3-sky { position: absolute; inset: 0; pointer-events: none; }
+.bq3-sun {
+  position: absolute;
+  inset: -20cqh -10cqw auto auto;
+  width: 60cqw;
+  height: 60cqh;
+  background: radial-gradient(closest-side, rgba(255, 244, 205, 0.65), rgba(255, 244, 205, 0));
+}
+.bq3-cloud {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation: bq3-cloud-drift var(--cloud-seconds) linear var(--cloud-delay) infinite;
+}
+.bq3-cloud-art { display: block; width: 100%; height: auto; }
+@keyframes bq3-cloud-drift {
+  from { transform: translateX(-30cqw); }
+  to { transform: translateX(110cqw); }
+}
+
+/* ---------- Balloons ---------- */
+.bq3-field { position: absolute; inset: 0; }
+/* Rising balloons fade out gently under the HUD instead of sliding behind its pills. */
+.bq3-stage[data-motion="rising"] .bq3-field {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 5cqh, #000 17cqh);
+  mask-image: linear-gradient(to bottom, transparent 5cqh, #000 17cqh);
+}
+
+.bq3-lane {
+  position: absolute;
+  width: var(--w);
+}
+/* Static balloons are centred on their slot and fade in when they appear (never at a popped balloon's slot). */
+.bq3-lane.is-static { translate: -50% -50%; }
+.bq3-lane.is-entering { animation: bq3-appear 0.8s ease-out; }
+@keyframes bq3-appear { from { opacity: 0; } to { opacity: 1; } }
+/* Rising balloons start fully below the stage and travel once to fully above it, then are retired by the spawner. */
+.bq3-lane.is-rising {
+  translate: -50% 0;
+  transform: translateY(112cqh);
+  will-change: transform;
+  animation: bq3-rise var(--rise-seconds) linear var(--rise-delay) 1 forwards;
+}
+@keyframes bq3-rise {
+  from { transform: translateY(112cqh); }
+  to { transform: translateY(-40cqh); }
+}
+
+.bq3-sway {
+  animation: bq3-bob 6.5s ease-in-out var(--bob-delay) infinite;
+  will-change: transform;
+}
+.bq3-lane.is-rising .bq3-sway { animation-name: bq3-sway; animation-duration: 8s; }
+@keyframes bq3-bob {
+  0%, 100% { transform: translateY(-0.5cqh) rotate(-1deg); }
+  50% { transform: translateY(0.7cqh) rotate(1deg); }
+}
+@keyframes bq3-sway {
+  0%, 100% { transform: translateX(-0.5cqw) rotate(-2deg); }
+  50% { transform: translateX(0.5cqw) rotate(2deg); }
+}
+
+.bq3-balloon {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 45% 45% 40% 40%;
+  filter: drop-shadow(0 0.8cqh 0.9cqh rgba(20, 50, 90, 0.16));
+  -webkit-tap-highlight-color: transparent;
+}
+.bq3-balloon:focus-visible { outline: 0.5cqh solid #0f2b4a; outline-offset: 0.6cqh; }
+.bq3-art { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* Gentle pop: slight swell then a soft fade; particles drift out and fade. No flash. */
+.bq3-balloon.is-popped { pointer-events: none; }
+.bq3-balloon.is-popped .bq3-art { animation: bq3-pop 0.45s ease-out forwards; transform-origin: 50% 40%; }
+@keyframes bq3-pop {
+  0% { transform: scale(1); opacity: 1; }
+  35% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+.bq3-particle {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 1.3cqh;
+  height: 1.3cqh;
+  margin: -0.65cqh;
+  border-radius: 50%;
+  background: var(--pcolor);
+  opacity: 0;
+  animation: bq3-particle 0.8s ease-out forwards;
+}
+@keyframes bq3-particle {
+  0% { opacity: 0.9; transform: rotate(var(--angle)) translateY(0) scale(1); }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateY(-7cqh) scale(0.4); }
+}
+
+/* ---------- HUD ---------- */
+.bq3-pill {
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 999px;
+  box-shadow: 0 0.6cqh 2cqh rgba(25, 60, 100, 0.14);
+  font-weight: 800;
+}
+.bq3-hud-top {
+  position: absolute;
+  inset: 2.4cqh 2.4cqw auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2cqw;
+  pointer-events: none;
+}
+.bq3-title { justify-self: start; padding: 1cqh 2.2cqw; font-size: 3.2cqh; color: #1a4f8b; }
+.bq3-instruction {
+  display: flex;
+  align-items: center;
+  gap: 1.4cqw;
+  padding: 0.8cqh 3cqw 0.8cqh 2.2cqw;
+  font-size: 5.2cqh;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.bq3-instruction-icon { display: block; width: 4.6cqh; }
+.bq3-level { justify-self: end; display: flex; align-items: center; gap: 1.2cqw; padding: 0.9cqh 1.8cqw; }
+.bq3-level-name { font-size: 3.2cqh; color: #1a4f8b; }
+.bq3-stages { display: flex; gap: 0.7cqw; margin: 0; padding: 0; list-style: none; }
+.bq3-stages li {
+  display: grid;
+  place-items: center;
+  width: 4.6cqh;
+  height: 4.6cqh;
+  border-radius: 50%;
+  font-size: 2.7cqh;
+  color: #5b7391;
+  background: #e8eff7;
+  border: 0.35cqh solid #c5d3e3;
+}
+.bq3-stages li.is-current { color: #fff; background: #1a4f8b; border-color: #1a4f8b; }
+.bq3-stages li.is-done { color: #0b5c36; background: #bff0d4; border-color: #2db36a; }
+
+.bq3-hud-bottom { position: absolute; inset: auto 0 3cqh; display: flex; justify-content: center; pointer-events: none; }
+.bq3-goal { display: flex; align-items: center; gap: 1.6cqw; padding: 1cqh 2.4cqw; }
+.bq3-segments { display: flex; gap: 0.7cqw; }
+.bq3-segments span {
+  display: grid;
+  place-items: center;
+  width: 5.4cqw;
+  height: 3.8cqh;
+  border-radius: 999px;
+  background: #e1eaf4;
+  border: 0.3cqh solid #b9cadd;
+  color: #fff;
+  font-size: 2.6cqh;
+  transition: background-color 0.35s ease;
+}
+.bq3-segments span.is-filled { background: #f0a81b; border-color: #c98402; }
+.bq3-goal-text { font-size: 3cqh; color: #1a4f8b; white-space: nowrap; }
+
+.bq3-success {
+  position: absolute;
+  left: 50%;
+  top: 24cqh;
+  translate: -50% 0;
+  padding: 1cqh 3.2cqw;
+  border-radius: 999px;
+  background: #fff;
+  color: #0b5c36;
+  font-size: 6.4cqh;
+  font-weight: 800;
+  box-shadow: 0 0.8cqh 2.6cqh rgba(25, 60, 100, 0.2);
+  pointer-events: none;
+  animation: bq3-success 1.5s ease-out forwards;
+}
+.bq3-success span { color: #f0a81b; }
+@keyframes bq3-success {
+  0% { opacity: 0; transform: translateY(1.5cqh) scale(0.94); }
+  18% { opacity: 1; transform: translateY(0) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-1cqh) scale(1); }
+}
+
+/* ---------- Dev panel (outside the child-facing design) ---------- */
+.bq3-panel {
+  position: fixed;
+  left: 12px;
+  bottom: 64px; /* clears Next's own dev badge */
+  z-index: 20;
+  font: 12px/1.3 system-ui, sans-serif;
+  color: #fff;
+  background: rgba(8, 20, 36, 0.86);
+  border-radius: 10px;
+  padding: 6px;
+  max-width: 230px;
+}
+.bq3-panel-body { display: grid; gap: 6px; margin-top: 6px; }
+.bq3-panel-note { margin: 0; opacity: 0.75; font-size: 11px; }
+.bq3-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.bq3-panel button, .bq3-panel select {
+  font: inherit;
+  color: #fff;
+  background: #25405f;
+  border: 1px solid #3a5a80;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.bq3-panel button[aria-pressed="true"] { background: #2f6fea; border-color: #7db2ff; }
+.bq3-panel-toggle { width: 100%; text-align: left; font-weight: 700; }
+
+/* ---------- Reduced motion (OS preference or dev-panel override) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .bq3-cloud, .bq3-sway { animation: none; }
+  .bq3-cloud { transform: translateX(var(--cloud-rest)); }
+  .bq3-lane.is-rising { animation: none; }
+  .bq3-balloon.is-popped .bq3-art { animation-duration: 0.01s; }
+  .bq3-particle { display: none; }
+  .bq3-success { animation: none; opacity: 1; }
+}
+.bq3-force-still .bq3-cloud { transform: translateX(var(--cloud-rest)); }
+.bq3-force-still .bq3-cloud,
+.bq3-force-still .bq3-sway,
+.bq3-force-still .bq3-lane.is-rising { animation: none; }
+.bq3-force-still .bq3-particle { display: none; }
+.bq3-force-still .bq3-balloon.is-popped .bq3-art { animation-duration: 0.01s; }
+.bq3-force-still .bq3-success { animation: none; opacity: 1; }

@@ -23,6 +23,7 @@ import {
 } from "@/lib/spacepilot";
 import { TICK_DURATION_MS, TICKS } from "@/components/display/scenes/CountdownScene";
 import { SPACE_PILOT_GAME_ID } from "@/lib/games/registry";
+import { isSpacePilotLive } from "@/lib/spacepilot3d/cloudState";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import {
@@ -150,7 +151,8 @@ export function useSpacePilotRealtimeControllerSession() {
       // MULTI-GAME PLATFORM: this controller only ever exists at
       // /control/space-pilot — a canonical record whose gameId belongs to a
       // DIFFERENT game must never be treated as "our" session.
-      setLiveRecord(record && record.gameId === SPACE_PILOT_GAME_ID ? record : null);
+      // A record published by the 3D engine (`engine: "sp3"`, see lib/spacepilot3d/cloudState.ts) is not an original Space Pilot SessionState: this controller never adopts it.
+      setLiveRecord(record && record.gameId === SPACE_PILOT_GAME_ID && !isSpacePilotLive(record.session) ? record : null);
       setHasLoadedInitialSession(true);
     });
     const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
@@ -239,7 +241,7 @@ export function useSpacePilotRealtimeControllerSession() {
       try {
         const canonical = await fetchLiveSession(db);
         if (myToken !== sequenceTokenRef.current) return;
-        const isOurs = canonical && canonical.gameId === SPACE_PILOT_GAME_ID ? canonical : null;
+        const isOurs = canonical && canonical.gameId === SPACE_PILOT_GAME_ID && !isSpacePilotLive(canonical.session) ? canonical : null;
         liveRecordRef.current = isOurs;
         setLiveRecord(isOurs);
         setSyncRestoredAt(Date.now());

@@ -1,0 +1,17 @@
+/* FLOOR projection HUD. Large, calm, high-legibility; shares the runner.module.css card/overlay vocabulary. */
+.cue { position: absolute; top: 17vh; left: 50%; transform: translateX(-50%); max-width: 62vw; text-align: center; font-size: clamp(26px, 5.8vh, 72px); font-weight: 800; line-height: 1.15; padding: 1.2vh 3vw; border-radius: 99px; background: rgba(255, 255, 255, 0.92); color: #12343b; box-shadow: 0 1vh 3vh rgba(10, 60, 70, 0.28); white-space: nowrap; }
+.cueContrast { background: #000; color: #ffee00; border: 0.5vh solid #fff; box-shadow: none; }
+.cueSub { font-size: clamp(14px, 2.2vh, 26px); font-weight: 600; opacity: 0.7; }
+.dots { position: absolute; bottom: 2.6vh; left: 50%; transform: translateX(-50%); display: flex; gap: 0.9vw; align-items: center; padding: 1.2vh 2vw; border-radius: 99px; background: rgba(255, 255, 255, 0.82); box-shadow: 0 0.6vh 2vh rgba(20, 60, 80, 0.2); direction: ltr; }
+.dot { width: 2.6vh; height: 2.6vh; border-radius: 50%; background: #d7dde0; border: 0.35vh solid #9aa7ad; }
+.dotNow { background: #ffb81c; border-color: #6d5d3f; transform: scale(1.35); }
+.dotDone { background: #6fd48a; border-color: #2f7d47; }
+.dotAssist { background: #8bb8ff; border-color: #2d5fb0; }
+.dotSkip { background: #c9cdd2; border-color: #7b838a; }
+.dotRest { background: #b9a9ff; border-color: #5b49b5; }
+.contrastDots { background: #000; }
+.contrastDots .dot { border-color: #fff; background: #333; }
+.contrastDots .dotNow { background: #ffee00; }
+.contrastDots .dotDone, .contrastDots .dotAssist, .contrastDots .dotRest { background: #00e676; }
+.sensorOk { position: absolute; bottom: 2.6vh; inset-inline-end: 2vw; font-size: clamp(12px, 1.8vh, 20px); opacity: 0.6; }
+@media (prefers-reduced-motion: reduce) { .dot { transition: none; } }

@@ -1,7 +1,8 @@
 "use client";
+import { isRingHistory } from '@/lib/spacepilot3d/history';
 
 import Link from "next/link";
-import { getGameById } from "@/lib/games/registry";
+import { getHistoricalGameNameAr } from "@/lib/sessions/historicalGames";
 import type { AnyStoredSession } from "@/lib/sessions/types";
 import { formatAccuracyPercent, formatDurationClock } from "@/components/display/copy";
 import { DIFFICULTY_LABELS } from "@/components/control/copy";
@@ -24,7 +25,7 @@ import { formatCountOrUnavailable } from "@/lib/dataIntegrity/numeric";
  * session shapes.
  */
 export function SessionHistoryRow({ patientId, session }: { patientId: string; session: AnyStoredSession }) {
-  const gameName = getGameById(session.gameId)?.nameAr ?? session.gameId;
+  const gameName = getHistoricalGameNameAr(session.gameId);
   return (
     <Link
       href={`/control/patients/${patientId}/sessions/${session.sessionId}`}
@@ -37,10 +38,30 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
         <span className="font-semibold text-teal-700">{DIFFICULTY_LABELS[session.endingDifficulty].name}</span>
         <span>{formatCountOrUnavailable(session.completedStageCount)} مراحل مكتملة</span>
-        {session.gameId === "follow-the-footsteps" ? (
+        {session.gameId === "harvest-valley-3d" ? (
+          <span>{session.harvestedCells} خلايا محصودة · {session.assistedActions} بمساعدة</span>
+        ) : session.gameId === "blooming-world-3d" ? (
+          <span>{session.restoredRegions} مناطق مزهرة · {session.assistedRegions} بمساعدة</span>
+        ) : session.gameId === "pearl-voyage-3d" ? (
+          <span>{session.fishDiscovered} أسماك مكتشفة · {session.assistedEncounters} بمساعدة</span>
+        ) : session.gameId === "fire-rescue-3d" ? (
+          <span>{session.drivingObjectives} أهداف قيادة · {session.fireTargetsExtinguished} مناطق أُطفئت · {session.assistedObjectives} بمساعدة</span>
+        ) : session.gameId === "safe-hex-arena-3d" ? (
+          <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalRoundsCompleted)} جولة · {formatCountOrUnavailable(session.totalAssists)} بمساعدة</span>
+        ) : session.gameId === "mirror-quest-3d" ? (
+          <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalPoses)} حركة · {formatCountOrUnavailable(session.totalAssists)} بمساعدة</span>
+        ) : session.gameId === "build-quest-3d" ? (
+          <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalPiecesPlaced)} قطعة موضوعة</span>
+        ) : session.gameId === "follow-the-footsteps" ? (
           <span className="font-medium text-emerald-600">{formatCompletionPercent(session.completionRate)} إكمال</span>
+        ) : session.gameId === "runner-quest-3d" ? (
+          <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.totalStars)} نجمة</span>
         ) : session.gameId === "space-pilot" ? (
-          <span className="font-medium text-emerald-600">{formatCompletionPercent(session.collectionRate)} جمع النجوم</span>
+          <span className="font-medium text-emerald-600">{formatCompletionPercent(session.collectionRate)} {isRingHistory(session) ? "جمع الحلقات" : "جمع النجوم"}</span>
+        ) : session.gameId === "color-chase" && "engine" in session && session.engine === "cc3-garden" ? (
+          <span className="font-medium text-emerald-600">{session.objectivesCompleted} هدفًا · {session.assistedObjectives} بمساعدة</span>
+        ) : session.gameId === "bubble-pop-wall" && session.engine === "dome3" ? (
+          <span className="font-medium text-emerald-600">{session.objectivesCompleted} أهداف · {session.assistedObjectives} بمساعدة</span>
         ) : session.gameId === "bubble-pop-wall" || session.gameId === "feed-the-animals" ? (
           <span className="font-medium text-emerald-600">{formatAccuracyPercent(session.accuracy)} دقة</span>
         ) : (

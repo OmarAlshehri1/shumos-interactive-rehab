@@ -2,7 +2,13 @@ import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { StaffAuthGate } from "@/components/control/auth/StaffAuthGate";
 import { PatientSessionProvider } from "@/lib/patients/PatientSessionContext";
 import { SessionWorkflowProvider } from "@/components/control/session/SessionWorkflowContext";
+import { SensorRuntimeProvider } from "@/components/control/sensors/SensorRuntimeProvider";
+import { SensorPointerDisplaySync } from "@/components/control/sensors/SensorPointerDisplaySync";
+import { LocalPointerBroadcastSync } from "@/components/control/sensors/LocalPointerBroadcastSync";
+import { PrototypeLocalOnlyBoundary } from "@/components/control/spacepilot3d/PrototypeLocalOnlyBoundary";
+import { BuildQuestLocalOnlyBoundary } from "@/components/control/buildquest3d/BuildQuestLocalOnlyBoundary";
 import "./control.css";
+import { LibraryLaunchBoundary } from "@/components/control/library/launch/LibraryLaunchBoundary";
 
 const plexSansArabic = IBM_Plex_Sans_Arabic({
   variable: "--font-control",
@@ -22,15 +28,34 @@ const plexSansArabic = IBM_Plex_Sans_Arabic({
  * controller (/control/balloon-quest) — the layout-level, App Router-
  * idiomatic place for "this whole section requires auth," so neither page
  * needs to know auth exists. See StaffAuthGate.tsx.
+ *
+ * SHARED SENSOR RUNTIME: SensorRuntimeProvider (see its own doc comment)
+ * lives here, above every game route, specifically so one RIGHT_HAND
+ * Bluetooth connection survives client-side navigation between them —
+ * connect once, play one sensor-compatible game, return to the library,
+ * play another, without reconnecting. Placed outside StaffAuthGate so a
+ * sign-out/sign-in during a session doesn't tear down an active connection.
+ * SensorPointerDisplaySync (inside the provider, so it can read the shared
+ * pointer) mirrors that same connection onto /display at a throttled rate —
+ * see its own doc comment — so the child-facing screen can show the virtual
+ * hand too, not just /control. LocalPointerBroadcastSync is its same-Mac
+ * sibling (see lib/display/LocalPointerChannel.ts): an unthrottled
+ * BroadcastChannel mirror /display prefers whenever it's actually receiving
+ * it, falling back to the Firebase path above for a genuinely separate
+ * Display device.
  */
 export default function ControlLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${plexSansArabic.variable} contents`}>
-      <PatientSessionProvider>
-        <SessionWorkflowProvider>
-          <StaffAuthGate>{children}</StaffAuthGate>
-        </SessionWorkflowProvider>
-      </PatientSessionProvider>
+      <SensorRuntimeProvider>
+        <BuildQuestLocalOnlyBoundary><PrototypeLocalOnlyBoundary><SensorPointerDisplaySync /></PrototypeLocalOnlyBoundary></BuildQuestLocalOnlyBoundary>
+        <LocalPointerBroadcastSync />
+        <PatientSessionProvider>
+          <SessionWorkflowProvider>
+            <StaffAuthGate><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary></StaffAuthGate>
+          </SessionWorkflowProvider>
+        </PatientSessionProvider>
+      </SensorRuntimeProvider>
     </div>
   );
 }

@@ -1,6 +1,7 @@
+import { RETIRED_FEED_ANIMALS_ID as FEED_THE_ANIMALS_GAME_ID } from "../retiredFeedAnimals";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Difficulty, StageStatus } from "@/lib/game";
-import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, FEED_THE_ANIMALS_GAME_ID, FOLLOW_THE_FOOTSTEPS_GAME_ID } from "@/lib/games/registry";
+import { BALLOON_QUEST_GAME_ID, BUBBLE_POP_WALL_GAME_ID, FOLLOW_THE_FOOTSTEPS_GAME_ID } from "@/lib/games/registry";
 import type { AnyStoredSession, StoredBubblePopSession, StoredFeedAnimalsSession, StoredFootstepsSession, StoredSession } from "../types";
 
 /* eslint-disable @typescript-eslint/no-unused-vars -- mock signatures intentionally mirror the real APIs' arity for type-safe spreading below */

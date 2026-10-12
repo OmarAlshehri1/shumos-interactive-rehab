@@ -1,6 +1,17 @@
+import { reviveHarvestHistory } from '@/lib/harvestvalley3d/history';
+import { reviveBloomHistory } from '@/lib/bloomingworld3d/history';
+import { reviveDomeHistory } from '@/lib/bubblepopwall3d/history';
+import { reviveFireHistory } from '@/lib/firerescue3d/history';
+import { revivePearlHistory } from '@/lib/pearlvoyage3d/history';
+import { reviveMirrorHistory } from '@/lib/mirrorquest3d/history';
+import { reviveHexHistory } from '@/lib/safehexarena3d/history';
+import { isFootsteps3History, reviveFootsteps3History } from '@/lib/footsteps3d/history';
+import { isColorChase3History, reviveColorChase3History } from '@/lib/colorchase3d/history';
+import { isRingHistory, reviveRingHistory } from '@/lib/spacepilot3d/history';
 import { get, onValue, ref, set, type Unsubscribe } from "firebase/database";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
-import type { AnyStoredSession, StoredBubblePopSession, StoredColorChaseSession, StoredFeedAnimalsSession, StoredFootstepsSession, StoredSession, StoredSpacePilotSession } from "./types";
+import { reviveBuildQuestHistory } from "@/lib/buildquest3d/history";
+import type { AnyStoredSession, StoredBubblePopSession, StoredColorChaseSession, StoredFeedAnimalsSession, StoredFootstepsSession, StoredRunnerQuestSession, StoredSession, StoredSpacePilotSession } from "./types";
 import {
   normalizeSessionWorkflowMetadata,
   normalizeTherapistNote,
@@ -103,12 +114,14 @@ function reviveStoredSession(raw: unknown): StoredSession | null {
   if (!raw || typeof raw !== "object") return null;
   const value = raw as Partial<StoredSession> & { stageResults?: unknown };
   if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+  // Balloon Quest 3D records tag each stage result `engine: "bq3"`; their `incorrect` counts are informational wrong-colour touches, so an accuracy percentage is never derived for them.
+  const isBq3 = reviveStageResultsArray(value.stageResults).some((r) => (r as { engine?: unknown } | null)?.engine === "bq3");
 
   return commonFields({
     ...(value as StoredSession),
     totalCorrect: finiteCount(value.totalCorrect),
     totalIncorrect: finiteCount(value.totalIncorrect),
-    accuracy: safeRatio(value.totalCorrect, sumFinite([finiteCount(value.totalCorrect), finiteCount(value.totalIncorrect)])),
+    accuracy: isBq3 ? null : safeRatio(value.totalCorrect, sumFinite([finiteCount(value.totalCorrect), finiteCount(value.totalIncorrect)])),
     averageReactionTimeMs: nonNegativeFiniteNumber(value.averageReactionTimeMs),
     stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
       const r = result as Partial<StoredSession["stageResults"][number]>;
@@ -118,7 +131,7 @@ function reviveStoredSession(raw: unknown): StoredSession | null {
         ...r,
         difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
         correct: finiteCount(r.correct), incorrect: finiteCount(r.incorrect),
-        accuracy: safeRatio(r.correct, sumFinite([finiteCount(r.correct), finiteCount(r.incorrect)])),
+        accuracy: r.engine === "bq3" ? null : safeRatio(r.correct, sumFinite([finiteCount(r.correct), finiteCount(r.incorrect)])),
         durationMs: nonNegativeFiniteNumber(r.durationMs),
         averageReactionTimeMs: nonNegativeFiniteNumber(r.averageReactionTimeMs),
       } as unknown as StoredSession["stageResults"][number]];
@@ -242,6 +255,30 @@ function reviveStoredColorChaseSession(raw: unknown): StoredColorChaseSession | 
   } as unknown as Record<string, unknown>) as unknown as StoredColorChaseSession;
 }
 
+/** RUNNER QUEST 3D — own revive function. No accuracy is ever derived; counts are repaired from RTDB's dropped nulls/empty arrays. */
+function reviveStoredRunnerQuestSession(raw: unknown): StoredRunnerQuestSession | null {
+  if (!raw || typeof raw !== "object") return null;
+  const value = raw as Partial<StoredRunnerQuestSession> & { stageResults?: unknown };
+  if (!validRecordIdentity(value as Record<string, unknown>)) return null;
+  return commonFields({
+    ...(value as StoredRunnerQuestSession),
+    resultVersion: finiteCount(value.resultVersion) ?? 1,
+    totalStars: finiteCount(value.totalStars), totalHolds: finiteCount(value.totalHolds), totalAssists: finiteCount(value.totalAssists),
+    totalObstaclesPresented: finiteCount(value.totalObstaclesPresented), totalObstaclesResolved: finiteCount(value.totalObstaclesResolved),
+    inputSource: typeof value.inputSource === "string" ? value.inputSource : null,
+    stageResults: reviveStageResultsArray(value.stageResults).flatMap((result) => {
+      const r = result as Partial<StoredRunnerQuestSession["stageResults"][number]>;
+      const status = safeStatus(r.status);
+      if (!status) return [];
+      return [{ ...r, engine: "rq3", difficulty: safeDifficulty(r.difficulty), stageNumber: safeStageNumber(r.stageNumber), status,
+        stars: finiteCount(r.stars), holds: finiteCount(r.holds), assists: finiteCount(r.assists), obstaclesResolved: finiteCount(r.obstaclesResolved), obstaclesTotal: finiteCount(r.obstaclesTotal),
+        durationMs: nonNegativeFiniteNumber(r.durationMs),
+        // Version 1 rows have neither field: they stay WALL and are never reinterpreted.
+        ...(r.projection === "FLOOR" ? { projection: "FLOOR" as const, objectivesSkipped: finiteCount(r.objectivesSkipped) } : r.projection === "WALL" ? { projection: "WALL" as const } : {}) } as unknown as StoredRunnerQuestSession["stageResults"][number]];
+    }),
+  } as unknown as Record<string, unknown>) as unknown as StoredRunnerQuestSession;
+}
+
 /**
  * MULTI-GAME HISTORY — dispatches to the right revive function by the raw
  * record's own `gameId`, never a guess from shape. A record with a missing/
@@ -249,14 +286,24 @@ function reviveStoredColorChaseSession(raw: unknown): StoredColorChaseSession | 
  * callers below), same "fail safely, never misinterpret" convention
  * lib/realtime/sessionRepository.ts's normalizeGameId documents.
  */
-function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
+export function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
   const gameId = (raw as { gameId?: unknown } | null)?.gameId;
-  if (gameId === "follow-the-footsteps") return reviveStoredFootstepsSession(raw);
+  if (gameId === "harvest-valley-3d") return reviveHarvestHistory(raw);
+  if (gameId === "blooming-world-3d") return reviveBloomHistory(raw);
+  if (gameId === "fire-rescue-3d") return reviveFireHistory(raw);
+  if (gameId === "pearl-voyage-3d") return revivePearlHistory(raw);
+  if (gameId === "mirror-quest-3d") return reviveMirrorHistory(raw);
+  if (gameId === "safe-hex-arena-3d") return reviveHexHistory(raw);
+  if (gameId === "build-quest-3d") return reviveBuildQuestHistory(raw);
+  // original five-stage records have no `resultVersion`/`engine` and are never reinterpreted
+  if (gameId === "follow-the-footsteps") return isFootsteps3History(raw) ? reviveFootsteps3History(raw) : reviveStoredFootstepsSession(raw);
   if (gameId === "balloon-quest") return reviveStoredSession(raw);
-  if (gameId === "bubble-pop-wall") return reviveStoredBubblePopSession(raw);
+  if (gameId === "bubble-pop-wall") return (raw as { resultVersion?: unknown }).resultVersion === 2 ? reviveDomeHistory(raw) : (raw as { resultVersion?: unknown }).resultVersion == null ? reviveStoredBubblePopSession(raw) : null;
   if (gameId === "feed-the-animals") return reviveStoredFeedAnimalsSession(raw);
-  if (gameId === "space-pilot") return reviveStoredSpacePilotSession(raw);
-  if (gameId === "color-chase") return reviveStoredColorChaseSession(raw);
+  if (gameId === "space-pilot") return isRingHistory(raw) ? reviveRingHistory(raw) : (raw as { resultVersion?: unknown }).resultVersion == null ? reviveStoredSpacePilotSession(raw) : null;
+  // original five-stage Color Chase records have no `resultVersion`/`engine` and are never reinterpreted
+  if (gameId === "color-chase") return isColorChase3History(raw) ? reviveColorChase3History(raw) : reviveStoredColorChaseSession(raw);
+  if (gameId === "runner-quest-3d") return reviveStoredRunnerQuestSession(raw);
   return null;
 }
 

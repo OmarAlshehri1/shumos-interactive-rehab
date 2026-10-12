@@ -1,0 +1,2 @@
+export const HARVEST_VALLEY_ENABLED=process.env.NODE_ENV==='development'?process.env.NEXT_PUBLIC_HARVEST_VALLEY_3D!=='false':process.env.NEXT_PUBLIC_HARVEST_VALLEY_3D==='true';
+export const HARVEST_VALLEY_REGISTRATION={id:'harvest-valley-3d',nameAr:'موسم الحصاد',nameEn:'Harvest Valley 3D',shortDescriptionAr:'قيادة هادئة وحصاد حقول ثلاثية الأبعاد، بأهداف قابلة للتعديل وتحكّم المعالج الكامل.',focusTagsAr:['توجيه وقيادة بمساعدة','حصاد واستكشاف'],status:'ready',surfaceType:'WALL',route:'/control/harvest-valley-3d',sensorCompatible:false} as const;

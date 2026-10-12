@@ -7,7 +7,6 @@ import { BubbleColor, BubbleShape } from "@/lib/bubblepop";
 import { instructionLine, welcomeLine } from "../voiceLines";
 import { footstepsInstructionLine, footstepsCheckpointLine } from "../footstepsVoiceLines";
 import { bubblePopReadyPositionLine, bubblePopTargetRequestLine } from "../bubblePopVoiceLines";
-import { feedAnimalsInstructionLine } from "../feedAnimalsVoiceLines";
 import { spacePilotAdvancedInstructionLine, spacePilotInstructionLine, spacePilotMediumInstructionLine } from "../spacePilotVoiceLines";
 
 /**
@@ -252,14 +251,6 @@ describe("AudioManager dispatch — voice coverage preserved for all five games"
       announceShape: true,
     });
     expect(calls.map((c) => c.text)).toContain(bubblePopTargetRequestLine(BubbleColor.BLUE, BubbleShape.STAR, true));
-  });
-
-  it("Feed the Animals: instruction event still speaks — proves removing the animal x template prefetch matrix did not remove the ON-DEMAND instruction line", () => {
-    const { provider, calls } = createMockProvider();
-    const manager = new AudioManager(provider);
-    manager.unlock();
-    manager.handleEvent({ type: "feed_animals_instruction", timestamp: Date.now(), childName: "ليان", stageNumber: 3 });
-    expect(calls.map((c) => c.text)).toContain(feedAnimalsInstructionLine("ليان", 3));
   });
 
   it("Space Pilot: instruction event still speaks", () => {
