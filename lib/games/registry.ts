@@ -7,6 +7,7 @@ import { FIRE_RESCUE_ENABLED, FIRE_RESCUE_REGISTRATION } from '@/lib/firerescue3
 import { PEARL_VOYAGE_ENABLED, PEARL_VOYAGE_REGISTRATION } from '@/lib/pearlvoyage3d/registration';
 import { MIRROR_QUEST_REGISTRATION, MIRROR_QUEST_ENABLED } from '@/lib/mirrorquest3d/registration';
 import { SAFE_HEX_ARENA_REGISTRATION, SAFE_HEX_ARENA_ENABLED } from '@/lib/safehexarena3d/registration';
+import { TURN_AND_GO_REGISTRATION, TURN_AND_GO_ENABLED } from '@/lib/turngo3d/registration';
 import { FOOTSTEPS_3D_DESCRIPTION_AR, FOOTSTEPS_3D_ENABLED, FOOTSTEPS_3D_NAME_EN } from '@/lib/footsteps3d/registration';
 import { COLOR_CHASE_3D_DESCRIPTION_AR, COLOR_CHASE_3D_ENABLED, COLOR_CHASE_3D_NAME_EN } from '@/lib/colorchase3d/registration';
 /**
@@ -31,7 +32,7 @@ import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 import { RUNNER_QUEST_3D_ENABLED } from '@/lib/runnerquest3d/availability';
 import { RUNNER_QUEST_3D_REGISTRATION as RQ3D } from '@/lib/runnerquest3d/registration';
 import { BUILD_QUEST_3D_ENABLED, BUILD_QUEST_REGISTRATION as BQ3D } from '@/lib/buildquest3d/registration';
-export type GameId = "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
+export type GameId = "turn-and-go-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
 /**
  * Retained for source compatibility only. Every game, Build Quest 3D included, now publishes into the shared
  * `/liveSession` record and is a full GameId; there is no longer any game with a separate cloud adapter.
@@ -89,6 +90,8 @@ export const GAME_REGISTRY: readonly GameDefinition[] = [
   ...(MIRROR_QUEST_ENABLED ? [MIRROR_QUEST_REGISTRATION satisfies GameDefinition] : []),
   // Safe Hex Arena 3D: shared-liveSession floor game, feature-flagged (lib/safehexarena3d/registration.ts). Rollback: unset NEXT_PUBLIC_SAFE_HEX_ARENA_3D.
   ...(SAFE_HEX_ARENA_ENABLED ? [SAFE_HEX_ARENA_REGISTRATION satisfies GameDefinition] : []),
+  // Turn & Go 3D: shared-liveSession floor game, feature-flagged (lib/turngo3d/registration.ts). Rollback: unset NEXT_PUBLIC_TURN_AND_GO_3D.
+  ...(TURN_AND_GO_ENABLED ? [{ ...TURN_AND_GO_REGISTRATION, focusTagsAr: [...TURN_AND_GO_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
   {
     id: "balloon-quest",
     nameAr: "مغامرة البالونات",

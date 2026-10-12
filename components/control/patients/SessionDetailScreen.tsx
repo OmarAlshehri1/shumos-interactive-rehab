@@ -578,7 +578,23 @@ function RealtimeSessionDetail({
               ))}
             </SectionCard>
           </>
-        ) : session.gameId === "bubble-pop-wall" &&
+        ) : session.gameId === "turn-and-go-3d" ? (
+        <>
+          <SectionCard title="نتائج تحدي الدوران"><div className="grid grid-cols-3 gap-3">
+            <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
+            <StatCard label="نجوم مؤكدة" value={formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} tone="positive" />
+            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedCheckpoints)} />
+            <StatCard label="نجوم متخطاة" value={formatCountOrUnavailable(session.skippedCheckpoints)} />
+            <StatCard label="وقفات مكتملة" value={formatCountOrUnavailable(session.stopHoldsCompleted)} />
+            <StatCard label="خروج عن المسار (بتأكيد المعالج)" value={formatCountOrUnavailable(session.routeDeviations)} />
+            <StatCard label="لمس مخروط (بتأكيد المعالج)" value={formatCountOrUnavailable(session.coneTouches)} />
+            <StatCard label="إعادات" value={formatCountOrUnavailable(session.repeats)} />
+            <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
+            <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
+          </div><p className="text-xs text-slate-500">عدد الأقماع: {session.settings.coneCount}{session.settings.customLayout ? " · تخطيط عدّله المعالج" : ""} · وقفة التوقف {Math.round(session.settings.stopMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
+          <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} نجوم · {row.assisted} بمساعدة · {row.coneCount} أقماع · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
+        </>
+      ) : session.gameId === "bubble-pop-wall" &&
           session.engine === "dome3" ? (
           <>
             <SectionCard title="قبة العجائب — المشاركة">

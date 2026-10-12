@@ -216,6 +216,7 @@ export function buildPrefetchLines(gameId: GameId, childName: string): string[] 
     case "runner-quest-3d":
     case "mirror-quest-3d":
     case "safe-hex-arena-3d":
+    case "turn-and-go-3d":
     case "build-quest-3d":
       return []; // These games never request paid TTS.
     default:
@@ -651,6 +652,7 @@ export class AudioManager {
       case "runner-quest-3d":
       case "mirror-quest-3d":
       case "safe-hex-arena-3d":
+      case "turn-and-go-3d":
     case "build-quest-3d":
         break; // silent by design: no ambience, no music
       case "balloon-quest":

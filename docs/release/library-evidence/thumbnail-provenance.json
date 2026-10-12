@@ -152,5 +152,15 @@
     "source": "docs/balancebridge3d/evidence/thumbnail-source.png",
     "asset": "public/balancebridge3d/thumbnail.webp",
     "capture": "Native shared Display canvas screenshot without HTML development overlays, resized and center-cropped to 1280x720."
+  },
+  {
+    "gameId": "turn-and-go-3d",
+    "source": "docs/release/library-evidence/turn-and-go-3d-display.png",
+    "asset": "public/library-thumbnails/turn-and-go-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 79488,
+    "sourceSha256": "35c459c6f1cd65c24c263c8e28e264d8bb141e15ba07ea9e0483094aa63141f1",
+    "assetSha256": "e691061d81e7de6bc00aa15f83096fdf2585a3a41244165db73c71dfd91ebc66"
   }
 ]

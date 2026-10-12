@@ -59,7 +59,7 @@ export interface PatientAnalytics {
 const DAY_MS = 86_400_000;
 
 export function sessionAccuracy(session: AnyStoredSession): number | null {
-  if (session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
+  if (session.gameId === "turn-and-go-3d" || session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
   if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "build-quest-3d" || session.gameId === "follow-the-footsteps" || session.gameId === "runner-quest-3d") return null; // Runner Quest has no accuracy concept
   if (session.gameId === "space-pilot") return finiteRatio(session.collectionRate);
   return finiteRatio(session.accuracy);
@@ -69,7 +69,7 @@ export function sessionResponseTimeMs(session: AnyStoredSession): number | null 
   if (session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
   if (session.gameId === "balloon-quest") return nonNegativeFiniteNumber(session.averageReactionTimeMs);
   if (session.gameId === "follow-the-footsteps") return nonNegativeFiniteNumber(session.averageStepTimeMs);
-  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
+  if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "turn-and-go-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
   return nonNegativeFiniteNumber(session.averageResponseTimeMs);
 }
 
@@ -102,6 +102,13 @@ function perGameMetrics(gameId: HistoricalGameId, sessions: AnyStoredSession[]):
     const items = sessions.filter(s => s.gameId === "mirror-quest-3d");
     specific.push(metric("poses", "الحركات المقبولة", sumFinite(items.map(s => s.totalPoses)), "count"));
     specific.push(metric("assists", "بمساعدة المعالج", sumFinite(items.map(s => s.totalAssists)), "count"));
+  }
+  if (gameId === "turn-and-go-3d") {
+    const items = sessions.filter((s) => s.gameId === "turn-and-go-3d");
+    specific.push(metric("stars", "نجوم مؤكدة", sumFinite(items.map((s) => s.confirmedCheckpoints + s.assistedCheckpoints)), "count"));
+    specific.push(metric("assists", "بمساعدة المعالج", sumFinite(items.map((s) => s.assistedCheckpoints)), "count"));
+    specific.push(metric("holds", "وقفات مكتملة", sumFinite(items.map((s) => s.stopHoldsCompleted)), "count"));
+    specific.push(metric("deviations", "خروج عن المسار (بتأكيد المعالج)", sumFinite(items.map((s) => s.routeDeviations + s.coneTouches)), "count"));
   }
   if (gameId === "safe-hex-arena-3d") {
     const items = sessions.filter((s) => s.gameId === "safe-hex-arena-3d");

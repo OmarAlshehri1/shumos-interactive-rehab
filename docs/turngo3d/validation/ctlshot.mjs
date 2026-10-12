@@ -1,0 +1,20 @@
+// Quick visual check of the real Control (iPad-like) + Display (projector-sized) against the emulators. usage: node ctlshot.mjs <outDir>
+import { launch, login, openIpad, selectPatient, sleep, until } from "./crosslib.mjs";
+import { seed } from "./seed.mjs";
+import { mkdirSync } from "node:fs";
+const out = process.argv[2] ?? "../screenshots"; mkdirSync(out, { recursive: true });
+const BASE = process.env.TG_BASE ?? "http://127.0.0.1:3632";
+await seed();
+const A = await launch("/tmp/tg-e2e/ipad", 9891, ["--use-angle=metal"]), B = await launch("/tmp/tg-e2e/laptop", 9892, ["--use-angle=metal"]);
+const display = await B.open(`${BASE}/display`, 1920, 1080);
+const ctl = await openIpad(A, `${BASE}/control`);
+await login(ctl); await selectPatient(ctl); await sleep(3000);
+await ctl.eval(`location.href='/control/turn-and-go-3d'`);
+console.log("control up", await until(() => ctl.eval(`!!document.querySelector('[data-testid=tg-control]')`), 90000, 500));
+console.log("display up", await until(() => display.eval(`!!document.querySelector('[data-testid=tg-display]')`), 60000, 500));
+await sleep(3000);
+await ctl.eval(`document.querySelectorAll('details').forEach((d) => (d.open = true))`);
+await ctl.shot(`${out}/ctl-ready.png`); await display.shot(`${out}/disp-ready.png`);
+console.log(await ctl.eval(`document.querySelector('canvas')?.dataset.metrics ?? 'no ctl canvas'`), await display.eval(`document.querySelector('canvas')?.dataset.metrics ?? null`));
+console.log("errors", [ctl, display].flatMap((t) => t.events.filter((e) => e.method === "Runtime.exceptionThrown").map((e) => e.params.exceptionDetails.exception?.description?.slice(0, 300))));
+A.close(); B.close();
