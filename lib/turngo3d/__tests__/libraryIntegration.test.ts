@@ -1,0 +1,24 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
+afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); });
+
+describe('Turn & Go in the unified library', () => {
+  it('is one canonical FLOOR / FOOT game with the requested names and tags', async () => {
+    vi.stubEnv('NODE_ENV', 'development'); vi.resetModules();
+    const { GAME_REGISTRY } = await import('@/lib/games/registry');
+    const { DEVICE_GAMES, TARGET_PROJECTION } = await import('@/lib/games/library/capabilities');
+    const g = GAME_REGISTRY.filter((x) => x.id === 'turn-and-go-3d');
+    expect(g).toHaveLength(1);
+    expect(g[0]).toMatchObject({ nameAr: 'تحدي الدوران', nameEn: 'Turn & Go', surfaceType: 'FLOOR', route: '/control/turn-and-go-3d' });
+    expect(g[0].focusTagsAr).toContain('حركة القدمين والمشي');
+    expect(DEVICE_GAMES.FOOT).toContain('turn-and-go-3d');
+    expect(Object.values(DEVICE_GAMES).flat().filter((i) => i === 'turn-and-go-3d')).toHaveLength(1);
+    expect(TARGET_PROJECTION['turn-and-go-3d']).toBe('FLOOR');
+  });
+  it('is off in production unless explicitly enabled (rollback = unset the flag)', async () => {
+    vi.stubEnv('NODE_ENV', 'production'); vi.resetModules();
+    const off = await import('@/lib/turngo3d/registration');
+    expect(off.TURN_AND_GO_ENABLED).toBe(false);
+    vi.stubEnv('NEXT_PUBLIC_TURN_AND_GO_3D', 'true'); vi.resetModules();
+    expect((await import('@/lib/turngo3d/registration')).TURN_AND_GO_ENABLED).toBe(true);
+  });
+});

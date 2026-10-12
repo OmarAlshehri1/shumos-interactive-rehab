@@ -5,6 +5,7 @@ import { reviveFireLive } from '@/lib/firerescue3d/live';
 import { revivePearlLive } from '@/lib/pearlvoyage3d/live';
 import { reviveMirrorLive } from '@/lib/mirrorquest3d/live';
 import { reviveHexLive } from '@/lib/safehexarena3d/live';
+import { reviveTurnGoLive } from '@/lib/turngo3d/live';
 import { isFp3Live, reviveFootstepsLive } from '@/lib/footsteps3d/live';
 import { isCc3Live, reviveColorChaseLive } from '@/lib/colorchase3d/live';
 import { isBq3Session, reviveBq3Session } from "@/lib/balloonquest/live";
@@ -245,6 +246,11 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
       const hex = reviveHexLive(value.session);
       if (!hex || hex.sessionId !== value.sessionId) return null;
       return { ...value, gameId, session: hex, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "turn-and-go-3d") {
+      const tg = reviveTurnGoLive(value.session);
+      if (!tg || tg.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: tg, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
     }
     if (gameId === "build-quest-3d") {
       if (!isBuildQuestLive(value.session)) return null;

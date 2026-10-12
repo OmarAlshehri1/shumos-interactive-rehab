@@ -1,0 +1,297 @@
+[
+  {
+    "name": "Control opens and publishes the shared session",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (separate device) renders from /liveSession",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display 3D canvas is running (WebGL)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Record is the shared liveSession with game id and engine",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No patient identifier on the public liveSession path",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control states the sensor limitation honestly",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Arabic RTL on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage selection reaches the Display (Flower Walkway, 2 cones)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display shows the setup preview before starting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control map and Display derive the same course",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Dragging a cone moves it on Control and on the Display",
+    "ok": false,
+    "detail": ""
+  },
+  {
+    "name": "Layout is marked as customised",
+    "ok": false,
+    "detail": ""
+  },
+  {
+    "name": "Cancelling manual moves restores the layout",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Rotating the course updates both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Mirroring flips the course on both devices",
+    "ok": false,
+    "detail": "{\"mirrorChecked\":true}"
+  },
+  {
+    "name": "Choosing four cones changes the layout everywhere",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "More checkpoints adds stars",
+    "ok": false,
+    "detail": ""
+  },
+  {
+    "name": "Countdown shows on the Display and confirmation is closed",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display pill gives a direction cue (straight ahead)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "First star collected on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Pause freezes the clock on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Assisted confirmation finishes the stage on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Results count the assisted star",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Event wait (friendly character) begins right after a confirmed star and blocks confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Therapist-reported deviation and cone touch pulse on the Display and count in results, without changing progress",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stop marker starts a timed hold (Display and Control)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "A simulated foot-movement hint never collects the star",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Repeat cancels the hold without awarding the star",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hold completes by the game clock and the star is collected exactly once",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Gate event follows the confirmed stop",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Back re-opens the previous star (no double award)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 6 completes by touch",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Route event (arrow switch) happens only at a confirmed star and moves the next star",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Skipping a stage (with confirmation) moves on safely",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "With dynamic events disabled no wait or route change occurs",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Recovery keeps stage and stars and never resumes by itself (paused + safety)",
+    "ok": true,
+    "detail": "{\"b\":\"2\",\"a\":\"2\",\"s\":\"paused\"}"
+  },
+  {
+    "name": "Display shows the safe pause after the reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Safety stop pauses both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Ending a session finishes it on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved once for the first (partial) run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History record is the shared versioned record (no score)",
+    "ok": true,
+    "detail": "{\"t\":14}"
+  },
+  {
+    "name": "Restart (after confirmation) opens a new run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 2 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 3 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 4 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 5 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 6 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 7 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 8 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 9 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Final stage ends the session and shows results",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved exactly once for the nine-stage run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Save-once: still two records after waiting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Nine-stage record: 9 stage rows, stops and course layouts present",
+    "ok": true,
+    "detail": "{\"total\":46,\"holds\":6}"
+  },
+  {
+    "name": "Reloading the ended session does not save it again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No uncaught exceptions on either device",
+    "ok": false,
+    "detail": "NotFoundError: Failed to execute 'setPointerCapture' on 'Element': No active pointer with the given id is found.\n    at onDown (http://127.0.0.1:3632/_next/static/chunks/_016-9ss._.js:109:37)\n    at e"
+  }
+]
