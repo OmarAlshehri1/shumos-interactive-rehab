@@ -52,6 +52,8 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
           <span>{session.drivingObjectives} أهداف قيادة · {session.fireTargetsExtinguished} مناطق أُطفئت · {session.assistedObjectives} بمساعدة</span>
         ) : session.gameId === "turn-and-go-3d" ? (
           <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.assistedCheckpoints)} بمساعدة</span>
+        ) : session.gameId === "foot-maze-3d" ? (
+          <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.routeChoices)} اختيار</span>
         ) : session.gameId === "safe-hex-arena-3d" ? (
           <span className="font-medium text-emerald-600">{formatCountOrUnavailable(session.totalRoundsCompleted)} جولة · {formatCountOrUnavailable(session.totalAssists)} بمساعدة</span>
         ) : session.gameId === "mirror-quest-3d" ? (

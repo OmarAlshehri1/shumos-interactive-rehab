@@ -6,6 +6,7 @@ import { FireRescueDisplayModule } from './games/FireRescueDisplayModule';
 import { PearlVoyageDisplayModule } from './games/PearlVoyageDisplayModule';
 import { BubblePopDomeDisplayRouter } from './games/BubblePopDomeDisplayRouter';
 import { MirrorQuestDisplayModule } from './games/MirrorQuestDisplayModule';
+import { FootMazeDisplayModule } from "./games/FootMazeDisplayModule";
 import { SafeHexDisplayModule } from './games/SafeHexDisplayModule';
 import { FootstepsDisplayModule } from './games/FootstepsDisplayModule';
 import { ColorChaseDisplayModule } from './games/ColorChaseDisplayModule';
@@ -83,6 +84,8 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   "safe-hex-arena-3d": SafeHexDisplayModule,
   // Turn & Go 3D: live-session module (cross-device, read-only Display).
   "turn-and-go-3d": TurnGoDisplayModule,
+  // Foot Maze 3D: live-session module (cross-device, read-only Display).
+  "foot-maze-3d": FootMazeDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript

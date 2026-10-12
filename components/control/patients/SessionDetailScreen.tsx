@@ -578,6 +578,24 @@ function RealtimeSessionDetail({
               ))}
             </SectionCard>
           </>
+      ) : session.gameId === "foot-maze-3d" ? (
+        <>
+          <SectionCard title="نتائج متاهة القدمين"><div className="grid grid-cols-3 gap-3">
+            <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
+            <StatCard label="نجوم مؤكدة" value={formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} tone="positive" />
+            <StatCard label="نجوم متخطاة" value={formatCountOrUnavailable(session.skippedCheckpoints)} />
+            <StatCard label="وصول بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedMoves)} />
+            <StatCard label="اختيارات الطريق" value={formatCountOrUnavailable(session.routeChoices)} />
+            <StatCard label="طرق جانبية (أُعيد منها)" value={formatCountOrUnavailable(session.routeDetours)} />
+            <StatCard label="انتظارات الحارس" value={formatCountOrUnavailable(session.guardWaitsCompleted)} />
+            <StatCard label="أحداث الطريق" value={formatCountOrUnavailable(session.routeEvents)} />
+            <StatCard label="تلميحات" value={formatCountOrUnavailable(session.hintsUsed)} />
+            <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
+            <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
+          </div><p className="text-xs text-slate-500">{session.settings.simplified ? "مسار مبسّط · " : ""}انتظار الحارس {Math.round(session.settings.guardMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
+          <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} نجوم · {row.choices} اختيارات · {row.waitsDone} انتظارات · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
+        </>
+
         ) : session.gameId === "turn-and-go-3d" ? (
         <>
           <SectionCard title="نتائج تحدي الدوران"><div className="grid grid-cols-3 gap-3">

@@ -1,0 +1,372 @@
+[
+  {
+    "name": "Library lists Foot Maze (Arabic name) with its real-gameplay thumbnail",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control opens and publishes the shared session",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display (separate device) renders from /liveSession",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display 3D canvas is running (WebGL)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Record is the shared liveSession with game id and engine",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No patient identifier on the public liveSession path",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control states the sensor limitation honestly",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Arabic RTL on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage selection reaches the Display (Friendly Forest)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display shows the maze preview before starting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control map and Display agree on the maze (stars, corridor width)",
+    "ok": true,
+    "detail": "{\"c\":\"6\",\"d\":\"6\",\"j\":\"3\"}"
+  },
+  {
+    "name": "Simplified route removes junctions and dead ends on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Corridor width slider reaches the Display",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Automatic width restores the stage default",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Rotation and mirroring are accepted before the stage starts",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Countdown shows on the Display and arrival confirmation is closed",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display pill gives a direction cue at the start (straight ahead)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "First arrival confirmed: star collected on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Pause freezes the clock on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Arrival cannot be confirmed while paused",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Assisted arrival counts in results",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "At the junction the game does not pick for the therapist (two ways, no preselected heading)",
+    "ok": true,
+    "detail": "[\"n20\",\"S\",\"n23\"]"
+  },
+  {
+    "name": "Choosing a corridor shows the choice on the Display (heading) without judging it",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "A wrong branch counts as a detour (not a failure) and the stage keeps running",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 2 completes after turning back from the dead end",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Results count one detour and the correct choices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage selection between stages works (jump to Festival Playground)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "No guardian before the child reaches the waiting zone",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Guardian starts only after the arrival at the waiting zone is confirmed (both devices)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Moves are refused while the guardian blocks (arrive and route buttons disabled)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Pause freezes the guardian wait (clock and act)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Therapist can extend the wait",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "The wait ends by itself on the running clock (natural completion)",
+    "ok": true,
+    "detail": "4.8s"
+  },
+  {
+    "name": "CONTINUE shows after the wait and moves are accepted again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Therapist can trigger the guardian again by hand",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Manual release ends the wait early (guardian leaves, then clear)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Results count the waits and the early release",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 5 completes",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Skipping a stage (with confirmation) moves on safely",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Gate wait begins at the waiting zone (Display + Control)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Route switch fires only after confirming arrival at its waiting zone and closes a corridor on both devices",
+    "ok": true,
+    "detail": "{\"d\":\"B~n61\",\"c\":\"B~n61\"}"
+  },
+  {
+    "name": "The closed corridor is no longer offered as a choice",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 7 completes through the open alternate route (bridge wait included)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "With guardians and events disabled nothing blocks or changes (town stage 8)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Hint shows guidance for the Display for a few seconds and is counted",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Back returns to the previous point (no star is removed or duplicated)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Skip marks the next star skipped and counts it (+1 on both devices)",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Restarting the stage returns to the preview safely",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Control recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Recovery keeps stage, position and the running wait and never resumes by itself (paused + safety)",
+    "ok": true,
+    "detail": "{\"pre\":[\"A\",\"gate\"],\"post\":[\"A\",\"gate\",\"paused\"]}"
+  },
+  {
+    "name": "Display shows the safe pause after the reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Display recovers after reload",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Safety stop pauses both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Ending a session finishes it on both devices",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved once for the first (partial) run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History record is the shared versioned record (no score)",
+    "ok": true,
+    "detail": "{\"t\":22}"
+  },
+  {
+    "name": "Restart (after confirmation) opens a new run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 1 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 2 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 3 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 4 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 5 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 6 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 7 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 8 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Stage 9 completes on both devices by manual touch confirmation",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Final stage ends the session and shows results",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "History saved exactly once for the nine-stage run",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Save-once: still two records after waiting",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "Nine-stage record: 9 stage rows, maze ids, guard waits and route choices present",
+    "ok": true,
+    "detail": "{\"total\":43,\"waits\":7,\"choices\":22}"
+  },
+  {
+    "name": "Reloading the ended session does not save it again",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "name": "GPU resources stay bounded after many stage changes (no leak)",
+    "ok": true,
+    "detail": "{\"calls\":101,\"triangles\":14422,\"geometries\":60,\"textures\":55,\"frameMs\":0.9,\"envBuilds\":10,\"particles\":72,\"fps\":60,\"clock\":68601,\"pixelRatio\":1}"
+  },
+  {
+    "name": "No uncaught exceptions on either device",
+    "ok": true,
+    "detail": ""
+  }
+]

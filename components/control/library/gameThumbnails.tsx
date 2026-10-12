@@ -22,6 +22,7 @@ import { SpacePilot3DThumbnail } from '../spacepilot3d/SpacePilot3DThumbnail';
 import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 import { RunnerQuestThumbnail } from '../runnerquest3d/RunnerQuestThumbnail';
 import { BuildQuestThumbnail } from '../buildquest3d/BuildQuestThumbnail';
+import { FootMazeThumbnail } from '../footmaze3d/FootMazeThumbnail';
 
 /**
  * Kept separate from lib/games/registry.ts on purpose: the registry is
@@ -45,6 +46,7 @@ export const GAME_THUMBNAILS: Record<GameId | LocalGameId, ComponentType> = {
   "runner-quest-3d": RunnerQuestThumbnail,
   "build-quest-3d": BuildQuestThumbnail,
   "mirror-quest-3d": MirrorThumbnail,
+  "foot-maze-3d": FootMazeThumbnail,
   "safe-hex-arena-3d": HexThumbnail,
   "turn-and-go-3d": TurnGoThumbnail,
 };
