@@ -1,0 +1,40 @@
+{
+  "unit": {
+    "command": "npx vitest run --maxWorkers=2",
+    "filesPassed": 196,
+    "filesSkipped": 21,
+    "testsPassed": 2361,
+    "testsSkipped": 171
+  },
+  "typescript": {
+    "command": "npx tsc --noEmit",
+    "passed": true
+  },
+  "lint": {
+    "command": "npx eslint",
+    "errors": 0,
+    "existingWarnings": 6
+  },
+  "build": {
+    "command": "NEXT_PUBLIC_ACHIEVEMENT_FOREST_3D=true NEXT_PUBLIC_ACHIEVEMENT_CITY_3D=true SHUMOS_BUILD_DIR=.next-forest-build npx next build --webpack",
+    "passed": true
+  },
+  "productionWrites": 0,
+  "physicalHardwareTested": false,
+  "firebaseForest": {
+    "passed": 11,
+    "command": "AF_RULES_EMULATOR=1 npx vitest run lib/achievementforest/__tests__/rules.emulator.test.ts"
+  },
+  "browser": {
+    "longRunPassed": 60,
+    "longRunTotal": 61,
+    "remainingFilterVerifiedSeparately": true,
+    "libraryAssertionsPassed": 3,
+    "parentVisitAssertionsPassed": 4,
+    "gamepad": "simulated"
+  },
+  "firebaseCityRegression": {
+    "passed": 11,
+    "localNamespace": "demo-af-rules-default-rtdb"
+  }
+}

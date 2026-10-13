@@ -1,0 +1,182 @@
+[
+  {
+    "level": 0,
+    "count": 0,
+    "metrics": {
+      "calls": 134,
+      "triangles": 698368,
+      "geometries": 96,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 46,
+      "pixelRatio": 1,
+      "frameMs": 1.79
+    },
+    "errors": []
+  },
+  {
+    "level": 0,
+    "count": 1,
+    "metrics": {
+      "calls": 137,
+      "triangles": 723088,
+      "geometries": 98,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 39.3,
+      "pixelRatio": 1,
+      "frameMs": 1.88
+    },
+    "errors": []
+  },
+  {
+    "level": 0,
+    "count": 5,
+    "metrics": {
+      "calls": 212,
+      "triangles": 861872,
+      "geometries": 135,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 30.5,
+      "pixelRatio": 1,
+      "frameMs": 2.48
+    },
+    "errors": []
+  },
+  {
+    "level": 0,
+    "count": 10,
+    "metrics": {
+      "calls": 295,
+      "triangles": 1263448,
+      "geometries": 177,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 35.4,
+      "pixelRatio": 1,
+      "frameMs": 2.4
+    },
+    "errors": []
+  },
+  {
+    "level": 1,
+    "count": 0,
+    "metrics": {
+      "calls": 294,
+      "triangles": 1263328,
+      "geometries": 177,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 30,
+      "pixelRatio": 1,
+      "frameMs": 2.36
+    },
+    "errors": []
+  },
+  {
+    "level": 1,
+    "count": 5,
+    "metrics": {
+      "calls": 359,
+      "triangles": 1558912,
+      "geometries": 209,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 33.4,
+      "pixelRatio": 1,
+      "frameMs": 2.34
+    },
+    "errors": []
+  },
+  {
+    "level": 1,
+    "count": 10,
+    "metrics": {
+      "calls": 549,
+      "triangles": 2284876,
+      "geometries": 304,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 28.1,
+      "pixelRatio": 1,
+      "frameMs": 2.64
+    },
+    "errors": []
+  },
+  {
+    "level": 2,
+    "count": 0,
+    "metrics": {
+      "calls": 549,
+      "triangles": 2284876,
+      "geometries": 304,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 27,
+      "pixelRatio": 1,
+      "frameMs": 2.66
+    },
+    "errors": []
+  },
+  {
+    "level": 2,
+    "count": 5,
+    "metrics": {
+      "calls": 604,
+      "triangles": 2629372,
+      "geometries": 332,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 23.6,
+      "pixelRatio": 1,
+      "frameMs": 3.7
+    },
+    "errors": []
+  },
+  {
+    "level": 2,
+    "count": 10,
+    "metrics": {
+      "calls": 836,
+      "triangles": 3073764,
+      "geometries": 469,
+      "textures": 4,
+      "builds": 0,
+      "baked": 30,
+      "trees": 46,
+      "pending": 0,
+      "fps": 21.6,
+      "pixelRatio": 1,
+      "frameMs": 4.45
+    },
+    "errors": []
+  }
+]

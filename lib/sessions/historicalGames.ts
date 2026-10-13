@@ -1,5 +1,7 @@
 import {CASTLE_REGISTRATION} from "@/lib/castlelegends3d/registration";
 import {BODY_SEQUENCE_REGISTRATION} from "@/lib/bodysequence3d/registration";
+import {ACHIEVEMENT_FOREST_REGISTRATION} from "@/lib/achievementforest/registration";
+import {ACHIEVEMENT_CITY_REGISTRATION} from "@/lib/achievementcity/registration";
 import {RHYTHM_STEPS_REGISTRATION} from "@/lib/rhythmsteps3d/registration";
 import {FOOT_MAZE_REGISTRATION} from "@/lib/footmaze3d/registration";
 import {TURN_AND_GO_REGISTRATION} from "@/lib/turngo3d/registration";
@@ -18,6 +20,8 @@ export function getHistoricalGameNameAr(id: HistoricalGameId): string {
   if (id === "foot-maze-3d") return FOOT_MAZE_REGISTRATION.nameAr;
   if (id === "rhythm-steps-3d") return RHYTHM_STEPS_REGISTRATION.nameAr;
   if (id === "body-sequence-3d") return BODY_SEQUENCE_REGISTRATION.nameAr;
+  if (id === "achievement-forest-3d") return ACHIEVEMENT_FOREST_REGISTRATION.nameAr;
+  if (id === "achievement-city-3d") return ACHIEVEMENT_CITY_REGISTRATION.nameAr;
   if (id === "shumos-castle-legends-3d") return CASTLE_REGISTRATION.nameAr;
   if (id === "balance-bridge-3d") return BALANCE_BRIDGE_REGISTRATION.nameAr;
   if (id === 'harvest-valley-3d') return HARVEST_VALLEY_REGISTRATION.nameAr;

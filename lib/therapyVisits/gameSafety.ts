@@ -14,6 +14,7 @@ export function historyKeyForLive(record: LiveSessionRecord): string | null {
       "fm3",
       "rs3",
       "bs3",
+      "ac3", "af3",
     ],
     conditional = ["bw3", "hv3", "bb3"];
   if (

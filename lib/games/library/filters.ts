@@ -1,6 +1,7 @@
 import type { GameDefinition } from "@/lib/games/registry";
-import { DEVICE_GAMES, type RequestedInput } from "./capabilities";
-export type LibraryFilter = "ALL" | Exclude<RequestedInput, "MANUAL">;
+import { ACTIVITY_CATEGORY_GAMES, DEVICE_GAMES, type RequestedInput } from "./capabilities";
+/** Device filters plus the activity category filter. A category describes what a game IS and never implies a sensor. */
+export type LibraryFilter = "ALL" | Exclude<RequestedInput, "MANUAL"> | "INTERACTIVE_REWARDS";
 export const LIBRARY_FILTERS: readonly {
   id: LibraryFilter;
   label: string;
@@ -11,6 +12,7 @@ export const LIBRARY_FILTERS: readonly {
   { id: "FOOT", label: "حساسات القدم", icon: "foot" },
   { id: "JOYSTICK", label: "عصي التحكم", icon: "controller" },
   { id: "DRIVING", label: "المقود والدواسات", icon: "wheel" },
+  { id: "INTERACTIVE_REWARDS", label: "ألعاب التحفيز التفاعلي", icon: "sparkles" },
 ];
 export function libraryFilter(raw: string | null): LibraryFilter {
   return LIBRARY_FILTERS.some((f) => f.id === raw)
@@ -23,7 +25,7 @@ export function filteredGames(
   filter: LibraryFilter,
 ): GameDefinition[] {
   const unique = [...new Map(games.map((g) => [g.id, g])).values()];
-  return filter === "ALL"
-    ? unique
-    : unique.filter((g) => DEVICE_GAMES[filter].includes(g.id));
+  if (filter === "ALL") return unique;
+  const members: readonly string[] = filter === "INTERACTIVE_REWARDS" ? ACTIVITY_CATEGORY_GAMES.INTERACTIVE_REWARDS : DEVICE_GAMES[filter];
+  return unique.filter((g) => members.includes(g.id));
 }

@@ -14,6 +14,8 @@ import { reviveTurnGoLive } from '@/lib/turngo3d/live';
 import { reviveFootMazeLive } from '@/lib/footmaze3d/live';
 import { reviveRhythmLive } from '@/lib/rhythmsteps3d/live';
 import { reviveBodySequenceLive } from '@/lib/bodysequence3d/live';
+import { reviveAchievementForestLive } from '@/lib/achievementforest/live';
+import { reviveAchievementCityLive } from '@/lib/achievementcity/live';
 import { isFp3Live, reviveFootstepsLive } from '@/lib/footsteps3d/live';
 import { isCc3Live, reviveColorChaseLive } from '@/lib/colorchase3d/live';
 import { isBq3Session, reviveBq3Session } from "@/lib/balloonquest/live";
@@ -283,6 +285,16 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
       const rhythm = reviveRhythmLive(value.session);
       if (!rhythm || rhythm.sessionId !== value.sessionId) return null;
       return { ...value, gameId, session: rhythm, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "achievement-forest-3d") {
+      const ac = reviveAchievementForestLive(value.session);
+      if (!ac || ac.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: ac, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "achievement-city-3d") {
+      const ac = reviveAchievementCityLive(value.session);
+      if (!ac || ac.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: ac, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
     }
     if (gameId === "body-sequence-3d") {
       const bs = reviveBodySequenceLive(value.session);

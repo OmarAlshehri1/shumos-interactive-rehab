@@ -22,6 +22,28 @@ interface LastProgressCardProps {
  */
 export function LastProgressCard({ session, onResume }: LastProgressCardProps) {
   const gameName = getHistoricalGameNameAr(session.gameId);
+  // Achievement City has three levels and no stages; its record carries no endingDifficulty/endingStage.
+  if ((session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d")) {
+    return (
+      <section className="flex flex-col gap-3 rounded-2xl border border-teal-100 bg-teal-50/60 p-5">
+        <h2 className="text-sm font-semibold text-teal-800">آخر تقدم</h2>
+        <div className="flex flex-col gap-1">
+          <span className="text-base font-bold text-slate-900">{gameName}</span>
+          <span className="text-sm font-semibold text-teal-700">
+            المستوى {session.endingLevel} من 3 — {session.confirmedAchievements + session.assistedAchievements} إنجازًا مؤكدًا
+          </span>
+          <span className="text-xs text-slate-500">آخر جلسة: {formatSessionDate(session.completedAt)}</span>
+        </div>
+        <button
+          type="button"
+          onClick={onResume}
+          className="min-h-12 touch-manipulation rounded-xl bg-teal-600 text-sm font-bold text-white shadow-sm shadow-teal-900/15 transition-all active:scale-[0.98]"
+        >
+          متابعة من آخر تقدم
+        </button>
+      </section>
+    );
+  }
   const difficultyName = DIFFICULTY_LABELS[session.endingDifficulty].name;
   // Balloon Quest keeps two history shapes under one game id: the original five-stage game (no marker) and the three-stage redesign. Legacy progress is shown as it was recorded and is never mapped onto the new three-stage levels.
   const isBalloonQuest = session.gameId === "balloon-quest";

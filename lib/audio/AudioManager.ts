@@ -220,6 +220,8 @@ export function buildPrefetchLines(gameId: GameId, childName: string): string[] 
     case "foot-maze-3d":
     case "rhythm-steps-3d":
     case "body-sequence-3d":
+    case "achievement-forest-3d":
+    case "achievement-city-3d":
     case "build-quest-3d":
       return []; // These games never request paid TTS.
     default:
@@ -659,6 +661,8 @@ export class AudioManager {
       case "foot-maze-3d":
       case "rhythm-steps-3d":
       case "body-sequence-3d":
+      case "achievement-forest-3d":
+    case "achievement-city-3d":
     case "build-quest-3d":
         break; // silent by design: no ambience, no music
       case "balloon-quest":

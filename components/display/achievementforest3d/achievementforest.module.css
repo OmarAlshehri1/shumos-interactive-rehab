@@ -1,0 +1,42 @@
+.world { position: relative; width: 100%; height: 100%; min-height: 100vh; overflow: hidden; background: #cfe6f5; color: #fff; font-family: "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif; }
+.full { position: fixed; inset: 0; z-index: 10; }
+.canvasHost { position: absolute; inset: 0; }
+.hud { position: absolute; inset: 0; pointer-events: none; padding: var(--inset, 3vmin); }
+.levelChip { position: absolute; top: var(--inset, 3vmin); right: var(--inset, 3vmin); background: rgba(16, 38, 60, 0.62); backdrop-filter: blur(6px); border-radius: 2.2vmin; padding: 1.2vmin 2.4vmin; display: flex; flex-direction: column; gap: 0.3vmin; box-shadow: 0 0.6vmin 2vmin rgba(0,0,0,.25); }
+.levelChip b { font-size: 3vmin; line-height: 1.2; }
+.levelChip span { font-size: 1.9vmin; opacity: 0.88; }
+.dots { display: flex; gap: 0.7vmin; margin-top: 0.8vmin; }
+.dot { width: 1.4vmin; height: 1.4vmin; border-radius: 50%; background: rgba(255,255,255,0.25); }
+.dotOn { background: #ffd966; box-shadow: 0 0 1.2vmin #ffd966; }
+.dotNow { background: #fff; animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+.progress { position: absolute; left: 50%; transform: translateX(-50%); bottom: var(--inset, 3vmin); min-width: 46vmin; max-width: 80%; background: rgba(16, 38, 60, 0.66); backdrop-filter: blur(8px); border-radius: 3vmin; padding: 1.6vmin 3vmin; display: flex; align-items: center; gap: 2.4vmin; box-shadow: 0 0.8vmin 2.4vmin rgba(0,0,0,.28); }
+.count { font-size: 6vmin; font-weight: 800; line-height: 1; color: #ffd966; min-width: 11vmin; text-align: center; font-variant-numeric: tabular-nums; }
+.count small { font-size: 2.6vmin; color: #fff; opacity: 0.8; font-weight: 600; }
+.bar { flex: 1; min-width: 22vmin; }
+.barTrack { height: 1.8vmin; background: rgba(255,255,255,0.22); border-radius: 1vmin; overflow: hidden; }
+.barFill { height: 100%; background: linear-gradient(90deg, #ffd966, #ffb347); border-radius: 1vmin; transition: width 0.7s cubic-bezier(.2,.8,.2,1); }
+.next { margin-top: 0.8vmin; font-size: 2.2vmin; opacity: 0.95; }
+.toast { position: absolute; top: 14vmin; right: var(--inset, 3vmin); background: linear-gradient(135deg, #ffe08a, #ffb347); color: #5a3a00; font-weight: 800; font-size: 3.2vmin; padding: 1.4vmin 3vmin; border-radius: 2.6vmin; box-shadow: 0 1vmin 3vmin rgba(0,0,0,.3); animation: toastIn 0.5s cubic-bezier(.2,1.3,.4,1) both; }
+@keyframes toastIn { from { transform: translateY(-3vmin) scale(0.8); opacity: 0; } to { transform: none; opacity: 1; } }
+.brand { position: absolute; left: var(--inset, 3vmin); bottom: var(--inset, 3vmin); font-size: 1.6vmin; opacity: 0.75; letter-spacing: 0.08em; text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,.5); }
+.overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(10, 24, 44, 0.45); backdrop-filter: blur(3px); z-index: 4; text-align: center; }
+.late { background: none; backdrop-filter: none; align-items: start; justify-items: center; padding-top: 3vmin; pointer-events: none; }
+.late .card { padding: 1.6vmin 4vmin; border-radius: 2.6vmin; display: flex; align-items: center; gap: 2vmin; max-width: 90vmin; }
+.late .card h2 { font-size: 4vmin; margin: 0; }
+.late .card p { font-size: 2.4vmin; margin: 0; }
+.late .icon2 { font-size: 5vmin; }
+.card { background: rgba(16, 38, 60, 0.82); border-radius: 4vmin; padding: 4vmin 6vmin; max-width: 70vmin; box-shadow: 0 2vmin 6vmin rgba(0,0,0,.4); }
+.card h2 { margin: 0.6vmin 0; font-size: 5.4vmin; }
+.card p { margin: 0.6vmin 0; font-size: 2.8vmin; opacity: 0.92; }
+.icon2 { font-size: 7vmin; }
+.stats { display: flex; gap: 3vmin; justify-content: center; margin-top: 2vmin; }
+.stat b { display: block; font-size: 6vmin; color: #ffd966; }
+.stat span { font-size: 2.2vmin; opacity: 0.85; }
+.sound { position: absolute; top: 14vmin; left: var(--inset, 3vmin); pointer-events: auto; background: rgba(255,255,255,0.9); color: #123; border: 0; border-radius: 2vmin; padding: 1.2vmin 2.2vmin; font-size: 2vmin; cursor: pointer; }
+.setupCard { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(16, 38, 60, 0.72); backdrop-filter: blur(8px); border-radius: 3.4vmin; padding: 3vmin 5vmin; text-align: center; max-width: 76vmin; }
+.setupCard b { display: block; font-size: 5vmin; }
+.setupCard span { display: block; font-size: 2.6vmin; opacity: 0.92; margin-top: 0.8vmin; }
+.hc .progress, .hc .levelChip, .hc .card { background: #000; }
+.hc .toast { background: #ffe14a; color: #000; }
+@media (prefers-reduced-motion: reduce) { .dotNow, .toast { animation: none; } .barFill { transition: none; } }

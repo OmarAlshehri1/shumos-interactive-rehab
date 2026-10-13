@@ -11,6 +11,8 @@ import { reviveTurnGoHistory } from '@/lib/turngo3d/history';
 import { reviveFootMazeHistory } from '@/lib/footmaze3d/history';
 import { reviveRhythmHistory } from '@/lib/rhythmsteps3d/history';
 import { reviveBodySequenceHistory } from '@/lib/bodysequence3d/history';
+import { reviveAchievementForestHistory } from '@/lib/achievementforest/history';
+import { reviveAchievementCityHistory } from '@/lib/achievementcity/history';
 import { isFootsteps3History, reviveFootsteps3History } from '@/lib/footsteps3d/history';
 import { isColorChase3History, reviveColorChase3History } from '@/lib/colorchase3d/history';
 import { isRingHistory, reviveRingHistory } from '@/lib/spacepilot3d/history';
@@ -306,6 +308,8 @@ export function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
   if (gameId === "foot-maze-3d") return reviveFootMazeHistory(raw);
   if (gameId === "rhythm-steps-3d") return reviveRhythmHistory(raw);
   if (gameId === "body-sequence-3d") return reviveBodySequenceHistory(raw);
+  if (gameId === "achievement-forest-3d") return reviveAchievementForestHistory(raw);
+  if (gameId === "achievement-city-3d") return reviveAchievementCityHistory(raw);
   if (gameId === "build-quest-3d") return reviveBuildQuestHistory(raw);
   // original five-stage records have no `resultVersion`/`engine` and are never reinterpreted
   if (gameId === "follow-the-footsteps") return isFootsteps3History(raw) ? reviveFootsteps3History(raw) : reviveStoredFootstepsSession(raw);
