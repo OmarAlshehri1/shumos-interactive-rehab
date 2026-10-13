@@ -22,8 +22,8 @@ interface LastProgressCardProps {
  */
 export function LastProgressCard({ session, onResume }: LastProgressCardProps) {
   const gameName = getHistoricalGameNameAr(session.gameId);
-  // Achievement City has three levels and no stages; its record carries no endingDifficulty/endingStage.
-  if (session.gameId === "achievement-city-3d") {
+  // Achievement City and Ocean Wonders have three levels and no stages; its record carries no endingDifficulty/endingStage.
+  if (session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d") {
     return (
       <section className="flex flex-col gap-3 rounded-2xl border border-teal-100 bg-teal-50/60 p-5">
         <h2 className="text-sm font-semibold text-teal-800">آخر تقدم</h2>

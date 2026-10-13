@@ -12,6 +12,7 @@ import { FOOT_MAZE_REGISTRATION, FOOT_MAZE_ENABLED } from '@/lib/footmaze3d/regi
 import { RHYTHM_STEPS_REGISTRATION, RHYTHM_STEPS_ENABLED } from '@/lib/rhythmsteps3d/registration';
 import { BODY_SEQUENCE_REGISTRATION, BODY_SEQUENCE_ENABLED } from '@/lib/bodysequence3d/registration';
 import { ACHIEVEMENT_CITY_REGISTRATION, ACHIEVEMENT_CITY_ENABLED } from '@/lib/achievementcity/registration';
+import { OCEAN_WONDERS_REGISTRATION, OCEAN_WONDERS_ENABLED } from '@/lib/oceanwonders/registration';
 import { FOOTSTEPS_3D_DESCRIPTION_AR, FOOTSTEPS_3D_ENABLED, FOOTSTEPS_3D_NAME_EN } from '@/lib/footsteps3d/registration';
 import { COLOR_CHASE_3D_DESCRIPTION_AR, COLOR_CHASE_3D_ENABLED, COLOR_CHASE_3D_NAME_EN } from '@/lib/colorchase3d/registration';
 /**
@@ -36,7 +37,7 @@ import { SPACE_PILOT_3D_ENABLED } from '@/lib/spacepilot3d/releasePolicy';
 import { RUNNER_QUEST_3D_ENABLED } from '@/lib/runnerquest3d/availability';
 import { RUNNER_QUEST_3D_REGISTRATION as RQ3D } from '@/lib/runnerquest3d/registration';
 import { BUILD_QUEST_3D_ENABLED, BUILD_QUEST_REGISTRATION as BQ3D } from '@/lib/buildquest3d/registration';
-export type GameId = "achievement-city-3d" | "body-sequence-3d" | "rhythm-steps-3d" | "foot-maze-3d" | "turn-and-go-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
+export type GameId = "ocean-wonders-3d" | "achievement-city-3d" | "body-sequence-3d" | "rhythm-steps-3d" | "foot-maze-3d" | "turn-and-go-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "pearl-voyage-3d" | "harvest-valley-3d" | "blooming-world-3d" | "fire-rescue-3d" | "balloon-quest" | "follow-the-footsteps" | "bubble-pop-wall" | "space-pilot" | "color-chase" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d";
 /**
  * Retained for source compatibility only. Every game, Build Quest 3D included, now publishes into the shared
  * `/liveSession` record and is a full GameId; there is no longer any game with a separate cloud adapter.
@@ -104,6 +105,8 @@ export const GAME_REGISTRY: readonly GameDefinition[] = [
   ...(BODY_SEQUENCE_ENABLED ? [{ ...BODY_SEQUENCE_REGISTRATION, focusTagsAr: [...BODY_SEQUENCE_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
   // Achievement City 3D: shared-liveSession wall reward game, feature-flagged (lib/achievementcity/registration.ts). Rollback: unset NEXT_PUBLIC_ACHIEVEMENT_CITY_3D.
   ...(ACHIEVEMENT_CITY_ENABLED ? [{ ...ACHIEVEMENT_CITY_REGISTRATION, focusTagsAr: [...ACHIEVEMENT_CITY_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
+  // Ocean Wonders 3D: shared-liveSession wall reward game, feature-flagged (lib/oceanwonders/registration.ts). Rollback: unset NEXT_PUBLIC_OCEAN_WONDERS_3D.
+  ...(OCEAN_WONDERS_ENABLED ? [{ ...OCEAN_WONDERS_REGISTRATION, focusTagsAr: [...OCEAN_WONDERS_REGISTRATION.focusTagsAr] } satisfies GameDefinition] : []),
   {
     id: "balloon-quest",
     nameAr: "مغامرة البالونات",

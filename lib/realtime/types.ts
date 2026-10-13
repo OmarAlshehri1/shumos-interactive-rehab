@@ -23,6 +23,7 @@ import type { TurnGoLiveSession } from '@/lib/turngo3d/live';
 import type { RhythmLiveSession } from '@/lib/rhythmsteps3d/live';
 import type { BodySequenceLiveSession } from '@/lib/bodysequence3d/live';
 import type { AchievementCityLiveSession } from '@/lib/achievementcity/live';
+import type { OceanWondersLiveSession } from '@/lib/oceanwonders/live';
 import type { GameId } from "@/lib/games/registry";
 
 /**
@@ -39,7 +40,7 @@ import type { GameId } from "@/lib/games/registry";
  * concrete shape a given record's `session` actually is; nothing here ever
  * guesses.
  */
-export type AnySessionState = AchievementCityLiveSession | BodySequenceLiveSession | RhythmLiveSession | FootMazeLiveSession | TurnGoLiveSession | BridgeLiveSession | CastleLiveSession | PearlLiveSession | HarvestLiveSession | BloomLiveSession | FireLiveSession | SessionState | FootstepsSessionState | BubblePopSessionState | SpacePilotSessionState | ColorChaseSessionState | Bq3LiveSession | RunnerLiveSession | BuildQuestLiveSession | SpacePilotLiveSession | MirrorLiveSession | HexLiveSession | FootstepsLiveSession | ColorChaseLiveSession | DomeLiveSession;
+export type AnySessionState = OceanWondersLiveSession | AchievementCityLiveSession | BodySequenceLiveSession | RhythmLiveSession | FootMazeLiveSession | TurnGoLiveSession | BridgeLiveSession | CastleLiveSession | PearlLiveSession | HarvestLiveSession | BloomLiveSession | FireLiveSession | SessionState | FootstepsSessionState | BubblePopSessionState | SpacePilotSessionState | ColorChaseSessionState | Bq3LiveSession | RunnerLiveSession | BuildQuestLiveSession | SpacePilotLiveSession | MirrorLiveSession | HexLiveSession | FootstepsLiveSession | ColorChaseLiveSession | DomeLiveSession;
 
 /**
  * Firebase Realtime Database schema (see report for the full rationale).

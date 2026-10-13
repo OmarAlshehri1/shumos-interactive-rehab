@@ -202,5 +202,15 @@
     "bytes": 79402,
     "sourceSha256": "440c6e01ffbe90b5bf98e424d2f4c788fdc46b9784cd5c9e71cabb1c9ba0b94a",
     "assetSha256": "af26447ddf4c8f881a860a8789c0d2abbf09fde6c6b7cd95d6111903da1b5c36"
+  },
+  {
+    "gameId": "ocean-wonders-3d",
+    "source": "docs/release/library-evidence/ocean-wonders-3d-display.png",
+    "asset": "public/library-thumbnails/ocean-wonders-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 95104,
+    "sourceSha256": "285b7ed7e9d1713cab01243efa7618c24d6fa108b3fe812305b7db8fe0f3eca6",
+    "assetSha256": "e2626fa95faef08ed6ab1e8b6ea7e9a4dc10bc599430fb07334d9b26f8dc51eb"
   }
 ]
