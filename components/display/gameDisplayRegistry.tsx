@@ -25,6 +25,7 @@ import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
 import { TurnGoDisplayModule } from "./games/TurnGoDisplayModule";
 import { RhythmStepsDisplayModule } from "./games/RhythmStepsDisplayModule";
 import { BodySequenceDisplayModule } from "./games/BodySequenceDisplayModule";
+import { AchievementCityDisplayModule } from "./games/AchievementCityDisplayModule";
 import type { DisplayEventListener } from "./events";
 
 /**
@@ -92,6 +93,8 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   "rhythm-steps-3d": RhythmStepsDisplayModule,
   // Body Sequence 3D: live-session module (cross-device, read-only Display).
   "body-sequence-3d": BodySequenceDisplayModule,
+  // Achievement City 3D: live-session module (cross-device, read-only Display).
+  "achievement-city-3d": AchievementCityDisplayModule,
 };
 
 // Re-exported only so this file remains the single import site TypeScript

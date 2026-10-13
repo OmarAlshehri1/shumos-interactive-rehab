@@ -12,7 +12,7 @@ import {
   libraryFilter,
   type LibraryFilter,
 } from "@/lib/games/library/filters";
-import { librarySections } from "./presentation";
+import { categorySections, librarySections } from "./presentation";
 import styles from "./library.module.css";
 export function GameLibraryScreen() {
   return (
@@ -69,10 +69,12 @@ function Library() {
             </button>
           ))}
         </nav>
-        {(selected === "ALL"
-          ? librarySections(GAME_REGISTRY)
-          : librarySections(GAME_REGISTRY).filter((s) => s.input === selected)
-        ).map((section) => (
+        {[
+          ...librarySections(GAME_REGISTRY),
+          ...categorySections(GAME_REGISTRY),
+        ]
+          .filter((s) => selected === "ALL" || s.input === selected)
+          .map((section) => (
           <section
             key={section.id}
             className={styles.deviceSection}
@@ -87,7 +89,11 @@ function Library() {
             </header>
             <div className={styles.gameGrid}>
               {section.games.map((game) => (
-                <GameCard key={game.id} game={game} input={section.input} />
+                <GameCard
+                  key={game.id}
+                  game={game}
+                  input={section.input === "INTERACTIVE_REWARDS" ? undefined : section.input}
+                />
               ))}
             </div>
           </section>

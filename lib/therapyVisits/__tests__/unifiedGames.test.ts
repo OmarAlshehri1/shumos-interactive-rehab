@@ -6,20 +6,21 @@ const ids = [
   "foot-maze-3d",
   "rhythm-steps-3d",
   "body-sequence-3d",
+  "achievement-city-3d",
 ] as const;
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.resetModules();
 });
 describe("unified canonical games and archived history", () => {
-  it("registers all 19 once and supplies each shared Display module", async () => {
+  it("registers all 20 once and supplies each shared Display module", async () => {
     vi.stubEnv("NODE_ENV", "development");
     vi.resetModules();
     const { GAME_REGISTRY } = await import("@/lib/games/registry");
     const { GAME_DISPLAY_MODULES } =
       await import("@/components/display/gameDisplayRegistry");
-    expect(GAME_REGISTRY).toHaveLength(19);
-    expect(new Set(GAME_REGISTRY.map((g) => g.id)).size).toBe(19);
+    expect(GAME_REGISTRY).toHaveLength(20);
+    expect(new Set(GAME_REGISTRY.map((g) => g.id)).size).toBe(20);
     for (const game of GAME_REGISTRY)
       expect(GAME_DISPLAY_MODULES[game.id], game.id).toBeDefined();
   }, 20000);
@@ -31,6 +32,7 @@ describe("unified canonical games and archived history", () => {
       "FOOT_MAZE",
       "RHYTHM_STEPS",
       "BODY_SEQUENCE",
+      "ACHIEVEMENT_CITY",
     ])
       vi.stubEnv(`NEXT_PUBLIC_${key}_3D`, "false");
     vi.resetModules();

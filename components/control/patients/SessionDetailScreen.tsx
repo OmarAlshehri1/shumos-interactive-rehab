@@ -459,6 +459,14 @@ function RealtimeSessionDetail({
       </header>
 
       <SectionCard title="ملخص الجلسة">
+        {session.gameId === "achievement-city-3d" ? (
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+          <StatCard label="المدة" value={formatDurationClock(session.durationMs)} />
+          <StatCard label="المستوى" value={`${session.startingLevel === session.endingLevel ? session.endingLevel : `${session.startingLevel}–${session.endingLevel}`} من 3`} />
+          <StatCard label="المستويات المكتملة" value={formatCountOrUnavailable(session.levelsCompleted)} tone="positive" />
+          <StatCard label="إنجازات مؤكدة" value={formatCountOrUnavailable(session.confirmedAchievements + session.assistedAchievements)} tone="positive" />
+        </div>
+        ) : (
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           <StatCard
             label="المدة"
@@ -477,6 +485,7 @@ function RealtimeSessionDetail({
             value={formatCountOrUnavailable(session.skippedStageCount)}
           />
         </div>
+        )}
       </SectionCard>
 
       {(session.therapistName || session.endReason) && (
@@ -512,7 +521,21 @@ function RealtimeSessionDetail({
       )}
 
       <AdditionalOptions title="تفاصيل الأداء والمراحل">
-        {session.gameId === "follow-the-footsteps" ? (
+        {session.gameId === "achievement-city-3d" ? (
+          <>
+            <SectionCard title="نتائج مدينة الإنجازات"><div className="grid grid-cols-3 gap-3">
+              <StatCard label="إنجازات مؤكدة" value={formatCountOrUnavailable(session.confirmedAchievements)} tone="positive" />
+              <StatCard label="إنجازات بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedAchievements)} />
+              <StatCard label="الهدف الكلي" value={formatCountOrUnavailable(session.targetAchievements)} />
+              <StatCard label="تمارين متخطاة" value={formatCountOrUnavailable(session.skippedAchievements)} />
+              <StatCard label="مرّات التراجع" value={formatCountOrUnavailable(session.undoCount)} />
+              <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
+            </div>
+            <p className="text-xs text-slate-500">التمرين: {session.exerciseTitle || "غير مسجّل"} · {session.completion === "COMPLETED" ? "اكتملت المدن الثلاث" : "جلسة جزئية"} · كل الأرقام أعداد إنجازات أكّدها المعالج؛ لا توجد درجة ولا تقييم سريري، وبناء المدينة مكافأة بصرية فقط.</p></SectionCard>
+            <SectionCard title="تفاصيل المستويات">{session.levelResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>المستوى {row.level} من 3</span><span>{row.confirmed + row.assisted} من {row.target} إنجازات · {row.assisted} بمساعدة · {row.status === "COMPLETED" ? "مكتمل" : "جزئي"}</span></div>)}</SectionCard>
+            {session.therapistNotes && <SectionCard title="ملاحظات المعالج على النشاط"><p className="whitespace-pre-wrap text-sm leading-7 text-slate-700">{session.therapistNotes}</p></SectionCard>}
+          </>
+        ) : session.gameId === "follow-the-footsteps" ? (
           <>
             <SectionCard title="النتائج">
               <div className="grid grid-cols-3 gap-2.5 sm:gap-3">

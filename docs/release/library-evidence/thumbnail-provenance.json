@@ -192,5 +192,15 @@
     "bytes": 33940,
     "sourceSha256": "e702066d3b5281b4a19557cf5714376b3cae09aa67fcab7edda66fe9c67b62a4",
     "assetSha256": "e5f01cae7dfe9a18995f47b2cc070e0228a855bbceffa63ae494820fd8f96e25"
+  },
+  {
+    "gameId": "achievement-city-3d",
+    "source": "docs/release/library-evidence/achievement-city-3d-display.png",
+    "asset": "public/library-thumbnails/achievement-city-3d.webp",
+    "width": 960,
+    "height": 540,
+    "bytes": 79402,
+    "sourceSha256": "440c6e01ffbe90b5bf98e424d2f4c788fdc46b9784cd5c9e71cabb1c9ba0b94a",
+    "assetSha256": "af26447ddf4c8f881a860a8789c0d2abbf09fde6c6b7cd95d6111903da1b5c36"
   }
 ]

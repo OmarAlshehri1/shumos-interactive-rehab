@@ -1,0 +1,8 @@
+{
+  "game": "achievement-city-3d",
+  "files": ["public/library-thumbnails/achievement-city-3d.webp", "public/control-stage-previews/achievement-city/1.webp", "public/control-stage-previews/achievement-city/2.webp", "public/control-stage-previews/achievement-city/3.webp"],
+  "source": "docs/achievementcity3d/screenshots/card-1.png, card-2.png, card-3.png",
+  "how": "Real captures of the shipped Display scene (components/display/achievementcity3d) through the local dev preview harness (/dev/achievement-city-preview), real GPU (Chrome/ANGLE Metal, 1920x1080), HUD hidden, converted with cwebp (-q 84, 960x540). Level 1 = completed village, level 2 = completed growing city, level 3 = completed grand city at dusk. The library thumbnail is the level 2 capture.",
+  "license": "All geometry, textures, materials and audio are generated procedurally in code by this project (no third-party 3D assets, textures, fonts or audio files). Nothing to attribute.",
+  "capturedOn": "2026-10-13"
+}

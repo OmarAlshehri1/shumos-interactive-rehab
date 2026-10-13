@@ -10,6 +10,7 @@ import type { StoredTurnGoSession } from '@/lib/turngo3d/history';
 import type { StoredFootMazeSession } from '@/lib/footmaze3d/history';
 import type { StoredRhythmSession } from '@/lib/rhythmsteps3d/history';
 import type { StoredBodySequenceSession } from '@/lib/bodysequence3d/history';
+import type { StoredAchievementCitySession } from '@/lib/achievementcity/history';
 import type { StoredFootsteps3Session } from '@/lib/footsteps3d/history';
 import type { StoredColorChase3Session } from '@/lib/colorchase3d/history';
 import type { StoredSpacePilotRingSession, StoredSpacePilotNineSession } from '@/lib/spacepilot3d/history';
@@ -416,5 +417,6 @@ export type AnyStoredSession =
   | StoredFootMazeSession
   | StoredRhythmSession
   | StoredBodySequenceSession
+  | StoredAchievementCitySession
   | StoredFootsteps3Session
   | StoredColorChase3Session;

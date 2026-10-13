@@ -621,6 +621,13 @@ export function ActivityEvaluation({
         </p>
       ) : result ? (
         <div className={styles.entry}>
+          {result.gameId === "achievement-city-3d" ? (
+            <p>
+              المستوى {result.endingLevel} من 3 · إنجازات مؤكدة:{" "}
+              {result.confirmedAchievements + result.assistedAchievements} من {result.targetAchievements}
+            </p>
+          ) : (
+          <>
           <p>
             المرحلة: {result.endingStage} · الصعوبة:{" "}
             {(
@@ -634,6 +641,8 @@ export function ActivityEvaluation({
             المراحل المكتملة: {result.completedStageCount ?? "غير متاح"} ·
             المتجاوزة: {result.skippedStageCount ?? "غير متاح"}
           </p>
+          </>
+          )}
           {"totalStars" in result && (
             <p>نجوم اللعبة: {String(result.totalStars ?? "غير متاح")}</p>
           )}
