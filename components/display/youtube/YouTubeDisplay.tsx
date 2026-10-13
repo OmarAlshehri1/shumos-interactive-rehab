@@ -279,7 +279,10 @@ function RealtimeMediaDisplay() {
     [ended, setEnded] = useState<string | null>(null);
   const last = useRef<VideoCommand | null>(null);
   useEffect(() => {
-    if (auth.status !== "authenticated") return;
+    if (auth.status !== "authenticated") {
+      last.current = null; setCommand(null); setOnline(false); setHasGame(true);
+      return;
+    }
     const db = getDisplayDb();
     const stop = subscribeCommand(
       db,
@@ -316,6 +319,7 @@ function RealtimeMediaDisplay() {
     };
   }, [auth.status]);
   const active =
+    auth.status === "authenticated" &&
     command &&
     command.state !== "stopped" &&
     command.commandId !== ended &&

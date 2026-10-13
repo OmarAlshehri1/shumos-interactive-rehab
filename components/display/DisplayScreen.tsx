@@ -131,7 +131,7 @@ function RealtimeDisplayScreen() {
   const [projectionPreview, setProjectionPreview] = useState<ProjectionPreviewCommand | null>(null);
   const [previewTime, setPreviewTime] = useState(() => Date.now());
   useEffect(() => {
-    if (realtime.authStatus !== "authenticated") return;
+    if (realtime.authStatus !== "authenticated") { setProjectionPreview(null); return; }
     return subscribeToProjectionPreview(getDisplayDb(), setProjectionPreview);
   }, [realtime.authStatus]);
   useEffect(() => {
@@ -288,7 +288,7 @@ function RealtimeDisplayScreen() {
   // nothing, same as no session at all: fail safely to the waiting world,
   // never guess it must be Balloon Quest.
   const session = realtime.session;
-  const activeGame = session && realtime.gameId ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
+  const activeGame = realtime.authStatus === "authenticated" && session && realtime.gameId ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
   // Space Pilot 3D is silent by design (no ambience, no voice): it uses the same silent audio profile as the other 3D games.
   const activeAudioGameId = session && realtime.gameId ? (isSpacePilotLive(session) || isFp3Live(session) || isCc3Live(session) || isDomeLive(session) ? "build-quest-3d" : realtime.gameId) : null;
 
@@ -390,7 +390,7 @@ function RealtimeDisplayScreen() {
       gameState={realtime.session?.gameState ?? null}
       background={environmentBackground}
     >
-      {projectionPreview?.enabled && projectionPreview.expiresAt > previewTime && visitGamePaused(realtime.session ? { session: realtime.session } as Parameters<typeof visitGamePaused>[0] : null) && (
+      {realtime.authStatus === "authenticated" && projectionPreview?.enabled && projectionPreview.expiresAt > previewTime && visitGamePaused(realtime.session ? { session: realtime.session } as Parameters<typeof visitGamePaused>[0] : null) && (
         <div data-testid="projection-display-preview" style={{ position: "fixed", inset: 0, zIndex: 100, display: "grid", placeItems: "center", background: "#102b3b" }}>
           <ProjectionGrid profile={projectionPreview.profile} />
         </div>

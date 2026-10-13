@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+vi.mock("@/lib/realtime/displayAuthorization", () => ({ getTtsIdToken: vi.fn(async () => "verified-token") }));
 import { createMunsitVoiceProvider } from "../munsitProvider";
 
 /**
@@ -76,7 +77,7 @@ describe("createMunsitVoiceProvider caching", () => {
 
     expect(fetchMock).toHaveBeenCalledWith(
       "/api/tts",
-      expect.objectContaining({ method: "POST", body: JSON.stringify({ text: "مرحبا" }) }),
+      expect.objectContaining({ headers: { "Content-Type": "application/json", Authorization: "Bearer verified-token" }, method: "POST", body: JSON.stringify({ text: "مرحبا" }) }),
     );
   });
 

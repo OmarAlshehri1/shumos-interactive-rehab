@@ -7,6 +7,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * is a deliberately separate file/flow from the anonymous one.
  */
 
+const approval = vi.hoisted(() => ({ resume: vi.fn(), revoke: vi.fn(async () => {}) }));
+vi.mock("../displayAuthorization", () => ({ resumeDisplayApprovals: approval.resume, revokeDisplaysForStaff: approval.revoke }));
+
 type AuthUser = { uid: string; email: string | null };
 type StateCallback = (user: AuthUser | null) => void;
 type ErrorCallback = (error: unknown) => void;

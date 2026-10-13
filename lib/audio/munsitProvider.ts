@@ -1,3 +1,4 @@
+import { getTtsIdToken } from "@/lib/realtime/displayAuthorization";
 import type { SpeakOptions, VoiceProvider } from "./speech";
 
 /**
@@ -170,9 +171,11 @@ export function createMunsitVoiceProvider(): VoiceProvider {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
       try {
+        const token = await getTtsIdToken();
+        if (!token) throw new KnownUnavailableError("TTS authentication unavailable");
         const response = await fetch(TTS_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           body: JSON.stringify({ text }),
           signal: controller.signal,
         });

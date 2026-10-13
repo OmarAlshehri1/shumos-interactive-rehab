@@ -1,3 +1,4 @@
+import { watchDisplayAuthorization } from "./displayAuthorization";
 import { type Auth, type User, connectAuthEmulator, getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { getDisplayFirebaseApp, getEmulatorConfig } from "./firebaseClient";
 import { installBenignAuthRejectionFilter, isKnownBenignFirebaseAuthRejection } from "./benignAuthRejections";
@@ -18,7 +19,8 @@ installBenignAuthRejectionFilter();
  * the signed-in staff member instead of anonymous).
  *
  * There is deliberately no login page, no email/password, no account UI —
- * a session is established silently the moment /display loads. Anonymous
+ * an identity is established silently when /display loads, but access additionally
+ * requires a scoped approval issued by the existing signed-in staff session. Anonymous
  * Authentication proves this client has a Firebase-issued identity; it does
  * NOT prove "this is an authorized Shumos Care therapist" — see the Task 8
  * report's security-limitation section.
@@ -120,13 +122,18 @@ export function subscribeToAuthState(listener: AuthListener): () => void {
   const authInstance = getAuthInstance();
   listener({ status: "initializing", uid: null });
 
+  let stopAuthorization = () => {};
   const unsubscribe = onAuthStateChanged(
     authInstance,
     (user) => {
       if (user) {
-        listener({ status: "authenticated", uid: user.uid });
+        stopAuthorization();
+        stopAuthorization = watchDisplayAuthorization(user.uid, (authorized) =>
+          listener({ status: authorized ? "authenticated" : "failed", uid: authorized ? user.uid : null }),
+        );
         return;
       }
+      stopAuthorization();
       // No persisted session yet — establish one. onAuthStateChanged fires
       // again once signInAnonymously() resolves (with the new user), so the
       // real "authenticated" state is reported from the branch above, not here.
@@ -139,5 +146,5 @@ export function subscribeToAuthState(listener: AuthListener): () => void {
     },
   );
 
-  return unsubscribe;
+  return () => { stopAuthorization(); unsubscribe(); };
 }

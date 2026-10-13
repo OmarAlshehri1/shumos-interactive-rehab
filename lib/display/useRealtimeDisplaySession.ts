@@ -143,7 +143,13 @@ export function useRealtimeDisplaySession() {
   }, []);
 
   useEffect(() => {
-    if (auth.status !== "authenticated") return;
+    if (auth.status !== "authenticated") {
+      guardRef.current = createInitialGuardState();
+      setSession(null); setGameId(null); setRevision(null);
+      setIncorrectSignal(null); setCelebrationReplayToken(null);
+      setHasLoadedInitialSession(false);
+      return;
+    }
     const db = getDisplayDb();
     const unregisterPresence = registerDisplayPresence(db);
     const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
@@ -154,6 +160,7 @@ export function useRealtimeDisplaySession() {
       applyRecord(record);
     });
 
+    let disposed = false;
     let reconcileReason = "";
     const reconcile = (reason: string) => {
       reconcileReason = reason;
@@ -162,7 +169,7 @@ export function useRealtimeDisplaySession() {
           if (process.env.NODE_ENV !== "production") {
             console.debug(`[DISPLAY RECONCILE] reason=${reconcileReason} gameState=${record?.session.gameState ?? "none"} revision=${record?.revision ?? "none"}`);
           }
-          applyRecord(record);
+          if (!disposed) applyRecord(record);
         })
         .catch(() => {});
     };
@@ -185,6 +192,7 @@ export function useRealtimeDisplaySession() {
     const pollTimer = setInterval(() => reconcile("poll"), RECONCILE_POLL_MS);
 
     return () => {
+      disposed = true;
       unregisterPresence();
       unsubscribeConnection();
       unsubscribeSession();

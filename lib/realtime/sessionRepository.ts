@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import { isUnstartedActivity, ownedByTab } from "@/lib/therapyVisits/gameSafety";
 import { validProjectionPreview, type ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
@@ -126,7 +127,10 @@ export interface PublishSessionInput {
  * that deserves its own parallel write path).
  */
 export async function publishSession(db: Database, input: PublishSessionInput): Promise<void> {
+  const controllerUid = getAuth(db.app).currentUser?.uid;
+  if (!controllerUid) throw new Error("Staff authentication required to publish");
   const payload: Record<string, unknown> = {
+    controllerUid,
     gameId: input.gameId,
     sessionId: input.sessionId,
     revision: input.revision,
@@ -445,7 +449,10 @@ export async function fetchLiveSession(db: Database): Promise<LiveSessionRecord 
  * "unclaimed" and would have let it mutate an active session — see report).
  */
 function subscribeWithInitialGet<T>(db: Database, path: string, parse: (raw: unknown) => T, callback: (value: T) => void): Unsubscribe {
-  return subscribeRaw(db, path, (raw) => callback(parse(raw)), () => {});
+  return subscribeRaw(db, path, (raw) => callback(parse(raw)), () => {
+    // A revoked Display must clear presentation instead of retaining cached patient content.
+    if (!canReadPrivate(db)) callback(parse(null));
+  });
 }
 
 // ---------------------------------------------------------------------------

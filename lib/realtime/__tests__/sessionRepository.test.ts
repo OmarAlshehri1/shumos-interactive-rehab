@@ -14,6 +14,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * getDisplayDb() — there is nothing left to mock from firebaseClient here.
  */
 
+vi.mock("firebase/auth", () => ({ getAuth: () => ({ currentUser: { uid: "staff-1" } }) }));
+
 const fakeDb = { __fakeDb: true } as never;
 const RAW_BALLOONS = [
   { id: "b1", color: "BLUE", position: { x: .35, y: .5 }, size: .1, isTarget: true, isPopped: false },
@@ -70,6 +72,7 @@ describe("sessionRepository", () => {
     const [, payload] = updateMock.mock.calls[0]!;
     expect(payload).toMatchObject({ "liveSession/gameId": "balloon-quest", "liveSession/sessionId": "abc", "liveSession/revision": 3, "liveSession/session": session, "liveSession/lastInteraction": null });
     expect(payload).toHaveProperty("liveSession/updatedAt");
+    expect(payload).toHaveProperty("liveSession/controllerUid", "staff-1");
     // Walk-in: no patient binding, and no patient id in the Display-readable record.
     expect(payload).toMatchObject({ "liveSession/patientId": null, liveSessionPrivate: null });
   });

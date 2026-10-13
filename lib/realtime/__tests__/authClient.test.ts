@@ -7,6 +7,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  * separately by the Task 8 report's manual verification.
  */
 
+let authorizationCallback: ((authorized: boolean) => void) | undefined;
+vi.mock("../displayAuthorization", () => ({
+  watchDisplayAuthorization: (_uid: string, callback: (authorized: boolean) => void) => {
+    authorizationCallback = callback;
+    callback(true);
+    return vi.fn();
+  },
+}));
+
 type AuthUser = { uid: string };
 type StateCallback = (user: AuthUser | null) => void;
 type ErrorCallback = (error: unknown) => void;
@@ -53,7 +62,7 @@ describe("authClient", () => {
     expect(states[0]).toBe("initializing");
   });
 
-  it("reports 'authenticated' with the uid once a user is present", async () => {
+  it("reports authenticated only after the scoped Display approval succeeds", async () => {
     let stateCallback!: StateCallback;
     onAuthStateChangedMock.mockImplementation((_auth: unknown, next: StateCallback) => {
       stateCallback = next;
@@ -66,6 +75,8 @@ describe("authClient", () => {
     stateCallback({ uid: "abc123" });
 
     expect(states.at(-1)).toEqual({ status: "authenticated", uid: "abc123" });
+    authorizationCallback?.(false);
+    expect(states.at(-1)).toEqual({ status: "failed", uid: null });
   });
 
   it("triggers exactly one signInAnonymously() call even when subscribed to twice in a row (React StrictMode double-invocation)", async () => {

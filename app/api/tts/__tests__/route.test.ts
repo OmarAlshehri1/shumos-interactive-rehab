@@ -2,6 +2,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { POST } from "../route";
 
+const access = vi.hoisted(() => ({ authorize: vi.fn(), quota: vi.fn() }));
+vi.mock("@/lib/audio/ttsAccess.server", async (original) => ({
+  ...await original<typeof import("@/lib/audio/ttsAccess.server")>(),
+  authorizeTts: access.authorize,
+  reserveTtsQuota: access.quota,
+}));
+
 const TTS_URL = "http://localhost/api/tts";
 
 function postRequest(body: unknown): NextRequest {
@@ -22,6 +29,8 @@ describe("POST /api/tts", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
+    access.authorize.mockReset().mockResolvedValue({ uid: "staff-1", ownerUid: "staff-1", token: "verified" });
+    access.quota.mockReset().mockResolvedValue(undefined);
     process.env.MUNSIT_API_KEY = "test-key";
     process.env.MUNSIT_TTS_ENABLED = "true";
   });
@@ -31,6 +40,27 @@ describe("POST /api/tts", () => {
     process.env.MUNSIT_TTS_ENABLED = originalEnabled;
     global.fetch = originalFetch;
     vi.restoreAllMocks();
+  });
+
+  it("does not call paid TTS for an unauthorized identity", async () => {
+    const { TtsAccessError } = await import("@/lib/audio/ttsAccess.server");
+    access.authorize.mockRejectedValue(new TtsAccessError(403, "Display authorization required"));
+    const upstream = vi.fn(); global.fetch = upstream;
+    expect((await POST(postRequest({ text: "مرحبا" }))).status).toBe(403);
+    expect(access.quota).not.toHaveBeenCalled(); expect(upstream).not.toHaveBeenCalled();
+  });
+  it("reserves budget before paid TTS and fails closed when quota is exhausted", async () => {
+    const { TtsAccessError } = await import("@/lib/audio/ttsAccess.server");
+    access.quota.mockRejectedValue(new TtsAccessError(429, "TTS quota exceeded"));
+    const upstream = vi.fn(); global.fetch = upstream;
+    const response = await POST(postRequest({ text: "مرحبا" }));
+    expect(response.status).toBe(429); expect(response.headers.get("Retry-After")).toBe("60");
+    expect(upstream).not.toHaveBeenCalled();
+  });
+  it("bounds the complete request body", async () => {
+    const upstream = vi.fn(); global.fetch = upstream;
+    expect((await POST(postRequest({ text: "hello", extra: "x".repeat(5000) }))).status).toBe(413);
+    expect(access.quota).not.toHaveBeenCalled(); expect(upstream).not.toHaveBeenCalled();
   });
 
   it("makes zero upstream Munsit requests when MUNSIT_TTS_ENABLED=false", async () => {

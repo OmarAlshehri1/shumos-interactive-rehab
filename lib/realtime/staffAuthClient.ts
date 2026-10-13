@@ -138,12 +138,26 @@ export async function signInStaff(email: string, password: string): Promise<void
   const authInstance = getStaffAuthInstance();
   try {
     await ensurePersistence(authInstance);
-    await signInWithEmailAndPassword(authInstance, email, password);
+    const credential = await signInWithEmailAndPassword(authInstance, email, password);
+    const { resumeDisplayApprovals } = await import("./displayAuthorization");
+    resumeDisplayApprovals(credential.user.uid);
   } catch (error) {
     throw mapSignInError(error);
   }
 }
 
 export async function signOutStaff(): Promise<void> {
-  await signOut(getStaffAuthInstance());
+  const instance = getStaffAuthInstance();
+  if (instance.currentUser) {
+    const { revokeDisplaysForStaff } = await import("./displayAuthorization");
+    // Fail closed: do not silently leave authorized projectors behind if revocation fails.
+    await revokeDisplaysForStaff(instance.currentUser.uid);
+  }
+  await signOut(instance);
+}
+
+export async function getStaffIdToken(): Promise<string | null> {
+  const instance = getStaffAuthInstance();
+  await instance.authStateReady();
+  return instance.currentUser ? instance.currentUser.getIdToken() : null;
 }

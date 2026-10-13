@@ -1,3 +1,4 @@
+import { authorizeTts, reserveTtsQuota, enterTtsRequest, TtsAccessError, type TtsActor } from "@/lib/audio/ttsAccess.server";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
@@ -6,7 +7,8 @@ import { NextResponse, type NextRequest } from "next/server";
  * Task 10 detour through a local Audar service. This route's client-facing
  * contract is UNCHANGED from before: POST `{ text }`, get back raw
  * `audio/wav` bytes on success — so lib/audio/munsitProvider.ts (the
- * client) needs no changes at all.
+ * client) attaches its existing Firebase ID token. Authorization and quotas
+ * are checked before making any paid request.
  *
  * MUNSIT_API_KEY is read ONLY here, a Next.js Route Handler that only ever
  * runs server-side, and is never referenced from any "use client" file —
@@ -23,9 +25,26 @@ const MAX_TEXT_LENGTH = 500;
 let warnedMissingKey = false;
 
 export async function POST(request: NextRequest) {
+  let release: (() => void) | undefined;
+  try {
+    release = enterTtsRequest();
+    const actor = await authorizeTts(request.headers.get("Authorization"));
+    const response = await synthesize(request, actor);
+    response.headers.set("Cache-Control", "no-store");
+    return response;
+  } catch (error) {
+    const status = error instanceof TtsAccessError ? error.status : 503;
+    const message = error instanceof TtsAccessError ? error.message : "TTS authorization unavailable";
+    return NextResponse.json({ error: message }, {
+      status, headers: { "Cache-Control": "no-store", ...(status === 429 ? { "Retry-After": "60" } : {}) },
+    });
+  } finally { release?.(); }
+}
+
+async function synthesize(request: NextRequest, actor: TtsActor) {
   // Explicit opt-out only: leaving the switch unset preserves the existing
   // enabled behavior. This guard intentionally runs before body parsing,
-  // key lookup, timeout creation, or fetch so `false` guarantees zero
+  // key lookup, synthesis timeout, or paid fetch so `false` guarantees zero
   // upstream Munsit requests while the client receives its normal clean
   // unavailable response and gameplay/local Web Audio continue unchanged.
   if (process.env.MUNSIT_TTS_ENABLED?.trim().toLowerCase() === "false") {
@@ -50,8 +69,26 @@ export async function POST(request: NextRequest) {
 
   let body: unknown;
   try {
-    body = await request.json();
-  } catch {
+    const reader = request.body?.getReader();
+    if (!reader) throw new Error("Missing body");
+    const chunks: Uint8Array[] = [];
+    let bytes = 0;
+    let bodyTimer: ReturnType<typeof setTimeout> | undefined;
+    const deadline = new Promise<never>((_resolve, reject) => {
+      bodyTimer = setTimeout(() => reject(new TtsAccessError(408, "Body timeout")), 3000);
+    });
+    try {
+      while (true) {
+        const part = await Promise.race([reader.read(), deadline]);
+        if (part.done) break;
+        bytes += part.value.byteLength;
+        if (bytes > 4096) throw new TtsAccessError(413, "Body too large");
+        chunks.push(part.value);
+      }
+    } finally { clearTimeout(bodyTimer); void reader.cancel().catch(() => {}); }
+    body = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  } catch (error) {
+    if (error instanceof TtsAccessError) throw error;
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
@@ -62,6 +99,8 @@ export async function POST(request: NextRequest) {
   if (text.length > MAX_TEXT_LENGTH) {
     return NextResponse.json({ error: "Text too long" }, { status: 400 });
   }
+
+  await reserveTtsQuota(actor, text.length);
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
