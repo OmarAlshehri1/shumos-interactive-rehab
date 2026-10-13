@@ -19,9 +19,9 @@ describe('Achievement City library integration', () => {
     for (const ids of Object.values(DEVICE_GAMES)) expect(ids).not.toContain('achievement-city-3d');
     expect(librarySections(GAME_REGISTRY).flatMap((s) => s.games).some((x) => x.id === 'achievement-city-3d')).toBe(false);
     expect(LIBRARY_FILTERS.find((f) => f.id === 'INTERACTIVE_REWARDS')).toMatchObject({ label: 'ألعاب التحفيز التفاعلي', icon: 'sparkles' });
-    expect(ACTIVITY_CATEGORY_GAMES.INTERACTIVE_REWARDS).toEqual(['achievement-city-3d']);
-    expect(filteredGames(GAME_REGISTRY, 'INTERACTIVE_REWARDS').map((x) => x.id)).toEqual(['achievement-city-3d']);
-    expect(filteredGames(GAME_REGISTRY, 'ALL')).toHaveLength(20);
+    expect(ACTIVITY_CATEGORY_GAMES.INTERACTIVE_REWARDS).toEqual(['achievement-city-3d','achievement-forest-3d']);
+    expect(filteredGames(GAME_REGISTRY, 'INTERACTIVE_REWARDS').map((x) => x.id)).toEqual(['achievement-forest-3d','achievement-city-3d']);
+    expect(filteredGames(GAME_REGISTRY, 'ALL')).toHaveLength(21);
     const sec = categorySections(GAME_REGISTRY);
     expect(sec).toHaveLength(1);
     expect(sec[0]).toMatchObject({ input: 'INTERACTIVE_REWARDS', title: 'ألعاب التحفيز التفاعلي' });

@@ -202,5 +202,13 @@
     "bytes": 79402,
     "sourceSha256": "440c6e01ffbe90b5bf98e424d2f4c788fdc46b9784cd5c9e71cabb1c9ba0b94a",
     "assetSha256": "af26447ddf4c8f881a860a8789c0d2abbf09fde6c6b7cd95d6111903da1b5c36"
+  },
+  {
+    "gameId": "achievement-forest-3d",
+    "width": 1600,
+    "height": 900,
+    "source": "docs/achievementforest3d/screenshots/10-kingdom-complete.png",
+    "asset": "public/library-thumbnails/achievement-forest-3d.webp",
+    "renderer": "Original procedural Three.js live gameplay; local Chrome Metal"
   }
 ]

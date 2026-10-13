@@ -459,7 +459,7 @@ function RealtimeSessionDetail({
       </header>
 
       <SectionCard title="ملخص الجلسة">
-        {session.gameId === "achievement-city-3d" ? (
+        {(session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") ? (
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           <StatCard label="المدة" value={formatDurationClock(session.durationMs)} />
           <StatCard label="المستوى" value={`${session.startingLevel === session.endingLevel ? session.endingLevel : `${session.startingLevel}–${session.endingLevel}`} من 3`} />
@@ -521,7 +521,7 @@ function RealtimeSessionDetail({
       )}
 
       <AdditionalOptions title="تفاصيل الأداء والمراحل">
-        {session.gameId === "achievement-city-3d" ? (
+        {(session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") ? (
           <>
             <SectionCard title="نتائج مدينة الإنجازات"><div className="grid grid-cols-3 gap-3">
               <StatCard label="إنجازات مؤكدة" value={formatCountOrUnavailable(session.confirmedAchievements)} tone="positive" />

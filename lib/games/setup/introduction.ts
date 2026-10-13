@@ -11,6 +11,7 @@ export const GAME_INSTRUCTIONS: Record<
   "foot-maze-3d": { goal: "اتبع الطريق المضيء إلى الوجهة بتوجيه المعالج.", cue: "feet" },
   "rhythm-steps-3d": { goal: "اتبع علامات الأقدام على إيقاع الألوان بتوجيه المعالج.", cue: "feet" },
   "body-sequence-3d": { goal: "اتبع ترتيب العلامات بتوجيه المعالج.", cue: "feet" },
+  "achievement-forest-3d": { goal: "أنجز تمرينك مع المعالج، وشاهد غابتك تكبر مع كل إنجاز.", cue: "build" },
   "achievement-city-3d": { goal: "أنجز تمرينك مع المعالج، وشاهد مدينتك تكبر مع كل إنجاز.", cue: "build" },
   "balance-bridge-3d": {goal:"امشِ على الطريق المضيء، واتبع العلامات بتوجيه المعالج.",cue:"feet"},
   "shumos-castle-legends-3d": {

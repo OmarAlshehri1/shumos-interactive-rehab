@@ -25,6 +25,7 @@ import { SpacePilotDisplayModule } from "./games/SpacePilotDisplayModule";
 import { TurnGoDisplayModule } from "./games/TurnGoDisplayModule";
 import { RhythmStepsDisplayModule } from "./games/RhythmStepsDisplayModule";
 import { BodySequenceDisplayModule } from "./games/BodySequenceDisplayModule";
+import { AchievementForestDisplayModule } from "./games/AchievementForestDisplayModule";
 import { AchievementCityDisplayModule } from "./games/AchievementCityDisplayModule";
 import type { DisplayEventListener } from "./events";
 
@@ -94,6 +95,7 @@ export const GAME_DISPLAY_MODULES: Record<GameId, ComponentType<SharedGameDispla
   // Body Sequence 3D: live-session module (cross-device, read-only Display).
   "body-sequence-3d": BodySequenceDisplayModule,
   // Achievement City 3D: live-session module (cross-device, read-only Display).
+  "achievement-forest-3d": AchievementForestDisplayModule,
   "achievement-city-3d": AchievementCityDisplayModule,
 };
 

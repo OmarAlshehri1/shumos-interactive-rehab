@@ -10,7 +10,7 @@ export const DEVICE_GAMES: Record<Exclude<RequestedInput,'MANUAL'>, readonly Gam
  JOYSTICK:['balloon-quest','bubble-pop-wall','space-pilot','build-quest-3d','mirror-quest-3d','blooming-world-3d'],
  DRIVING:['fire-rescue-3d','harvest-valley-3d','pearl-voyage-3d'],
 };
-export const TARGET_PROJECTION: Record<GameId, SurfaceType> = {'achievement-city-3d':'WALL','body-sequence-3d':'FLOOR','rhythm-steps-3d':'FLOOR','foot-maze-3d':'FLOOR','turn-and-go-3d':'FLOOR','balance-bridge-3d':'FLOOR','shumos-castle-legends-3d':'WALL','balloon-quest':'BOTH','follow-the-footsteps':'FLOOR','bubble-pop-wall':'WALL','space-pilot':'WALL','color-chase':'FLOOR','build-quest-3d':'WALL','runner-quest-3d':'BOTH','mirror-quest-3d':'WALL','safe-hex-arena-3d':'FLOOR','fire-rescue-3d':'WALL','blooming-world-3d':'BOTH','harvest-valley-3d':'WALL','pearl-voyage-3d':'WALL'};
+export const TARGET_PROJECTION: Record<GameId, SurfaceType> = {'achievement-forest-3d':'WALL','achievement-city-3d':'WALL','body-sequence-3d':'FLOOR','rhythm-steps-3d':'FLOOR','foot-maze-3d':'FLOOR','turn-and-go-3d':'FLOOR','balance-bridge-3d':'FLOOR','shumos-castle-legends-3d':'WALL','balloon-quest':'BOTH','follow-the-footsteps':'FLOOR','bubble-pop-wall':'WALL','space-pilot':'WALL','color-chase':'FLOOR','build-quest-3d':'WALL','runner-quest-3d':'BOTH','mirror-quest-3d':'WALL','safe-hex-arena-3d':'FLOOR','fire-rescue-3d':'WALL','blooming-world-3d':'BOTH','harvest-valley-3d':'WALL','pearl-voyage-3d':'WALL'};
 /**
  * Activity categories are independent of the input device: a game's category describes WHAT it is, not which sensor it may use.
  * INTERACTIVE_REWARDS (ألعاب التحفيز التفاعلي): visual reward games driven by the therapist's confirmation of a real exercise.
@@ -18,7 +18,7 @@ export const TARGET_PROJECTION: Record<GameId, SurfaceType> = {'achievement-city
  */
 export type ActivityCategory = 'INTERACTIVE_REWARDS';
 export const ACTIVITY_CATEGORY_GAMES: Record<ActivityCategory, readonly GameId[]> = {
- INTERACTIVE_REWARDS:['achievement-city-3d'],
+ INTERACTIVE_REWARDS:['achievement-city-3d','achievement-forest-3d'],
 };
 export function requestedInput(value: string | null): RequestedInput {return value && Object.hasOwn(REQUEST_MODES,value) ? value as RequestedInput : 'MANUAL';}
 export function launchHref(route: string, input: RequestedInput): string {return `${route}?input=${input}`;}

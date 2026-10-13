@@ -621,7 +621,7 @@ export function ActivityEvaluation({
         </p>
       ) : result ? (
         <div className={styles.entry}>
-          {result.gameId === "achievement-city-3d" ? (
+          {(result.gameId === "achievement-city-3d" || result.gameId === "achievement-forest-3d") ? (
             <p>
               المستوى {result.endingLevel} من 3 · إنجازات مؤكدة:{" "}
               {result.confirmedAchievements + result.assistedAchievements} من {result.targetAchievements}
