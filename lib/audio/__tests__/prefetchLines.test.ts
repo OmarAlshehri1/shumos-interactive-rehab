@@ -15,7 +15,7 @@ import type { GameId } from "@/lib/games/registry";
  * when its real event actually fires.
  */
 /** Runner Quest 3D is silent by design (empty prefetch list, see its own assertion in lib/runnerquest3d tests). */
-type VoicedGameId = Exclude<GameId, "achievement-forest-3d" | "achievement-city-3d" | "turn-and-go-3d" | "body-sequence-3d" | "rhythm-steps-3d" | "foot-maze-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d" | "fire-rescue-3d" | "blooming-world-3d" | "harvest-valley-3d" | "pearl-voyage-3d">;
+type VoicedGameId = Exclude<GameId, "ocean-wonders-3d" | "achievement-forest-3d" | "achievement-city-3d" | "turn-and-go-3d" | "body-sequence-3d" | "rhythm-steps-3d" | "foot-maze-3d" | "balance-bridge-3d" | "shumos-castle-legends-3d" | "runner-quest-3d" | "build-quest-3d" | "mirror-quest-3d" | "safe-hex-arena-3d" | "fire-rescue-3d" | "blooming-world-3d" | "harvest-valley-3d" | "pearl-voyage-3d">;
 describe("buildPrefetchLines — session-start prefetch is tiny, per game, non-speculative", () => {
   const ALL_GAME_IDS: VoicedGameId[] = ["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "space-pilot", "color-chase"];
 

@@ -24,7 +24,7 @@ const DIFFICULTY: readonly Difficulty[] = [Difficulty.EASY, Difficulty.MEDIUM, D
 
 /** The Display needs the whole state except the real-time tick clock. */
 export function encode(s: State): string {
-  return JSON.stringify({ ...s, lastTick: 0 });
+  return JSON.stringify({ ...s, notes: '', lastTick: 0 });
 }
 
 export function makeLive(s: State, ownerId: string, childName: string, stamp: Partial<LiveControlMeta> = {}): AchievementForestLiveSession {

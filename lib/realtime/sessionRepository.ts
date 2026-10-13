@@ -16,6 +16,7 @@ import { reviveRhythmLive } from '@/lib/rhythmsteps3d/live';
 import { reviveBodySequenceLive } from '@/lib/bodysequence3d/live';
 import { reviveAchievementForestLive } from '@/lib/achievementforest/live';
 import { reviveAchievementCityLive } from '@/lib/achievementcity/live';
+import { reviveOceanWondersLive } from '@/lib/oceanwonders/live';
 import { isFp3Live, reviveFootstepsLive } from '@/lib/footsteps3d/live';
 import { isCc3Live, reviveColorChaseLive } from '@/lib/colorchase3d/live';
 import { isBq3Session, reviveBq3Session } from "@/lib/balloonquest/live";
@@ -100,6 +101,8 @@ const DISPLAY_PRESENCE_PATH = "presence/display";
 // ---------------------------------------------------------------------------
 
 export interface PublishSessionInput {
+  /** Private recovery metadata; omitted for games without therapist notes. */
+  therapistNotes?: string;
   /** MULTI-GAME PLATFORM: which registered game this canonical session belongs to — always required, always known by whichever game's controller is publishing (see lib/games/registry.ts's BALLOON_QUEST_GAME_ID). Never inferred. */
   gameId: GameId;
   sessionId: string;
@@ -144,8 +147,8 @@ export async function publishSession(db: Database, input: PublishSessionInput): 
   const updates: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(payload)) updates[`${LIVE_SESSION_PATH}/${key}`] = value;
   updates[`${LIVE_SESSION_PATH}/patientId`] = null;
-  updates[LIVE_SESSION_PRIVATE_PATH] = input.patientId
-    ? { sessionId: input.sessionId, patientId: input.patientId, updatedAt: serverTimestamp() }
+  updates[LIVE_SESSION_PRIVATE_PATH] = input.patientId || input.therapistNotes !== undefined
+    ? { sessionId: input.sessionId, ...(input.patientId ? { patientId: input.patientId } : {}), ...(input.therapistNotes !== undefined ? { therapistNotes: input.therapistNotes } : {}), updatedAt: serverTimestamp() }
     : null;
   const intent: LiveSessionRecord = { ...input, updatedAt: Date.now(), celebrationReplay: input.celebrationReplay ?? null };
   reportPublishIntent({ record: intent, acknowledged: false });
@@ -167,9 +170,9 @@ export async function clearLiveSession(db: Database): Promise<void> {
 function mergePrivate(liveRaw: unknown, privateRaw: unknown): unknown {
   if (!liveRaw || typeof liveRaw !== "object") return liveRaw;
   const live = liveRaw as { sessionId?: unknown };
-  const priv = privateRaw as { sessionId?: unknown; patientId?: unknown } | null | undefined;
-  if (priv && typeof priv === "object" && typeof priv.patientId === "string" && priv.sessionId === live.sessionId) {
-    return { ...live, patientId: priv.patientId };
+  const priv = privateRaw as { sessionId?: unknown; patientId?: unknown; therapistNotes?: unknown } | null | undefined;
+  if (priv && typeof priv === "object" && priv.sessionId === live.sessionId) {
+    return { ...live, ...(typeof priv.patientId === "string" ? { patientId: priv.patientId } : {}), ...(typeof priv.therapistNotes === "string" ? { therapistNotes: priv.therapistNotes } : {}) };
   }
   return liveRaw;
 }
@@ -290,6 +293,11 @@ function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
       const ac = reviveAchievementForestLive(value.session);
       if (!ac || ac.sessionId !== value.sessionId) return null;
       return { ...value, gameId, session: ac, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
+    }
+    if (gameId === "ocean-wonders-3d") {
+      const ow = reviveOceanWondersLive(value.session);
+      if (!ow || ow.sessionId !== value.sessionId) return null;
+      return { ...value, gameId, session: ow, lastInteraction: value.lastInteraction ?? null, celebrationReplay: value.celebrationReplay ?? null, patientId: typeof rawPatientId === "string" ? rawPatientId : null };
     }
     if (gameId === "achievement-city-3d") {
       const ac = reviveAchievementCityLive(value.session);

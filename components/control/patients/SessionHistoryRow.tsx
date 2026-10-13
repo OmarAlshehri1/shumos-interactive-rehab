@@ -36,7 +36,7 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
         <span className="text-xs font-semibold text-slate-400">{gameName}</span>
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
-        {(session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") ? (
+        {(session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") ? (
           <span className="font-semibold text-teal-700">المستوى {session.endingLevel} من 3 · {formatCountOrUnavailable(session.levelsCompleted)} مستويات مكتملة</span>
         ) : (
           <>
@@ -60,7 +60,7 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
           <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.assistedCheckpoints)} بمساعدة</span>
         ) : session.gameId === "foot-maze-3d" ? (
           <span className="font-medium text-amber-600">★ {formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} نجمة · {formatCountOrUnavailable(session.routeChoices)} اختيار</span>
-        ) : (session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") ? (
+        ) : (session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") ? (
           <span className="font-medium text-amber-700">المستوى {session.endingLevel} · {formatCountOrUnavailable(session.confirmedAchievements + session.assistedAchievements)} إنجازًا · {formatCountOrUnavailable(session.assistedAchievements)} بمساعدة</span>
         ) : session.gameId === "body-sequence-3d" ? (
           <span className="font-medium text-cyan-700">{formatCountOrUnavailable(session.confirmedMovements + session.assistedMovements)} حركة مؤكدة · {formatCountOrUnavailable(session.assistedMovements)} بمساعدة</span>

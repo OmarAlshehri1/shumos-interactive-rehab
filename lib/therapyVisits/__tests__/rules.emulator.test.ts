@@ -73,7 +73,7 @@ describe.skipIf(process.env.CLINICAL_RULES_EMULATOR !== "1")(
         true,
       );
       expect(loaded.status, loaded.body).toBe(200);
-      staff = await signup("clinical-demo@shumos.test");
+      staff = await signup(`clinical-demo-${Date.now()}@shumos.test`);
       other = await signup();
       anon = await signup();
       await write("", null, "", true);

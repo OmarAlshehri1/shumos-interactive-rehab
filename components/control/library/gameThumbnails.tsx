@@ -11,6 +11,7 @@ import { RhythmThumbnail } from '../rhythmsteps3d/RhythmThumbnail';
 import { BodySequenceThumbnail } from '../bodysequence3d/BodySequenceThumbnail';
 import { AchievementForestThumbnail } from '../achievementforest3d/AchievementForestThumbnail';
 import { AchievementCityThumbnail } from '../achievementcity3d/AchievementCityThumbnail';
+import { OceanWondersThumbnail } from '../oceanwonders3d/OceanWondersThumbnail';
 import { FootstepsForestThumbnail } from '../footsteps3d/FootstepsForestThumbnail';
 import { FOOTSTEPS_3D_ENABLED } from '@/lib/footsteps3d/registration';
 import { ColorChaseGardenThumbnail } from '../colorchase3d/ColorChaseGardenThumbnail';
@@ -57,4 +58,5 @@ export const GAME_THUMBNAILS: Record<GameId | LocalGameId, ComponentType> = {
   "body-sequence-3d": BodySequenceThumbnail,
   "achievement-forest-3d": AchievementForestThumbnail,
   "achievement-city-3d": AchievementCityThumbnail,
+  "ocean-wonders-3d": OceanWondersThumbnail,
 };

@@ -59,7 +59,7 @@ export interface PatientAnalytics {
 const DAY_MS = 86_400_000;
 
 export function sessionAccuracy(session: AnyStoredSession): number | null {
-  if ((session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "body-sequence-3d" || session.gameId === "rhythm-steps-3d" || session.gameId === "foot-maze-3d" || session.gameId === "turn-and-go-3d" || session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
+  if ((session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "body-sequence-3d" || session.gameId === "rhythm-steps-3d" || session.gameId === "foot-maze-3d" || session.gameId === "turn-and-go-3d" || session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
   if (session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "build-quest-3d" || session.gameId === "follow-the-footsteps" || session.gameId === "runner-quest-3d") return null; // Runner Quest has no accuracy concept
   if (session.gameId === "space-pilot") return finiteRatio(session.collectionRate);
   return finiteRatio(session.accuracy);
@@ -69,7 +69,7 @@ export function sessionResponseTimeMs(session: AnyStoredSession): number | null 
   if (session.gameId === "balance-bridge-3d" || session.gameId === "shumos-castle-legends-3d" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") return null;
   if (session.gameId === "balloon-quest") return nonNegativeFiniteNumber(session.averageReactionTimeMs);
   if (session.gameId === "follow-the-footsteps") return nonNegativeFiniteNumber(session.averageStepTimeMs);
-  if ((session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "body-sequence-3d" || session.gameId === "rhythm-steps-3d" || session.gameId === "foot-maze-3d" || session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "turn-and-go-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
+  if ((session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "body-sequence-3d" || session.gameId === "rhythm-steps-3d" || session.gameId === "foot-maze-3d" || session.gameId === "mirror-quest-3d" || session.gameId === "safe-hex-arena-3d" || session.gameId === "turn-and-go-3d" || session.gameId === "build-quest-3d" || session.gameId === "space-pilot" || session.gameId === "runner-quest-3d") return null;
   return nonNegativeFiniteNumber(session.averageResponseTimeMs);
 }
 
@@ -191,7 +191,7 @@ function windowStart(window: AnalyticsWindow, now: number): number | null {
 }
 
 function activeDurations(session: AnyStoredSession): number[] {
-  if ((session.gameId === "achievement-city-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "balance-bridge-3d" || session.gameId === "space-pilot" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") {
+  if ((session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") || session.gameId === "balance-bridge-3d" || session.gameId === "space-pilot" || session.gameId === "harvest-valley-3d" || session.gameId === "blooming-world-3d" || session.gameId === "fire-rescue-3d" || session.gameId === "pearl-voyage-3d") {
     const duration = nonNegativeFiniteNumber(session.durationMs);
     return duration !== null ? [duration] : [];
   }

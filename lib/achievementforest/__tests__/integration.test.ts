@@ -21,10 +21,10 @@ describe('Forest native integration', () => {
   const s=createState('forest');const raw={gameId:'achievement-forest-3d',sessionId:s.sessionId,revision:1,updatedAt:1000,session:makeLive(s,'staff','طفل',{controlTabId:'tab',heartbeatAt:1000})};
   expect(decode(raw.session)?.sessionId).toBe('forest');
  });
- it('keeps 21 games and places City and Forest together in the existing rewards category', async () => {
+ it('keeps 22 games and places City and Forest together in the existing rewards category', async () => {
   vi.stubEnv('NODE_ENV','development');vi.resetModules();const {GAME_REGISTRY}=await import('@/lib/games/registry');const {filteredGames}=await import('@/lib/games/library/filters');
-  expect(GAME_REGISTRY).toHaveLength(21);expect(new Set(GAME_REGISTRY.map(g=>g.id)).size).toBe(21);
-  expect(filteredGames(GAME_REGISTRY,'INTERACTIVE_REWARDS').map(g=>g.id)).toEqual(['achievement-forest-3d','achievement-city-3d']);
+  expect(GAME_REGISTRY).toHaveLength(22);expect(new Set(GAME_REGISTRY.map(g=>g.id)).size).toBe(22);
+  expect(filteredGames(GAME_REGISTRY,'INTERACTIVE_REWARDS').map(g=>g.id)).toEqual(['achievement-forest-3d','achievement-city-3d','ocean-wonders-3d']);
   for(const filter of ['HAND','FOOT','JOYSTICK','DRIVING'] as const)expect(filteredGames(GAME_REGISTRY,filter).some(g=>g.id==='achievement-forest-3d')).toBe(false);
  });
 });

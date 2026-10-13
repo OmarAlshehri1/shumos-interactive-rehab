@@ -76,6 +76,9 @@ export async function prepareVideoDisplay(
   uid: string,
   tab: string,
 ) {
+  const retainLive = onValue(ref(db, 'liveSession'), () => {}, () => {});
+  const retainPrivate = onValue(ref(db, 'liveSessionPrivate'), () => {}, () => {});
+  try {
   const live = await fetchLiveSession(db);
   if (live) {
     if (isUnstartedActivity(live) && ownedByTab(live, tab))
@@ -119,6 +122,10 @@ export async function prepareVideoDisplay(
   if ((await get(ref(db, "liveSession"))).exists())
     throw Error("يوجد نشاط يحتاج إلى الحفظ أو الاستعادة.");
   await claimControllerLease(db, uid);
+  } finally {
+    retainLive();
+    retainPrivate();
+  }
 }
 export async function publishCommand(db: Database, c: VideoCommand) {
   if (!parseCommand(c)) throw Error("أمر غير صالح");

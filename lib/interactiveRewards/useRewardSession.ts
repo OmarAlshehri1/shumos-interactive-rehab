@@ -83,7 +83,7 @@ export function useRewardSession<L extends AnySessionState>(adapter: RewardAdapt
     const edge = new ButtonEdgeDetector();
     const publisher = new LiveRecordPublisher<L>({
       write: async (w) => {
-        await publishSession(db, { ...w, gameId: GAME_ID, lastInteraction: null, patientId: bound });
+        await publishSession(db, { ...w, gameId: GAME_ID, lastInteraction: null, patientId: bound, therapistNotes: current?.notes ?? '' });
         stats.current.writes++;
         if (!disposed) setError(null);
       },
@@ -140,7 +140,8 @@ export function useRewardSession<L extends AnySessionState>(adapter: RewardAdapt
         bound = getLive().patientId;
         publisher.setBaseRevision(record?.revision ?? 0);
         const live = record?.gameId === GAME_ID ? reviveAchievementCityLive(record.session) : null;
-        const snapshot = live ? recoveredState(live) : null;
+        const recovered = live ? recoveredState(live) : null;
+        const snapshot = recovered ? { ...recovered, notes: record?.therapistNotes ?? recovered.notes } : null;
         const decision = decideRecovery({
           recordSessionId: record?.sessionId ?? '',
           recordPatientId: record?.patientId ?? null,
