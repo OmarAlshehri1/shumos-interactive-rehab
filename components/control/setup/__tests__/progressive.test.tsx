@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import { StagePicker, ProgressiveStageSelect } from "../ProgressiveStages";
+import {
+  StagePicker,
+  ProgressiveStageSelect,
+  optionsOf,
+} from "../ProgressiveStages";
 import { GAME_REGISTRY } from "@/lib/games/registry";
 import { DEVICE_GAMES, launchHref } from "@/lib/games/library/capabilities";
 import { filteredGames, libraryFilter } from "@/lib/games/library/filters";
@@ -9,6 +13,32 @@ import {
   participationCue,
 } from "@/lib/games/setup/introduction";
 import type { AnySessionState } from "@/lib/realtime/types";
+describe("stage metadata", () => {
+  it("preserves native curriculum descriptions and disallowed stages", () => {
+    const options = optionsOf(
+      <>
+        <option value={2} data-stage-description="تذكّر خطوتين" disabled>
+          مسار الذاكرة
+        </option>
+        <option value={3}>مسار منحني</option>
+      </>,
+    );
+    expect(options).toEqual([
+      {
+        value: 2,
+        label: "مسار الذاكرة",
+        description: "تذكّر خطوتين",
+        disabled: true,
+      },
+      {
+        value: 3,
+        label: "مسار منحني",
+        description: undefined,
+        disabled: undefined,
+      },
+    ]);
+  });
+});
 describe("unique canonical library and real progressive stages", () => {
   it("deduplicates All and derives every category directly from canonical capabilities", () => {
     expect(

@@ -1,10 +1,11 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
 import { getStaffDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import {
   subscribeToLiveSession,
+  discardUnstartedPreview,
   subscribeToConnectionStatus,
 } from "@/lib/realtime/sessionRepository";
 import { getSessionHistoryRecord } from "@/lib/sessions/sessionHistoryRepository";
@@ -12,10 +13,12 @@ import type { LiveSessionRecord } from "@/lib/realtime/types";
 import {
   confirmedLiveResult,
   historyKeyForLive,
+  isUnstartedActivity,
 } from "@/lib/therapyVisits/gameSafety";
 
 import { observePublishIntent } from "@/lib/realtime/publishIntent";
 
+import { controlTabId } from "@/lib/liveGame/ownership";
 import { modalKeys } from "./modalKeys";
 
 interface Safety {
@@ -52,6 +55,27 @@ export function GameSafetyProvider({
     [blocked, setBlocked] = useState(false),
     [visitHold, holdVisit] = useState(false);
   const live = pending ?? canonical;
+  const lastRoute = useRef(pathname);
+  const lastLive = useRef(live);
+  useEffect(() => {
+    const previous = lastRoute.current;
+    const old = lastLive.current;
+    lastRoute.current = pathname;
+    lastLive.current = live;
+    if (
+      realtime &&
+      previous !== pathname &&
+      old &&
+      isUnstartedActivity(old) &&
+      GAME_REGISTRY.some((g) => g.route === previous)
+    ) {
+      void discardUnstartedPreview(
+        getStaffDb(),
+        old.sessionId,
+        controlTabId(),
+      ).catch(() => setError("تعذّر إغلاق المعاينة. تحقق من الاتصال."));
+    }
+  }, [pathname, live, realtime]);
   useEffect(
     () =>
       observePublishIntent((event) => {
@@ -70,11 +94,12 @@ export function GameSafetyProvider({
     ? `${live.gameId}:${live.patientId}:${historyKeyForLive(live)}`
     : null;
   const canLeave =
-    !visitHold &&
-    !pending &&
+    (!visitHold || isUnstartedActivity(live)) &&
+    (!pending || isUnstartedActivity(pending)) &&
     known &&
     connected &&
     (!live ||
+      isUnstartedActivity(live) ||
       (live.session.gameState === "SESSION_COMPLETE" &&
         (!live.patientId || proof === key)));
   const route = GAME_REGISTRY.find((g) => g.id === live?.gameId)?.route;

@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
   StagePicker,
@@ -111,10 +112,159 @@ export function BuildQuestControl() {
   const editable =
       connected && (state.status === "ready" || state.status === "paused"),
     stage = STAGES[state.stage];
+  const setupStages = (
+    <StagePicker
+      value={state.stage}
+      disabled={!editable}
+      items={STAGES.map((stage, index) => ({
+        value: index,
+        label: stage.title,
+        description: `${stage.pieces.length} قطع لإكمال النموذج`,
+      }))}
+      onSelect={(value) => session.configure({}, Number(value))}
+    />
+  );
+  const setupSettings = (
+    <aside className={styles.panel}>
+      {state.status !== "ready" && setupStages}
+      <label>
+        طريقة التحكم
+        <select
+          aria-label="طريقة التحكم"
+          value={state.config.input}
+          disabled={!editable}
+          onChange={(e) =>
+            session.configure({ input: e.target.value as InputMode })
+          }
+        >
+          <option value="mouse">يدوي · اللمس والفأرة ولوحة المفاتيح</option>
+          <option value="sensor">حساس اليد اليمنى</option>
+          <option value="controller">وحدة تحكم · تجريبية</option>
+        </select>
+      </label>
+      <label>
+        مساعدة الالتقاط
+        <select
+          aria-label="مساعدة الالتقاط"
+          value={state.config.assistance}
+          disabled={!editable}
+          onChange={(e) => {
+            const assistance = e.target.value as Assistance;
+            session.configure({
+              assistance,
+              dwellMs: HELP[assistance].dwell,
+            });
+          }}
+        >
+          <option value="high">عالية</option>
+          <option value="medium">متوسطة</option>
+          <option value="low">منخفضة</option>
+        </select>
+      </label>
+      <label>
+        مدة الثبات (مللي ثانية)
+        <input
+          aria-label="مدة الثبات (مللي ثانية)"
+          type="number"
+          min="250"
+          max="3000"
+          step="50"
+          disabled={!editable}
+          value={state.config.dwellMs}
+          onChange={(e) =>
+            session.configure({ dwellMs: Number(e.target.value) })
+          }
+        />
+      </label>
+      <label>
+        حجم منطقة الالتقاط
+        <input
+          aria-label="حجم منطقة الالتقاط"
+          type="range"
+          min=".65"
+          max="1.5"
+          step=".05"
+          disabled={!editable}
+          value={state.config.tolerance}
+          onChange={(e) =>
+            session.configure({ tolerance: Number(e.target.value) })
+          }
+        />
+      </label>
+      <AdditionalOptions>
+        <label>
+          جودة العرض
+          <select
+            aria-label="جودة العرض"
+            disabled={!editable}
+            value={state.config.quality}
+            onChange={(e) =>
+              session.configure({
+                quality: e.target.value as "high" | "low",
+              })
+            }
+          >
+            <option value="high">عالية</option>
+            <option value="low">خفيفة للأجهزة الأبطأ</option>
+          </select>
+        </label>
+      </AdditionalOptions>
+      <p className={styles.help}>
+        الفأرة: انقر القطعة ثم حرّكها إلى الهدف.
+        <br />
+        الأسهم أو WASD للحركة، ومسافة للاختيار.
+        <br />
+        الحساس: ثبّت المؤشر على القطعة ثم حرّكه إلى الهدف.
+      </p>
+      {state.config.input === "sensor" && (
+        <p
+          className={styles.notice}
+          data-testid="sensor-status"
+          data-status={session.sensorStatus}
+        >
+          حالة اليد:{" "}
+          {session.sensorStatus === "tracking"
+            ? "متصل"
+            : session.sensorStatus === "align"
+              ? "قرّب مؤشر اليد من المؤشر الأبيض للمتابعة"
+              : "بانتظار اليد"}
+          . استخدم اتصال الحساس الموجود في المنصة.
+        </p>
+      )}
+      {state.config.input === "controller" && (
+        <p className={styles.notice}>
+          يمكن تجربة الأسهم والفأرة أو Gamepad القياسي. توافق وحدات Joy-Con
+          الفعلية لم يُختبر.
+        </p>
+      )}
+    </aside>
+  );
+  if (
+    state.status === "ready" &&
+    !state.events.length &&
+    !state.completed.length
+  )
+    return (
+      <main className={styles.control} lang="ar">
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!connected}
+              onClick={() => session.act("start")}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main className={styles.control} lang="ar">
       <div className={styles.controlInner}>
-        <header className={styles.controlHeader}>
+        <header data-native-game-header className={styles.controlHeader}>
           <div>
             <div className={styles.brand}>SHUMOS CARE · BUILD QUEST 3D</div>
             <h1 className={styles.title}>عالم البناء</h1>
@@ -139,130 +289,8 @@ export function BuildQuestControl() {
           </div>
         </header>
         <div className={styles.panelGrid}>
-          <aside className={styles.panel}>
-            <StagePicker
-              value={state.stage}
-              disabled={!editable}
-              items={STAGES.map((stage, index) => ({
-                value: index,
-                label: stage.title,
-                description: `${stage.pieces.length} قطع لإكمال النموذج`,
-              }))}
-              onSelect={(value) => session.configure({}, Number(value))}
-            />
-            <label>
-              طريقة التحكم
-              <select
-                aria-label="طريقة التحكم"
-                value={state.config.input}
-                disabled={!editable}
-                onChange={(e) =>
-                  session.configure({ input: e.target.value as InputMode })
-                }
-              >
-                <option value="mouse">
-                  يدوي · اللمس والفأرة ولوحة المفاتيح
-                </option>
-                <option value="sensor">حساس اليد اليمنى</option>
-                <option value="controller">وحدة تحكم · تجريبية</option>
-              </select>
-            </label>
-            <label>
-              مساعدة الالتقاط
-              <select
-                aria-label="مساعدة الالتقاط"
-                value={state.config.assistance}
-                disabled={!editable}
-                onChange={(e) => {
-                  const assistance = e.target.value as Assistance;
-                  session.configure({
-                    assistance,
-                    dwellMs: HELP[assistance].dwell,
-                  });
-                }}
-              >
-                <option value="high">عالية</option>
-                <option value="medium">متوسطة</option>
-                <option value="low">منخفضة</option>
-              </select>
-            </label>
-            <label>
-              مدة الثبات (مللي ثانية)
-              <input
-                aria-label="مدة الثبات (مللي ثانية)"
-                type="number"
-                min="250"
-                max="3000"
-                step="50"
-                disabled={!editable}
-                value={state.config.dwellMs}
-                onChange={(e) =>
-                  session.configure({ dwellMs: Number(e.target.value) })
-                }
-              />
-            </label>
-            <label>
-              حجم منطقة الالتقاط
-              <input
-                aria-label="حجم منطقة الالتقاط"
-                type="range"
-                min=".65"
-                max="1.5"
-                step=".05"
-                disabled={!editable}
-                value={state.config.tolerance}
-                onChange={(e) =>
-                  session.configure({ tolerance: Number(e.target.value) })
-                }
-              />
-            </label>
-            <AdditionalOptions>
-              <label>
-                جودة العرض
-                <select
-                  aria-label="جودة العرض"
-                  disabled={!editable}
-                  value={state.config.quality}
-                  onChange={(e) =>
-                    session.configure({
-                      quality: e.target.value as "high" | "low",
-                    })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="low">خفيفة للأجهزة الأبطأ</option>
-                </select>
-              </label>
-            </AdditionalOptions>
-            <p className={styles.help}>
-              الفأرة: انقر القطعة ثم حرّكها إلى الهدف.
-              <br />
-              الأسهم أو WASD للحركة، ومسافة للاختيار.
-              <br />
-              الحساس: ثبّت المؤشر على القطعة ثم حرّكه إلى الهدف.
-            </p>
-            {state.config.input === "sensor" && (
-              <p
-                className={styles.notice}
-                data-testid="sensor-status"
-                data-status={session.sensorStatus}
-              >
-                حالة اليد:{" "}
-                {session.sensorStatus === "tracking"
-                  ? "متصل"
-                  : session.sensorStatus === "align"
-                    ? "قرّب مؤشر اليد من المؤشر الأبيض للمتابعة"
-                    : "بانتظار اليد"}
-                . استخدم اتصال الحساس الموجود في المنصة.
-              </p>
-            )}
-            {state.config.input === "controller" && (
-              <p className={styles.notice}>
-                يمكن تجربة الأسهم والفأرة أو Gamepad القياسي. توافق وحدات
-                Joy-Con الفعلية لم يُختبر.
-              </p>
-            )}
-          </aside>
+          {setupSettings}
+
           <section className={styles.panel}>
             <p role="status" data-testid="sync-status">
               {!connected

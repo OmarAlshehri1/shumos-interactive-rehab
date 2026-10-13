@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
   AdditionalOptions,
@@ -155,6 +156,153 @@ export function DomePanel({
       {name}
     </button>
   );
+  const setupStages = (
+    <ProgressiveStageSelect
+      onSelect={(value) => send({ type: "stage", stage: Number(value) })}
+    >
+      <select
+        aria-label="المستوى والمرحلة"
+        value={s.stage}
+        disabled={
+          !can || !["ready", "paused", "stage-complete"].includes(s.status)
+        }
+        onChange={(e) => send({ type: "stage", stage: Number(e.target.value) })}
+      >
+        {STAGES.map((d, i) => (
+          <option
+            data-stage-description={`${d.kinds.length} أهداف${d.kinds.some((k) => k === "hold") ? " · ثبات" : ""}${d.kinds.some((k) => k === "guide") ? " · توجيه المسار" : ""}`}
+            key={i}
+            value={i}
+            disabled={
+              s.events.some((e) => e.stage === i) ||
+              s.completed.includes(i) ||
+              s.skipped.includes(i)
+            }
+          >
+            {Math.floor(i / 3) + 1} · {(i % 3) + 1} — {d.name}
+          </option>
+        ))}
+      </select>
+    </ProgressiveStageSelect>
+  );
+  const setupSettings = (
+    <aside className={styles.card}>
+      <h2>مساحة الطفل</h2>
+      {(s.status !== "ready" || !!s.startedAt) && setupStages}
+
+      <label className={styles.field}>
+        اليد النشطة
+        <select
+          aria-label="اليد النشطة"
+          value={s.config.hand}
+          disabled={s.status === "ended"}
+          onChange={(e) => config({ hand: e.target.value as Config["hand"] })}
+        >
+          <option value="RIGHT_HAND">اليمنى</option>
+          <option value="LEFT_HAND">اليسرى</option>
+          <option value="ALTERNATE">بالتناوب</option>
+        </select>
+      </label>
+      <label className={styles.field}>
+        مكان الأهداف
+        <select
+          value={s.config.placement}
+          onChange={(e) =>
+            config({ placement: e.target.value as Config["placement"] })
+          }
+        >
+          <option value="both">الجانبان</option>
+          <option value="right">اليمين</option>
+          <option value="left">اليسار</option>
+        </select>
+      </label>
+      {slider("range", "مدى الحركة", 0.25, 1, 0.05)}
+      {slider("targetSize", "حجم الهدف", 0.08, 0.2, 0.01)}
+      {slider("tolerance", "التسامح", 0.03, 0.15, 0.01)}
+      {slider("holdMs", "الثبات بالمللي ثانية", 400, 5000, 100)}
+      {slider("assistance", "قوة المساعدة", 0, 0.85, 0.05)}
+      {slider("speed", "سرعة التوجيه", 0.2, 1, 0.05)}
+      {slider("sensitivity", "حساسية الحساس", 0.5, 2, 0.1)}
+      <label className={styles.field}>
+        تكرار التسلسل
+        <select
+          value={s.config.objectives}
+          disabled={s.status !== "ready" || !!s.events.length}
+          onChange={(e) => config({ objectives: Number(e.target.value) })}
+        >
+          {[1, 2, 3].map((i) => (
+            <option key={i} value={i}>
+              {i}
+            </option>
+          ))}
+        </select>
+      </label>
+      <h2>مصدر الحركة</h2>
+      <div className={styles.actions}>
+        {action("تحكم يدوي", { type: "manual" })}
+        {action("استخدام الحساس المعاير", { type: "sensorMode" })}
+      </div>
+      <p className={styles.hint}>
+        الحساس يحرّك مؤشرًا افتراضيًا من اتجاه المعصم. اسحب الخريطة لاستلام
+        التحكم في أي وقت. المرحلة ٨ تتناوب بين اليدين؛ يلزم اختيار اليدين لتفعيل
+        الحساس، وإلا يبقى التحكم يدويًا لكليهما.
+      </p>
+      <h2>راحة العرض</h2>
+      {(["reducedMotion", "highContrast", "sound"] as const).map((k, i) => (
+        <label className={styles.check} key={k}>
+          <input
+            type="checkbox"
+            checked={s.config[k]}
+            onChange={(e) => config({ [k]: e.target.checked })}
+          />
+          {["تقليل الحركة", "تباين عالٍ", "صوت هادئ اختياري"][i]}
+        </label>
+      ))}
+      {slider("volume", "مستوى الصوت", 0, 0.6, 0.05)}
+      <AdditionalOptions>
+        <label className={styles.field}>
+          جودة العرض
+          <select
+            value={s.config.quality}
+            onChange={(e) =>
+              config({ quality: e.target.value as Config["quality"] })
+            }
+          >
+            <option value="high">زجاج وانعكاسات</option>
+            <option value="low">خفيفة</option>
+          </select>
+        </label>
+      </AdditionalOptions>
+      <p className={styles.hint}>
+        يمكن المشاركة جلوسًا. لا وقت إلزامي ولا فقدان للتقدم عند الابتعاد عن
+        الهدف.
+      </p>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="dome-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!can}
+              onClick={() => send({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -169,7 +317,7 @@ export function DomePanel({
       data-session={s.sessionId}
     >
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <span className={styles.eyebrow}>
               SHUMOS CARE / WALL / THE WONDER DOME
@@ -449,134 +597,7 @@ export function DomePanel({
               </p>
             )}
           </section>
-          <aside className={styles.card}>
-            <h2>مساحة الطفل</h2>
-            <label className={styles.field}>
-              المستوى والمرحلة
-              <ProgressiveStageSelect
-                onSelect={(value) =>
-                  send({ type: "stage", stage: Number(value) })
-                }
-              >
-                <select
-                  aria-label="المستوى والمرحلة"
-                  value={s.stage}
-                  disabled={
-                    !can ||
-                    !["ready", "paused", "stage-complete"].includes(s.status)
-                  }
-                  onChange={(e) =>
-                    send({ type: "stage", stage: Number(e.target.value) })
-                  }
-                >
-                  {STAGES.map((d, i) => (
-                    <option
-                      key={i}
-                      value={i}
-                      disabled={
-                        s.events.some((e) => e.stage === i) ||
-                        s.completed.includes(i) ||
-                        s.skipped.includes(i)
-                      }
-                    >
-                      {Math.floor(i / 3) + 1} · {(i % 3) + 1} — {d.name}
-                    </option>
-                  ))}
-                </select>
-              </ProgressiveStageSelect>
-            </label>
-            <label className={styles.field}>
-              اليد النشطة
-              <select
-                aria-label="اليد النشطة"
-                value={s.config.hand}
-                disabled={s.status === "ended"}
-                onChange={(e) =>
-                  config({ hand: e.target.value as Config["hand"] })
-                }
-              >
-                <option value="RIGHT_HAND">اليمنى</option>
-                <option value="LEFT_HAND">اليسرى</option>
-                <option value="ALTERNATE">بالتناوب</option>
-              </select>
-            </label>
-            <label className={styles.field}>
-              مكان الأهداف
-              <select
-                value={s.config.placement}
-                onChange={(e) =>
-                  config({ placement: e.target.value as Config["placement"] })
-                }
-              >
-                <option value="both">الجانبان</option>
-                <option value="right">اليمين</option>
-                <option value="left">اليسار</option>
-              </select>
-            </label>
-            {slider("range", "مدى الحركة", 0.25, 1, 0.05)}
-            {slider("targetSize", "حجم الهدف", 0.08, 0.2, 0.01)}
-            {slider("tolerance", "التسامح", 0.03, 0.15, 0.01)}
-            {slider("holdMs", "الثبات بالمللي ثانية", 400, 5000, 100)}
-            {slider("assistance", "قوة المساعدة", 0, 0.85, 0.05)}
-            {slider("speed", "سرعة التوجيه", 0.2, 1, 0.05)}
-            {slider("sensitivity", "حساسية الحساس", 0.5, 2, 0.1)}
-            <label className={styles.field}>
-              تكرار التسلسل
-              <select
-                value={s.config.objectives}
-                disabled={s.status !== "ready" || !!s.events.length}
-                onChange={(e) => config({ objectives: Number(e.target.value) })}
-              >
-                {[1, 2, 3].map((i) => (
-                  <option key={i} value={i}>
-                    {i}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <h2>مصدر الحركة</h2>
-            <div className={styles.actions}>
-              {action("تحكم يدوي", { type: "manual" })}
-              {action("استخدام الحساس المعاير", { type: "sensorMode" })}
-            </div>
-            <p className={styles.hint}>
-              الحساس يحرّك مؤشرًا افتراضيًا من اتجاه المعصم. اسحب الخريطة
-              لاستلام التحكم في أي وقت. المرحلة ٨ تتناوب بين اليدين؛ يلزم اختيار
-              اليدين لتفعيل الحساس، وإلا يبقى التحكم يدويًا لكليهما.
-            </p>
-            <h2>راحة العرض</h2>
-            {(["reducedMotion", "highContrast", "sound"] as const).map(
-              (k, i) => (
-                <label className={styles.check} key={k}>
-                  <input
-                    type="checkbox"
-                    checked={s.config[k]}
-                    onChange={(e) => config({ [k]: e.target.checked })}
-                  />
-                  {["تقليل الحركة", "تباين عالٍ", "صوت هادئ اختياري"][i]}
-                </label>
-              ),
-            )}
-            {slider("volume", "مستوى الصوت", 0, 0.6, 0.05)}
-            <AdditionalOptions>
-              <label className={styles.field}>
-                جودة العرض
-                <select
-                  value={s.config.quality}
-                  onChange={(e) =>
-                    config({ quality: e.target.value as Config["quality"] })
-                  }
-                >
-                  <option value="high">زجاج وانعكاسات</option>
-                  <option value="low">خفيفة</option>
-                </select>
-              </label>
-            </AdditionalOptions>
-            <p className={styles.hint}>
-              يمكن المشاركة جلوسًا. لا وقت إلزامي ولا فقدان للتقدم عند الابتعاد
-              عن الهدف.
-            </p>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

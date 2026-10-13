@@ -1,3 +1,4 @@
+import { isUnstartedActivity, ownedByTab } from "@/lib/therapyVisits/gameSafety";
 import { validProjectionPreview, type ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
 import { reportPublishIntent } from './publishIntent';
@@ -25,6 +26,7 @@ import {
   onDisconnect,
   onValue,
   ref,
+  runTransaction,
   remove,
   serverTimestamp,
   update,
@@ -645,4 +647,21 @@ export function subscribeToProjectionPreview(db: Database, callback: (command: P
     const value = { ...c, profile: c.profile ? { ...c.profile, measuredWidthCm: c.profile.measuredWidthCm ?? null, measuredHeightCm: c.profile.measuredHeightCm ?? null } : c.profile };
     return validProjectionPreview(value) ? value : null;
   }, callback);
+}
+
+/** After the old Control has unmounted, clear only that tab's never-started preview. A concurrent Start aborts deletion. */
+export async function discardUnstartedPreview(db: Database, sessionId: string, tabId: string): Promise<boolean> {
+  const binding = (await get(ref(db, LIVE_SESSION_PRIVATE_PATH))).val() as {sessionId?: string; patientId?: string; updatedAt?: number} | null;
+  await get(ref(db, LIVE_SESSION_PATH)); // Prime the transaction cache; an empty local cache must not abort a valid cleanup.
+  const result = await runTransaction(ref(db, LIVE_SESSION_PATH), raw => {
+    const record = parseLiveSessionValue(raw);
+    if (!record || record.sessionId !== sessionId || !isUnstartedActivity(record) || !ownedByTab(record, tabId)) return;
+    return null;
+  }, { applyLocally: false });
+  if (!result.committed) return false;
+  if (binding?.sessionId === sessionId && typeof binding.updatedAt === "number" && Number.isFinite(binding.updatedAt)) {
+    await runTransaction(ref(db, LIVE_SESSION_PRIVATE_PATH), raw =>
+      raw?.sessionId === sessionId && raw.patientId === binding.patientId && raw.updatedAt === binding.updatedAt ? null : undefined, { applyLocally: false });
+  }
+  return true;
 }

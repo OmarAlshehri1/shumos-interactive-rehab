@@ -268,3 +268,33 @@
     border: 1px solid CanvasText;
   }
 }
+
+.deviceSection {
+  margin-top: 24px;
+}
+.deviceHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 14px 16px;
+  border: 1px solid #d7e9e6;
+  border-radius: 16px;
+  background: #f0f9f7;
+}
+.deviceHeader svg {
+  width: 30px;
+  height: 30px;
+  color: #008f85;
+}
+.deviceHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #173f47;
+}
+.deviceHeader span {
+  margin-inline-start: auto;
+  font-size: 12px;
+  color: #5a777e;
+}

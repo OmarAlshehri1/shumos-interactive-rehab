@@ -149,3 +149,16 @@ body:has([data-visit-active="true"]) main { top: 64px !important; height: calc(1
 .shumos-control { --control-canvas: #f3f7f8; --control-ink: #16383d; --control-primary: #087f81; --control-border: #dce7e9; --control-surface: #fff; }
 .shumos-control main { font-family: var(--font-control), system-ui, sans-serif; }
 .shumos-control main:not([data-projection-grid]) > header h1 { letter-spacing: -.025em; }
+
+.shumos-control { background:#f6f9fc;color:#173a43; }
+body:has(.shumos-control) { background:#f6f9fc; }
+
+/* Shared flowing setup pages reserve the visit bar without inheriting legacy fixed-screen height. */
+body:has([data-visit-active="true"]) [data-control-game] { padding-top:88px; }
+body:has([data-visit-active="true"]) [data-control-game] main { top:auto!important;height:auto!important;position:static!important; }
+[data-control-game] nav a { scroll-margin-top:96px; }
+@media(max-width:650px){body:has([data-visit-active="true"]) [data-control-game]{padding-top:112px;}}
+
+/* Flowing Control pages use the document scroll instead of a fixed-height body scroller. */
+html:has(.shumos-control) { height:auto;min-height:100%;overflow-y:auto; }
+body:has(.shumos-control) { height:auto;min-height:100dvh;overflow-y:visible; }

@@ -43,3 +43,36 @@ it("delegates the same game to shared owner/patient recovery and accepts an empt
     ),
   ).toBe(true);
 });
+
+it("allows an explicit never-started setup, but protects prior progress and unknown records", () => {
+  const preview = {
+    ...record(GameState.START_ZONE),
+    session: {
+      gameState: GameState.START_ZONE,
+      engine: "bw3",
+      bw3: {
+        controlTabId: "own",
+        payload: JSON.stringify({
+          status: "ready",
+          startedAt: 0,
+          completed: [],
+        }),
+      },
+    },
+  } as unknown as LiveSessionRecord;
+  expect(mayEnterBridge(preview, null, "own")).toBe(true);
+  expect(mayEnterBridge(preview, null, "other")).toBe(false);
+  expect(mayEnterBridge(preview, null)).toBe(false);
+  expect(
+    mayEnterBridge(
+      {
+        ...preview,
+        session: {
+          ...preview.session,
+          bw3: { payload: JSON.stringify({ status: "ready", startedAt: 42 }) },
+        },
+      } as unknown as LiveSessionRecord,
+      null,
+    ),
+  ).toBe(false);
+});

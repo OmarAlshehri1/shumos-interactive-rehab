@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
   AdditionalOptions,
@@ -71,10 +72,210 @@ function LiveMirrorControl() {
     );
   const editable = ["ready", "paused"].includes(s.status),
     p = target(s);
+  const setupStages = (
+    <ProgressiveStageSelect
+      onSelect={(value) => send({ type: "stage", stage: Number(value) })}
+    >
+      <select
+        id="stage"
+        value={s.stage}
+        disabled={!editable && s.status !== "stage-complete"}
+        onChange={(e) => send({ type: "stage", stage: Number(e.target.value) })}
+      >
+        {STAGES.map((stage, i) => (
+          <option
+            data-stage-description={`${stage.poses.length} حركات متتابعة`}
+            key={i}
+            value={i}
+            disabled={s.accepted.some((p) => p.stage === i)}
+          >
+            المستوى {stage.level} · {stage.name}
+          </option>
+        ))}
+      </select>
+    </ProgressiveStageSelect>
+  );
+  const setupSettings = (
+    <aside className={styles.panel}>
+      <h2>إعدادات الرحلة</h2>
+      {(s.status !== "ready" || !!s.startedAt) && setupStages}
+
+      <div>
+        <label htmlFor="hold">مدة الثبات</label>
+        <select
+          id="hold"
+          value={s.config.holdMs}
+          disabled={!editable}
+          onChange={(e) =>
+            send({
+              type: "configure",
+              config: { holdMs: Number(e.target.value) },
+            })
+          }
+        >
+          {[500, 1200, 2000, 3000].map((n) => (
+            <option value={n} key={n}>
+              {n / 1000} ثانية
+            </option>
+          ))}
+        </select>
+      </div>
+      <AdditionalOptions>
+        <div>
+          <label htmlFor="tolerance">مرونة المطابقة</label>
+          <select
+            id="tolerance"
+            value={s.config.tolerance}
+            disabled={!editable}
+            onChange={(e) =>
+              send({
+                type: "configure",
+                config: { tolerance: Number(e.target.value) },
+              })
+            }
+          >
+            <option value={0.05}>دقيقة</option>
+            <option value={0.09}>متوسطة</option>
+            <option value={0.18}>واسعة</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="quality">جودة العرض</label>
+          <select
+            id="quality"
+            value={s.config.quality}
+            disabled={!editable}
+            onChange={(e) =>
+              send({
+                type: "configure",
+                config: { quality: e.target.value as "low" | "high" },
+              })
+            }
+          >
+            <option value="high">عالية</option>
+            <option value="low">خفيفة</option>
+          </select>
+        </div>
+      </AdditionalOptions>
+      <div>
+        <label htmlFor="scale">حجم الحركة</label>
+        <select
+          id="scale"
+          value={s.config.movementScale}
+          disabled={!editable}
+          onChange={(e) =>
+            send({
+              type: "configure",
+              config: { movementScale: Number(e.target.value) },
+            })
+          }
+        >
+          <option value={0.5}>صغيرة</option>
+          <option value={0.75}>متوسطة</option>
+          <option value={1}>كاملة</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="presentation">عرض الشخصية</label>
+        <select
+          id="presentation"
+          value={s.config.presentation}
+          disabled={!editable}
+          onChange={(e) =>
+            send({
+              type: "configure",
+              config: {
+                presentation: e.target.value as "seated" | "standing",
+              },
+            })
+          }
+        >
+          <option value="seated">جالس</option>
+          <option value="standing">واقف</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="input">مصدر الحركة</label>
+        <select
+          id="input"
+          value={s.config.input}
+          disabled={!editable}
+          onChange={(e) =>
+            send({
+              type: "configure",
+              config: { input: e.target.value as "manual" | "simulated" },
+            })
+          }
+        >
+          <option value="manual">يدوي · بدون حساسات</option>
+          <option value="simulated">حساسات محاكاة</option>
+          <option disabled>حساسات فعلية · بانتظار التحقق</option>
+        </select>
+      </div>
+
+      <label>
+        <input
+          type="checkbox"
+          checked={s.config.reducedMotion}
+          disabled={!editable}
+          onChange={(e) =>
+            send({
+              type: "configure",
+              config: { reducedMotion: e.target.checked },
+            })
+          }
+        />{" "}
+        تقليل الحركة
+      </label>
+      <p className={styles.note}>
+        وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية تمثّل
+        الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها المعالج، دون تصوير
+        أو تتبّع بالكاميرا.
+      </p>
+      <div className={styles.status} role="status">
+        {session.error ??
+          (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
+        <br />
+        {session.displayConnected ? "● شاشة الطفل متصلة" : "○ افتح شاشة الطفل"}
+        <br />
+        {session.history === "saved"
+          ? "✓ حُفظت الجلسة"
+          : session.history === "walk-in"
+            ? "جلسة زائر · دون سجل مريض"
+            : session.history === "retry"
+              ? "تعذّر الحفظ، تجري إعادة المحاولة"
+              : ""}
+      </div>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.control}
+        data-testid="mirror-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!(session.connected && !session.blocked)}
+              onClick={() => send({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main className={styles.control} lang="ar">
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <div className={styles.eyebrow}>SHUMOS CARE · MOTION STUDIO</div>
             <h1 className={styles.title}>المرآة السحرية</h1>
@@ -335,184 +536,7 @@ function LiveMirrorControl() {
               </div>
             </div>
           </div>
-          <aside className={styles.panel}>
-            <h2>إعدادات الرحلة</h2>
-            <div>
-              <label htmlFor="stage">المستوى والمرحلة</label>
-              <ProgressiveStageSelect
-                onSelect={(value) =>
-                  send({ type: "stage", stage: Number(value) })
-                }
-              >
-                <select
-                  id="stage"
-                  value={s.stage}
-                  disabled={!editable && s.status !== "stage-complete"}
-                  onChange={(e) =>
-                    send({ type: "stage", stage: Number(e.target.value) })
-                  }
-                >
-                  {STAGES.map((stage, i) => (
-                    <option
-                      key={i}
-                      value={i}
-                      disabled={s.accepted.some((p) => p.stage === i)}
-                    >
-                      المستوى {stage.level} · {stage.name}
-                    </option>
-                  ))}
-                </select>
-              </ProgressiveStageSelect>
-            </div>
-            <div>
-              <label htmlFor="hold">مدة الثبات</label>
-              <select
-                id="hold"
-                value={s.config.holdMs}
-                disabled={!editable}
-                onChange={(e) =>
-                  send({
-                    type: "configure",
-                    config: { holdMs: Number(e.target.value) },
-                  })
-                }
-              >
-                {[500, 1200, 2000, 3000].map((n) => (
-                  <option value={n} key={n}>
-                    {n / 1000} ثانية
-                  </option>
-                ))}
-              </select>
-            </div>
-            <AdditionalOptions>
-              <div>
-                <label htmlFor="tolerance">مرونة المطابقة</label>
-                <select
-                  id="tolerance"
-                  value={s.config.tolerance}
-                  disabled={!editable}
-                  onChange={(e) =>
-                    send({
-                      type: "configure",
-                      config: { tolerance: Number(e.target.value) },
-                    })
-                  }
-                >
-                  <option value={0.05}>دقيقة</option>
-                  <option value={0.09}>متوسطة</option>
-                  <option value={0.18}>واسعة</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="quality">جودة العرض</label>
-                <select
-                  id="quality"
-                  value={s.config.quality}
-                  disabled={!editable}
-                  onChange={(e) =>
-                    send({
-                      type: "configure",
-                      config: { quality: e.target.value as "low" | "high" },
-                    })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="low">خفيفة</option>
-                </select>
-              </div>
-            </AdditionalOptions>
-            <div>
-              <label htmlFor="scale">حجم الحركة</label>
-              <select
-                id="scale"
-                value={s.config.movementScale}
-                disabled={!editable}
-                onChange={(e) =>
-                  send({
-                    type: "configure",
-                    config: { movementScale: Number(e.target.value) },
-                  })
-                }
-              >
-                <option value={0.5}>صغيرة</option>
-                <option value={0.75}>متوسطة</option>
-                <option value={1}>كاملة</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="presentation">عرض الشخصية</label>
-              <select
-                id="presentation"
-                value={s.config.presentation}
-                disabled={!editable}
-                onChange={(e) =>
-                  send({
-                    type: "configure",
-                    config: {
-                      presentation: e.target.value as "seated" | "standing",
-                    },
-                  })
-                }
-              >
-                <option value="seated">جالس</option>
-                <option value="standing">واقف</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="input">مصدر الحركة</label>
-              <select
-                id="input"
-                value={s.config.input}
-                disabled={!editable}
-                onChange={(e) =>
-                  send({
-                    type: "configure",
-                    config: { input: e.target.value as "manual" | "simulated" },
-                  })
-                }
-              >
-                <option value="manual">يدوي · بدون حساسات</option>
-                <option value="simulated">حساسات محاكاة</option>
-                <option disabled>حساسات فعلية · بانتظار التحقق</option>
-              </select>
-            </div>
-
-            <label>
-              <input
-                type="checkbox"
-                checked={s.config.reducedMotion}
-                disabled={!editable}
-                onChange={(e) =>
-                  send({
-                    type: "configure",
-                    config: { reducedMotion: e.target.checked },
-                  })
-                }
-              />{" "}
-              تقليل الحركة
-            </label>
-            <p className={styles.note}>
-              وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية
-              تمثّل الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها
-              المعالج، دون تصوير أو تتبّع بالكاميرا.
-            </p>
-            <div className={styles.status} role="status">
-              {session.error ??
-                (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
-              <br />
-              {session.displayConnected
-                ? "● شاشة الطفل متصلة"
-                : "○ افتح شاشة الطفل"}
-              <br />
-              {session.history === "saved"
-                ? "✓ حُفظت الجلسة"
-                : session.history === "walk-in"
-                  ? "جلسة زائر · دون سجل مريض"
-                  : session.history === "retry"
-                    ? "تعذّر الحفظ، تجري إعادة المحاولة"
-                    : ""}
-            </div>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

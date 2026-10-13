@@ -38,6 +38,9 @@ interface Registered {
 }
 interface LaunchContextValue {
   register: (adapter: Registered) => () => void;
+  adapter: Registered | null;
+  onIntent: (id: GameId | null) => void;
+  onConfirm: (key: string | null) => void;
   launchId: GameId | null;
   confirmedKey: string | null;
 }
@@ -56,21 +59,32 @@ export function LibraryLaunchBoundary({
     return () => setAdapter((current) => (current === next ? null : current));
   }, []);
   const value = useMemo(
-    () => ({ register, launchId, confirmedKey }),
-    [register, launchId, confirmedKey],
+    () => ({
+      register,
+      launchId,
+      confirmedKey,
+      adapter,
+      onIntent: setLaunchId,
+      onConfirm: setConfirmedKey,
+    }),
+    [register, launchId, confirmedKey, adapter],
   );
   return (
-    <LaunchContext.Provider value={value}>
-      {children}
-      <Suspense fallback={null}>
-        <LaunchPanel
-          adapter={adapter}
-          onIntent={setLaunchId}
-          onConfirm={setConfirmedKey}
-        />
-      </Suspense>
-    </LaunchContext.Provider>
+    <LaunchContext.Provider value={value}>{children}</LaunchContext.Provider>
   );
+}
+/** The canonical Control frame places launch preferences inline, away from gameplay buttons. */
+export function LibraryLaunchControls() {
+  const context = useContext(LaunchContext);
+  return context ? (
+    <Suspense fallback={null}>
+      <LaunchPanel
+        adapter={context.adapter}
+        onIntent={context.onIntent}
+        onConfirm={context.onConfirm}
+      />
+    </Suspense>
+  ) : null;
 }
 /** Additive bridge to native configuration, with no new sessions, input transport or history records. */
 export function useLibraryLaunchAdapter(
@@ -111,6 +125,13 @@ function LaunchPanel({
   const [open, setOpen] = useState(false),
     [message, setMessage] = useState("");
   const native = adapter?.id === game?.id ? adapter?.get() : null;
+  const context = useContext(LaunchContext);
+  const requiredProjection = !!(
+    native?.projections &&
+    native.projections.length > 1 &&
+    context?.confirmedKey !== `${game?.id}:${native.sessionKey}`
+  );
+  const expanded = open || requiredProjection;
   useEffect(() => {
     onIntent(game?.id ?? null);
   }, [game, onIntent]);
@@ -181,13 +202,15 @@ function LaunchPanel({
     >
       <button
         className={styles.toggle}
-        aria-expanded={open}
+        aria-expanded={expanded}
         aria-controls="library-launch-options"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen(!expanded)}
       >
-        طريقة المشاركة المطلوبة
+        {requiredProjection
+          ? "اختر سطح العرض وطريقة المشاركة"
+          : "طريقة المشاركة المطلوبة"}
       </button>
-      {open && (
+      {expanded && (
         <section
           className={styles.panel}
           id="library-launch-options"

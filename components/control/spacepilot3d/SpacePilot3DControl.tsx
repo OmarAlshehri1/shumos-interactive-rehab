@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
   AdditionalOptions,
@@ -255,6 +256,482 @@ function SpacePilotControlScreen({
       : `${integrated ? "/display/space-pilot" : "/display/space-pilot-3d-prototype"}#room=${state.roomId}`
     : "";
 
+  const setupSettings =
+    state && view ? (
+      <section
+        className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+        aria-label="إعداد الجلسة"
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="font-bold">إعداد الرحلة</h2>
+          <span
+            role="status"
+            data-testid="session-lifecycle"
+            data-lifecycle={state.lifecycle}
+            className="rounded-full bg-teal-50 px-3 py-1 text-sm font-bold text-teal-800"
+          >
+            {lifecycleArabic[state.lifecycle]}
+          </span>
+        </div>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <label className="text-sm font-semibold">
+            الصعوبة
+            <select
+              aria-label="الصعوبة"
+              className={select}
+              value={state.difficulty}
+              disabled={state.lifecycle !== "ready" || !!countdown}
+              onChange={(e) =>
+                action({
+                  type: "difficulty",
+                  value: e.target.value as FlightDifficulty,
+                })
+              }
+            >
+              <option value="LOW">سهل · رحلة هادئة</option>
+              <option value="MEDIUM">متوسط · رحلة متوازنة</option>
+              <option value="HIGH">متقدم · تنوّع المسار</option>
+            </select>
+          </label>
+          <label className="text-sm font-semibold">
+            طريقة التحكم
+            <select
+              aria-label="طريقة التحكم"
+              className={select}
+              value={state.inputMode}
+              disabled={ended || !!countdown}
+              onChange={(e) =>
+                action({
+                  type: "input-mode",
+                  value: e.target.value as PrototypeInputMode,
+                })
+              }
+            >
+              <option value="keyboard">تحكم يدوي</option>
+              <option value="sensor">مستشعر اليد اليمنى</option>
+            </select>
+          </label>
+          {cloud && state.inputMode === "sensor" && (
+            <label className="text-sm font-semibold">
+              مصدر اليد اليمنى
+              <select
+                aria-label="مصدر اليد اليمنى"
+                className={select}
+                value={state.sensorSource ?? "local"}
+                disabled={ended || !!countdown}
+                onChange={(e) =>
+                  action({
+                    type: "sensor-source",
+                    value: e.target.value as "local" | "remote",
+                  })
+                }
+              >
+                <option value="local">
+                  هذا الجهاز · اتصال المستشعر الحالي
+                </option>
+                <option value="remote">حاسوب المستشعر · عبر المزامنة</option>
+              </select>
+              <a
+                className="mt-3 block font-bold text-teal-700 underline"
+                target="_blank"
+                rel="noopener"
+                href={`/control/space-pilot/sensor-source?session=${state.roomId}`}
+              >
+                فتح رابط حاسوب المستشعر
+              </a>
+            </label>
+          )}
+        </div>
+        <fieldset
+          className="mt-5 grid gap-4 rounded-2xl border border-slate-200 p-4 sm:grid-cols-3"
+          disabled={
+            !["ready", "paused"].includes(state.lifecycle) || !!countdown
+          }
+        >
+          <legend className="px-2 text-sm font-bold">
+            الطيران ومجال الحركة
+          </legend>
+          <label className="text-sm font-semibold sm:col-span-3">
+            نمط الطيران
+            <select
+              aria-label="نمط الطيران"
+              className={select}
+              value={state.accessibility.mode}
+              onChange={(e) =>
+                action({
+                  type: "accessibility",
+                  value: {
+                    ...state.accessibility,
+                    mode: e.target.value as FlightMode,
+                  },
+                })
+              }
+            >
+              {Object.entries(flightModeArabic).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-sm font-semibold">
+            مساعدة الارتفاع
+            <select
+              aria-label="مساعدة الارتفاع"
+              className={select}
+              disabled={state.accessibility.mode !== "MEDIUM"}
+              value={state.accessibility.altitudeAssistance}
+              onChange={(e) =>
+                action({
+                  type: "accessibility",
+                  value: {
+                    ...state.accessibility,
+                    altitudeAssistance: Number(e.target.value),
+                  },
+                })
+              }
+            >
+              <option value={0.5}>لطيفة جدًا</option>
+              <option value={1.5}>متوازنة</option>
+              <option value={3}>أوضح</option>
+            </select>
+          </label>
+          <AdditionalOptions>
+            <label className="text-sm font-semibold">
+              فسحة عبور الحلقة
+              <select
+                aria-label="فسحة عبور الحلقة"
+                className={select}
+                value={state.accessibility.ringTolerance}
+                onChange={(e) =>
+                  action({
+                    type: "accessibility",
+                    value: {
+                      ...state.accessibility,
+                      ringTolerance: Number(e.target.value),
+                    },
+                  })
+                }
+              >
+                <option value={0}>دقيقة</option>
+                <option value={0.25}>محدودة</option>
+                <option value={0.5}>متوازنة</option>
+                <option value={0.8}>مريحة</option>
+                <option value={1}>واسعة</option>
+              </select>
+            </label>
+            <label className="text-sm font-semibold">
+              تطوير المركبة
+              <select
+                aria-label="تطوير المركبة"
+                className={select}
+                value={`${state.accessibility.upgrade2}/${state.accessibility.upgrade3}`}
+                onChange={(e) => {
+                  const [upgrade2, upgrade3] = e.target.value
+                    .split("/")
+                    .map(Number);
+                  action({
+                    type: "accessibility",
+                    value: normalizeAccessibility(
+                      { ...state.accessibility, upgrade2, upgrade3 },
+                      state.difficulty,
+                    ),
+                  });
+                }}
+              >
+                <option value="3/7">بعد ٣ و٧ حلقات</option>
+                <option value="2/5">بعد ٢ و٥ حلقات</option>
+                <option value="5/10">بعد ٥ و١٠ حلقات</option>
+              </select>
+            </label>
+          </AdditionalOptions>
+
+          <p className="text-xs leading-6 text-teal-800 sm:col-span-3">
+            {state.accessibility.mode === "EASY"
+              ? "الارتفاع ثابت؛ حركة اليد العمودية لا تغيّر الطيران. الحلقات أوسع والرحلة أبطأ."
+              : state.accessibility.mode === "MEDIUM"
+                ? "المركبة تساعد بلطف في الارتفاع نحو الحلقة التالية، وتتوقف المساعدة عند اقتراب نيزك. الاتجاه يمينًا ويسارًا بيد الطفل."
+                : "الطفل يتحكم بالاتجاه والارتفاع دون مساعدة تلقائية."}{" "}
+            مستوى المرحلة يغيّر تنوّع المسار؛ لا يفرض سرعة أعلى أو مساعدة أقل.
+          </p>
+
+          {(
+            [
+              [
+                "headingLimit",
+                "نطاق التوجيه",
+                [
+                  [20, "ضيق ومريح"],
+                  [35, "لطيف"],
+                  [45, "متوازن"],
+                  [60, "واسع · حتى ٦٠° لكل جانب"],
+                ],
+              ],
+              [
+                "horizontalLimit",
+                "عرض مسار الرحلة",
+                [
+                  [32, "مضغوط"],
+                  [40, "متوازن"],
+                  [48, "واسع"],
+                  [64, "واسع جدًا"],
+                ],
+              ],
+              [
+                "verticalLimit",
+                "مجال الصعود والهبوط",
+                [
+                  [12, "لطيف"],
+                  [16, "متوازن"],
+                  [20, "واسع"],
+                  [28, "واسع جدًا"],
+                ],
+              ],
+              [
+                "sensitivity",
+                "حساسية التوجيه",
+                [
+                  [0.5, "منخفضة"],
+                  [0.75, "لطيفة"],
+                  [1, "متوازنة"],
+                  [1.5, "مرتفعة"],
+                  [2, "لحركة يد صغيرة"],
+                ],
+              ],
+              [
+                "maxTurnRate",
+                "سرعة الانعطاف القصوى",
+                [
+                  [15, "هادئة جدًا"],
+                  [30, "هادئة"],
+                  [45, "متوازنة"],
+                  [60, "سريعة"],
+                  [75, "سريعة جدًا"],
+                ],
+              ],
+              [
+                "encounterSpacing",
+                "الفاصل بين المواجهات",
+                [
+                  [4, "متتابع"],
+                  [5, "متوازن"],
+                  [6, "مريح"],
+                  [8, "فسحة أطول"],
+                  [10, "فسحة كبيرة"],
+                ],
+              ],
+              [
+                "course",
+                "مسار الرحلة",
+                [
+                  [0, "مستقيم"],
+                  [1, "انحناء لطيف"],
+                ],
+              ],
+              [
+                "guidance",
+                "مساعدة الوصول للأهداف",
+                [
+                  [0, "بدون إرشاد"],
+                  [1, "إرشاد الحلقات"],
+                  [2, "الحلقات والمرور الآمن"],
+                ],
+              ],
+              [
+                "reducedCamera",
+                "حركة كاميرا مريحة",
+                [
+                  [0, "متابعة طبيعية"],
+                  [1, "حركة مخفّضة"],
+                ],
+              ],
+            ] as [keyof FlightSettings, string, [number, string][]][]
+          ).map(([key, label, options]) => (
+            <label key={key} className="text-sm font-semibold">
+              {label}
+              <select
+                className={select}
+                aria-label={label}
+                value={state.flightSettings[key]}
+                onChange={(event) =>
+                  action({
+                    type: "flight-settings",
+                    value: {
+                      ...state.flightSettings,
+                      [key]: Number(event.target.value),
+                    },
+                  })
+                }
+              >
+                {options.map(([value, text]) => (
+                  <option key={value} value={value}>
+                    {text}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+          <p className="text-xs leading-6 text-slate-500 sm:col-span-3">
+            المنتصف يتبع مسار الرحلة. الميل يحدد اتجاهًا محدودًا؛ لا يسبب
+            دورانًا متواصلًا. الإرشاد علامة بصرية فقط؛ أنت من يوجّه المركبة. هذه
+            إعدادات اللعبة فقط، ولا تغيّر معايرة المستشعر. تعديلها أثناء
+            الاستراحة يعيد تجهيز المرحلة الحالية ويحافظ على نتائج بقية المراحل.
+          </p>
+        </fieldset>
+        <div className="mt-5 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm sm:grid-cols-2">
+          <p>
+            شاشة الطفل:{" "}
+            <strong data-testid="display-readiness">
+              {state.primaryDisplayId
+                ? `${numberArabic(state.displays.length)} متصلة`
+                : "افتح شاشة الطفل"}
+            </strong>
+          </p>
+          <p>
+            اليد اليمنى:{" "}
+            <strong
+              data-testid="sensor-status"
+              data-status={state.sensorStatus}
+            >
+              {sensorArabic[state.sensorStatus]}
+            </strong>
+          </p>
+        </div>
+        {state.displays.length > 1 && (
+          <label className="mt-4 block text-sm">
+            الشاشة الرئيسية
+            <select
+              aria-label="الشاشة الرئيسية"
+              className={select}
+              disabled={state.lifecycle === "running" || ended}
+              value={state.primaryDisplayId ?? ""}
+              onChange={(e) =>
+                action({ type: "primary-display", value: e.target.value })
+              }
+            >
+              {state.displays.map((id) => (
+                <option key={id} value={id}>
+                  شاشة {id.slice(0, 6)}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+        <p className="mt-4 text-sm leading-6 text-slate-500">
+          {state.inputMode === "keyboard"
+            ? "استخدم أزرار التوجيه اليدوي. ارفع إصبعك للعودة إلى المنتصف. أبقِ شاشة الطفل والتحكم مفتوحتين."
+            : "استخدم اتصال اليد اليمنى الحالي. طابق النقطتين الذهبية والزرقاء قبل البدء أو المتابعة. أوقف الرحلة مؤقتًا قبل إعادة التمركز، ثم أعد تفعيل اليد."}
+        </p>
+        {state.inputMode === "sensor" && (
+          <button
+            className="mt-3 rounded-xl border border-teal-200 px-4 py-2 text-sm font-bold text-teal-800 disabled:opacity-40"
+            disabled={ended || !!countdown}
+            onClick={() => action({ type: "reengage" })}
+          >
+            إعادة تفعيل اليد
+          </button>
+        )}
+        {state.reason && (
+          <p
+            role="alert"
+            className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900"
+          >
+            {state.reason === "Run reset. Resume when ready."
+              ? "أُعيدت الرحلة. تابع عندما تكون جاهزًا."
+              : (reasonArabic[state.reason as SuspendReason] ??
+                "الرحلة متوقفة بأمان. تحقق من الاتصال.")}
+          </p>
+        )}
+        {!view.checkpointAvailable && (
+          <p className="mt-3 text-sm text-amber-800">
+            التخزين المحلي غير متاح. يبقى الملخص حتى إغلاق هذه النافذة.
+          </p>
+        )}
+      </section>
+    ) : null;
+  const setupStages =
+    state && view ? (
+      <ProgressiveStageGroup selected={state.mission - 1}>
+        {SPACE_STAGES.map((stage) => {
+          const result = state.stageResults?.find(
+            (r) => r.stageIndex === stage.index,
+          );
+          return (
+            <button
+              key={stage.index}
+              data-testid={`sp-stage-${stage.index}`}
+              disabled={
+                ended ||
+                state.lifecycle === "completed" ||
+                !!countdown ||
+                (cloud && !view.connected)
+              }
+              aria-pressed={state.mission === stage.index + 1}
+              className={`${button} min-h-16 ${state.mission === stage.index + 1 ? "ring-2 ring-teal-900 ring-offset-2" : ""}`}
+              onClick={() =>
+                action({ type: "select-stage", value: stage.index })
+              }
+            >
+              {numberArabic(stage.level)} / {numberArabic(stage.stage)} ·{" "}
+              {stage.nameAr}
+              <span className="block text-xs">
+                {result
+                  ? result.status === "skipped"
+                    ? "تم التخطي"
+                    : result.assisted
+                      ? "اكتملت بمساعدة"
+                      : "اكتملت"
+                  : "متاحة"}
+              </span>
+            </button>
+          );
+        })}
+      </ProgressiveStageGroup>
+    ) : null;
+  if (
+    state &&
+    view &&
+    state.lifecycle === "ready" &&
+    !state.elapsedSeconds &&
+    !state.stageResults?.length
+  )
+    return (
+      <main
+        data-testid="sp-control"
+        data-stage-index={state.mission - 1}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <div>
+              {countdown && (
+                <p role="status" data-testid="launch-countdown">
+                  استعد للانطلاق… {numberArabic(countdown.remaining)}{" "}
+                  <button onClick={() => setCountdown(null)}>
+                    إلغاء العد التنازلي
+                  </button>
+                </p>
+              )}
+              <button
+                type="button"
+                disabled={!view.ready || !!countdown}
+                onClick={() =>
+                  setCountdown({
+                    remaining: 3,
+                    epoch: state.inputEpoch,
+                    runId: state.runId,
+                  })
+                }
+              >
+                ابدأ النشاط
+              </button>
+            </div>
+          }
+        />
+      </main>
+    );
   return (
     <main
       data-testid="sp-control"
@@ -280,7 +757,10 @@ function SpacePilotControlScreen({
             <Link href="/control/space-pilot-legacy">النسخة السابقة</Link>
           </nav>
         )}
-        <header className="flex flex-wrap items-center justify-between gap-4">
+        <header
+          data-native-game-header
+          className="flex flex-wrap items-center justify-between gap-4"
+        >
           <div>
             <p className="text-xs font-bold tracking-widest text-teal-700">
               {integrated
@@ -371,400 +851,7 @@ function SpacePilotControlScreen({
         )}
         {state && (
           <>
-            <section
-              className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
-              aria-label="إعداد الجلسة"
-            >
-              <div className="flex items-center justify-between">
-                <h2 className="font-bold">إعداد الرحلة</h2>
-                <span
-                  role="status"
-                  data-testid="session-lifecycle"
-                  data-lifecycle={state.lifecycle}
-                  className="rounded-full bg-teal-50 px-3 py-1 text-sm font-bold text-teal-800"
-                >
-                  {lifecycleArabic[state.lifecycle]}
-                </span>
-              </div>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <label className="text-sm font-semibold">
-                  الصعوبة
-                  <select
-                    aria-label="الصعوبة"
-                    className={select}
-                    value={state.difficulty}
-                    disabled={state.lifecycle !== "ready" || !!countdown}
-                    onChange={(e) =>
-                      action({
-                        type: "difficulty",
-                        value: e.target.value as FlightDifficulty,
-                      })
-                    }
-                  >
-                    <option value="LOW">سهل · رحلة هادئة</option>
-                    <option value="MEDIUM">متوسط · رحلة متوازنة</option>
-                    <option value="HIGH">متقدم · تنوّع المسار</option>
-                  </select>
-                </label>
-                <label className="text-sm font-semibold">
-                  طريقة التحكم
-                  <select
-                    aria-label="طريقة التحكم"
-                    className={select}
-                    value={state.inputMode}
-                    disabled={ended || !!countdown}
-                    onChange={(e) =>
-                      action({
-                        type: "input-mode",
-                        value: e.target.value as PrototypeInputMode,
-                      })
-                    }
-                  >
-                    <option value="keyboard">تحكم يدوي</option>
-                    <option value="sensor">مستشعر اليد اليمنى</option>
-                  </select>
-                </label>
-                {cloud && state.inputMode === "sensor" && (
-                  <label className="text-sm font-semibold">
-                    مصدر اليد اليمنى
-                    <select
-                      aria-label="مصدر اليد اليمنى"
-                      className={select}
-                      value={state.sensorSource ?? "local"}
-                      disabled={ended || !!countdown}
-                      onChange={(e) =>
-                        action({
-                          type: "sensor-source",
-                          value: e.target.value as "local" | "remote",
-                        })
-                      }
-                    >
-                      <option value="local">
-                        هذا الجهاز · اتصال المستشعر الحالي
-                      </option>
-                      <option value="remote">
-                        حاسوب المستشعر · عبر المزامنة
-                      </option>
-                    </select>
-                    <a
-                      className="mt-3 block font-bold text-teal-700 underline"
-                      target="_blank"
-                      rel="noopener"
-                      href={`/control/space-pilot/sensor-source?session=${state.roomId}`}
-                    >
-                      فتح رابط حاسوب المستشعر
-                    </a>
-                  </label>
-                )}
-              </div>
-              <fieldset
-                className="mt-5 grid gap-4 rounded-2xl border border-slate-200 p-4 sm:grid-cols-3"
-                disabled={
-                  !["ready", "paused"].includes(state.lifecycle) || !!countdown
-                }
-              >
-                <legend className="px-2 text-sm font-bold">
-                  الطيران ومجال الحركة
-                </legend>
-                <label className="text-sm font-semibold sm:col-span-3">
-                  نمط الطيران
-                  <select
-                    aria-label="نمط الطيران"
-                    className={select}
-                    value={state.accessibility.mode}
-                    onChange={(e) =>
-                      action({
-                        type: "accessibility",
-                        value: {
-                          ...state.accessibility,
-                          mode: e.target.value as FlightMode,
-                        },
-                      })
-                    }
-                  >
-                    {Object.entries(flightModeArabic).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="text-sm font-semibold">
-                  مساعدة الارتفاع
-                  <select
-                    aria-label="مساعدة الارتفاع"
-                    className={select}
-                    disabled={state.accessibility.mode !== "MEDIUM"}
-                    value={state.accessibility.altitudeAssistance}
-                    onChange={(e) =>
-                      action({
-                        type: "accessibility",
-                        value: {
-                          ...state.accessibility,
-                          altitudeAssistance: Number(e.target.value),
-                        },
-                      })
-                    }
-                  >
-                    <option value={0.5}>لطيفة جدًا</option>
-                    <option value={1.5}>متوازنة</option>
-                    <option value={3}>أوضح</option>
-                  </select>
-                </label>
-                <AdditionalOptions>
-                  <label className="text-sm font-semibold">
-                    فسحة عبور الحلقة
-                    <select
-                      aria-label="فسحة عبور الحلقة"
-                      className={select}
-                      value={state.accessibility.ringTolerance}
-                      onChange={(e) =>
-                        action({
-                          type: "accessibility",
-                          value: {
-                            ...state.accessibility,
-                            ringTolerance: Number(e.target.value),
-                          },
-                        })
-                      }
-                    >
-                      <option value={0}>دقيقة</option>
-                      <option value={0.25}>محدودة</option>
-                      <option value={0.5}>متوازنة</option>
-                      <option value={0.8}>مريحة</option>
-                      <option value={1}>واسعة</option>
-                    </select>
-                  </label>
-                  <label className="text-sm font-semibold">
-                    تطوير المركبة
-                    <select
-                      aria-label="تطوير المركبة"
-                      className={select}
-                      value={`${state.accessibility.upgrade2}/${state.accessibility.upgrade3}`}
-                      onChange={(e) => {
-                        const [upgrade2, upgrade3] = e.target.value
-                          .split("/")
-                          .map(Number);
-                        action({
-                          type: "accessibility",
-                          value: normalizeAccessibility(
-                            { ...state.accessibility, upgrade2, upgrade3 },
-                            state.difficulty,
-                          ),
-                        });
-                      }}
-                    >
-                      <option value="3/7">بعد ٣ و٧ حلقات</option>
-                      <option value="2/5">بعد ٢ و٥ حلقات</option>
-                      <option value="5/10">بعد ٥ و١٠ حلقات</option>
-                    </select>
-                  </label>
-                </AdditionalOptions>
-
-                <p className="text-xs leading-6 text-teal-800 sm:col-span-3">
-                  {state.accessibility.mode === "EASY"
-                    ? "الارتفاع ثابت؛ حركة اليد العمودية لا تغيّر الطيران. الحلقات أوسع والرحلة أبطأ."
-                    : state.accessibility.mode === "MEDIUM"
-                      ? "المركبة تساعد بلطف في الارتفاع نحو الحلقة التالية، وتتوقف المساعدة عند اقتراب نيزك. الاتجاه يمينًا ويسارًا بيد الطفل."
-                      : "الطفل يتحكم بالاتجاه والارتفاع دون مساعدة تلقائية."}{" "}
-                  مستوى المرحلة يغيّر تنوّع المسار؛ لا يفرض سرعة أعلى أو مساعدة
-                  أقل.
-                </p>
-
-                {(
-                  [
-                    [
-                      "headingLimit",
-                      "نطاق التوجيه",
-                      [
-                        [20, "ضيق ومريح"],
-                        [35, "لطيف"],
-                        [45, "متوازن"],
-                        [60, "واسع · حتى ٦٠° لكل جانب"],
-                      ],
-                    ],
-                    [
-                      "horizontalLimit",
-                      "عرض مسار الرحلة",
-                      [
-                        [32, "مضغوط"],
-                        [40, "متوازن"],
-                        [48, "واسع"],
-                        [64, "واسع جدًا"],
-                      ],
-                    ],
-                    [
-                      "verticalLimit",
-                      "مجال الصعود والهبوط",
-                      [
-                        [12, "لطيف"],
-                        [16, "متوازن"],
-                        [20, "واسع"],
-                        [28, "واسع جدًا"],
-                      ],
-                    ],
-                    [
-                      "sensitivity",
-                      "حساسية التوجيه",
-                      [
-                        [0.5, "منخفضة"],
-                        [0.75, "لطيفة"],
-                        [1, "متوازنة"],
-                        [1.5, "مرتفعة"],
-                        [2, "لحركة يد صغيرة"],
-                      ],
-                    ],
-                    [
-                      "maxTurnRate",
-                      "سرعة الانعطاف القصوى",
-                      [
-                        [15, "هادئة جدًا"],
-                        [30, "هادئة"],
-                        [45, "متوازنة"],
-                        [60, "سريعة"],
-                        [75, "سريعة جدًا"],
-                      ],
-                    ],
-                    [
-                      "encounterSpacing",
-                      "الفاصل بين المواجهات",
-                      [
-                        [4, "متتابع"],
-                        [5, "متوازن"],
-                        [6, "مريح"],
-                        [8, "فسحة أطول"],
-                        [10, "فسحة كبيرة"],
-                      ],
-                    ],
-                    [
-                      "course",
-                      "مسار الرحلة",
-                      [
-                        [0, "مستقيم"],
-                        [1, "انحناء لطيف"],
-                      ],
-                    ],
-                    [
-                      "guidance",
-                      "مساعدة الوصول للأهداف",
-                      [
-                        [0, "بدون إرشاد"],
-                        [1, "إرشاد الحلقات"],
-                        [2, "الحلقات والمرور الآمن"],
-                      ],
-                    ],
-                    [
-                      "reducedCamera",
-                      "حركة كاميرا مريحة",
-                      [
-                        [0, "متابعة طبيعية"],
-                        [1, "حركة مخفّضة"],
-                      ],
-                    ],
-                  ] as [keyof FlightSettings, string, [number, string][]][]
-                ).map(([key, label, options]) => (
-                  <label key={key} className="text-sm font-semibold">
-                    {label}
-                    <select
-                      className={select}
-                      aria-label={label}
-                      value={state.flightSettings[key]}
-                      onChange={(event) =>
-                        action({
-                          type: "flight-settings",
-                          value: {
-                            ...state.flightSettings,
-                            [key]: Number(event.target.value),
-                          },
-                        })
-                      }
-                    >
-                      {options.map(([value, text]) => (
-                        <option key={value} value={value}>
-                          {text}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                ))}
-                <p className="text-xs leading-6 text-slate-500 sm:col-span-3">
-                  المنتصف يتبع مسار الرحلة. الميل يحدد اتجاهًا محدودًا؛ لا يسبب
-                  دورانًا متواصلًا. الإرشاد علامة بصرية فقط؛ أنت من يوجّه
-                  المركبة. هذه إعدادات اللعبة فقط، ولا تغيّر معايرة المستشعر.
-                  تعديلها أثناء الاستراحة يعيد تجهيز المرحلة الحالية ويحافظ على
-                  نتائج بقية المراحل.
-                </p>
-              </fieldset>
-              <div className="mt-5 grid gap-3 rounded-2xl bg-slate-50 p-4 text-sm sm:grid-cols-2">
-                <p>
-                  شاشة الطفل:{" "}
-                  <strong data-testid="display-readiness">
-                    {state.primaryDisplayId
-                      ? `${numberArabic(state.displays.length)} متصلة`
-                      : "افتح شاشة الطفل"}
-                  </strong>
-                </p>
-                <p>
-                  اليد اليمنى:{" "}
-                  <strong
-                    data-testid="sensor-status"
-                    data-status={state.sensorStatus}
-                  >
-                    {sensorArabic[state.sensorStatus]}
-                  </strong>
-                </p>
-              </div>
-              {state.displays.length > 1 && (
-                <label className="mt-4 block text-sm">
-                  الشاشة الرئيسية
-                  <select
-                    aria-label="الشاشة الرئيسية"
-                    className={select}
-                    disabled={state.lifecycle === "running" || ended}
-                    value={state.primaryDisplayId ?? ""}
-                    onChange={(e) =>
-                      action({ type: "primary-display", value: e.target.value })
-                    }
-                  >
-                    {state.displays.map((id) => (
-                      <option key={id} value={id}>
-                        شاشة {id.slice(0, 6)}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )}
-              <p className="mt-4 text-sm leading-6 text-slate-500">
-                {state.inputMode === "keyboard"
-                  ? "استخدم أزرار التوجيه اليدوي. ارفع إصبعك للعودة إلى المنتصف. أبقِ شاشة الطفل والتحكم مفتوحتين."
-                  : "استخدم اتصال اليد اليمنى الحالي. طابق النقطتين الذهبية والزرقاء قبل البدء أو المتابعة. أوقف الرحلة مؤقتًا قبل إعادة التمركز، ثم أعد تفعيل اليد."}
-              </p>
-              {state.inputMode === "sensor" && (
-                <button
-                  className="mt-3 rounded-xl border border-teal-200 px-4 py-2 text-sm font-bold text-teal-800 disabled:opacity-40"
-                  disabled={ended || !!countdown}
-                  onClick={() => action({ type: "reengage" })}
-                >
-                  إعادة تفعيل اليد
-                </button>
-              )}
-              {state.reason && (
-                <p
-                  role="alert"
-                  className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900"
-                >
-                  {state.reason === "Run reset. Resume when ready."
-                    ? "أُعيدت الرحلة. تابع عندما تكون جاهزًا."
-                    : (reasonArabic[state.reason as SuspendReason] ??
-                      "الرحلة متوقفة بأمان. تحقق من الاتصال.")}
-                </p>
-              )}
-              {!view.checkpointAvailable && (
-                <p className="mt-3 text-sm text-amber-800">
-                  التخزين المحلي غير متاح. يبقى الملخص حتى إغلاق هذه النافذة.
-                </p>
-              )}
-            </section>
+            {setupSettings}
             {integrated && (
               <ManualFlightControls
                 key={`${state.runId}/${state.inputMode}/${state.inputEpoch}`}
@@ -820,36 +907,7 @@ function SpacePilotControlScreen({
                   <legend className="mb-3 font-bold">
                     اختر أي مرحلة · تسع مراحل متاحة
                   </legend>
-                  <ProgressiveStageGroup selected={state.mission - 1}>
-                    {SPACE_STAGES.map((stage) => {
-                      const result = state.stageResults?.find(
-                        (r) => r.stageIndex === stage.index,
-                      );
-                      return (
-                        <button
-                          key={stage.index}
-                          data-testid={`sp-stage-${stage.index}`}
-                          aria-pressed={state.mission === stage.index + 1}
-                          className={`${button} min-h-16 ${state.mission === stage.index + 1 ? "ring-2 ring-teal-900 ring-offset-2" : ""}`}
-                          onClick={() =>
-                            action({ type: "select-stage", value: stage.index })
-                          }
-                        >
-                          {numberArabic(stage.level)} /{" "}
-                          {numberArabic(stage.stage)} · {stage.nameAr}
-                          <span className="block text-xs">
-                            {result
-                              ? result.status === "skipped"
-                                ? "تم التخطي"
-                                : result.assisted
-                                  ? "اكتملت بمساعدة"
-                                  : "اكتملت"
-                              : "متاحة"}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </ProgressiveStageGroup>
+                  {setupStages}
                   <p className="mt-3 text-xs text-slate-500">
                     اختيار مرحلة يوقف الطيران ويجهّزها للبدء. إعادة مرحلة تستبدل
                     نتيجتها السابقة دون مضاعفة العدد.

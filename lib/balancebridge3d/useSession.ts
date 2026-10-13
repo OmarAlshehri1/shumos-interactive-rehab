@@ -146,7 +146,7 @@ export function useBridgeSession() {
             ? await getSessionHistoryRecord(record.patientId, oldKey)
             : null;
         if (disposed) return;
-        if (!mayEnterBridge(record, oldResult)) {
+        if (!mayEnterBridge(record, oldResult, tab)) {
           setBlocked(true);
           return;
         }

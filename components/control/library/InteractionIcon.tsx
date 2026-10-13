@@ -6,7 +6,7 @@ export function InteractionIcon({ name }: { name: string }) {
     controller:
       "M8 3H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h3V3Zm8 0h3a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-3V3ZM5 8h.01M5 15v3m-1.5-1.5h3M19 7v3m-1.5-1.5h3M19 16h.01",
     wheel:
-      "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM12 5a7 7 0 0 0-6.8 5H9a4 4 0 0 1 6 0h3.8A7 7 0 0 0 12 5ZM5 13l4 1 1 5m9-6-4 1-1 5M10 11h4v3h-4v-3",
+      "M8 4a7 7 0 1 0 0 14A7 7 0 0 0 8 4ZM1 11h5m4 0h5M8 13v5M6 9h4v4H6V9ZM18 13h2v8h-2v-8Zm4-4h2v12h-2V9",
     wall: "M4 3h16v14H4V3Zm3 18h10m-5-4v4M7 7h10m-7 4h4",
     floor: "M3 15l9-5 9 5-9 6-9-6Zm9-12v5m-3-3 3 3 3-3",
   };

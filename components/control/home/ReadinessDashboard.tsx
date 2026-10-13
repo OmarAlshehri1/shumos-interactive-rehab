@@ -12,6 +12,7 @@ import {
   useDualSensorRuntime,
   type SensorRuntime,
 } from "@/components/control/sensors/SensorRuntimeProvider";
+import { InteractionIcon } from "@/components/control/library/InteractionIcon";
 import styles from "./readiness.module.css";
 export function freshDisplay(
   p: PresenceRecord | null | undefined,
@@ -104,7 +105,7 @@ export function ReadinessDashboard() {
         requestedAt: Date.now(),
       });
       setRequest(
-        "أُرسل طلب تشغيل / اختبار الصوت. إذا بقي محجوبًا، اضغط تشغيل الصوت على شاشة العرض نفسها.",
+        "أُرسل اختبار الصوت. إذا بقي محجوبًا، اضغط تشغيل الصوت على شاشة العرض نفسها.",
       );
     } catch {
       setRequest("تعذّر إرسال الطلب. تحقق من الاتصال.");
@@ -167,40 +168,46 @@ export function ReadinessDashboard() {
             <p>
               صوت شاشة العرض{" "}
               <strong className={audio ? styles.good : styles.wait}>
-                {audio ? "جاهز" : "غير جاهز / غير معروف"}
+                {audio ? "جاهز" : "يحتاج تشغيل"}
               </strong>
             </p>
-            <p>
-              آخر اتصال مسجّل{" "}
-              <span>
-                {typeof presence?.updatedAt === "number"
-                  ? new Date(presence.updatedAt).toLocaleTimeString("ar-SA")
-                  : "غير متاح"}
-              </span>
-            </p>
-            <p>
-              حداثة الإشارة{" "}
-              <span>
-                {fresh
-                  ? "إشارة خلال ٤٥ ثانية"
-                  : presence?.connected
-                    ? "يلزم تحديث شاشة العرض أو استعادة الاتصال"
-                    : "بانتظار اتصال"}
-              </span>
-            </p>
+            <details className={styles.help}>
+              <summary>تفاصيل الإشارة</summary>
+              <p>
+                آخر اتصال مسجّل{" "}
+                <span>
+                  {typeof presence?.updatedAt === "number"
+                    ? new Date(presence.updatedAt).toLocaleTimeString("ar-SA")
+                    : "غير متاح"}
+                </span>
+              </p>
+              <p>
+                حداثة الإشارة{" "}
+                <span>
+                  {fresh
+                    ? "إشارة خلال ٤٥ ثانية"
+                    : presence?.connected
+                      ? "يلزم تحديث شاشة العرض أو استعادة الاتصال"
+                      : "بانتظار اتصال"}
+                </span>
+              </p>
+            </details>
           </div>
           {!audio && (
-            <p className={styles.help}>
-              افتح شاشة العرض على جهاز الإسقاط، ثم اضغط «تشغيل الصوت» هناك
-              للسماح بالتشغيل. صوت التحكم مستقل.
-            </p>
+            <details className={styles.help}>
+              <summary>تشغيل الصوت على جهاز العرض</summary>
+              <p>
+                افتح شاشة العرض على جهاز الإسقاط، ثم اضغط «تشغيل الصوت» هناك
+                للسماح بالتشغيل. صوت التحكم مستقل.
+              </p>
+            </details>
           )}
           <div className={styles.actions}>
             <a href="/display" target="_blank" rel="noopener noreferrer">
               فتح شاشة العرض ↗
             </a>
             <button disabled={!fresh} onClick={() => void send()}>
-              طلب تشغيل / اختبار الصوت
+              اختبار الصوت
             </button>
           </div>
           {request && (
@@ -226,10 +233,13 @@ export function ReadinessDashboard() {
             supported={bluetooth}
             now={sampleNow}
           />
-          <p className={styles.help}>
-            الاتصال بهذا الجهاز. للعتاد المتصل بحاسوب العرض لا يوجد هنا مرحّل
-            Bluetooth بعيد.
-          </p>
+          <details className={styles.help}>
+            <summary>معلومات الاتصال</summary>
+            <p>
+              الاتصال بهذا الجهاز. للعتاد المتصل بحاسوب العرض لا يوجد هنا مرحّل
+              Bluetooth بعيد.
+            </p>
+          </details>
         </article>
         <article className={styles.card}>
           <div className={styles.heading}>
@@ -247,14 +257,23 @@ export function ReadinessDashboard() {
               المعايرة <span>غير متاحة في لوحة النظام</span>
             </p>
           </div>
-          <p className={styles.help}>
-            لا يوجد محوّل أقدام مشترك مُثبت هنا. قد تعرض الألعاب محاكاة أو
-            تلميحات حركة؛ ليست إثباتًا ماديًا.
-          </p>
+          <div className={styles.actions}>
+            <Link href="/control/activities?filter=FOOT">أنشطة القدم</Link>
+            <Link href="/control/calibration">معايرة الإسقاط</Link>
+          </div>
+          <details className={styles.help}>
+            <summary>معلومات الاتصال</summary>
+            <p>
+              لا يوجد محوّل أقدام مشترك مُثبت هنا. قد تعرض الألعاب محاكاة أو
+              تلميحات حركة؛ ليست إثباتًا ماديًا.
+            </p>
+          </details>
         </article>
         <article className={styles.card}>
           <div className={styles.heading}>
-            <span className={styles.icon}>⊞</span>
+            <span className={styles.icon}>
+              <InteractionIcon name="controller" />
+            </span>
             <h3>أجهزة التحكم المحمولة</h3>
           </div>
           {gamepad === false ? (
@@ -265,22 +284,30 @@ export function ReadinessDashboard() {
               {deviceSelect("اليسار", leftPad, setLeftPad, rightPad)}
             </>
           )}
-          <p className={styles.help}>
-            اضغط زرًا على الجهاز لظهوره. التعيين للتعرّف المحلي فقط؛ دعم Joy-Con
-            الكامل غير مُتحقق.
-          </p>
+          <details className={styles.help}>
+            <summary>معلومات الاتصال</summary>
+            <p>
+              اضغط زرًا على الجهاز لظهوره. التعيين للتعرّف المحلي فقط؛ دعم
+              Joy-Con الكامل غير مُتحقق.
+            </p>
+          </details>
         </article>
         <article className={styles.card}>
           <div className={styles.heading}>
-            <span className={styles.icon}>◎</span>
+            <span className={styles.icon}>
+              <InteractionIcon name="wheel" />
+            </span>
             <h3>المقود والدواسات</h3>
           </div>
           {deviceSelect("الجهاز المحلي", wheelPad, setWheelPad)}
-          <p className={styles.help}>
-            {pads.find((p) => p.index === wheelPad)
-              ? `${pads.find((p) => p.index === wheelPad)!.axes} محاور · ${pads.find((p) => p.index === wheelPad)!.buttons} أزرار متاحة. تُعيّن محاور المقود والدواسات وتُعاير داخل اللعبة.`
-              : "لم يُعيّن جهاز. لا يمكن استنتاج اتصال الدواسات من اسم Gamepad وحده."}
-          </p>
+          <details className={styles.help}>
+            <summary>تفاصيل المقود والدواسات</summary>
+            <p>
+              {pads.find((p) => p.index === wheelPad)
+                ? `${pads.find((p) => p.index === wheelPad)!.axes} محاور · ${pads.find((p) => p.index === wheelPad)!.buttons} أزرار متاحة. تُعيّن محاور المقود والدواسات وتُعاير داخل اللعبة.`
+                : "لم يُعيّن جهاز. لا يمكن استنتاج اتصال الدواسات من اسم Gamepad وحده."}
+            </p>
+          </details>
           <Link
             className={styles.link}
             href="/control/activities?input=DRIVING"
@@ -335,10 +362,13 @@ function Hand({
       <div>
         <strong>اليد {label}</strong>
         <Status good={fresh} label={state} />
-        <span className={styles.help}>
-          {runtime.centered ? "تم تحديد المركز" : "تحتاج تحديد المركز"} ·{" "}
-          {fresh ? "قراءة حديثة" : "لا توجد قراءة حديثة"}
-        </span>
+        <details className={styles.help}>
+          <summary>المعايرة وحداثة القراءة</summary>
+          <span>
+            {runtime.centered ? "تم تحديد المركز" : "تحتاج تحديد المركز"} ·{" "}
+            {fresh ? "قراءة حديثة" : "لا توجد قراءة حديثة"}
+          </span>
+        </details>
         {runtime.error && (
           <span className={styles.failure}>{runtime.error}</span>
         )}

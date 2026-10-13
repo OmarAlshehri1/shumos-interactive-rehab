@@ -8,6 +8,9 @@ import {
   type SelectHTMLAttributes,
   type ButtonHTMLAttributes,
 } from "react";
+import { useControlGameId } from "./ControlGameFrame";
+import { realGameThumbnail } from "@/components/control/library/realGameThumbnails";
+import { StageArtwork } from "./StageArtwork";
 import styles from "./progressive.module.css";
 export interface StageChoice {
   value: string | number;
@@ -30,6 +33,7 @@ export function optionsOf(node: ReactNode): StageChoice[] {
     isValidElement<{
       value?: string | number;
       disabled?: boolean;
+      "data-stage-description"?: string;
       children?: ReactNode;
     }>(child)
       ? child.type === "option"
@@ -37,6 +41,7 @@ export function optionsOf(node: ReactNode): StageChoice[] {
             {
               value: child.props.value ?? textOf(child.props.children),
               label: child.props.children,
+              description: child.props["data-stage-description"],
               disabled: child.props.disabled,
             },
           ]
@@ -57,6 +62,7 @@ export function StagePicker({
   disabled?: boolean;
   onSelect: (value: string | number) => void;
 }) {
+  const gameId = useControlGameId();
   const selected = items.findIndex(
     (item) => String(item.value) === String(value),
   );
@@ -97,6 +103,11 @@ export function StagePicker({
             data-stage-choice={item.value}
             onClick={() => onSelect(item.value)}
           >
+            <StageArtwork
+              gameId={gameId}
+              index={level * 3 + i}
+              fallback={gameId ? realGameThumbnail(gameId) : undefined}
+            />
             <span>المرحلة {level * 3 + i + 1}</span>
             <strong>
               {textOf(item.label)
@@ -146,6 +157,7 @@ export function ProgressiveStageGroup({
   children: ReactNode;
   selected: number;
 }) {
+  const gameId = useControlGameId();
   const nodes = Children.toArray(children);
   const level = stageLevel(selected);
   const candidate = (index: number) =>
@@ -181,10 +193,26 @@ export function ProgressiveStageGroup({
                 node as ReactElement<{
                   "aria-pressed"?: boolean;
                   "data-stage-choice"?: number;
+                  children?: ReactNode;
                 }>,
                 {
                   "aria-pressed": level * 3 + i === selected,
                   "data-stage-choice": level * 3 + i,
+                  children: (
+                    <>
+                      <StageArtwork
+                        gameId={gameId}
+                        index={level * 3 + i}
+                        fallback={
+                          gameId ? realGameThumbnail(gameId) : undefined
+                        }
+                      />
+                      {
+                        (node as ReactElement<{ children?: ReactNode }>).props
+                          .children
+                      }
+                    </>
+                  ),
                 },
               )
             : node,

@@ -202,3 +202,44 @@
 .device > span {
   grid-column: 2;
 }
+
+.grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.card {
+  padding: 16px;
+  gap: 10px;
+}
+.display {
+  grid-column: auto;
+}
+.help summary {
+  cursor: pointer;
+  color: #52747b;
+}
+.help p {
+  margin-top: 6px;
+}
+.hand button,
+.actions button,
+.actions a {
+  min-height: 44px;
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .display {
+    grid-column: auto;
+  }
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.icon svg {
+  width: 22px;
+  height: 22px;
+}

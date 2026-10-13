@@ -12,6 +12,7 @@ import {
   libraryFilter,
   type LibraryFilter,
 } from "@/lib/games/library/filters";
+import { librarySections } from "./presentation";
 import styles from "./library.module.css";
 export function GameLibraryScreen() {
   return (
@@ -68,26 +69,29 @@ function Library() {
             </button>
           ))}
         </nav>
-        <section
-          aria-label={LIBRARY_FILTERS.find((f) => f.id === selected)?.label}
-          data-library-filter-selected={selected}
-        >
-          {games.length ? (
+        {(selected === "ALL"
+          ? librarySections(GAME_REGISTRY)
+          : librarySections(GAME_REGISTRY).filter((s) => s.input === selected)
+        ).map((section) => (
+          <section
+            key={section.id}
+            className={styles.deviceSection}
+            data-library-section={section.input}
+            data-library-filter-selected={selected}
+            aria-label={section.title}
+          >
+            <header className={styles.deviceHeader}>
+              <InteractionIcon name={section.icon} />
+              <h2>{section.title}</h2>
+              <span>{section.games.length} أنشطة</span>
+            </header>
             <div className={styles.gameGrid}>
-              {games.map((game) => (
-                <GameCard
-                  key={game.id}
-                  game={game}
-                  input={selected === "ALL" ? "MANUAL" : selected}
-                />
+              {section.games.map((game) => (
+                <GameCard key={game.id} game={game} input={section.input} />
               ))}
             </div>
-          ) : (
-            <p className={styles.empty}>
-              لا توجد أنشطة مفعّلة ضمن هذا الاختيار.
-            </p>
-          )}
-        </section>
+          </section>
+        ))}
       </div>
     </main>
   );

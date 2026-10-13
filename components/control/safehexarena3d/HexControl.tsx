@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
   AdditionalOptions,
@@ -110,6 +111,322 @@ function Panel({
       ? rolesForMode(s.config.inputMode)
       : [];
   const editable = s.status !== "ended";
+  const setupStages = (
+    <ProgressiveStageSelect
+      onSelect={(value) => send({ type: "stage", stage: Number(value) })}
+    >
+      <select
+        id="stage"
+        value={s.stage}
+        disabled={
+          !(
+            s.status === "ready" ||
+            s.status === "paused" ||
+            s.status === "stage-complete"
+          )
+        }
+        onChange={(e) => send({ type: "stage", stage: Number(e.target.value) })}
+      >
+        {STAGES.map((d, i) => (
+          <option
+            data-stage-description={`${d.tiles} مناطق في التخطيط القياسي · ${d.rounds} جولات`}
+            key={i}
+            value={i}
+            disabled={
+              s.events.some((e) => e.stage === i) ||
+              s.completed.includes(i) ||
+              s.skipped.includes(i)
+            }
+          >
+            المستوى {d.level} · المرحلة {d.stage} ·{" "}
+            {tilesFor(i, s.config.layoutPreset)} بلاطة
+          </option>
+        ))}
+      </select>
+    </ProgressiveStageSelect>
+  );
+  const setupSettings = (
+    <aside className={`${styles.card} ${styles.panel}`}>
+      <h2>إعدادات الجلسة</h2>
+      {(s.status !== "ready" || !!s.startedAt) && setupStages}
+
+      <div>
+        <label htmlFor="warnMs">مدة التحذير</label>
+        <select
+          id="warnMs"
+          value={s.config.warnMs}
+          disabled={!editable}
+          onChange={(e) => cfg({ warnMs: Number(e.target.value) })}
+        >
+          {[3000, 5000, 8000, 10000, 15000, 20000, 30000].map((n) => (
+            <option key={n} value={n}>
+              {n / 1000} ثانية{n === 5000 ? " (افتراضي)" : ""}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="prepMs">مدة التحضير</label>
+        <select
+          id="prepMs"
+          value={s.config.prepMs}
+          disabled={!editable}
+          onChange={(e) => cfg({ prepMs: Number(e.target.value) })}
+        >
+          {[2000, 4000, 6000, 10000, 15000].map((n) => (
+            <option key={n} value={n}>
+              {n / 1000} ثانية
+            </option>
+          ))}
+        </select>
+      </div>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.auto}
+          disabled={!editable}
+          onChange={(e) => cfg({ auto: e.target.checked })}
+        />{" "}
+        توقيت تلقائي (إلغاؤه يعني التقدّم يدويًا)
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.targetChild}
+          disabled={!editable}
+          onChange={(e) => cfg({ targetChild: e.target.checked })}
+        />{" "}
+        اجعل بلاطة الطفل المؤكدة ضمن التحذير
+      </label>
+
+      <h2>مصدر الحركة</h2>
+      <div>
+        <label htmlFor="input">وضع الإدخال</label>
+        <select
+          id="input"
+          value={
+            s.config.inputSource === "simulated" ? s.config.inputMode : "MANUAL"
+          }
+          disabled={!editable}
+          onChange={(e) => {
+            const mode = e.target.value as InputMode;
+            cfg({
+              inputMode: mode,
+              inputSource: mode === "MANUAL" ? "manual" : "simulated",
+            });
+          }}
+        >
+          <option value="MANUAL">يدوي · بدون حساسات</option>
+          <option value="RIGHT_FOOT">محاكاة · القدم اليمنى</option>
+          <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
+          <option value="DUAL_FOOT">محاكاة · القدمان</option>
+          <option disabled>حساسات فعلية · بانتظار التحقق</option>
+        </select>
+      </div>
+      {roles.length > 0 && (
+        <div className={styles.sim}>
+          {roles.map((role) => (
+            <div key={role}>
+              <strong>{ROLE_NAME[role]}</strong> ·{" "}
+              {s.sensor.link[role] === "lost"
+                ? "الاتصال مفقود"
+                : s.sensor.link[role] === "ok"
+                  ? "متصلة"
+                  : "بانتظار إشارة"}
+              <div className={styles.actions} style={{ marginTop: 6 }}>
+                <button
+                  className={styles.btn}
+                  style={{ minHeight: 44 }}
+                  aria-pressed={session.sim.moving[role]}
+                  onClick={() =>
+                    session.setSimulated({
+                      moving: {
+                        ...session.sim.moving,
+                        [role]: !session.sim.moving[role],
+                      },
+                    })
+                  }
+                >
+                  {session.sim.moving[role] ? "أوقف الحركة" : "حرّك القدم"}
+                </button>
+                <button
+                  className={styles.btn}
+                  style={{ minHeight: 44 }}
+                  aria-pressed={!session.sim.connected[role]}
+                  onClick={() =>
+                    session.setSimulated({
+                      connected: {
+                        ...session.sim.connected,
+                        [role]: !session.sim.connected[role],
+                      },
+                    })
+                  }
+                >
+                  {session.sim.connected[role] ? "افصل الحساس" : "أعد الاتصال"}
+                </button>
+              </div>
+            </div>
+          ))}
+          <p className={styles.note}>
+            محاكاة فقط. الحساس يعطي تلميح حركة، ولا يعرف أي بلاطة يقف عليها
+            الطفل. يبقى التحكم اليدوي متاحًا دائمًا.
+          </p>
+        </div>
+      )}
+
+      <CalibrationPanel s={s} send={send} />
+
+      <h2>عرض الأرضية</h2>
+      <div>
+        <label htmlFor="view">زاوية العرض</label>
+        <select
+          id="view"
+          value={s.config.view}
+          disabled={!editable}
+          onChange={(e) => cfg({ view: e.target.value as Config["view"] })}
+        >
+          <option value="floor">إسقاط الأرضية (علوي)</option>
+          <option value="cinematic">معاينة سينمائية فقط</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="margin">هامش آمن: {s.config.margin}٪</label>
+        <input
+          id="margin"
+          type="range"
+          min="0"
+          max="15"
+          step="1"
+          value={s.config.margin}
+          disabled={!editable}
+          onChange={(e) => cfg({ margin: Number(e.target.value) })}
+        />
+      </div>
+      <div>
+        <label htmlFor="scale">حجم الشبكة: {s.config.scale}٪</label>
+        <input
+          id="scale"
+          type="range"
+          min="70"
+          max="110"
+          step="1"
+          value={s.config.scale}
+          disabled={!editable}
+          onChange={(e) => cfg({ scale: Number(e.target.value) })}
+        />
+      </div>
+      <div>
+        <label htmlFor="intensity">شدة العرض: {s.config.intensity}٪</label>
+        <input
+          id="intensity"
+          type="range"
+          min="50"
+          max="100"
+          step="5"
+          value={s.config.intensity}
+          disabled={!editable}
+          onChange={(e) => cfg({ intensity: Number(e.target.value) })}
+        />
+      </div>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.grid}
+          disabled={!editable}
+          onChange={(e) => cfg({ grid: e.target.checked })}
+        />{" "}
+        شبكة المعايرة
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.highContrast}
+          disabled={!editable}
+          onChange={(e) => cfg({ highContrast: e.target.checked })}
+        />{" "}
+        تباين عالٍ
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.reducedMotion}
+          disabled={!editable}
+          onChange={(e) => cfg({ reducedMotion: e.target.checked })}
+        />{" "}
+        تقليل الحركة
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.sound}
+          disabled={!editable}
+          onChange={(e) => cfg({ sound: e.target.checked })}
+        />{" "}
+        إشارات صوتية هادئة
+      </label>
+      <AdditionalOptions>
+        <div>
+          <label htmlFor="quality">جودة العرض</label>
+          <select
+            id="quality"
+            value={s.config.quality}
+            disabled={!editable}
+            onChange={(e) =>
+              cfg({ quality: e.target.value as Config["quality"] })
+            }
+          >
+            <option value="high">عالية</option>
+            <option value="low">خفيفة</option>
+          </select>
+        </div>
+      </AdditionalOptions>
+      <p className={styles.note}>
+        الصورة تُعرض على الأرض فقط. لا يتتبّع النظام موقع قدم الطفل على
+        البلاطات؛ المعالج هو من يؤكد موقعه. يحدّد المعالج مدى الحركة المناسبة
+        لكل طفل.
+      </p>
+      <div className={styles.status} role="status">
+        {session.error ??
+          (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
+        <br />
+        {session.displayConnected ? "● شاشة الأرض متصلة" : "○ افتح شاشة الأرض"}
+        <br />
+        {session.history === "saved"
+          ? "✓ حُفظت الجلسة"
+          : session.history === "walk-in"
+            ? "جلسة زائر · دون سجل مريض"
+            : session.history === "retry"
+              ? "تعذّر الحفظ، تجري إعادة المحاولة"
+              : session.history === "saving"
+                ? "جارٍ الحفظ…"
+                : ""}
+      </div>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="hex-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!can}
+              onClick={() => send({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -133,7 +450,7 @@ function Panel({
         </button>
       )}
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <div className={styles.eyebrow}>SHUMOS CARE · FLOOR PROJECTION</div>
             <h1 className={styles.title}>الأرض الآمنة</h1>
@@ -342,310 +659,7 @@ function Panel({
             </div>
           </div>
 
-          <aside className={`${styles.card} ${styles.panel}`}>
-            <h2>إعدادات الجلسة</h2>
-            <div>
-              <label htmlFor="stage">المستوى والمرحلة</label>
-              <ProgressiveStageSelect
-                onSelect={(value) =>
-                  send({ type: "stage", stage: Number(value) })
-                }
-              >
-                <select
-                  id="stage"
-                  value={s.stage}
-                  disabled={
-                    !(
-                      s.status === "ready" ||
-                      s.status === "paused" ||
-                      s.status === "stage-complete"
-                    )
-                  }
-                  onChange={(e) =>
-                    send({ type: "stage", stage: Number(e.target.value) })
-                  }
-                >
-                  {STAGES.map((d, i) => (
-                    <option
-                      key={i}
-                      value={i}
-                      disabled={
-                        s.events.some((e) => e.stage === i) ||
-                        s.completed.includes(i) ||
-                        s.skipped.includes(i)
-                      }
-                    >
-                      المستوى {d.level} · المرحلة {d.stage} ·{" "}
-                      {tilesFor(i, s.config.layoutPreset)} بلاطة
-                    </option>
-                  ))}
-                </select>
-              </ProgressiveStageSelect>
-            </div>
-            <div>
-              <label htmlFor="warnMs">مدة التحذير</label>
-              <select
-                id="warnMs"
-                value={s.config.warnMs}
-                disabled={!editable}
-                onChange={(e) => cfg({ warnMs: Number(e.target.value) })}
-              >
-                {[3000, 5000, 8000, 10000, 15000, 20000, 30000].map((n) => (
-                  <option key={n} value={n}>
-                    {n / 1000} ثانية{n === 5000 ? " (افتراضي)" : ""}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="prepMs">مدة التحضير</label>
-              <select
-                id="prepMs"
-                value={s.config.prepMs}
-                disabled={!editable}
-                onChange={(e) => cfg({ prepMs: Number(e.target.value) })}
-              >
-                {[2000, 4000, 6000, 10000, 15000].map((n) => (
-                  <option key={n} value={n}>
-                    {n / 1000} ثانية
-                  </option>
-                ))}
-              </select>
-            </div>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.auto}
-                disabled={!editable}
-                onChange={(e) => cfg({ auto: e.target.checked })}
-              />{" "}
-              توقيت تلقائي (إلغاؤه يعني التقدّم يدويًا)
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.targetChild}
-                disabled={!editable}
-                onChange={(e) => cfg({ targetChild: e.target.checked })}
-              />{" "}
-              اجعل بلاطة الطفل المؤكدة ضمن التحذير
-            </label>
-
-            <h2>مصدر الحركة</h2>
-            <div>
-              <label htmlFor="input">وضع الإدخال</label>
-              <select
-                id="input"
-                value={
-                  s.config.inputSource === "simulated"
-                    ? s.config.inputMode
-                    : "MANUAL"
-                }
-                disabled={!editable}
-                onChange={(e) => {
-                  const mode = e.target.value as InputMode;
-                  cfg({
-                    inputMode: mode,
-                    inputSource: mode === "MANUAL" ? "manual" : "simulated",
-                  });
-                }}
-              >
-                <option value="MANUAL">يدوي · بدون حساسات</option>
-                <option value="RIGHT_FOOT">محاكاة · القدم اليمنى</option>
-                <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
-                <option value="DUAL_FOOT">محاكاة · القدمان</option>
-                <option disabled>حساسات فعلية · بانتظار التحقق</option>
-              </select>
-            </div>
-            {roles.length > 0 && (
-              <div className={styles.sim}>
-                {roles.map((role) => (
-                  <div key={role}>
-                    <strong>{ROLE_NAME[role]}</strong> ·{" "}
-                    {s.sensor.link[role] === "lost"
-                      ? "الاتصال مفقود"
-                      : s.sensor.link[role] === "ok"
-                        ? "متصلة"
-                        : "بانتظار إشارة"}
-                    <div className={styles.actions} style={{ marginTop: 6 }}>
-                      <button
-                        className={styles.btn}
-                        style={{ minHeight: 44 }}
-                        aria-pressed={session.sim.moving[role]}
-                        onClick={() =>
-                          session.setSimulated({
-                            moving: {
-                              ...session.sim.moving,
-                              [role]: !session.sim.moving[role],
-                            },
-                          })
-                        }
-                      >
-                        {session.sim.moving[role]
-                          ? "أوقف الحركة"
-                          : "حرّك القدم"}
-                      </button>
-                      <button
-                        className={styles.btn}
-                        style={{ minHeight: 44 }}
-                        aria-pressed={!session.sim.connected[role]}
-                        onClick={() =>
-                          session.setSimulated({
-                            connected: {
-                              ...session.sim.connected,
-                              [role]: !session.sim.connected[role],
-                            },
-                          })
-                        }
-                      >
-                        {session.sim.connected[role]
-                          ? "افصل الحساس"
-                          : "أعد الاتصال"}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <p className={styles.note}>
-                  محاكاة فقط. الحساس يعطي تلميح حركة، ولا يعرف أي بلاطة يقف
-                  عليها الطفل. يبقى التحكم اليدوي متاحًا دائمًا.
-                </p>
-              </div>
-            )}
-
-            <CalibrationPanel s={s} send={send} />
-
-            <h2>عرض الأرضية</h2>
-            <div>
-              <label htmlFor="view">زاوية العرض</label>
-              <select
-                id="view"
-                value={s.config.view}
-                disabled={!editable}
-                onChange={(e) =>
-                  cfg({ view: e.target.value as Config["view"] })
-                }
-              >
-                <option value="floor">إسقاط الأرضية (علوي)</option>
-                <option value="cinematic">معاينة سينمائية فقط</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="margin">هامش آمن: {s.config.margin}٪</label>
-              <input
-                id="margin"
-                type="range"
-                min="0"
-                max="15"
-                step="1"
-                value={s.config.margin}
-                disabled={!editable}
-                onChange={(e) => cfg({ margin: Number(e.target.value) })}
-              />
-            </div>
-            <div>
-              <label htmlFor="scale">حجم الشبكة: {s.config.scale}٪</label>
-              <input
-                id="scale"
-                type="range"
-                min="70"
-                max="110"
-                step="1"
-                value={s.config.scale}
-                disabled={!editable}
-                onChange={(e) => cfg({ scale: Number(e.target.value) })}
-              />
-            </div>
-            <div>
-              <label htmlFor="intensity">
-                شدة العرض: {s.config.intensity}٪
-              </label>
-              <input
-                id="intensity"
-                type="range"
-                min="50"
-                max="100"
-                step="5"
-                value={s.config.intensity}
-                disabled={!editable}
-                onChange={(e) => cfg({ intensity: Number(e.target.value) })}
-              />
-            </div>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.grid}
-                disabled={!editable}
-                onChange={(e) => cfg({ grid: e.target.checked })}
-              />{" "}
-              شبكة المعايرة
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.highContrast}
-                disabled={!editable}
-                onChange={(e) => cfg({ highContrast: e.target.checked })}
-              />{" "}
-              تباين عالٍ
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.reducedMotion}
-                disabled={!editable}
-                onChange={(e) => cfg({ reducedMotion: e.target.checked })}
-              />{" "}
-              تقليل الحركة
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.sound}
-                disabled={!editable}
-                onChange={(e) => cfg({ sound: e.target.checked })}
-              />{" "}
-              إشارات صوتية هادئة
-            </label>
-            <AdditionalOptions>
-              <div>
-                <label htmlFor="quality">جودة العرض</label>
-                <select
-                  id="quality"
-                  value={s.config.quality}
-                  disabled={!editable}
-                  onChange={(e) =>
-                    cfg({ quality: e.target.value as Config["quality"] })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="low">خفيفة</option>
-                </select>
-              </div>
-            </AdditionalOptions>
-            <p className={styles.note}>
-              الصورة تُعرض على الأرض فقط. لا يتتبّع النظام موقع قدم الطفل على
-              البلاطات؛ المعالج هو من يؤكد موقعه. يحدّد المعالج مدى الحركة
-              المناسبة لكل طفل.
-            </p>
-            <div className={styles.status} role="status">
-              {session.error ??
-                (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
-              <br />
-              {session.displayConnected
-                ? "● شاشة الأرض متصلة"
-                : "○ افتح شاشة الأرض"}
-              <br />
-              {session.history === "saved"
-                ? "✓ حُفظت الجلسة"
-                : session.history === "walk-in"
-                  ? "جلسة زائر · دون سجل مريض"
-                  : session.history === "retry"
-                    ? "تعذّر الحفظ، تجري إعادة المحاولة"
-                    : session.history === "saving"
-                      ? "جارٍ الحفظ…"
-                      : ""}
-            </div>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

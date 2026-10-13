@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
   AdditionalOptions,
@@ -184,6 +185,236 @@ function ConnectedControl() {
     if (sanitizeMapping(n))
       localStorage.setItem(MAPPING_STORAGE_KEY, JSON.stringify(n));
   };
+  const setupStages = (
+    <ProgressiveStageGroup selected={state.stage}>
+      {STAGES.map((d, i) => (
+        <button
+          key={i}
+          disabled={!connected || running || state.status === "ended"}
+          className={state.stage === i ? styles.selected : ""}
+          aria-label={`المستوى ${Math.floor(i / 3) + 1} المرحلة ${(i % 3) + 1}`}
+          onClick={() => send({ type: "stage", stage: i })}
+        >
+          <span>المرحلة {i + 1}</span>
+          <strong>{d.name}</strong>
+          <small>
+            {d.cols.length} صفوف · {d.rows} أهداف في الصف
+          </small>
+          {state.results.find((r) => r.stage === i)?.completed ? " ✓" : ""}
+        </button>
+      ))}
+    </ProgressiveStageGroup>
+  );
+  const setupSettings = (
+    <aside className={styles.settings}>
+      <h2>إعداد تجربة الحصاد</h2>
+      {(state.status !== "ready" || !!state.startedAt) && setupStages}
+      <p>
+        يحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.
+      </p>
+      <fieldset disabled={!ready || !connected}>
+        <label>
+          المشاركة
+          <select
+            value={state.config.mode}
+            onChange={(e) => config({ mode: e.target.value as Config["mode"] })}
+          >
+            {Object.entries(MODE_LABELS).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+        {(
+          [
+            ["coverage", "هدف التغطية (%)", 5, 100, 5],
+            ["fieldSize", "حجم الحقل", 0.5, 1.5, 0.1],
+            ["headerWidth", "عرض الحصاد الفعّال", 2, 6, 0.2],
+            ["movementRange", "نطاق الحركة (الصغير متاح)", 0.05, 1, 0.05],
+            ["speed", "السرعة القصوى", 0.3, 5, 0.1],
+            ["gain", "حساسية التوجيه", 0.1, 5, 0.1],
+            ["deadZone", "عتبة التوجيه", 0, 0.8, 0.02],
+            ["pedalThreshold", "عتبة الدواسة", 0, 0.8, 0.02],
+            ["assistance", "مساعدة الصفوف", 0, 1, 0.1],
+            ["holdMs", "مدة تثبيت الإدخال (مللي ثانية)", 100, 2000, 100],
+            ["volume", "مستوى الصوت", 0, 0.3, 0.01],
+          ] as const
+        ).map(([k, label, min, max, step]) => (
+          <label key={k}>
+            {label}
+            <input
+              aria-label={label}
+              type="number"
+              min={min}
+              max={max}
+              step={step}
+              value={state.config[k]}
+              onChange={(e) => config({ [k]: +e.target.value })}
+            />
+          </label>
+        ))}
+        {(
+          [
+            ["autoThrottle", "تقدّم تلقائي"],
+            ["autoSteering", "توجيه تلقائي"],
+            ["autoHarvest", "حصاد تلقائي"],
+            ["guidance", "إرشاد الصفوف وأهداف كبيرة"],
+            ["reduced", "حركة وكاميرا منخفضة"],
+            ["contrast", "تباين مرتفع"],
+            ["audio", "الأصوات الهادئة"],
+          ] as const
+        ).map(([k, label]) => (
+          <label className={styles.check} key={k}>
+            <input
+              type="checkbox"
+              checked={state.config[k]}
+              onChange={(e) => config({ [k]: e.target.checked })}
+            />
+            {label}
+          </label>
+        ))}
+        <AdditionalOptions>
+          <label>
+            جودة العرض
+            <select
+              value={state.config.quality}
+              onChange={(e) =>
+                config({ quality: e.target.value as Config["quality"] })
+              }
+            >
+              <option value="high">عالية</option>
+              <option value="medium">متوسطة</option>
+              <option value="low">اقتصادية</option>
+            </select>
+          </label>
+        </AdditionalOptions>
+      </fieldset>
+      <details>
+        <summary>الدركسون والدواسات — إعداد اختياري</summary>
+        <div className={styles.hardware}>
+          الجهاز يقرأ هنا على جهاز التحكّم الحالي فقط. نقل الدركسون من كمبيوتر
+          آخر إلى iPad لم يُنفّذ بعد. التحكّم اليدوي متاح دائمًا.
+        </div>
+        <p>{hint}</p>
+        <button
+          disabled={!connected || !running}
+          onClick={() => {
+            manual.current = { steering: 0, throttle: 0, brake: 0 };
+            setHardware(!hardware);
+          }}
+        >
+          {hardware ? "العودة إلى التحكم اليدوي" : "استخدام جهاز متصل هنا"}
+        </button>
+        <label>
+          رقم الجهاز
+          <input
+            type="number"
+            min="0"
+            max="15"
+            value={mapping.deviceIndex}
+            onChange={(e) => {
+              const n = { ...mapping, deviceIndex: +e.target.value };
+              setMapping(n);
+              if (sanitizeMapping(n))
+                localStorage.setItem(MAPPING_STORAGE_KEY, JSON.stringify(n));
+            }}
+          />
+        </label>
+        {(["steering", "throttle", "brake"] as const).map((k) => (
+          <div key={k}>
+            <h3>
+              {k === "steering"
+                ? "محور التوجيه"
+                : k === "throttle"
+                  ? "دواسة التقدّم"
+                  : "الفرامل"}
+            </h3>
+            <div className={styles.axis}>
+              {(
+                [
+                  "index",
+                  "center",
+                  "min",
+                  "max",
+                  "rest",
+                  "pressed",
+                  "deadZone",
+                ] as const
+              ).map((a) => (
+                <label key={a}>
+                  {
+                    {
+                      index: "رقم المحور (-1 تعطيل)",
+                      center: "المنتصف",
+                      min: "الحد الأدنى",
+                      max: "الحد الأعلى",
+                      rest: "الراحة",
+                      pressed: "الضغط",
+                      deadZone: "المنطقة الميتة",
+                    }[a]
+                  }
+                  <input
+                    type="number"
+                    step={a === "index" ? 1 : 0.05}
+                    value={mapping[k][a]}
+                    onChange={(e) => changeMapping(k, { [a]: +e.target.value })}
+                  />
+                </label>
+              ))}
+            </div>
+            <label className={styles.check}>
+              <input
+                type="checkbox"
+                checked={mapping[k].inverted}
+                onChange={(e) =>
+                  changeMapping(k, { inverted: e.target.checked })
+                }
+              />
+              عكس المحور
+            </label>
+            <button
+              onClick={() => {
+                const pad = navigator.getGamepads?.()[mapping.deviceIndex];
+                const value = pad?.axes[mapping[k].index];
+                if (Number.isFinite(value))
+                  changeMapping(
+                    k,
+                    k === "steering" ? { center: value } : { rest: value },
+                  );
+              }}
+            >
+              معايرة المنتصف / الراحة الآن
+            </button>
+          </div>
+        ))}
+      </details>
+    </aside>
+  );
+  if (state.status === "ready" && !state.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="hv-control"
+        data-status={state.status}
+        data-stage={state.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!connected}
+              onClick={() => send({ type: "start" })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -195,7 +426,7 @@ function ConnectedControl() {
       data-cut={state.cut.length}
       data-history={history}
     >
-      <header className={styles.header}>
+      <header data-native-game-header className={styles.header}>
         <div>
           <Link href="/control/activities">مكتبة الأنشطة / موسم الحصاد</Link>
           <h1>حقول واسعة. خطوات هادئة.</h1>
@@ -479,217 +710,7 @@ function ConnectedControl() {
             )}
           </div>
         </section>
-        <aside className={styles.settings}>
-          <h2>إعداد تجربة الحصاد</h2>
-          <ProgressiveStageGroup selected={state.stage}>
-            {STAGES.map((d, i) => (
-              <button
-                key={i}
-                disabled={!connected || running || state.status === "ended"}
-                className={state.stage === i ? styles.selected : ""}
-                aria-label={`المستوى ${Math.floor(i / 3) + 1} المرحلة ${(i % 3) + 1}`}
-                onClick={() => send({ type: "stage", stage: i })}
-              >
-                <span>المرحلة {i + 1}</span>
-                <strong>{d.name}</strong>
-                <small>
-                  {d.cols.length} صفوف · {d.rows} أهداف في الصف
-                </small>
-                {state.results.find((r) => r.stage === i)?.completed
-                  ? " ✓"
-                  : ""}
-              </button>
-            ))}
-          </ProgressiveStageGroup>
-          <p>
-            يحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو
-            المشي.
-          </p>
-          <fieldset disabled={!ready || !connected}>
-            <label>
-              المشاركة
-              <select
-                value={state.config.mode}
-                onChange={(e) =>
-                  config({ mode: e.target.value as Config["mode"] })
-                }
-              >
-                {Object.entries(MODE_LABELS).map(([k, v]) => (
-                  <option key={k} value={k}>
-                    {v}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {(
-              [
-                ["coverage", "هدف التغطية (%)", 5, 100, 5],
-                ["fieldSize", "حجم الحقل", 0.5, 1.5, 0.1],
-                ["headerWidth", "عرض الحصاد الفعّال", 2, 6, 0.2],
-                ["movementRange", "نطاق الحركة (الصغير متاح)", 0.05, 1, 0.05],
-                ["speed", "السرعة القصوى", 0.3, 5, 0.1],
-                ["gain", "حساسية التوجيه", 0.1, 5, 0.1],
-                ["deadZone", "عتبة التوجيه", 0, 0.8, 0.02],
-                ["pedalThreshold", "عتبة الدواسة", 0, 0.8, 0.02],
-                ["assistance", "مساعدة الصفوف", 0, 1, 0.1],
-                ["holdMs", "مدة تثبيت الإدخال (مللي ثانية)", 100, 2000, 100],
-                ["volume", "مستوى الصوت", 0, 0.3, 0.01],
-              ] as const
-            ).map(([k, label, min, max, step]) => (
-              <label key={k}>
-                {label}
-                <input
-                  aria-label={label}
-                  type="number"
-                  min={min}
-                  max={max}
-                  step={step}
-                  value={state.config[k]}
-                  onChange={(e) => config({ [k]: +e.target.value })}
-                />
-              </label>
-            ))}
-            {(
-              [
-                ["autoThrottle", "تقدّم تلقائي"],
-                ["autoSteering", "توجيه تلقائي"],
-                ["autoHarvest", "حصاد تلقائي"],
-                ["guidance", "إرشاد الصفوف وأهداف كبيرة"],
-                ["reduced", "حركة وكاميرا منخفضة"],
-                ["contrast", "تباين مرتفع"],
-                ["audio", "الأصوات الهادئة"],
-              ] as const
-            ).map(([k, label]) => (
-              <label className={styles.check} key={k}>
-                <input
-                  type="checkbox"
-                  checked={state.config[k]}
-                  onChange={(e) => config({ [k]: e.target.checked })}
-                />
-                {label}
-              </label>
-            ))}
-            <AdditionalOptions>
-              <label>
-                جودة العرض
-                <select
-                  value={state.config.quality}
-                  onChange={(e) =>
-                    config({ quality: e.target.value as Config["quality"] })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="medium">متوسطة</option>
-                  <option value="low">اقتصادية</option>
-                </select>
-              </label>
-            </AdditionalOptions>
-          </fieldset>
-          <details>
-            <summary>الدركسون والدواسات — إعداد اختياري</summary>
-            <div className={styles.hardware}>
-              الجهاز يقرأ هنا على جهاز التحكّم الحالي فقط. نقل الدركسون من
-              كمبيوتر آخر إلى iPad لم يُنفّذ بعد. التحكّم اليدوي متاح دائمًا.
-            </div>
-            <p>{hint}</p>
-            <button
-              disabled={!connected || !running}
-              onClick={() => {
-                manual.current = { steering: 0, throttle: 0, brake: 0 };
-                setHardware(!hardware);
-              }}
-            >
-              {hardware ? "العودة إلى التحكم اليدوي" : "استخدام جهاز متصل هنا"}
-            </button>
-            <label>
-              رقم الجهاز
-              <input
-                type="number"
-                min="0"
-                max="15"
-                value={mapping.deviceIndex}
-                onChange={(e) => {
-                  const n = { ...mapping, deviceIndex: +e.target.value };
-                  setMapping(n);
-                  if (sanitizeMapping(n))
-                    localStorage.setItem(
-                      MAPPING_STORAGE_KEY,
-                      JSON.stringify(n),
-                    );
-                }}
-              />
-            </label>
-            {(["steering", "throttle", "brake"] as const).map((k) => (
-              <div key={k}>
-                <h3>
-                  {k === "steering"
-                    ? "محور التوجيه"
-                    : k === "throttle"
-                      ? "دواسة التقدّم"
-                      : "الفرامل"}
-                </h3>
-                <div className={styles.axis}>
-                  {(
-                    [
-                      "index",
-                      "center",
-                      "min",
-                      "max",
-                      "rest",
-                      "pressed",
-                      "deadZone",
-                    ] as const
-                  ).map((a) => (
-                    <label key={a}>
-                      {
-                        {
-                          index: "رقم المحور (-1 تعطيل)",
-                          center: "المنتصف",
-                          min: "الحد الأدنى",
-                          max: "الحد الأعلى",
-                          rest: "الراحة",
-                          pressed: "الضغط",
-                          deadZone: "المنطقة الميتة",
-                        }[a]
-                      }
-                      <input
-                        type="number"
-                        step={a === "index" ? 1 : 0.05}
-                        value={mapping[k][a]}
-                        onChange={(e) =>
-                          changeMapping(k, { [a]: +e.target.value })
-                        }
-                      />
-                    </label>
-                  ))}
-                </div>
-                <label className={styles.check}>
-                  <input
-                    type="checkbox"
-                    checked={mapping[k].inverted}
-                    onChange={(e) =>
-                      changeMapping(k, { inverted: e.target.checked })
-                    }
-                  />
-                  عكس المحور
-                </label>
-                <button
-                  onClick={() => {
-                    const pad = navigator.getGamepads?.()[mapping.deviceIndex];
-                    const value = pad?.axes[mapping[k].index];
-                    if (Number.isFinite(value))
-                      changeMapping(
-                        k,
-                        k === "steering" ? { center: value } : { rest: value },
-                      );
-                  }}
-                >
-                  معايرة المنتصف / الراحة الآن
-                </button>
-              </div>
-            ))}
-          </details>
-        </aside>
+        {setupSettings}
       </div>
     </main>
   );

@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
   AdditionalOptions,
@@ -140,6 +141,386 @@ function Panel({
     (v) => v >= 0.99,
   ).length;
 
+  const setupStages = (
+    <ProgressiveStageSelect
+      onSelect={(value) => send({ type: "stage", stage: Number(value) })}
+    >
+      <select
+        id="stage"
+        data-testid="stage-select"
+        value={s.stage}
+        disabled={
+          !(
+            s.status === "ready" ||
+            s.status === "paused" ||
+            s.status === "stage-complete"
+          )
+        }
+        onChange={(e) => send({ type: "stage", stage: Number(e.target.value) })}
+      >
+        {STAGES.map((d, i) => (
+          <option
+            data-stage-description={`${d.colors.length} ألوان · ${d.rounds.length} جولات${d.shuffle ? " · تتبدّل المواضع بين الجولات" : ""}`}
+            key={i}
+            value={i}
+            disabled={stageLocked(i) && i !== s.stage}
+          >
+            المستوى {d.level} · المرحلة {d.stage} · {d.nameAr} ({stepsOf(d)}{" "}
+            أهداف)
+          </option>
+        ))}
+      </select>
+    </ProgressiveStageSelect>
+  );
+  const setupSettings = (
+    <aside className={`${styles.card} ${styles.panel}`}>
+      <h2>إعدادات الجلسة</h2>
+      {(s.status !== "ready" || !!s.startedAt) && setupStages}
+
+      <div>
+        <div className={styles.note}>إعدادات جاهزة</div>
+        <div className={styles.presets} role="group" aria-label="إعدادات جاهزة">
+          <button
+            className={styles.btn}
+            data-testid="preset-standard"
+            disabled={!layoutEditable}
+            onClick={() => cfg(PRESETS.standard)}
+          >
+            قياسي
+          </button>
+          <button
+            className={styles.btn}
+            data-testid="preset-large"
+            disabled={!layoutEditable}
+            onClick={() => cfg(PRESETS.large)}
+          >
+            مناطق كبيرة
+          </button>
+          <button
+            className={styles.btn}
+            data-testid="preset-compact"
+            disabled={!layoutEditable}
+            onClick={() => cfg(PRESETS.compact)}
+          >
+            مدى صغير
+          </button>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="zoneScale">حجم المناطق: {s.config.zoneScale}٪</label>
+        <input
+          id="zoneScale"
+          type="range"
+          min="70"
+          max="140"
+          step="5"
+          value={s.config.zoneScale}
+          disabled={!layoutEditable}
+          onChange={(e) => cfg({ zoneScale: Number(e.target.value) })}
+        />
+      </div>
+      <div>
+        <label htmlFor="spacing">
+          المسافة بين المناطق: {s.config.spacing}٪
+        </label>
+        <input
+          id="spacing"
+          type="range"
+          min="60"
+          max="100"
+          step="5"
+          value={s.config.spacing}
+          disabled={!layoutEditable}
+          onChange={(e) => cfg({ spacing: Number(e.target.value) })}
+        />
+      </div>
+      <div>
+        <label htmlFor="reach">مدى الحركة المريح: {s.config.reach}٪</label>
+        <input
+          id="reach"
+          type="range"
+          min="50"
+          max="100"
+          step="5"
+          value={s.config.reach}
+          disabled={!layoutEditable}
+          onChange={(e) => cfg({ reach: Number(e.target.value) })}
+        />
+      </div>
+      <AdditionalOptions>
+        <div>
+          <label htmlFor="maxColors">
+            عدد الألوان الظاهرة: {s.config.maxColors}
+          </label>
+          <input
+            id="maxColors"
+            type="range"
+            min="2"
+            max="5"
+            step="1"
+            value={s.config.maxColors}
+            disabled={!layoutEditable}
+            onChange={(e) => cfg({ maxColors: Number(e.target.value) })}
+          />
+        </div>
+        <div>
+          <label htmlFor="quality">جودة الرسومات</label>
+          <select
+            id="quality"
+            data-testid="quality"
+            value={s.config.quality}
+            disabled={!editable}
+            onChange={(e) =>
+              cfg({ quality: e.target.value as Config["quality"] })
+            }
+          >
+            <option value="high">عالية</option>
+            <option value="medium">متوسطة</option>
+            <option value="low">خفيفة</option>
+          </select>
+        </div>
+      </AdditionalOptions>
+      {!layoutEditable && editable && (
+        <p className={styles.note}>
+          تُعدَّل أحجام المناطق والمسافات والمدى وعدد الألوان عند الإيقاف المؤقت
+          أو بين المراحل، فلا تتحرك المناطق تحت هدف جارٍ.
+        </p>
+      )}
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          data-testid="symbols"
+          checked={s.config.symbols}
+          disabled={!editable}
+          onChange={(e) => cfg({ symbols: e.target.checked })}
+        />{" "}
+        أشكال وأسماء على المناطق (لا نعتمد على اللون وحده)
+      </label>
+      <div>
+        <label htmlFor="assist">مستوى المساعدة البصرية</label>
+        <select
+          id="assist"
+          data-testid="assist-select"
+          value={s.config.assist}
+          disabled={!editable}
+          onChange={(e) => cfg({ assist: e.target.value as Config["assist"] })}
+        >
+          <option value="standard">عادي · إضاءة المنطقة المطلوبة</option>
+          <option value="high">عالٍ · تخفيت بقية المناطق وتلميح للتالي</option>
+        </select>
+      </div>
+      <p className={styles.note}>
+        أنت من يحدّد مدى الحركة المناسب لكل طفل. المنصة لا تقيس مدى حركة المفاصل
+        ولا التوازن، ولا يُطلب وقوف أو مشي: يمكن المشاركة جالسًا أو بمساعدة.
+      </p>
+
+      <h2>مصدر الحركة</h2>
+      <div>
+        <label htmlFor="input">وضع الإدخال</label>
+        <select
+          id="input"
+          value={
+            s.config.inputSource === "simulated" ? s.config.inputMode : "MANUAL"
+          }
+          disabled={!editable}
+          onChange={(e) => {
+            const mode = e.target.value as InputMode;
+            cfg({
+              inputMode: mode,
+              inputSource: mode === "MANUAL" ? "manual" : "simulated",
+            });
+          }}
+        >
+          <option value="MANUAL">يدوي · بدون حساسات</option>
+          <option value="RIGHT_FOOT">محاكاة · القدم اليمنى</option>
+          <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
+          <option value="DUAL_FOOT">محاكاة · القدمان</option>
+          <option disabled>حساسات فعلية · بانتظار التحقق</option>
+        </select>
+      </div>
+      {roles.length > 0 && (
+        <div className={styles.sim}>
+          {roles.map((role) => (
+            <div key={role}>
+              <strong>{ROLE_NAME[role]}</strong> ·{" "}
+              {s.sensor.link[role] === "lost"
+                ? "الاتصال مفقود"
+                : s.sensor.link[role] === "ok"
+                  ? "متصلة"
+                  : "بانتظار إشارة"}
+              <div className={styles.actions} style={{ marginTop: 6 }}>
+                <button
+                  className={styles.btn}
+                  style={{ minHeight: 44 }}
+                  aria-pressed={session.sim.moving[role]}
+                  data-testid={`sim-move-${role}`}
+                  onClick={() =>
+                    session.setSimulated({
+                      moving: {
+                        ...session.sim.moving,
+                        [role]: !session.sim.moving[role],
+                      },
+                    })
+                  }
+                >
+                  {session.sim.moving[role] ? "أوقف الحركة" : "حرّك القدم"}
+                </button>
+                <button
+                  className={styles.btn}
+                  style={{ minHeight: 44 }}
+                  aria-pressed={!session.sim.connected[role]}
+                  data-testid={`sim-conn-${role}`}
+                  onClick={() =>
+                    session.setSimulated({
+                      connected: {
+                        ...session.sim.connected,
+                        [role]: !session.sim.connected[role],
+                      },
+                    })
+                  }
+                >
+                  {session.sim.connected[role] ? "افصل الحساس" : "أعد الاتصال"}
+                </button>
+              </div>
+            </div>
+          ))}
+          <p className={styles.note}>
+            محاكاة فقط. الحساس يعطي تلميح بدء حركة، ولا يعرف على أي منطقة يقف
+            الطفل. يبقى التحكم اليدوي متاحًا دائمًا.
+          </p>
+        </div>
+      )}
+
+      <CalibrationPanel s={s} send={send} />
+
+      <h2>عرض الأرضية</h2>
+      <div>
+        <label htmlFor="view">زاوية العرض</label>
+        <select
+          id="view"
+          value={s.config.view}
+          disabled={!editable}
+          onChange={(e) => cfg({ view: e.target.value as Config["view"] })}
+        >
+          <option value="floor">إسقاط الأرضية (علوي ثابت)</option>
+          <option value="cinematic">معاينة سينمائية فقط</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="margin">هامش آمن: {s.config.margin}٪</label>
+        <input
+          id="margin"
+          type="range"
+          min="0"
+          max="15"
+          step="1"
+          value={s.config.margin}
+          disabled={!layoutEditable}
+          onChange={(e) => cfg({ margin: Number(e.target.value) })}
+        />
+      </div>
+      <div>
+        <label htmlFor="intensity">شدة العرض: {s.config.intensity}٪</label>
+        <input
+          id="intensity"
+          type="range"
+          min="50"
+          max="100"
+          step="5"
+          value={s.config.intensity}
+          disabled={!editable}
+          onChange={(e) => cfg({ intensity: Number(e.target.value) })}
+        />
+      </div>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          checked={s.config.grid}
+          disabled={!editable}
+          onChange={(e) => cfg({ grid: e.target.checked })}
+        />{" "}
+        شبكة المعايرة
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          data-testid="high-contrast"
+          checked={s.config.highContrast}
+          disabled={!editable}
+          onChange={(e) => cfg({ highContrast: e.target.checked })}
+        />{" "}
+        تباين عالٍ
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          data-testid="reduced-motion"
+          checked={s.config.reducedMotion}
+          disabled={!editable}
+          onChange={(e) => cfg({ reducedMotion: e.target.checked })}
+        />{" "}
+        تقليل الحركة
+      </label>
+      <label className={styles.check}>
+        <input
+          type="checkbox"
+          data-testid="sound"
+          checked={s.config.sound}
+          disabled={!editable}
+          onChange={(e) => cfg({ sound: e.target.checked })}
+        />{" "}
+        أصوات هادئة عند عودة لون
+      </label>
+
+      <p className={styles.note}>
+        الصورة تُعرض على الأرض فقط، والحديقة زينة مسطّحة لا عمق فيها ولا حفر ولا
+        ارتفاعات يُطلب تجاوزها. لا يتتبّع النظام موقع قدم الطفل على الأرض؛
+        المعالج هو من يؤكد اختياره.
+      </p>
+      <div className={styles.status} role="status" data-testid="link-status">
+        {session.error ??
+          (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
+        <br />
+        {session.displayConnected ? "● شاشة الأرض متصلة" : "○ افتح شاشة الأرض"}
+        <br />
+        {s.status !== "ended"
+          ? session.history === "saved"
+            ? "✓ حُفظت الجلسة"
+            : session.history === "walk-in"
+              ? "جلسة زائر · دون سجل مريض"
+              : session.history === "retry"
+                ? "تعذّر الحفظ، تجري إعادة المحاولة"
+                : session.history === "saving"
+                  ? "جارٍ الحفظ…"
+                  : ""
+          : ""}
+      </div>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="cc-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!can}
+              onClick={() => send({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -164,7 +545,7 @@ function Panel({
         </button>
       )}
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <div className={styles.eyebrow}>SHUMOS CARE · THE LOST COLORS</div>
             <h1 className={styles.title}>مطاردة الألوان</h1>
@@ -465,391 +846,7 @@ function Panel({
             </div>
           </div>
 
-          <aside className={`${styles.card} ${styles.panel}`}>
-            <h2>إعدادات الجلسة</h2>
-            <div>
-              <label htmlFor="stage">المستوى والمرحلة</label>
-              <ProgressiveStageSelect
-                onSelect={(value) =>
-                  send({ type: "stage", stage: Number(value) })
-                }
-              >
-                <select
-                  id="stage"
-                  data-testid="stage-select"
-                  value={s.stage}
-                  disabled={
-                    !(
-                      s.status === "ready" ||
-                      s.status === "paused" ||
-                      s.status === "stage-complete"
-                    )
-                  }
-                  onChange={(e) =>
-                    send({ type: "stage", stage: Number(e.target.value) })
-                  }
-                >
-                  {STAGES.map((d, i) => (
-                    <option
-                      key={i}
-                      value={i}
-                      disabled={stageLocked(i) && i !== s.stage}
-                    >
-                      المستوى {d.level} · المرحلة {d.stage} · {d.nameAr} (
-                      {stepsOf(d)} أهداف)
-                    </option>
-                  ))}
-                </select>
-              </ProgressiveStageSelect>
-            </div>
-            <div>
-              <div className={styles.note}>إعدادات جاهزة</div>
-              <div
-                className={styles.presets}
-                role="group"
-                aria-label="إعدادات جاهزة"
-              >
-                <button
-                  className={styles.btn}
-                  data-testid="preset-standard"
-                  disabled={!layoutEditable}
-                  onClick={() => cfg(PRESETS.standard)}
-                >
-                  قياسي
-                </button>
-                <button
-                  className={styles.btn}
-                  data-testid="preset-large"
-                  disabled={!layoutEditable}
-                  onClick={() => cfg(PRESETS.large)}
-                >
-                  مناطق كبيرة
-                </button>
-                <button
-                  className={styles.btn}
-                  data-testid="preset-compact"
-                  disabled={!layoutEditable}
-                  onClick={() => cfg(PRESETS.compact)}
-                >
-                  مدى صغير
-                </button>
-              </div>
-            </div>
-            <div>
-              <label htmlFor="zoneScale">
-                حجم المناطق: {s.config.zoneScale}٪
-              </label>
-              <input
-                id="zoneScale"
-                type="range"
-                min="70"
-                max="140"
-                step="5"
-                value={s.config.zoneScale}
-                disabled={!layoutEditable}
-                onChange={(e) => cfg({ zoneScale: Number(e.target.value) })}
-              />
-            </div>
-            <div>
-              <label htmlFor="spacing">
-                المسافة بين المناطق: {s.config.spacing}٪
-              </label>
-              <input
-                id="spacing"
-                type="range"
-                min="60"
-                max="100"
-                step="5"
-                value={s.config.spacing}
-                disabled={!layoutEditable}
-                onChange={(e) => cfg({ spacing: Number(e.target.value) })}
-              />
-            </div>
-            <div>
-              <label htmlFor="reach">
-                مدى الحركة المريح: {s.config.reach}٪
-              </label>
-              <input
-                id="reach"
-                type="range"
-                min="50"
-                max="100"
-                step="5"
-                value={s.config.reach}
-                disabled={!layoutEditable}
-                onChange={(e) => cfg({ reach: Number(e.target.value) })}
-              />
-            </div>
-            <AdditionalOptions>
-              <div>
-                <label htmlFor="maxColors">
-                  عدد الألوان الظاهرة: {s.config.maxColors}
-                </label>
-                <input
-                  id="maxColors"
-                  type="range"
-                  min="2"
-                  max="5"
-                  step="1"
-                  value={s.config.maxColors}
-                  disabled={!layoutEditable}
-                  onChange={(e) => cfg({ maxColors: Number(e.target.value) })}
-                />
-              </div>
-              <div>
-                <label htmlFor="quality">جودة الرسومات</label>
-                <select
-                  id="quality"
-                  data-testid="quality"
-                  value={s.config.quality}
-                  disabled={!editable}
-                  onChange={(e) =>
-                    cfg({ quality: e.target.value as Config["quality"] })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="medium">متوسطة</option>
-                  <option value="low">خفيفة</option>
-                </select>
-              </div>
-            </AdditionalOptions>
-            {!layoutEditable && editable && (
-              <p className={styles.note}>
-                تُعدَّل أحجام المناطق والمسافات والمدى وعدد الألوان عند الإيقاف
-                المؤقت أو بين المراحل، فلا تتحرك المناطق تحت هدف جارٍ.
-              </p>
-            )}
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                data-testid="symbols"
-                checked={s.config.symbols}
-                disabled={!editable}
-                onChange={(e) => cfg({ symbols: e.target.checked })}
-              />{" "}
-              أشكال وأسماء على المناطق (لا نعتمد على اللون وحده)
-            </label>
-            <div>
-              <label htmlFor="assist">مستوى المساعدة البصرية</label>
-              <select
-                id="assist"
-                data-testid="assist-select"
-                value={s.config.assist}
-                disabled={!editable}
-                onChange={(e) =>
-                  cfg({ assist: e.target.value as Config["assist"] })
-                }
-              >
-                <option value="standard">عادي · إضاءة المنطقة المطلوبة</option>
-                <option value="high">
-                  عالٍ · تخفيت بقية المناطق وتلميح للتالي
-                </option>
-              </select>
-            </div>
-            <p className={styles.note}>
-              أنت من يحدّد مدى الحركة المناسب لكل طفل. المنصة لا تقيس مدى حركة
-              المفاصل ولا التوازن، ولا يُطلب وقوف أو مشي: يمكن المشاركة جالسًا
-              أو بمساعدة.
-            </p>
-
-            <h2>مصدر الحركة</h2>
-            <div>
-              <label htmlFor="input">وضع الإدخال</label>
-              <select
-                id="input"
-                value={
-                  s.config.inputSource === "simulated"
-                    ? s.config.inputMode
-                    : "MANUAL"
-                }
-                disabled={!editable}
-                onChange={(e) => {
-                  const mode = e.target.value as InputMode;
-                  cfg({
-                    inputMode: mode,
-                    inputSource: mode === "MANUAL" ? "manual" : "simulated",
-                  });
-                }}
-              >
-                <option value="MANUAL">يدوي · بدون حساسات</option>
-                <option value="RIGHT_FOOT">محاكاة · القدم اليمنى</option>
-                <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
-                <option value="DUAL_FOOT">محاكاة · القدمان</option>
-                <option disabled>حساسات فعلية · بانتظار التحقق</option>
-              </select>
-            </div>
-            {roles.length > 0 && (
-              <div className={styles.sim}>
-                {roles.map((role) => (
-                  <div key={role}>
-                    <strong>{ROLE_NAME[role]}</strong> ·{" "}
-                    {s.sensor.link[role] === "lost"
-                      ? "الاتصال مفقود"
-                      : s.sensor.link[role] === "ok"
-                        ? "متصلة"
-                        : "بانتظار إشارة"}
-                    <div className={styles.actions} style={{ marginTop: 6 }}>
-                      <button
-                        className={styles.btn}
-                        style={{ minHeight: 44 }}
-                        aria-pressed={session.sim.moving[role]}
-                        data-testid={`sim-move-${role}`}
-                        onClick={() =>
-                          session.setSimulated({
-                            moving: {
-                              ...session.sim.moving,
-                              [role]: !session.sim.moving[role],
-                            },
-                          })
-                        }
-                      >
-                        {session.sim.moving[role]
-                          ? "أوقف الحركة"
-                          : "حرّك القدم"}
-                      </button>
-                      <button
-                        className={styles.btn}
-                        style={{ minHeight: 44 }}
-                        aria-pressed={!session.sim.connected[role]}
-                        data-testid={`sim-conn-${role}`}
-                        onClick={() =>
-                          session.setSimulated({
-                            connected: {
-                              ...session.sim.connected,
-                              [role]: !session.sim.connected[role],
-                            },
-                          })
-                        }
-                      >
-                        {session.sim.connected[role]
-                          ? "افصل الحساس"
-                          : "أعد الاتصال"}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <p className={styles.note}>
-                  محاكاة فقط. الحساس يعطي تلميح بدء حركة، ولا يعرف على أي منطقة
-                  يقف الطفل. يبقى التحكم اليدوي متاحًا دائمًا.
-                </p>
-              </div>
-            )}
-
-            <CalibrationPanel s={s} send={send} />
-
-            <h2>عرض الأرضية</h2>
-            <div>
-              <label htmlFor="view">زاوية العرض</label>
-              <select
-                id="view"
-                value={s.config.view}
-                disabled={!editable}
-                onChange={(e) =>
-                  cfg({ view: e.target.value as Config["view"] })
-                }
-              >
-                <option value="floor">إسقاط الأرضية (علوي ثابت)</option>
-                <option value="cinematic">معاينة سينمائية فقط</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="margin">هامش آمن: {s.config.margin}٪</label>
-              <input
-                id="margin"
-                type="range"
-                min="0"
-                max="15"
-                step="1"
-                value={s.config.margin}
-                disabled={!layoutEditable}
-                onChange={(e) => cfg({ margin: Number(e.target.value) })}
-              />
-            </div>
-            <div>
-              <label htmlFor="intensity">
-                شدة العرض: {s.config.intensity}٪
-              </label>
-              <input
-                id="intensity"
-                type="range"
-                min="50"
-                max="100"
-                step="5"
-                value={s.config.intensity}
-                disabled={!editable}
-                onChange={(e) => cfg({ intensity: Number(e.target.value) })}
-              />
-            </div>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                checked={s.config.grid}
-                disabled={!editable}
-                onChange={(e) => cfg({ grid: e.target.checked })}
-              />{" "}
-              شبكة المعايرة
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                data-testid="high-contrast"
-                checked={s.config.highContrast}
-                disabled={!editable}
-                onChange={(e) => cfg({ highContrast: e.target.checked })}
-              />{" "}
-              تباين عالٍ
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                data-testid="reduced-motion"
-                checked={s.config.reducedMotion}
-                disabled={!editable}
-                onChange={(e) => cfg({ reducedMotion: e.target.checked })}
-              />{" "}
-              تقليل الحركة
-            </label>
-            <label className={styles.check}>
-              <input
-                type="checkbox"
-                data-testid="sound"
-                checked={s.config.sound}
-                disabled={!editable}
-                onChange={(e) => cfg({ sound: e.target.checked })}
-              />{" "}
-              أصوات هادئة عند عودة لون
-            </label>
-
-            <p className={styles.note}>
-              الصورة تُعرض على الأرض فقط، والحديقة زينة مسطّحة لا عمق فيها ولا
-              حفر ولا ارتفاعات يُطلب تجاوزها. لا يتتبّع النظام موقع قدم الطفل
-              على الأرض؛ المعالج هو من يؤكد اختياره.
-            </p>
-            <div
-              className={styles.status}
-              role="status"
-              data-testid="link-status"
-            >
-              {session.error ??
-                (session.connected ? "● التحكم متصل" : "○ التحكم غير متصل")}
-              <br />
-              {session.displayConnected
-                ? "● شاشة الأرض متصلة"
-                : "○ افتح شاشة الأرض"}
-              <br />
-              {s.status !== "ended"
-                ? session.history === "saved"
-                  ? "✓ حُفظت الجلسة"
-                  : session.history === "walk-in"
-                    ? "جلسة زائر · دون سجل مريض"
-                    : session.history === "retry"
-                      ? "تعذّر الحفظ، تجري إعادة المحاولة"
-                      : session.history === "saving"
-                        ? "جارٍ الحفظ…"
-                        : ""
-                : ""}
-            </div>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

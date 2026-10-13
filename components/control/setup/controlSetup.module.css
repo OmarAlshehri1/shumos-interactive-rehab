@@ -1,0 +1,344 @@
+.frame {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 22px 20px 90px;
+  color: #173a43;
+  direction: rtl;
+  min-height: 100vh;
+  font-family: var(--font-control), Arial, sans-serif;
+}
+.nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #087f81;
+}
+.nav a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.header {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #dce9e8;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 4px 18px #163e4605;
+  margin-bottom: 16px;
+}
+.header img {
+  width: 176px;
+  height: 99px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.brand {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #078c81;
+}
+.header h1 {
+  margin: 4px 0;
+  font-size: 27px;
+  font-weight: 750;
+}
+.header p {
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 5px 0 10px;
+  color: #627a83;
+}
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: #eff8f6;
+  color: #217668;
+  font-size: 11px;
+  margin-inline-end: 6px;
+}
+.native {
+  margin-top: 16px !important;
+}
+.native > main {
+  min-height: 0 !important;
+  background: transparent !important;
+  color: #173a43 !important;
+  padding: 0 !important;
+  font-family: inherit !important;
+}
+.native [data-native-game-header] {
+  display: none !important;
+}
+.native :where([class*="__inner"], [class*="__content"]) {
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+.native :where([class*="__card"], [class*="__panel"]) {
+  background: #fff !important;
+  color: #173a43 !important;
+  border-color: #dce9e8 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 3px 12px #173e4505 !important;
+  min-width: 0 !important;
+}
+.native :where([class*="__note"], [class*="__sub"], [class*="__muted"]) {
+  color: #647d87 !important;
+  opacity: 1 !important;
+}
+.native :where([class*="__chip"]) {
+  background: #edf7f5 !important;
+  color: #246c63 !important;
+}
+.native :where([class*="__banner"]) {
+  background: #fff6de !important;
+  color: #75561d !important;
+}
+.native :where([class*="__current"]) {
+  background: #f0f9f7 !important;
+  color: #183e45 !important;
+  border-color: #cae5df !important;
+}
+.native :where(input, select) {
+  max-width: 100% !important;
+  color: #173a43 !important;
+  background: #f8fbfc !important;
+  border-color: #d8e5e7 !important;
+  border-radius: 10px !important;
+  min-height: 44px !important;
+}
+.native :where(input[type="checkbox"], input[type="radio"]) {
+  min-height: 0 !important;
+}
+.native :where(button) {
+  min-height: 44px !important;
+  font-family: inherit !important;
+}
+.native :where([class*="__btn"], [class*="__button"]) {
+  font-size: 14px !important;
+  border-radius: 11px !important;
+  background: #f5faf9 !important;
+  color: #21645e !important;
+  border-color: #cfe3de !important;
+}
+.native :where([class*="__primary"], [class*="__good"]) {
+  background: #008f83 !important;
+  color: white !important;
+  border-color: #008f83 !important;
+}
+.native :where([class*="__safety"], [class*="__danger"]) {
+  background: #b83939 !important;
+  color: #fff !important;
+  border-color: #b83939 !important;
+}
+.native :where([class*="__floatSafety"]) {
+  position: sticky !important;
+  inset: auto !important;
+  margin: 0 0 12px !important;
+  box-shadow: none !important;
+}
+.layout {
+  display: grid;
+  gap: 20px;
+}
+.settings {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #dce9e8;
+  border-radius: 18px;
+}
+.settings > h2,
+.stages > h2 {
+  font-size: 16px;
+  margin: 0 0 14px;
+  font-weight: 700;
+}
+.settings > aside {
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.start {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 20px;
+  background: #edf8f5;
+  border: 1px solid #cee9e2;
+  border-radius: 16px;
+}
+.start p {
+  font-size: 12px;
+  color: #55777e;
+  margin: 0;
+}
+.start button {
+  min-height: 48px;
+  padding: 12px 32px;
+  background: #008f83;
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.start button:disabled {
+  opacity: 0.5;
+}
+@media (max-width: 650px) {
+  .frame {
+    padding: 14px 12px 90px;
+  }
+  .header {
+    padding: 15px;
+    gap: 12px;
+    align-items: start;
+  }
+  .header img {
+    width: 108px;
+    height: 75px;
+  }
+  .header h1 {
+    font-size: 21px;
+  }
+  .start {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .settings {
+    padding: 15px;
+  }
+}
+
+.settings > aside {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 22px;
+}
+.settings > aside > h2,
+.settings > aside > p {
+  grid-column: 1/-1;
+}
+.settings details {
+  border: 1px solid #e0ebe9;
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 0;
+}
+.settings summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+.settings details label {
+  font-size: 13px;
+}
+.settings details p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.settings details select,
+.settings details input {
+  margin-bottom: 8px;
+}
+@media (max-width: 800px) {
+  .settings > aside {
+    grid-template-columns: 1fr;
+  }
+}
+
+.native > main {
+  position: static !important;
+  height: auto !important;
+  overflow: visible !important;
+  inset: auto !important;
+}
+
+.native
+  :where(
+    aside,
+    [class*="__settings"],
+    [class*="__sidebar"],
+    [class*="__actionsPanel"]
+  ) {
+  background: #fff !important;
+  color: #173a43 !important;
+  border-color: #dce9e8 !important;
+  border-radius: 18px !important;
+  min-width: 0 !important;
+}
+.settings > section {
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.settings :where(fieldset) {
+  min-width: 0;
+}
+.settings > aside > fieldset {
+  grid-column: 1/-1;
+}
+.settings section > h2 {
+  margin-bottom: 12px;
+}
+.settings > aside > section {
+  min-width: 0;
+}
+.stages > section {
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+.native [class*="__wrap"] {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+.native > main {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.settings > div {
+  display: grid;
+  gap: 14px;
+}
+
+.settings [data-essential-settings="bridge"] {
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.settings [data-essential-settings="bridge"] > h3 {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.settings [data-essential-settings="bridge"] > fieldset {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+}
+.settings [data-essential-settings="bridge"] > fieldset > label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 !important;
+  font-size: 13px;
+}
+.settings [data-essential-settings="bridge"] > fieldset > details {
+  margin-top: 0 !important;
+  align-self: start;
+}
+@media (max-width: 650px) {
+  .settings [data-essential-settings="bridge"] > fieldset {
+    grid-template-columns: 1fr;
+  }
+}

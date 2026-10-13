@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
   AdditionalOptions,
@@ -345,6 +346,254 @@ function Panel({
     },
     { key: "volume", label: "مستوى الصوت", min: 0, max: 1, step: 0.1 },
   ];
+  const setupStages = (
+    <ProgressiveStageGroup selected={s.stage}>
+      {STAGES.map((d, i) => (
+        <button
+          key={i}
+          type="button"
+          aria-label={`المرحلة ${i + 1}: ${d.name}`}
+          data-testid={`stage-${i}`}
+          disabled={s.status === "running" || s.status === "ended"}
+          className={`${styles.stage} ${i === s.stage ? styles.current : ""} ${s.completed.includes(i) ? styles.done : ""}`}
+          onClick={() => action({ type: "stage", stage: i })}
+        >
+          <span>المرحلة {i + 1}</span>
+          <strong>{d.name}</strong>
+          <small>{d.stops.length} محطات إنقاذ</small>
+          {s.completed.includes(i) ? "✓" : s.skipped.includes(i) ? "—" : ""}
+        </button>
+      ))}
+    </ProgressiveStageGroup>
+  );
+  const setupSettings = (
+    <aside className={styles.sidebar}>
+      {(s.status !== "ready" || !!s.startedAt) && (
+        <section className={styles.card}>
+          <h2>المستوى والمرحلة</h2>
+          {setupStages}
+        </section>
+      )}
+      <section className={styles.card}>
+        <span className={styles.overline}>إعدادات المشاركة</span>
+        <h2>على قدر حركة الطفل</h2>
+        <p className={styles.note}>
+          المعالج يختار المساعدة المناسبة. كل إدخال يدوي من المعالج يُسجّل
+          كمساعدة.
+        </p>
+        <fieldset
+          disabled={!enabled || s.status === "ended"}
+          className={styles.settings}
+        >
+          <label>
+            طريقة القيادة
+            <select
+              aria-label="طريقة القيادة"
+              value={s.config.mode}
+              onChange={(e) => cfg({ mode: e.target.value as Config["mode"] })}
+            >
+              <option value="manual">قيادة يدوية دون توجيه آلي</option>
+              <option value="assisted">توجيه بمساعدة</option>
+              <option value="auto-throttle">تسارع آلي + مقود الطفل</option>
+              <option value="therapist-throttle">تسارع المعالج</option>
+              <option value="steering-only">مشاركة بالمقود فقط</option>
+              <option value="pedal-only">مشاركة بالدواسة فقط</option>
+            </select>
+          </label>
+          <label>
+            مصدر الإدخال
+            <select
+              aria-label="مصدر الإدخال"
+              value={s.config.source}
+              onChange={(e) =>
+                cfg({ source: e.target.value as Config["source"] })
+              }
+            >
+              <option value="manual">يدوي · دون أجهزة</option>
+              <option value="gamepad" disabled={!!mappingError}>
+                Gamepad محلي · يحتاج معايرة
+              </option>
+              <option value="wheel" disabled={!!mappingError}>
+                مقود ودواسات · تحقق فعلي معلق
+              </option>
+              <option
+                value="hand"
+                disabled={!sensorReady || s.phase !== "firefighting"}
+              >
+                حساس اليد · للماء فقط
+              </option>
+            </select>
+          </label>
+          <button
+            data-testid="manual-fallback"
+            type="button"
+            onClick={() => cfg({ source: "manual" })}
+          >
+            العودة للتحكم اليدوي
+          </button>
+          {checks.map((c) => (
+            <label key={c.key} className={styles.check}>
+              <input
+                data-testid={`config-${c.key}`}
+                type="checkbox"
+                checked={s.config[c.key] as boolean}
+                onChange={(e) => cfg({ [c.key]: e.target.checked })}
+              />
+              {c.label}
+            </label>
+          ))}
+          {s.config.mode === "therapist-throttle" && (
+            <label>
+              تسارع المعالج
+              <input
+                aria-label="تسارع المعالج"
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={s.config.therapistThrottle}
+                onChange={(e) =>
+                  cfg({ therapistThrottle: Number(e.target.value) })
+                }
+              />
+            </label>
+          )}
+          {sliders
+            .filter((c) =>
+              [
+                "speedCap",
+                "steeringAssist",
+                "aimAssist",
+                "steeringRange",
+              ].includes(c.key),
+            )
+            .map((c) => (
+              <label key={c.key}>
+                {c.label}
+                <span className={styles.value}>
+                  {s.config[c.key] as number}
+                </span>
+                <input
+                  aria-label={c.label}
+                  data-testid={`config-${c.key}`}
+                  type="range"
+                  min={c.min}
+                  max={c.max}
+                  step={c.step}
+                  value={s.config[c.key] as number}
+                  onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
+                />
+              </label>
+            ))}
+          <AdditionalOptions title="حساسية الجهاز والصوت">
+            {sliders
+              .filter(
+                (c) =>
+                  ![
+                    "speedCap",
+                    "steeringAssist",
+                    "aimAssist",
+                    "steeringRange",
+                  ].includes(c.key),
+              )
+              .map((c) => (
+                <label key={c.key}>
+                  {c.label}
+                  <span className={styles.value}>
+                    {s.config[c.key] as number}
+                  </span>
+                  <input
+                    aria-label={c.label}
+                    data-testid={`config-${c.key}`}
+                    type="range"
+                    min={c.min}
+                    max={c.max}
+                    step={c.step}
+                    value={s.config[c.key] as number}
+                    onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
+                  />
+                </label>
+              ))}
+          </AdditionalOptions>
+          <AdditionalOptions>
+            <label>
+              جودة العرض
+              <select
+                aria-label="جودة العرض"
+                value={s.config.quality}
+                onChange={(e) =>
+                  cfg({ quality: e.target.value as Config["quality"] })
+                }
+              >
+                <option value="high">عالية</option>
+                <option value="low">خفيفة</option>
+              </select>
+            </label>
+          </AdditionalOptions>
+        </fieldset>
+        <DeviceMapping mapping={mapping} onChange={onMapping} />
+        {mappingError && (
+          <p role="alert" className={styles.warning}>
+            {mappingError}
+          </p>
+        )}
+      </section>
+      <section className={`${styles.card} ${styles.status}`} role="status">
+        {s.safety && (
+          <p className={styles.warning}>
+            {s.inputLost
+              ? "انقطع مصدر الإدخال. اختر التحكم اليدوي ثم استأنف."
+              : "إيقاف أمان · استأنف عندما تكون جاهزًا."}
+          </p>
+        )}
+        {runtime.blocked && (
+          <p className={styles.warning}>انتقل التحكم إلى نافذة أخرى.</p>
+        )}
+        {runtime.error && <p className={styles.warning}>{runtime.error}</p>}
+        <strong>
+          {s.status === "ended" ? "نتائج الجلسة" : "لا حد زمني · لا عقوبة"}
+        </strong>
+        <p>
+          {runtime.history === "saved"
+            ? "✓ حُفظت الجلسة مرة واحدة"
+            : runtime.history === "walk-in"
+              ? "جلسة زائر · دون سجل مريض"
+              : runtime.history === "retry"
+                ? "تعذّر الحفظ؛ تجري إعادة المحاولة"
+                : runtime.history === "saving"
+                  ? "جارٍ حفظ النتائج…"
+                  : "التقدم محفوظ في الجلسة المشتركة"}
+        </p>
+        <p className={styles.note}>
+          لا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.
+        </p>
+      </section>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="fire-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!enabled}
+              onClick={() => action({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -373,7 +622,7 @@ function Panel({
         </button>
       )}
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <span className={styles.eyebrow}>
               SHUMOS CARE / RESCUE MISSIONS
@@ -735,242 +984,7 @@ function Panel({
               </div>
             </section>
           </div>
-          <aside className={styles.sidebar}>
-            <section className={styles.card}>
-              <h2>المستوى والمرحلة</h2>
-              <ProgressiveStageGroup selected={s.stage}>
-                {STAGES.map((d, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-label={`المرحلة ${i + 1}: ${d.name}`}
-                    data-testid={`stage-${i}`}
-                    disabled={s.status === "running" || s.status === "ended"}
-                    className={`${styles.stage} ${i === s.stage ? styles.current : ""} ${s.completed.includes(i) ? styles.done : ""}`}
-                    onClick={() => action({ type: "stage", stage: i })}
-                  >
-                    <span>المرحلة {i + 1}</span>
-                    <strong>{d.name}</strong>
-                    <small>{d.stops.length} محطات إنقاذ</small>
-                    {s.completed.includes(i)
-                      ? "✓"
-                      : s.skipped.includes(i)
-                        ? "—"
-                        : ""}
-                  </button>
-                ))}
-              </ProgressiveStageGroup>
-            </section>
-            <section className={styles.card}>
-              <span className={styles.overline}>إعدادات المشاركة</span>
-              <h2>على قدر حركة الطفل</h2>
-              <p className={styles.note}>
-                المعالج يختار المساعدة المناسبة. كل إدخال يدوي من المعالج يُسجّل
-                كمساعدة.
-              </p>
-              <fieldset
-                disabled={!enabled || s.status === "ended"}
-                className={styles.settings}
-              >
-                <label>
-                  طريقة القيادة
-                  <select
-                    aria-label="طريقة القيادة"
-                    value={s.config.mode}
-                    onChange={(e) =>
-                      cfg({ mode: e.target.value as Config["mode"] })
-                    }
-                  >
-                    <option value="manual">قيادة يدوية دون توجيه آلي</option>
-                    <option value="assisted">توجيه بمساعدة</option>
-                    <option value="auto-throttle">
-                      تسارع آلي + مقود الطفل
-                    </option>
-                    <option value="therapist-throttle">تسارع المعالج</option>
-                    <option value="steering-only">مشاركة بالمقود فقط</option>
-                    <option value="pedal-only">مشاركة بالدواسة فقط</option>
-                  </select>
-                </label>
-                <label>
-                  مصدر الإدخال
-                  <select
-                    aria-label="مصدر الإدخال"
-                    value={s.config.source}
-                    onChange={(e) =>
-                      cfg({ source: e.target.value as Config["source"] })
-                    }
-                  >
-                    <option value="manual">يدوي · دون أجهزة</option>
-                    <option value="gamepad" disabled={!!mappingError}>
-                      Gamepad محلي · يحتاج معايرة
-                    </option>
-                    <option value="wheel" disabled={!!mappingError}>
-                      مقود ودواسات · تحقق فعلي معلق
-                    </option>
-                    <option
-                      value="hand"
-                      disabled={!sensorReady || s.phase !== "firefighting"}
-                    >
-                      حساس اليد · للماء فقط
-                    </option>
-                  </select>
-                </label>
-                <button
-                  data-testid="manual-fallback"
-                  type="button"
-                  onClick={() => cfg({ source: "manual" })}
-                >
-                  العودة للتحكم اليدوي
-                </button>
-                {checks.map((c) => (
-                  <label key={c.key} className={styles.check}>
-                    <input
-                      data-testid={`config-${c.key}`}
-                      type="checkbox"
-                      checked={s.config[c.key] as boolean}
-                      onChange={(e) => cfg({ [c.key]: e.target.checked })}
-                    />
-                    {c.label}
-                  </label>
-                ))}
-                {s.config.mode === "therapist-throttle" && (
-                  <label>
-                    تسارع المعالج
-                    <input
-                      aria-label="تسارع المعالج"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.05"
-                      value={s.config.therapistThrottle}
-                      onChange={(e) =>
-                        cfg({ therapistThrottle: Number(e.target.value) })
-                      }
-                    />
-                  </label>
-                )}
-                {sliders
-                  .filter((c) =>
-                    [
-                      "speedCap",
-                      "steeringAssist",
-                      "aimAssist",
-                      "steeringRange",
-                    ].includes(c.key),
-                  )
-                  .map((c) => (
-                    <label key={c.key}>
-                      {c.label}
-                      <span className={styles.value}>
-                        {s.config[c.key] as number}
-                      </span>
-                      <input
-                        aria-label={c.label}
-                        data-testid={`config-${c.key}`}
-                        type="range"
-                        min={c.min}
-                        max={c.max}
-                        step={c.step}
-                        value={s.config[c.key] as number}
-                        onChange={(e) =>
-                          cfg({ [c.key]: Number(e.target.value) })
-                        }
-                      />
-                    </label>
-                  ))}
-                <AdditionalOptions title="حساسية الجهاز والصوت">
-                  {sliders
-                    .filter(
-                      (c) =>
-                        ![
-                          "speedCap",
-                          "steeringAssist",
-                          "aimAssist",
-                          "steeringRange",
-                        ].includes(c.key),
-                    )
-                    .map((c) => (
-                      <label key={c.key}>
-                        {c.label}
-                        <span className={styles.value}>
-                          {s.config[c.key] as number}
-                        </span>
-                        <input
-                          aria-label={c.label}
-                          data-testid={`config-${c.key}`}
-                          type="range"
-                          min={c.min}
-                          max={c.max}
-                          step={c.step}
-                          value={s.config[c.key] as number}
-                          onChange={(e) =>
-                            cfg({ [c.key]: Number(e.target.value) })
-                          }
-                        />
-                      </label>
-                    ))}
-                </AdditionalOptions>
-                <AdditionalOptions>
-                  <label>
-                    جودة العرض
-                    <select
-                      aria-label="جودة العرض"
-                      value={s.config.quality}
-                      onChange={(e) =>
-                        cfg({ quality: e.target.value as Config["quality"] })
-                      }
-                    >
-                      <option value="high">عالية</option>
-                      <option value="low">خفيفة</option>
-                    </select>
-                  </label>
-                </AdditionalOptions>
-              </fieldset>
-              <DeviceMapping mapping={mapping} onChange={onMapping} />
-              {mappingError && (
-                <p role="alert" className={styles.warning}>
-                  {mappingError}
-                </p>
-              )}
-            </section>
-            <section
-              className={`${styles.card} ${styles.status}`}
-              role="status"
-            >
-              {s.safety && (
-                <p className={styles.warning}>
-                  {s.inputLost
-                    ? "انقطع مصدر الإدخال. اختر التحكم اليدوي ثم استأنف."
-                    : "إيقاف أمان · استأنف عندما تكون جاهزًا."}
-                </p>
-              )}
-              {runtime.blocked && (
-                <p className={styles.warning}>انتقل التحكم إلى نافذة أخرى.</p>
-              )}
-              {runtime.error && (
-                <p className={styles.warning}>{runtime.error}</p>
-              )}
-              <strong>
-                {s.status === "ended"
-                  ? "نتائج الجلسة"
-                  : "لا حد زمني · لا عقوبة"}
-              </strong>
-              <p>
-                {runtime.history === "saved"
-                  ? "✓ حُفظت الجلسة مرة واحدة"
-                  : runtime.history === "walk-in"
-                    ? "جلسة زائر · دون سجل مريض"
-                    : runtime.history === "retry"
-                      ? "تعذّر الحفظ؛ تجري إعادة المحاولة"
-                      : runtime.history === "saving"
-                        ? "جارٍ حفظ النتائج…"
-                        : "التقدم محفوظ في الجلسة المشتركة"}
-              </p>
-              <p className={styles.note}>
-                لا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.
-              </p>
-            </section>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

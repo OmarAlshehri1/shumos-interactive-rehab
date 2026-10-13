@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
   AdditionalOptions,
@@ -182,6 +183,285 @@ function ConnectedBloomControl() {
       assisted,
     });
   const ready = state.status === "ready";
+  const setupStages = (
+    <ProgressiveStageGroup selected={state.stage}>
+      {STAGES.map((d) => (
+        <button
+          key={d.index}
+          disabled={!connected || state.status === "running"}
+          className={state.stage === d.index ? styles.selected : ""}
+          onClick={() => send({ type: "stage", stage: d.index })}
+          aria-label={`المستوى ${d.level} المرحلة ${d.stage}`}
+        >
+          <span>المرحلة {d.index + 1}</span>
+          <strong>إزهار {d.regions} مناطق</strong>
+          <small>الوصول إلى المناطق المضيئة بالتتابع</small>
+          {state.results.find((r) => r.stage === d.index)?.completed
+            ? " ✓"
+            : ""}
+        </button>
+      ))}
+    </ProgressiveStageGroup>
+  );
+  const setupSettings = (
+    <aside className={styles.settings}>
+      <h2>مساحة تناسب الطفل</h2>
+      {(state.status !== "ready" || !!state.startedAt) && setupStages}
+      <p>كل هدف قابل للتعديل. لا وقت محدد، ولا حركة إلزامية.</p>
+      <fieldset disabled={!ready || !connected}>
+        <legend>العرض والمشاركة</legend>
+        <div className={styles.toggle}>
+          {(["WALL", "FLOOR"] as const).map((p) => (
+            <button
+              key={p}
+              className={state.config.projection === p ? styles.selected : ""}
+              onClick={() => config({ projection: p })}
+            >
+              {p === "WALL" ? "جدار" : "أرضية"}
+            </button>
+          ))}
+        </div>
+        <label>
+          طريقة المشاركة
+          <select
+            value={state.config.mode}
+            onChange={(e) => config({ mode: e.target.value as Mode })}
+          >
+            {modes.map((m) => (
+              <option key={m} value={m}>
+                {MODE_LABELS[m]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          هدف المناطق{" "}
+          <input
+            type="number"
+            min="0"
+            max="12"
+            value={state.config.goal}
+            onChange={(e) => config({ goal: +e.target.value })}
+          />
+          <small>0 = هدف المرحلة ({STAGES[state.stage].regions})</small>
+        </label>
+        <label>
+          تكرارات كل منطقة
+          <input
+            type="number"
+            min="1"
+            max="5"
+            value={state.config.repetitions}
+            onChange={(e) => config({ repetitions: +e.target.value })}
+          />
+        </label>
+        {(
+          [
+            ["targetSize", "حجم المنطقة", 0.65, 1.5, 0.05],
+            ["movementRange", "نطاق الحركة", 0.2, 1, 0.05],
+            ["sensitivity", "حساسية المؤشر", 0.2, 3, 0.1],
+            ["smoothing", "تنعيم المؤشر", 0.05, 1, 0.05],
+            ["deadZone", "المنطقة الميتة", 0, 0.2, 0.01],
+          ] as const
+        ).map(([k, title, min, max, step]) => (
+          <label key={k}>
+            {title}
+            <input
+              type="range"
+              min={min}
+              max={max}
+              step={step}
+              value={state.config[k]}
+              onChange={(e) => config({ [k]: +e.target.value })}
+            />
+          </label>
+        ))}
+        <label>
+          تسلسل المناطق
+          <select
+            value={state.config.sequence}
+            onChange={(e) =>
+              config({ sequence: e.target.value as "ordered" | "free" })
+            }
+          >
+            <option value="ordered">منطقة واحدة في كل مرة</option>
+            <option value="free">اختيار حر</option>
+          </select>
+        </label>
+      </fieldset>
+      <details>
+        <summary>معايرة العرض وإمكانية الوصول</summary>
+        <fieldset disabled={!ready || !connected}>
+          <label>
+            عرض الإسقاط المقاس (م)
+            <input
+              type="number"
+              min="1"
+              max="12"
+              step=".1"
+              value={state.config.width}
+              onChange={(e) => config({ width: +e.target.value })}
+            />
+          </label>
+          <label>
+            ارتفاع الإسقاط المقاس (م)
+            <input
+              type="number"
+              min="1"
+              max="12"
+              step=".1"
+              value={state.config.height}
+              onChange={(e) => config({ height: +e.target.value })}
+            />
+          </label>
+          <label>
+            الهامش الآمن
+            <input
+              type="range"
+              min=".03"
+              max=".2"
+              step=".01"
+              value={state.config.margin}
+              onChange={(e) => config({ margin: +e.target.value })}
+            />
+          </label>
+          {(
+            [
+              ["grid", "شبكة المعايرة"],
+              ["contrast", "تباين مرتفع"],
+              ["reduced", "حركة مخفّضة"],
+              ["audio", "الأصوات الهادئة"],
+            ] as const
+          ).map(([k, title]) => (
+            <label className={styles.check} key={k}>
+              <input
+                type="checkbox"
+                checked={state.config[k]}
+                onChange={(e) => config({ [k]: e.target.checked })}
+              />
+              {title}
+            </label>
+          ))}
+          <AdditionalOptions>
+            <label>
+              جودة العرض
+              <select
+                value={state.config.quality}
+                onChange={(e) =>
+                  config({ quality: e.target.value as "low" | "high" })
+                }
+              >
+                <option value="high">عالية</option>
+                <option value="low">اقتصادية</option>
+              </select>
+            </label>
+          </AdditionalOptions>
+          <label>
+            مستوى الصوت
+            <input
+              type="range"
+              min="0"
+              max=".3"
+              step=".01"
+              value={state.config.volume}
+              onChange={(e) => config({ volume: +e.target.value })}
+            />
+          </label>
+        </fieldset>
+        <p>
+          أدخل القياسات الفعلية لجهاز الإسقاط. هذه إعدادات عرض، وليست إثبات
+          معايرة مادية.
+        </p>
+      </details>
+      <div className={styles.sensor}>
+        <h3>المشاركة بالحساس</h3>
+        <p aria-live="polite">{hint || "التحكّم اليدوي متاح دائمًا"}</p>
+        {state.config.mode.includes("HAND") && (
+          <>
+            <button onClick={() => void sensors.right.connect()}>
+              وصل اليد اليمنى
+            </button>
+            <button onClick={() => void sensors.left.connect()}>
+              وصل اليد اليسرى
+            </button>
+            <p>
+              مؤشر افتراضي معاير. اليدان تتناوبان حسب المنطقة. التأكيد اليدوي
+              متاح.
+            </p>
+          </>
+        )}
+        {state.config.mode.includes("FOOT") && (
+          <>
+            <p>حساس القدم لا يحدد موقع الطفل. أكّد الوصول يدويًا.</p>
+            {(["RIGHT_FOOT", "LEFT_FOOT"] as const).map((role) => (
+              <button
+                key={role}
+                onClick={() => {
+                  const result = foot.current[role].observe(
+                    {
+                      role,
+                      at: performance.now(),
+                      gyro: [20, 0, 0],
+                      connected: true,
+                    },
+                    state.config.mode,
+                    performance.now(),
+                  );
+                  setHint(
+                    `${MODE_LABELS[role]}: ${FOOT_HINT_LABELS[result]} — محاكاة فقط`,
+                  );
+                }}
+              >
+                {role === "RIGHT_FOOT" ? "محاكاة اليمنى" : "محاكاة اليسرى"}
+              </button>
+            ))}
+            <button
+              onClick={() => {
+                for (const role of ["RIGHT_FOOT", "LEFT_FOOT"] as const)
+                  foot.current[role].observe(
+                    {
+                      role,
+                      at: performance.now(),
+                      gyro: [0, 0, 0],
+                      connected: true,
+                    },
+                    state.config.mode,
+                    performance.now(),
+                  );
+                setHint("محاكاة: عودة إلى الراحة");
+              }}
+            >
+              محاكاة العودة للراحة
+            </button>
+          </>
+        )}
+      </div>
+    </aside>
+  );
+  if (state.status === "ready" && !state.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="bw-control"
+        data-status={state.status}
+        data-stage={state.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!(connected && !projectionRequired)}
+              onClick={() => send({ type: "start" })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       data-testid="bw-control"
@@ -192,7 +472,7 @@ function ConnectedBloomControl() {
       className={styles.page}
       dir="rtl"
     >
-      <header className={styles.header}>
+      <header data-native-game-header className={styles.header}>
         <div>
           <Link href="/control/activities">
             مكتبة الأنشطة / الحديقة التي تستيقظ
@@ -391,258 +671,7 @@ function ConnectedBloomControl() {
             )}
           </div>
         </section>
-        <aside className={styles.settings}>
-          <h2>مساحة تناسب الطفل</h2>
-          <ProgressiveStageGroup selected={state.stage}>
-            {STAGES.map((d) => (
-              <button
-                key={d.index}
-                disabled={!connected || state.status === "running"}
-                className={state.stage === d.index ? styles.selected : ""}
-                onClick={() => send({ type: "stage", stage: d.index })}
-                aria-label={`المستوى ${d.level} المرحلة ${d.stage}`}
-              >
-                <span>المرحلة {d.index + 1}</span>
-                <strong>إزهار {d.regions} مناطق</strong>
-                <small>الوصول إلى المناطق المضيئة بالتتابع</small>
-                {state.results.find((r) => r.stage === d.index)?.completed
-                  ? " ✓"
-                  : ""}
-              </button>
-            ))}
-          </ProgressiveStageGroup>
-          <p>كل هدف قابل للتعديل. لا وقت محدد، ولا حركة إلزامية.</p>
-          <fieldset disabled={!ready || !connected}>
-            <legend>العرض والمشاركة</legend>
-            <div className={styles.toggle}>
-              {(["WALL", "FLOOR"] as const).map((p) => (
-                <button
-                  key={p}
-                  className={
-                    state.config.projection === p ? styles.selected : ""
-                  }
-                  onClick={() => config({ projection: p })}
-                >
-                  {p === "WALL" ? "جدار" : "أرضية"}
-                </button>
-              ))}
-            </div>
-            <label>
-              طريقة المشاركة
-              <select
-                value={state.config.mode}
-                onChange={(e) => config({ mode: e.target.value as Mode })}
-              >
-                {modes.map((m) => (
-                  <option key={m} value={m}>
-                    {MODE_LABELS[m]}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              هدف المناطق{" "}
-              <input
-                type="number"
-                min="0"
-                max="12"
-                value={state.config.goal}
-                onChange={(e) => config({ goal: +e.target.value })}
-              />
-              <small>0 = هدف المرحلة ({STAGES[state.stage].regions})</small>
-            </label>
-            <label>
-              تكرارات كل منطقة
-              <input
-                type="number"
-                min="1"
-                max="5"
-                value={state.config.repetitions}
-                onChange={(e) => config({ repetitions: +e.target.value })}
-              />
-            </label>
-            {(
-              [
-                ["targetSize", "حجم المنطقة", 0.65, 1.5, 0.05],
-                ["movementRange", "نطاق الحركة", 0.2, 1, 0.05],
-                ["sensitivity", "حساسية المؤشر", 0.2, 3, 0.1],
-                ["smoothing", "تنعيم المؤشر", 0.05, 1, 0.05],
-                ["deadZone", "المنطقة الميتة", 0, 0.2, 0.01],
-              ] as const
-            ).map(([k, title, min, max, step]) => (
-              <label key={k}>
-                {title}
-                <input
-                  type="range"
-                  min={min}
-                  max={max}
-                  step={step}
-                  value={state.config[k]}
-                  onChange={(e) => config({ [k]: +e.target.value })}
-                />
-              </label>
-            ))}
-            <label>
-              تسلسل المناطق
-              <select
-                value={state.config.sequence}
-                onChange={(e) =>
-                  config({ sequence: e.target.value as "ordered" | "free" })
-                }
-              >
-                <option value="ordered">منطقة واحدة في كل مرة</option>
-                <option value="free">اختيار حر</option>
-              </select>
-            </label>
-          </fieldset>
-          <details>
-            <summary>معايرة العرض وإمكانية الوصول</summary>
-            <fieldset disabled={!ready || !connected}>
-              <label>
-                عرض الإسقاط المقاس (م)
-                <input
-                  type="number"
-                  min="1"
-                  max="12"
-                  step=".1"
-                  value={state.config.width}
-                  onChange={(e) => config({ width: +e.target.value })}
-                />
-              </label>
-              <label>
-                ارتفاع الإسقاط المقاس (م)
-                <input
-                  type="number"
-                  min="1"
-                  max="12"
-                  step=".1"
-                  value={state.config.height}
-                  onChange={(e) => config({ height: +e.target.value })}
-                />
-              </label>
-              <label>
-                الهامش الآمن
-                <input
-                  type="range"
-                  min=".03"
-                  max=".2"
-                  step=".01"
-                  value={state.config.margin}
-                  onChange={(e) => config({ margin: +e.target.value })}
-                />
-              </label>
-              {(
-                [
-                  ["grid", "شبكة المعايرة"],
-                  ["contrast", "تباين مرتفع"],
-                  ["reduced", "حركة مخفّضة"],
-                  ["audio", "الأصوات الهادئة"],
-                ] as const
-              ).map(([k, title]) => (
-                <label className={styles.check} key={k}>
-                  <input
-                    type="checkbox"
-                    checked={state.config[k]}
-                    onChange={(e) => config({ [k]: e.target.checked })}
-                  />
-                  {title}
-                </label>
-              ))}
-              <AdditionalOptions>
-                <label>
-                  جودة العرض
-                  <select
-                    value={state.config.quality}
-                    onChange={(e) =>
-                      config({ quality: e.target.value as "low" | "high" })
-                    }
-                  >
-                    <option value="high">عالية</option>
-                    <option value="low">اقتصادية</option>
-                  </select>
-                </label>
-              </AdditionalOptions>
-              <label>
-                مستوى الصوت
-                <input
-                  type="range"
-                  min="0"
-                  max=".3"
-                  step=".01"
-                  value={state.config.volume}
-                  onChange={(e) => config({ volume: +e.target.value })}
-                />
-              </label>
-            </fieldset>
-            <p>
-              أدخل القياسات الفعلية لجهاز الإسقاط. هذه إعدادات عرض، وليست إثبات
-              معايرة مادية.
-            </p>
-          </details>
-          <div className={styles.sensor}>
-            <h3>المشاركة بالحساس</h3>
-            <p aria-live="polite">{hint || "التحكّم اليدوي متاح دائمًا"}</p>
-            {state.config.mode.includes("HAND") && (
-              <>
-                <button onClick={() => void sensors.right.connect()}>
-                  وصل اليد اليمنى
-                </button>
-                <button onClick={() => void sensors.left.connect()}>
-                  وصل اليد اليسرى
-                </button>
-                <p>
-                  مؤشر افتراضي معاير. اليدان تتناوبان حسب المنطقة. التأكيد
-                  اليدوي متاح.
-                </p>
-              </>
-            )}
-            {state.config.mode.includes("FOOT") && (
-              <>
-                <p>حساس القدم لا يحدد موقع الطفل. أكّد الوصول يدويًا.</p>
-                {(["RIGHT_FOOT", "LEFT_FOOT"] as const).map((role) => (
-                  <button
-                    key={role}
-                    onClick={() => {
-                      const result = foot.current[role].observe(
-                        {
-                          role,
-                          at: performance.now(),
-                          gyro: [20, 0, 0],
-                          connected: true,
-                        },
-                        state.config.mode,
-                        performance.now(),
-                      );
-                      setHint(
-                        `${MODE_LABELS[role]}: ${FOOT_HINT_LABELS[result]} — محاكاة فقط`,
-                      );
-                    }}
-                  >
-                    {role === "RIGHT_FOOT" ? "محاكاة اليمنى" : "محاكاة اليسرى"}
-                  </button>
-                ))}
-                <button
-                  onClick={() => {
-                    for (const role of ["RIGHT_FOOT", "LEFT_FOOT"] as const)
-                      foot.current[role].observe(
-                        {
-                          role,
-                          at: performance.now(),
-                          gyro: [0, 0, 0],
-                          connected: true,
-                        },
-                        state.config.mode,
-                        performance.now(),
-                      );
-                    setHint("محاكاة: عودة إلى الراحة");
-                  }}
-                >
-                  محاكاة العودة للراحة
-                </button>
-              </>
-            )}
-          </div>
-        </aside>
+        {setupSettings}
       </div>
     </main>
   );

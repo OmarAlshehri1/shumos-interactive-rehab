@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
   StagePicker,
@@ -165,6 +166,317 @@ export function ControlPanels({
     ];
   const displayState = toDisplayState(s)!;
 
+  const setupStages = (
+    <StagePicker
+      value={s.startIndex}
+      disabled={lifecycle !== "ready"}
+      items={STAGE_SPECS.map((spec, index) => ({
+        value: index,
+        label: `${DIFFICULTY_AR[DIFFICULTIES[Math.floor(index / 3)]]} · الهدف ${arabicNumber(spec.goal)}`,
+        description:
+          spec.motion === "static"
+            ? "بالونات ثابتة لتعلّم اللون واللمس"
+            : `بالونات صاعدة · ${spec.colors} ألوان`,
+      }))}
+      onSelect={(value) => {
+        const index = Number(value);
+        runtime.command({
+          type: "start-at",
+          difficulty: DIFFICULTIES[Math.floor(index / 3)],
+          stage: ((index % 3) + 1) as StageNumber,
+        });
+      }}
+    />
+  );
+  const setupSettings = (
+    <section
+      className="rounded-2xl border border-slate-200 bg-white p-4"
+      aria-label="الإعدادات"
+    >
+      <h2 className="mb-3 text-base font-extrabold text-slate-800">
+        الإعدادات
+      </h2>
+
+      {production?.requireChildName && (
+        <div className="mb-3">
+          <Field label="اسم الطفل" hint="مطلوب لبدء الجلسة (حتى ٣٠ حرفًا)">
+            <input
+              className={field}
+              value={production.childName}
+              maxLength={30}
+              onChange={(e) => production.onChildNameChange(e.target.value)}
+              data-testid="child-name"
+            />
+          </Field>
+        </div>
+      )}
+      <div hidden aria-hidden="true">
+        {" "}
+        <Field label="المستوى">
+          <select
+            className={field}
+            disabled={lifecycle !== "ready"}
+            value={startDifficulty}
+            onChange={(e) =>
+              runtime.command({
+                type: "start-at",
+                difficulty: e.target.value as Difficulty,
+                stage: startStage,
+              })
+            }
+            data-testid="sel-difficulty"
+          >
+            {DIFFICULTIES.map((d) => (
+              <option key={d} value={d}>
+                {DIFFICULTY_AR[d]}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label="المرحلة">
+          <select
+            className={field}
+            disabled={lifecycle !== "ready"}
+            value={startStage}
+            onChange={(e) =>
+              runtime.command({
+                type: "start-at",
+                difficulty: startDifficulty,
+                stage: Number(e.target.value) as StageNumber,
+              })
+            }
+            data-testid="sel-stage"
+          >
+            {[1, 2, 3].map((n) => (
+              <option key={n} value={n}>
+                {arabicNumber(n)} — الهدف{" "}
+                {arabicNumber(
+                  STAGE_SPECS[Math.floor(s.startIndex / 3) * 3 + n - 1].goal,
+                )}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          {lifecycle !== "ready" && setupStages}
+        </div>
+        <AdditionalOptions>
+          <Field label="نطاق الجلسة">
+            <select
+              className={field}
+              value={st.scope}
+              onChange={(e) =>
+                settable({
+                  scope: e.target.value as TherapistSettings["scope"],
+                })
+              }
+              data-testid="sel-scope"
+            >
+              <option value="all">كل المراحل حتى النهاية (٩ كحد أقصى)</option>
+              <option value="level">هذا المستوى فقط (٣ مراحل)</option>
+            </select>
+          </Field>
+          <Field label="حجم البالونات">
+            <select
+              className={field}
+              value={st.sizeScale}
+              onChange={(e) => settable({ sizeScale: Number(e.target.value) })}
+              data-testid="sel-size"
+            >
+              {SIZE_OPTIONS.map(([v, l]) => (
+                <option key={v} value={v}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field
+            label="عدد البالونات معًا"
+            hint="بالنسبة للعدد الافتراضي للمرحلة"
+          >
+            <select
+              className={field}
+              value={st.countOffset}
+              onChange={(e) =>
+                settable({ countOffset: Number(e.target.value) })
+              }
+              data-testid="sel-count"
+            >
+              {COUNT_OPTIONS.map((v) => (
+                <option key={v} value={v}>
+                  {v === 0
+                    ? "الافتراضي"
+                    : v > 0
+                      ? `+${arabicNumber(v)}`
+                      : `−${arabicNumber(-v)}`}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field
+            label="عدد الألوان"
+            hint={`حدود هذا المستوى: ${arabicNumber(bounds.min)}–${arabicNumber(bounds.max)}`}
+          >
+            <select
+              className={field}
+              value={st.colorCount ?? ""}
+              onChange={(e) =>
+                settable({
+                  colorCount:
+                    e.target.value === "" ? null : Number(e.target.value),
+                })
+              }
+              data-testid="sel-colors"
+            >
+              <option value="">الافتراضي</option>
+              {Array.from(
+                { length: bounds.max - bounds.min + 1 },
+                (_, i) => bounds.min + i,
+              ).map((n) => (
+                <option key={n} value={n}>
+                  {arabicNumber(n)}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="دقة اللمس (هامش التلامس)">
+            <select
+              className={field}
+              value={st.contactTolerance}
+              onChange={(e) =>
+                settable({ contactTolerance: Number(e.target.value) })
+              }
+              data-testid="sel-tolerance"
+            >
+              {TOLERANCE_OPTIONS.map(([v, l]) => (
+                <option key={v} value={v}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          </Field>
+        </AdditionalOptions>
+
+        <Field label="سرعة الصعود" hint="للمستويين المتوسط والمتقدم">
+          <select
+            className={field}
+            value={st.speedScale}
+            onChange={(e) => settable({ speedScale: Number(e.target.value) })}
+            data-testid="sel-speed"
+          >
+            {SPEED_OPTIONS.map(([v, l]) => (
+              <option key={v} value={v}>
+                {l}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <Field label="العرض">
+          <select
+            className={field}
+            value={st.layout}
+            onChange={(e) =>
+              settable({
+                layout: e.target.value as TherapistSettings["layout"],
+              })
+            }
+            data-testid="sel-layout"
+          >
+            {(Object.keys(LAYOUT_AR) as Array<keyof typeof LAYOUT_AR>).map(
+              (l) => (
+                <option key={l} value={l}>
+                  {LAYOUT_AR[l]}
+                </option>
+              ),
+            )}
+          </select>
+        </Field>
+        <Field
+          label="طريقة الإدخال"
+          hint={
+            EXPERIMENTAL_MODES.includes(st.inputMode)
+              ? "تجريبي: لم يُتحقق منه على أجهزة حقيقية."
+              : undefined
+          }
+        >
+          <select
+            className={field}
+            value={st.inputMode}
+            onChange={(e) =>
+              settable({ inputMode: e.target.value as InputMode })
+            }
+            data-testid="sel-input"
+          >
+            {(production?.inputModes ?? INPUT_MODES).map((m) => (
+              <option key={m} value={m}>
+                {INPUT_MODE_AR[m]}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </div>
+      <AdditionalOptions title="الراحة وتشخيص التشغيل">
+        {" "}
+        <div className="mt-3 grid gap-2 text-sm text-slate-700">
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={st.reducedMotion}
+              onChange={(e) => settable({ reducedMotion: e.target.checked })}
+              data-testid="chk-reduced"
+            />{" "}
+            تقليل الحركة (بالونات ثابتة بدون تأرجح)
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={st.autoAdvance}
+              onChange={(e) => settable({ autoAdvance: e.target.checked })}
+              data-testid="chk-auto"
+            />{" "}
+            الانتقال التلقائي بعد إكمال المرحلة
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={st.allowNoDisplay}
+              onChange={(e) => settable({ allowNoDisplay: e.target.checked })}
+              data-testid="chk-nodisplay"
+            />{" "}
+            السماح بالتشغيل بدون شاشة عرض (معاينة فقط)
+          </label>
+        </div>
+      </AdditionalOptions>
+    </section>
+  );
+  if (lifecycle === "ready" && s.results.length === 0)
+    return (
+      <>
+        <HandInputBridge runtime={runtime} />
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              data-testid="start"
+              disabled={
+                projectionRequired ||
+                (!!production &&
+                  production.requireChildName &&
+                  !production.childName.trim())
+              }
+              onClick={() => runtime.command({ type: "start" })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </>
+    );
   return (
     <>
       <HandInputBridge runtime={runtime} />
@@ -450,305 +762,7 @@ export function ControlPanels({
             </div>
           </section>
 
-          <section
-            className="rounded-2xl border border-slate-200 bg-white p-4"
-            aria-label="الإعدادات"
-          >
-            <h2 className="mb-3 text-base font-extrabold text-slate-800">
-              الإعدادات
-            </h2>
-
-            {production?.requireChildName && (
-              <div className="mb-3">
-                <Field
-                  label="اسم الطفل"
-                  hint="مطلوب لبدء الجلسة (حتى ٣٠ حرفًا)"
-                >
-                  <input
-                    className={field}
-                    value={production.childName}
-                    maxLength={30}
-                    onChange={(e) =>
-                      production.onChildNameChange(e.target.value)
-                    }
-                    data-testid="child-name"
-                  />
-                </Field>
-              </div>
-            )}
-            <div hidden aria-hidden="true">
-              {" "}
-              <Field label="المستوى">
-                <select
-                  className={field}
-                  disabled={lifecycle !== "ready"}
-                  value={startDifficulty}
-                  onChange={(e) =>
-                    runtime.command({
-                      type: "start-at",
-                      difficulty: e.target.value as Difficulty,
-                      stage: startStage,
-                    })
-                  }
-                  data-testid="sel-difficulty"
-                >
-                  {DIFFICULTIES.map((d) => (
-                    <option key={d} value={d}>
-                      {DIFFICULTY_AR[d]}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="المرحلة">
-                <select
-                  className={field}
-                  disabled={lifecycle !== "ready"}
-                  value={startStage}
-                  onChange={(e) =>
-                    runtime.command({
-                      type: "start-at",
-                      difficulty: startDifficulty,
-                      stage: Number(e.target.value) as StageNumber,
-                    })
-                  }
-                  data-testid="sel-stage"
-                >
-                  {[1, 2, 3].map((n) => (
-                    <option key={n} value={n}>
-                      {arabicNumber(n)} — الهدف{" "}
-                      {arabicNumber(
-                        STAGE_SPECS[Math.floor(s.startIndex / 3) * 3 + n - 1]
-                          .goal,
-                      )}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <StagePicker
-                  value={s.startIndex}
-                  disabled={lifecycle !== "ready"}
-                  items={STAGE_SPECS.map((spec, index) => ({
-                    value: index,
-                    label: `${DIFFICULTY_AR[DIFFICULTIES[Math.floor(index / 3)]]} · الهدف ${arabicNumber(spec.goal)}`,
-                    description:
-                      spec.motion === "static"
-                        ? "بالونات ثابتة لتعلّم اللون واللمس"
-                        : `بالونات صاعدة · ${spec.colors} ألوان`,
-                  }))}
-                  onSelect={(value) => {
-                    const index = Number(value);
-                    runtime.command({
-                      type: "start-at",
-                      difficulty: DIFFICULTIES[Math.floor(index / 3)],
-                      stage: ((index % 3) + 1) as StageNumber,
-                    });
-                  }}
-                />
-              </div>
-              <AdditionalOptions>
-                <Field label="نطاق الجلسة">
-                  <select
-                    className={field}
-                    value={st.scope}
-                    onChange={(e) =>
-                      settable({
-                        scope: e.target.value as TherapistSettings["scope"],
-                      })
-                    }
-                    data-testid="sel-scope"
-                  >
-                    <option value="all">
-                      كل المراحل حتى النهاية (٩ كحد أقصى)
-                    </option>
-                    <option value="level">هذا المستوى فقط (٣ مراحل)</option>
-                  </select>
-                </Field>
-                <Field label="حجم البالونات">
-                  <select
-                    className={field}
-                    value={st.sizeScale}
-                    onChange={(e) =>
-                      settable({ sizeScale: Number(e.target.value) })
-                    }
-                    data-testid="sel-size"
-                  >
-                    {SIZE_OPTIONS.map(([v, l]) => (
-                      <option key={v} value={v}>
-                        {l}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field
-                  label="عدد البالونات معًا"
-                  hint="بالنسبة للعدد الافتراضي للمرحلة"
-                >
-                  <select
-                    className={field}
-                    value={st.countOffset}
-                    onChange={(e) =>
-                      settable({ countOffset: Number(e.target.value) })
-                    }
-                    data-testid="sel-count"
-                  >
-                    {COUNT_OPTIONS.map((v) => (
-                      <option key={v} value={v}>
-                        {v === 0
-                          ? "الافتراضي"
-                          : v > 0
-                            ? `+${arabicNumber(v)}`
-                            : `−${arabicNumber(-v)}`}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field
-                  label="عدد الألوان"
-                  hint={`حدود هذا المستوى: ${arabicNumber(bounds.min)}–${arabicNumber(bounds.max)}`}
-                >
-                  <select
-                    className={field}
-                    value={st.colorCount ?? ""}
-                    onChange={(e) =>
-                      settable({
-                        colorCount:
-                          e.target.value === "" ? null : Number(e.target.value),
-                      })
-                    }
-                    data-testid="sel-colors"
-                  >
-                    <option value="">الافتراضي</option>
-                    {Array.from(
-                      { length: bounds.max - bounds.min + 1 },
-                      (_, i) => bounds.min + i,
-                    ).map((n) => (
-                      <option key={n} value={n}>
-                        {arabicNumber(n)}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label="دقة اللمس (هامش التلامس)">
-                  <select
-                    className={field}
-                    value={st.contactTolerance}
-                    onChange={(e) =>
-                      settable({ contactTolerance: Number(e.target.value) })
-                    }
-                    data-testid="sel-tolerance"
-                  >
-                    {TOLERANCE_OPTIONS.map(([v, l]) => (
-                      <option key={v} value={v}>
-                        {l}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-              </AdditionalOptions>
-
-              <Field label="سرعة الصعود" hint="للمستويين المتوسط والمتقدم">
-                <select
-                  className={field}
-                  value={st.speedScale}
-                  onChange={(e) =>
-                    settable({ speedScale: Number(e.target.value) })
-                  }
-                  data-testid="sel-speed"
-                >
-                  {SPEED_OPTIONS.map(([v, l]) => (
-                    <option key={v} value={v}>
-                      {l}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-
-              <Field label="العرض">
-                <select
-                  className={field}
-                  value={st.layout}
-                  onChange={(e) =>
-                    settable({
-                      layout: e.target.value as TherapistSettings["layout"],
-                    })
-                  }
-                  data-testid="sel-layout"
-                >
-                  {(
-                    Object.keys(LAYOUT_AR) as Array<keyof typeof LAYOUT_AR>
-                  ).map((l) => (
-                    <option key={l} value={l}>
-                      {LAYOUT_AR[l]}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-              <Field
-                label="طريقة الإدخال"
-                hint={
-                  EXPERIMENTAL_MODES.includes(st.inputMode)
-                    ? "تجريبي: لم يُتحقق منه على أجهزة حقيقية."
-                    : undefined
-                }
-              >
-                <select
-                  className={field}
-                  value={st.inputMode}
-                  onChange={(e) =>
-                    settable({ inputMode: e.target.value as InputMode })
-                  }
-                  data-testid="sel-input"
-                >
-                  {(production?.inputModes ?? INPUT_MODES).map((m) => (
-                    <option key={m} value={m}>
-                      {INPUT_MODE_AR[m]}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            </div>
-            <AdditionalOptions title="الراحة وتشخيص التشغيل">
-              {" "}
-              <div className="mt-3 grid gap-2 text-sm text-slate-700">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={st.reducedMotion}
-                    onChange={(e) =>
-                      settable({ reducedMotion: e.target.checked })
-                    }
-                    data-testid="chk-reduced"
-                  />{" "}
-                  تقليل الحركة (بالونات ثابتة بدون تأرجح)
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={st.autoAdvance}
-                    onChange={(e) =>
-                      settable({ autoAdvance: e.target.checked })
-                    }
-                    data-testid="chk-auto"
-                  />{" "}
-                  الانتقال التلقائي بعد إكمال المرحلة
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={st.allowNoDisplay}
-                    onChange={(e) =>
-                      settable({ allowNoDisplay: e.target.checked })
-                    }
-                    data-testid="chk-nodisplay"
-                  />{" "}
-                  السماح بالتشغيل بدون شاشة عرض (معاينة فقط)
-                </label>
-              </div>
-            </AdditionalOptions>
-          </section>
+          {setupSettings}
 
           {s.summary && (
             <section

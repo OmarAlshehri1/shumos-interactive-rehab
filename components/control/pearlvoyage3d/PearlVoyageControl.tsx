@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
   AdditionalOptions,
@@ -338,6 +339,308 @@ function Panel({
   const marker = currentMarker(s);
   const collected = collection(s);
   const encounter = s.phase === "encounter" && s.encounterMs >= 1800;
+  const setupStages = (
+    <ProgressiveStageGroup selected={s.stage}>
+      {STAGES.map((d, i) => (
+        <button
+          key={i}
+          type="button"
+          aria-label={`المرحلة ${i + 1}: ${d.name}`}
+          data-testid={`stage-${i}`}
+          disabled={s.status === "running" || s.status === "ended" || !enabled}
+          className={`${styles.stage} ${i === s.stage ? styles.current : ""} ${s.completed.includes(i) ? styles.done : ""}`}
+          onClick={() => action({ type: "stage", stage: i })}
+        >
+          <span>المرحلة {i + 1}</span>
+          <strong>{stageTitle(i)}</strong>
+          <small>{d.markers.length} اكتشافات</small>
+          {s.completed.includes(i) ? "✓" : s.skipped.includes(i) ? "—" : ""}
+        </button>
+      ))}
+    </ProgressiveStageGroup>
+  );
+  const setupSettings = (
+    <aside className={styles.sidebar}>
+      {(s.status !== "ready" || !!s.startedAt) && (
+        <section className={styles.card}>
+          <h2>المستوى والمرحلة</h2>
+          {setupStages}
+        </section>
+      )}
+      <section className={styles.card}>
+        <span className={styles.overline}>إعدادات المشاركة</span>
+        <h2>على قدر حركة الطفل</h2>
+        <p className={styles.note}>
+          المعالج يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل
+          كمساعدة.
+        </p>
+        <fieldset
+          disabled={!enabled || s.status === "ended"}
+          className={styles.settings}
+        >
+          <label>
+            مصدر التحكم
+            <select
+              aria-label="مصدر التحكم"
+              data-testid="config-control"
+              value={s.config.control}
+              onChange={(e) =>
+                cfg({ control: e.target.value as Config["control"] })
+              }
+            >
+              <option value="manual">يدوي من المعالج · دون أجهزة</option>
+              <option value="wheel" disabled={!!mappingError}>
+                مقود فقط · تحقق فعلي معلق
+              </option>
+              <option value="pedal" disabled={!!mappingError}>
+                دواسة فقط · تحقق فعلي معلق
+              </option>
+              <option value="wheel-pedal" disabled={!!mappingError}>
+                مقود ودواسة · تحقق فعلي معلق
+              </option>
+            </select>
+          </label>
+          <button
+            data-testid="manual-fallback"
+            type="button"
+            onClick={() => cfg({ control: "manual" })}
+          >
+            العودة للتحكم اليدوي
+          </button>
+          <label>
+            أسلوب المشاركة
+            <select
+              aria-label="أسلوب المشاركة"
+              data-testid="config-mode"
+              value={s.config.mode}
+              onChange={(e) => cfg({ mode: e.target.value as Config["mode"] })}
+            >
+              <option value="combined">مقود وتسارع معًا</option>
+              <option value="steering-only">
+                مشاركة بالمقود فقط (تسارع آلي)
+              </option>
+              <option value="pedal-only">
+                مشاركة بالدواسة فقط (توجيه آلي)
+              </option>
+            </select>
+          </label>
+          <label>
+            طريقة التثبيت
+            <select
+              aria-label="طريقة التثبيت"
+              data-testid="config-holdMode"
+              value={s.config.holdMode}
+              onChange={(e) =>
+                cfg({ holdMode: e.target.value as Config["holdMode"] })
+              }
+            >
+              <option value="manual">زر المعالج فقط</option>
+              <option value="steering">تثبيت المقود في اتجاه مريح</option>
+              <option value="pedal">ضغط الدواسة بلطف</option>
+              <option value="tap">ضغطات قصيرة متكررة</option>
+            </select>
+          </label>
+          {s.config.holdMode === "steering" && (
+            <label>
+              اتجاه المقود
+              <select
+                aria-label="اتجاه المقود"
+                value={s.config.holdDirection}
+                onChange={(e) =>
+                  cfg({
+                    holdDirection: e.target.value as Config["holdDirection"],
+                  })
+                }
+              >
+                <option value="any">أي اتجاه</option>
+                <option value="right">يمين</option>
+                <option value="left">يسار</option>
+              </select>
+            </label>
+          )}
+          {holdSliders.map((c) => (
+            <label key={c.key}>
+              {c.label}
+              <span className={styles.value}>{s.config[c.key] as number}</span>
+              <input
+                aria-label={c.label}
+                data-testid={`config-${c.key}`}
+                type="range"
+                min={c.min}
+                max={c.max}
+                step={c.step}
+                value={s.config[c.key] as number}
+                onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
+              />
+            </label>
+          ))}
+          {sliders
+            .filter((c) =>
+              [
+                "speedCap",
+                "steeringAssist",
+                "aimAssist",
+                "steeringRange",
+              ].includes(c.key),
+            )
+            .map((c) => (
+              <label key={c.key}>
+                {c.label}
+                <span className={styles.value}>
+                  {s.config[c.key] as number}
+                </span>
+                <input
+                  aria-label={c.label}
+                  data-testid={`config-${c.key}`}
+                  type="range"
+                  min={c.min}
+                  max={c.max}
+                  step={c.step}
+                  value={s.config[c.key] as number}
+                  onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
+                />
+              </label>
+            ))}
+          <AdditionalOptions title="حساسية الجهاز والصوت">
+            {sliders
+              .filter(
+                (c) =>
+                  ![
+                    "speedCap",
+                    "steeringAssist",
+                    "aimAssist",
+                    "steeringRange",
+                  ].includes(c.key),
+              )
+              .map((c) => (
+                <label key={c.key}>
+                  {c.label}
+                  <span className={styles.value}>
+                    {s.config[c.key] as number}
+                  </span>
+                  <input
+                    aria-label={c.label}
+                    data-testid={`config-${c.key}`}
+                    type="range"
+                    min={c.min}
+                    max={c.max}
+                    step={c.step}
+                    value={s.config[c.key] as number}
+                    onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
+                  />
+                </label>
+              ))}
+          </AdditionalOptions>
+          {checks.map((c) => (
+            <label key={c.key} className={styles.check}>
+              <input
+                data-testid={`config-${c.key}`}
+                type="checkbox"
+                checked={s.config[c.key] as boolean}
+                onChange={(e) => cfg({ [c.key]: e.target.checked })}
+              />
+              {c.label}
+            </label>
+          ))}
+          <label>
+            مستوى الصوت
+            <span className={styles.value}>{s.config.volume}</span>
+            <input
+              aria-label="مستوى الصوت"
+              data-testid="config-volume"
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={s.config.volume}
+              onChange={(e) => cfg({ volume: Number(e.target.value) })}
+            />
+          </label>
+          <AdditionalOptions>
+            <label>
+              جودة الرسوم
+              <select
+                aria-label="جودة الرسوم"
+                data-testid="config-quality"
+                value={s.config.quality}
+                onChange={(e) =>
+                  cfg({ quality: e.target.value as Config["quality"] })
+                }
+              >
+                <option value="high">عالية</option>
+                <option value="medium">متوسطة</option>
+                <option value="low">خفيفة</option>
+              </select>
+            </label>
+          </AdditionalOptions>
+        </fieldset>
+        <DeviceMapping
+          mapping={mapping}
+          onChange={onMapping}
+          hardware={runtime.hardware}
+        />
+        {mappingError && (
+          <p role="alert" className={styles.warning}>
+            {mappingError}
+          </p>
+        )}
+      </section>
+      <section className={`${styles.card} ${styles.status}`} role="status">
+        {s.safety && (
+          <p className={styles.warning}>
+            {s.inputLost
+              ? "انقطع مصدر الإدخال. اختر التحكم اليدوي ثم استأنف."
+              : "إيقاف أمان · استأنف عندما تكون جاهزًا."}
+          </p>
+        )}
+        {runtime.blocked && (
+          <p className={styles.warning}>انتقل التحكم إلى نافذة أخرى.</p>
+        )}
+        {runtime.error && <p className={styles.warning}>{runtime.error}</p>}
+        <strong>
+          {s.status === "ended" ? "نتائج الجلسة" : "لا حد زمني · لا عقوبة"}
+        </strong>
+        <p>
+          {runtime.history === "saved"
+            ? "✓ حُفظت الجلسة مرة واحدة"
+            : runtime.history === "walk-in"
+              ? "جلسة زائر · دون سجل مريض"
+              : runtime.history === "retry"
+                ? "تعذّر الحفظ؛ تجري إعادة المحاولة"
+                : runtime.history === "saving"
+                  ? "جارٍ حفظ النتائج…"
+                  : "التقدم محفوظ في الجلسة المشتركة"}
+        </p>
+        <p className={styles.note}>
+          لا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.
+        </p>
+      </section>
+    </aside>
+  );
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main
+        className={styles.page}
+        data-testid="pearl-control"
+        data-status={s.status}
+        data-stage={s.stage}
+        dir="rtl"
+      >
+        <NativeSetupSections
+          settings={setupSettings}
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              disabled={!enabled}
+              onClick={() => action({ type: "start", at: Date.now() })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </main>
+    );
   return (
     <main
       className={styles.page}
@@ -371,7 +674,7 @@ function Panel({
         </button>
       )}
       <div className={styles.inner}>
-        <header className={styles.header}>
+        <header data-native-game-header className={styles.header}>
           <div>
             <span className={styles.eyebrow}>SHUMOS CARE / OCEAN VOYAGES</span>
             <h1>
@@ -824,299 +1127,7 @@ function Panel({
               </div>
             </section>
           </div>
-          <aside className={styles.sidebar}>
-            <section className={styles.card}>
-              <h2>المستوى والمرحلة</h2>
-              <ProgressiveStageGroup selected={s.stage}>
-                {STAGES.map((d, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-label={`المرحلة ${i + 1}: ${d.name}`}
-                    data-testid={`stage-${i}`}
-                    disabled={
-                      s.status === "running" || s.status === "ended" || !enabled
-                    }
-                    className={`${styles.stage} ${i === s.stage ? styles.current : ""} ${s.completed.includes(i) ? styles.done : ""}`}
-                    onClick={() => action({ type: "stage", stage: i })}
-                  >
-                    <span>المرحلة {i + 1}</span>
-                    <strong>{stageTitle(i)}</strong>
-                    <small>{d.markers.length} اكتشافات</small>
-                    {s.completed.includes(i)
-                      ? "✓"
-                      : s.skipped.includes(i)
-                        ? "—"
-                        : ""}
-                  </button>
-                ))}
-              </ProgressiveStageGroup>
-            </section>
-            <section className={styles.card}>
-              <span className={styles.overline}>إعدادات المشاركة</span>
-              <h2>على قدر حركة الطفل</h2>
-              <p className={styles.note}>
-                المعالج يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل
-                كمساعدة.
-              </p>
-              <fieldset
-                disabled={!enabled || s.status === "ended"}
-                className={styles.settings}
-              >
-                <label>
-                  مصدر التحكم
-                  <select
-                    aria-label="مصدر التحكم"
-                    data-testid="config-control"
-                    value={s.config.control}
-                    onChange={(e) =>
-                      cfg({ control: e.target.value as Config["control"] })
-                    }
-                  >
-                    <option value="manual">يدوي من المعالج · دون أجهزة</option>
-                    <option value="wheel" disabled={!!mappingError}>
-                      مقود فقط · تحقق فعلي معلق
-                    </option>
-                    <option value="pedal" disabled={!!mappingError}>
-                      دواسة فقط · تحقق فعلي معلق
-                    </option>
-                    <option value="wheel-pedal" disabled={!!mappingError}>
-                      مقود ودواسة · تحقق فعلي معلق
-                    </option>
-                  </select>
-                </label>
-                <button
-                  data-testid="manual-fallback"
-                  type="button"
-                  onClick={() => cfg({ control: "manual" })}
-                >
-                  العودة للتحكم اليدوي
-                </button>
-                <label>
-                  أسلوب المشاركة
-                  <select
-                    aria-label="أسلوب المشاركة"
-                    data-testid="config-mode"
-                    value={s.config.mode}
-                    onChange={(e) =>
-                      cfg({ mode: e.target.value as Config["mode"] })
-                    }
-                  >
-                    <option value="combined">مقود وتسارع معًا</option>
-                    <option value="steering-only">
-                      مشاركة بالمقود فقط (تسارع آلي)
-                    </option>
-                    <option value="pedal-only">
-                      مشاركة بالدواسة فقط (توجيه آلي)
-                    </option>
-                  </select>
-                </label>
-                <label>
-                  طريقة التثبيت
-                  <select
-                    aria-label="طريقة التثبيت"
-                    data-testid="config-holdMode"
-                    value={s.config.holdMode}
-                    onChange={(e) =>
-                      cfg({ holdMode: e.target.value as Config["holdMode"] })
-                    }
-                  >
-                    <option value="manual">زر المعالج فقط</option>
-                    <option value="steering">تثبيت المقود في اتجاه مريح</option>
-                    <option value="pedal">ضغط الدواسة بلطف</option>
-                    <option value="tap">ضغطات قصيرة متكررة</option>
-                  </select>
-                </label>
-                {s.config.holdMode === "steering" && (
-                  <label>
-                    اتجاه المقود
-                    <select
-                      aria-label="اتجاه المقود"
-                      value={s.config.holdDirection}
-                      onChange={(e) =>
-                        cfg({
-                          holdDirection: e.target
-                            .value as Config["holdDirection"],
-                        })
-                      }
-                    >
-                      <option value="any">أي اتجاه</option>
-                      <option value="right">يمين</option>
-                      <option value="left">يسار</option>
-                    </select>
-                  </label>
-                )}
-                {holdSliders.map((c) => (
-                  <label key={c.key}>
-                    {c.label}
-                    <span className={styles.value}>
-                      {s.config[c.key] as number}
-                    </span>
-                    <input
-                      aria-label={c.label}
-                      data-testid={`config-${c.key}`}
-                      type="range"
-                      min={c.min}
-                      max={c.max}
-                      step={c.step}
-                      value={s.config[c.key] as number}
-                      onChange={(e) => cfg({ [c.key]: Number(e.target.value) })}
-                    />
-                  </label>
-                ))}
-                {sliders
-                  .filter((c) =>
-                    [
-                      "speedCap",
-                      "steeringAssist",
-                      "aimAssist",
-                      "steeringRange",
-                    ].includes(c.key),
-                  )
-                  .map((c) => (
-                    <label key={c.key}>
-                      {c.label}
-                      <span className={styles.value}>
-                        {s.config[c.key] as number}
-                      </span>
-                      <input
-                        aria-label={c.label}
-                        data-testid={`config-${c.key}`}
-                        type="range"
-                        min={c.min}
-                        max={c.max}
-                        step={c.step}
-                        value={s.config[c.key] as number}
-                        onChange={(e) =>
-                          cfg({ [c.key]: Number(e.target.value) })
-                        }
-                      />
-                    </label>
-                  ))}
-                <AdditionalOptions title="حساسية الجهاز والصوت">
-                  {sliders
-                    .filter(
-                      (c) =>
-                        ![
-                          "speedCap",
-                          "steeringAssist",
-                          "aimAssist",
-                          "steeringRange",
-                        ].includes(c.key),
-                    )
-                    .map((c) => (
-                      <label key={c.key}>
-                        {c.label}
-                        <span className={styles.value}>
-                          {s.config[c.key] as number}
-                        </span>
-                        <input
-                          aria-label={c.label}
-                          data-testid={`config-${c.key}`}
-                          type="range"
-                          min={c.min}
-                          max={c.max}
-                          step={c.step}
-                          value={s.config[c.key] as number}
-                          onChange={(e) =>
-                            cfg({ [c.key]: Number(e.target.value) })
-                          }
-                        />
-                      </label>
-                    ))}
-                </AdditionalOptions>
-                {checks.map((c) => (
-                  <label key={c.key} className={styles.check}>
-                    <input
-                      data-testid={`config-${c.key}`}
-                      type="checkbox"
-                      checked={s.config[c.key] as boolean}
-                      onChange={(e) => cfg({ [c.key]: e.target.checked })}
-                    />
-                    {c.label}
-                  </label>
-                ))}
-                <label>
-                  مستوى الصوت
-                  <span className={styles.value}>{s.config.volume}</span>
-                  <input
-                    aria-label="مستوى الصوت"
-                    data-testid="config-volume"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={s.config.volume}
-                    onChange={(e) => cfg({ volume: Number(e.target.value) })}
-                  />
-                </label>
-                <AdditionalOptions>
-                  <label>
-                    جودة الرسوم
-                    <select
-                      aria-label="جودة الرسوم"
-                      data-testid="config-quality"
-                      value={s.config.quality}
-                      onChange={(e) =>
-                        cfg({ quality: e.target.value as Config["quality"] })
-                      }
-                    >
-                      <option value="high">عالية</option>
-                      <option value="medium">متوسطة</option>
-                      <option value="low">خفيفة</option>
-                    </select>
-                  </label>
-                </AdditionalOptions>
-              </fieldset>
-              <DeviceMapping
-                mapping={mapping}
-                onChange={onMapping}
-                hardware={runtime.hardware}
-              />
-              {mappingError && (
-                <p role="alert" className={styles.warning}>
-                  {mappingError}
-                </p>
-              )}
-            </section>
-            <section
-              className={`${styles.card} ${styles.status}`}
-              role="status"
-            >
-              {s.safety && (
-                <p className={styles.warning}>
-                  {s.inputLost
-                    ? "انقطع مصدر الإدخال. اختر التحكم اليدوي ثم استأنف."
-                    : "إيقاف أمان · استأنف عندما تكون جاهزًا."}
-                </p>
-              )}
-              {runtime.blocked && (
-                <p className={styles.warning}>انتقل التحكم إلى نافذة أخرى.</p>
-              )}
-              {runtime.error && (
-                <p className={styles.warning}>{runtime.error}</p>
-              )}
-              <strong>
-                {s.status === "ended"
-                  ? "نتائج الجلسة"
-                  : "لا حد زمني · لا عقوبة"}
-              </strong>
-              <p>
-                {runtime.history === "saved"
-                  ? "✓ حُفظت الجلسة مرة واحدة"
-                  : runtime.history === "walk-in"
-                    ? "جلسة زائر · دون سجل مريض"
-                    : runtime.history === "retry"
-                      ? "تعذّر الحفظ؛ تجري إعادة المحاولة"
-                      : runtime.history === "saving"
-                        ? "جارٍ حفظ النتائج…"
-                        : "التقدم محفوظ في الجلسة المشتركة"}
-              </p>
-              <p className={styles.note}>
-                لا يقيس النشاط قوة المقود أو زاوية المفصل أو التوازن السريري.
-              </p>
-            </section>
-          </aside>
+          {setupSettings}
         </div>
       </div>
     </main>

@@ -1,4 +1,6 @@
 "use client";
+import { GameSetupLayout } from "@/components/control/setup/GameSetupLayout";
+import { StagePicker } from "@/components/control/setup/ProgressiveStages";
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
@@ -154,13 +156,270 @@ function Controller({
       setCalibration("تعذّر قراءة ملف المعايرة.");
     }
   };
+  const settingsCard = (
+    <div className={styles.panel} data-essential-settings="bridge">
+      <h3>إعداد مسار آمن</h3>
+      <fieldset
+        disabled={!setting}
+        style={{ border: 0, padding: 0, margin: 0 }}
+      >
+        <label className={styles.fieldLabel} htmlFor="bridge-width">
+          عرض المسار
+          <select
+            id="bridge-width"
+            className={styles.select}
+            value={s.config.pathWidth}
+            onChange={(e) =>
+              patch({ pathWidth: e.target.value as Config["pathWidth"] })
+            }
+          >
+            <option value="wide">واسع</option>
+            <option value="standard">قياسي</option>
+            <option value="narrower">أضيق بإشراف المعالج</option>
+            <option value="custom">عرض مخصص بعد المعايرة</option>
+          </select>
+        </label>
+        {s.config.pathWidth === "custom" && (
+          <>
+            <label className={styles.fieldLabel}>
+              العرض المطلوب (سم)
+              <input
+                aria-label="العرض المطلوب بالسنتيمتر"
+                className={styles.input}
+                type="number"
+                min={30}
+                max={200}
+                value={s.config.customWidthCm}
+                onChange={(e) =>
+                  patch({ customWidthCm: Number(e.target.value) })
+                }
+              />
+            </label>
+          </>
+        )}
+        <label className={styles.fieldLabel}>
+          الهدف الحركي
+          <select
+            aria-label="الهدف الحركي"
+            className={styles.select}
+            value={s.config.difficulty}
+            onChange={(e) =>
+              patch({
+                difficulty: e.target.value as Config["difficulty"],
+                guidance:
+                  e.target.value === "gentle"
+                    ? "either"
+                    : e.target.value === "guided"
+                      ? "both"
+                      : "alternating",
+              })
+            }
+          >
+            <option value="gentle">خطوات مريحة / نشاط بديل</option>
+            <option value="guided">مواضع القدمين</option>
+            <option value="precise">خطوات متناوبة بإشراف</option>
+          </select>
+        </label>
+        {s.stage === 6 && (
+          <label className={styles.fieldLabel}>
+            اتجاه رحلة السحاب
+            <select
+              aria-label="اتجاه رحلة السحاب"
+              className={styles.select}
+              value={s.config.routeChoice}
+              onChange={(e) =>
+                patch({
+                  routeChoice: e.target.value as Config["routeChoice"],
+                })
+              }
+            >
+              <option value="left">ابدأ بالجهة اليسرى</option>
+              <option value="right">ابدأ بالجهة اليمنى</option>
+            </select>
+          </label>
+        )}
+        <label className={styles.fieldLabel}>
+          دليل القدمين
+          <select
+            aria-label="دليل القدمين"
+            className={styles.select}
+            value={s.config.guidance}
+            onChange={(e) =>
+              patch({ guidance: e.target.value as Config["guidance"] })
+            }
+          >
+            <option value="either">أي قدم</option>
+            <option value="right">القدم اليمنى</option>
+            <option value="left">القدم اليسرى</option>
+            <option value="alternating">يسار / يمين بالتناوب</option>
+            <option value="both">القدمان</option>
+            <option value="neutral">وقفة مريحة</option>
+          </select>
+        </label>
+        <label className={styles.fieldLabel}>
+          الثبات الاختياري (ثوانٍ، 0 لتعطيله)
+          <input
+            aria-label="الثبات الاختياري"
+            className={styles.input}
+            type="number"
+            min={0}
+            max={15}
+            value={s.config.holdSeconds}
+            onChange={(e) => patch({ holdSeconds: Number(e.target.value) })}
+          />
+        </label>
+        <label className={styles.fieldLabel}>
+          المشاركة
+          <select
+            aria-label="المشاركة"
+            className={styles.select}
+            value={s.config.mode}
+            onChange={(e) => patch({ mode: e.target.value as Config["mode"] })}
+          >
+            <option value="MANUAL">تحكم المعالج دون حساسات</option>
+            <option value="RIGHT_FOOT">القدم اليمنى — تلميحات فقط</option>
+            <option value="LEFT_FOOT">القدم اليسرى — تلميحات فقط</option>
+            <option value="DUAL_FOOT">القدمان — تلميحات فقط</option>
+          </select>
+        </label>
+        <details>
+          <summary>خيارات إضافية · الصوت والرسوم</summary>
+          <div className={styles.checks}>
+            <label>
+              <input
+                type="checkbox"
+                checked={s.config.reduced}
+                onChange={(e) => patch({ reduced: e.target.checked })}
+              />{" "}
+              مؤثرات وحركة أقل
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={s.config.audio}
+                onChange={(e) => patch({ audio: e.target.checked })}
+              />{" "}
+              تعليمات صوتية
+            </label>
+          </div>
+          <label className={styles.fieldLabel}>
+            جودة الرسوم
+            <select
+              aria-label="جودة الرسوم"
+              className={styles.select}
+              value={s.config.quality}
+              onChange={(e) =>
+                patch({ quality: e.target.value as Config["quality"] })
+              }
+            >
+              <option value="high">عالية</option>
+              <option value="low">اقتصادية</option>
+            </select>
+          </label>
+        </details>
+        <details style={{ marginTop: 16 }}>
+          <summary className={styles.note}>المعايرة الأرضية</summary>
+          <button
+            className={styles.button}
+            onClick={calibrate}
+            style={{ marginTop: 12 }}
+          >
+            استخدم المعايرة المحفوظة
+          </button>
+          <p>{calibration}</p>
+          <label className={styles.fieldLabel}>
+            عرض الإسقاط الفعلي (سم)
+            <input
+              aria-label="عرض الإسقاط الفعلي"
+              className={styles.input}
+              type="number"
+              min={50}
+              max={2000}
+              placeholder="غير مقاس"
+              value={s.config.measuredWidthCm ?? ""}
+              onChange={(e) =>
+                patch({
+                  measuredWidthCm: e.target.value
+                    ? Number(e.target.value)
+                    : null,
+                })
+              }
+            />
+          </label>
+          <label className={styles.fieldLabel}>
+            ارتفاع الإسقاط الفعلي (سم)
+            <input
+              aria-label="ارتفاع الإسقاط الفعلي"
+              className={styles.input}
+              type="number"
+              min={50}
+              max={2000}
+              placeholder="غير مقاس"
+              value={s.config.measuredHeightCm ?? ""}
+              onChange={(e) =>
+                patch({
+                  measuredHeightCm: e.target.value
+                    ? Number(e.target.value)
+                    : null,
+                })
+              }
+            />
+          </label>
+          <label className={styles.fieldLabel}>
+            اتجاه الإسقاط
+            <select
+              aria-label="اتجاه الإسقاط"
+              className={styles.select}
+              value={s.config.rotation}
+              onChange={(e) =>
+                patch({
+                  rotation: Number(e.target.value) as Config["rotation"],
+                })
+              }
+            >
+              {[0, 90, 180, 270].map((v) => (
+                <option key={v} value={v}>
+                  {v}°
+                </option>
+              ))}
+            </select>
+          </label>
+        </details>
+      </fieldset>
+      <p className={styles.note}>
+        العرض المرئي {Math.round(widthFraction(s.config) * 100)}٪ من مساحة
+        الإسقاط.{" "}
+        {calibratedFieldWidth(s.config)
+          ? "القياسات أدخلها المعالج؛ افحصها على الأرض."
+          : "لا يوجد قياس فعلي؛ لا يعادل البكسل سنتيمترًا."}
+      </p>
+    </div>
+  );
   const result =
     s.status === "ended"
       ? buildHistory(s, "local-review", "therapist-review")
       : null;
+  if (s.status === "ready" && !s.startedAt)
+    return (
+      <main className={styles.page} data-testid="bridge-control" dir="rtl">
+        <GameSetupLayout
+          settings={settingsCard}
+          items={STAGES.map((x, i) => ({
+            value: i,
+            label: x.ar,
+            description: x.objective,
+          }))}
+          value={s.stage}
+          onSelect={(v) => send({ type: "stage", stage: Number(v) })}
+          onStart={() => send({ type: "start" })}
+          disabled={!connected}
+          startTestId="bridge-start"
+        />
+      </main>
+    );
   return (
     <main className={styles.page} data-testid="bridge-control">
-      <header className={styles.header}>
+      <header data-native-game-header className={styles.header}>
         <div>
           <span className={styles.eyebrow} style={{ color: "#60846e" }}>
             SHUMOS CARE · FLOOR ADVENTURES
@@ -429,268 +688,25 @@ function Controller({
         <aside>
           <div className={styles.panel}>
             <h3>عوالم الرحلة</h3>
-            <div className={styles.stageGrid}>
-              {STAGES.map((stage, i) => (
-                <button
-                  key={stage.kind}
-                  aria-pressed={s.stage === i}
-                  className={styles.stageButton}
-                  disabled={
-                    !connected ||
-                    !["ready", "paused", "stage-complete"].includes(s.status)
-                  }
-                  onClick={() => send({ type: "stage", stage: i })}
-                >
-                  {stage.ar}
-                  <small>
-                    المستوى {Math.floor(i / 3) + 1} · {(i % 3) + 1}
-                  </small>
-                </button>
-              ))}
-            </div>
+            <StagePicker
+              items={STAGES.map((x, i) => ({
+                value: i,
+                label: x.ar,
+                description: x.objective,
+              }))}
+              value={s.stage}
+              disabled={
+                !connected ||
+                !["ready", "paused", "stage-complete"].includes(s.status)
+              }
+              onSelect={(v) => send({ type: "stage", stage: Number(v) })}
+            />
             <p className={styles.note}>
               أوقف النشاط مؤقتًا لتغيير المرحلة. المرحلة الجديدة تبدأ عند طلب
               المعالج.
             </p>
           </div>
-          <div className={styles.panel}>
-            <h3>إعداد مسار آمن</h3>
-            <fieldset
-              disabled={!setting}
-              style={{ border: 0, padding: 0, margin: 0 }}
-            >
-              <label className={styles.fieldLabel} htmlFor="bridge-width">
-                عرض المسار
-              </label>
-              <select
-                id="bridge-width"
-                className={styles.select}
-                value={s.config.pathWidth}
-                onChange={(e) =>
-                  patch({ pathWidth: e.target.value as Config["pathWidth"] })
-                }
-              >
-                <option value="wide">واسع</option>
-                <option value="standard">قياسي</option>
-                <option value="narrower">أضيق بإشراف المعالج</option>
-                <option value="custom">عرض مخصص بعد المعايرة</option>
-              </select>
-              {s.config.pathWidth === "custom" && (
-                <>
-                  <label className={styles.fieldLabel}>
-                    العرض المطلوب (سم)
-                    <input
-                      aria-label="العرض المطلوب بالسنتيمتر"
-                      className={styles.input}
-                      type="number"
-                      min={30}
-                      max={200}
-                      value={s.config.customWidthCm}
-                      onChange={(e) =>
-                        patch({ customWidthCm: Number(e.target.value) })
-                      }
-                    />
-                  </label>
-                </>
-              )}
-              <label className={styles.fieldLabel}>
-                الهدف الحركي
-                <select
-                  aria-label="الهدف الحركي"
-                  className={styles.select}
-                  value={s.config.difficulty}
-                  onChange={(e) =>
-                    patch({
-                      difficulty: e.target.value as Config["difficulty"],
-                      guidance:
-                        e.target.value === "gentle"
-                          ? "either"
-                          : e.target.value === "guided"
-                            ? "both"
-                            : "alternating",
-                    })
-                  }
-                >
-                  <option value="gentle">خطوات مريحة / نشاط بديل</option>
-                  <option value="guided">مواضع القدمين</option>
-                  <option value="precise">خطوات متناوبة بإشراف</option>
-                </select>
-              </label>
-              {s.stage === 6 && (
-                <label className={styles.fieldLabel}>
-                  اتجاه رحلة السحاب
-                  <select
-                    aria-label="اتجاه رحلة السحاب"
-                    className={styles.select}
-                    value={s.config.routeChoice}
-                    onChange={(e) =>
-                      patch({
-                        routeChoice: e.target.value as Config["routeChoice"],
-                      })
-                    }
-                  >
-                    <option value="left">ابدأ بالجهة اليسرى</option>
-                    <option value="right">ابدأ بالجهة اليمنى</option>
-                  </select>
-                </label>
-              )}
-              <label className={styles.fieldLabel}>
-                دليل القدمين
-                <select
-                  aria-label="دليل القدمين"
-                  className={styles.select}
-                  value={s.config.guidance}
-                  onChange={(e) =>
-                    patch({ guidance: e.target.value as Config["guidance"] })
-                  }
-                >
-                  <option value="either">أي قدم</option>
-                  <option value="right">القدم اليمنى</option>
-                  <option value="left">القدم اليسرى</option>
-                  <option value="alternating">يسار / يمين بالتناوب</option>
-                  <option value="both">القدمان</option>
-                  <option value="neutral">وقفة مريحة</option>
-                </select>
-              </label>
-              <label className={styles.fieldLabel}>
-                الثبات الاختياري (ثوانٍ، 0 لتعطيله)
-                <input
-                  aria-label="الثبات الاختياري"
-                  className={styles.input}
-                  type="number"
-                  min={0}
-                  max={15}
-                  value={s.config.holdSeconds}
-                  onChange={(e) =>
-                    patch({ holdSeconds: Number(e.target.value) })
-                  }
-                />
-              </label>
-              <label className={styles.fieldLabel}>
-                المشاركة
-                <select
-                  aria-label="المشاركة"
-                  className={styles.select}
-                  value={s.config.mode}
-                  onChange={(e) =>
-                    patch({ mode: e.target.value as Config["mode"] })
-                  }
-                >
-                  <option value="MANUAL">تحكم المعالج دون حساسات</option>
-                  <option value="RIGHT_FOOT">القدم اليمنى — تلميحات فقط</option>
-                  <option value="LEFT_FOOT">القدم اليسرى — تلميحات فقط</option>
-                  <option value="DUAL_FOOT">القدمان — تلميحات فقط</option>
-                </select>
-              </label>
-              <div className={styles.checks}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={s.config.reduced}
-                    onChange={(e) => patch({ reduced: e.target.checked })}
-                  />{" "}
-                  مؤثرات وحركة أقل
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={s.config.audio}
-                    onChange={(e) => patch({ audio: e.target.checked })}
-                  />{" "}
-                  تعليمات صوتية
-                </label>
-              </div>
-              <label className={styles.fieldLabel}>
-                جودة الرسوم
-                <select
-                  aria-label="جودة الرسوم"
-                  className={styles.select}
-                  value={s.config.quality}
-                  onChange={(e) =>
-                    patch({ quality: e.target.value as Config["quality"] })
-                  }
-                >
-                  <option value="high">عالية</option>
-                  <option value="low">اقتصادية</option>
-                </select>
-              </label>
-              <details style={{ marginTop: 16 }}>
-                <summary className={styles.note}>المعايرة الأرضية</summary>
-                <button
-                  className={styles.button}
-                  onClick={calibrate}
-                  style={{ marginTop: 12 }}
-                >
-                  استخدم المعايرة المحفوظة
-                </button>
-                <p>{calibration}</p>
-                <label className={styles.fieldLabel}>
-                  عرض الإسقاط الفعلي (سم)
-                  <input
-                    aria-label="عرض الإسقاط الفعلي"
-                    className={styles.input}
-                    type="number"
-                    min={50}
-                    max={2000}
-                    placeholder="غير مقاس"
-                    value={s.config.measuredWidthCm ?? ""}
-                    onChange={(e) =>
-                      patch({
-                        measuredWidthCm: e.target.value
-                          ? Number(e.target.value)
-                          : null,
-                      })
-                    }
-                  />
-                </label>
-                <label className={styles.fieldLabel}>
-                  ارتفاع الإسقاط الفعلي (سم)
-                  <input
-                    aria-label="ارتفاع الإسقاط الفعلي"
-                    className={styles.input}
-                    type="number"
-                    min={50}
-                    max={2000}
-                    placeholder="غير مقاس"
-                    value={s.config.measuredHeightCm ?? ""}
-                    onChange={(e) =>
-                      patch({
-                        measuredHeightCm: e.target.value
-                          ? Number(e.target.value)
-                          : null,
-                      })
-                    }
-                  />
-                </label>
-                <label className={styles.fieldLabel}>
-                  اتجاه الإسقاط
-                  <select
-                    aria-label="اتجاه الإسقاط"
-                    className={styles.select}
-                    value={s.config.rotation}
-                    onChange={(e) =>
-                      patch({
-                        rotation: Number(e.target.value) as Config["rotation"],
-                      })
-                    }
-                  >
-                    {[0, 90, 180, 270].map((v) => (
-                      <option key={v} value={v}>
-                        {v}°
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </details>
-            </fieldset>
-            <p className={styles.note}>
-              العرض المرئي {Math.round(widthFraction(s.config) * 100)}٪ من مساحة
-              الإسقاط.{" "}
-              {calibratedFieldWidth(s.config)
-                ? "القياسات أدخلها المعالج؛ افحصها على الأرض."
-                : "لا يوجد قياس فعلي؛ لا يعادل البكسل سنتيمترًا."}
-            </p>
-          </div>
+          {settingsCard}
           <div className={styles.panel}>
             <h3>حساسات القدم</h3>
             {!local && <FootTelemetry mode={s.config.mode} />}

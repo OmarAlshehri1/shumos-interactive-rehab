@@ -73,3 +73,8 @@ firebase-debug.log
 /docs/**/*.patch
 /docs/**/validation/*.txt
 /docs/**/final-system-evidence/*.txt
+
+# Generated Control UX screenshots, logs, and browser evidence stay local.
+/docs/control-ux/evidence/
+/docs/control-ux/start-evidence/
+/docs/control-ux/integration-evidence/

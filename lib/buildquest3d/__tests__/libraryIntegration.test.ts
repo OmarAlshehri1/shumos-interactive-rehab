@@ -48,7 +48,7 @@ describe("local library integration", () => {
 
   it("keeps auth, local pointer publishing and the previous Space Pilot boundary in the layout", () => {
     const layout = readFileSync("app/control/layout.tsx", "utf8");
-    expect(layout).toContain("<StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>");
+    expect(layout).toContain("<StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary><ControlGameFrame>{children}</ControlGameFrame></LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>");
     expect(layout).toContain("<LocalPointerBroadcastSync />");
     expect(layout).toContain("<BuildQuestLocalOnlyBoundary><PrototypeLocalOnlyBoundary><SensorPointerDisplaySync /></PrototypeLocalOnlyBoundary></BuildQuestLocalOnlyBoundary>");
   });

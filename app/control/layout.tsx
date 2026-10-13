@@ -1,3 +1,4 @@
+import { ControlGameFrame } from "@/components/control/setup/ControlGameFrame";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { StaffAuthGate } from "@/components/control/auth/StaffAuthGate";
 import { PatientSessionProvider } from "@/lib/patients/PatientSessionContext";
@@ -56,7 +57,7 @@ export default function ControlLayout({ children }: { children: React.ReactNode 
         <LocalPointerBroadcastSync />
         <PatientSessionProvider>
           <SessionWorkflowProvider>
-            <StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary>{children}</LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>
+            <StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary><ControlGameFrame>{children}</ControlGameFrame></LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>
           </SessionWorkflowProvider>
         </PatientSessionProvider>
       </SensorRuntimeProvider>

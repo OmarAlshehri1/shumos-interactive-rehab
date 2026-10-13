@@ -27,7 +27,11 @@ import {
   subscribeVisit,
   type ActiveVisitPointer,
 } from "@/lib/therapyVisits/repository";
-import { historyKeyForLive, ownedByTab } from "@/lib/therapyVisits/gameSafety";
+import {
+  historyKeyForLive,
+  isUnstartedActivity,
+  ownedByTab,
+} from "@/lib/therapyVisits/gameSafety";
 import { useGameSafety } from "./GameSafetyProvider";
 
 const GUEST_KEY = "shumos.control.guestVisit.v1";
@@ -239,6 +243,7 @@ export function VisitProvider({ children }: { children: React.ReactNode }) {
       visit &&
       !visit.endedAt &&
       live &&
+      !isUnstartedActivity(live) &&
       live.patientId === visit.patientId &&
       live.session.createdAt >= visit.startedAt &&
       ownedByTab(live, controlTabId()) &&

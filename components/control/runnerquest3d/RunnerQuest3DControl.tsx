@@ -1,4 +1,5 @@
 "use client";
+import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
   StagePicker,
@@ -146,6 +147,308 @@ export function RunnerControlPanels({
     options.onRequestEnd ? options.onRequestEnd() : run({ type: "end" });
   const sensorLost = lc === "suspended" && s.suspendReason === "input-lost";
 
+  const setupStages = (
+    <section className={styles.card}>
+      <h2>المراحل</h2>
+      <AdditionalOptions title="نطاق النشاط">
+        {" "}
+        <div className={styles.row}>
+          <button
+            className={`${styles.chip} ${rangeMode === "single" ? styles.chipOn : ""}`}
+            data-testid="range-single"
+            onClick={() => setRangeMode("single")}
+          >
+            مرحلة واحدة
+          </button>
+          <button
+            className={`${styles.chip} ${rangeMode === "to-end" ? styles.chipOn : ""}`}
+            data-testid="range-end"
+            onClick={() => setRangeMode("to-end")}
+          >
+            من المرحلة المختارة حتى النهاية
+          </button>
+        </div>
+      </AdditionalOptions>
+      <StagePicker
+        value={s.stageIndex}
+        disabled={!canEditStage}
+        items={STAGES.map((stage, index) => ({
+          value: index,
+          label: stage.titleAr,
+          description: stage.objectiveAr,
+        }))}
+        onSelect={(value) => stageRange(Number(value))}
+      />
+      <div className={styles.note}>
+        لا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط عندما
+        تضغط «المرحلة التالية».
+      </div>
+    </section>
+  );
+  const setupSettings = (
+    <section className={styles.card}>
+      <h2>إعدادات المعالج</h2>
+      <div className={styles.field}>
+        <label className={styles.label}>مصدر الإدخال</label>
+        <select
+          data-testid="input-source"
+          value={set.inputSource}
+          disabled={playing}
+          onChange={(e) =>
+            patch({ inputSource: e.target.value as InputSourceId })
+          }
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 10,
+            fontSize: 16,
+          }}
+        >
+          {inputSources.map((i) => (
+            <option key={i} value={i}>
+              {SOURCE_AR[i]}
+              {UNVALIDATED_SOURCES.includes(i) ? " — تجريبي" : ""}
+            </option>
+          ))}
+        </select>
+        <div className={styles.note}>{SOURCE_NOTE_AR[set.inputSource]}</div>
+        {unvalidated && (
+          <div className={styles.warn}>
+            وضع حسّاسات القدم تجريبي ولم يُختبر على أجهزة فعلية. التحكم اليدوي
+            باللمس يبقى متاحًا ويُستخدم عند انقطاع الحسّاس.
+          </div>
+        )}
+      </div>
+      {!floorMode && (
+        <>
+          <div className={styles.field}>
+            <label className={styles.label}>
+              السرعة الأمامية: {set.speed.toFixed(1)} م/ث
+            </label>
+            <div className={styles.row}>
+              {SPEED_PRESETS.map(([n, v]) => (
+                <button
+                  key={n}
+                  className={`${styles.chip} ${Math.abs(set.speed - v) < 0.05 ? styles.chipOn : ""}`}
+                  style={{ minHeight: 44 }}
+                  onClick={() => patch({ speed: v })}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+            <input
+              className={styles.slider}
+              type="range"
+              data-testid="speed"
+              min={SPEED_RANGE.min}
+              max={SPEED_RANGE.max}
+              step={0.1}
+              value={set.speed}
+              onChange={(e) => patch({ speed: Number(e.target.value) })}
+            />
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>
+              المسافة بين العوائق: ×{set.spacing.toFixed(1)}{" "}
+              {lc !== "ready" && (
+                <span style={{ opacity: 0.6 }}>
+                  (تُطبَّق في المرحلة التالية أو عند إعادتها)
+                </span>
+              )}
+            </label>
+            <input
+              className={styles.slider}
+              type="range"
+              data-testid="spacing"
+              min={SPACING_RANGE.min}
+              max={SPACING_RANGE.max}
+              step={0.1}
+              value={set.spacing}
+              onChange={(e) => patch({ spacing: Number(e.target.value) })}
+            />
+          </div>
+        </>
+      )}
+      <div className={styles.field}>
+        <label className={styles.label}>حساسية الحركة (للحسّاسات)</label>
+        <div className={styles.row}>
+          {LEVELS.map((l) => (
+            <button
+              key={l}
+              className={`${styles.chip} ${set.sensitivity === l ? styles.chipOn : ""}`}
+              style={{ minHeight: 44 }}
+              data-testid={`sens-${l}`}
+              onClick={() => patch({ sensitivity: l })}
+            >
+              {LEVEL3_AR[l]}
+            </button>
+          ))}
+        </div>
+        <div className={styles.note}>عالية = تكفي حركة أصغر لتُحتسب.</div>
+      </div>
+      <div className={styles.field}>
+        <label className={styles.label}>تسامح اكتشاف الحركة</label>
+        <div className={styles.row}>
+          {LEVELS.map((l) => (
+            <button
+              key={l}
+              className={`${styles.chip} ${set.tolerance === l ? styles.chipOn : ""}`}
+              style={{ minHeight: 44 }}
+              data-testid={`tol-${l}`}
+              onClick={() => patch({ tolerance: l })}
+            >
+              {TOLERANCE_AR[l]}
+            </button>
+          ))}
+        </div>
+        <div className={styles.note}>
+          الواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.
+        </div>
+      </div>
+      {!floorMode && (
+        <label className={styles.field} style={{ display: "block" }}>
+          <input
+            type="checkbox"
+            data-testid="foot-lift"
+            checked={set.footLiftRequired}
+            onChange={(e) => patch({ footLiftRequired: e.target.checked })}
+          />{" "}
+          يتطلّب رفع القدم لتخطّي الحواجز{" "}
+          <div className={styles.note}>
+            عند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.
+          </div>
+        </label>
+      )}
+      {!floorMode && (
+        <label className={styles.field} style={{ display: "block" }}>
+          <input
+            type="checkbox"
+            data-testid="pause-before"
+            checked={set.pauseBeforeObstacle}
+            onChange={(e) => patch({ pauseBeforeObstacle: e.target.checked })}
+          />{" "}
+          التوقّف قبل العائق بمسافة كبيرة{" "}
+          <div className={styles.note}>
+            يتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.
+          </div>
+        </label>
+      )}
+      <label className={styles.field} style={{ display: "block" }}>
+        <input
+          type="checkbox"
+          data-testid="reduced"
+          checked={set.reducedMotion}
+          onChange={(e) => patch({ reducedMotion: e.target.checked })}
+        />{" "}
+        تقليل الحركة{" "}
+        <div className={styles.note}>
+          يوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.
+        </div>
+      </label>
+      <div className={styles.row}>
+        <button
+          className={styles.bigBtn}
+          style={{ minHeight: 48 }}
+          data-testid="recenter"
+          onClick={() => run({ type: "recenter" })}
+        >
+          إعادة ضبط وضع الراحة
+        </button>
+      </div>
+    </section>
+  );
+  const setupProjection = (
+    <section
+      className={styles.card}
+      data-testid="projection-card"
+      data-projection={s.projection}
+    >
+      <h2>
+        سطح العرض{" "}
+        <span className={styles.badge}>{PROJECTION_AR[s.projection]}</span>
+      </h2>
+      <div className={styles.projGrid}>
+        {PROJECTIONS.map((p) => (
+          <button
+            key={p}
+            type="button"
+            className={`${styles.projBtn} ${s.projection === p ? styles.projOn : ""}`}
+            data-testid={`projection-${p}`}
+            aria-pressed={s.projection === p}
+            disabled={!canPickProjection}
+            onClick={() => chooseProjection(p)}
+          >
+            {PROJECTION_AR[p]}
+            <small>{PROJECTION_NOTE_AR[p]}</small>
+          </button>
+        ))}
+      </div>
+      {canPickProjection && projectionRequired && (
+        <div className={styles.warn} data-testid="projection-required">
+          اختر العرض الجداري أو الأرضي لتتمكن من البدء. لا يمكن تغييره بعد بدء
+          الجلسة.
+        </div>
+      )}
+      {!canPickProjection && (
+        <div className={styles.note}>
+          يُحدَّد سطح العرض قبل بدء الجلسة فقط. لتغييره أنهِ الجلسة وابدأ جلسة
+          جديدة.
+        </div>
+      )}
+    </section>
+  );
+  const setupIdentity = requireChildName ? (
+    <section className={styles.card}>
+      <label className={styles.label} htmlFor="rq-child-name">
+        اسم الطفل (يظهر في الجلسة)
+      </label>
+      <input
+        id="rq-child-name"
+        data-testid="child-name"
+        className={styles.nameInput}
+        value={childName}
+        maxLength={30}
+        onChange={(e) => options.onChildNameChange?.(e.target.value)}
+        placeholder="اكتب الاسم الأول للطفل"
+        autoComplete="off"
+      />
+      {nameMissing && (
+        <div className={styles.note}>
+          لن تُرسل اللعبة إلى شاشة العرض قبل كتابة الاسم.
+        </div>
+      )}
+    </section>
+  ) : null;
+  if (lc === "ready" && !s.results.length)
+    return (
+      <div
+        className={styles.wrap}
+        data-testid="rq3d-control"
+        data-lifecycle={lc}
+      >
+        <NativeSetupSections
+          settings={
+            <div>
+              {setupIdentity}
+              {setupProjection}
+              {setupSettings}
+            </div>
+          }
+          stages={setupStages}
+          start={
+            <button
+              type="button"
+              data-testid="start"
+              disabled={!view.canStart || nameMissing || projectionRequired}
+              onClick={() => run({ type: "start" })}
+            >
+              ابدأ النشاط
+            </button>
+          }
+        />
+      </div>
+    );
   return (
     <div className={styles.wrap} data-testid="rq3d-control" data-lifecycle={lc}>
       <div className={styles.head}>
@@ -210,28 +513,7 @@ export function RunnerControlPanels({
         </div>
       </div>
 
-      {requireChildName && (
-        <section className={styles.card}>
-          <label className={styles.label} htmlFor="rq-child-name">
-            اسم الطفل (يظهر في الجلسة)
-          </label>
-          <input
-            id="rq-child-name"
-            data-testid="child-name"
-            className={styles.nameInput}
-            value={childName}
-            maxLength={30}
-            onChange={(e) => options.onChildNameChange?.(e.target.value)}
-            placeholder="اكتب الاسم الأول للطفل"
-            autoComplete="off"
-          />
-          {nameMissing && (
-            <div className={styles.note}>
-              لن تُرسل اللعبة إلى شاشة العرض قبل كتابة الاسم.
-            </div>
-          )}
-        </section>
-      )}
+      {requireChildName && setupIdentity}
 
       {view.lastRefusal && (
         <div className={styles.warn} data-testid="refusal">
@@ -261,46 +543,7 @@ export function RunnerControlPanels({
 
       <div className={styles.grid}>
         <div style={{ display: "grid", gap: 16, alignContent: "start" }}>
-          <section
-            className={styles.card}
-            data-testid="projection-card"
-            data-projection={s.projection}
-          >
-            <h2>
-              سطح العرض{" "}
-              <span className={styles.badge}>
-                {PROJECTION_AR[s.projection]}
-              </span>
-            </h2>
-            <div className={styles.projGrid}>
-              {PROJECTIONS.map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  className={`${styles.projBtn} ${s.projection === p ? styles.projOn : ""}`}
-                  data-testid={`projection-${p}`}
-                  aria-pressed={s.projection === p}
-                  disabled={!canPickProjection}
-                  onClick={() => chooseProjection(p)}
-                >
-                  {PROJECTION_AR[p]}
-                  <small>{PROJECTION_NOTE_AR[p]}</small>
-                </button>
-              ))}
-            </div>
-            {canPickProjection && projectionRequired && (
-              <div className={styles.warn} data-testid="projection-required">
-                اختر العرض الجداري أو الأرضي لتتمكن من البدء. لا يمكن تغييره بعد
-                بدء الجلسة.
-              </div>
-            )}
-            {!canPickProjection && (
-              <div className={styles.note}>
-                يُحدَّد سطح العرض قبل بدء الجلسة فقط. لتغييره أنهِ الجلسة وابدأ
-                جلسة جديدة.
-              </div>
-            )}
-          </section>
+          {setupProjection}
 
           <section className={styles.card}>
             <h2>اللعبة الآن</h2>
@@ -523,42 +766,7 @@ export function RunnerControlPanels({
             </section>
           )}
 
-          <section className={styles.card}>
-            <h2>المراحل</h2>
-            <AdditionalOptions title="نطاق النشاط">
-              {" "}
-              <div className={styles.row}>
-                <button
-                  className={`${styles.chip} ${rangeMode === "single" ? styles.chipOn : ""}`}
-                  data-testid="range-single"
-                  onClick={() => setRangeMode("single")}
-                >
-                  مرحلة واحدة
-                </button>
-                <button
-                  className={`${styles.chip} ${rangeMode === "to-end" ? styles.chipOn : ""}`}
-                  data-testid="range-end"
-                  onClick={() => setRangeMode("to-end")}
-                >
-                  من المرحلة المختارة حتى النهاية
-                </button>
-              </div>
-            </AdditionalOptions>
-            <StagePicker
-              value={s.stageIndex}
-              disabled={!canEditStage}
-              items={STAGES.map((stage, index) => ({
-                value: index,
-                label: stage.titleAr,
-                description: stage.objectiveAr,
-              }))}
-              onSelect={(value) => stageRange(Number(value))}
-            />
-            <div className={styles.note}>
-              لا ترتفع الصعوبة تلقائيًا: ينتقل اللعب إلى المرحلة التالية فقط
-              عندما تضغط «المرحلة التالية».
-            </div>
-          </section>
+          {setupStages}
 
           {s.summary && (
             <section className={styles.card} data-testid="summary">
@@ -604,183 +812,7 @@ export function RunnerControlPanels({
         </div>
 
         <div style={{ display: "grid", gap: 16, alignContent: "start" }}>
-          <section className={styles.card}>
-            <h2>إعدادات المعالج</h2>
-            <div className={styles.field}>
-              <label className={styles.label}>مصدر الإدخال</label>
-              <select
-                data-testid="input-source"
-                value={set.inputSource}
-                disabled={playing}
-                onChange={(e) =>
-                  patch({ inputSource: e.target.value as InputSourceId })
-                }
-                style={{
-                  width: "100%",
-                  padding: 12,
-                  borderRadius: 10,
-                  fontSize: 16,
-                }}
-              >
-                {inputSources.map((i) => (
-                  <option key={i} value={i}>
-                    {SOURCE_AR[i]}
-                    {UNVALIDATED_SOURCES.includes(i) ? " — تجريبي" : ""}
-                  </option>
-                ))}
-              </select>
-              <div className={styles.note}>
-                {SOURCE_NOTE_AR[set.inputSource]}
-              </div>
-              {unvalidated && (
-                <div className={styles.warn}>
-                  وضع حسّاسات القدم تجريبي ولم يُختبر على أجهزة فعلية. التحكم
-                  اليدوي باللمس يبقى متاحًا ويُستخدم عند انقطاع الحسّاس.
-                </div>
-              )}
-            </div>
-            {!floorMode && (
-              <>
-                <div className={styles.field}>
-                  <label className={styles.label}>
-                    السرعة الأمامية: {set.speed.toFixed(1)} م/ث
-                  </label>
-                  <div className={styles.row}>
-                    {SPEED_PRESETS.map(([n, v]) => (
-                      <button
-                        key={n}
-                        className={`${styles.chip} ${Math.abs(set.speed - v) < 0.05 ? styles.chipOn : ""}`}
-                        style={{ minHeight: 44 }}
-                        onClick={() => patch({ speed: v })}
-                      >
-                        {n}
-                      </button>
-                    ))}
-                  </div>
-                  <input
-                    className={styles.slider}
-                    type="range"
-                    data-testid="speed"
-                    min={SPEED_RANGE.min}
-                    max={SPEED_RANGE.max}
-                    step={0.1}
-                    value={set.speed}
-                    onChange={(e) => patch({ speed: Number(e.target.value) })}
-                  />
-                </div>
-                <div className={styles.field}>
-                  <label className={styles.label}>
-                    المسافة بين العوائق: ×{set.spacing.toFixed(1)}{" "}
-                    {lc !== "ready" && (
-                      <span style={{ opacity: 0.6 }}>
-                        (تُطبَّق في المرحلة التالية أو عند إعادتها)
-                      </span>
-                    )}
-                  </label>
-                  <input
-                    className={styles.slider}
-                    type="range"
-                    data-testid="spacing"
-                    min={SPACING_RANGE.min}
-                    max={SPACING_RANGE.max}
-                    step={0.1}
-                    value={set.spacing}
-                    onChange={(e) => patch({ spacing: Number(e.target.value) })}
-                  />
-                </div>
-              </>
-            )}
-            <div className={styles.field}>
-              <label className={styles.label}>حساسية الحركة (للحسّاسات)</label>
-              <div className={styles.row}>
-                {LEVELS.map((l) => (
-                  <button
-                    key={l}
-                    className={`${styles.chip} ${set.sensitivity === l ? styles.chipOn : ""}`}
-                    style={{ minHeight: 44 }}
-                    data-testid={`sens-${l}`}
-                    onClick={() => patch({ sensitivity: l })}
-                  >
-                    {LEVEL3_AR[l]}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.note}>عالية = تكفي حركة أصغر لتُحتسب.</div>
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label}>تسامح اكتشاف الحركة</label>
-              <div className={styles.row}>
-                {LEVELS.map((l) => (
-                  <button
-                    key={l}
-                    className={`${styles.chip} ${set.tolerance === l ? styles.chipOn : ""}`}
-                    style={{ minHeight: 44 }}
-                    data-testid={`tol-${l}`}
-                    onClick={() => patch({ tolerance: l })}
-                  >
-                    {TOLERANCE_AR[l]}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.note}>
-                الواسع يمنح الطفل وقتًا أطول لرفع القدم ويقبل حركة أبطأ.
-              </div>
-            </div>
-            {!floorMode && (
-              <label className={styles.field} style={{ display: "block" }}>
-                <input
-                  type="checkbox"
-                  data-testid="foot-lift"
-                  checked={set.footLiftRequired}
-                  onChange={(e) =>
-                    patch({ footLiftRequired: e.target.checked })
-                  }
-                />{" "}
-                يتطلّب رفع القدم لتخطّي الحواجز{" "}
-                <div className={styles.note}>
-                  عند الإلغاء يتخطّى العدّاء الحواجز تلقائيًا.
-                </div>
-              </label>
-            )}
-            {!floorMode && (
-              <label className={styles.field} style={{ display: "block" }}>
-                <input
-                  type="checkbox"
-                  data-testid="pause-before"
-                  checked={set.pauseBeforeObstacle}
-                  onChange={(e) =>
-                    patch({ pauseBeforeObstacle: e.target.checked })
-                  }
-                />{" "}
-                التوقّف قبل العائق بمسافة كبيرة{" "}
-                <div className={styles.note}>
-                  يتوقف العدّاء ويستمر فقط عندما يكون الطريق آمنًا.
-                </div>
-              </label>
-            )}
-            <label className={styles.field} style={{ display: "block" }}>
-              <input
-                type="checkbox"
-                data-testid="reduced"
-                checked={set.reducedMotion}
-                onChange={(e) => patch({ reducedMotion: e.target.checked })}
-              />{" "}
-              تقليل الحركة{" "}
-              <div className={styles.note}>
-                يوقف الجسيمات والغيوم المتحركة ويخفّف حركة الكاميرا.
-              </div>
-            </label>
-            <div className={styles.row}>
-              <button
-                className={styles.bigBtn}
-                style={{ minHeight: 48 }}
-                data-testid="recenter"
-                onClick={() => run({ type: "recenter" })}
-              >
-                إعادة ضبط وضع الراحة
-              </button>
-            </div>
-          </section>
+          {setupSettings}
 
           {floorMode && (
             <FloorCalibrationCard set={set} patchFloor={patchFloor} />
