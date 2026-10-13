@@ -18,6 +18,7 @@ import {
 
 import { observePublishIntent } from "@/lib/realtime/publishIntent";
 
+import { stopOwnedVideo } from "@/lib/youtube/repository";
 import { controlTabId } from "@/lib/liveGame/ownership";
 import { modalKeys } from "./modalKeys";
 
@@ -62,6 +63,9 @@ export function GameSafetyProvider({
     const old = lastLive.current;
     lastRoute.current = pathname;
     lastLive.current = live;
+    if (realtime && previous === "/control/youtube" && pathname !== previous) {
+      void stopOwnedVideo(getStaffDb(), controlTabId()).catch(() => setError("تعذّر إغلاق الفيديو. سيتوقف العرض عند انتهاء إشارة التحكم."));
+    }
     if (
       realtime &&
       previous !== pathname &&

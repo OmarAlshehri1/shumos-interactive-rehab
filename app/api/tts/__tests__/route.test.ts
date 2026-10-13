@@ -105,6 +105,19 @@ describe("POST /api/tts", () => {
     expect(failText.includes("test-key")).toBe(false);
   });
 
+  it("never logs reflected clinical text or provider secrets and redacts reflected keys from errors", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    global.fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify({ errorMessage: "test-key patient-secret-name" }), { status: 402 })) as unknown as typeof fetch;
+    const response = await POST(postRequest({ text: "patient-secret-name" }));
+    expect(await response.text()).not.toContain("test-key");
+    expect(JSON.stringify(warn.mock.calls)).not.toContain("patient-secret-name");
+    expect(JSON.stringify(warn.mock.calls)).not.toContain("test-key");
+    global.fetch = vi.fn().mockRejectedValue(new Error("test-key patient-secret-name")) as unknown as typeof fetch;
+    await POST(postRequest({ text: "patient-secret-name" }));
+    expect(JSON.stringify(warn.mock.calls)).not.toContain("patient-secret-name");
+    warn.mockRestore();
+  });
+
   it("passes a Munsit 402 (insufficient balance) straight through — a definitive per-request failure, not a service-wide outage", async () => {
     global.fetch = vi
       .fn()

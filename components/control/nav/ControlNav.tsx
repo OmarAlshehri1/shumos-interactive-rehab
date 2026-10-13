@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 
-export type ControlNavSection = "home" | "library" | "patients";
+export type ControlNavSection = "home" | "library" | "patients" | "youtube";
 
 const NAV_ITEMS: { section: ControlNavSection; href: string; label: string }[] = [
   { section: "home", href: "/control", label: "الرئيسية" },
   { section: "library", href: "/control/activities", label: "الأنشطة" },
+  { section: "youtube", href: "/control/youtube", label: "يوتيوب" },
   { section: "patients", href: "/control/patients", label: "المرضى" },
 ];
 
@@ -39,7 +40,7 @@ export function ControlNav({ active }: { active: ControlNavSection }) {
               key={item.section}
               href={item.href}
               aria-current={isActive ? "page" : undefined}
-              className={`min-h-9 touch-manipulation rounded-full px-5 text-sm font-semibold transition-colors ${
+              className={`min-h-9 touch-manipulation rounded-full px-3 sm:px-5 text-sm font-semibold transition-colors ${
                 isActive ? "bg-teal-600 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
               } flex items-center justify-center`}
             >

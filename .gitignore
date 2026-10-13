@@ -78,3 +78,9 @@ firebase-debug.log
 /docs/control-ux/evidence/
 /docs/control-ux/start-evidence/
 /docs/control-ux/integration-evidence/
+
+# Generated local security/YouTube QA evidence.
+/docs/security-youtube/evidence/
+
+# Generated synthetic patient-history screenshots and browser evidence.
+/docs/patient-visit-history/evidence/

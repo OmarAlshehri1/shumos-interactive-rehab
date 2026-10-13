@@ -390,8 +390,10 @@ function subscribeRaw(db: Database, path: string, onRaw: (raw: unknown) => void,
   const valueRef = ref(db, path);
   // The listener is authoritative: a one-shot get() that resolves after the first listener event is older data and is dropped.
   let listenerDelivered = false;
-  void get(valueRef).then((snapshot) => { if (!listenerDelivered) onRaw(snapshot.val()); }).catch(onError);
-  return onValue(valueRef, (snapshot) => { listenerDelivered = true; onRaw(snapshot.val()); }, onError);
+  let stopped = false;
+  void get(valueRef).then((snapshot) => { if (!stopped && !listenerDelivered) onRaw(snapshot.val()); }).catch(() => { if (!stopped && !listenerDelivered) onError(); });
+  const unsubscribe = onValue(valueRef, (snapshot) => { if (!stopped) { listenerDelivered = true; onRaw(snapshot.val()); } }, () => { if (!stopped) onError(); });
+  return () => { stopped = true; unsubscribe(); };
 }
 
 /**
@@ -423,15 +425,7 @@ export async function fetchLiveSession(db: Database): Promise<LiveSessionRecord 
  * "unclaimed" and would have let it mutate an active session — see report).
  */
 function subscribeWithInitialGet<T>(db: Database, path: string, parse: (raw: unknown) => T, callback: (value: T) => void): Unsubscribe {
-  const valueRef = ref(db, path);
-
-  void get(valueRef)
-    .then((snapshot) => callback(parse(snapshot.val())))
-    .catch(() => {
-      // onValue below will report the real error/state; a failed opportunistic get() isn't itself user-facing.
-    });
-
-  return onValue(valueRef, (snapshot) => callback(parse(snapshot.val())));
+  return subscribeRaw(db, path, (raw) => callback(parse(raw)), () => {});
 }
 
 // ---------------------------------------------------------------------------
@@ -484,7 +478,7 @@ function registerPresence(db: Database, path: string): Unsubscribe {
     // onDisconnect handlers do not survive a reconnect, only a single
     // connection's lifetime.
     void onDisconnect(presenceRef)
-      .set({ connected: false, updatedAt: serverTimestamp() })
+      .update({ connected: false, updatedAt: serverTimestamp() })
       .catch((error: unknown) => console.error(`[realtime] onDisconnect setup failed for ${path}:`, error));
     void update(presenceRef, { connected: true, updatedAt: serverTimestamp() }).catch((error: unknown) =>
       console.error(`[realtime] presence update failed for ${path}:`, error),

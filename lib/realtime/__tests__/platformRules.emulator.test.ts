@@ -155,7 +155,7 @@ describe.skipIf(!on)("Shared platform rules (Auth + RTDB emulator)", () => {
   });
 
   it("presence: Display may only write presence/display (shape-checked); it can not touch controller presence", async () => {
-    expect(await put("presence/display", { connected: true }, anon.token)).toBe(200);
+    expect(await patch("presence/display", { connected: true }, anon.token)).toBe(200);
     expect(await put("presence/display", { nothing: true }, anon.token)).toBe(401);
     expect(await put("presence/controller", { connected: true }, anon.token)).toBe(401);
     expect(await put("presence/controller", { connected: true }, staff.token)).toBe(200);

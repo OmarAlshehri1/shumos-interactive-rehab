@@ -188,7 +188,19 @@
     "controllerLease": {
       ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
       ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && (!data.exists() || data.child('ownerId').val() == auth.uid || (now - data.child('updatedAt').val()) > 45000)",
-      ".validate": "!newData.exists() || (newData.hasChildren(['ownerId', 'claimedAt']) && newData.child('ownerId').val() == auth.uid)"
+      ".validate": "!newData.exists() || (newData.hasChildren(['ownerId', 'claimedAt', 'updatedAt']) && newData.child('ownerId').val() == auth.uid)",
+      "updatedAt": {
+        ".validate": "newData.isNumber() && newData.val() >= now - 30000 && newData.val() <= now + 10000"
+      },
+      "claimedAt": {
+        ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= now + 10000"
+      },
+      "ownerId": {
+        ".validate": "newData.isString() && newData.val() == auth.uid"
+      },
+      "$other": {
+        ".validate": false
+      }
     },
     "presence": {
       "controller": {
@@ -253,8 +265,152 @@
       },
       "display": {
         ".read": "auth != null",
-        ".write": "auth != null",
-        ".validate": "!newData.exists() || newData.hasChild('connected')"
+        ".write": false,
+        ".validate": true,
+        "connected": {
+          ".validate": "newData.isBoolean()",
+          ".write": "auth != null"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber() && newData.val() <= now + 10000",
+          ".write": "auth != null"
+        },
+        "fullscreen": {
+          ".validate": "newData.isBoolean()",
+          ".write": "auth != null"
+        },
+        "countdownComplete": {
+          ".validate": "newData.hasChildren(['sessionId','revision'])",
+          ".write": "auth != null && (!newData.exists() || (newData.child('sessionId').val() == root.child('liveSession/sessionId').val() && newData.child('revision').val() == root.child('liveSession/revision').val() && root.child('liveSession/session/gameState').val() == 'COUNTDOWN'))",
+          "sessionId": {
+            ".validate": "newData.isString() && newData.val().length <= 100"
+          },
+          "revision": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "audioStatus": {
+          ".validate": "newData.hasChildren(['state','contextState','updatedAt'])",
+          ".write": "auth != null",
+          "state": {
+            ".validate": "newData.val() == 'not-ready' || newData.val() == 'attempting' || newData.val() == 'ready' || newData.val() == 'blocked'"
+          },
+          "contextState": {
+            ".validate": "newData.isString() && newData.val().length <= 60"
+          },
+          "commandId": {
+            ".validate": "newData.isString() && newData.val().length <= 100"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 10000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "audioEnableCommand": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+          ".validate": "newData.hasChildren(['id','requestedAt'])",
+          "id": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+          },
+          "requestedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= now - 30000 && newData.val() <= now + 10000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "controllerPointer": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true",
+          ".validate": "newData.hasChildren(['x','y','visible','updatedAt'])",
+          "x": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+          },
+          "y": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+          },
+          "visible": {
+            ".validate": "newData.isBoolean()"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 10000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "youtubeCommand": {
+          ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && ((!newData.exists() && data.child('ownerId').val() == auth.uid) || (root.child('controllerLease/ownerId').val() == auth.uid && newData.exists() && !root.child('liveSession').exists() && newData.child('ownerId').val() == auth.uid && (!data.exists() || data.child('controlTabId').val() == newData.child('controlTabId').val() || data.child('state').val() == 'stopped' || now-data.child('heartbeatAt').val() >= 15000)))",
+          ".validate": "newData.hasChildren([\"sessionId\", \"commandId\", \"ownerId\", \"controlTabId\", \"revision\", \"videoId\", \"state\", \"position\", \"volume\", \"muted\", \"issuedAt\", \"heartbeatAt\"]) && (!data.exists() || (newData.child('revision').val() > data.child('revision').val() && newData.child('issuedAt').val() >= data.child('issuedAt').val()) || (newData.child('sessionId').val() == data.child('sessionId').val() && newData.child('commandId').val() == data.child('commandId').val() && newData.child('ownerId').val() == data.child('ownerId').val() && newData.child('controlTabId').val() == data.child('controlTabId').val() && newData.child('revision').val() == data.child('revision').val() && newData.child('videoId').val() == data.child('videoId').val() && newData.child('state').val() == data.child('state').val() && newData.child('position').val() == data.child('position').val() && newData.child('volume').val() == data.child('volume').val() && newData.child('muted').val() == data.child('muted').val() && newData.child('issuedAt').val() == data.child('issuedAt').val()))",
+          "sessionId": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+          },
+          "commandId": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+          },
+          "ownerId": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+          },
+          "controlTabId": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+          },
+          "videoId": {
+            ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{11}$/)"
+          },
+          "state": {
+            ".validate": "newData.val() == 'playing' || newData.val() == 'paused' || newData.val() == 'stopped'"
+          },
+          "revision": {
+            ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 999999999 && newData.val() % 1 == 0"
+          },
+          "position": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400"
+          },
+          "volume": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          },
+          "muted": {
+            ".validate": "newData.isBoolean()"
+          },
+          "issuedAt": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 10000 && ((data.exists() && newData.val() == data.val()) || newData.val() >= now - 30000)"
+          },
+          "heartbeatAt": {
+            ".validate": "newData.isNumber() && newData.val() <= now + 10000 && newData.val() >= now - 15000"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "youtubeStatus": {
+          ".validate": "newData.hasChildren(['sessionId','commandId','state','position','updatedAt'])",
+          "sessionId": {
+            ".validate": "newData.isString() && newData.val().length <= 100"
+          },
+          "commandId": {
+            ".validate": "newData.isString() && newData.val().length <= 100"
+          },
+          "state": {
+            ".validate": "newData.val() == 'loading' || newData.val() == 'playing' || newData.val() == 'paused' || newData.val() == 'blocked' || newData.val() == 'ended' || newData.val() == 'error'"
+          },
+          "position": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 86400"
+          },
+          "updatedAt": {
+            ".validate": "newData.isNumber() && newData.val() >= now - 30000 && newData.val() <= now + 10000"
+          },
+          "$other": {
+            ".validate": false
+          },
+          ".write": "auth != null && (!newData.exists() || (newData.child('commandId').val() == root.child('presence/display/youtubeCommand/commandId').val() && newData.child('sessionId').val() == root.child('presence/display/youtubeCommand/sessionId').val()))"
+        },
+        "$other": {
+          ".validate": false
+        }
       }
     },
     "staff": {
@@ -1174,6 +1330,35 @@
               }
             }
           }
+        },
+        "_numbering": {
+          ".write": false,
+          ".validate": "newData.hasChildren(['lastNumber','lastVisitId','byVisit','byNumber']) && newData.child('byVisit').child(newData.child('lastVisitId').val()).val() == newData.child('lastNumber').val() + '' && (!data.exists() || !data.child('byVisit').child(newData.child('lastVisitId').val()).exists())",
+          "lastNumber": {
+            ".validate": "newData.isNumber() && newData.val() % 1 == 0 && newData.val() > 0 && newData.val() < 1000000000 && ((!data.exists() && newData.val() == 1) || newData.val() == data.val() + 1)",
+            ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('patients').child($visitPatientId).exists() && newData.exists()"
+          },
+          "lastVisitId": {
+            ".validate": "newData.isString() && newData.val().matches(/^[A-Za-z0-9_-]{1,150}$/) && newData.val() != '_numbering'",
+            ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('patients').child($visitPatientId).exists() && newData.exists()"
+          },
+          "byVisit": {
+            "$numberedVisitId": {
+              ".validate": "newData.isString() && newData.val().matches(/^[1-9][0-9]{0,8}$/) && $numberedVisitId != '_numbering' && newData.parent().parent().parent().child($numberedVisitId).exists() && newData.parent().parent().child('byNumber').child(newData.val()).val() == $numberedVisitId && ((data.exists() && newData.val() == data.val()) || (!data.exists() && newData.val() == newData.parent().parent().child('lastNumber').val() + '' && newData.parent().parent().child('lastVisitId').val() == $numberedVisitId))",
+              ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('patients').child($visitPatientId).exists() && newData.exists() && (!data.exists() || newData.val() == data.val())"
+            },
+            ".write": "false"
+          },
+          "byNumber": {
+            "$visitNumber": {
+              ".validate": "$visitNumber.matches(/^[1-9][0-9]{0,8}$/) && newData.isString() && newData.parent().parent().child('byVisit').child(newData.val()).val() == $visitNumber && (!data.exists() || newData.val() == data.val())",
+              ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('patients').child($visitPatientId).exists() && newData.exists() && (!data.exists() || newData.val() == data.val())"
+            },
+            ".write": "false"
+          },
+          "$other": {
+            ".validate": false
+          }
         }
       }
     },
@@ -1202,6 +1387,27 @@
         },
         "$other": {
           ".validate": "false"
+        }
+      }
+    },
+    "youtubeFavorites": {
+      "$uid": {
+        ".read": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && auth.uid == $uid",
+        ".write": "auth != null && root.child('staff').child(auth.uid).child('active').val() == true && auth.uid == $uid",
+        "$videoId": {
+          ".validate": "newData.hasChildren(['videoId','title','channel']) && $videoId.matches(/^[A-Za-z0-9_-]{11}$/)",
+          "videoId": {
+            ".validate": "newData.isString() && newData.val() == $videoId"
+          },
+          "title": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200 && newData.val().matches(/^[^<>]*$/)"
+          },
+          "channel": {
+            ".validate": "newData.isString() && newData.val().length <= 120 && newData.val().matches(/^[^<>]*$/)"
+          },
+          "$other": {
+            ".validate": false
+          }
         }
       }
     }

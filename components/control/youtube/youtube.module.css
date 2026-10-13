@@ -1,0 +1,233 @@
+.page {
+  max-width: 1088px;
+  margin: auto;
+  padding: 28px 24px 140px;
+  color: #173b44;
+}
+.page header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 30px 0 12px;
+}
+.page h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+.page h1 small {
+  font-size: 13px;
+  color: #78909c;
+  margin-inline-start: 8px;
+}
+.page header p,
+.notice,
+.connection {
+  color: #657c89;
+  font-size: 13px;
+  line-height: 1.9;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  background: #ef4444;
+  color: white;
+  width: 44px;
+  height: 32px;
+  border-radius: 10px;
+}
+.search {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 10px;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #cbdce4;
+  border-radius: 14px;
+  background: white;
+  padding: 18px;
+}
+.page button {
+  cursor: pointer;
+  min-height: 44px;
+}
+.search button,
+.controls button,
+.more {
+  background: #008d86;
+  color: white;
+  border-radius: 11px;
+  padding: 10px 22px;
+}
+.page button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.page h2 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 24px 0 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.card {
+  overflow: hidden;
+  border: 1px solid #dbe7ec;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 3px 15px #204d5510;
+}
+.thumbnail {
+  position: relative;
+  width: 100%;
+  display: block;
+  text-align: start;
+}
+.thumbnail img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.thumbnail span {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #ffffffed;
+  color: #12635f;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+.cardText {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.card p {
+  font-size: 12px;
+  color: #6c8190;
+  margin-top: 6px;
+}
+.heart {
+  color: #e65262;
+  font-size: 30px;
+  min-width: 44px;
+  align-self: flex-start;
+}
+.favorites {
+  border-top: 1px solid #dbe7ec;
+  margin-top: 32px;
+}
+.favorites h2 span {
+  color: #e65262;
+}
+.empty {
+  padding: 28px;
+  background: #fff;
+  border: 1px dashed #cbdce4;
+  border-radius: 16px;
+  color: #6c8190;
+  font-size: 14px;
+}
+.playerControls {
+  border: 1px solid #bee4df;
+  background: #effaf8;
+  border-radius: 16px;
+  padding: 0 20px 18px;
+}
+.playerControls p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #4f7475;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.controls label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+}
+.controls input[type="number"] {
+  width: 100px;
+  border: 1px solid #cbdce4;
+  border-radius: 8px;
+  background: white;
+  padding: 10px;
+}
+.controls a {
+  font-size: 13px;
+  text-decoration: underline;
+}
+.error {
+  border: 1px solid #f2c9c9;
+  color: #a83f46;
+  background: #fff4f4;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 16px 0;
+}
+.more {
+  display: block;
+  margin: 18px auto;
+}
+.page input:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid #54bdb6;
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .page {
+    padding: 16px 14px 140px;
+  }
+  .search input {
+    padding: 14px;
+  }
+  .search button {
+    padding: 10px 16px;
+  }
+}
+
+/* Keep navigation reachable below the existing visit timer while browsing long result lists. */
+.page > nav {
+  position: sticky;
+  top: 12px;
+  z-index: 10;
+  background: #f6f9fc;
+  padding-bottom: 6px;
+}
+.page > nav a {
+  scroll-margin-top: 120px;
+}
+:global(body:has([data-visit-active="true"])) .page {
+  padding-top: 88px;
+}
+:global(body:has([data-visit-active="true"])) .page > nav {
+  top: 76px;
+}
+@media (max-width: 650px) {
+  :global(body:has([data-visit-active="true"])) .page {
+    padding-top: 112px;
+  }
+  :global(body:has([data-visit-active="true"])) .page > nav {
+    top: 100px;
+  }
+}

@@ -17,6 +17,9 @@ import { SessionHistoryList } from "./SessionHistoryList";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { subscribeToLiveSession } from "@/lib/realtime/sessionRepository";
 import type { LiveSessionRecord } from "@/lib/realtime/types";
+import { subscribePatientVisits, subscribeVisitResultClaims } from "@/lib/therapyVisits/repository";
+import type { Visit } from "@/lib/therapyVisits/model";
+import { independentSessions, pendingVisitResults } from "@/lib/therapyVisits/clinicalSummary";
 import { incompleteSessionForPatient } from "@/lib/sessions/incompleteSession";
 
 /**
@@ -28,14 +31,19 @@ import { incompleteSessionForPatient } from "@/lib/sessions/incompleteSession";
  * exist.
  */
 export function PatientSessionHistorySection({ patient }: { patient: Patient }) {
-  const [sessions, setSessions] = useState<AnyStoredSession[] | null>(null);
+  const [allSessions, setSessions] = useState<AnyStoredSession[] | null>(null);
   const [liveRecord, setLiveRecord] = useState<LiveSessionRecord | null>(null);
   const { selectPatient } = usePatientContext();
   const router = useRouter();
+  const [visits,setVisits]=useState<Visit[]|null>(null),[claims,setClaims]=useState<Record<string,string>|null>(null),[historyError,setHistoryError]=useState("");
+  const sessions=allSessions&&visits&&claims?independentSessions(allSessions,visits,claims):null;
+  const pending=allSessions&&visits&&claims?pendingVisitResults(allSessions,visits,claims):[];
+  useEffect(()=>{const fail=()=>setHistoryError("تعذّر فصل سجل الألعاب المستقلة. تحقق من الاتصال وصلاحيات الوصول.");const stops=[subscribePatientVisits(patient.patientId,setVisits,fail),subscribeVisitResultClaims(patient.patientId,setClaims,fail)];return()=>stops.forEach(s=>s());},[patient.patientId]);
 
   useEffect(() => subscribeToPatientSessions(patient.patientId, setSessions), [patient.patientId]);
   useEffect(() => subscribeToLiveSession(getStaffDb(), setLiveRecord), []);
 
+  if (historyError) return <p role="alert" className="text-sm text-rose-700">{historyError}</p>;
   if (sessions === null) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-6 text-slate-400">
@@ -44,16 +52,17 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
     );
   }
 
+  const recovery=pending.length>0?<SectionCard title="نتائج محفوظة تحتاج مراجعة ربط الجلسة"><SessionHistoryList patientId={patient.patientId} sessions={pending}/></SectionCard>:null;
   if (sessions.length === 0) {
     return (
-      <SectionCard title="الجلسات السابقة">
+      <><SectionCard title="الألعاب المستقلة">
         <div className="flex flex-col items-center justify-center gap-1.5 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 py-10 text-center">
           <span className="text-slate-300" aria-hidden="true">
             📋
           </span>
-          <p className="text-sm text-slate-400">لا توجد جلسات مسجلة حتى الآن</p>
+          <p className="text-sm text-slate-400">لا توجد ألعاب مستقلة مسجلة خارج الجلسات العلاجية.</p>
         </div>
-      </SectionCard>
+      </SectionCard>{recovery}</>
     );
   }
 
@@ -126,7 +135,10 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
           </div>
         </SectionCard>
       )}
-      <PatientAnalyticsDashboard patientId={patient.patientId} sessions={sessions} />
+      <details className="rounded-2xl border border-slate-200 bg-white p-4">
+        <summary className="min-h-11 cursor-pointer font-semibold text-teal-800">تفاصيل سجل الألعاب المستقلة</summary>
+        <PatientAnalyticsDashboard patientId={patient.patientId} sessions={sessions} />
+      </details>
       {mostRecentBalloonQuest && <LastProgressCard session={mostRecentBalloonQuest} onResume={handleResumeBalloonQuest} />}
       {mostRecentFootsteps && <LastProgressCard session={mostRecentFootsteps} onResume={handleResumeFootsteps} />}
       {mostRecentBubblePop && <LastProgressCard session={mostRecentBubblePop} onResume={handleResumeBubblePop} />}
@@ -134,6 +146,7 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
       <SectionCard>
         <SessionHistoryList patientId={patient.patientId} sessions={sessions} />
       </SectionCard>
+      {recovery}
     </>
   );
 }

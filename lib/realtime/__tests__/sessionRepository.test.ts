@@ -31,7 +31,7 @@ const onValueMock = vi.fn((_ref: unknown, _handler: SnapshotHandler) => vi.fn())
 const getMock = vi.fn((..._args: unknown[]): Promise<{ val: () => unknown }> => Promise.resolve({ val: () => null }));
 const updateMock = vi.fn((..._args: unknown[]) => Promise.resolve());
 const removeMock = vi.fn((..._args: unknown[]) => Promise.resolve());
-const onDisconnectMock = vi.fn((..._args: unknown[]) => ({ remove: vi.fn(async () => {}), set: vi.fn(async () => {}) }));
+const onDisconnectMock = vi.fn((..._args: unknown[]) => ({ remove: vi.fn(async () => {}), set: vi.fn(async () => {}), update: vi.fn(async () => {}) }));
 /* eslint-enable @typescript-eslint/no-unused-vars */
 const serverTimestampMock = vi.fn(() => ({ ".sv": "timestamp" }));
 
@@ -502,9 +502,27 @@ describe("sessionRepository", () => {
     expect(callback).toHaveBeenCalledWith(lease);
   });
 
+  it("drops a delayed initial read after a newer subscription event, and after unsubscribe", async () => {
+    let resolveRead!: (value: { val: () => unknown }) => void;
+    getMock.mockReturnValueOnce(new Promise(resolve => { resolveRead = resolve; }));
+    let listener!: SnapshotHandler;
+    onValueMock.mockImplementationOnce((_ref, handler) => { listener = handler; return vi.fn(); });
+    const { subscribeToControllerLease } = await import("../sessionRepository");
+    const callback = vi.fn();
+    const stop = subscribeToControllerLease(fakeDb, callback);
+    const latest = { ownerId: "new-owner", claimedAt: 2, updatedAt: 200 };
+    listener({ val: () => latest });
+    resolveRead({ val: () => ({ ownerId: "old-owner" }) });
+    await Promise.resolve(); await Promise.resolve();
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(callback).toHaveBeenCalledWith(latest);
+    stop(); listener({ val: () => null });
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
   it("claimControllerLease() registers onDisconnect().remove() before writing the lease, so a crashed tab releases it", async () => {
     const remove = vi.fn(async () => {});
-    onDisconnectMock.mockReturnValueOnce({ remove, set: vi.fn(async () => {}) });
+    onDisconnectMock.mockReturnValueOnce({ remove, set: vi.fn(async () => {}), update: vi.fn(async () => {}) });
     const { claimControllerLease } = await import("../sessionRepository");
 
     await claimControllerLease(fakeDb, "owner-1");

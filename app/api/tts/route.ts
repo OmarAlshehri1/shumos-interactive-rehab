@@ -81,13 +81,14 @@ export async function POST(request: NextRequest) {
     });
 
     if (!munsitResponse.ok) {
-      const errorMessage = await readMunsitErrorMessage(munsitResponse);
+      const upstreamMessage = await readMunsitErrorMessage(munsitResponse);
+      const errorMessage = upstreamMessage.includes(apiKey) ? "Munsit TTS request failed" : upstreamMessage;
       // 402 (insufficient balance) and 429 (rate/concurrency limit) are
       // expected, not-uncommon operating conditions for this account, not
       // incidents — log at warn, not error, so they don't look like a bug
       // report every time the quota is tight.
       const log = munsitResponse.status === 402 || munsitResponse.status === 429 ? console.warn : console.error;
-      log(`[munsit-tts] request failed (${munsitResponse.status}): ${errorMessage}`);
+      log(`[munsit-tts] request failed (${munsitResponse.status})`);
       // Status is passed straight through — munsitProvider.ts's own
       // cooldown policy branches on exactly these codes (429 -> short
       // cooldown, 5xx/network -> longer cooldown, other 4xx incl. 402 ->
@@ -102,9 +103,8 @@ export async function POST(request: NextRequest) {
       headers: { "Content-Type": "audio/wav", "Cache-Control": "no-store" },
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
     const isTimeout = error instanceof Error && error.name === "AbortError";
-    console.warn(`[munsit-tts] request to Munsit failed (${isTimeout ? "timeout" : "network error"}): ${message}`);
+    console.warn(`[munsit-tts] request to Munsit failed (${isTimeout ? "timeout" : "network error"})`);
     return NextResponse.json({ error: "Munsit TTS unreachable" }, { status: 503 });
   } finally {
     clearTimeout(timeout);

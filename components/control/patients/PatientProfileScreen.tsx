@@ -14,6 +14,7 @@ import { formatPatientCreatedAt } from "./formatPatientDate";
 import { PatientQuickRail } from "./PatientQuickRail";
 import { PatientSessionHistorySection } from "./PatientSessionHistorySection";
 
+import historyStyles from "@/components/control/visits/visitHistory.module.css";
 import { PatientVisitHistory } from '@/components/control/visits/PatientVisitHistory';
 
 const MAX_NAME_LENGTH = 50;
@@ -37,7 +38,7 @@ export function PatientProfileScreen({ patientId }: { patientId: string }) {
     <main
       dir="rtl"
       lang="ar"
-      className="fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
+      className={`${historyStyles.profile} fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900`}
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
@@ -202,20 +203,22 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
         </div>
       </header>
 
-      {/*
-        CONTROL UX POLISH TASK — action hierarchy (task section 8): when
-        this patient has Balloon Quest history, PatientSessionHistorySection
-        renders its OWN primary "متابعة من آخر تقدم" (LastProgressCard) —
-        that should lead. "بدء جلسة جديدة" is always available (a brand-new
-        patient with no history yet has nothing else), but is now styled and
-        positioned as the secondary choice, right after the history section
-        rather than above it, so it never visually competes with "متابعة من
-        آخر تقدم" for primary attention — see ReadyScreen's "تعديل
-        الإعدادات" for the same secondary-button treatment.
-      */}
-      <PatientVisitHistory patientId={patient.patientId} />
-      <h2 className="text-lg font-bold text-slate-800">سجل الألعاب · داخل الزيارات وخارجها</h2>
-      <PatientSessionHistorySection patient={patient} />
+      {patient.active && (
+        <button
+          type="button"
+          disabled={auth.phase !== "authorized"}
+          className="min-h-12 rounded-xl bg-teal-600 px-5 font-semibold text-white disabled:opacity-50"
+          onClick={() => {
+            selectPatient({ patientId: patient.patientId, patientNumber: patient.patientNumber, firstName: patient.firstName });
+            router.push("/control/visits");
+          }}
+        >
+          بدء جلسة علاجية
+        </button>
+      )}
+      <PatientVisitHistory key={patient.patientId} patientId={patient.patientId} />
+      <h2 className="text-lg font-bold text-slate-800">الألعاب المستقلة · خارج الجلسات العلاجية</h2>
+      <PatientSessionHistorySection key={patient.patientId} patient={patient} />
 
       {patient.active && (
         <button
@@ -224,7 +227,7 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
           disabled={auth.phase !== "authorized"}
           className="min-h-14 touch-manipulation rounded-2xl border-2 border-teal-200 bg-white text-base font-bold text-teal-700 transition-all active:scale-[0.98] active:bg-teal-50 disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-400"
         >
-          بدء جلسة جديدة
+          بدء نشاط مستقل
         </button>
       )}
 

@@ -59,6 +59,7 @@ describe("acknowledged revisioned visit writes", () => {
     });
     await Promise.resolve();
     expect(complete).toBe(false);
+    await vi.waitFor(()=>expect(mocks.update).toHaveBeenCalledTimes(1));
     expect(mocks.update.mock.calls[0][1]).toHaveProperty(
       "activeTherapyVisits/staff",
     );

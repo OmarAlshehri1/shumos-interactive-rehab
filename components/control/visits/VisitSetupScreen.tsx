@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ControlNav } from "@/components/control/nav/ControlNav";
 import { AddPatientSheet } from "@/components/control/patients/AddPatientSheet";
 import { usePatients, searchPatients } from "@/lib/patients/usePatients";
+import { getPatient } from "@/lib/patients/patientRepository";
 import type { Patient } from "@/lib/patients/types";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
@@ -34,6 +35,19 @@ export function VisitSetupScreen() {
     [custom, setCustom] = useState("45"),
     [notes, setNotes] = useState(""),
     [error, setError] = useState("");
+  const prefillId = patientContext.selectedPatient?.patientId;
+  useEffect(() => {
+    if (!prefillId || auth.phase !== "authorized") return;
+    let cancelled = false;
+    void getPatient(prefillId)
+      .then((p) => {
+        if (!cancelled && p?.active) setSelected((current) => current ?? p);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [prefillId, auth.phase]);
   const duration = minutes === "custom" ? Number(custom) : Number(minutes),
     child = mode === "guest" ? guest.trim() : (selected?.firstName ?? ""),
     therapistName = therapist.trim() || auth.displayName || "";

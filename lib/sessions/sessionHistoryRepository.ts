@@ -326,7 +326,7 @@ export function reviveAnyStoredSession(raw: unknown): AnyStoredSession | null {
  * whole per-patient node is small, so no pagination is needed yet.
  */
 /** Live-subscribes to every stored session for one patient, across every game, newest-first. */
-export function subscribeToPatientSessions(patientId: string, callback: (sessions: AnyStoredSession[]) => void): Unsubscribe {
+export function subscribeToPatientSessions(patientId: string, callback: (sessions: AnyStoredSession[]) => void, onError?: (error: Error) => void): Unsubscribe {
   const db = getStaffDb();
   return onValue(ref(db, `${SESSIONS_PATH}/${patientId}`), (snapshot) => {
     const value = (snapshot.val() as Record<string, unknown> | null) ?? {};
@@ -335,7 +335,7 @@ export function subscribeToPatientSessions(patientId: string, callback: (session
       .filter((s): s is AnyStoredSession => s !== null && s.patientId === patientId)
       .sort((a, b) => (nonNegativeFiniteNumber(b.completedAt) ?? -1) - (nonNegativeFiniteNumber(a.completedAt) ?? -1));
     callback(sessions);
-  });
+  }, onError);
 }
 
 export async function getSessionHistoryRecord(patientId: string, sessionId: string): Promise<AnyStoredSession | null> {

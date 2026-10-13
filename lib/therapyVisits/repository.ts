@@ -4,11 +4,11 @@ import {
   ref,
   runTransaction,
   set,
-  update,
   type Unsubscribe,
 } from "firebase/database";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { getSessionHistoryRecord } from "@/lib/sessions/sessionHistoryRepository";
+import { createNumberedVisit } from "./numbering";
 import { assertVisit, reviveVisit, safeKey, type Visit } from "./model";
 export interface ActiveVisitPointer {
   patientId: string;
@@ -27,10 +27,7 @@ export async function createPatientVisit(v: Visit): Promise<void> {
     visitId: v.visitId,
     controlTabId: v.controlTabId,
   };
-  await update(ref(getStaffDb()), {
-    [path(v.patientId, v.visitId)]: v,
-    [`activeTherapyVisits/${v.ownerUid}`]: pointer,
-  });
+  await createNumberedVisit(v, pointer);
 }
 export function subscribeActiveVisit(
   uid: string,
@@ -78,7 +75,11 @@ export function subscribePatientVisits(
         Object.values(s.val() ?? {})
           .map(reviveVisit)
           .filter((v): v is Visit => !!v && v.patientId === p)
-          .sort((a, b) => b.startedAt - a.startedAt),
+          .sort(
+            (a, b) =>
+              b.startedAt - a.startedAt ||
+              (a.visitId < b.visitId ? -1 : a.visitId > b.visitId ? 1 : 0),
+          ),
       ),
     error,
   );
@@ -152,4 +153,17 @@ export async function commitVisit(
   if (!result.committed)
     throw Error("تغيّرت الجلسة في نافذة أخرى. انتظر المزامنة وحاول مجددًا.");
   return reviveVisit(result.snapshot.val()) ?? v;
+}
+
+export function subscribeVisitResultClaims(
+  p: string,
+  cb: (v: Record<string, string>) => void,
+  error: (e: Error) => void,
+): Unsubscribe {
+  if (!safeKey(p)) throw Error("مريض غير صالح");
+  return onValue(
+    ref(getStaffDb(), `visitResultClaims/${p}`),
+    (s) => cb(s.val() ?? {}),
+    error,
+  );
 }
