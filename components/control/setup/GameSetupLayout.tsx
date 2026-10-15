@@ -2,6 +2,9 @@
 import type { ReactNode } from "react";
 import { StagePicker, type StageChoice } from "./ProgressiveStages";
 import styles from "./controlSetup.module.css";
+export function SetupSettingsCard({ children }: { children: ReactNode }) {
+  return <section className={styles.settings} aria-label="إعدادات اللعبة" data-setup-section="settings"><h2>إعدادات اللعبة</h2>{children}</section>;
+}
 export function GameSetupLayout({
   settings,
   items,
@@ -21,11 +24,11 @@ export function GameSetupLayout({
 }) {
   return (
     <div className={styles.layout} data-game-setup>
-      <section className={styles.settings} aria-label="إعدادات النشاط">
+      <SetupSettingsCard>
         {settings}
-      </section>
-      <section className={styles.stages}>
-        <h2>اختر المستوى والمرحلة</h2>
+      </SetupSettingsCard>
+      <section className={styles.stages} data-setup-section="levels" aria-label="المستويات">
+        <h2>المستويات</h2>
         <StagePicker
           items={items}
           value={value}
@@ -60,9 +63,9 @@ export function NativeSetupSections({
 }) {
   return (
     <div className={styles.layout} data-game-setup>
-      <section className={styles.settings}>{settings}</section>
-      <section className={styles.stages}>
-        <h2>اختر المستوى والمرحلة</h2>
+      <SetupSettingsCard>{settings}</SetupSettingsCard>
+      <section className={styles.stages} data-setup-section="levels" aria-label="المستويات">
+        <h2>المستويات</h2>
         {stages}
       </section>
       <section className={styles.start}>

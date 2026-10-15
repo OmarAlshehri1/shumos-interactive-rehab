@@ -1,4 +1,5 @@
 "use client";
+import { SetupSettingsCard } from "@/components/control/setup/GameSetupLayout";
 import Link from "next/link";
 import { useState } from "react";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
@@ -79,8 +80,7 @@ function PadBox({ s, send, session, locked }: { s: State; send: (c: Command) => 
 function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void; session: Session; can: boolean }) {
   return (
     <div className={styles.inner} data-testid="ow-setup-screen" data-game-setup data-setup-kind="levels">
-      <section className={styles.card}>
-        <h2>إعدادات النشاط</h2>
+      <SetupSettingsCard>
         <p className={styles.lead}>اختر التمرين والهدف. يؤكد الأخصائي كل إنجاز يدويًا.</p>
         <div className={styles.fields}>
           <div className={styles.field}>
@@ -108,12 +108,11 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
           </div>
           <PadBox s={s} send={send} session={session} locked={!can} />
         </div>
-      </section>
-
       <Settings config={s.config} set={(c) => send({ type: "configure", config: c })} />
+      </SetupSettingsCard>
 
-      <section className={styles.card} aria-label="اختيار المستوى">
-        <h2>اختر المستوى</h2>
+      <section className={styles.card} aria-label="المستويات" data-setup-section="levels">
+        <h2>المستويات</h2>
         <div className={styles.levels} role="group" aria-label="مستويات المحيط" data-testid="ow-levels">
           {LEVELS.map((lv) => (
             <button key={lv.id} type="button" className={styles.level} data-testid={`ow-level-${lv.index}`} aria-pressed={s.level === lv.index} disabled={!can} onClick={() => send({ type: "selectLevel", level: lv.index })}>

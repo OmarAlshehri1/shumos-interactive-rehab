@@ -2,6 +2,7 @@ import { get, onValue, ref, remove, serverTimestamp, set, update } from "firebas
 import { getAuth } from "firebase/auth";
 import { getDisplayDb, getDisplayFirebaseApp, getStaffDb, isRealtimeEnabled } from "./firebaseClient";
 import { subscribeToStaffAuthState } from "./staffAuthClient";
+import { recoverDisplaySessionOwner } from "./recoverDisplaySessionOwner";
 
 /** Scoped approval metadata for the existing anonymous Display identity, never a staff credential. */
 export const DISPLAY_ACCESS_PATH = "presence/displayAccess";
@@ -75,6 +76,10 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       });
       if (typeof offset !== "number" || !Number.isFinite(offset)) throw Error("Server time unavailable");
       serverOffset = offset;
+      if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
+      // The homepage has no game publisher to restamp legacy native setups.
+      // Recover proven ownership before Display's rule-gated subscription.
+      await recoverDisplaySessionOwner(getStaffDb(), owner);
       if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
       // This write is checked by rules for active staff. No sign-in, credentials,
       // launch secrets, or pairing UI: reuse the therapist's persisted Firebase login.

@@ -231,3 +231,35 @@
     top: 100px;
   }
 }
+
+/* Browse and preview share the existing Control page flow, including touch scrolling. */
+.page { max-width: 1480px; font-family: var(--font-control), Arial, sans-serif; }
+.logo { background: #008d86; width: 48px; height: 42px; border-radius: 14px; }
+.search { padding: 14px; background: #fff; border: 1px solid #dbe7ec; border-radius: 20px; box-shadow: 0 4px 18px #173e4505; }
+.search input { background: #f8fbfc; font-size: 17px; }
+.grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.card { box-shadow: none; transition: box-shadow .15s, transform .15s; }
+.card:hover { box-shadow: 0 6px 22px #204d5512; transform: translateY(-2px); }
+.card h3 { font-size: 16px; line-height: 1.7; }
+.card p { font-size: 13px; }
+.watching { padding: 20px; margin: 24px 0; border: 1px solid #dbe7ec; border-radius: 20px; background: #fff; }
+.preview { aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; background: #102b3b; }
+.preview iframe { width: 100%; height: 100%; border: 0; display: block; }
+.watchActions, .watchTitle { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.watchActions { margin-bottom: 16px; flex-wrap: wrap; }
+.watchTitle { margin-top: 18px; }
+.watchTitle h2 { margin: 0 0 6px; }
+.watchTitle p { color: #657c89; font-size: 14px; }
+.displayAction { background: #008d86; color: #fff; padding: 12px 24px; border-radius: 12px; font-weight: 700; }
+.back { border: 1px solid #cbdce4; color: #087f81; padding: 10px 18px; border-radius: 12px; }
+.loading { background: #edf8f5; padding: 16px; border-radius: 12px; color: #087f81; margin-bottom: 16px; }
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) {
+  .grid { grid-template-columns: 1fr; gap: 18px; }
+  .search { padding: 10px; }
+  .search input { font-size: 15px; }
+  .watching { padding: 12px; }
+  .watchActions { gap: 10px; }
+  .watchActions button { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }

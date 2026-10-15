@@ -291,6 +291,14 @@
 .settings > aside > fieldset {
   grid-column: 1/-1;
 }
+@media (min-width: 801px) {
+  .settings > aside > fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 24px;
+  }
+  .settings > aside > fieldset > legend { grid-column: 1/-1; }
+}
 .settings section > h2 {
   margin-bottom: 12px;
 }
@@ -314,11 +322,16 @@
   max-width: none !important;
 }
 .native > main > :where([class*="max-w-"]) { padding-inline: 0; }
-.stages { min-width: 0; }
-.stages > h2 { margin-bottom: 16px; }
-@media (min-width: 1200px) {
-  .layout { grid-template-columns: minmax(340px, .9fr) minmax(0, 1.4fr); }
+.stages {
+  min-width: 0;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #dce9e8;
+  border-radius: 18px;
 }
+.stages > h2 { margin-bottom: 16px; }
+.settings > details { margin-top: 18px; }
+@media (max-width: 650px) { .stages { padding: 15px; } }
 
 .native > main {
   width: 100% !important;

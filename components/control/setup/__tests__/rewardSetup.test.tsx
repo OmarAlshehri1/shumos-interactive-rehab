@@ -26,6 +26,10 @@ describe("reward setup presentation", () => {
       expect(html).toContain(`data-testid="${prefix}-start"`);
       expect(html).toContain(`data-testid="${prefix}-exercise"`);
       expect(html).toContain('data-setup-kind="levels"');
+      expect(html).toContain('إعدادات اللعبة');
+      expect(html).toContain('data-setup-section="levels"');
+      expect(html.indexOf('data-setup-section="settings"')).toBeLessThan(html.indexOf('data-setup-section="levels"'));
+      expect(html.indexOf(`data-testid="${prefix}-opt-quality"`)).toBeLessThan(html.indexOf('data-setup-section="levels"'));
       expect(html).not.toContain("data-stage-choice");
       expect(html).not.toContain("المرحلة");
     });

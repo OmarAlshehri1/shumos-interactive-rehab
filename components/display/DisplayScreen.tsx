@@ -131,6 +131,7 @@ function RealtimeDisplayScreen() {
   const [projectionPreview, setProjectionPreview] = useState<ProjectionPreviewCommand | null>(null);
   const [previewTime, setPreviewTime] = useState(() => Date.now());
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Revoke the previous authenticated projection immediately.
     if (realtime.authStatus !== "authenticated") { setProjectionPreview(null); return; }
     return subscribeToProjectionPreview(getDisplayDb(), setProjectionPreview);
   }, [realtime.authStatus]);
@@ -390,6 +391,17 @@ function RealtimeDisplayScreen() {
       gameState={realtime.session?.gameState ?? null}
       background={environmentBackground}
     >
+      {!realtime.hasLoadedInitialSession && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center text-white" dir="rtl" role="status">
+          <p className="text-2xl font-bold">
+            {realtime.authStatus === "failed" ? "تعذّر اتصال شاشة العرض" : "جارٍ توصيل شاشة العرض…"}
+          </p>
+          {realtime.authStatus === "failed" && <>
+            <p>افتح شاشة العرض من حساب الأخصائي المسجّل.</p>
+            <button type="button" className="rounded-full bg-white px-6 py-3 font-bold text-teal-800" onClick={() => window.location.reload()}>إعادة المحاولة</button>
+          </>}
+        </div>
+      )}
       {realtime.authStatus === "authenticated" && projectionPreview?.enabled && projectionPreview.expiresAt > previewTime && visitGamePaused(realtime.session ? { session: realtime.session } as Parameters<typeof visitGamePaused>[0] : null) && (
         <div data-testid="projection-display-preview" style={{ position: "fixed", inset: 0, zIndex: 100, display: "grid", placeItems: "center", background: "#102b3b" }}>
           <ProjectionGrid profile={projectionPreview.profile} />

@@ -11,6 +11,7 @@ vi.mock('firebase/database', () => ({
 }));
 vi.mock('../firebaseClient', () => ({ getStaffDb: () => 'staff', getDisplayDb: () => 'display' }));
 vi.mock('../staffAuthClient', () => ({ subscribeToStaffAuthState: mocks.staff }));
+vi.mock('../recoverDisplaySessionOwner', () => ({ recoverDisplaySessionOwner: vi.fn(async () => {}) }));
 
 describe('Silent authorization using the existing staff session', () => {
   const stops: (() => void)[] = [];

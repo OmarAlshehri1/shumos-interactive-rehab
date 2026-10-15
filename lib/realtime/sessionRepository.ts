@@ -181,7 +181,7 @@ function mergePrivate(liveRaw: unknown, privateRaw: unknown): unknown {
   return liveRaw;
 }
 
-function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
+export function parseLiveSessionValue(raw: unknown): LiveSessionRecord | null {
   const value = raw as LiveSessionRecord | null;
   if (!value || !Number.isInteger(value.revision) || value.revision < 0 || !value.session) return null;
   // See lib/realtime/serialization.ts: RTDB drops empty arrays and null

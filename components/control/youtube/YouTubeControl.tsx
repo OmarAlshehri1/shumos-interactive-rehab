@@ -38,6 +38,7 @@ import {
   type VideoCommand,
 } from "@/lib/youtube/model";
 import styles from "./youtube.module.css";
+import { VideoPreview } from "./VideoPreview";
 const messages: Record<string, string> = {
   "setup-required": "البحث يحتاج إعداد YouTube Data API. المفضلة تبقى متاحة.",
   "quota-exceeded": "وصل البحث إلى حصة YouTube المتاحة. حاول لاحقاً.",
@@ -52,6 +53,7 @@ export function YouTubeControl() {
   const auth = useStaffAuth(),
     safety = useGameSafety();
   const [query, setQuery] = useState(""),
+    [watching, setWatching] = useState<Video | null>(null),
     [searched, setSearched] = useState(""),
     [results, setResults] = useState<Video[]>([]),
     [favorites, setFavorites] = useState<Video[]>([]),
@@ -189,7 +191,7 @@ export function YouTubeControl() {
           : body.videos,
       );
       setPage(body.nextPageToken);
-      if (!more) setSearched(query);
+      if (!more) { setSearched(query); setWatching(null); }
     } catch (e) {
       if (!abort.signal.aborted)
         setError(
@@ -198,6 +200,16 @@ export function YouTubeControl() {
     } finally {
       if (mounted.current) setLoading(false);
     }
+  }
+  function watch(video: Video, onDisplay = false) {
+    if (!safety.canLeave) {
+      setError("أكمل النشاط واحفظ نتيجته قبل تشغيل الفيديو.");
+      return;
+    }
+    setError("");
+    setWatching(video);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (onDisplay) void send({ state: "playing", position: 0 }, video);
   }
   async function favorite(v: Video) {
     if (!auth.uid || busy) return;
@@ -233,6 +245,7 @@ export function YouTubeControl() {
         old &&
         old.controlTabId !== tab &&
         old.state !== "stopped" &&
+        // eslint-disable-next-line react-hooks/purity -- Playback event handler; ownership must be checked at click time.
         Date.now() - old.heartbeatAt < 15000
       )
         throw Error("الفيديو يتحكم به أخصائي في نافذة أخرى.");
@@ -245,6 +258,7 @@ export function YouTubeControl() {
         throw Error("اختر فيديو أولاً.");
       // Disconnect handlers release the shared lease; explicit playback actions reacquire it safely.
       if (!video) await claimControllerLease(db, auth.uid);
+      // eslint-disable-next-line react-hooks/purity -- Timestamp the acknowledged playback action, never a render.
       const now = Date.now();
       const position = old
         ? status?.commandId === old.commandId && now - status.updatedAt < 5000
@@ -282,14 +296,13 @@ export function YouTubeControl() {
   return (
     <div className={styles.page} dir="rtl">
       <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="youtube" showBrand={false} />
+      <ControlNav active="youtube" showBrand={false} />
       <header>
         <span className={styles.logo}>▶</span>
         <div>
           <h1>
             يوتيوب <small>YouTube</small>
           </h1>
-          <p>ابحث عن أغنية أو كرتون، وشغّله على شاشة العرض.</p>
         </div>
       </header>
       {(!online || !displayConnected) && <p className={styles.connection} role="status">
@@ -321,6 +334,19 @@ export function YouTubeControl() {
         <p role="alert" className={styles.error}>
           {error}
         </p>
+      )}
+      {watching && (
+        <section className={styles.watching} aria-label="مشاهدة الفيديو">
+          <div className={styles.watchActions}>
+            <button className={styles.back} onClick={() => setWatching(null)}>رجوع إلى النتائج</button>
+            <button className={styles.displayAction} disabled={busy || !online || !displayConnected} onClick={() => void send({ state: "playing", position: 0 }, watching)}>عرض على شاشة الطفل</button>
+          </div>
+          {safety.canLeave ? <VideoPreview video={watching} /> : <p role="status">أكمل النشاط واحفظ نتيجته قبل تشغيل الفيديو.</p>}
+          <div className={styles.watchTitle}>
+            <div><h2>{watching.title}</h2><p>{watching.channel}</p></div>
+            <button className={styles.heart} aria-label={favorites.some(v => v.videoId === watching.videoId) ? `إزالة ${watching.title} من المفضلة` : `إضافة ${watching.title} إلى المفضلة`} aria-pressed={favorites.some(v => v.videoId === watching.videoId)} disabled={busy || !online} onClick={() => void favorite(watching)}>{favorites.some(v => v.videoId === watching.videoId) ? "♥" : "♡"}</button>
+          </div>
+        </section>
       )}
       {command && command.state !== "stopped" && (
         <section className={styles.playerControls} aria-label="التحكم بالفيديو">
@@ -417,23 +443,20 @@ export function YouTubeControl() {
               فتح على YouTube ↗
             </a>
           </div>
-          <p>
-            قد يتطلب الصوت لمسة مباشرة على شاشة العرض. مستوى الصوت يعتمد على دعم
-            المتصفح؛ لا يغيّر تنبيه مؤقت الزيارة.
-          </p>
         </section>
       )}
-      <section>
-        <h2>نتائج البحث</h2>
+      <section aria-label="نتائج البحث" aria-busy={loading}>
+        <h2>{watching ? "من نتائج البحث" : "نتائج البحث"} {results.length > 0 && <small>({results.length})</small>}</h2>
+        {loading && <p role="status" className={styles.loading}>جارٍ تحميل نتائج YouTube…</p>}
         {results.length ? (
           <div className={styles.grid}>
-            {results.map((v) => (
+            {results.filter(v => v.videoId !== watching?.videoId).map((v) => (
               <VideoCard
                 key={v.videoId}
                 video={v}
                 saved={favorites.some((x) => x.videoId === v.videoId)}
                 disabled={busy || !online}
-                onPlay={() => void send({ state: "playing", position: 0 }, v)}
+                onPlay={() => watch(v)}
                 onFavorite={() => void favorite(v)}
               />
             ))}
@@ -442,7 +465,7 @@ export function YouTubeControl() {
           <p className={styles.empty}>
             {searched
               ? "لم تظهر نتائج. جرّب عبارة أخرى."
-              : "ابدأ بالبحث عن فيديو؛ لن يبدأ تشغيله تلقائياً."}
+              : "ابحث عن فيديو لعرض النتائج هنا."}
           </p>
         )}
         {page && (
@@ -455,7 +478,7 @@ export function YouTubeControl() {
           </button>
         )}
       </section>
-      <section className={styles.favorites}>
+      <section className={styles.favorites} aria-label="المفضلة">
         <h2>
           المفضلة <span>♥</span>
         </h2>
@@ -466,15 +489,16 @@ export function YouTubeControl() {
                 key={v.videoId}
                 video={v}
                 saved
+                onDisplay
                 disabled={busy || !online}
-                onPlay={() => void send({ state: "playing", position: 0 }, v)}
+                onPlay={() => watch(v, true)}
                 onFavorite={() => void favorite(v)}
               />
             ))}
           </div>
         ) : (
           <p className={styles.empty}>
-            اضغط القلب بجانب أي نتيجة لحفظها هنا على أجهزتك.
+            احفظ فيديو بالضغط على ♡.
           </p>
         )}
       </section>
@@ -488,12 +512,14 @@ function VideoCard({
   disabled,
   onPlay,
   onFavorite,
+  onDisplay = false,
 }: {
   video: Video;
   saved: boolean;
   disabled: boolean;
   onPlay: () => void;
   onFavorite: () => void;
+  onDisplay?: boolean;
 }) {
   return (
     <article className={styles.card}>
@@ -501,7 +527,7 @@ function VideoCard({
         className={styles.thumbnail}
         onClick={onPlay}
         disabled={disabled}
-        aria-label={`تشغيل ${v.title}`}
+        aria-label={`${onDisplay ? "تشغيل" : "معاينة"} ${v.title}`}
       >
         <Image
           src={thumbnail(v.videoId)}
@@ -512,7 +538,7 @@ function VideoCard({
           loading="lazy"
           referrerPolicy="no-referrer"
         />
-        <span>▶ تشغيل على العرض</span>
+        <span>▶ {onDisplay ? "تشغيل على العرض" : "معاينة الفيديو"}</span>
       </button>
       <div className={styles.cardText}>
         <div>
