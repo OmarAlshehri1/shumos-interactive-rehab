@@ -30,13 +30,13 @@ const NAV_ITEMS: { section: ControlNavSection; href: string; label: string }[] =
  * live session by accident; ControlScreen.tsx's own contextual controls
  * (patient chip, cancel, end session) own navigation there instead.
  */
-export function ControlNav({ active }: { active: ControlNavSection }) {
+export function ControlNav({ active, showBrand = true }: { active: ControlNavSection; showBrand?: boolean }) {
   return (
     <>
       {/* The single Shumos logo for every Control page: pinned to the top left corner (the right corner holds the sign-out pill) (scrolls with the page), in flow on narrow screens. */}
-      <div className="absolute top-5 left-6 z-10 max-sm:static max-sm:self-center" data-control-logo>
+      {showBrand && <div className="absolute top-5 left-6 z-10 max-sm:static max-sm:self-center" data-control-logo>
         <ShumosBrandMark compact />
-      </div>
+      </div>}
     <nav aria-label="التنقل الرئيسي" className="mx-auto flex w-full max-w-5xl items-center justify-center gap-1.5 px-5 sm:px-8">
       <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white p-1 shadow-sm">
         {NAV_ITEMS.map((item) => {

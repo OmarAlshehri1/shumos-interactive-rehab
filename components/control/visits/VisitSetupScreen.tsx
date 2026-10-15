@@ -107,7 +107,7 @@ export function VisitSetupScreen() {
     <main className={styles.page} dir="rtl" lang="ar">
       <div className={styles.content}>
         <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="home" />
+        <ControlNav active="home" showBrand={false} />
         <header className={styles.header}>
           <h1>جلسة علاجية جديدة</h1>
         </header>

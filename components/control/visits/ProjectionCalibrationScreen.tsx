@@ -71,7 +71,7 @@ export function ProjectionCalibrationScreen() {
     <main dir="rtl" lang="ar" className={styles.page}>
       <div className={styles.content}>
         <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="home" />
+        <ControlNav active="home" showBrand={false} />
         <header className={styles.header}>
           <h1>معايرة الإسقاط</h1>
           <p>

@@ -282,7 +282,7 @@ export function YouTubeControl() {
   return (
     <div className={styles.page} dir="rtl">
       <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="youtube" />
+        <ControlNav active="youtube" showBrand={false} />
       <header>
         <span className={styles.logo}>▶</span>
         <div>
