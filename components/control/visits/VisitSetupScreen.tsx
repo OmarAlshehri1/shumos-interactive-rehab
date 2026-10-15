@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { ControlNav } from "@/components/control/nav/ControlNav";
 import { AddPatientSheet } from "@/components/control/patients/AddPatientSheet";
 import { usePatients, searchPatients } from "@/lib/patients/usePatients";
@@ -62,7 +63,7 @@ export function VisitSetupScreen() {
         duration < 1 ||
         duration > 480
       )
-        throw Error("أكمل الاسم والمعالج والمدة (١–٤٨٠ دقيقة).");
+        throw Error("أكمل الاسم والأخصائي والمدة (١–٤٨٠ دقيقة).");
       const now = visit.now;
       await visit.start({
         version: 1,
@@ -105,11 +106,10 @@ export function VisitSetupScreen() {
   return (
     <main className={styles.page} dir="rtl" lang="ar">
       <div className={styles.content}>
+        <ControlPageNav backHref="/control" backLabel="الرئيسية" />
         <ControlNav active="home" />
         <header className={styles.header}>
-          <p>شموس / الرعاية التفاعلية</p>
           <h1>جلسة علاجية جديدة</h1>
-          <p>زيارة واحدة تجمع الأنشطة والتقييم والتمارين، مع توقيت مستمر.</p>
         </header>
         {visit.visit && !visit.visit.endedAt ? (
           <section className={styles.card}>
@@ -198,7 +198,7 @@ export function VisitSetupScreen() {
             )}
             <div className={styles.fields}>
               <label className={styles.field}>
-                اسم المعالج
+                اسم الأخصائي
                 <input
                   required
                   maxLength={100}
@@ -271,10 +271,6 @@ export function VisitSetupScreen() {
             >
               {visit.busy ? "جاري الحفظ…" : "بدء الجلسة واختيار الأنشطة"}
             </button>
-            <p className={styles.muted}>
-              هوية الحساب المسجّل تحدد صلاحيات الحفظ؛ اسم المعالج للعرض والتوثيق
-              فقط.
-            </p>
           </form>
         )}
         <AddPatientSheet

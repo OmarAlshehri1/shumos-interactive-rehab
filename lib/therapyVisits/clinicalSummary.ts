@@ -28,7 +28,7 @@ const mappings: Partial<
 > = {
   "balance-bridge-3d": [
     ["checkpointsAttempted", "علامات جرى العمل عليها"],
-    ["checkpointsConfirmed", "علامات أكدها المعالج"],
+    ["checkpointsConfirmed", "علامات أكدها الأخصائي"],
     ["assistedCheckpoints", "علامات بمساعدة"],
     ["skippedCheckpoints", "علامات متجاوزة"],
     ["holdCompletions", "ثبات مؤكد"],
@@ -193,7 +193,7 @@ export function ratingComparison(v: Visit, p: Visit | null) {
   if (!p) return "لا توجد جلسة سابقة بأهداف مشتركة.";
   if (v.overallRating === null || p.overallRating === null)
     return "تقييم إحدى الجلستين غير مسجل؛ لا يمكن مقارنة التقييم.";
-  return `تقييم المعالج: ${p.overallRating}/5 في الجلسة السابقة، و${v.overallRating}/5 في هذه الجلسة.`;
+  return `تقييم الأخصائي: ${p.overallRating}/5 في الجلسة السابقة، و${v.overallRating}/5 في هذه الجلسة.`;
 }
 export function independentSessions(
   records: AnyStoredSession[],

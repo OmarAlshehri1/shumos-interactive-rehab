@@ -10,24 +10,29 @@ import { projectionLabel } from "@/components/control/library/presentation";
 import { PatientContextBanner } from "@/components/control/patients/PatientContextBanner";
 import { GAME_INSTRUCTIONS } from "@/lib/games/setup/introduction";
 import styles from "./controlSetup.module.css";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
+import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 const GameContext = createContext<GameId | null>(null);
 export const useControlGameId = () => useContext(GameContext);
 /** One Control-only surface. Native game providers, commands and Display themes remain owned by their games. */
 export function ControlGameFrame({ children }: { children: ReactNode }) {
   const path = usePathname();
+  const { selectedPatient } = usePatientContext();
   const game = GAME_REGISTRY.find((g) => g.route === path);
   if (!game) return <>{children}</>;
   const thumbnail = realGameThumbnail(game.id);
   return (
     <GameContext.Provider value={game.id}>
       <div className={styles.frame} data-control-game={game.id} dir="rtl">
-        <nav className={styles.nav}>
-          <Link href="/control">الرئيسية</Link>
-          <Link href="/control/activities">مكتبة الأنشطة</Link>
+        <ControlPageNav
+          backHref={selectedPatient ? `/control/patients/${selectedPatient.patientId}` : "/control/activities"}
+          backLabel={selectedPatient ? "ملف المريض" : "مكتبة الأنشطة"}
+        >
+          {selectedPatient && <Link href="/control/activities">مكتبة الأنشطة</Link>}
           <a href="/display" target="_blank" rel="noopener">
             فتح العرض ↗
           </a>
-        </nav>
+        </ControlPageNav>
         <header className={styles.header}>
           {thumbnail && (
             <Image
@@ -38,7 +43,6 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
             />
           )}
           <div>
-            <span className={styles.brand}>SHUMOS CARE</span>
             <h1>{game.nameAr}</h1>
             <small lang="en" dir="ltr">
               {game.nameEn}
@@ -47,7 +51,6 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
             <span className={styles.badge}>
               {projectionLabel(game.surfaceType)}
             </span>
-            <span className={styles.badge}>تحكم المعالج متاح</span>
           </div>
         </header>
         <LibraryLaunchControls />

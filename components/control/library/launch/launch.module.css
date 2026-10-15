@@ -27,8 +27,13 @@
   box-shadow: 0 3px 12px #203d3d08;
   font-size: 13px;
   line-height: 1.8;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, .45fr);
+  gap: 12px 24px;
+  align-items: start;
 }
 .panel header {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,9 +56,11 @@
   cursor: default;
 }
 .panel p {
-  margin: 12px 0;
+  grid-column: 1 / -1;
+  margin: 0;
 }
 .modes {
+  grid-column: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -61,7 +68,10 @@
 .panel fieldset {
   border: 1px solid #d9dfd4;
   border-radius: 12px;
-  margin-top: 14px;
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+  padding: 4px 10px 8px;
 }
 .panel fieldset button {
   margin: 4px;
@@ -69,6 +79,10 @@
 .dock button:focus-visible {
   outline: 3px solid #b98a40;
   outline-offset: 3px;
+}
+@media(max-width:650px) {
+  .panel { grid-template-columns: minmax(0, 1fr);padding:16px; }
+  .panel fieldset { grid-column:1;grid-row:auto; }
 }
 
 /* Match the shared clinical Control palette. */

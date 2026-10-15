@@ -11,7 +11,7 @@ import styles from "./control.module.css";
 
 const NAME = "غابة الإنجازات";
 const STATUS_AR = { ready: "جاهز للبدء", running: "قيد التنفيذ", paused: "متوقف مؤقتًا", "level-complete": "اكتمل المستوى", ended: "انتهت الجلسة" } as const;
-const EXAMPLES = ["الخطو على بصمات القدم", "المشي حول الأقماع", "نشاط مخصص بإشراف المعالج", "الوقوف من الجلوس", "تمارين الوصول", "تمارين التوازن"];
+const EXAMPLES = ["الخطو على بصمات القدم", "المشي حول الأقماع", "نشاط مخصص بإشراف الأخصائي", "الوقوف من الجلوس", "تمارين الوصول", "تمارين التوازن"];
 const PRESETS = [6, 10, 15, 20];
 const LEVEL_IMG = ["/control-stage-previews/achievement-forest/1.webp", "/control-stage-previews/achievement-forest/2.webp", "/control-stage-previews/achievement-forest/3.webp"];
 
@@ -56,7 +56,7 @@ function PadBox({ s, send, session, locked }: { s: State; send: (c: Command) => 
       <span className={styles.lab}>طريقة التأكيد</span>
       <div className={styles.seg} role="group" aria-label="طريقة التأكيد">
         <button type="button" className={styles.segBtn} data-testid="af-input-manual" aria-pressed={!gp} onClick={() => send({ type: "configure", config: { inputSource: "manual" } })}>زر التأكيد على الشاشة</button>
-        <button type="button" className={styles.segBtn} data-testid="af-input-gamepad" aria-pressed={gp} onClick={() => send({ type: "configure", config: { inputSource: "gamepad" } })}>ذراع تحكم بيد المعالج</button>
+        <button type="button" className={styles.segBtn} data-testid="af-input-gamepad" aria-pressed={gp} onClick={() => send({ type: "configure", config: { inputSource: "gamepad" } })}>ذراع تحكم بيد الأخصائي</button>
       </div>
       {gp && (
         <div className={styles.note} data-testid="af-pad">
@@ -69,7 +69,7 @@ function PadBox({ s, send, session, locked }: { s: State; send: (c: Command) => 
             {session.pad.learning ? "اضغط الزر المطلوب الآن… (إلغاء)" : "تعيين زر التأكيد"}
           </button>
           <br />
-          كل ضغطة = إنجاز واحد يؤكّده المعالج. الضغط المطوّل لا يكرّر، والضغطات السريعة جدًا تُعدّ مرة واحدة. الذراع لا تقيس الحركة ولا تثبت صحة التمرين.
+          كل ضغطة = إنجاز واحد يؤكّده الأخصائي. الضغط المطوّل لا يكرّر، والضغطات السريعة جدًا تُعدّ مرة واحدة. الذراع لا تقيس الحركة ولا تثبت صحة التمرين.
         </div>
       )}
     </div>
@@ -78,18 +78,16 @@ function PadBox({ s, send, session, locked }: { s: State; send: (c: Command) => 
 
 function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void; session: Session; can: boolean }) {
   return (
-    <div className={styles.inner} data-testid="af-setup-screen">
+    <div className={styles.inner} data-testid="af-setup-screen" data-game-setup data-setup-kind="levels">
       <section className={styles.card}>
-        <h2>{NAME}</h2>
-        <p className={styles.lead}>
-          يؤدي الطفل التمرين الذي يختاره المعالج. مع كل إنجاز تؤكّده، تنمو غابته وتزهر عبر ثلاثة مستويات متصلة.
-        </p>
+        <h2>إعدادات النشاط</h2>
+        <p className={styles.lead}>اختر التمرين والهدف. يؤكد الأخصائي كل إنجاز يدويًا.</p>
         <div className={styles.fields}>
           <div className={styles.field}>
             <label htmlFor="af-exercise">اسم التمرين</label>
             <input id="af-exercise" type="text" list="af-ex" maxLength={60} data-testid="af-exercise" placeholder="مثال: الوقوف من الجلوس" value={s.exercise} disabled={!can} onChange={(e) => send({ type: "setExercise", exercise: e.target.value })} />
             <datalist id="af-ex">{EXAMPLES.map((x) => <option key={x} value={x} />)}</datalist>
-            <p className={styles.note}>أمثلة فقط: يختار المعالج التمرين المناسب ويشرف عليه.</p>
+            <p className={styles.note}>أمثلة فقط: يختار الأخصائي التمرين المناسب ويشرف عليه.</p>
           </div>
           <div className={styles.field}>
             <span className={styles.lab}>عدد الإنجازات المطلوب في كل مستوى</span>
@@ -112,6 +110,8 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
         </div>
       </section>
 
+      <Settings config={s.config} set={(c) => send({ type: "configure", config: c })} />
+
       <section className={styles.card} aria-label="اختيار المستوى">
         <h2>اختر المستوى</h2>
         <div className={styles.levels} role="group" aria-label="مستويات الغابة" data-testid="af-levels">
@@ -130,10 +130,9 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
             </button>
           ))}
         </div>
-        <p className={styles.note}>المستويات الثلاثة غابة واحدة تتطور: تبدأ بالمستوى الذي تختاره. اختيار المستوى الثاني أو الثالث يعرض ما قبله مكتملًا بصريًا فقط، دون تسجيل أي إنجاز أو نتيجة لم تحدث.</p>
+        <p className={styles.note}>اختيار مستوى متقدم لا يسجّل إنجازات للمستويات السابقة.</p>
       </section>
 
-      <Settings config={s.config} set={(c) => send({ type: "configure", config: c })} />
 
       <section className={styles.start}>
         <p>{s.exercise ? `التمرين: ${s.exercise} · ` : ""}المستوى {s.level + 1}: {levelDef(s.level).nameAr} · الهدف {s.target} إنجازًا. راجع الإعدادات وتأكد من ظهور العرض.</p>
@@ -224,13 +223,13 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
           <h2>{ended ? "نتائج الجلسة" : "ملخص الجلسة حتى الآن"}</h2>
           <div className={styles.resBig}>
             <div className={styles.res}><b data-testid="af-res-confirmed">{sum.confirmed}</b><span>إنجازات مؤكدة</span></div>
-            <div className={styles.res}><b data-testid="af-res-assisted">{sum.assisted}</b><span>بمساعدة المعالج</span></div>
+            <div className={styles.res}><b data-testid="af-res-assisted">{sum.assisted}</b><span>بمساعدة الأخصائي</span></div>
             <div className={styles.res}><b data-testid="af-res-undos">{sum.undos}</b><span>مرّات التراجع</span></div>
             <div className={styles.res}><b data-testid="af-res-skipped">{sum.skipped}</b><span>تمارين متخطاة</span></div>
           </div>
-          <p className={styles.note}>أعداد إنجازات أكّدها المعالج فقط، ومكافأة نمو الغابة بصرية؛ لا توجد درجة ولا تقييم سريري ولا قياس للحركة. المستويات المكتملة: {sum.levelsCompleted}.</p>
+          <p className={styles.note}>أعداد إنجازات أكّدها الأخصائي فقط، ومكافأة نمو الغابة بصرية؛ لا توجد درجة ولا تقييم سريري ولا قياس للحركة. المستويات المكتملة: {sum.levelsCompleted}.</p>
           <div className={styles.field} style={{ marginTop: 12 }}>
-            <label htmlFor="af-notes">ملاحظات المعالج (اختيارية)</label>
+            <label htmlFor="af-notes">ملاحظات الأخصائي (اختيارية)</label>
             <textarea id="af-notes" data-testid="af-notes" maxLength={300} value={s.notes} disabled={ended} onChange={(e) => send({ type: "setNotes", notes: e.target.value })} placeholder="تُحفظ مع نتيجة الجلسة" />
           </div>
           {ended && (

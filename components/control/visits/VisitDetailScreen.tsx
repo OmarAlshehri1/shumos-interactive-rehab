@@ -36,6 +36,7 @@ import {
 import { numberFor } from "@/lib/therapyVisits/numbering";
 import { usePatientVisitHistory } from "./usePatientVisitHistory";
 import { ActivityEvaluation } from "./VisitWorkspace";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import styles from "./visitHistory.module.css";
 export function VisitDetailScreen({
   patientId,
@@ -92,13 +93,14 @@ export function VisitDetailScreen({
   if (history.visits === null)
     return (
       <main dir="rtl" className={styles.page}>
+        <ControlPageNav backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" />
         <p>{history.error || "جارٍ تحميل الجلسة…"}</p>
       </main>
     );
   if (!visit)
     return (
       <main dir="rtl" className={styles.page}>
-        <Link href={`/control/patients/${patientId}`}>← ملف المريض</Link>
+        <ControlPageNav backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" />
         <p role="alert">الجلسة غير متاحة أو ليس لديك صلاحية الوصول.</p>
       </main>
     );
@@ -108,7 +110,7 @@ export function VisitDetailScreen({
     owner = auth.phase === "authorized" && auth.uid === visit.ownerUid;
   return (
     <main dir="rtl" className={styles.page}>
-      <Link href={`/control/patients/${patientId}`}>← ملف المريض</Link>
+      <ControlPageNav backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" />
       <header className={`${styles.card} ${styles.header}`}>
         <div className={styles.top}>
           <h1>
@@ -145,7 +147,7 @@ export function VisitDetailScreen({
         </p>
       )}
       <section className={styles.card}>
-        <h2>تقييم المعالج</h2>
+        <h2>تقييم الأخصائي</h2>
         {edit === "visit" ? (
           <VisitEvaluation
             key={`${visit.visitId}:edit`}
@@ -159,13 +161,13 @@ export function VisitDetailScreen({
           />
         ) : (
           <>
-            <p className={styles.rating} aria-label="تقييم المعالج العام">
+            <p className={styles.rating} aria-label="تقييم الأخصائي العام">
               {visit.overallRating === null
                 ? missing
                 : `${"★".repeat(visit.overallRating)}${"☆".repeat(5 - visit.overallRating)} ${visit.overallRating}/5`}
             </p>
             <p className={styles.notes}>
-              ملاحظات المعالج: {visit.finalNotes.trim() || missing}
+              ملاحظات الأخصائي: {visit.finalNotes.trim() || missing}
             </p>
             <p className={styles.notes}>
               ملاحظات البداية: {visit.initialNotes.trim() || missing}
@@ -286,7 +288,7 @@ export function VisitDetailScreen({
                           </>
                         ) : (
                           <span>
-                            {entry.confirmed ? "مؤكد من المعالج" : "غير مؤكد"} ·
+                            {entry.confirmed ? "مؤكد من الأخصائي" : "غير مؤكد"} ·
                             مدة التنفيذ: {missing}
                           </span>
                         )}
@@ -358,7 +360,7 @@ export function VisitDetailScreen({
                         missing}
                     </p>
                     <p className={styles.notes}>
-                      ملاحظات المعالج: {entry.evaluation.notes || missing}
+                      ملاحظات الأخصائي: {entry.evaluation.notes || missing}
                     </p>
                     {edit === id ? (
                       <ActivityEvaluation
@@ -413,7 +415,7 @@ export function VisitDetailScreen({
             value={formatClock(summary.durationMs)}
           />
           <Stat
-            label="ألعاب قيّمها المعالج كمكتملة"
+            label="ألعاب قيّمها الأخصائي كمكتملة"
             value={summary.gamesCompleted}
           />
           <Stat
@@ -434,7 +436,7 @@ export function VisitDetailScreen({
           مجالات الأنشطة: {summary.skills.join("، ") || missing}
         </p>
         <p className={styles.rating}>
-          تقييم المعالج للجلسة:{" "}
+          تقييم الأخصائي للجلسة:{" "}
           {visit.overallRating === null ? missing : `${visit.overallRating}/5`}
         </p>
         <div className={styles.separator}>
@@ -517,7 +519,7 @@ function VisitEvaluation({
         </select>
       </label>
       <label>
-        ملاحظات المعالج
+        ملاحظات الأخصائي
         <textarea
           maxLength={2000}
           value={notes}

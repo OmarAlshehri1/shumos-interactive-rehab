@@ -8,7 +8,7 @@ const STATUS_LABELS: Record<DisplayStatus, string> = {
   connecting: "جاري الاتصال",
   syncing: "جاري المزامنة",
   disconnected: "غير متصل",
-  restored: "تمت استعادة الحالة",
+  restored: "تمت المزامنة",
 };
 
 const STATUS_DOT: Record<DisplayStatus, string> = {
@@ -65,7 +65,7 @@ export function ConnectionBadge({ status, hasLoadedInitialSession = true, syncRe
 
   const displayStatus: DisplayStatus = showRestored ? "restored" : status === "connected" && !hasLoadedInitialSession ? "syncing" : status;
   return (
-    <div className="pointer-events-none fixed top-2 start-2 z-40 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-500 shadow-sm">
+    <div role="status" className="pointer-events-none fixed top-2 start-2 z-40 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-500 shadow-sm">
       <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[displayStatus]}`} />
       {STATUS_LABELS[displayStatus]}
     </div>

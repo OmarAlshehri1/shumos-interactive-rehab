@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export interface ControlBreadcrumbItem {
   label: string;
-  /** Omit on the LAST item — that one is "where you are," never a link. */
+  /** Secondary location trail. Nested pages also expose a visible ControlPageNav back link. */
   href?: string;
 }
 

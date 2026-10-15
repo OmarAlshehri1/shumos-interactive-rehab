@@ -17,6 +17,7 @@ import {
   subscribeToDisplayPresence,
   subscribeToConnectionStatus,
 } from "@/lib/realtime/sessionRepository";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { ControlNav } from "@/components/control/nav/ControlNav";
 import {
   COMMAND_PATH,
@@ -280,7 +281,8 @@ export function YouTubeControl() {
   const own = command?.controlTabId === controlTabId();
   return (
     <div className={styles.page} dir="rtl">
-      <ControlNav active="youtube" />
+      <ControlPageNav backHref="/control" backLabel="الرئيسية" />
+        <ControlNav active="youtube" />
       <header>
         <span className={styles.logo}>▶</span>
         <div>
@@ -290,12 +292,9 @@ export function YouTubeControl() {
           <p>ابحث عن أغنية أو كرتون، وشغّله على شاشة العرض.</p>
         </div>
       </header>
-      <p className={styles.connection}>
-        {online ? "التحكم متصل" : "التحكم غير متصل"} ·{" "}
-        {displayConnected
-          ? "شاشة العرض متصلة"
-          : "شاشة العرض غير متصلة أو إشارتها قديمة"}
-      </p>
+      {(!online || !displayConnected) && <p className={styles.connection} role="status">
+        {!online ? "تحقق من اتصال الإنترنت." : "افتح شاشة العرض لتشغيل الفيديو."}
+      </p>}
       <form
         className={styles.search}
         onSubmit={(e) => {
@@ -316,8 +315,7 @@ export function YouTubeControl() {
         </button>
       </form>
       <p className={styles.notice}>
-        لا تكتب اسم المريض أو بياناته في البحث. البحث وتشغيل الفيديو يتصلان
-        بخدمات Google / YouTube، وقد تظهر إعلانات أو اقتراحات.
+        لا تُدخل بيانات المريض في البحث.
       </p>
       {error && (
         <p role="alert" className={styles.error}>
@@ -480,10 +478,6 @@ export function YouTubeControl() {
           </p>
         )}
       </section>
-      <p className={styles.notice}>
-        الفيديو نشاط ترفيهي اختياري؛ لا يوقف مؤقت الزيارة ولا يسجّل نتيجة
-        علاجية. لا يمكن ضمان إتاحة كل فيديو للتضمين.
-      </p>
     </div>
   );
 }

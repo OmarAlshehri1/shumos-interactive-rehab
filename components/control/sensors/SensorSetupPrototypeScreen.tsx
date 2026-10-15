@@ -1,5 +1,6 @@
 "use client";
 
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -101,6 +102,7 @@ export function SensorSetupPrototypeScreen() {
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
+        <ControlPageNav backHref="/control" backLabel="الرئيسية" />
         <header className="flex flex-col items-center gap-1.5 text-center">
           <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
             نموذج أولي — غير متصل ببيانات حقيقية

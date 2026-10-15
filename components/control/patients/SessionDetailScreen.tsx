@@ -2,6 +2,7 @@
 import { MODE_LABELS } from "@/lib/bloomingworld3d/copy";
 import { isRingHistory, isNineStageHistory } from "@/lib/spacepilot3d/history";
 
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -337,7 +338,8 @@ export function SessionDetailScreen({
       className="fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
-      <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 px-5 py-8 sm:px-8 sm:py-10">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
+        <ControlPageNav backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" />
         {isRealtimeEnabled() ? (
           <RealtimeSessionDetail patientId={patientId} sessionId={sessionId} />
         ) : (
@@ -525,15 +527,15 @@ function RealtimeSessionDetail({
           <>
             <SectionCard title={session.gameId === "ocean-wonders-3d" ? "نتائج عالم المحيط" : "نتائج مدينة الإنجازات"}><div className="grid grid-cols-3 gap-3">
               <StatCard label="إنجازات مؤكدة" value={formatCountOrUnavailable(session.confirmedAchievements)} tone="positive" />
-              <StatCard label="إنجازات بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedAchievements)} />
+              <StatCard label="إنجازات بمساعدة الأخصائي" value={formatCountOrUnavailable(session.assistedAchievements)} />
               <StatCard label="الهدف الكلي" value={formatCountOrUnavailable(session.targetAchievements)} />
               <StatCard label="تمارين متخطاة" value={formatCountOrUnavailable(session.skippedAchievements)} />
               <StatCard label="مرّات التراجع" value={formatCountOrUnavailable(session.undoCount)} />
               <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
             </div>
-            <p className="text-xs text-slate-500">التمرين: {session.exerciseTitle || "غير مسجّل"} · {session.completion === "COMPLETED" ? (session.gameId === "ocean-wonders-3d" ? "اكتملت مستويات المحيط الثلاثة" : "اكتملت المدن الثلاث") : "جلسة جزئية"} · كل الأرقام أعداد إنجازات أكّدها المعالج؛ لا توجد درجة ولا تقييم سريري، و{session.gameId === "ocean-wonders-3d" ? "نمو عالم المحيط" : "بناء المدينة"} مكافأة بصرية فقط.</p></SectionCard>
+            <p className="text-xs text-slate-500">التمرين: {session.exerciseTitle || "غير مسجّل"} · {session.completion === "COMPLETED" ? (session.gameId === "ocean-wonders-3d" ? "اكتملت مستويات المحيط الثلاثة" : "اكتملت المدن الثلاث") : "جلسة جزئية"} · كل الأرقام أعداد إنجازات أكّدها الأخصائي؛ لا توجد درجة ولا تقييم سريري، و{session.gameId === "ocean-wonders-3d" ? "نمو عالم المحيط" : "بناء المدينة"} مكافأة بصرية فقط.</p></SectionCard>
             <SectionCard title="تفاصيل المستويات">{session.levelResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>المستوى {row.level} من 3</span><span>{row.confirmed + row.assisted} من {row.target} إنجازات · {row.assisted} بمساعدة · {row.status === "COMPLETED" ? "مكتمل" : "جزئي"}</span></div>)}</SectionCard>
-            {session.therapistNotes && <SectionCard title="ملاحظات المعالج على النشاط"><p className="whitespace-pre-wrap text-sm leading-7 text-slate-700">{session.therapistNotes}</p></SectionCard>}
+            {session.therapistNotes && <SectionCard title="ملاحظات الأخصائي على النشاط"><p className="whitespace-pre-wrap text-sm leading-7 text-slate-700">{session.therapistNotes}</p></SectionCard>}
           </>
         ) : session.gameId === "follow-the-footsteps" ? (
           <>
@@ -606,16 +608,16 @@ function RealtimeSessionDetail({
           <SectionCard title="نتائج تحدي الجسم الذكي"><div className="grid grid-cols-3 gap-3">
             <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
             <StatCard label="حركات مؤكدة" value={formatCountOrUnavailable(session.confirmedMovements + session.assistedMovements)} tone="positive" />
-            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedMovements)} />
+            <StatCard label="بمساعدة الأخصائي" value={formatCountOrUnavailable(session.assistedMovements)} />
             <StatCard label="حركات متخطاة" value={formatCountOrUnavailable(session.skippedMovements)} />
             <StatCard label="ترتيبات مكتملة" value={formatCountOrUnavailable(session.sequencesCompleted)} />
-            <StatCard label="محاولات غير صحيحة (بتأكيد المعالج)" value={formatCountOrUnavailable(session.incorrectAttempts)} />
+            <StatCard label="محاولات غير صحيحة (بتأكيد الأخصائي)" value={formatCountOrUnavailable(session.incorrectAttempts)} />
             <StatCard label="إعادة الحركة" value={formatCountOrUnavailable(session.repeats)} />
             <StatCard label="إعادة العرض" value={formatCountOrUnavailable(session.replays)} />
             <StatCard label="وقفات وثبات مكتملة" value={formatCountOrUnavailable(session.holdsCompleted)} />
             <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
             <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
-          </div><p className="text-xs text-slate-500">أقصى عدد ممرّات {session.settings.maxLanes} · القدمان المسموحتان: {session.settings.feet === "both" ? "كلتاهما" : session.settings.feet === "R" ? "اليمنى" : "اليسرى"} · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية ولا درجة، والإعادة أو التخطّي ليسا إخفاقًا.</p></SectionCard>
+          </div><p className="text-xs text-slate-500">أقصى عدد ممرّات {session.settings.maxLanes} · القدمان المسموحتان: {session.settings.feet === "both" ? "كلتاهما" : session.settings.feet === "R" ? "اليمنى" : "اليسرى"} · كل الأرقام أعداد أحداث لعب أكّدها الأخصائي؛ لا توجد نتيجة سريرية ولا درجة، والإعادة أو التخطّي ليسا إخفاقًا.</p></SectionCard>
           <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} حركات · {row.assisted} بمساعدة · {row.lanes} ممرّات · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
         </>
 
@@ -624,7 +626,7 @@ function RealtimeSessionDetail({
           <SectionCard title="نتائج نبض الألوان"><div className="grid grid-cols-3 gap-3">
             <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
             <StatCard label="أهداف مؤكدة" value={formatCountOrUnavailable(session.confirmedEvents)} tone="positive" />
-            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedEvents)} />
+            <StatCard label="بمساعدة الأخصائي" value={formatCountOrUnavailable(session.assistedEvents)} />
             <StatCard label="متخطاة" value={formatCountOrUnavailable(session.skippedEvents)} />
             <StatCard label="غير مؤكدة" value={formatCountOrUnavailable(session.missedEvents)} />
             <StatCard label="إجمالي الأهداف" value={formatCountOrUnavailable(session.totalTargetEvents)} />
@@ -644,7 +646,7 @@ function RealtimeSessionDetail({
             <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
             <StatCard label="نجوم مؤكدة" value={formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} tone="positive" />
             <StatCard label="نجوم متخطاة" value={formatCountOrUnavailable(session.skippedCheckpoints)} />
-            <StatCard label="وصول بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedMoves)} />
+            <StatCard label="وصول بمساعدة الأخصائي" value={formatCountOrUnavailable(session.assistedMoves)} />
             <StatCard label="اختيارات الطريق" value={formatCountOrUnavailable(session.routeChoices)} />
             <StatCard label="طرق جانبية (أُعيد منها)" value={formatCountOrUnavailable(session.routeDetours)} />
             <StatCard label="انتظارات الحارس" value={formatCountOrUnavailable(session.guardWaitsCompleted)} />
@@ -652,7 +654,7 @@ function RealtimeSessionDetail({
             <StatCard label="تلميحات" value={formatCountOrUnavailable(session.hintsUsed)} />
             <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
             <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
-          </div><p className="text-xs text-slate-500">{session.settings.simplified ? "مسار مبسّط · " : ""}انتظار الحارس {Math.round(session.settings.guardMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
+          </div><p className="text-xs text-slate-500">{session.settings.simplified ? "مسار مبسّط · " : ""}انتظار الحارس {Math.round(session.settings.guardMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها الأخصائي؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
           <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} نجوم · {row.choices} اختيارات · {row.waitsDone} انتظارات · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
         </>
 
@@ -661,15 +663,15 @@ function RealtimeSessionDetail({
           <SectionCard title="نتائج تحدي الدوران"><div className="grid grid-cols-3 gap-3">
             <StatCard label="المراحل المكتملة" value={formatCountOrUnavailable(session.completedStageCount)} tone="positive" />
             <StatCard label="نجوم مؤكدة" value={formatCountOrUnavailable(session.confirmedCheckpoints + session.assistedCheckpoints)} tone="positive" />
-            <StatCard label="بمساعدة المعالج" value={formatCountOrUnavailable(session.assistedCheckpoints)} />
+            <StatCard label="بمساعدة الأخصائي" value={formatCountOrUnavailable(session.assistedCheckpoints)} />
             <StatCard label="نجوم متخطاة" value={formatCountOrUnavailable(session.skippedCheckpoints)} />
             <StatCard label="وقفات مكتملة" value={formatCountOrUnavailable(session.stopHoldsCompleted)} />
-            <StatCard label="خروج عن المسار (بتأكيد المعالج)" value={formatCountOrUnavailable(session.routeDeviations)} />
-            <StatCard label="لمس مخروط (بتأكيد المعالج)" value={formatCountOrUnavailable(session.coneTouches)} />
+            <StatCard label="خروج عن المسار (بتأكيد الأخصائي)" value={formatCountOrUnavailable(session.routeDeviations)} />
+            <StatCard label="لمس مخروط (بتأكيد الأخصائي)" value={formatCountOrUnavailable(session.coneTouches)} />
             <StatCard label="إعادات" value={formatCountOrUnavailable(session.repeats)} />
             <StatCard label="وقت اللعب الفعلي" value={formatDurationClock(session.activeTimeMs)} />
             <StatCard label="مدة الجلسة" value={formatDurationClock(session.durationMs)} />
-          </div><p className="text-xs text-slate-500">عدد الأقماع: {session.settings.coneCount}{session.settings.customLayout ? " · تخطيط عدّله المعالج" : ""} · وقفة التوقف {Math.round(session.settings.stopMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها المعالج؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
+          </div><p className="text-xs text-slate-500">عدد الأقماع: {session.settings.coneCount}{session.settings.customLayout ? " · تخطيط عدّله الأخصائي" : ""} · وقفة التوقف {Math.round(session.settings.stopMs / 100) / 10} ث · كل الأرقام أعداد أحداث لعب أكّدها الأخصائي؛ لا توجد نتيجة سريرية، والنجوم ليست تقييمًا.</p></SectionCard>
           <SectionCard title="تفاصيل المراحل">{session.stageResults.map((row, index) => <div key={index} className="flex justify-between gap-3 py-2 text-sm"><span>{DIFFICULTY_LABELS[row.difficulty].name} · المرحلة {row.stageNumber}</span><span>{row.confirmed + row.assisted} من {row.total} نجوم · {row.assisted} بمساعدة · {row.coneCount} أقماع · {row.status === StageStatus.COMPLETED ? "مكتملة" : "متخطاة"}</span></div>)}</SectionCard>
         </>
       ) : session.gameId === "bubble-pop-wall" &&
@@ -883,7 +885,7 @@ function RealtimeSessionDetail({
                   value={formatCountOrUnavailable(session.totalHolds)}
                 />
                 <StatCard
-                  label="مساعدات المعالج"
+                  label="مساعدات الأخصائي"
                   value={formatCountOrUnavailable(session.totalAssists)}
                 />
                 <StatCard
@@ -924,7 +926,7 @@ function RealtimeSessionDetail({
               بمساعدة · {session.skippedObjectives} أهداف متخطاة
             </p>
             <p className="text-xs text-slate-500">
-              نتائج نشاط غير سريرية. قيادة المعالج والتوجيه الآلي مسجّلان
+              نتائج نشاط غير سريرية. قيادة الأخصائي والتوجيه الآلي مسجّلان
               كمساعدة.
             </p>
             {session.stageResults.map((row) => (
@@ -941,7 +943,7 @@ function RealtimeSessionDetail({
             ))}
           </SectionCard>
         ) : session.gameId === "balance-bridge-3d" ? (
-          <SectionCard title="رحلة الجسر المتوازن"><p>{session.checkpointsConfirmed} تأكيدًا · {session.assistedCheckpoints} بمساعدة · {session.skippedCheckpoints} متخطّاة · {session.pathDeviations} خروجًا أكّده المعالج · {session.holdCompletions} وقفات ثبات</p>{session.stageResults.map(row=><p key={row.stageIndex}>المستوى {Math.floor(row.stageIndex/3)+1} · المرحلة {row.stageNumber} · {row.status} · عرض {row.config.pathWidth}</p>)}</SectionCard>
+          <SectionCard title="رحلة الجسر المتوازن"><p>{session.checkpointsConfirmed} تأكيدًا · {session.assistedCheckpoints} بمساعدة · {session.skippedCheckpoints} متخطّاة · {session.pathDeviations} خروجًا أكّده الأخصائي · {session.holdCompletions} وقفات ثبات</p>{session.stageResults.map(row=><p key={row.stageIndex}>المستوى {Math.floor(row.stageIndex/3)+1} · المرحلة {row.stageNumber} · {row.status} · عرض {row.config.pathWidth}</p>)}</SectionCard>
         ) : session.gameId === "blooming-world-3d" ? (
           <SectionCard title="حديقتك المزهرة">
             <p>
@@ -1000,7 +1002,7 @@ function RealtimeSessionDetail({
                 {
                   (
                     {
-                      MANUAL: "تحكم يدوي من المعالج",
+                      MANUAL: "تحكم يدوي من الأخصائي",
                       WHEEL: "مقود",
                       PEDAL: "دواسة",
                       WHEEL_PEDAL: "مقود ودواسة",
@@ -1106,7 +1108,7 @@ function RealtimeSessionDetail({
                   tone="positive"
                 />
                 <StatCard
-                  label="بمساعدة المعالج"
+                  label="بمساعدة الأخصائي"
                   value={formatCountOrUnavailable(session.totalAssists)}
                 />
                 <StatCard
@@ -1149,7 +1151,7 @@ function RealtimeSessionDetail({
                   tone="positive"
                 />
                 <StatCard
-                  label="بمساعدة المعالج"
+                  label="بمساعدة الأخصائي"
                   value={String(session.totalAssists)}
                 />
                 <StatCard
@@ -1166,7 +1168,7 @@ function RealtimeSessionDetail({
                 />
               </div>
               <p className="text-xs text-slate-500">
-                حركات يختارها المعالج ويؤكدها؛ لا توجد نتيجة سريرية أو تتبع
+                حركات يختارها الأخصائي ويؤكدها؛ لا توجد نتيجة سريرية أو تتبع
                 تلقائي للجسم.
               </p>
             </SectionCard>
@@ -1206,7 +1208,7 @@ function RealtimeSessionDetail({
                   tone="positive"
                 />
                 <StatCard
-                  label="بمساعدة المعالج"
+                  label="بمساعدة الأخصائي"
                   value={formatCountOrUnavailable(session.totalAssists)}
                 />
                 <StatCard

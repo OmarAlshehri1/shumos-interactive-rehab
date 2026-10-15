@@ -1,4 +1,5 @@
 'use client';
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getStaffDb } from '@/lib/realtime/firebaseClient';
@@ -42,6 +43,7 @@ export function SpacePilotSensorSource() {
     return () => { disposed = true; clearInterval(timer); stop(); channel.close(); };
   }, []);
   return <main dir="rtl" lang="ar" className="min-h-dvh bg-slate-50 p-8 text-slate-800"><section className="mx-auto max-w-2xl space-y-5 rounded-3xl bg-white p-8 shadow-sm">
+    <ControlPageNav backHref="/control/space-pilot" backLabel="قائد الفضاء" />
     <h1 className="text-2xl font-bold">حاسوب مستشعر قائد الفضاء</h1>
     <p>سجّل الدخول بحساب المعالج نفسه على الحاسوب المتصل بالمستشعر. صِل اليد اليمنى من إعداد المستشعر الحالي ثم عد إلى هذا الرابط. أبقِ هذه الشاشة مفتوحة.</p>
     <Link className="inline-block rounded-xl bg-teal-700 px-5 py-3 font-bold text-white" href="/control/sensor-setup-prototype">إعداد المستشعر</Link>

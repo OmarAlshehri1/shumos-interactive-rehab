@@ -6,7 +6,6 @@ import { getSessionHistoryRecord } from "@/lib/sessions/sessionHistoryRepository
 import type { AnyStoredSession } from "@/lib/sessions/types";
 import {
   ASSISTANCE_LABELS,
-  blankEvaluation,
   finishVisit,
   formatClock,
   pauseVisit,
@@ -215,7 +214,7 @@ export function VisitWorkspace() {
             </header>
             {!writable && (
               <p className={styles.error}>
-                الجلسة للقراءة فقط: افتحها في تبويب المعالج الذي بدأها وتحقق من
+                الجلسة للقراءة فقط: افتحها في تبويب الأخصائي الذي بدأها وتحقق من
                 الاتصال.
               </p>
             )}
@@ -283,38 +282,8 @@ export function VisitWorkspace() {
                       </button>
                     </div>
                     <p className={styles.muted}>
-                      الاستراحة توقف توقيت الزيارة فقط بعد إيقاف اللعبة مؤقتًا
-                      من أدواتها. استئناف الزيارة لا يستأنف اللعبة تلقائيًا.
+                      أوقف اللعبة مؤقتًا قبل الاستراحة. استئناف التوقيت لا يستأنف اللعبة.
                     </p>
-                    <ExerciseForm
-                      disabled={
-                        !writable || busy || !visitGamePaused(safety.live)
-                      }
-                      uid={visit.ownerUid}
-                      onSave={async (block) => {
-                        try {
-                          await change((v) => ({
-                            ...v,
-                            entries: {
-                              ...v.entries,
-                              [crypto.randomUUID()]: {
-                                ...block,
-                                recordedAt: now,
-                                evaluation: {
-                                  ...block.evaluation,
-                                  updatedAt: now,
-                                },
-                              },
-                            },
-                          }));
-                        } catch (e) {
-                          setMessage(
-                            e instanceof Error ? e.message : "تعذّر الحفظ",
-                          );
-                          throw e;
-                        }
-                      }}
-                    />
                   </>
                 )}
                 <VisitTimeline visit={visit} onEvaluate={setEvaluation} />
@@ -371,7 +340,7 @@ export function VisitSummary({ visit, now }: { visit: Visit; now: number }) {
           {visit.childName} · {visit.title}
         </strong>
         <br />
-        المعالج: {visit.therapistName}
+        الأخصائي: {visit.therapistName}
       </p>
       <div className={styles.stats}>
         <div>
@@ -399,7 +368,7 @@ export function VisitSummary({ visit, now }: { visit: Visit; now: number }) {
       )}
       {visit.overallRating !== null && (
         <p className={styles.muted}>
-          تقييم المعالج العام: {visit.overallRating}/5 · تقدير مهني غير مقنن.
+          تقييم الأخصائي العام: {visit.overallRating}/5 · تقدير مهني غير مقنن.
         </p>
       )}
     </>
@@ -444,7 +413,7 @@ export function VisitTimeline({
               {e.kind === "exercise" && (
                 <p>
                   {e.goal} · {e.repetitions} تكرار · ثبات {e.holdSeconds} ثانية
-                  · {e.confirmed ? "تأكيد المعالج" : "لم يُؤكّد"}
+                  · {e.confirmed ? "تأكيد الأخصائي" : "لم يُؤكّد"}
                 </p>
               )}
               <p className={styles.muted}>
@@ -497,7 +466,7 @@ function Rating({
   onChange: (v: number | null) => void;
 }) {
   return (
-    <div className={styles.rating} aria-label="تقييم المعالج من صفر إلى خمسة">
+    <div className={styles.rating} aria-label="تقييم الأخصائي من صفر إلى خمسة">
       <button
         type="button"
         aria-pressed={value === null}
@@ -528,9 +497,7 @@ function EvaluationFields({
   return (
     <>
       <p className={styles.muted}>
-        تقييم المعالج تقدير مهني غير مقنن، منفصل عن نجوم اللعبة: ٠ = لم ينجز
-        الهدف، ٥ = أنجز الهدف المحدد بإتقان وفق تقدير المعالج. سجّل المساعدة
-        بشكل مستقل، أو اترك النشاط بلا تقييم.
+        تقييم الأخصائي: ٠ لم ينجز الهدف، ٥ أتقنه. منفصل عن نجوم اللعبة.
       </p>
       <Rating
         value={value.rating}
@@ -572,7 +539,7 @@ function EvaluationFields({
           </select>
         </label>
         <label className={`${styles.field} ${styles.wide}`}>
-          ملاحظات المعالج
+          ملاحظات الأخصائي
           <textarea
             maxLength={2000}
             value={value.notes}
@@ -617,7 +584,7 @@ export function ActivityEvaluation({
       {entry.kind === "exercise" ? (
         <p className={styles.note}>
           {entry.goal} · {entry.repetitions} تكرار · ثبات {entry.holdSeconds}{" "}
-          ثانية · {entry.confirmed ? "مؤكد من المعالج" : "غير مؤكد"}
+          ثانية · {entry.confirmed ? "مؤكد من الأخصائي" : "غير مؤكد"}
         </p>
       ) : result ? (
         <div className={styles.entry}>
@@ -680,124 +647,6 @@ export function ActivityEvaluation({
     </>
   );
 }
-function ExerciseForm({
-  disabled,
-  uid,
-  onSave,
-}: {
-  disabled: boolean;
-  uid: string;
-  onSave: (e: ExerciseBlock) => Promise<void>;
-}) {
-  const [title, setTitle] = useState("توازن الوقوف"),
-    [goal, setGoal] = useState(""),
-    [reps, setReps] = useState(0),
-    [hold, setHold] = useState(0),
-    [confirmed, setConfirmed] = useState(false),
-    [evaluation, setEvaluation] = useState(() =>
-      blankEvaluation(uid, Date.now()),
-    );
-  return (
-    <details className={styles.entry}>
-      <summary className="cursor-pointer font-bold">
-        إضافة تمرين بين الألعاب
-      </summary>
-      <p className={styles.muted}>
-        سجّل النتيجة بالملاحظة وتأكيد المعالج. الحساسات لا تؤكد الضغط أو حمل
-        الوزن. أوقف اللعبة مؤقتًا قبل التمرين.
-      </p>
-      <fieldset disabled={disabled} className="grid gap-3">
-        <div className={styles.fields}>
-          <label className={styles.field}>
-            التمرين
-            <input
-              maxLength={100}
-              list="exercise-titles"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <datalist id="exercise-titles">
-              {[
-                "توازن الوقوف",
-                "الجلوس والوقوف",
-                "رفع الكعبين",
-                "وضع القدم",
-                "تجاوز العوائق",
-                "الوصول باليد",
-              ].map((t) => (
-                <option key={t} value={t} />
-              ))}
-            </datalist>
-          </label>
-          <label className={styles.field}>
-            الهدف
-            <input
-              maxLength={500}
-              value={goal}
-              onChange={(e) => setGoal(e.target.value)}
-            />
-          </label>
-          <label className={styles.field}>
-            عدد التكرارات
-            <input
-              type="number"
-              min="0"
-              max="10000"
-              value={reps}
-              onChange={(e) => setReps(Number(e.target.value))}
-            />
-          </label>
-          <label className={styles.field}>
-            الثبات بالثواني
-            <input
-              type="number"
-              min="0"
-              max="10000"
-              value={hold}
-              onChange={(e) => setHold(Number(e.target.value))}
-            />
-          </label>
-        </div>
-        <EvaluationFields value={evaluation} onChange={setEvaluation} />
-        <label className={styles.note}>
-          <input
-            type="checkbox"
-            checked={confirmed}
-            onChange={(e) => setConfirmed(e.target.checked)}
-          />{" "}
-          أؤكد نتيجة التمرين بالملاحظة المباشرة
-        </label>
-        <button
-          className={styles.button}
-          disabled={!confirmed || !title.trim()}
-          onClick={() =>
-            void onSave({
-              kind: "exercise",
-              title: title.trim(),
-              goal: goal.trim(),
-              repetitions: reps,
-              holdSeconds: hold,
-              confirmed,
-              recordedAt: Date.now(),
-              evaluation: {
-                ...evaluation,
-                updatedAt: Date.now(),
-                updatedByUid: uid,
-              },
-            })
-              .then(() => {
-                setGoal("");
-                setConfirmed(false);
-              })
-              .catch(() => {})
-          }
-        >
-          حفظ التمرين
-        </button>
-      </fieldset>
-    </details>
-  );
-}
 function FinishForm({
   visit,
   disabled,
@@ -820,7 +669,7 @@ function FinishForm({
         />
       </label>
       <p className={styles.muted}>
-        تقييم عام اختياري؛ تقدير المعالج غير المقنن.
+        تقييم عام اختياري؛ تقدير الأخصائي غير المقنن.
       </p>
       <Rating value={rating} onChange={setRating} />
       <p className={styles.muted}>

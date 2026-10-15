@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { ControlNav } from "@/components/control/nav/ControlNav";
 import {
   defaultProjection,
@@ -69,6 +70,7 @@ export function ProjectionCalibrationScreen() {
   return (
     <main dir="rtl" lang="ar" className={styles.page}>
       <div className={styles.content}>
+        <ControlPageNav backHref="/control" backLabel="الرئيسية" />
         <ControlNav active="home" />
         <header className={styles.header}>
           <h1>معايرة الإسقاط</h1>
@@ -207,7 +209,7 @@ export function ProjectionCalibrationScreen() {
           <ProjectionGrid profile={profile} />
           <p className={styles.muted}>
             {profile.surface === "FLOOR"
-              ? "قِس عرض وطول المنطقة على الأرض، وحدد حدودًا خالية من العوائق وتحت إشراف المعالج."
+              ? "قِس عرض وطول المنطقة على الأرض، وحدد حدودًا خالية من العوائق وتحت إشراف الأخصائي."
               : "حاذِ حدود الشاشة مع الجدار، وقِس العرض والارتفاع وحدد منطقة وصول مناسبة للطفل."}{" "}
             اضبط التركيز وتصحيح الانحراف من جهاز الإسقاط نفسه. الأبعاد هنا
             إرشادية ولا تضمن دقة السنتيمتر.

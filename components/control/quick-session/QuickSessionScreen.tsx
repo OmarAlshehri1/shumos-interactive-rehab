@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
+import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { GameCard } from "@/components/control/library/GameCard";
 import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 import { ControlNav } from "@/components/control/nav/ControlNav";
@@ -21,9 +20,9 @@ export function QuickSessionScreen() {
     <main dir="rtl" lang="ar" className="fixed inset-0 h-dvh w-dvw overflow-y-auto bg-slate-50 text-slate-900" style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}>
       <ResetLiveDisplayOnMount />
       <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
+        <ControlPageNav backHref="/control" backLabel="الرئيسية" />
         <ControlNav active="home" />
         <header className="flex flex-col items-center gap-2 text-center">
-          <ShumosBrandMark compact />
           <h1 className="text-3xl font-bold">جلسة سريعة</h1>
           <p className="text-sm text-slate-500">بدون إنشاء ملف مريض دائم</p>
         </header>
@@ -56,7 +55,6 @@ export function QuickSessionScreen() {
             </div>
           </section>
         )}
-        <Link href="/control" className="mx-auto min-h-11 rounded-full px-5 py-3 text-sm font-bold text-slate-500">رجوع</Link>
       </div>
     </main>
   );

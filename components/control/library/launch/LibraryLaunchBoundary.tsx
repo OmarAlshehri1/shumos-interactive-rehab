@@ -152,7 +152,7 @@ function LaunchPanel({
       const current = adapter?.id === game?.id ? adapter?.get() : null;
       if (!current?.modes.includes(mode)) {
         setMessage(
-          "هذا المحوّل غير متاح في النشاط الحالي. استخدم تحكم المعالج اليدوي داخل النشاط.",
+          "هذا المحوّل غير متاح. استخدم التحكم اليدوي.",
         );
         return;
       }
@@ -176,7 +176,7 @@ function LaunchPanel({
         )
       ) {
         setMessage(
-          "يلزم اتصال اليد المحددة ومعايرتها وإشارة حديثة. لا تُفعّل أجهزة أخرى تلقائيًا. التحكم اليدوي متاح.",
+          "اربط اليد المحددة وعايرها، أو استخدم التحكم اليدوي.",
         );
         return;
       }
@@ -225,7 +225,6 @@ function LaunchPanel({
               ×
             </button>
           </header>
-          <p>اختر وسيلة مشاركة متاحة. التحكم اليدوي متاح دائمًا.</p>
           <div className={styles.modes}>
             {modes.map((mode) => (
               <button
@@ -280,9 +279,7 @@ function LaunchPanel({
             ))}
           </fieldset>
           {surface.length === 2 && <p>اختر سطح العرض قبل البدء.</p>}
-          <p role="status" aria-live="polite">
-            {message || "تحكم المعالج اليدوي متاح داخل النشاط."}
-          </p>
+          {message && <p role="status" aria-live="polite">{message}</p>}
         </section>
       )}
     </div>
