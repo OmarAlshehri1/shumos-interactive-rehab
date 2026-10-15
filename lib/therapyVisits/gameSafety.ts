@@ -85,11 +85,27 @@ export function ownedByTab(record: LiveSessionRecord, tab: string): boolean {
 
 /** Never discard active/recovered progress. Only explicit native ready state is a setup preview. */
 export function isUnstartedActivity(record: LiveSessionRecord | null): boolean {
-  if (!record || record.session.gameState !== "START_ZONE") return false;
+  if (!record) return false;
   const session = record.session as unknown as Record<string, unknown>;
   const object = (v: unknown): v is Record<string, unknown> =>
     !!v && typeof v === "object" && !Array.isArray(v);
   try {
+    // Original shared sessions have no native engine envelope. Their setup
+    // lifecycle and runtime counters are the evidence, not the mere existence
+    // of a liveSession record (which is published before Play).
+    if (session.engine === undefined) {
+      if (!record.gameId || !["balloon-quest", "follow-the-footsteps", "bubble-pop-wall", "space-pilot", "color-chase"].includes(record.gameId)) return false;
+      if (!["WELCOME", "SETUP", "START_ZONE"].includes(String(session.gameState))) return false;
+      if (!Array.isArray(session.results) || session.results.length || session.summary || session.endedAt) return false;
+      if (!object(session.currentStage)) return false;
+      const stage = session.currentStage;
+      if (stage.startedAt || stage.completedAt || stage.pausedAt) return false;
+      for (const key of ["correctCount", "incorrectCount", "collectedCount", "currentStarIndex", "currentIndex", "currentTargetIndex", "totalPausedMs", "elapsedMs"])
+        if (typeof stage[key] === "number" && stage[key] !== 0) return false;
+      if (Array.isArray(stage.reactionTimesMs) && stage.reactionTimesMs.length) return false;
+      return true;
+    }
+    if (session.gameState !== "START_ZONE") return false;
     if (typeof session.engine !== "string") return false;
     const meta = session[session.engine];
     if (!object(meta)) return false;
@@ -199,4 +215,11 @@ export function isUnstartedActivity(record: LiveSessionRecord | null): boolean {
   } catch {
     return false;
   }
+}
+
+/** Native sessions are window-scoped; older shared previews only stamp staff ownership. */
+export function ownsUnstartedActivity(record: LiveSessionRecord, tab: string, uid: string): boolean {
+  return isUnstartedActivity(record) && (ownedByTab(record, tab) ||
+    (!(record.session as unknown as { engine?: string }).engine &&
+      (record as unknown as { controllerUid?: string }).controllerUid === uid));
 }

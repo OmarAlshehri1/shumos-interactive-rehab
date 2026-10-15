@@ -5,7 +5,9 @@ import {
   visitGamePaused,
   ownedByTab,
   isUnstartedActivity,
+  ownsUnstartedActivity,
 } from "../gameSafety";
+import { createSession, Difficulty, TargetSize, TargetSpacing, PlayArea } from "@/lib/game";
 import type { LiveSessionRecord } from "@/lib/realtime/types";
 import type { AnyStoredSession } from "@/lib/sessions/types";
 const live = (
@@ -102,6 +104,19 @@ describe("game history switching safety", () => {
 });
 
 describe("pre-start navigation", () => {
+  it("allows actual original shared setup without treating generated targets as played results", () => {
+    const session = createSession({ childFirstName: "Synthetic", difficulty: Difficulty.EASY, targetSize: TargetSize.MEDIUM, targetSpacing: TargetSpacing.MEDIUM, playArea: PlayArea.FULL, seed: "setup" });
+    const record = { gameId: "balloon-quest", controllerUid: "staff", session } as unknown as LiveSessionRecord;
+    expect(isUnstartedActivity(record)).toBe(true);
+    expect(ownsUnstartedActivity(record, "tab", "staff")).toBe(true);
+    expect(ownsUnstartedActivity(record, "tab", "other-staff")).toBe(false);
+    for (const gameState of ["SETUP", "START_ZONE"])
+      expect(isUnstartedActivity({ ...record, session: { ...session, gameState } } as LiveSessionRecord)).toBe(true);
+    for (const patch of [{ startedAt: 1 }, { correctCount: 1 }, { currentIndex: 1 }, { currentTargetIndex: 1 }])
+      expect(isUnstartedActivity({ ...record, session: { ...session, currentStage: { ...session.currentStage, ...patch } } } as LiveSessionRecord)).toBe(false);
+    for (const gameState of ["INSTRUCTIONS", "COUNTDOWN", "PLAYING", "SESSION_COMPLETE"])
+      expect(isUnstartedActivity({ ...record, session: { ...session, gameState } } as LiveSessionRecord)).toBe(false);
+  });
   const ready = (engine = "bb3", extra = {}) =>
     ({
       ...live(engine, 0, "START_ZONE"),

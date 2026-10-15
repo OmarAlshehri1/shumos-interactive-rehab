@@ -9,7 +9,8 @@ import { getDisplayDb, getStaffDb, getDisplayFirebaseApp, getStaffFirebaseApp } 
 import { signInStaff, signOutStaff, getStaffIdToken } from '../staffAuthClient';
 import { subscribeToAuthState, type AuthState } from '../authClient';
 import { claimControllerLease, publishSession, subscribeToLiveSession } from '../sessionRepository';
-import { createSession, Difficulty, TargetSize, TargetSpacing, PlayArea } from '@/lib/game';
+import { createSession, Difficulty, TargetSize, TargetSpacing, PlayArea, GameState } from '@/lib/game';
+import { prepareVideoDisplay } from '@/lib/youtube/repository';
 import { authorizeTts, reserveTtsQuota } from '@/lib/audio/ttsAccess.server';
 import { POST } from '@/app/api/tts/route';
 
@@ -84,6 +85,17 @@ describe.skipIf(process.env.DISPLAY_SECURITY_EMULATOR !== '1')('Display and paid
     expect((await fetch(url('liveSession', outsider.token))).status).toBe(401);
     await expect(authorizeTts(`Bearer ${outsider.token}`)).rejects.toMatchObject({ status: 403 });
     expect(await put('liveSession', live(other.uid, 10), staffToken)).toBe(401);
+  });
+  it('transitions a real shared setup to video while preserving started gameplay', async () => {
+    const db = getStaffDb();
+    const session = createSession({ childFirstName: 'Synthetic', difficulty: Difficulty.EASY, targetSize: TargetSize.MEDIUM, targetSpacing: TargetSpacing.MEDIUM, playArea: PlayArea.FULL, seed: 'setup-video' });
+    await publishSession(db, { gameId: 'balloon-quest', sessionId: session.sessionId, revision: 11, session, lastInteraction: null, patientId: null });
+    await prepareVideoDisplay(db, therapist.uid, 'synthetic-tab');
+    expect((await get(ref(db, 'liveSession'))).exists()).toBe(false);
+    const playing = { ...session, gameState: GameState.PLAYING };
+    await publishSession(db, { gameId: 'balloon-quest', sessionId: session.sessionId, revision: 12, session: playing, lastInteraction: null, patientId: null });
+    await expect(prepareVideoDisplay(db, therapist.uid, 'synthetic-tab')).rejects.toThrow('أكمل النشاط');
+    expect((await get(ref(getDisplayDb(), 'liveSession'))).val().revision).toBe(12);
   });
   it('fails closed after ownership handoff even before the next therapist publishes a replacement', async () => {
     let visible: unknown = 'pending';

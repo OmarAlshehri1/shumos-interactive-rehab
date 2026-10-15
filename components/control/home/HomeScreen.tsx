@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import {
   formatPatientCountLabel,
@@ -60,6 +61,7 @@ export function HomeScreen() {
 function QuickStartSection() {
   const patient = usePatientContext();
   const { visit } = useVisit();
+  const [quickError, setQuickError] = useState(false);
   return (
     <section className="flex flex-col gap-3 rounded-3xl border border-teal-100 bg-teal-50/50 p-5 shadow-sm shadow-slate-900/5">
       <h2 className="text-center text-lg font-bold text-slate-900">
@@ -76,23 +78,25 @@ function QuickStartSection() {
           </span>
         </Link>
         <Link
-          href="/control/activities"
+          href="/control/quick-session"
           onClick={(event) => {
             if (visit && !visit.endedAt) {
               event.preventDefault();
+              setQuickError(true);
               return;
             }
-            patient.selectWalkIn("صديقي");
+            patient.clearPatient();
           }}
           aria-disabled={!!visit && !visit.endedAt}
           className="flex min-h-16 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl border-2 border-slate-200 bg-white px-4 text-center text-slate-700 transition-all active:scale-[0.98] active:bg-slate-50"
         >
           <span className="text-base font-bold">جلسة سريعة</span>
           <span className="text-xs text-slate-400">
-            بدون تسجيل أو بيانات · إلى مكتبة الأنشطة مباشرة
+            بدون ملف مريض · اختر الاسم والنشاط
           </span>
         </Link>
       </div>
+      {quickError && <p role="status" className="text-sm text-amber-800">أنهِ الجلسة العلاجية الحالية من شريط الجلسة قبل بدء جلسة سريعة.</p>}
     </section>
   );
 }

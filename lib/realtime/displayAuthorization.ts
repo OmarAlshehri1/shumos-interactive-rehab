@@ -37,6 +37,7 @@ export function watchDisplayAuthorization(uid: string, callback: (authorized: bo
 
 function startAuthorization(uid: string, callback: (authorized: boolean) => void): () => void {
   let stopped = false, staffUid: string | null = null, busy = false;
+  let serverOffset = 0;
   let stopScope = () => {};
   let stopRead = () => {}, expiry: ReturnType<typeof setTimeout> | undefined;
   const displayRef = ref(getDisplayDb(), `${DISPLAY_ACCESS_PATH}/${uid}`);
@@ -46,7 +47,7 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
     stopRead = onValue(displayRef, snapshot => {
       clearTimeout(expiry);
       const approval = snapshot.val() as Approval | null;
-      const remaining = approval ? approval.expiresAt - Date.now() : 0;
+      const remaining = approval ? approval.expiresAt - (Date.now() + serverOffset) : 0;
       report(remaining > 0);
       if (remaining > 0) expiry = setTimeout(() => report(false), remaining);
     }, () => { clearTimeout(expiry); report(false); });
@@ -58,10 +59,27 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
     busy = true;
     const owner = staffUid;
     try {
+      // Rules use server time. A fast device clock otherwise makes a nominal
+      // 30-minute grant exceed the rules' 30-minute maximum and denies Display.
+      // .info is a client-maintained subscription, not a server data path for get().
+      // Wait for the handshake: the offset cache starts at zero on a new window.
+      await new Promise<void>((resolve, reject) => {
+        const stop = onValue(ref(getStaffDb(), ".info/connected"), snapshot => {
+          if (snapshot.val() !== true) return;
+          queueMicrotask(() => stop());
+          resolve();
+        }, reject);
+      });
+      const offset = await new Promise<unknown>((resolve, reject) => {
+        onValue(ref(getStaffDb(), ".info/serverTimeOffset"), snapshot => resolve(snapshot.val()), reject, { onlyOnce: true });
+      });
+      if (typeof offset !== "number" || !Number.isFinite(offset)) throw Error("Server time unavailable");
+      serverOffset = offset;
+      if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
       // This write is checked by rules for active staff. No sign-in, credentials,
       // launch secrets, or pairing UI: reuse the therapist's persisted Firebase login.
       const approvalWrite = set(ref(getStaffDb(), `${DISPLAY_ACCESS_PATH}/${uid}`), {
-        approvedBy: owner, issuedAt: serverTimestamp(), expiresAt: Date.now() + DISPLAY_ACCESS_TTL_MS,
+        approvedBy: owner, issuedAt: serverTimestamp(), expiresAt: Date.now() + serverOffset + DISPLAY_ACCESS_TTL_MS - 5000,
       });
       pendingApprovals.add(approvalWrite);
       try { await approvalWrite; } finally { pendingApprovals.delete(approvalWrite); }

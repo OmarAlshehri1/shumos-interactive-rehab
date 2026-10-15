@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { isUnstartedActivity, ownedByTab } from "@/lib/therapyVisits/gameSafety";
+import { ownsUnstartedActivity } from "@/lib/therapyVisits/gameSafety";
 import { validProjectionPreview, type ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
 import { reportPublishIntent } from './publishIntent';
@@ -676,7 +676,8 @@ export async function discardUnstartedPreview(db: Database, sessionId: string, t
   await get(ref(db, LIVE_SESSION_PATH)); // Prime the transaction cache; an empty local cache must not abort a valid cleanup.
   const result = await runTransaction(ref(db, LIVE_SESSION_PATH), raw => {
     const record = parseLiveSessionValue(raw);
-    if (!record || record.sessionId !== sessionId || !isUnstartedActivity(record) || !ownedByTab(record, tabId)) return;
+    const uid = getAuth(db.app).currentUser?.uid;
+    if (!record || record.sessionId !== sessionId || !uid || !ownsUnstartedActivity(record, tabId, uid)) return;
     return null;
   }, { applyLocally: false });
   if (!result.committed) return false;

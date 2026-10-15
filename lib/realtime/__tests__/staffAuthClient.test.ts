@@ -25,6 +25,7 @@ const signOutMock = vi.fn((..._args: unknown[]) => Promise.resolve());
 
 vi.mock("firebase/auth", () => ({
   getAuth: (...args: unknown[]) => getAuthMock(...args),
+  initializeAuth: (...args: unknown[]) => getAuthMock(...args),
   onAuthStateChanged: (auth: unknown, next: StateCallback, error?: ErrorCallback) => onAuthStateChangedMock(auth, next, error),
   connectAuthEmulator: (...args: unknown[]) => connectAuthEmulatorMock(...args),
   setPersistence: (...args: unknown[]) => setPersistenceMock(...args),
@@ -61,6 +62,7 @@ describe("staffAuthClient", () => {
     subscribeToStaffAuthState((state) => states.push(state.status));
 
     expect(states[0]).toBe("initializing");
+    expect(getAuthMock).toHaveBeenCalledWith({ __fakeApp: true }, { persistence: "LOCAL" });
   });
 
   it("reports 'authenticated' with uid + email once a user is present", async () => {

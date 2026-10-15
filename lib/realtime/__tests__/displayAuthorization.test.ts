@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { StaffAuthState } from '../staffAuthClient';
 const mocks = vi.hoisted(() => ({
   set: vi.fn(async () => {}), remove: vi.fn(async () => {}), update: vi.fn(async () => {}),
-  get: vi.fn(), staff: vi.fn(), value: vi.fn(),
+  get: vi.fn(), staff: vi.fn(), value: vi.fn(), offset: 0,
 }));
 vi.mock('firebase/database', () => ({
   ref: (db: string, path: string) => ({ db, path }),
@@ -19,8 +19,9 @@ describe('Silent authorization using the existing staff session', () => {
   beforeEach(() => {
     vi.useFakeTimers(); vi.resetModules(); vi.clearAllMocks();
     mocks.set.mockResolvedValue(undefined); mocks.remove.mockResolvedValue(undefined);
+    mocks.offset = 0;
     mocks.staff.mockImplementation((callback: typeof staffChanged) => { staffChanged = callback; return vi.fn(); });
-    mocks.value.mockImplementation((ref, callback) => { if (ref.db === "display") approve = value => callback({ val: () => value }); return vi.fn(); });
+    mocks.value.mockImplementation((ref, callback) => { if (ref.path === '.info/connected') callback({ val: () => true }); else if (ref.path === '.info/serverTimeOffset') callback({ val: () => mocks.offset }); else if (ref.db === "display") approve = value => callback({ val: () => value }); return vi.fn(); });
   });
   afterEach(() => { stops.splice(0).forEach(stop => stop()); vi.useRealTimers(); });
   const signedIn = { status: 'authenticated', uid: 'therapist', email: 'synthetic@example.test', displayName: null } as StaffAuthState;
@@ -50,6 +51,15 @@ describe('Silent authorization using the existing staff session', () => {
     await vi.advanceTimersByTimeAsync(DISPLAY_ACCESS_REFRESH_MS);
     expect(mocks.set).toHaveBeenCalledTimes(2);
     expect(mocks.set).toHaveBeenLastCalledWith({ db: 'staff', path: 'presence/displayAccess/display-uid' }, expect.objectContaining({ approvedBy: 'therapist' }));
+  });
+  it('uses server time for expiry when the Display device clock is fast', async () => {
+    mocks.offset = -120000;
+    const { watchDisplayAuthorization, DISPLAY_ACCESS_TTL_MS } = await import('../displayAuthorization');
+    stops.push(watchDisplayAuthorization('display-uid', vi.fn()));
+    staffChanged(signedIn); await vi.advanceTimersByTimeAsync(0);
+    expect(mocks.set).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({
+      expiresAt: Date.now() - 120000 + DISPLAY_ACCESS_TTL_MS - 5000,
+    }));
   });
   it('revokes only the signing-out therapist’s approvals and stops renewing them', async () => {
     const { watchDisplayAuthorization, revokeDisplaysForStaff, DISPLAY_ACCESS_REFRESH_MS } = await import('../displayAuthorization');

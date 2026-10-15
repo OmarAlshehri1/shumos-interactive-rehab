@@ -16,7 +16,7 @@ import {
 import {
   confirmedLiveResult,
   historyKeyForLive,
-  isUnstartedActivity,
+  ownsUnstartedActivity,
   ownedByTab,
 } from "@/lib/therapyVisits/gameSafety";
 import {
@@ -81,7 +81,7 @@ export async function prepareVideoDisplay(
   try {
   const live = await fetchLiveSession(db);
   if (live) {
-    if (isUnstartedActivity(live) && ownedByTab(live, tab))
+    if (ownsUnstartedActivity(live, tab, uid))
       await discardUnstartedPreview(db, live.sessionId, tab);
     else {
       const key = historyKeyForLive(live);

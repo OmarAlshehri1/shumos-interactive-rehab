@@ -2,7 +2,7 @@ import {
   type Auth,
   browserLocalPersistence,
   connectAuthEmulator,
-  getAuth,
+  initializeAuth,
   onAuthStateChanged,
   setPersistence,
   signInWithEmailAndPassword,
@@ -62,7 +62,10 @@ let persistenceReady: Promise<void> | null = null;
 
 function getStaffAuthInstance(): Auth {
   if (!auth) {
-    auth = getAuth(getStaffFirebaseApp());
+    // Every window must choose the SAME persistence before Auth initializes.
+    // getAuth() defaults to IndexedDB; a Display tab would migrate the staff
+    // login out of localStorage and its removal event signed Control out.
+    auth = initializeAuth(getStaffFirebaseApp(), { persistence: browserLocalPersistence });
   }
   const emulator = getEmulatorConfig();
   if (emulator && !authEmulatorConnected) {
