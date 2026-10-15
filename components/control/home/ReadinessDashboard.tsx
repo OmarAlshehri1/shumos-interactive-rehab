@@ -98,17 +98,15 @@ export function ReadinessDashboard() {
   const fresh = connected && freshDisplay(presence, now),
     audio = fresh && displayAudioReady(presence, now);
   const send = async () => {
-    setRequest("جاري إرسال الطلب…");
+    setRequest("جاري الإرسال…");
     try {
       await requestDisplayAudioEnable(getStaffDb(), {
         id: crypto.randomUUID(),
         requestedAt: Date.now(),
       });
-      setRequest(
-        "أُرسل اختبار الصوت. إذا بقي محجوبًا، اضغط تشغيل الصوت على شاشة العرض نفسها.",
-      );
+      setRequest("أُرسل الطلب");
     } catch {
-      setRequest("تعذّر إرسال الطلب. تحقق من الاتصال.");
+      setRequest("تعذّر الإرسال");
     }
   };
   const deviceSelect = (
@@ -116,39 +114,46 @@ export function ReadinessDashboard() {
     value: number,
     change: (n: number) => void,
     excluded = -1,
-  ) => (
-    <label className={styles.device}>
-      {label}
-      <select value={value} onChange={(e) => change(Number(e.target.value))}>
-        <option value={-1}>غير مُعيّن</option>
-        {pads
-          .filter((p) => p.index !== excluded)
-          .map((p) => (
+  ) => {
+    const available = pads.filter((p) => p.index !== excluded);
+    const linked = value >= 0 && pads.some((p) => p.index === value);
+    return (
+      <div className={styles.row}>
+        <span className={styles.name}>{label}</span>
+        <select
+          aria-label={label}
+          className={styles.select}
+          value={value}
+          onChange={(e) => change(Number(e.target.value))}
+        >
+          <option value={-1}>
+            {available.length ? "اختر جهازًا" : "اضغط زرًا على الجهاز"}
+          </option>
+          {available.map((p) => (
             <option key={p.index} value={p.index}>
               {p.id}
             </option>
           ))}
-      </select>
-      <span>
-        {value < 0
-          ? "غير مُعيّن"
-          : pads.some((p) => p.index === value)
-            ? "متصل بهذا المتصفح"
-            : "غير متصل"}
-      </span>
-    </label>
-  );
+        </select>
+        <Status
+          good={linked}
+          label={value < 0 ? "غير مُعيّن" : linked ? "متصل" : "غير متصل"}
+        />
+      </div>
+    );
+  };
+  const wheelInfo = pads.find((p) => p.index === wheelPad);
   return (
     <section className={styles.section} dir="rtl" aria-label="جاهزية النظام">
-      <header>
+      <header className={styles.sectionHeader}>
         <h2>جاهزية النظام</h2>
-        <span>التحكم اليدوي متاح دون أجهزة</span>
+        <Link href="/control/calibration">معايرة الإسقاط ←</Link>
       </header>
       <div className={styles.grid}>
         <article className={`${styles.card} ${styles.display}`}>
-          <div className={styles.heading}>
-            <span className={styles.icon}>▣</span>
-            <h3>شاشة العرض والصوت</h3>
+          <CardHeading icon="display" title="شاشة العرض والصوت" />
+          <div className={styles.row}>
+            <span className={styles.name}>الشاشة</span>
             <Status
               good={fresh}
               label={
@@ -163,171 +168,104 @@ export function ReadinessDashboard() {
                         : "غير متصلة"
               }
             />
-          </div>
-          <div className={styles.rows}>
-            <p>
-              صوت شاشة العرض{" "}
-              <strong className={audio ? styles.good : styles.wait}>
-                {audio ? "جاهز" : "يحتاج تشغيل"}
-              </strong>
-            </p>
-            <details className={styles.help}>
-              <summary>تفاصيل الإشارة</summary>
-              <p>
-                آخر اتصال مسجّل{" "}
-                <span>
-                  {typeof presence?.updatedAt === "number"
-                    ? new Date(presence.updatedAt).toLocaleTimeString("ar-SA")
-                    : "غير متاح"}
-                </span>
-              </p>
-              <p>
-                حداثة الإشارة{" "}
-                <span>
-                  {fresh
-                    ? "إشارة خلال ٤٥ ثانية"
-                    : presence?.connected
-                      ? "يلزم تحديث شاشة العرض أو استعادة الاتصال"
-                      : "بانتظار اتصال"}
-                </span>
-              </p>
-            </details>
-          </div>
-          {!audio && (
-            <details className={styles.help}>
-              <summary>تشغيل الصوت على جهاز العرض</summary>
-              <p>
-                افتح شاشة العرض على جهاز الإسقاط، ثم اضغط «تشغيل الصوت» هناك
-                للسماح بالتشغيل. صوت التحكم مستقل.
-              </p>
-            </details>
-          )}
-          <div className={styles.actions}>
-            <a href="/display" target="_blank" rel="noopener noreferrer">
-              فتح شاشة العرض ↗
+            <a
+              className={styles.primary}
+              href="/display"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InteractionIcon name="display" />
+              شاشة العرض
             </a>
-            <button disabled={!fresh} onClick={() => void send()}>
-              اختبار الصوت
+          </div>
+          <div className={styles.row}>
+            <span className={styles.name}>الصوت</span>
+            <Status good={audio} label={audio ? "جاهز" : "يحتاج تشغيل"} />
+            <button
+              type="button"
+              className={styles.secondary}
+              disabled={!fresh}
+              onClick={() => void send()}
+            >
+              <InteractionIcon name="audio" />
+              تشغيل الصوت
             </button>
           </div>
           {request && (
-            <p role="status" className={styles.help}>
+            <p role="status" className={styles.note}>
               {request}
             </p>
           )}
         </article>
         <article className={styles.card}>
-          <div className={styles.heading}>
-            <span className={styles.icon}>◌</span>
-            <h3>حساسات اليد</h3>
-          </div>
+          <CardHeading icon="hand" title="حساسات اليد" />
           <Hand
-            label="اليمنى"
+            label="اليد اليمنى"
             runtime={right}
             supported={bluetooth}
             now={sampleNow}
           />
           <Hand
-            label="اليسرى"
+            label="اليد اليسرى"
             runtime={left}
             supported={bluetooth}
             now={sampleNow}
           />
-          <details className={styles.help}>
-            <summary>معلومات الاتصال</summary>
-            <p>
-              الاتصال بهذا الجهاز. للعتاد المتصل بحاسوب العرض لا يوجد هنا مرحّل
-              Bluetooth بعيد.
-            </p>
-          </details>
         </article>
         <article className={styles.card}>
-          <div className={styles.heading}>
-            <span className={styles.icon}>⌁</span>
-            <h3>حساسات القدم</h3>
+          <CardHeading icon="foot" title="حساسات القدم" />
+          {/* No shared foot-sensor adapter exists yet, so there is nothing to pair: status only, no fake connect button. */}
+          <div className={styles.row}>
+            <span className={styles.name}>القدم اليمنى</span>
+            <Status good={false} label="غير مُهيّأة" />
           </div>
-          <div className={styles.rows}>
-            <p>
-              القدم اليمنى <span>غير مُهيّأة</span>
-            </p>
-            <p>
-              القدم اليسرى <span>غير مُهيّأة</span>
-            </p>
-            <p>
-              المعايرة <span>غير متاحة في لوحة النظام</span>
-            </p>
+          <div className={styles.row}>
+            <span className={styles.name}>القدم اليسرى</span>
+            <Status good={false} label="غير مُهيّأة" />
           </div>
-          <div className={styles.actions}>
-            <Link href="/control/activities?filter=FOOT">أنشطة القدم</Link>
-            <Link href="/control/calibration">معايرة الإسقاط</Link>
-          </div>
-          <details className={styles.help}>
-            <summary>معلومات الاتصال</summary>
-            <p>
-              لا يوجد محوّل أقدام مشترك مُثبت هنا. قد تعرض الألعاب محاكاة أو
-              تلميحات حركة؛ ليست إثباتًا ماديًا.
-            </p>
-          </details>
         </article>
-        <article className={styles.card}>
-          <div className={styles.heading}>
-            <span className={styles.icon}>
-              <InteractionIcon name="controller" />
-            </span>
-            <h3>أجهزة التحكم المحمولة</h3>
-          </div>
+        <article className={`${styles.card} ${styles.wide}`}>
+          <CardHeading icon="controller" title="أجهزة التحكم" />
           {gamepad === false ? (
-            <p className={styles.help}>Gamepad غير مدعوم في هذا المتصفح.</p>
+            <p className={styles.note}>Gamepad غير مدعوم في هذا المتصفح.</p>
           ) : (
             <>
               {deviceSelect("اليمين", rightPad, setRightPad, leftPad)}
               {deviceSelect("اليسار", leftPad, setLeftPad, rightPad)}
             </>
           )}
-          <details className={styles.help}>
-            <summary>معلومات الاتصال</summary>
-            <p>
-              اضغط زرًا على الجهاز لظهوره. التعيين للتعرّف المحلي فقط؛ دعم
-              Joy-Con الكامل غير مُتحقق.
-            </p>
-          </details>
         </article>
-        <article className={styles.card}>
-          <div className={styles.heading}>
-            <span className={styles.icon}>
-              <InteractionIcon name="wheel" />
-            </span>
-            <h3>المقود والدواسات</h3>
-          </div>
-          {deviceSelect("الجهاز المحلي", wheelPad, setWheelPad)}
-          <details className={styles.help}>
-            <summary>تفاصيل المقود والدواسات</summary>
-            <p>
-              {pads.find((p) => p.index === wheelPad)
-                ? `${pads.find((p) => p.index === wheelPad)!.axes} محاور · ${pads.find((p) => p.index === wheelPad)!.buttons} أزرار متاحة. تُعيّن محاور المقود والدواسات وتُعاير داخل اللعبة.`
-                : "لم يُعيّن جهاز. لا يمكن استنتاج اتصال الدواسات من اسم Gamepad وحده."}
+        <article className={`${styles.card} ${styles.wide}`}>
+          <CardHeading icon="wheel" title="المقود والدواسات" />
+          {gamepad === false ? (
+            <p className={styles.note}>Gamepad غير مدعوم في هذا المتصفح.</p>
+          ) : (
+            deviceSelect("الجهاز", wheelPad, setWheelPad)
+          )}
+          {wheelInfo && (
+            <p className={styles.note}>
+              {wheelInfo.axes} محاور · {wheelInfo.buttons} أزرار
             </p>
-          </details>
-          <Link
-            className={styles.link}
-            href="/control/activities?input=DRIVING"
-          >
-            أنشطة المقود والدواسات ←
-          </Link>
+          )}
         </article>
       </div>
-      <footer className={styles.footer}>
-        <span>
-          الحالة حسب الإشارات المتاحة؛ الأجهزة الظاهرة تخص هذا المتصفح.
-        </span>
-        <Link href="/control/calibration">معايرة الإسقاط ←</Link>
-      </footer>
     </section>
+  );
+}
+function CardHeading({ icon, title }: { icon: string; title: string }) {
+  return (
+    <div className={styles.heading}>
+      <span className={styles.icon}>
+        <InteractionIcon name={icon} />
+      </span>
+      <h3>{title}</h3>
+    </div>
   );
 }
 function Status({ good, label }: { good: boolean; label: string }) {
   return (
     <span className={`${styles.status} ${good ? styles.good : styles.wait}`}>
+      <i aria-hidden="true" />
       {label}
     </span>
   );
@@ -354,29 +292,23 @@ function Hand({
         ? "جاري الاتصال"
         : !runtime.connected
           ? "غير متصل"
-          : fresh
-            ? "متصل"
-            : "متصل · قراءة قديمة";
+          : !fresh
+            ? "قراءة قديمة"
+            : runtime.centered
+              ? "متصل"
+              : "يحتاج مركزًا";
   return (
-    <div className={styles.hand}>
-      <div>
-        <strong>اليد {label}</strong>
-        <Status good={fresh} label={state} />
-        <details className={styles.help}>
-          <summary>المعايرة وحداثة القراءة</summary>
-          <span>
-            {runtime.centered ? "تم تحديد المركز" : "تحتاج تحديد المركز"} ·{" "}
-            {fresh ? "قراءة حديثة" : "لا توجد قراءة حديثة"}
-          </span>
-        </details>
-        {runtime.error && (
-          <span className={styles.failure}>{runtime.error}</span>
-        )}
-      </div>
+    <div className={styles.row}>
+      <span className={styles.name}>{label}</span>
+      <Status good={fresh && runtime.centered} label={state} />
       {runtime.connected ? (
-        <button onClick={runtime.recenter}>تحديد المركز</button>
+        <button type="button" className={styles.secondary} onClick={runtime.recenter}>
+          تحديد المركز
+        </button>
       ) : (
         <button
+          type="button"
+          className={styles.secondary}
           disabled={
             supported !== true || runtime.connecting || runtime.reconnecting
           }
@@ -385,6 +317,7 @@ function Hand({
           ربط
         </button>
       )}
+      {runtime.error && <span className={styles.failure}>{runtime.error}</span>}
     </div>
   );
 }

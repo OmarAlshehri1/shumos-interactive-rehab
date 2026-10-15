@@ -10,26 +10,22 @@
     env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 .inner {
-  width: min(1152px, 100%);
+  width: min(1440px, 100%);
   margin: auto;
-  padding: 28px 32px 64px;
+  padding: 28px 40px 64px;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  margin: 24px 0 18px;
+  margin: 20px 0 14px;
 }
 .header h1 {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.4;
-  margin: 0 0 5px;
-}
-.header > div > span {
-  font-size: 12px;
-  color: #657c83;
+  margin: 0;
 }
 .count {
   font-size: 12px;
@@ -44,7 +40,7 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin: 18px 0 24px;
+  margin: 0 0 20px;
 }
 .category {
   display: flex;
@@ -83,17 +79,17 @@
 }
 .gameGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 264px), 1fr));
+  gap: 16px;
 }
 .card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 14px;
   border: 1px solid #dce7e9;
   background: #fff;
-  box-shadow: 0 3px 12px #173c4506;
+  box-shadow: 0 1px 2px #173c450a, 0 3px 10px #173c4506;
   color: #16383d;
   text-decoration: none;
   transition:
@@ -156,15 +152,15 @@
   height: 13px;
 }
 .cardBody {
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
 }
 .cardTitle {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
 }
@@ -221,11 +217,8 @@
   outline-offset: 4px;
 }
 @media (max-width: 1000px) {
-  .gameGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .inner {
-    padding: 24px 25px 56px;
+    padding: 24px 24px 56px;
   }
 }
 @media (max-width: 600px) {
@@ -243,10 +236,6 @@
     padding: 8px 10px;
     font-size: 11px;
     flex: 1 1 auto;
-  }
-  .gameGrid {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
   .cardBody {
     padding: 15px;
@@ -269,23 +258,35 @@
   }
 }
 
+/* One visually distinct parent container per category; --accent tints its header, rail and surface. */
 .deviceSection {
-  margin-top: 24px;
+  --accent: #087f81;
+  margin-top: 20px;
+  padding: 0 18px 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, #fff);
+  border-top: 4px solid var(--accent);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--accent) 5%, #fff);
+  box-shadow: 0 2px 10px #173c4508;
 }
+.deviceSection[data-accent="FOOT"] { --accent: #2f6fa3; }
+.deviceSection[data-accent="JOYSTICK"] { --accent: #6a5aa8; }
+.deviceSection[data-accent="DRIVING"] { --accent: #b7791f; }
+.deviceSection[data-accent="INTERACTIVE_REWARDS"] { --accent: #c2587a; }
 .deviceHeader {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-  padding: 14px 16px;
-  border: 1px solid #d7e9e6;
-  border-radius: 16px;
-  background: #f0f9f7;
+  gap: 12px;
+  padding: 14px 0;
 }
 .deviceHeader svg {
-  width: 30px;
-  height: 30px;
-  color: #008f85;
+  box-sizing: content-box;
+  width: 24px;
+  height: 24px;
+  padding: 7px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 14%, #fff);
+  color: var(--accent);
 }
 .deviceHeader h2 {
   margin: 0;
@@ -295,6 +296,16 @@
 }
 .deviceHeader span {
   margin-inline-start: auto;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, #fff);
   font-size: 12px;
-  color: #5a777e;
+  font-weight: 600;
+  color: var(--accent);
+}
+@media (max-width: 600px) {
+  .deviceSection {
+    padding: 0 12px 14px;
+  }
 }

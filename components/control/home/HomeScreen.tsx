@@ -8,7 +8,6 @@ import {
   usePatients,
 } from "@/lib/patients/usePatients";
 import { ControlNav } from "@/components/control/nav/ControlNav";
-import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
 import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 import { PatientListItem } from "@/components/control/patients/PatientListItem";
 import { SectionCard } from "@/components/control/ui/SectionCard";
@@ -28,30 +27,16 @@ export function HomeScreen() {
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <ResetLiveDisplayOnMount />
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-5 px-5 py-6 sm:px-8 sm:py-7">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-5 px-5 py-6 md:px-8 xl:px-10">
         <ControlNav active="home" />
 
-        <header className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
-              نظام التأهيل التفاعلي
-            </h1>
-            <p className="mt-1 text-sm text-slate-500">
-              الرعاية التفاعلية · جلسات ومرضى وجاهزية
-            </p>
-          </div>
-          <ShumosBrandMark compact />
-        </header>
+        <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+          نظام التأهيل التفاعلي
+        </h1>
 
         <ReadinessDashboard />
         <QuickStartSection />
         {isRealtimeEnabled() && <QuickPatientsSection />}
-        <Link
-          href="/control/activities"
-          className="rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold text-teal-700"
-        >
-          مكتبة الأنشطة · جميع الألعاب وطرق المشاركة ←
-        </Link>
       </div>
     </main>
   );
@@ -63,10 +48,8 @@ function QuickStartSection() {
   const { visit } = useVisit();
   const [quickError, setQuickError] = useState(false);
   return (
-    <section className="flex flex-col gap-3 rounded-3xl border border-teal-100 bg-teal-50/50 p-5 shadow-sm shadow-slate-900/5">
-      <h2 className="text-center text-lg font-bold text-slate-900">
-        بدء جلسة جديدة
-      </h2>
+    <section className="flex flex-col gap-3 rounded-2xl border border-teal-100 bg-teal-50/50 p-4 shadow-sm shadow-slate-900/5">
+      <h2 className="text-base font-bold text-slate-900">بدء جلسة جديدة</h2>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Link
           href="/control/visits"
@@ -74,7 +57,7 @@ function QuickStartSection() {
         >
           <span className="text-base font-bold">جلسة علاجية</span>
           <span className="text-xs text-teal-100">
-            مريض محفوظ أو جديد أو ضيف · توقيت وتقييم وتمارين
+            مريض محفوظ أو جديد أو ضيف
           </span>
         </Link>
         <Link

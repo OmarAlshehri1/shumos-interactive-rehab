@@ -8,7 +8,6 @@ import { formatPatientCountLabel, searchPatients, usePatients } from "@/lib/pati
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { AddPatientSheet } from "./AddPatientSheet";
 import { PatientListItem } from "./PatientListItem";
-import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
 import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 
 /**
@@ -59,7 +58,6 @@ function RealtimePatientRegistry() {
   return (
     <>
       <header className="flex flex-col gap-1 text-center">
-        <ShumosBrandMark compact />
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">المرضى</h1>
         <p className="text-base text-slate-500">{loading ? "جاري التحميل..." : formatPatientCountLabel(activeCount)}</p>
       </header>

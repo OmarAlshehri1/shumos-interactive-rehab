@@ -11,7 +11,7 @@ export function ShumosBrandMark({ compact = false }: { compact?: boolean }) {
         priority
         className={`${compact ? "h-10 w-10" : "h-14 w-14"} object-contain`}
       />
-      <span className="text-xs font-semibold tracking-[0.2em] text-teal-700 uppercase">Shumos Care</span>
+      <span className="max-sm:hidden text-xs font-semibold tracking-[0.2em] text-teal-700 uppercase">Shumos Care</span>
     </div>
   );
 }

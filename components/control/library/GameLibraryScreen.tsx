@@ -46,10 +46,7 @@ function Library() {
       <div className={styles.inner}>
         <ControlNav active="library" />
         <header className={styles.header}>
-          <div>
-            <h1>مكتبة الأنشطة</h1>
-            <span>{GAME_REGISTRY.length} نشاطًا · اختر تجربة تناسب جلستك</span>
-          </div>
+          <h1>مكتبة الأنشطة</h1>
           <span className={styles.count}>{games.length} نشاط</span>
         </header>
         <PatientContextBanner />
@@ -80,6 +77,7 @@ function Library() {
             className={styles.deviceSection}
             data-library-section={section.input}
             data-library-filter-selected={selected}
+            data-accent={section.input}
             aria-label={section.title}
           >
             <header className={styles.deviceHeader}>
