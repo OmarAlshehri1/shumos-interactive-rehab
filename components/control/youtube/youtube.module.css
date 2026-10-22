@@ -263,3 +263,13 @@
   .watchActions button { flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+
+.nativeLogo { background: #ed2636; }
+.nativePanel { max-width: 850px; margin-top: 24px; padding: 28px; border: 1px solid #dbe7ec; border-radius: 22px; background: white; }
+.original { display: inline-flex; align-items: center; min-height: 52px; padding: 12px 24px; border-radius: 12px; background: #ed2636; color: white; font-weight: 700; }
+.nativePanel .connection { margin-top: 24px; font-size: 17px; color: #173b44; }
+.nativeActions { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
+.favoriteLinks { max-width: 850px; margin-top: 24px; padding: 20px; border: 1px solid #dbe7ec; border-radius: 18px; background: white; }
+.favoriteLinks summary { cursor: pointer; font-weight: 700; }
+.favoriteLinks ul { display: grid; gap: 14px; padding-top: 18px; }
+.favoriteLinks a { color: #087f81; text-decoration: underline; }

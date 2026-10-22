@@ -439,6 +439,67 @@
         }
       }
     },
+    "youtubeTabShare": {
+      ".read": "(auth != null && root.child('staff').child(auth.uid).child('active').val() == true && (data.child('ownerId').val() == auth.uid || root.child('controllerLease/ownerId').val() == auth.uid)) || (auth != null && auth.uid == root.child('youtubeTabShare/displayUid').val() && root.child('presence/displayAccess').child(auth.uid).child('approvedBy').val() == root.child('youtubeTabShare/ownerId').val() && root.child('presence/displayAccess').child(auth.uid).child('expiresAt').val() > now && root.child('staff').child(root.child('youtubeTabShare/ownerId').val()).child('active').val() == true && root.child('controllerLease/ownerId').val() == root.child('youtubeTabShare/ownerId').val() && root.child('youtubeTabShare/expiresAt').val() > now && !root.child('liveSession').exists())",
+      ".write": "(!newData.exists() && auth != null && ((auth != null && root.child('staff').child(auth.uid).child('active').val() == true && data.child('ownerId').val() == auth.uid) || data.child('displayUid').val() == auth.uid)) || (newData.exists() && auth != null && root.child('staff').child(auth.uid).child('active').val() == true && root.child('controllerLease/ownerId').val() == auth.uid && !root.child('liveSession').exists() && newData.child('ownerId').val() == auth.uid && (root.child('presence/displayAccess').child(newData.child('displayUid').val()).child('approvedBy').val() == auth.uid && root.child('presence/displayAccess').child(newData.child('displayUid').val()).child('expiresAt').val() > now) && (!data.exists() || (data.child('ownerId').val() == auth.uid && data.child('controlTabId').val() == newData.child('controlTabId').val()) || data.child('expiresAt').val() <= now))",
+      ".validate": "newData.hasChildren(['sessionId','ownerId','controlTabId','displayUid','displayInstance','createdAt','expiresAt','hidden','offer']) && newData.child('expiresAt').isNumber() && newData.child('expiresAt').val() > now && newData.child('expiresAt').val() <= now + 45000 && ((!data.exists() || data.child('sessionId').val() != newData.child('sessionId').val()) ? newData.child('createdAt').val() == now : (newData.child('ownerId').val() == data.child('ownerId').val() && newData.child('controlTabId').val() == data.child('controlTabId').val() && newData.child('displayUid').val() == data.child('displayUid').val() && newData.child('displayInstance').val() == data.child('displayInstance').val() && newData.child('createdAt').val() == data.child('createdAt').val() && newData.child('offer').val() == data.child('offer').val()))",
+      "sessionId": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+      },
+      "ownerId": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+      },
+      "controlTabId": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+      },
+      "displayUid": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+      },
+      "displayInstance": {
+        ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+      },
+      "createdAt": {
+        ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= now"
+      },
+      "expiresAt": {
+        ".validate": "newData.isNumber()"
+      },
+      "hidden": {
+        ".validate": "newData.isBoolean()"
+      },
+      "offer": {
+        ".validate": "newData.isString() && newData.val().length >= 5 && newData.val().length <= 20000 && newData.val().beginsWith('v=0')"
+      },
+      "answer": {
+        ".write": "(auth != null && auth.uid == root.child('youtubeTabShare/displayUid').val() && root.child('presence/displayAccess').child(auth.uid).child('approvedBy').val() == root.child('youtubeTabShare/ownerId').val() && root.child('presence/displayAccess').child(auth.uid).child('expiresAt').val() > now && root.child('staff').child(root.child('youtubeTabShare/ownerId').val()).child('active').val() == true && root.child('controllerLease/ownerId').val() == root.child('youtubeTabShare/ownerId').val() && root.child('youtubeTabShare/expiresAt').val() > now && !root.child('liveSession').exists()) && !data.exists()",
+        ".validate": "newData.hasChildren(['sessionId','sdp']) && newData.child('sessionId').val() == newData.parent().child('sessionId').val()",
+        "sessionId": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "sdp": {
+          ".validate": "newData.isString() && newData.val().length >= 5 && newData.val().length <= 20000 && newData.val().beginsWith('v=0')"
+        },
+        "$other": {
+          ".validate": false
+        }
+      },
+      "playback": {
+        ".write": "auth != null && auth.uid == root.child('youtubeTabShare/displayUid').val() && root.child('presence/displayAccess').child(auth.uid).child('approvedBy').val() == root.child('youtubeTabShare/ownerId').val() && root.child('presence/displayAccess').child(auth.uid).child('expiresAt').val() > now && root.child('staff').child(root.child('youtubeTabShare/ownerId').val()).child('active').val() == true && root.child('controllerLease/ownerId').val() == root.child('youtubeTabShare/ownerId').val() && root.child('youtubeTabShare/expiresAt').val() > now && !root.child('liveSession').exists()",
+        ".validate": "newData.hasChildren(['sessionId','state']) && newData.child('sessionId').val() == newData.parent().child('sessionId').val()",
+        "sessionId": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "state": {
+          ".validate": "newData.val() == 'playing' || newData.val() == 'blocked' || newData.val() == 'hidden'"
+        },
+        "$other": {
+          ".validate": false
+        }
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
     "staff": {
       "$uid": {
         ".read": "auth != null && auth.uid === $uid",

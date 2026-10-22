@@ -100,6 +100,11 @@ describe.skipIf(!on)(
         "",
         true,
       );
+      // Anonymous identity alone has not authorized Display telemetry since
+      // scoped Display approvals were introduced. Model a real approved Display.
+      await write(`presence/displayAccess/${anon.uid}`, {
+        approvedBy: a.uid, issuedAt: Date.now(), expiresAt: Date.now() + 60000,
+      }, "", true);
     });
     it("persists staff-specific favorites, prevents duplicates and permits removal", async () => {
       const p = `youtubeFavorites/${a.uid}/${video.videoId}`;
@@ -136,6 +141,8 @@ describe.skipIf(!on)(
         ).toBe(401);
     });
     it("allows authenticated Display telemetry while denying forged therapist commands and subtree deletion", async () => {
+      const unapproved = await signup();
+      expect(await write("presence/display", { connected: true }, unapproved.token, false, "PATCH")).toBe(401);
       expect(
         await write(
           "presence/display",

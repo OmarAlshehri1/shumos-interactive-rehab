@@ -4,6 +4,7 @@ import {
   ref,
   runTransaction,
   set,
+  serverTimestamp,
   update,
   type Database,
 } from "firebase/database";
@@ -75,6 +76,7 @@ export async function prepareVideoDisplay(
   db: Database,
   uid: string,
   tab: string,
+  options: { leaseCleanup?: "disconnect" | "heartbeat" } = {},
 ) {
   const retainLive = onValue(ref(db, 'liveSession'), () => {}, () => {});
   const retainPrivate = onValue(ref(db, 'liveSessionPrivate'), () => {}, () => {});
@@ -121,7 +123,12 @@ export async function prepareVideoDisplay(
   }
   if ((await get(ref(db, "liveSession"))).exists())
     throw Error("يوجد نشاط يحتاج إلى الحفظ أو الاستعادة.");
-  await claimControllerLease(db, uid);
+  // Native capture has its own bounded heartbeat/expiry. A rejected second
+  // window must not register onDisconnect removal of another window's lease.
+  if (options.leaseCleanup === "heartbeat") await update(ref(db, "controllerLease"), {
+    ownerId: uid, claimedAt: Date.now(), updatedAt: serverTimestamp(),
+  });
+  else await claimControllerLease(db, uid);
   } finally {
     retainLive();
     retainPrivate();
