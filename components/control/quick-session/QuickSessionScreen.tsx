@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { GameCard } from "@/components/control/library/GameCard";
-import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 import { ControlNav } from "@/components/control/nav/ControlNav";
 import { createQuickSessionLaunch, gamesForQuickSessionSurface } from "@/lib/control/quickSession";
 import type { SurfaceType } from "@/lib/games/registry";
@@ -18,7 +17,6 @@ export function QuickSessionScreen() {
 
   return (
     <main dir="rtl" lang="ar" className="fixed inset-0 h-dvh w-dvw overflow-y-auto bg-slate-50 text-slate-900" style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}>
-      <ResetLiveDisplayOnMount />
       <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
         <ControlPageNav backHref="/control" backLabel="الرئيسية" />
         <ControlNav active="home" showBrand={false} />

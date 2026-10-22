@@ -8,7 +8,6 @@ import { formatPatientCountLabel, searchPatients, usePatients } from "@/lib/pati
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { AddPatientSheet } from "./AddPatientSheet";
 import { PatientListItem } from "./PatientListItem";
-import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 
 /**
  * PATIENT REGISTRY TASK — the Patient Registry home screen: patient count,
@@ -27,7 +26,6 @@ export function PatientRegistryScreen() {
       className="fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
-      <ResetLiveDisplayOnMount />
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-5 py-8 sm:gap-10 sm:px-8 sm:py-10">
         <ControlNav active="patients" />
         {isRealtimeEnabled() ? <RealtimePatientRegistry /> : <RealtimeUnavailableNotice />}

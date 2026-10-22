@@ -431,7 +431,7 @@ export function RunnerControlPanels({
         <NativeSetupSections
           settings={
             <div>
-              {setupIdentity}
+              {setupIdentity && <ControlSlot slot="settings">{setupIdentity}</ControlSlot>}
               {setupProjection}
               {setupSettings}
             </div>

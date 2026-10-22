@@ -23,6 +23,7 @@ import {
   type LaunchMode,
 } from "@/lib/games/library/capabilities";
 import { useDualSensorRuntime } from "@/components/control/sensors/SensorRuntimeProvider";
+import { useControlWorkspace } from "@/components/control/ui/ControlWorkspace";
 import styles from "./launch.module.css";
 export interface LibraryLaunchAdapter {
   modes: readonly LaunchMode[];
@@ -121,7 +122,8 @@ function LaunchPanel({
     query = useSearchParams(),
     input = requestedInput(query.get("input"));
   const game = GAME_REGISTRY.find((g) => g.route === pathname),
-    { right, left } = useDualSensorRuntime();
+    { right, left } = useDualSensorRuntime(),
+    workspace = useControlWorkspace();
   const [open, setOpen] = useState(false),
     [message, setMessage] = useState("");
   const native = adapter?.id === game?.id ? adapter?.get() : null;
@@ -131,10 +133,48 @@ function LaunchPanel({
     native.projections.length > 1 &&
     context?.confirmedKey !== `${game?.id}:${native.sessionKey}`
   );
+  const showModes =
+    input === "DRIVING" && !!native?.modes.some((m) => m !== "MANUAL");
   const expanded = open || requiredProjection;
   useEffect(() => {
     onIntent(game?.id ?? null);
   }, [game, onIntent]);
+  // The launch category already decides the surface and, where the game supports it, the input. Applied once per session
+  // through the game's own native commands (retried briefly while its lifecycle/connection settles); never a device claim.
+  const autoKey = native ? `${game?.id}:${native.sessionKey}:${input}` : null;
+  const autoDone = useRef<string | null>(null);
+  const setupOnly = !workspace.active;
+  useEffect(() => {
+    if (!game || !autoKey || !setupOnly || autoDone.current === autoKey) return;
+    const wanted = input === "HAND" ? "WALL" : input === "FOOT" ? "FLOOR" : null;
+    let attempts = 0,
+      surfaceDone = false,
+      modeDone = false;
+    const tryApply = () => {
+      const current = adapter?.id === game.id ? adapter.get() : null;
+      if (!current) return false;
+      if (!surfaceDone)
+        surfaceDone =
+          !wanted ||
+          (current.projections?.length ?? 0) < 2 ||
+          !current.projections?.includes(wanted) ||
+          (!!current.applyProjection?.(wanted) &&
+            (onConfirm(`${game.id}:${current.sessionKey}`), true));
+      if (surfaceDone && !modeDone)
+        modeDone =
+          input !== "HAND" ||
+          !current.modes.includes("RIGHT_HAND") ||
+          current.apply("RIGHT_HAND");
+      return surfaceDone && modeDone;
+    };
+    const timer = setInterval(() => {
+      if (tryApply() || ++attempts >= 20) {
+        autoDone.current = autoKey;
+        clearInterval(timer);
+      }
+    }, 300);
+    return () => clearInterval(timer);
+  }, [adapter, autoKey, game, input, onConfirm, setupOnly]);
   const modes = useMemo(
     () =>
       [
@@ -189,6 +229,8 @@ function LaunchPanel({
     [adapter, game, right, left],
   );
   if (!game) return null;
+  // Everything the launch category determines is applied above; only a genuinely open choice is shown.
+  if (!requiredProjection && !showModes) return null;
   const surface = (
     game.surfaceType === "BOTH" ? ["WALL", "FLOOR"] : [game.surfaceType]
   ) as Exclude<SurfaceType, "BOTH">[];
@@ -200,85 +242,73 @@ function LaunchPanel({
       data-launch-input={input}
       data-launch-game={game.id}
     >
-      <button
-        className={styles.toggle}
-        aria-expanded={expanded}
-        aria-controls="library-launch-options"
-        onClick={() => setOpen(!expanded)}
-      >
-        {requiredProjection
-          ? "اختر سطح العرض وطريقة المشاركة"
-          : "طريقة المشاركة المطلوبة"}
-      </button>
+      {!requiredProjection && (
+        <button
+          className={styles.toggle}
+          aria-expanded={expanded}
+          aria-controls="library-launch-options"
+          onClick={() => setOpen(!expanded)}
+        >
+          طريقة المشاركة
+        </button>
+      )}
       {expanded && (
         <section
           className={styles.panel}
           id="library-launch-options"
-          aria-label="إعدادات إطلاق النشاط"
+          aria-label={requiredProjection ? "سطح العرض" : "طريقة المشاركة"}
         >
           <header>
             <strong>{game.nameAr}</strong>
-            <button
-              aria-label="إغلاق إعدادات المشاركة"
-              onClick={() => setOpen(false)}
-            >
-              ×
-            </button>
+            {!requiredProjection && (
+              <button
+                aria-label="إغلاق"
+                onClick={() => setOpen(false)}
+              >
+                ×
+              </button>
+            )}
           </header>
-          <div className={styles.modes}>
-            {modes.map((mode) => (
-              <button
-                key={mode}
-                disabled={mode !== "MANUAL" && !native?.modes.includes(mode)}
-                onClick={() => apply(mode)}
-              >
-                {MODE_NAMES[mode].replaceAll("المعالج", "الأخصائي")}
-                {mode !== "MANUAL" &&
-                  !native?.modes.includes(mode) &&
-                  " · غير متاح"}
-              </button>
-            ))}
-          </div>
-          {input === "FOOT" && (
-            <p>
-              المحاكاة وتلميحات حركة القدم لا تثبت الاتصال الفعلي أو موقع الطفل.
-            </p>
+          {!requiredProjection && showModes && (
+            <div className={styles.modes}>
+              {modes.map((mode) => (
+                <button
+                  key={mode}
+                  disabled={mode !== "MANUAL" && !native?.modes.includes(mode)}
+                  onClick={() => apply(mode)}
+                >
+                  {MODE_NAMES[mode].replaceAll("المعالج", "الأخصائي")}
+                  {mode !== "MANUAL" &&
+                    !native?.modes.includes(mode) &&
+                    " · غير متاح"}
+                </button>
+              ))}
+            </div>
           )}
-          {input === "JOYSTICK" && (
-            <p>
-              محوّل عصي التحكم الفعلي وخيارات الأزرار لم تُنفّذ بعد. لا يلزم ضغط
-              زر في التحكم اليدوي.
-            </p>
+          {requiredProjection && (
+            <fieldset>
+              <legend>اختر سطح العرض قبل البدء</legend>
+              {surface.map((p) => (
+                <button
+                  key={p}
+                  disabled={!native?.applyProjection}
+                  onClick={() => {
+                    const current =
+                      adapter?.id === game.id ? adapter.get() : null;
+                    const accepted = current?.applyProjection?.(p);
+                    if (accepted) onConfirm(`${game.id}:${current?.sessionKey}`);
+                    setMessage(
+                      accepted
+                        ? ""
+                        : "أوقف النشاط مؤقتًا وانتظر الاتصال لتغيير العرض.",
+                    );
+                  }}
+                >
+                  {p === "WALL" ? "جداري" : "أرضي"}
+                </button>
+              ))}
+            </fieldset>
           )}
-          {input === "DRIVING" && (
-            <p>
-              قراءة المقود محلية واختيار الجهاز والمحاور والمعايرة يتم داخل
-              النشاط. نقل الإدخال من جهاز آخر والتحقق المادي معلّقان.
-            </p>
-          )}
-          <fieldset>
-            <legend>سطح العرض المنفّذ</legend>
-            {surface.map((p) => (
-              <button
-                key={p}
-                disabled={surface.length === 1 || !native?.applyProjection}
-                onClick={() => {
-                  const current =
-                    adapter?.id === game.id ? adapter.get() : null;
-                  const accepted = current?.applyProjection?.(p);
-                  if (accepted) onConfirm(`${game.id}:${current?.sessionKey}`);
-                  setMessage(
-                    accepted
-                      ? "جارٍ تطبيق سطح العرض. راجع مساحة الحركة قبل البدء."
-                      : "أوقف النشاط مؤقتًا وانتظر الاتصال لتغيير العرض.",
-                  );
-                }}
-              >
-                {p === "WALL" ? "جداري" : "أرضي"}
-              </button>
-            ))}
-          </fieldset>
-          {surface.length === 2 && <p>اختر سطح العرض قبل البدء.</p>}
           {message && <p role="status" aria-live="polite">{message}</p>}
         </section>
       )}

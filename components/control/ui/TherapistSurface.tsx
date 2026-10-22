@@ -7,7 +7,7 @@ export function TherapistSection({ title, description, step, children }: { title
     {children}
   </section>;
 }
-export function TherapistDisclosure({ title = "إعدادات متقدمة", children }: { title?: string; children: ReactNode }) {
+export function TherapistDisclosure({ title, children }: { title: string; children: ReactNode }) {
   return <details className={ui.disclosure}><summary>{title}<span aria-hidden="true">＋</span></summary><div className={ui.disclosureBody}>{children}</div></details>;
 }
 export function TherapistButton({ tone = "secondary", className = "", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { tone?: "primary" | "secondary" | "danger" }) {

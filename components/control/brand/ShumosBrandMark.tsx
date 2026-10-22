@@ -9,9 +9,8 @@ export function ShumosBrandMark({ compact = false }: { compact?: boolean }) {
         width={495}
         height={495}
         priority
-        className={`${compact ? "h-10 w-10" : "h-14 w-14"} object-contain`}
+        className={`${compact ? "h-12 w-12" : "h-16 w-16"} object-contain`}
       />
-      <span className="max-sm:hidden text-xs font-semibold tracking-[0.2em] text-teal-700 uppercase">Shumos Care</span>
     </div>
   );
 }

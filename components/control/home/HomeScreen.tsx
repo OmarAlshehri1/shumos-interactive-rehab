@@ -8,7 +8,6 @@ import {
   usePatients,
 } from "@/lib/patients/usePatients";
 import { ControlNav } from "@/components/control/nav/ControlNav";
-import { ResetLiveDisplayOnMount } from "@/components/control/live/ResetLiveDisplayOnMount";
 import { PatientListItem } from "@/components/control/patients/PatientListItem";
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { ReadinessDashboard } from "./ReadinessDashboard";
@@ -35,7 +34,6 @@ export function HomeScreen() {
 
         <ReadinessDashboard />
         <QuickStartSection />
-        <ResetLiveDisplayOnMount />
         {isRealtimeEnabled() && <QuickPatientsSection />}
       </div>
     </main>

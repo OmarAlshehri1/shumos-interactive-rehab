@@ -14,7 +14,7 @@ import type { AnySessionState, ConnectionStatus, LiveSessionRecord } from "@/lib
 import { useFirebaseAuth } from "@/lib/realtime/useFirebaseAuth";
 import { isBroadcastChannelSupported } from "./LocalPointerChannel";
 import { isSessionWakeMessage, LOCAL_SESSION_WAKE_CHANNEL_NAME } from "./LocalSessionWakeChannel";
-import { displaySession, previewExpiresAt } from "./sessionPresentation";
+import { displaySession, InterruptedSessionHold, previewExpiresAt } from "./sessionPresentation";
 import { displayServerNow } from "@/lib/realtime/displayAuthorization";
 import { markDisplayStartup } from "./startupTiming";
 
@@ -128,6 +128,7 @@ export function useRealtimeDisplaySession() {
   const [celebrationReplayToken, setCelebrationReplayToken] = useState<string | null>(null);
   const guardRef = useRef(createInitialGuardState());
   const previewTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const holdRef = useRef(new InterruptedSessionHold());
 
   const applyRecord = useCallback((record: LiveSessionRecord | null) => {
     const result = applyLiveRecord(guardRef.current, record);
@@ -136,7 +137,9 @@ export function useRealtimeDisplaySession() {
 
     clearTimeout(previewTimerRef.current);
     const present = () => {
-      const visible = displaySession(record, displayServerNow());
+      const now = displayServerNow();
+      const unexpired = displaySession(record, now);
+      const visible = unexpired && !holdRef.current.holds(unexpired, now) ? unexpired : null;
       setSession(visible?.session ?? null);
       setGameId(visible?.gameId ?? null);
       setRevision(visible?.revision ?? null);
@@ -159,6 +162,7 @@ export function useRealtimeDisplaySession() {
   useEffect(() => {
     if (auth.status !== "authenticated") {
       guardRef.current = createInitialGuardState();
+      holdRef.current.reset();
       // eslint-disable-next-line react-hooks/set-state-in-effect -- Clear previously authorized content immediately on revocation.
       setSession(null); setGameId(null); setRevision(null);
       setIncorrectSignal(null); setCelebrationReplayToken(null);

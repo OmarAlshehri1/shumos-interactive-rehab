@@ -3,7 +3,6 @@ import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import type { ReactNode, SelectHTMLAttributes } from "react";
 import { EXERCISES, type Mode, type Side } from "@/lib/castlelegends3d/curriculum";
 import { LIMBS, type Config, type State } from "@/lib/castlelegends3d/engine";
-import { TherapistDisclosure } from "@/components/control/ui/TherapistSurface";
 import ui from "@/components/control/ui/therapist.module.css";
 const limbNames = { rightArm: "الذراع اليمنى", leftArm: "الذراع اليسرى", rightLeg: "الساق اليمنى", leftLeg: "الساق اليسرى" };
 function SelectField({ label, children, ...props }: SelectHTMLAttributes<HTMLSelectElement> & { label: string; children: ReactNode }) {
@@ -32,7 +31,7 @@ export function CastleSettings({ state: s, enabled, configure }: { state: State;
     </div>
     <fieldset className={ui.group} disabled={!editable}><legend>الأطراف المشاركة</legend><div className={ui.choices}>{LIMBS.map(limb => <label className={ui.choice} key={limb}><input type="checkbox" checked={s.config.limbs.includes(limb)} onChange={e => configure({ limbs: e.target.checked ? [...s.config.limbs, limb] : s.config.limbs.filter(l => l !== limb) })} />{limbNames[limb]}</label>)}</div></fieldset>
     <p className={ui.safety}>اختر حركة مريحة وآمنة. تأكيد الأداء بيد الأخصائي؛ لا يوجد قياس تلقائي للحركة أو تحميل الوزن.</p>
-    <TherapistDisclosure>
+    <div hidden data-setup-deferred>
       <fieldset className={ui.group} disabled={!editable}><legend>تخصيص الحركات</legend><p className={ui.hint}>اترك الاختيار فارغًا للتنويع التلقائي.</p><div className={ui.choices}>{EXERCISES.filter(e => e.mode === s.config.mode && (!e.mat || s.config.mat)).map(e => <label className={ui.choice} key={e.id}><input type="checkbox" checked={s.config.exercises.includes(e.id)} onChange={v => configure({ exercises: v.target.checked ? [...s.config.exercises, e.id] : s.config.exercises.filter(id => id !== e.id) })} />{e.name}</label>)}</div></fieldset>
       <SelectField id="castle-hold" label="ثبات اختياري بإشراف الأخصائي" value={s.config.holdSeconds} disabled={!editable} onChange={e => configure({ holdSeconds: Number(e.target.value) })}>
         {[0, 2, 3, 5].map(n => <option key={n} value={n}>{n ? `${n} ثوانٍ` : "دون ثبات"}</option>)}
@@ -43,6 +42,6 @@ export function CastleSettings({ state: s, enabled, configure }: { state: State;
       <SelectField id="castle-quality" label="جودة الرسوم" value={s.config.quality} disabled={!editable} onChange={e => configure({ quality: e.target.value as Config["quality"] })}><option value="high">عالية · ظلال وتفاصيل</option><option value="low">خفيفة · للأجهزة الأبطأ</option></SelectField>
       <label className={ui.choice}><input type="checkbox" checked={s.config.muted} disabled={!editable} onChange={e => configure({ muted: e.target.checked })} />كتم الصوت</label>
       <label className={ui.field}>مستوى الصوت<input aria-label="مستوى الصوت" type="range" min="0" max="1" step=".05" value={s.config.volume} disabled={!editable} onChange={e => configure({ volume: Number(e.target.value) })} /></label>
-    </TherapistDisclosure>
+    </div>
   </div>;
 }

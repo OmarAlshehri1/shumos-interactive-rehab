@@ -196,3 +196,6 @@
     grid-column: 1 / -1;
   }
 }
+
+.quietLink{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center;font-size:14px;color:#526b75;text-decoration:underline;text-underline-offset:4px}
+.quietLink:hover{color:#173a43}

@@ -59,3 +59,23 @@ it('renders actual Start and paused progress but waits again between stages unti
   const s=createState('synthetic-preview');s.startedAt=500;
   expect(displayMayRenderGame(makeLive(s,'staff','Synthetic'),'balance-bridge-3d')).toBe(false);
 });
+
+import { InterruptedSessionHold, isInterruptedProgress } from '../sessionPresentation';
+const progress=(updatedAt:number,status:'running'|'paused'='paused'):LiveSessionRecord=>{const s=createState('synthetic-preview');s.status=status;s.startedAt=500;return {...record(),updatedAt,session:makeLive(s,'staff','Synthetic')};};
+it('holds an interrupted game on idle at load, keeps it stored, and releases it only when Control writes again', () => {
+  const hold=new InterruptedSessionHold(), old=progress(1000), original=JSON.stringify(old);
+  expect(isInterruptedProgress(old,60000)).toBe(true);
+  expect(hold.holds(old,60000)).toBe(true);
+  expect(hold.holds(old,90000)).toBe(true);
+  expect(JSON.stringify(old)).toBe(original);
+  expect(hold.holds({...old,revision:5,updatedAt:95000},96000)).toBe(false);
+  expect(hold.holds(old,97000)).toBe(false);
+});
+it('never holds live play, a record first seen fresh, or a reconnect after release', () => {
+  const hold=new InterruptedSessionHold(), live=progress(50000,'running');
+  expect(isInterruptedProgress(live,52000)).toBe(false);
+  expect(hold.holds(live,52000)).toBe(false);
+  expect(hold.holds(live,500000)).toBe(false);
+  expect(isInterruptedProgress({...live,updatedAt:{'.sv':'timestamp'}} as unknown as LiveSessionRecord,500000)).toBe(false);
+  expect(isInterruptedProgress(record(),500000)).toBe(false);
+});

@@ -186,16 +186,15 @@ body:has(.shumos-control) { height:auto;min-height:100dvh;overflow-x:clip;overfl
 .shumos-control :where(p,label,button,a,td,th):not([data-native-slot=preview] *) { overflow-wrap:break-word; }
 .shumos-control :where([role=alert]) { line-height:1.75; }
 .shumos-control nav[aria-label="التنقل الرئيسي"] { position:relative;flex-wrap:wrap;padding-inline:0;row-gap:10px; }
-.control-device-settings { color:var(--control-muted);font-size:14px;min-height:44px;display:inline-flex;align-items:center;padding-inline:12px;border-radius:12px; }
 .shumos-control [data-control-page-nav] a { border-radius:var(--control-button-radius);min-height:44px; }
 .shumos-control [data-control-page-nav] { gap:16px; }
 .shumos-control [data-control-card] { border-color:var(--control-border);border-radius:var(--control-card-radius);padding:var(--control-card-padding);box-shadow:0 2px 12px #173e4505; }
 .shumos-control [data-control-card] h2 { font-size:18px;color:var(--control-ink);font-weight:600; }
 
-@media(max-width:600px){.shumos-control{--control-card-padding:18px}.control-device-settings{font-size:13px}}
+@media(max-width:600px){.shumos-control{--control-card-padding:18px}}
 @media(prefers-reduced-motion:reduce){.shumos-control :where(button,a,dialog){transition:none!important;scroll-behavior:auto}}
 
-.shumos-control [data-control-page-nav]{padding-inline-start:116px}.shumos-control [data-control-logout]{min-height:44px;font-size:13px;padding-inline:12px}.control-device-settings{position:static;white-space:nowrap}
+.shumos-control [data-control-page-nav]{padding-inline-start:116px}.shumos-control [data-control-logout]{min-height:44px;font-size:13px;padding-inline:12px}
 
 .shumos-control{--control-title-size:24px;--control-heading-size:18px;--control-body-size:15px;--control-caption-size:14px}
 .shumos-control main :where(h1):not([data-native-slot=preview] *){font-size:var(--control-title-size)}

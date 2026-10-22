@@ -199,7 +199,7 @@ export function ControlPanels({
       </h2>
 
       {production?.requireChildName && (
-        <div className="mb-3">
+        <ControlSlot slot="settings"><div className="mb-3">
           <Field label="اسم الطفل" hint="مطلوب لبدء الجلسة (حتى ٣٠ حرفًا)">
             <input
               className={field}
@@ -209,7 +209,7 @@ export function ControlPanels({
               data-testid="child-name"
             />
           </Field>
-        </div>
+        </div></ControlSlot>
       )}
       <div hidden aria-hidden="true">
         {" "}
@@ -483,7 +483,7 @@ export function ControlPanels({
       <HandInputBridge runtime={runtime} />
       {projectionRequired && (
         <p role="status" className="rounded-xl bg-amber-50 p-3 text-amber-900">
-          اختر الجدار أو الأرضية من «طريقة المشاركة المطلوبة» قبل البدء.
+          اختر سطح العرض قبل البدء.
         </p>
       )}
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">

@@ -3,10 +3,13 @@ import type { ReactNode } from "react";
 import { StagePicker, type StageChoice } from "./ProgressiveStages";
 import styles from "./controlSetup.module.css";
 import { useControlWorkspace } from "@/components/control/ui/ControlWorkspace";
-import { TherapistDisclosure } from "@/components/control/ui/TherapistSurface";
+/**
+ * Essentials only: options a game promotes with ControlSlot render in the card. Every other native setting stays mounted
+ * (same handlers, same safe defaults) but is not offered here; the owner decides per game which ones are promoted.
+ */
 export function SetupSettingsCard({ children }: { children: ReactNode }) {
   const { available, registerSetup } = useControlWorkspace();
-  return <section className={styles.settings} aria-label="إعدادات اللعبة" data-setup-section="settings"><h2>إعداد المشاركة</h2>{available ? <><div ref={registerSetup} className={styles.essentials} data-setup-essential /><p className={styles.essentialHint}>اختر مشاركة مريحة، وراجع مساحة الحركة قبل البدء.</p><TherapistDisclosure>{children}</TherapistDisclosure></> : children}</section>;
+  return <section className={styles.settings} aria-label="إعدادات اللعبة" data-setup-section="settings"><h2>إعداد المشاركة</h2>{available ? <><div ref={registerSetup} className={styles.essentials} data-setup-essential /><div hidden data-setup-deferred>{children}</div></> : children}</section>;
 }
 export function GameSetupLayout({
   settings,

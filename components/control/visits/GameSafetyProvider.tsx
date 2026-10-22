@@ -1,5 +1,6 @@
 "use client";
 import { ControlDialog } from "@/components/control/ui/ControlDialog";
+import { ActivityRecoveryCard } from "@/components/control/live/ActivityRecoveryCard";
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
@@ -191,6 +192,9 @@ export function GameSafetyProvider({
     !canLeave;
   const waiting = GAME_REGISTRY.some((g) => g.route === pathname) && !known;
   const open = blocked || wrongGame;
+  // Saved results and plain walk-in completions need no warning; setup previews and unsaved/unfinished activities do.
+  const savedComplete = live?.session.gameState === "SESSION_COMPLETE" && (!live.patientId || proof === key);
+  const needsAction = !savedComplete;
   return (
     <Context.Provider
       value={{ live, known, connected, canLeave, error, holdVisit }}
@@ -204,20 +208,8 @@ export function GameSafetyProvider({
           جاري التحقق من النشاط الحالي…
         </div>
       )}
-      {route && route !== pathname && !canLeave && !open && (
-        <div
-          className="fixed bottom-3 left-3 z-[67] max-w-sm rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-950"
-          dir="rtl"
-          role="status"
-        >
-          يوجد نشاط يحتاج الإنهاء أو تأكيد الحفظ.
-          <button
-            className="ms-2 min-h-11 rounded-lg bg-white px-3 font-bold text-teal-800"
-            onClick={() => router.push(route)}
-          >
-            العودة إلى النشاط
-          </button>
-        </div>
+      {route && route !== pathname && live && known && needsAction && !open && (
+        <ActivityRecoveryCard record={live} connected={connected} />
       )}
       {open && (
         <ControlDialog open title="حفظ النشاط قبل الانتقال" onClose={() => setBlocked(false)} role="dialog">

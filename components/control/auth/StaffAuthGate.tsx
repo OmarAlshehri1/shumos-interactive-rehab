@@ -126,7 +126,7 @@ function Spinner({ label }: { label: string }) {
   );
 }
 
-/** A small fixed control shown only on approved top-level therapist pages. */
+/** Sign-out lives in the document header (absolute, not fixed) so it never follows the viewport while scrolling. */
 function LogoutCorner({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
   return (
     <button
@@ -134,7 +134,7 @@ function LogoutCorner({ email, onSignOut }: { email: string | null; onSignOut: (
       onClick={onSignOut}
       title={email ?? undefined}
       data-control-logout
-      className="fixed top-2 end-2 z-40 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-500 shadow-sm transition-colors hover:bg-white hover:text-slate-700"
+      className="absolute top-3 end-3 z-40 flex min-h-11 items-center gap-1.5 rounded-full bg-white px-4 text-[13px] font-medium text-slate-600 shadow-sm transition-colors hover:text-slate-800"
     >
       تسجيل الخروج
     </button>

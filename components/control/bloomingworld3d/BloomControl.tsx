@@ -481,7 +481,7 @@ function ConnectedBloomControl() {
           <h1>حديقة صغيرة. لحظات كبيرة.</h1>
           {projectionRequired && (
             <p role="status">
-              اختر الجدار أو الأرضية من «طريقة المشاركة المطلوبة» قبل البدء.
+              اختر سطح العرض قبل البدء.
             </p>
           )}
           <p>

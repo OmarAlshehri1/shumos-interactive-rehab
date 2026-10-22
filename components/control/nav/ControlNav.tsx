@@ -55,7 +55,6 @@ export function ControlNav({ active, showBrand = true }: { active: ControlNavSec
           );
         })}
       </div>
-      <Link href="/control/calibration" className="control-device-settings" aria-label="إعدادات العرض ومعايرة الإسقاط">إعدادات العرض</Link>
     </nav>
     </>
   );
