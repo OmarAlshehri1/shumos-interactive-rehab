@@ -21,9 +21,10 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
   const game = GAME_REGISTRY.find((g) => g.route === path);
   if (!game) return <>{children}</>;
   const thumbnail = realGameThumbnail(game.id);
+  const reference = game.id === "shumos-castle-legends-3d";
   return (
     <GameContext.Provider value={game.id}>
-      <div className={styles.frame} data-control-game={game.id} dir="rtl">
+      <div className={`${styles.frame} ${reference ? styles.referenceFrame : ""}`} data-control-game={game.id} dir="rtl">
         <ControlPageNav
           backHref={selectedPatient ? `/control/patients/${selectedPatient.patientId}` : "/control/activities"}
           backLabel={selectedPatient ? "ملف المريض" : "مكتبة الأنشطة"}
@@ -55,7 +56,7 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
         </header>
         <LibraryLaunchControls />
         <PatientContextBanner />
-        <div className={styles.native}>{children}</div>
+        <div className={reference ? styles.referenceNative : styles.native}>{children}</div>
       </div>
     </GameContext.Provider>
   );

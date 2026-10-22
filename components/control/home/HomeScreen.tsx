@@ -23,10 +23,9 @@ export function HomeScreen() {
     <main
       dir="rtl"
       lang="ar"
-      className="fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
+      className="min-h-dvh w-full touch-manipulation bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900"
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
-      <ResetLiveDisplayOnMount />
       <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-5 px-5 py-6 md:px-8 xl:px-10">
         <ControlNav active="home" />
 
@@ -36,6 +35,7 @@ export function HomeScreen() {
 
         <ReadinessDashboard />
         <QuickStartSection />
+        <ResetLiveDisplayOnMount />
         {isRealtimeEnabled() && <QuickPatientsSection />}
       </div>
     </main>

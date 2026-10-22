@@ -1,568 +1,77 @@
 "use client";
-import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
-import {
-  ProgressiveStageSelect,
-  AdditionalOptions,
-} from "@/components/control/setup/ProgressiveStages";
 import Link from "next/link";
+import Image from "next/image";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import { useCastleSession } from "@/lib/castlelegends3d/useSession";
 import { GAME_ID } from "@/lib/castlelegends3d/live";
-import {
-  STAGES,
-  EXERCISES,
-  type Mode,
-  type Side,
-} from "@/lib/castlelegends3d/curriculum";
-import { LIMBS, exercise, type Config } from "@/lib/castlelegends3d/engine";
-import { CastleView, Crest } from "./CastleView";
-import styles from "./castle.module.css";
-const limbNames = {
-  rightArm: "الذراع اليمنى",
-  leftArm: "الذراع اليسرى",
-  rightLeg: "الساق اليمنى",
-  leftLeg: "الساق اليسرى",
-};
+import { STAGES } from "@/lib/castlelegends3d/curriculum";
+import { exercise, type Config } from "@/lib/castlelegends3d/engine";
+import { TherapistSection, TherapistDisclosure, TherapistButton, TherapistStatus } from "@/components/control/ui/TherapistSurface";
+import { TherapistStages } from "@/components/control/ui/TherapistStages";
+import { CastleSettings } from "./CastleSettings";
+import ui from "@/components/control/ui/therapist.module.css";
+import styles from "./therapist.module.css";
+
+const stages = STAGES.map((s, i) => ({ name: s.name, description: `${s.enemies.length} مواجهات · ${s.phases} مراحل للحركة`, image: `/control-stage-previews/castle/${i + 1}.webp` }));
+const statusNames = { ready: "جاهز للبدء", running: "النشاط جارٍ", paused: "في استراحة", "stage-complete": "اكتملت المرحلة", ended: "انتهت الجلسة" };
+const phaseNames = { intro: "الاستعداد للمغامرة", travel: "يتقدم البطل نحو المواجهة", encounter: "بانتظار تأكيد المعالج", attack: "تنفيذ الحركة المؤكدة", defeat: "نهاية المواجهة", victory: "الاحتفال بإنجاز المرحلة" };
 export function CastleControl() {
-  return isRealtimeEnabled() ? (
-    <LiveCastleControl />
-  ) : (
-    <main className={styles.control} lang="ar">
-      <h1>أسطورة قلعة شموس</h1>
-      <p>يلزم إعداد اتصال شموس المشترك لبدء جلسة متزامنة.</p>
-      <Link href="/control">مكتبة الأنشطة</Link>
-    </main>
-  );
+  return isRealtimeEnabled() ? <LiveCastleControl /> : <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl"><h1>أسطورة قلعة شموس</h1><p>يلزم إعداد اتصال شموس المشترك لبدء جلسة متزامنة.</p><Link href="/control">مكتبة الأنشطة</Link></main>;
 }
 function LiveCastleControl() {
-  const session = useCastleSession(),
-    { state: s, send } = session;
-  useLibraryLaunchAdapter(GAME_ID, {
-    modes: ["MANUAL"],
-    sessionKey: s?.sessionId,
-    apply: () => {
-      if (
-        !s ||
-        !session.connected ||
-        session.blocked ||
-        !["ready", "paused"].includes(s.status)
-      )
-        return false;
-      return true;
-    },
-  });
-  if (!s)
-    return (
-      <main className={styles.control} lang="ar">
-        <h1>أسطورة قلعة شموس</h1>
-        <p role="status">
-          {session.blocked
-            ? "توجد جلسة نشطة في نافذة أخرى."
-            : (session.error ?? "جارٍ تجهيز الرحلة…")}
-        </p>
-        {session.blocked && (
-          <button
-            className={styles.button}
-            onClick={() => {
-              if (
-                window.confirm("نقل التحكم من النافذة الأخرى إلى هذه النافذة؟")
-              )
-                session.takeover();
-            }}
-          >
-            نقل التحكم
-          </button>
-        )}
-        <Link href="/control">مكتبة الأنشطة</Link>
-      </main>
-    );
-  const editable = ["ready", "paused"].includes(s.status),
-    enabled = session.connected && !session.blocked,
-    combat = s.status === "running" && s.phase === "encounter",
-    prompt = exercise(s),
-    config = (patch: Partial<Config>) =>
-      send({ type: "configure", config: patch });
-  const setupStages = (
-    <ProgressiveStageSelect
-      onSelect={(value) => send({ type: "stage", stage: Number(value) })}
-    >
-      <select
-        id="castle-stage"
-        value={s.stage}
-        disabled={!enabled || (!editable && s.status !== "stage-complete")}
-        onChange={(e) => send({ type: "stage", stage: Number(e.target.value) })}
-      >
-        {STAGES.map((stage, i) => (
-          <option
-            data-stage-description={`${stage.enemies.length} مواجهات · ${stage.phases} مراحل للحركة`}
-            value={i}
-            key={i}
-          >
-            {i + 1} · {stage.name}
-          </option>
-        ))}
-      </select>
-    </ProgressiveStageSelect>
-  );
-  const setupSettings = (
-    <aside className={styles.panel}>
-      <h2>إعدادات المغامرة</h2>
-      {(s.status !== "ready" || !!s.startedAt) && setupStages}
-
-      <div className={styles.field}>
-        <label htmlFor="castle-mode">نمط الحركة</label>
-        <select
-          id="castle-mode"
-          value={s.config.mode}
-          disabled={!editable || !enabled}
-          onChange={(e) =>
-            config({
-              mode: e.target.value as Mode,
-              exercises: [],
-              limbs: [...LIMBS],
-            })
-          }
-        >
-          <option value="hands">الذراعان فقط</option>
-          <option value="legs">الساقان فقط</option>
-          <option value="combined">حركات مشتركة</option>
-        </select>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="castle-side">الجهة المشاركة</label>
-        <select
-          id="castle-side"
-          value={s.config.side}
-          disabled={!editable || !enabled}
-          onChange={(e) =>
-            config({ side: e.target.value as Side, exercises: [] })
-          }
-        >
-          <option value="bilateral">الجهتان حسب الحركة</option>
-          <option value="right">اليمنى فقط</option>
-          <option value="left">اليسرى فقط</option>
-        </select>
-      </div>
-      <fieldset disabled={!editable || !enabled}>
-        <legend>الأطراف المشاركة</legend>
-        <div className={styles.checks}>
-          {LIMBS.map((limb) => (
-            <label key={limb}>
-              <input
-                type="checkbox"
-                checked={s.config.limbs.includes(limb)}
-                onChange={(e) =>
-                  config({
-                    limbs: e.target.checked
-                      ? [...s.config.limbs, limb]
-                      : s.config.limbs.filter((l) => l !== limb),
-                  })
-                }
-              />
-              {limbNames[limb]}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset disabled={!editable || !enabled}>
-        <legend>اختيار الحركات · فارغ = تنويع تلقائي</legend>
-        <div className={styles.exerciseChoices}>
-          {EXERCISES.filter(
-            (e) => e.mode === s.config.mode && (!e.mat || s.config.mat),
-          ).map((e) => (
-            <label key={e.id}>
-              <input
-                type="checkbox"
-                checked={s.config.exercises.includes(e.id)}
-                onChange={(v) =>
-                  config({
-                    exercises: v.target.checked
-                      ? [...s.config.exercises, e.id]
-                      : s.config.exercises.filter((id) => id !== e.id),
-                  })
-                }
-              />{" "}
-              {e.name}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <div className={styles.field}>
-        <label htmlFor="castle-presentation">عرض المدرب</label>
-        <select
-          id="castle-presentation"
-          value={s.config.presentation}
-          disabled={!editable || !enabled}
-          onChange={(e) =>
-            config({
-              presentation: e.target.value as Config["presentation"],
-            })
-          }
-        >
-          <option value="seated">جالس · مع بدائل مريحة</option>
-          <option value="standing">واقف · بتوجيه المعالج</option>
-        </select>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="castle-reps">التكرارات في كل جولة</label>
-        <select
-          id="castle-reps"
-          value={s.config.repetitions}
-          disabled={s.status !== "ready" || !enabled}
-          onChange={(e) => config({ repetitions: Number(e.target.value) })}
-        >
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <option value={n} key={n}>
-              {n} حركات
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="castle-range">حجم الحركة المعروضة</label>
-        <select
-          id="castle-range"
-          value={s.config.movementScale}
-          disabled={!editable || !enabled}
-          onChange={(e) => config({ movementScale: Number(e.target.value) })}
-        >
-          <option value="0.35">صغيرة</option>
-          <option value="0.65">مريحة</option>
-          <option value="1">كاملة</option>
-        </select>
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="castle-hold">ثبات اختياري بإشراف المعالج</label>
-        <select
-          id="castle-hold"
-          value={s.config.holdSeconds}
-          disabled={!editable || !enabled}
-          onChange={(e) => config({ holdSeconds: Number(e.target.value) })}
-        >
-          {[0, 2, 3, 5].map((n) => (
-            <option value={n} key={n}>
-              {n ? `${n} ثوانٍ` : "دون ثبات"}
-            </option>
-          ))}
-        </select>
-      </div>
-      <fieldset disabled={!editable || !enabled}>
-        <legend>حصيرة البصمات</legend>
-        <label className={styles.note}>
-          <input
-            type="checkbox"
-            checked={s.config.mat}
-            onChange={(e) => config({ mat: e.target.checked, exercises: [] })}
-          />{" "}
-          تمارين الحصيرة بتأكيد المعالج
-        </label>
-        <div className={styles.field}>
-          <select
-            aria-label="هدف الحصيرة"
-            value={s.config.matTarget}
-            disabled={!s.config.mat}
-            onChange={(e) =>
-              config({ matTarget: e.target.value as Config["matTarget"] })
-            }
-          >
-            <option value="blue">الدائرة الزرقاء</option>
-            <option value="orange">الدائرة البرتقالية</option>
-            <option value="green">الدائرة الخضراء</option>
-          </select>
-        </div>
-      </fieldset>
-      <AdditionalOptions>
-        <div className={styles.field}>
-          <label htmlFor="castle-quality">جودة الرسوم</label>
-          <select
-            id="castle-quality"
-            value={s.config.quality}
-            disabled={!editable || !enabled}
-            onChange={(e) =>
-              config({ quality: e.target.value as Config["quality"] })
-            }
-          >
-            <option value="high">عالية · ظلال وتفاصيل</option>
-            <option value="low">خفيفة · للأجهزة الأبطأ</option>
-          </select>
-        </div>
-      </AdditionalOptions>
-      <fieldset disabled={!editable || !enabled}>
-        <div className={styles.checks}>
-          <label>
-            <input
-              type="checkbox"
-              checked={s.config.reducedMotion}
-              onChange={(e) => config({ reducedMotion: e.target.checked })}
-            />{" "}
-            تقليل الحركة
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={s.config.muted}
-              onChange={(e) => config({ muted: e.target.checked })}
-            />{" "}
-            كتم الصوت
-          </label>
-        </div>
-        <label className={styles.field}>
-          مستوى الصوت
-          <input
-            aria-label="مستوى الصوت"
-            type="range"
-            min="0"
-            max="1"
-            step=".05"
-            value={s.config.volume}
-            onChange={(e) => config({ volume: Number(e.target.value) })}
-          />
-        </label>
-      </fieldset>
-      <p className={styles.note}>
-        المدرب يوضح الحركة؛ المعالج يختار البديل المناسب ويؤكد المحاولة.
-        الحساسات اختيار مستقبلي عبر منصة شموس. لا يوجد تتبع بالكاميرا أو قياس
-        تلقائي لموقع القدم أو تحميل الوزن.
-      </p>
-      <div className={styles.status} role="status">
-        {enabled ? "● التحكم متصل" : "○ التحكم متوقف أو غير متصل"}
-        <br />
-        {session.displayConnected ? "● شاشة الطفل متصلة" : "○ افتح شاشة الطفل"}
-        <br />
-        {
-          {
-            saved: "✓ حُفظت النتائج في سجل المريض",
-            retry: "تعذّر حفظ النتائج؛ تجري إعادة المحاولة",
-            "walk-in": "جلسة زائر · دون سجل مريض",
-            saving: "جارٍ حفظ النتائج…",
-            "not-ended": "تُحفظ النتائج عند إنهاء الجلسة",
-          }[session.history]
-        }
-      </div>
-    </aside>
-  );
-  if (s.status === "ready" && !s.startedAt)
-    return (
-      <main
-        className={styles.control}
-        data-testid="castle-control"
-        data-status={s.status}
-        data-stage={s.stage}
-        dir="rtl"
-      >
-        <NativeSetupSections
-          settings={setupSettings}
-          stages={setupStages}
-          start={
-            <button
-              type="button"
-              disabled={!enabled}
-              onClick={() => send({ type: "start", at: Date.now() })}
-            >
-              ابدأ النشاط
-            </button>
-          }
-        />
-      </main>
-    );
-  return (
-    <main className={styles.control} lang="ar">
-      <div className={styles.inner}>
-        <header data-native-game-header className={styles.header}>
-          <div className={styles.brand}>
-            <Crest />
-            <div>
-              <span className={styles.eyebrow}>
-                SHUMOS CARE · CASTLE LEGENDS
-              </span>
-              <h1 className={styles.title}>أسطورة قلعة شموس</h1>
-              <p className={styles.subtitle}>
-                كل حركة تضيء الطريق · مغامرة حركية بتوجيه المعالج
-              </p>
+  const session = useCastleSession(), { state: s, send } = session;
+  useLibraryLaunchAdapter(GAME_ID, { modes: ["MANUAL"], sessionKey: s?.sessionId, apply: () => !!s && session.connected && !session.blocked && ["ready", "paused"].includes(s.status) });
+  if (!s) return <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl"><TherapistSection title="تجهيز المغامرة"><p role="status">{session.blocked ? "توجد جلسة نشطة في نافذة أخرى." : session.error ?? "جارٍ تجهيز الرحلة…"}</p>{session.blocked && <TherapistButton onClick={() => { if (window.confirm("نقل التحكم من النافذة الأخرى إلى هذه النافذة؟")) session.takeover(); }}>نقل التحكم</TherapistButton>}</TherapistSection></main>;
+  const enabled = session.connected && !session.blocked;
+  const editable = ["ready", "paused", "stage-complete"].includes(s.status);
+  const combat = s.status === "running" && s.phase === "encounter";
+  const prompt = exercise(s), stage = STAGES[s.stage];
+  const configure = (config: Partial<Config>) => send({ type: "configure", config });
+  const settings = <CastleSettings state={s} enabled={enabled} configure={configure} />;
+  const historyText = { saved: "حُفظت النتائج في سجل المريض", retry: "تعذّر الحفظ؛ تجري إعادة المحاولة. أبقِ الجلسة مفتوحة.", "walk-in": "جلسة سريعة · دون سجل مريض", saving: "جارٍ حفظ النتائج…", "not-ended": "تُحفظ النتائج عند إنهاء الجلسة" }[session.history];
+  const end = () => { if (window.confirm("إنهاء الجلسة وحفظ ما أُنجز؟")) send({ type: "end", at: Date.now() }); };
+  return <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl" data-testid="castle-control" data-status={s.status} data-stage={s.stage}>
+    {session.error && <p className={ui.error} role="alert">{session.error}</p>}
+    {s.status === "ready" && !s.startedAt ? <div className={styles.setup}>
+      <TherapistSection step="01" title="إعداد المشاركة" description="اضبط الحركة بما يناسب الطفل، وأكّد المحاولات يدويًا أثناء اللعب.">{settings}</TherapistSection>
+      <TherapistSection step="02" title="اختر مستوى المغامرة" description="ثلاثة مستويات، وفي كل مستوى ثلاث مراحل من المغامرة الأصلية."><TherapistStages stages={stages} selected={s.stage} disabled={!enabled} onSelect={stage => send({ type: "stage", stage })} /></TherapistSection>
+      <section className={styles.start} aria-label="بدء النشاط"><div><strong>جاهزون للمغامرة؟</strong><p>راجع مساحة الحركة وراحة الطفل قبل البدء.</p></div><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "start", at: Date.now() })}>ابدأ النشاط ←</TherapistButton></section>
+    </div> : <>
+      <div className={styles.sessionBar}><div><h2>متابعة المغامرة</h2><p>المستوى {Math.floor(s.stage / 3) + 1} · المرحلة {s.stage % 3 + 1} · {stage.name}</p></div><TherapistStatus good={s.status === "running" && enabled}>{statusNames[s.status]}</TherapistStatus></div>
+      <div className={styles.live}>
+        <div className={styles.previewColumn}>
+          <TherapistSection title="متابعة شاشة الطفل">
+            <div className={styles.liveTop}><TherapistStatus good={session.displayConnected}>{session.displayConnected ? "شاشة الطفل متصلة" : "شاشة الطفل غير متصلة"}</TherapistStatus><TherapistStatus good={enabled}>{enabled ? "التحكم متصل" : "التحكم غير متصل"}</TherapistStatus></div>
+            <div className={styles.preview} data-testid="castle-live-preview" data-phase={s.phase} data-demonstration={s.demonstration}>
+              <div className={styles.previewPicture}><Image src={stages[s.stage].image} width={640} height={360} alt={`صورة المرحلة: ${stage.name}`} sizes="(max-width:900px) 95vw, 55vw" /><span>صورة المرحلة · متابعة الحالة أدناه مباشرة</span></div>
+              <div className={styles.previewInfo}><p>{s.status === "running" ? phaseNames[s.phase] : statusNames[s.status]}</p><h3>{["encounter", "attack", "defeat"].includes(s.phase) ? prompt.name : s.status === "stage-complete" ? stage.reward : stage.name}</h3><strong>المواجهة {s.encounter + 1} من {stage.enemies.length} · المتبقي {s.health} من {s.maxHealth} حركات</strong>{s.lastOutcome && <p role="status">آخر محاولة: {({ confirmed: "نجاح مؤكد", assisted: "نجاح بمساعدة", skipped: "تجاوز الحركة" })[s.lastOutcome]}</p>}</div>
             </div>
-          </div>
-          <nav className={styles.links}>
-            <Link href="/control">مكتبة الأنشطة</Link>
-            <a href="/display" target="_blank" rel="noopener">
-              شاشة الطفل ↗
-            </a>
-          </nav>
-        </header>
-        <div className={styles.layout}>
-          <div className={styles.main}>
-            <CastleView state={s} connected={enabled} />
-            <section className={styles.actionsPanel}>
-              <div className={styles.actionHeader}>
-                <div>
-                  <h2>
-                    {combat
-                      ? prompt.name
-                      : s.status === "ended"
-                        ? "نتائج الرحلة"
-                        : "قيادة الرحلة"}
-                  </h2>
-                  <p className={styles.subtitle}>
-                    {combat
-                      ? "راقب الحركة ثم أكد النجاح. لا توجد مهلة أو عقوبة."
-                      : STAGES[s.stage].name}
-                  </p>
-                </div>
-                <span className={styles.eyebrow}>THERAPIST CONTROL</span>
-              </div>
-              {session.error && (
-                <p className={styles.alert} role="alert">
-                  {session.error}
-                </p>
-              )}
-              <div className={styles.actions}>
-                {s.status === "ended" && (
-                  <button
-                    className={`${styles.button} ${styles.primary}`}
-                    disabled={!enabled}
-                    onClick={() =>
-                      send({ type: "new", sessionId: crypto.randomUUID() })
-                    }
-                  >
-                    جلسة جديدة بنفس الإعدادات
-                  </button>
-                )}
-                {(s.status === "ready" || s.status === "paused") && (
-                  <button
-                    className={`${styles.button} ${styles.primary}`}
-                    disabled={!enabled}
-                    onClick={() =>
-                      send({
-                        type: s.status === "ready" ? "start" : "resume",
-                        at: Date.now(),
-                      })
-                    }
-                  >
-                    {s.status === "ready" ? "ابدأ المغامرة" : "استئناف الرحلة"}
-                  </button>
-                )}
-                {s.status === "running" && (
-                  <>
-                    <button
-                      className={`${styles.button} ${styles.primary}`}
-                      disabled={!enabled || !combat}
-                      onClick={() => send({ type: "confirm" })}
-                    >
-                      ✓ تأكيد نجاح الحركة
-                    </button>
-                    <button
-                      className={styles.button}
-                      disabled={!enabled || !combat}
-                      onClick={() => send({ type: "assist" })}
-                    >
-                      نجاح بمساعدة
-                    </button>
-                    <button
-                      className={styles.button}
-                      disabled={!enabled}
-                      onClick={() => send({ type: "pause" })}
-                    >
-                      استراحة
-                    </button>
-                  </>
-                )}
-                <button
-                  className={styles.button}
-                  disabled={!enabled || !combat}
-                  onClick={() => send({ type: "repeat" })}
-                >
-                  إعادة عرض الحركة
-                </button>
-                <button
-                  className={styles.button}
-                  disabled={!enabled || !combat}
-                  onClick={() => send({ type: "skip" })}
-                >
-                  تجاوز الحركة
-                </button>
-                <button
-                  className={styles.button}
-                  disabled={!enabled || !combat}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "تجاوز هذه المواجهة؟ ستُسجّل كتجاوز، دون هزيمة العدو.",
-                      )
-                    )
-                      send({ type: "advance" });
-                  }}
-                >
-                  تجاوز المواجهة
-                </button>
-                {s.status === "stage-complete" && (
-                  <button
-                    className={`${styles.button} ${styles.primary}`}
-                    disabled={!enabled}
-                    onClick={() => send({ type: "next" })}
-                  >
-                    {s.stage === 8
-                      ? "إنهاء المغامرة وحفظ النتائج"
-                      : "المرحلة التالية"}
-                  </button>
-                )}
-                <button
-                  className={styles.button}
-                  disabled={!enabled || s.status === "ended"}
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "إعادة المرحلة من بدايتها؟ تُحفظ المحاولات السابقة في النتائج.",
-                      )
-                    )
-                      send({ type: "restart" });
-                  }}
-                >
-                  إعادة المرحلة
-                </button>
-                <button
-                  className={`${styles.button} ${styles.danger}`}
-                  disabled={!enabled || s.status === "ended"}
-                  onClick={() => {
-                    if (window.confirm("إنهاء الجلسة وحفظ ما أُنجز؟"))
-                      send({ type: "end", at: Date.now() });
-                  }}
-                >
-                  إنهاء الجلسة
-                </button>
-              </div>
-              <div className={styles.stats}>
-                <span>
-                  <strong>
-                    {s.attempts.filter((a) => a.result === "confirmed").length}
-                  </strong>
-                  تأكيد ناجح
-                </span>
-                <span>
-                  <strong>
-                    {s.attempts.filter((a) => a.result === "assisted").length}
-                  </strong>
-                  بمساعدة
-                </span>
-                <span>
-                  <strong>
-                    {s.attempts.filter((a) => a.result === "skipped").length}
-                  </strong>
-                  تجاوز حركة
-                </span>
-                <span>
-                  <strong>{s.completed.length}/9</strong>مراحل مكتملة
-                </span>
-                <span>
-                  {Math.floor(s.elapsedMs / 60000)}:
-                  {String(Math.floor(s.elapsedMs / 1000) % 60).padStart(2, "0")}{" "}
-                  وقت اللعب
-                </span>
-              </div>
-            </section>
-          </div>
-          {setupSettings}
+          </TherapistSection>
+          <TherapistSection title="مساعدة الطفل" description="راقب أداء الطفل، ثم اختر التأكيد المناسب.">
+            <div className={styles.manual}><div className={styles.manualPrimary}><TherapistButton tone="primary" disabled={!enabled || !combat} onClick={() => send({ type: "confirm" })}>✓ تأكيد نجاح الحركة</TherapistButton><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "assist" })}>نجاح بمساعدة</TherapistButton></div><div className={styles.manualSecondary}><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "repeat" })}>إعادة عرض الحركة</TherapistButton><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "skip" })}>تجاوز الحركة</TherapistButton></div></div>
+          </TherapistSection>
+        </div>
+        <div className={styles.panelColumn}>
+          <TherapistSection title="لوحة المعالج">
+            <div className={styles.currentStage}><div><strong>{stage.name}</strong><p>المرحلة {s.stage + 1} من 9</p></div><span aria-hidden="true">{Math.floor(s.elapsedMs / 60000)}:{String(Math.floor(s.elapsedMs / 1000) % 60).padStart(2, "0")}</span></div>
+            <div className={styles.progress} aria-label={`${s.completed.length} مراحل مكتملة من 9`}>{STAGES.map((_, i) => <span key={i} data-current={i === s.stage} data-done={s.completed.includes(i)} />)}</div>
+            <nav className={styles.stageNavigation} aria-label="التنقل بين المراحل"><TherapistButton disabled={!enabled || !editable || s.stage === 0} onClick={() => send({ type: "stage", stage: s.stage - 1 })}>→ المرحلة السابقة</TherapistButton><TherapistButton disabled={!enabled || !["ready", "paused"].includes(s.status) || s.stage === 8} onClick={() => send({ type: "stage", stage: s.stage + 1 })}>المرحلة التالية ←</TherapistButton></nav>
+            <dl className={styles.stats}><div><dt>نجاح مؤكد</dt><dd>{s.attempts.filter(a => a.result === "confirmed").length}</dd></div><div><dt>بمساعدة</dt><dd>{s.attempts.filter(a => a.result === "assisted").length}</dd></div><div><dt>تجاوز</dt><dd>{s.attempts.filter(a => a.result === "skipped").length}</dd></div></dl>
+            {s.status === "paused" && <p className={styles.paused}>النشاط متوقف مؤقتًا. يمكنك مراجعة الإعدادات ثم الاستئناف.</p>}
+            <div className={styles.runtimeActions}>
+              {["ready", "paused"].includes(s.status) && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: s.status === "ready" ? "start" : "resume", at: Date.now() })}>{s.status === "ready" ? "ابدأ المرحلة" : "استئناف الرحلة"}</TherapistButton>}
+              {s.status === "running" && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "pause" })}>إيقاف مؤقت</TherapistButton>}
+              {s.status === "stage-complete" && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "next" })}>{s.stage === 8 ? "إنهاء المغامرة وحفظ النتائج" : "المرحلة التالية"}</TherapistButton>}
+              {s.status !== "ended" && <TherapistButton tone="danger" disabled={!enabled} onClick={end}>إنهاء الجلسة بأمان</TherapistButton>}
+              {s.status === "ended" && <TherapistButton tone="primary" disabled={!enabled || !["saved", "walk-in"].includes(session.history)} onClick={() => send({ type: "new", sessionId: crypto.randomUUID() })}>جلسة جديدة بنفس الإعدادات</TherapistButton>}
+            </div>
+            <p className={session.history === "retry" ? styles.historyError : styles.statusLine} role="status">{historyText}</p>
+          </TherapistSection>
+          <TherapistDisclosure title="تغيير المرحلة وخيارات الرحلة"><label className={ui.field}>المرحلة<select className={styles.stageSelect} aria-label="المرحلة" disabled={!enabled || !editable} value={s.stage} onChange={e => send({ type: "stage", stage: Number(e.target.value) })}>{STAGES.map((stage, i) => <option key={i} value={i}>{i + 1} · {stage.name}</option>)}</select></label><p className={ui.hint}>تغيير المرحلة متاح أثناء الاستراحة أو بعد اكتمالها.</p><TherapistButton disabled={!enabled || s.status === "ended"} onClick={() => { if (window.confirm("إعادة المرحلة من بدايتها؟ تُحفظ المحاولات السابقة في النتائج.")) send({ type: "restart" }); }}>إعادة المرحلة</TherapistButton><TherapistButton disabled={!enabled || !combat} onClick={() => { if (window.confirm("تجاوز هذه المواجهة؟ ستُسجّل كتجاوز، دون هزيمة العدو.")) send({ type: "advance" }); }}>تجاوز المواجهة</TherapistButton></TherapistDisclosure>
+          <TherapistDisclosure title="إعدادات المشاركة أثناء الجلسة">{s.status === "running" && <p className={ui.hint}>أوقف النشاط مؤقتًا لتعديل الإعدادات.</p>}{settings}</TherapistDisclosure>
         </div>
       </div>
-    </main>
-  );
+    </>}
+  </main>;
 }

@@ -1,8 +1,9 @@
 import { beforeEach, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => {
   vi.stubEnv("NEXT_PUBLIC_BALANCE_BRIDGE_3D", "true");
-  return { get: vi.fn(), transaction: vi.fn() };
+  return { get: vi.fn(), transaction: vi.fn(), uid: "staff" as string | null };
 });
+vi.mock("firebase/auth", () => ({ getAuth: () => ({ currentUser: mocks.uid ? { uid: mocks.uid } : null }) }));
 vi.mock("firebase/database", () => ({
   get: mocks.get,
   ref: (_db: unknown, path: string) => path,
@@ -26,6 +27,7 @@ const record = (tab = "own", started = false, id = "preview") => {
   };
 };
 beforeEach(() => {
+  mocks.uid = "staff";
   mocks.get.mockReset();
   mocks.get.mockResolvedValue({val:()=>({sessionId:"preview",patientId:"patient",updatedAt:1})});
   mocks.transaction.mockReset();
@@ -33,6 +35,9 @@ beforeEach(() => {
 it("atomically discards only its own setup and rechecks concurrent Start, owner and session changes", async () => {
   mocks.transaction.mockImplementation(async (_path, update) => {
     expect(update(record())).toBeNull();
+    mocks.uid = null;
+    expect(update(record())).toBeUndefined();
+    mocks.uid = "staff";
     for (const r of [
       record("other"),
       record("own", true),

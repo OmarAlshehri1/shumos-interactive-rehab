@@ -8,6 +8,14 @@
   min-height: 100vh;
   font-family: var(--font-control), Arial, sans-serif;
 }
+.referenceFrame{font-size:16px;line-height:1.65;max-width:1520px;padding-top:24px}
+.referenceFrame .header{padding:24px;margin-bottom:18px;gap:24px}
+.referenceFrame .header h1{font-size:30px;line-height:1.5}
+.referenceFrame .header p{font-size:16px;color:#526b75}
+.referenceFrame .header small{font-size:14px;color:#526b75}
+.referenceFrame .badge{font-size:13px}
+.referenceNative{margin-top:20px;min-width:0}
+@media(max-width:650px){.referenceFrame .header h1{font-size:23px}.referenceFrame .header{padding:18px;gap:14px}.referenceFrame .header p{font-size:15px}}
 .nav {
   display: flex;
   gap: 20px;
