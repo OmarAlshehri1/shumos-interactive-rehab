@@ -13,7 +13,7 @@
 export const OWNER_STALE_MS = 15_000;
 /** Control rewrites its record at least this often while a session exists (liveness for reloaded/second windows). */
 export const HEARTBEAT_MS = 4_000;
-/** Older records are never recovered. */
+/** Historical recovery boundary, retained for compatibility. Age alone cannot discard validated progress. */
 export const RECOVERY_MAX_AGE_MS = 12 * 60 * 60 * 1000;
 
 const TAB_ID_KEY = "shumos.liveGame.controlTabId";
@@ -69,7 +69,8 @@ export interface RecoveryInput<S extends { sessionId: string }> {
 /**
  * Decides whether a freshly loaded Control adopts the stored session.
  *  - only the same account's own session is ever adopted, and only for the same patient (walk-in matches walk-in);
- *  - the game's snapshot must validate and match the record's session id, and be younger than 12 h;
+ *  - the game's snapshot must validate and match the record's session id;
+ *    age alone must never cause an unfinished snapshot to be overwritten;
  *  - same window => recover at once; another window that is still writing => blocked unless forced;
  *    another window that stopped writing => recovered.
  */
@@ -78,7 +79,6 @@ export function decideRecovery<S extends { sessionId: string }>(i: RecoveryInput
   if (meta.ownerId !== i.uid) return { kind: "none" };
   if (!snapshot || snapshot.sessionId !== i.recordSessionId) return { kind: "none" };
   const beat = typeof meta.heartbeatAt === "number" ? meta.heartbeatAt : 0;
-  if (!(i.now - beat < RECOVERY_MAX_AGE_MS)) return { kind: "none" };
   const samePatient = (i.recordPatientId ?? null) === (i.patientId ?? null);
   if (meta.controlTabId === i.tabId) return samePatient ? { kind: "recover", snapshot, why: "same-window", fromTabId: null } : { kind: "none" };
   const fromTabId = meta.controlTabId ?? null;

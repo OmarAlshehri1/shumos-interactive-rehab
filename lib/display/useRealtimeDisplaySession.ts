@@ -14,6 +14,9 @@ import type { AnySessionState, ConnectionStatus, LiveSessionRecord } from "@/lib
 import { useFirebaseAuth } from "@/lib/realtime/useFirebaseAuth";
 import { isBroadcastChannelSupported } from "./LocalPointerChannel";
 import { isSessionWakeMessage, LOCAL_SESSION_WAKE_CHANNEL_NAME } from "./LocalSessionWakeChannel";
+import { displaySession, previewExpiresAt } from "./sessionPresentation";
+import { displayServerNow } from "@/lib/realtime/displayAuthorization";
+import { markDisplayStartup } from "./startupTiming";
 
 export interface IncorrectSignal {
   balloonId: string;
@@ -124,15 +127,26 @@ export function useRealtimeDisplaySession() {
   // reconnect never surfaces an already-seen token here.
   const [celebrationReplayToken, setCelebrationReplayToken] = useState<string | null>(null);
   const guardRef = useRef(createInitialGuardState());
+  const previewTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const applyRecord = useCallback((record: LiveSessionRecord | null) => {
     const result = applyLiveRecord(guardRef.current, record);
     guardRef.current = result.state;
     if (!result.accept) return;
 
-    setSession(record?.session ?? null);
-    setGameId(record?.gameId ?? null);
-    setRevision(record?.revision ?? null);
+    clearTimeout(previewTimerRef.current);
+    const present = () => {
+      const visible = displaySession(record, displayServerNow());
+      setSession(visible?.session ?? null);
+      setGameId(visible?.gameId ?? null);
+      setRevision(visible?.revision ?? null);
+    };
+    present();
+    const expiry = previewExpiresAt(record);
+    if (expiry !== null && expiry > displayServerNow()) {
+      previewTimerRef.current = setTimeout(present, expiry - displayServerNow());
+    }
+    markDisplayStartup("session-ready");
     if (result.newIncorrectBalloonId) {
       setIncorrectSignal({ balloonId: result.newIncorrectBalloonId, token: Date.now() });
     }
@@ -145,12 +159,14 @@ export function useRealtimeDisplaySession() {
   useEffect(() => {
     if (auth.status !== "authenticated") {
       guardRef.current = createInitialGuardState();
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Clear previously authorized content immediately on revocation.
       setSession(null); setGameId(null); setRevision(null);
       setIncorrectSignal(null); setCelebrationReplayToken(null);
       setHasLoadedInitialSession(false);
       return;
     }
     const db = getDisplayDb();
+    markDisplayStartup("subscriptions-start");
     const unregisterPresence = registerDisplayPresence(db);
     const unsubscribeConnection = subscribeToConnectionStatus(db, setConnectionStatus);
     const unsubscribeSession = subscribeToLiveSession(db, (record) => {
@@ -193,6 +209,7 @@ export function useRealtimeDisplaySession() {
 
     return () => {
       disposed = true;
+      clearTimeout(previewTimerRef.current);
       unregisterPresence();
       unsubscribeConnection();
       unsubscribeSession();

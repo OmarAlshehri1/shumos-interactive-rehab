@@ -1,7 +1,8 @@
 import { get, onValue, ref, remove, serverTimestamp, set, update } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { getDisplayDb, getDisplayFirebaseApp, getStaffDb, isRealtimeEnabled } from "./firebaseClient";
-import { subscribeToStaffAuthState } from "./staffAuthClient";
+import { getStaffIdToken, subscribeToStaffAuthState } from "./staffAuthClient";
+import { markDisplayStartup } from "@/lib/display/startupTiming";
 import { recoverDisplaySessionOwner } from "./recoverDisplaySessionOwner";
 import { logDisplayAuthFailure } from "./displayAuthDiagnostics";
 
@@ -16,6 +17,38 @@ const watchers = new Map<string, { listeners: Set<(authorized: boolean) => void>
 const suspendedStaff = new Set<string>();
 const refreshers = new Set<() => void>();
 const pendingApprovals = new Set<Promise<void>>();
+let preparingStaff: Promise<void> | undefined;
+let displayServerOffset = 0;
+export function displayServerNow(): number { return Date.now() + displayServerOffset; }
+let clockInFlight: Promise<number> | undefined;
+
+function staffServerClock(): Promise<number> {
+  return clockInFlight ??= (async () => {
+    await new Promise<void>((resolve, reject) => {
+      const stop = onValue(ref(getStaffDb(), ".info/connected"), snapshot => {
+        if (snapshot.val() !== true) return;
+        queueMicrotask(() => stop());
+        resolve();
+      }, reject);
+    });
+    const offset = await new Promise<unknown>((resolve, reject) => {
+      onValue(ref(getStaffDb(), ".info/serverTimeOffset"), snapshot => resolve(snapshot.val()), reject, { onlyOnce: true });
+    });
+    if (typeof offset !== "number" || !Number.isFinite(offset)) throw Error("Server time unavailable");
+    displayServerOffset = offset;
+    markDisplayStartup("clock-ready");
+    return offset;
+  })().finally(() => { clockInFlight = undefined; });
+}
+
+/** Restore the existing staff credential while the independent Display identity initializes.
+ * No extra auth listener, database read, approval, or sign-in is created here. */
+export function prepareDisplayAuthorization(): void {
+  preparingStaff ??= getStaffIdToken().then(async token => {
+    markDisplayStartup("staff-ready");
+    if (token) await staffServerClock();
+  }).catch(() => {});
+}
 
 export function watchDisplayAuthorization(uid: string, callback: (authorized: boolean) => void): () => void {
   let entry = watchers.get(uid);
@@ -40,6 +73,7 @@ export function watchDisplayAuthorization(uid: string, callback: (authorized: bo
 function startAuthorization(uid: string, callback: (authorized: boolean) => void): () => void {
   let stopped = false, staffUid: string | null = null, busy = false;
   let approvalWritten = false;
+  let canonicalOwner: unknown;
   let serverOffset = 0;
   let stopScope = () => {};
   let stopRead = () => {}, expiry: ReturnType<typeof setTimeout> | undefined;
@@ -52,6 +86,7 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       const approval = snapshot.val() as Approval | null;
       const remaining = approval ? approval.expiresAt - (Date.now() + serverOffset) : 0;
       report(remaining > 0);
+      if (remaining > 0) markDisplayStartup("authorized");
       if (remaining > 0) expiry = setTimeout(() => report(false), remaining);
     }, error => {
       clearTimeout(expiry);
@@ -71,23 +106,20 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       // 30-minute grant exceed the rules' 30-minute maximum and denies Display.
       // .info is a client-maintained subscription, not a server data path for get().
       // Wait for the handshake: the offset cache starts at zero on a new window.
-      await new Promise<void>((resolve, reject) => {
-        const stop = onValue(ref(getStaffDb(), ".info/connected"), snapshot => {
-          if (snapshot.val() !== true) return;
-          queueMicrotask(() => stop());
-          resolve();
-        }, reject);
-      });
-      const offset = await new Promise<unknown>((resolve, reject) => {
-        onValue(ref(getStaffDb(), ".info/serverTimeOffset"), snapshot => resolve(snapshot.val()), reject, { onlyOnce: true });
-      });
-      if (typeof offset !== "number" || !Number.isFinite(offset)) throw Error("Server time unavailable");
+      const [offset] = await Promise.all([
+        staffServerClock(),
+        Promise.resolve().then(async () => {
+          if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
+          // Reuse the existing scope listener; only legacy ownership needs the
+          // full saved session. Recovery and the server handshake run together.
+          if (typeof canonicalOwner !== "string") {
+            try { await recoverDisplaySessionOwner(getStaffDb(), owner); }
+            catch (error) { phase = "session-owner"; throw error; }
+          }
+          markDisplayStartup("owner-ready");
+        }),
+      ]);
       serverOffset = offset;
-      if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
-      // The homepage has no game publisher to restamp legacy native setups.
-      // Recover proven ownership before Display's rule-gated subscription.
-      phase = "session-owner";
-      await recoverDisplaySessionOwner(getStaffDb(), owner);
       if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
       // This write is checked by rules for active staff. No sign-in, credentials,
       // launch secrets, or pairing UI: reuse the therapist's persisted Firebase login.
@@ -96,7 +128,7 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
         approvedBy: owner, issuedAt: serverTimestamp(), expiresAt: Date.now() + serverOffset + DISPLAY_ACCESS_TTL_MS - 5000,
       });
       pendingApprovals.add(approvalWrite);
-      try { await approvalWrite; approvalWritten = true; } finally { pendingApprovals.delete(approvalWrite); }
+      try { await approvalWrite; approvalWritten = true; markDisplayStartup("approval-written"); } finally { pendingApprovals.delete(approvalWrite); }
       if (staffUid !== owner || suspendedStaff.has(owner)) {
         // A late approval must not survive a concurrent sign-out.
         await remove(displayRef).catch(() => {});
@@ -111,6 +143,7 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
     if (state.status === "failed") logDisplayAuthFailure("staff-session", null);
     const previousStaff = staffUid;
     stopScope();
+    canonicalOwner = undefined;
     staffUid = state.status === "authenticated" ? state.uid : null;
     if (previousStaff && previousStaff !== staffUid) {
       // Firebase propagates sign-out across tabs. The Display may revoke only
@@ -122,7 +155,10 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       // Reuse existing ownership metadata to recover immediately after handoff,
       // publication, or switching media; no polling delay or authorization prompt.
       const scopeStops = ["controllerLease/ownerId", "liveSession/controllerUid", "presence/display/youtubeCommand/ownerId"]
-        .map(path => onValue(ref(getStaffDb(), path), () => void renew(), () => report(false)));
+        .map(path => onValue(ref(getStaffDb(), path), snapshot => {
+          if (path === "liveSession/controllerUid") canonicalOwner = snapshot.val();
+          void renew();
+        }, () => report(false)));
       stopScope = () => scopeStops.forEach(stop => stop());
     }
     void renew();

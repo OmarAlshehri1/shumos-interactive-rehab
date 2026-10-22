@@ -9,6 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 let authorizationCallback: ((authorized: boolean) => void) | undefined;
 vi.mock("../displayAuthorization", () => ({
+  prepareDisplayAuthorization: vi.fn(),
   watchDisplayAuthorization: (_uid: string, callback: (authorized: boolean) => void) => {
     authorizationCallback = callback;
     callback(true);

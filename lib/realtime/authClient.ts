@@ -1,4 +1,5 @@
-import { watchDisplayAuthorization } from "./displayAuthorization";
+import { prepareDisplayAuthorization, watchDisplayAuthorization } from "./displayAuthorization";
+import { markDisplayStartup } from "@/lib/display/startupTiming";
 import { logDisplayAuthFailure } from "./displayAuthDiagnostics";
 import { type Auth, type User, connectAuthEmulator, getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { getDisplayFirebaseApp, getEmulatorConfig } from "./firebaseClient";
@@ -120,6 +121,8 @@ export type AuthListener = (state: AuthState) => void;
  * before assuming RTDB is reachable (see useFirebaseAuth.ts).
  */
 export function subscribeToAuthState(listener: AuthListener): () => void {
+  markDisplayStartup("auth-start");
+  prepareDisplayAuthorization();
   const authInstance = getAuthInstance();
   listener({ status: "initializing", uid: null });
 
@@ -128,6 +131,7 @@ export function subscribeToAuthState(listener: AuthListener): () => void {
     authInstance,
     (user) => {
       if (user) {
+        markDisplayStartup("identity-ready");
         stopAuthorization();
         stopAuthorization = watchDisplayAuthorization(user.uid, (authorized) =>
           listener({ status: authorized ? "authenticated" : "failed", uid: authorized ? user.uid : null }),

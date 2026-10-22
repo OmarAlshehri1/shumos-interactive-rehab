@@ -27,14 +27,20 @@ describe("ownership decision", () => {
     // Once it stopped writing, a different patient simply means a fresh session.
     expect(decideRecovery({ ...other, patientId: "p2", now: 1_000_000 + OWNER_STALE_MS }).kind).toBe("none");
   });
-  it("never adopts another account's, another patient's (same window), a mismatching, missing or old session", () => {
+  it("never adopts another account's, another patient's (same window), a mismatching or missing session", () => {
     expect(decideRecovery({ ...base, uid: "u2" }).kind).toBe("none");
     expect(decideRecovery({ ...base, patientId: "p2" }).kind).toBe("none");
     expect(decideRecovery({ ...base, patientId: null }).kind).toBe("none");
     expect(decideRecovery({ ...base, recordSessionId: "other" }).kind).toBe("none");
     expect(decideRecovery({ ...base, snapshot: null }).kind).toBe("none");
-    expect(decideRecovery({ ...base, now: 1_000_000 + RECOVERY_MAX_AGE_MS }).kind).toBe("none");
     expect(decideRecovery({ ...base, recordPatientId: null, patientId: null }).kind).toBe("recover"); // walk-in matches walk-in
+  });
+  it("preserves validated recovery data beyond the old age cutoff instead of silently starting over", () => {
+    const snapshot = { sessionId: 's1', state: { status: 'paused', elapsed: 1234, completed: [1] } };
+    const decision = decideRecovery({ ...base, snapshot, tabId: 'new-window', now: 1_000_000 + RECOVERY_MAX_AGE_MS * 14 });
+    expect(decision.kind).toBe('recover');
+    expect(decision.kind === 'recover' && decision.snapshot).toBe(snapshot);
+    expect(decideRecovery({ ...base, snapshot, patientId: 'another-patient', now: 1_000_000 + RECOVERY_MAX_AGE_MS * 14 }).kind).toBe('none');
   });
   it("only an explicit hand-over naming this window stands it down", () => {
     expect(isTakenOver({ takeoverFrom: "tab-A" }, "tab-A")).toBe(true);

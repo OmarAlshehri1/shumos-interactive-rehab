@@ -12,6 +12,7 @@ import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { Difficulty, GameState } from "@/lib/game";
 import { useLocalDemoSession } from "@/lib/demo/useLocalDemoSession";
 import { useRealtimeDisplaySession } from "@/lib/display/useRealtimeDisplaySession";
+import { markDisplayStartup } from "@/lib/display/startupTiming";
 import { useFullscreen } from "@/lib/display/useFullscreen";
 import { useAudioManager } from "@/lib/audio/useAudioManager";
 import { getDisplayDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
@@ -128,6 +129,11 @@ function LocalDisplayScreen() {
 
 function RealtimeDisplayScreen() {
   const realtime = useRealtimeDisplaySession();
+  useEffect(() => {
+    if (!realtime.hasLoadedInitialSession) return;
+    const frame = requestAnimationFrame(() => markDisplayStartup("initial-render"));
+    return () => cancelAnimationFrame(frame);
+  }, [realtime.hasLoadedInitialSession]);
   const [projectionPreview, setProjectionPreview] = useState<ProjectionPreviewCommand | null>(null);
   const [previewTime, setPreviewTime] = useState(() => Date.now());
   useEffect(() => {
@@ -432,6 +438,7 @@ function RealtimeDisplayScreen() {
         {!realtime.hasLoadedInitialSession ? null : activeGame ? (
           <motion.div
             key="game"
+            data-testid="display-game"
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -458,6 +465,7 @@ function RealtimeDisplayScreen() {
         ) : (
           <motion.div
             key="waiting"
+            data-testid="display-idle"
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

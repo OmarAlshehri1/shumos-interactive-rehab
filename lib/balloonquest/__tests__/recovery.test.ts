@@ -237,7 +237,7 @@ describe("recovery decision", () => {
     expect(d.kind === "recover" && d.why).toBe("owner-gone");
     expect(d.kind === "recover" && d.fromTabId).toBe("tab-B");
   });
-  it("never recovers someone else's, another patient's, another game's, stale or damaged records", () => {
+  it("never recovers someone else's, another patient's, another game's or damaged records", () => {
     expect(evaluateRecovery({ ...base, record: record({ owner: "uid-2" }) }).kind).toBe("none");
     expect(evaluateRecovery({ ...base, record: record({ patientId: "p2" }) }).kind).toBe("none");
     expect(evaluateRecovery({ ...base, record: record({ patientId: null }) }).kind).toBe("none");
@@ -246,7 +246,7 @@ describe("recovery decision", () => {
     expect(evaluateRecovery({ ...base, record: record({ sessionId: "other" }) }).kind).toBe("none");
     expect(evaluateRecovery({ ...base, record: record({ snapshot: undefined }) }).kind).toBe("none");
     expect(evaluateRecovery({ ...base, record: record({ snapshot: "{not json" }) }).kind).toBe("none");
-    expect(evaluateRecovery({ ...base, record: record(), now: 1_000_000 + 13 * 3600_000 }).kind).toBe("none");
+    expect(evaluateRecovery({ ...base, record: record(), now: 1_000_000 + 13 * 3600_000 }).kind).toBe("recover");
     expect(evaluateRecovery({ ...base, record: null }).kind).toBe("none");
     expect(evaluateRecovery({ ...base, patientId: null, record: record({ patientId: null }) }).kind).toBe("recover"); // walk-in
   });

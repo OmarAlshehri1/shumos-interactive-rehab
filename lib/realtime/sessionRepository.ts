@@ -1,4 +1,5 @@
 import { getAuth } from "firebase/auth";
+import { markDisplayStartup } from "@/lib/display/startupTiming";
 import { ownsUnstartedActivity } from "@/lib/therapyVisits/gameSafety";
 import { validProjectionPreview, type ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import {reviveBridgeLive} from '@/lib/balancebridge3d/live';
@@ -507,7 +508,9 @@ function registerPresence(db: Database, path: string): Unsubscribe {
     void onDisconnect(presenceRef)
       .update({ connected: false, updatedAt: serverTimestamp() })
       .catch((error: unknown) => console.error(`[realtime] onDisconnect setup failed for ${path}:`, error));
-    void update(presenceRef, { connected: true, updatedAt: serverTimestamp() }).catch((error: unknown) =>
+    void update(presenceRef, { connected: true, updatedAt: serverTimestamp() }).then(() => {
+      if (path === DISPLAY_PRESENCE_PATH) markDisplayStartup("heartbeat-acknowledged");
+    }).catch((error: unknown) =>
       console.error(`[realtime] presence update failed for ${path}:`, error),
     );
   });

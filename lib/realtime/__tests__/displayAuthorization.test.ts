@@ -4,6 +4,7 @@ const mocks = vi.hoisted(() => ({
   set: vi.fn(async () => {}), remove: vi.fn(async () => {}), update: vi.fn(async () => {}),
   get: vi.fn(), staff: vi.fn(), value: vi.fn(), offset: 0,
   recover: vi.fn(async () => {}),
+  token: vi.fn(async () => 'staff-token'), canonicalOwner: undefined as string | undefined,
 }));
 vi.mock('firebase/database', () => ({
   ref: (db: string, path: string) => ({ db, path }),
@@ -11,7 +12,7 @@ vi.mock('firebase/database', () => ({
   serverTimestamp: () => ({ '.sv': 'timestamp' }), onValue: mocks.value,
 }));
 vi.mock('../firebaseClient', () => ({ getStaffDb: () => 'staff', getDisplayDb: () => 'display' }));
-vi.mock('../staffAuthClient', () => ({ subscribeToStaffAuthState: mocks.staff }));
+vi.mock('../staffAuthClient', () => ({ subscribeToStaffAuthState: mocks.staff, getStaffIdToken: mocks.token }));
 vi.mock('../recoverDisplaySessionOwner', () => ({ recoverDisplaySessionOwner: mocks.recover }));
 
 describe('Silent authorization using the existing staff session', () => {
@@ -23,11 +24,29 @@ describe('Silent authorization using the existing staff session', () => {
     mocks.set.mockResolvedValue(undefined); mocks.remove.mockResolvedValue(undefined);
     mocks.recover.mockResolvedValue(undefined);
     mocks.offset = 0;
+    mocks.canonicalOwner = undefined;
     mocks.staff.mockImplementation((callback: typeof staffChanged) => { staffChanged = callback; return vi.fn(); });
-    mocks.value.mockImplementation((ref, callback) => { if (ref.path === '.info/connected') callback({ val: () => true }); else if (ref.path === '.info/serverTimeOffset') callback({ val: () => mocks.offset }); else if (ref.db === "display") approve = value => callback({ val: () => value }); return vi.fn(); });
+    mocks.value.mockImplementation((ref, callback) => { if (ref.path === '.info/connected') callback({ val: () => true }); else if (ref.path === '.info/serverTimeOffset') callback({ val: () => mocks.offset }); else if (ref.path === 'liveSession/controllerUid') callback({val: () => mocks.canonicalOwner ?? null}); else if (ref.db === "display") approve = value => callback({ val: () => value }); return vi.fn(); });
   });
   afterEach(() => { stops.splice(0).forEach(stop => stop()); vi.useRealTimers(); });
   const signedIn = { status: 'authenticated', uid: 'therapist', email: 'synthetic@example.test', displayName: null } as StaffAuthState;
+
+  it('prepares staff persistence in parallel without another listener, approval or sign-in', async () => {
+    const { prepareDisplayAuthorization } = await import('../displayAuthorization');
+    prepareDisplayAuthorization(); prepareDisplayAuthorization(); await vi.advanceTimersByTimeAsync(0);
+    expect(mocks.token).toHaveBeenCalledTimes(1);
+    expect(mocks.staff).not.toHaveBeenCalled(); expect(mocks.set).not.toHaveBeenCalled();
+  });
+
+  it('uses subscribed canonical ownership without downloading the saved game again', async () => {
+    mocks.canonicalOwner = 'therapist';
+    const { watchDisplayAuthorization } = await import('../displayAuthorization');
+    stops.push(watchDisplayAuthorization('display-uid', vi.fn()));
+    staffChanged(signedIn); await vi.advanceTimersByTimeAsync(0);
+    expect(mocks.recover).not.toHaveBeenCalled();
+    expect(mocks.set).toHaveBeenCalledTimes(1);
+  });
+
 
   it('does not authorize or mint an approval for an anonymous browser lacking the existing staff session', async () => {
     const { watchDisplayAuthorization } = await import('../displayAuthorization');
