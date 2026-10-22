@@ -38,6 +38,7 @@ import { BalloonQuestDisplay } from "./games/BalloonQuestDisplay";
 import { GAME_DISPLAY_MODULES } from "./gameDisplayRegistry";
 import { ShumosWaitingWorld } from "./waiting/ShumosWaitingWorld";
 import { isBq3Session } from "@/lib/balloonquest/live";
+import { spacePilotNeedsPreparation } from "@/lib/spacepilot3d/displayPreparation";
 import { isSpacePilotLive } from "@/lib/spacepilot3d/cloudState";
 import { isFp3Live } from "@/lib/footsteps3d/live";
 import { isCc3Live } from "@/lib/colorchase3d/live";
@@ -297,6 +298,10 @@ function RealtimeDisplayScreen() {
   // never guess it must be Balloon Quest.
   const session = realtime.session;
   const activeGame = realtime.authStatus === "authenticated" && session && realtime.gameId && displayMayRenderGame(session, realtime.gameId) ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
+  // Keep the same renderer mounted through setup -> Start. Only Space Pilot needs
+  // a rendered-frame ACK before Start; setup remains invisible, inert and silent.
+  const preparingSpacePilot = realtime.authStatus === "authenticated" && spacePilotNeedsPreparation(session, realtime.gameId);
+  const mountedGame = activeGame ?? (preparingSpacePilot && session ? { Component: GAME_DISPLAY_MODULES["space-pilot"], session } : null);
   // Space Pilot 3D is silent by design (no ambience, no voice): it uses the same silent audio profile as the other 3D games.
   const activeAudioGameId = activeGame && session && realtime.gameId ? (isSpacePilotLive(session) || isFp3Live(session) || isCc3Live(session) || isDomeLive(session) ? "build-quest-3d" : realtime.gameId) : null;
 
@@ -436,19 +441,22 @@ function RealtimeDisplayScreen() {
         crossfade above still applies to every REAL transition afterward.
       */}
       <AnimatePresence>
-        {!realtime.hasLoadedInitialSession ? null : activeGame ? (
+        {realtime.hasLoadedInitialSession && mountedGame && (
           <motion.div
             key="game"
-            data-testid="display-game"
+            data-testid={preparingSpacePilot ? "display-preparing" : "display-game"}
+            aria-hidden={preparingSpacePilot}
+            inert={preparingSpacePilot}
+            style={{ visibility: preparingSpacePilot ? "hidden" : "visible" }}
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.1, ease: "easeInOut" }}
           >
-            <LocalGameFeedbackProvider gameId={realtime.gameId} sessionId={activeGame.session.sessionId}>
-              <activeGame.Component
-                session={activeGame.session}
+            <LocalGameFeedbackProvider gameId={realtime.gameId} sessionId={mountedGame.session.sessionId}>
+              <mountedGame.Component
+                session={mountedGame.session}
                 muted={audio.muted}
                 onEvent={audio.handleEvent}
                 onWelcomeStart={() => {}}
@@ -460,10 +468,11 @@ function RealtimeDisplayScreen() {
                 celebrationReplayToken={realtime.celebrationReplayToken}
               />
             </LocalGameFeedbackProvider>
-            {realtime.gameId && activeGame.session.gameState === "START_ZONE" && "engine" in activeGame.session && <SharedGameIntroduction gameId={realtime.gameId} session={activeGame.session} onEvent={audio.handleEvent} audioEnabled={bridgeState?.config.audio!==false} speechKey={bridgeState?`balance-bridge-3d:${bridgeState.sessionId}:${bridgeState.run}:${bridgeState.stage}`:undefined} />}
+            {!preparingSpacePilot && realtime.gameId && mountedGame.session.gameState === "START_ZONE" && "engine" in mountedGame.session && <SharedGameIntroduction gameId={realtime.gameId} session={mountedGame.session} onEvent={audio.handleEvent} audioEnabled={bridgeState?.config.audio!==false} speechKey={bridgeState?`balance-bridge-3d:${bridgeState.sessionId}:${bridgeState.run}:${bridgeState.stage}`:undefined} />}
             <SensorPointerLayer authenticated={realtime.authStatus === "authenticated"} gateVisible={sensorHandGateVisible} />
           </motion.div>
-        ) : (
+        )}
+        {realtime.hasLoadedInitialSession && !activeGame && (
           <motion.div
             key="waiting"
             data-testid="display-idle"
