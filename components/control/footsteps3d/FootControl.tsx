@@ -417,8 +417,8 @@ function Panel({
 
       <p className={styles.note}>
         الصورة تُعرض على الأرض فقط، والنهر زينة مسطّحة لا عمق فيها ولا يُطلب
-        القفز. لا يتتبّع النظام موقع قدم الطفل على الأحجار؛ المعالج هو من يؤكد
-        وصوله. يحدّد المعالج مدى الحركة المناسب لكل طفل.
+        القفز. لا يتتبّع النظام موقع قدم الطفل على الأحجار؛ الأخصائي هو من يؤكد
+        وصوله. يحدّد الأخصائي مدى الحركة المناسب لكل طفل.
       </p>
       <div className={styles.status} role="status">
         {session.error ??
@@ -493,7 +493,7 @@ function Panel({
             </div>
             <h1 className={styles.title}>اتبع الخطوات</h1>
             <div className={styles.sub}>
-              Follow the Footsteps 3D · المعالج يؤكد كل خطوة، والحساسات اختيارية
+              Follow the Footsteps 3D · الأخصائي يؤكد كل خطوة، والحساسات اختيارية
             </div>
           </div>
           <div className={styles.links}>

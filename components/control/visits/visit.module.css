@@ -21,7 +21,7 @@
 }
 .header p,
 .muted {
-  font-size: 13px;
+  font-size: 14px;
   color: #61777e;
   line-height: 1.8;
 }
@@ -79,7 +79,7 @@
 .field {
   display: grid;
   gap: 7px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 .field input,
@@ -126,7 +126,7 @@
   background: #fff0f2;
   border-radius: 10px;
   padding: 10px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.8;
 }
 .bar {
@@ -149,7 +149,7 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  font-size: 13px;
+  font-size: 14px;
 }
 .time {
   font-size: 24px;
@@ -163,7 +163,7 @@
 .bar button {
   min-height: 40px;
   padding: 6px 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .overlay {
   position: fixed;
@@ -177,7 +177,7 @@
 }
 .dialog {
   background: #fff;
-  border-radius: 22px;
+  border-radius: var(--control-card-radius);
   padding: 24px;
   max-width: 960px;
   width: 100%;
@@ -211,7 +211,7 @@
   background: #f1f7f7;
   padding: 12px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .stats strong {
   display: block;
@@ -219,7 +219,7 @@
   margin-top: 4px;
 }
 .note {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.9;
   white-space: pre-wrap;
 }
@@ -247,7 +247,7 @@
   border-inline-start: 3px solid #ccdce0;
   padding: 8px 14px;
   color: #61777e;
-  font-size: 13px;
+  font-size: 14px;
 }
 @media (max-width: 650px) {
   .fields {

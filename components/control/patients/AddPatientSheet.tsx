@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { createPatient } from "@/lib/patients/patientRepository";
 import { PatientRepositoryException, type Patient } from "@/lib/patients/types";
 import { describePatientError } from "./patientErrorCopy";
@@ -39,6 +39,7 @@ export function AddPatientSheet({ open, createdByUid, onCreated, onCancel }: Add
   };
 
   const handleCancel = () => {
+    if (submitting) return;
     reset();
     onCancel();
   };
@@ -61,29 +62,7 @@ export function AddPatientSheet({ open, createdByUid, onCreated, onCancel }: Add
 
   const canSubmit = firstName.trim().length > 0 && patientNumber.trim().length > 0 && !submitting;
 
-  return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.div
-            className="fixed inset-0 z-40 bg-slate-900/40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            onClick={handleCancel}
-          />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="إضافة مريض جديد"
-            className="fixed inset-x-0 bottom-0 z-50 rounded-t-3xl bg-white p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] shadow-2xl"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", stiffness: 320, damping: 32 }}
-          >
-            <div className="mx-auto mb-5 h-1.5 w-10 rounded-full bg-slate-200" />
+  return <ControlDialog open={open} title="إضافة مريض جديد" onClose={handleCancel} busy={submitting}>
             <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-md flex-col gap-5">
               <h2 className="text-center text-lg font-bold text-slate-900">مريض جديد</h2>
 
@@ -120,7 +99,7 @@ export function AddPatientSheet({ open, createdByUid, onCreated, onCancel }: Add
                 />
               </div>
 
-              {error && <p className="text-sm font-medium text-rose-600">{error}</p>}
+              {error && <p role="alert" id="new-patient-error" className="text-sm font-medium text-rose-600">{error}</p>}
 
               <div className="flex flex-col gap-2.5">
                 <button
@@ -139,9 +118,5 @@ export function AddPatientSheet({ open, createdByUid, onCreated, onCancel }: Add
                 </button>
               </div>
             </form>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
+  </ControlDialog>;
 }

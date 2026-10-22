@@ -215,7 +215,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
         /></ControlSlot>
         <p className={styles.note}>
           إن أوقفت الوقفات تكتمل حركة «اثبت» و«توقّف» بتأكيدك مباشرة. الوقفة
-          تُحسب بساعة اللعب والمعالج هو من يلاحظ ثبات الطفل.
+          تُحسب بساعة اللعب والأخصائي هو من يلاحظ ثبات الطفل.
         </p>
         <label className={styles.check}>
           <input

@@ -16,7 +16,7 @@
   color: #173f47;
 }
 .sectionHeader a {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: #087f81;
 }
@@ -30,9 +30,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 16px 18px;
+  padding: 18px 20px;
   border: 1px solid #dce7e9;
-  border-radius: 16px;
+  border-radius: var(--control-card-radius);
   background: #fff;
   box-shadow: 0 1px 2px #1739470a, 0 4px 14px #17394708;
 }
@@ -47,8 +47,8 @@
 }
 .heading h3 {
   margin: 0;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 600;
   color: #173f47;
 }
 .icon {
@@ -72,7 +72,7 @@
   min-height: 44px;
 }
 .name {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: #35565e;
   white-space: nowrap;
@@ -84,7 +84,7 @@
   justify-self: start;
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -114,8 +114,8 @@
   border-radius: 12px;
   border: 1px solid #087f81;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, transform 0.1s;
@@ -141,7 +141,7 @@
   background: #eef8f7;
 }
 .secondary:disabled {
-  opacity: 0.45;
+  opacity: 0.68;
   cursor: not-allowed;
 }
 .primary:active,
@@ -158,19 +158,19 @@
   background: #f8fbfc;
   color: #35565e;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
 }
 .row:has(.select) {
   grid-template-columns: minmax(48px, auto) minmax(0, 1fr) auto;
 }
 .note {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: #5d747b;
 }
 .failure {
   grid-column: 1 / -1;
-  font-size: 12px;
+  font-size: 14px;
   color: #b02744;
 }
 .primary:focus-visible,

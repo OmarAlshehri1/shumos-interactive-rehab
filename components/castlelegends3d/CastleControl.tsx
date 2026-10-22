@@ -49,7 +49,7 @@ function LiveCastleControl() {
           </TherapistSection>
         </div>
         <div className={styles.panelColumn}>
-          <TherapistSection title="لوحة المعالج">
+          <TherapistSection title="لوحة الأخصائي">
             <ControlSlot slot="progress">            <div className={styles.currentStage}><div><strong>{stage.name}</strong><p>المرحلة {s.stage + 1} من 9</p></div><span aria-hidden="true">{Math.floor(s.elapsedMs / 60000)}:{String(Math.floor(s.elapsedMs / 1000) % 60).padStart(2, "0")}</span></div>
             <div className={styles.progress} aria-label={`${s.completed.length} مراحل مكتملة من 9`}>{STAGES.map((_, i) => <span key={i} data-current={i === s.stage} data-done={s.completed.includes(i)} />)}</div>
 </ControlSlot>

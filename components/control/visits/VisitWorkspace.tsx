@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { GAME_REGISTRY } from "@/lib/games/registry";
@@ -21,7 +22,6 @@ import { useVisit } from "./VisitProvider";
 import { useGameSafety } from "./GameSafetyProvider";
 import styles from "./visit.module.css";
 
-import { modalKeys } from "./modalKeys";
 
 const gameTitle = (id: string) =>
   GAME_REGISTRY.find((g) => g.id === id)?.nameAr ?? id;
@@ -172,26 +172,13 @@ export function VisitWorkspace() {
         </div>
       )}
       {(panel || evaluation) && (
-        <div className={styles.overlay} dir="rtl">
-          <section
-            role="dialog"
-            aria-modal="true"
-            onKeyDown={(event) =>
-              modalKeys(event, () => {
-                setPanel(null);
-                acknowledgeReview(evaluation);
-                setEvaluation(null);
-              })
-            }
-            aria-label={
+        <ControlDialog open title={
               evaluation
                 ? "تقييم النشاط"
                 : panel === "end"
                   ? "مراجعة إنهاء الجلسة"
                   : "تفاصيل الجلسة"
-            }
-            className={styles.dialog}
-          >
+            } onClose={() => { setPanel(null); acknowledgeReview(evaluation); setEvaluation(null); }} role="dialog" busy={busy}>
             <header>
               <h2>
                 {evaluation
@@ -324,8 +311,7 @@ export function VisitWorkspace() {
                 )}
               </>
             )}
-          </section>
-        </div>
+          </ControlDialog>
       )}
     </>
   );

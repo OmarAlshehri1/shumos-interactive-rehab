@@ -17,12 +17,12 @@ export function modalKeys(
   ).filter(
     (e) =>
       e.tabIndex >= 0 &&
-      !e.hasAttribute("disabled") &&
+      !e.matches(":disabled") &&
       e.getClientRects().length > 0,
   );
   const first = controls[0],
     last = controls[controls.length - 1];
-  if (!first) return;
+  if (!first) { event.preventDefault(); event.currentTarget.focus(); return; }
   if (event.shiftKey && document.activeElement === first) {
     event.preventDefault();
     last.focus();

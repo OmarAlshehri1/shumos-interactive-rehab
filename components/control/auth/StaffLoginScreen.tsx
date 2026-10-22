@@ -44,7 +44,7 @@ export function StaffLoginScreen({ onSignIn }: StaffLoginScreenProps) {
     <main
       dir="rtl"
       lang="ar"
-      className="fixed inset-0 flex h-dvh w-dvw flex-col items-center justify-center bg-slate-50 px-6 text-slate-900"
+      className="fixed inset-0 flex min-h-dvh overflow-y-auto w-dvw flex-col items-center justify-center bg-slate-50 px-6 text-slate-900"
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <form
@@ -59,7 +59,7 @@ export function StaffLoginScreen({ onSignIn }: StaffLoginScreenProps) {
 
         <div className="h-px bg-slate-100" />
 
-        <h2 className="text-center text-base font-bold text-slate-800">تسجيل دخول الموظفين</h2>
+        <h2 className="text-center text-base font-bold text-slate-800">دخول الأخصائي</h2>
 
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">

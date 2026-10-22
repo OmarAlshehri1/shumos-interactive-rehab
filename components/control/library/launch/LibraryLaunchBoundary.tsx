@@ -152,7 +152,7 @@ function LaunchPanel({
       const current = adapter?.id === game?.id ? adapter?.get() : null;
       if (!current?.modes.includes(mode)) {
         setMessage(
-          "هذا المحوّل غير متاح. استخدم التحكم اليدوي.",
+          "طريقة المشاركة غير متاحة. استخدم التحكم اليدوي.",
         );
         return;
       }
@@ -182,8 +182,8 @@ function LaunchPanel({
       }
       setMessage(
         current.apply(mode)
-          ? `أُرسل اختيار «${MODE_NAMES[mode]}» إلى إعدادات النشاط. راجع حالته قبل البدء؛ هذا ليس إثباتًا للتحقق المادي.`
-          : "يلزم اتصال التحكم ووضع إعداد مسموح؛ وللمقود جهاز معاير وإشارة حديثة. أوقف النشاط مؤقتًا عند الحاجة. أدوات المعالج اليدوية داخل النشاط متاحة.",
+          ? `جارٍ تطبيق «${MODE_NAMES[mode].replaceAll("المعالج", "الأخصائي")}». تأكد من جاهزية الجهاز قبل البدء.`
+          : "تحقق من الاتصال، وأوقف النشاط مؤقتًا لتغيير الإعداد. لاستخدام المقود، اختر الجهاز وعايره أولًا.",
       );
     },
     [adapter, game, right, left],
@@ -232,7 +232,7 @@ function LaunchPanel({
                 disabled={mode !== "MANUAL" && !native?.modes.includes(mode)}
                 onClick={() => apply(mode)}
               >
-                {MODE_NAMES[mode]}
+                {MODE_NAMES[mode].replaceAll("المعالج", "الأخصائي")}
                 {mode !== "MANUAL" &&
                   !native?.modes.includes(mode) &&
                   " · غير متاح"}
@@ -269,7 +269,7 @@ function LaunchPanel({
                   if (accepted) onConfirm(`${game.id}:${current?.sessionKey}`);
                   setMessage(
                     accepted
-                      ? "أُرسل اختيار العرض عبر إعدادات الجلسة الحالية."
+                      ? "جارٍ تطبيق سطح العرض. راجع مساحة الحركة قبل البدء."
                       : "أوقف النشاط مؤقتًا وانتظر الاتصال لتغيير العرض.",
                   );
                 }}

@@ -133,6 +133,7 @@ function LogoutCorner({ email, onSignOut }: { email: string | null; onSignOut: (
       type="button"
       onClick={onSignOut}
       title={email ?? undefined}
+      data-control-logout
       className="fixed top-2 end-2 z-40 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-500 shadow-sm transition-colors hover:bg-white hover:text-slate-700"
     >
       تسجيل الخروج

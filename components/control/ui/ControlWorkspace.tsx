@@ -58,18 +58,18 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
   const artwork = realGameThumbnail(game.id);
   return <Context.Provider value={value}>
     <div className={`${ui.theme} ${styles.workspace}`} data-workspace-active={info.active}>
+      <div ref={setDialogs} className={styles.dialogs} />
       <div hidden={!info.active} className={styles.liveSurface}>
         <header className={styles.liveHeader}><div><h1>{game.nameAr}</h1><p>{info.level && `المستوى: ${info.level}`}{info.stage && ` · المرحلة ${info.stage}`}{selectedPatient && safety.live?.patientId === selectedPatient.patientId && ` · ${selectedPatient.firstName}`}{visit && !visit.endedAt && " · زيارة علاجية"}</p></div><div className={styles.headerStatus}>{info.elapsed && <span aria-label="وقت اللعب">{info.elapsed}</span>}<TherapistStatus good={safety.connected && !info.paused}>{!safety.connected ? "غير متصل" : info.status}</TherapistStatus></div></header>
         <div className={styles.grid}>
           <div className={styles.child}>
-            <section className={styles.preview} aria-label="متابعة شاشة الطفل"><div ref={setPreview} className={styles.previewTarget} data-workspace-target="preview" /><div className={styles.fallback}>{artwork && <Image src={artwork} width={640} height={360} alt="صورة تمثيلية من النشاط" />}<p>صورة النشاط · تابع الحالة والإجراءات من أدوات المعالج.</p></div></section>
+            <section className={styles.preview} aria-label="متابعة شاشة الطفل"><div ref={setPreview} className={styles.previewTarget} data-workspace-target="preview" /><div className={styles.fallback}>{artwork && <Image src={artwork} width={640} height={360} alt="صورة تمثيلية من النشاط" />}<p>صورة النشاط · تابع الحالة والإجراءات من أدوات الأخصائي.</p></div></section>
             <section className={styles.assistance} aria-label="مساعدة الطفل"><h2>مساعدة الطفل</h2><div ref={setAssistance} data-workspace-target="assistance" className={styles.assistanceTarget} /><p className={styles.noActions}>استخدم أدوات التفاعل داخل المعاينة.</p></section>
           </div>
-          <aside className={styles.therapist} aria-label="لوحة المعالج"><h2>لوحة المعالج</h2><p className={styles.current}>{info.level}{info.stage && ` · المرحلة ${info.stage}`}</p><div ref={setProgress} data-workspace-target="progress" className={styles.progress} /><div ref={setNavigation} data-workspace-target="navigation" className={styles.navigation} /><div ref={setSession} data-workspace-target="session" className={styles.session} /><div ref={setSettings} data-workspace-target="settings" className={styles.settings} /><p className={styles.settingsHint}>الخيارات المقفلة تُعدّل أثناء الاستراحة أو عند إعداد مرحلة جديدة.</p></aside>
+          <aside className={styles.therapist} aria-label="لوحة الأخصائي"><h2>لوحة الأخصائي</h2><div ref={setProgress} data-workspace-target="progress" className={styles.progress} /><div ref={setNavigation} data-workspace-target="navigation" className={styles.navigation} /><div ref={setSession} data-workspace-target="session" className={styles.session} /><div ref={setSettings} data-workspace-target="settings" className={styles.settings} /><p className={styles.settingsHint}>عدّل الخيارات المقفلة أثناء الاستراحة.</p></aside>
         </div>
       </div>
       {children}
-      <div ref={setDialogs} className={styles.dialogs} />
     </div>
   </Context.Provider>;
 }

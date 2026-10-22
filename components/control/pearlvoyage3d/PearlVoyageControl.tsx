@@ -372,7 +372,7 @@ function Panel({
         <span className={styles.overline}>إعدادات المشاركة</span>
         <h2>على قدر حركة الطفل</h2>
         <p className={styles.note}>
-          المعالج يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل
+          الأخصائي يختار المساعدة المناسبة. كل إدخال يدوي أو تلقائي يُسجَّل
           كمساعدة.
         </p>
         <fieldset
@@ -389,7 +389,7 @@ function Panel({
                 cfg({ control: e.target.value as Config["control"] })
               }
             >
-              <option value="manual">يدوي من المعالج · دون أجهزة</option>
+              <option value="manual">يدوي من الأخصائي · دون أجهزة</option>
               <option value="wheel" disabled={!!mappingError}>
                 مقود فقط · تحقق فعلي معلق
               </option>
@@ -435,7 +435,7 @@ function Panel({
                 cfg({ holdMode: e.target.value as Config["holdMode"] })
               }
             >
-              <option value="manual">زر المعالج فقط</option>
+              <option value="manual">زر الأخصائي فقط</option>
               <option value="steering">تثبيت المقود في اتجاه مريح</option>
               <option value="pedal">ضغط الدواسة بلطف</option>
               <option value="tap">ضغطات قصيرة متكررة</option>
@@ -837,7 +837,7 @@ function Panel({
               <div className={styles.cardHead}>
                 <div>
                   <span className={styles.overline}>
-                    تحكم مباشر · المعالج له الأولوية
+                    تحكم مباشر · الأخصائي له الأولوية
                   </span>
                   <h2>
                     {s.phase === "sailing"
@@ -978,7 +978,7 @@ function Panel({
                   }
                   onClick={() => action({ type: "assist" })}
                 >
-                  مساعدة المعالج الكاملة
+                  مساعدة الأخصائي الكاملة
                 </button></ControlSlot>
                 <ControlSlot slot="navigation"><button
                   data-testid="reset"

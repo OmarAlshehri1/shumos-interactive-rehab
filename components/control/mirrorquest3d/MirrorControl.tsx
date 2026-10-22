@@ -229,8 +229,8 @@ function LiveMirrorControl() {
         تقليل الحركة
       </label>
       <p className={styles.note}>
-        وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره المعالج. الشخصية تمثّل
-        الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها المعالج، دون تصوير
+        وضع الشخصية مستقل عن وضع الطفل الفعلي ويختاره الأخصائي. الشخصية تمثّل
+        الحركة بصريًا. لا تقيس زوايا المفاصل. الحركة يوجّهها الأخصائي، دون تصوير
         أو تتبّع بالكاميرا.
       </p>
       <div className={styles.status} role="status">
@@ -336,7 +336,7 @@ function LiveMirrorControl() {
               {LIMBS.filter(
                 (l) => p.active.includes(l) || s.player[l] !== 0,
               ).map((l) => (
-                <div className={styles.limb} key={l}>
+                <ControlSlot key={l} slot="assistance"><div className={styles.limb} data-control-limb key={l}>
                   <label htmlFor={l}>{names[l]}</label>
                   <input
                     id={l}
@@ -362,7 +362,7 @@ function LiveMirrorControl() {
                       })
                     }
                   />
-                  <ControlSlot slot="assistance"><button
+                  <button
                     className={styles.button}
                     disabled={s.status !== "running"}
                     onClick={() =>
@@ -377,7 +377,7 @@ function LiveMirrorControl() {
                     }
                   >
                     راحة
-                  </button></ControlSlot>
+                  </button>
                   <div
                     className={styles.directional}
                     role="group"
@@ -389,7 +389,7 @@ function LiveMirrorControl() {
                       [0.65, "↑ أعلى"],
                       [1, "↑ كاملة"],
                     ].map(([value, label]) => (
-                      <ControlSlot key={value} slot="assistance"><button
+                      <button
                         key={value}
                         className={styles.button}
                         disabled={
@@ -409,10 +409,10 @@ function LiveMirrorControl() {
                         }
                       >
                         {label}
-                      </button></ControlSlot>
+                      </button>
                     ))}
                   </div>
-                </div>
+                </div></ControlSlot>
               ))}
               {s.config.input === "simulated" && (
                 <div>
@@ -421,7 +421,7 @@ function LiveMirrorControl() {
                     اليدوي أعلاه متاحة.
                   </p>
                   {p.active.map((l) => (
-                    <div className={styles.limb} key={`sim-${l}`}>
+                    <ControlSlot key={l} slot="assistance"><div className={styles.limb} key={`sim-${l}`}>
                       <label htmlFor={`sim-${l}`}>محاكاة {names[l]}</label>
                       <input
                         id={`sim-${l}`}
@@ -443,7 +443,7 @@ function LiveMirrorControl() {
                         }
                       />
                       <span>{Math.round(s.player[l] * 100)}%</span>
-                    </div>
+                    </div></ControlSlot>
                   ))}
                   <ControlSlot slot="session"><button
                     className={styles.button}
@@ -487,7 +487,7 @@ function LiveMirrorControl() {
                       className={styles.button}
                       onClick={() => send({ type: "assist" })}
                     >
-                      قبول بمساعدة المعالج
+                      قبول بمساعدة الأخصائي
                     </button></ControlSlot>
                     <ControlSlot slot="assistance"><button
                       className={styles.button}

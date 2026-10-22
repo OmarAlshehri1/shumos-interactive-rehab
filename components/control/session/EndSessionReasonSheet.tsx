@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 
 import { useState } from "react";
 import {
@@ -37,14 +38,7 @@ export function EndSessionReasonSheet({ open, onCancel, onConfirm }: EndSessionR
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-end justify-center bg-slate-950/35 p-3 backdrop-blur-sm sm:items-center" role="presentation" onMouseDown={cancel}>
-      <section
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="end-session-reason-title"
-        className="w-full max-w-lg rounded-3xl bg-white p-5 shadow-2xl sm:p-6"
-        onMouseDown={(event) => event.stopPropagation()}
-      >
+    <ControlDialog open title="سبب إنهاء الجلسة" onClose={cancel} role="dialog">
         <h2 id="end-session-reason-title" className="text-xl font-bold text-slate-900">لماذا تم إنهاء الجلسة؟</h2>
         <p className="mt-1 text-sm text-slate-500">اختياري — لا يؤثر على تقييم أداء الطفل.</p>
 
@@ -91,7 +85,6 @@ export function EndSessionReasonSheet({ open, onCancel, onConfirm }: EndSessionR
             إنهاء الجلسة
           </button>
         </div>
-      </section>
-    </div>
+      </ControlDialog>
   );
 }

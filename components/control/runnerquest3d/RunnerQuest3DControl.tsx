@@ -188,7 +188,7 @@ export function RunnerControlPanels({
   );
   const setupSettings = (
     <section className={styles.card}>
-      <h2>إعدادات المعالج</h2>
+      <h2>إعدادات الأخصائي</h2>
       <ControlSlot slot="settings"><div className={styles.field}>
         <label className={styles.label}>مصدر الإدخال</label>
         <select
@@ -730,7 +730,7 @@ export function RunnerControlPanels({
               data-testid="touch-card"
             >
               <h2>
-                تحكّم المعالج باللمس{" "}
+                تحكّم الأخصائي باللمس{" "}
                 <span className={styles.badge}>متاح دائمًا</span>
               </h2>
               <div className={styles.touchPad}>

@@ -19,7 +19,7 @@ interface SectionCardProps {
  */
 export function SectionCard({ title, action, className, children }: SectionCardProps) {
   return (
-    <section className={`flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-900/5 ${className ?? ""}`}>
+    <section data-control-card className={`flex flex-col gap-3 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-900/5 ${className ?? ""}`}>
       {title && (
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-sm font-semibold text-slate-700">{title}</h2>

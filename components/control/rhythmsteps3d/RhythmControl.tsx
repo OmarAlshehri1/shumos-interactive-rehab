@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { RhythmView } from "@/components/display/rhythmsteps3d/RhythmView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
@@ -235,7 +236,7 @@ function CurrentStep({
               disabled={!can}
               onClick={() => send({ type: "confirm", id, assisted: true })}
             >
-              بمساعدة المعالج
+              بمساعدة الأخصائي
             </button></ControlSlot>
           </>
         )}
@@ -352,7 +353,7 @@ function Panel({
             <div className={styles.eyebrow}>SHUMOS CARE · FLOOR PROJECTION</div>
             <h1 className={styles.title}>نبض الألوان</h1>
             <div className={styles.sub}>
-              Rhythm Steps 3D · المعالج يؤكّد كل حركة، والحساسات اختيارية
+              Rhythm Steps 3D · الأخصائي يؤكّد كل حركة، والحساسات اختيارية
             </div>
           </div>
           <div className={styles.links}>
@@ -367,9 +368,9 @@ function Panel({
           <div className={styles.stack}>
             <div className={styles.card}>
               <div className={styles.chips}>
-                <span className={styles.chip}>
+                <ControlSlot slot="progress"><span className={styles.chip}>
                   المستوى {stage.level} · المرحلة {stage.stage}: {stage.nameAr}
-                </span>
+                </span><p>المرحلة {s.stage + 1} من {STAGES.length}</p></ControlSlot>
                 <span className={styles.chip}>
                   {LEVELS[stage.level - 1].nameAr}
                 </span>
@@ -420,7 +421,7 @@ function Panel({
               </div>
               <p className={styles.note}>
                 لا يتتبّع النظام موقع قدم الطفل على الأرض. الحساسات (إن وُجدت)
-                تلميحات حركة فقط؛ كل تأكيد هنا من المعالج، ولا يتغيّر شيء قبل
+                تلميحات حركة فقط؛ كل تأكيد هنا من الأخصائي، ولا يتغيّر شيء قبل
                 ضغط زر.
               </p>
             </div>
@@ -519,9 +520,9 @@ function Panel({
                 )}
               </div>
               {confirm && (
-                <ControlSlot slot="dialogs"><div
+                <ControlSlot slot="dialogs"><ControlDialog open title="تأكيد الإجراء" onClose={() => setConfirm(null)} role="alertdialog"><div
                   className={styles.confirm}
-                  role="alertdialog"
+
                   data-testid="rs-confirm-box"
                   style={{ marginTop: 10 }}
                 >
@@ -547,17 +548,15 @@ function Panel({
                       setConfirm(null);
                     }}
                   >
-                    نعم
-                  </button>
+                    {confirm === "end" ? "إنهاء وحفظ" : "تأكيد"}</button>
                   <button
                     className={styles.btn}
                     style={{ minHeight: 44 }}
                     data-testid="rs-confirm-no"
                     onClick={() => setConfirm(null)}
                   >
-                    لا
-                  </button>
-                </div></ControlSlot>
+                    إلغاء</button>
+                </div></ControlDialog></ControlSlot>
               )}
               <div
                 className={styles.progress}

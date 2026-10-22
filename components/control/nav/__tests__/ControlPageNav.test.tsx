@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterAll, describe, expect, it, vi } from "vitest";
 const state = vi.hoisted(() => { vi.stubEnv("NODE_ENV", "development"); return ({ path: "/control/balloon-quest", patient: null as null | { patientId: string } }); });
@@ -5,6 +6,11 @@ vi.mock("next/navigation", () => ({ usePathname: () => state.path }));
 vi.mock("@/lib/patients/PatientSessionContext", () => ({ usePatientContext: () => ({ selectedPatient: state.patient }) }));
 vi.mock("@/components/control/library/launch/LibraryLaunchBoundary", () => ({ LibraryLaunchControls: () => null }));
 vi.mock("@/components/control/patients/PatientContextBanner", () => ({ PatientContextBanner: () => null }));
+vi.mock("@/components/control/ui/ControlWorkspace", () => ({
+  ControlWorkspace: ({ children }: { children: ReactNode }) => <>{children}</>,
+  SetupOnly: ({ children }: { children: ReactNode }) => <>{children}</>,
+  WorkspaceNative: ({ children }: { children: ReactNode }) => <>{children}</>,
+}));
 import { ControlPageNav } from "../ControlPageNav";
 import { ControlGameFrame } from "@/components/control/setup/ControlGameFrame";
 import { GAME_REGISTRY } from "@/lib/games/registry";

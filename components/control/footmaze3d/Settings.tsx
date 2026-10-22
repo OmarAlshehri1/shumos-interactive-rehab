@@ -63,7 +63,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
         <label className={styles.check}><input type="checkbox" data-testid="fm-guards" checked={c.guards} disabled={!editable} onChange={(e) => cfg({ guards: e.target.checked })} /> الحرّاس الودودون (قف وانتظر ثم تابع)</label>
         <ControlSlot slot="settings"><label htmlFor="fm-guardms">مدة انتظار الحارس: {c.guardMs / 1000} ثانية</label>
         <input id="fm-guardms" data-testid="fm-guardms" type="range" min={LIMITS.guardMs[0]} max={LIMITS.guardMs[1]} step="500" value={c.guardMs} disabled={!editable} onChange={(e) => cfg({ guardMs: Number(e.target.value) })} /></ControlSlot>
-        <label className={styles.check}><input type="checkbox" data-testid="fm-stance" checked={c.stance} disabled={!editable} onChange={(e) => cfg({ stance: e.target.checked })} /> وقفة ثبات معتمدة من المعالج أثناء الانتظار (تظهر إشارة «قف بثبات»)</label>
+        <label className={styles.check}><input type="checkbox" data-testid="fm-stance" checked={c.stance} disabled={!editable} onChange={(e) => cfg({ stance: e.target.checked })} /> وقفة ثبات معتمدة من الأخصائي أثناء الانتظار (تظهر إشارة «قف بثبات»)</label>
         <label className={styles.check}><input type="checkbox" data-testid="fm-events" checked={c.events} disabled={!editable} onChange={(e) => cfg({ events: e.target.checked })} /> الأحداث الديناميكية (بوابات وجسور وتغيّر الطريق)</label>
         <label htmlFor="fm-eventms">مدة انتظار الحدث</label>
         <select id="fm-eventms" data-testid="fm-eventms" value={c.eventMs} disabled={!editable} onChange={(e) => cfg({ eventMs: Number(e.target.value) })}>

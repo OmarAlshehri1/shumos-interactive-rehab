@@ -713,6 +713,7 @@ function SpacePilotControlScreen({
           stages={setupStages}
           start={
             <div>
+              {!view.ready && <p role="status">{view.connected === false ? "بانتظار اتصال التحكم…" : "بانتظار جاهزية شاشة العرض. افتح الشاشة وتحقق من اتصالها."}</p>}
               {countdown && (
                 <p role="status" data-testid="launch-countdown">
                   استعد للانطلاق… {numberArabic(countdown.remaining)}{" "}
@@ -1127,7 +1128,7 @@ function SpacePilotControlScreen({
                 target="_blank"
                 rel="noopener"
               >
-                فتح العرض مع إعدادات المعالج
+                فتح العرض مع إعدادات الأخصائي
               </a>
             </details>
             <p className="pb-5 text-center text-xs text-slate-400">

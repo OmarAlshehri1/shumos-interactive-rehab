@@ -48,7 +48,7 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
             <small lang="en" dir="ltr">
               {game.nameEn}
             </small>
-            <p>{GAME_INSTRUCTIONS[game.id].goal}</p>
+            <p>{GAME_INSTRUCTIONS[game.id].goal.replaceAll("المعالج", "الأخصائي")}</p>
             <span className={styles.badge}>
               {projectionLabel(game.surfaceType)}
             </span>

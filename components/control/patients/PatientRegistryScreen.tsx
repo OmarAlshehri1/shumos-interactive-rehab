@@ -42,7 +42,7 @@ function RealtimeUnavailableNotice() {
       <span className="text-3xl" aria-hidden="true">
         🗄️
       </span>
-      <p className="max-w-xs text-sm leading-relaxed">سجل المرضى يتطلب اتصال Firebase مُهيّأ لهذه النسخة.</p>
+      <p className="max-w-xs text-sm leading-relaxed">سجل المرضى غير متاح حاليًا. تحقق من إعداد اتصال النظام.</p>
     </div>
   );
 }

@@ -75,7 +75,7 @@ export function FootTelemetry({ mode }: { mode: Mode }) {
     return (
       <p className={styles.note}>
         أوقف اتصالات حساسات اليدين من إعداد الحساسات قبل استخدام حساسات القدم.
-        تأكيد المعالج اليدوي متاح دائمًا.
+        تأكيد الأخصائي اليدوي متاح دائمًا.
       </p>
     );
   const roles: ("RIGHT_FOOT" | "LEFT_FOOT")[] =

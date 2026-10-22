@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { getStaffDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import {
   requestDisplayAudioEnable,
@@ -146,7 +145,6 @@ export function ReadinessDashboard() {
     <section className={styles.section} dir="rtl" aria-label="جاهزية النظام">
       <header className={styles.sectionHeader}>
         <h2>جاهزية النظام</h2>
-        <Link href="/control/calibration">معايرة الإسقاط ←</Link>
       </header>
       <div className={styles.grid}>
         <article className={`${styles.card} ${styles.display}`}>

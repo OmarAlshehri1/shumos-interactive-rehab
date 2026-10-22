@@ -34,7 +34,7 @@ export function ControlNav({ active, showBrand = true }: { active: ControlNavSec
   return (
     <>
       {/* The single Shumos logo for every Control page: pinned to the top left corner (the right corner holds the sign-out pill) (scrolls with the page), in flow on narrow screens. */}
-      {showBrand && <div className="absolute top-5 left-6 z-10 max-sm:static max-sm:self-center" data-control-logo>
+      {showBrand && <div className="absolute top-5 left-6 z-10 max-lg:static max-lg:mx-auto max-lg:mb-3 max-lg:w-fit" data-control-logo>
         <ShumosBrandMark compact />
       </div>}
     <nav aria-label="التنقل الرئيسي" className="mx-auto flex w-full max-w-5xl items-center justify-center gap-1.5 px-5 sm:px-8">
@@ -46,7 +46,7 @@ export function ControlNav({ active, showBrand = true }: { active: ControlNavSec
               key={item.section}
               href={item.href}
               aria-current={isActive ? "page" : undefined}
-              className={`min-h-9 touch-manipulation rounded-full px-3 sm:px-5 text-sm font-semibold transition-colors ${
+              className={`min-h-11 touch-manipulation rounded-full px-3 sm:px-5 text-base font-semibold transition-colors ${
                 isActive ? "bg-teal-600 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"
               } flex items-center justify-center`}
             >
@@ -55,6 +55,7 @@ export function ControlNav({ active, showBrand = true }: { active: ControlNavSec
           );
         })}
       </div>
+      <Link href="/control/calibration" className="control-device-settings" aria-label="إعدادات العرض ومعايرة الإسقاط">إعدادات العرض</Link>
     </nav>
     </>
   );

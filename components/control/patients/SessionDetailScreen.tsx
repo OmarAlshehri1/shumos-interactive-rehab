@@ -359,7 +359,7 @@ function RealtimeUnavailableNotice() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center text-slate-400">
       <p className="max-w-xs text-sm leading-relaxed">
-        سجل الجلسات يتطلب اتصال Firebase مُهيّأ لهذه النسخة.
+        سجل الجلسات غير متاح حاليًا. تحقق من إعداد اتصال النظام.
       </p>
     </div>
   );

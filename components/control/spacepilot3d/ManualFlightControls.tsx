@@ -23,16 +23,17 @@ export function ManualFlightControls({ send, mode, sensor, disabled }: {
     return () => { window.removeEventListener('blur', clear); window.removeEventListener('pagehide', clear); document.removeEventListener('visibilitychange', hidden); pointers.clear(); takeover.current = false; send(0, 0, false); };
   }, [clear, send]);
   useEffect(() => { if (disabled) { held.current.clear(); takeover.current = false; send(0, 0, false); } }, [disabled, send]);
+  const directionNames: Record<string, string> = { 'up-left': 'أعلى اليسار', up: 'أعلى', 'up-right': 'أعلى اليمين', left: 'يسار', neutral: 'المنتصف', right: 'يمين', 'down-left': 'أسفل اليسار', down: 'أسفل', 'down-right': 'أسفل اليمين' };
   const directions: [string, string, number, number][] = [
     ['up-left', '↖', -1, 1], ['up', '↑', 0, 1], ['up-right', '↗', 1, 1],
     ['left', '←', -1, 0], ['neutral', '●', 0, 0], ['right', '→', 1, 0],
     ['down-left', '↙', -1, -1], ['down', '↓', 0, -1], ['down-right', '↘', 1, -1],
   ];
   return <section className="rounded-3xl border border-teal-200 bg-white p-6 shadow-sm" aria-label="التحكم اليدوي بالطيران" data-testid="manual-flight-controls" style={{ touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}>
-    <div className="flex flex-wrap items-center justify-between gap-4"><h2 className="text-lg font-bold">توجيه المعالج</h2><span role="status">{sensor ? active && !disabled ? 'تحكم المعالج له الأولوية' : 'اليد اليمنى · التحكم اليدوي متاح' : 'تحكم يدوي'}</span></div>
+    <div className="flex flex-wrap items-center justify-between gap-4"><h2 className="text-lg font-bold">توجيه الأخصائي</h2><span role="status">{sensor ? active && !disabled ? 'تحكم المعالج له الأولوية' : 'اليد اليمنى · التحكم اليدوي متاح' : 'تحكم يدوي'}</span></div>
     <p className="my-3 text-sm text-slate-500">اضغط باستمرار للتوجيه. ارفع إصبعك للعودة إلى المنتصف. يمكن لمس اتجاهين معًا.</p>
     <div dir="ltr" className="mx-auto grid max-w-sm grid-cols-3 gap-3">
-      {directions.map(([id, label, x, y]) => <button key={id} type="button" data-testid={`flight-${id}`} aria-label={`Flight ${id}`} disabled={disabled || (mode !== 'ADVANCED' && y !== 0 && x === 0)}
+      {directions.map(([id, label, x, y]) => <button key={id} type="button" data-testid={`flight-${id}`} aria-label={`توجيه ${directionNames[id]}`} disabled={disabled || (mode !== 'ADVANCED' && y !== 0 && x === 0)}
         className="min-h-20 rounded-2xl border border-teal-200 bg-teal-50 text-3xl font-bold text-teal-900 active:bg-teal-200 disabled:opacity-30"
         onContextMenu={e => e.preventDefault()}
         onPointerDown={e => { e.preventDefault(); e.currentTarget.setPointerCapture(e.pointerId); if (id === 'neutral') { clear(); return; } held.current.set(e.pointerId, [x, y]); publish(); }}

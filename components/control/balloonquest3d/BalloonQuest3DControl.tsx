@@ -507,7 +507,7 @@ export function ControlPanels({
             </BalloonStage></ControlSlot>
           </div>
           <p className="text-xs text-slate-500">
-            هذه معاينة لما يراه الطفل. نقر المعالج على بالون يُحتسب كاختيار
+            هذه معاينة لما يراه الطفل. نقر الأخصائي على بالون يُحتسب كاختيار
             (أثناء اللعب فقط).
           </p>
           {(!production || production.showSimulator) && (

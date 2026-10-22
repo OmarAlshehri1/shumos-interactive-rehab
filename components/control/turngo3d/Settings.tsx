@@ -72,7 +72,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
         <label className={styles.check}><input type="checkbox" data-testid="tg-stops" checked={c.stops} disabled={!editable} onChange={(e) => cfg({ stops: e.target.checked })} /> علامات التوقف (قف ثم تابع)</label>
         <ControlSlot slot="settings"><label htmlFor="tg-stopms">مدة التوقف: {c.stopMs / 1000} ثانية</label>
         <input id="tg-stopms" data-testid="tg-stopms" type="range" min={LIMITS.stopMs[0]} max={LIMITS.stopMs[1]} step="500" value={c.stopMs} disabled={!editable} onChange={(e) => cfg({ stopMs: Number(e.target.value) })} /></ControlSlot>
-        <p className={styles.note}>الوقفات القصيرة الاختيارية في «الحديقة المضيئة» لا تتجاوز ٢ ثانية. التوقف يُحسب بساعة اللعب؛ والمعالج هو من يلاحظ ثبات الطفل.</p>
+        <p className={styles.note}>الوقفات القصيرة الاختيارية في «الحديقة المضيئة» لا تتجاوز ٢ ثانية. التوقف يُحسب بساعة اللعب؛ والأخصائي هو من يلاحظ ثبات الطفل.</p>
         <label className={styles.check}><input type="checkbox" data-testid="tg-events" checked={c.events} disabled={!editable} onChange={(e) => cfg({ events: e.target.checked })} /> أحداث المسار الديناميكية</label>
         <ControlSlot slot="settings"><label htmlFor="tg-eventms">مدة الانتظار عند الحدث</label>
         <select id="tg-eventms" data-testid="tg-eventms" value={c.eventMs} disabled={!editable} onChange={(e) => cfg({ eventMs: Number(e.target.value) })}>

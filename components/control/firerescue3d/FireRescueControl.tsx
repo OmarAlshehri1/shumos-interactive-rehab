@@ -379,7 +379,7 @@ function Panel({
         <span className={styles.overline}>إعدادات المشاركة</span>
         <h2>على قدر حركة الطفل</h2>
         <p className={styles.note}>
-          المعالج يختار المساعدة المناسبة. كل إدخال يدوي من المعالج يُسجّل
+          الأخصائي يختار المساعدة المناسبة. كل إدخال يدوي من الأخصائي يُسجّل
           كمساعدة.
         </p>
         <fieldset
@@ -396,7 +396,7 @@ function Panel({
               <option value="manual">قيادة يدوية دون توجيه آلي</option>
               <option value="assisted">توجيه بمساعدة</option>
               <option value="auto-throttle">تسارع آلي + مقود الطفل</option>
-              <option value="therapist-throttle">تسارع المعالج</option>
+              <option value="therapist-throttle">تسارع الأخصائي</option>
               <option value="steering-only">مشاركة بالمقود فقط</option>
               <option value="pedal-only">مشاركة بالدواسة فقط</option>
             </select>
@@ -445,9 +445,9 @@ function Panel({
           ))}
           {s.config.mode === "therapist-throttle" && (
             <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
-              تسارع المعالج
+              تسارع الأخصائي
               <input
-                aria-label="تسارع المعالج"
+                aria-label="تسارع الأخصائي"
                 type="range"
                 min="0"
                 max="1"
@@ -774,7 +774,7 @@ function Panel({
               <div className={styles.cardHead}>
                 <div>
                   <span className={styles.overline}>
-                    تحكم مباشر · المعالج له الأولوية
+                    تحكم مباشر · الأخصائي له الأولوية
                   </span>
                   <h2>
                     {s.phase === "driving" ? "لنقد السيارة" : "لنطفئ النار"}
@@ -892,7 +892,7 @@ function Panel({
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "assist" })}
                 >
-                  مساعدة المعالج
+                  مساعدة الأخصائي
                 </button></ControlSlot>
                 <ControlSlot slot="assistance"><button
                   data-testid="repeat"

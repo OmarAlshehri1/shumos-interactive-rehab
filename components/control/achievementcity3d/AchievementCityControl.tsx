@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { AchievementCityView } from "@/components/display/achievementcity3d/AchievementCityView";
 import { SetupSettingsCard } from "@/components/control/setup/GameSetupLayout";
@@ -212,11 +213,11 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
             <button className={styles.btn} data-testid="ac-results-toggle" aria-pressed={showResults} onClick={() => setShowResults((v) => !v)}>{showResults ? "إخفاء النتائج" : "عرض النتائج"}</button>
           </div>
           {confirm && (
-            <ControlSlot slot="dialogs"><div className={styles.confirmBox} role="alertdialog" data-testid="ac-confirm-box">
+            <ControlSlot slot="dialogs"><ControlDialog open title="تأكيد الإجراء" onClose={() => setConfirm(null)} role="alertdialog"><div className={styles.confirmBox} data-testid="ac-confirm-box">
               <span>{confirm === "restart" ? "إعادة البدء تمسح إنجازات هذه الجولة ولا تُحفظ نتائجها. متأكد؟" : "إنهاء الجلسة الآن وحفظ ما تم تأكيده؟"}</span>
-              <button className={`${styles.btn} ${styles.primary} ${styles.btnSm}`} data-testid="ac-confirm-yes" onClick={() => { send(confirm === "restart" ? { type: "restart" } : { type: "end", at: now() }); setConfirm(null); }}>نعم</button>
-              <button className={`${styles.btn} ${styles.btnSm}`} data-testid="ac-confirm-no" onClick={() => setConfirm(null)}>لا</button>
-            </div></ControlSlot>
+              <button className={`${styles.btn} ${styles.primary} ${styles.btnSm}`} data-testid="ac-confirm-yes" onClick={() => { send(confirm === "restart" ? { type: "restart" } : { type: "end", at: now() }); setConfirm(null); }}>{confirm === "end" ? "إنهاء وحفظ" : "تأكيد"}</button>
+              <button className={`${styles.btn} ${styles.btnSm}`} data-testid="ac-confirm-no" onClick={() => setConfirm(null)}>إلغاء</button>
+            </div></ControlDialog></ControlSlot>
           )}
         </section>
       )}

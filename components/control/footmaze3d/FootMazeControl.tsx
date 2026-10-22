@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { FootMazeView } from "@/components/display/footmaze3d/FootMazeView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
@@ -258,7 +259,7 @@ function Current({
           disabled={!ok || !s.heading}
           onClick={() => send({ type: "arrive", assisted: true })}
         >
-          وصل بمساعدة المعالج
+          وصل بمساعدة الأخصائي
         </button></ControlSlot>
       </div>
       <div className={styles.actions} style={{ marginTop: 4 }}>
@@ -443,7 +444,7 @@ function Panel({
             <div className={styles.eyebrow}>SHUMOS CARE · FLOOR PROJECTION</div>
             <h1 className={styles.title}>متاهة القدمين</h1>
             <div className={styles.sub}>
-              Foot Maze 3D · يمشي الطفل في متاهة مضيئة على الأرض ويؤكّد المعالج
+              Foot Maze 3D · يمشي الطفل في متاهة مضيئة على الأرض ويؤكّد الأخصائي
               كل وصول؛ الحساسات اختيارية
             </div>
           </div>
@@ -459,9 +460,9 @@ function Panel({
           <div className={styles.stack}>
             <div className={styles.card}>
               <div className={styles.chips}>
-                <span className={styles.chip}>
+                <ControlSlot slot="progress"><span className={styles.chip}>
                   المستوى {stage.level} · المرحلة {stage.stage}: {stage.nameAr}
-                </span>
+                </span><p>المرحلة {s.stage + 1} من {STAGES.length}</p></ControlSlot>
                 <span className={styles.chip}>
                   {LEVELS[stage.level - 1].nameAr}
                 </span>
@@ -637,9 +638,9 @@ function Panel({
                 )}
               </div>
               {confirm && (
-                <ControlSlot slot="dialogs"><div
+                <ControlSlot slot="dialogs"><ControlDialog open title="تأكيد الإجراء" onClose={() => setConfirm(null)} role="alertdialog"><div
                   className={styles.confirm}
-                  role="alertdialog"
+
                   data-testid="fm-confirm-box"
                   style={{ marginTop: 10 }}
                 >
@@ -669,17 +670,15 @@ function Panel({
                       setConfirm(null);
                     }}
                   >
-                    نعم
-                  </button>
+                    {confirm === "end" ? "إنهاء وحفظ" : "تأكيد"}</button>
                   <button
                     className={styles.btn}
                     style={{ minHeight: 44 }}
                     data-testid="fm-confirm-no"
                     onClick={() => setConfirm(null)}
                   >
-                    لا
-                  </button>
-                </div></ControlSlot>
+                    إلغاء</button>
+                </div></ControlDialog></ControlSlot>
               )}
               <div
                 className={styles.progress}

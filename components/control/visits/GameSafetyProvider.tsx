@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
@@ -20,7 +21,6 @@ import { observePublishIntent } from "@/lib/realtime/publishIntent";
 
 import { stopOwnedVideo } from "@/lib/youtube/repository";
 import { controlTabId } from "@/lib/liveGame/ownership";
-import { modalKeys } from "./modalKeys";
 
 interface Safety {
   live: LiveSessionRecord | null;
@@ -220,17 +220,7 @@ export function GameSafetyProvider({
         </div>
       )}
       {open && (
-        <div
-          className="fixed inset-0 z-[100] grid place-items-center bg-slate-900/50 p-5"
-          dir="rtl"
-        >
-          <section
-            role="dialog"
-            aria-modal="true"
-            aria-label="حفظ النشاط قبل الانتقال"
-            onKeyDown={(event) => modalKeys(event, () => setBlocked(false))}
-            className="w-full max-w-lg space-y-4 rounded-2xl bg-white p-6 text-slate-900"
-          >
+        <ControlDialog open title="حفظ النشاط قبل الانتقال" onClose={() => setBlocked(false)} role="dialog">
             <h2 className="text-lg font-bold">حفظ النشاط قبل الانتقال</h2>
             <p className="text-sm leading-7">
               {!known || !connected
@@ -267,8 +257,7 @@ export function GameSafetyProvider({
                 </button>
               )}
             </div>
-          </section>
-        </div>
+          </ControlDialog>
       )}
     </Context.Provider>
   );

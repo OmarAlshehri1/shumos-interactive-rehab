@@ -1,9 +1,9 @@
 .section,
 .card {
   border: 1px solid #dce7ec;
-  border-radius: 18px;
+  border-radius: var(--control-card-radius);
   background: white;
-  padding: 20px;
+  padding: var(--control-card-padding);
   color: #193e46;
 }
 .section h2,
@@ -46,11 +46,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
-  font-size: 12px;
+  font-size: 14px;
   color: #6a7f8e;
 }
 .status {
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 30px;
   background: #e9f6f3;
   color: #216b65;
@@ -58,10 +58,10 @@
 }
 .rating {
   color: #b88522;
-  font-size: 13px;
+  font-size: 14px;
 }
 .muted {
-  font-size: 13px;
+  font-size: 14px;
   color: #718392;
   line-height: 1.8;
 }
@@ -70,7 +70,7 @@
   color: #a04148;
   padding: 12px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .page {
   width: 100%;
@@ -101,7 +101,7 @@
   background: #fff;
 }
 .stat dt {
-  font-size: 12px;
+  font-size: 14px;
   color: #74838d;
 }
 .stat dd {
@@ -121,7 +121,7 @@
   padding: 10px 16px;
   border-radius: 10px;
   color: #007d76;
-  font-size: 13px;
+  font-size: 14px;
   background: white;
 }
 .primary {
@@ -137,7 +137,7 @@
 .fields label {
   display: grid;
   gap: 7px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .fields input,
 .fields select,
@@ -182,7 +182,7 @@
   border: 1px solid #dce7ec;
   border-radius: 12px;
   padding: 12px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .trend strong {
   display: block;

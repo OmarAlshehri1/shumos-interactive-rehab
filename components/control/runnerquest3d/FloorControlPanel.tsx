@@ -30,7 +30,7 @@ export function FloorMapPanel({ runtime, view, run }: { runtime: ControlRuntime;
   const resting = view.roles.length > 0 && view.roles.every((r) => r.fresh && r.state === "neutral");
   return (
     <section className={`${styles.card} ${styles.touchCard}`} data-testid="floor-card">
-      <h2>خريطة الأرض <span className={styles.badge}>تحكم المعالج — متاح دائمًا</span></h2>
+      <h2>خريطة الأرض <span className={styles.badge}>تحكم الأخصائي — متاح دائمًا</span></h2>
       <div style={{ fontWeight: 700, fontSize: 18 }} data-testid="floor-objective">
         {finished ? "اكتملت الرحلة" : `الهدف ${f.current + 1} من ${f.objectives.length}: ${cur ? floorCueTherapistAr(cur) : ""}`}
       </div>

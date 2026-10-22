@@ -477,7 +477,7 @@ function Panel({
       <p className={styles.note}>
         الصورة تُعرض على الأرض فقط، والحديقة زينة مسطّحة لا عمق فيها ولا حفر ولا
         ارتفاعات يُطلب تجاوزها. لا يتتبّع النظام موقع قدم الطفل على الأرض؛
-        المعالج هو من يؤكد اختياره.
+        الأخصائي هو من يؤكد اختياره.
       </p>
       <div className={styles.status} role="status" data-testid="link-status">
         {session.error ??
@@ -552,7 +552,7 @@ function Panel({
             <div className={styles.eyebrow}>SHUMOS CARE · THE LOST COLORS</div>
             <h1 className={styles.title}>مطاردة الألوان</h1>
             <div className={styles.sub}>
-              Color Chase 3D · عالم الألوان المفقودة · المعالج يؤكد كل اختيار،
+              Color Chase 3D · عالم الألوان المفقودة · الأخصائي يؤكد كل اختيار،
               والحساسات اختيارية
             </div>
           </div>

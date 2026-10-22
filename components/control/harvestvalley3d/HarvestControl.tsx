@@ -211,7 +211,7 @@ function ConnectedControl() {
       <h2>إعداد تجربة الحصاد</h2>
       {(state.status !== "ready" || !!state.startedAt) && setupStages}
       <p>
-        يحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.
+        يحدد الأخصائي الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.
       </p>
       <fieldset disabled={!ready || !connected}>
         <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
@@ -539,7 +539,7 @@ function ConnectedControl() {
               </span>
             </div>
             <p>
-              الأخضر حصاد مكتمل. اختر خلية للتوجيه أو لتأكيد مساعدة المعالج.
+              الأخضر حصاد مكتمل. اختر خلية للتوجيه أو لتأكيد مساعدة الأخصائي.
             </p>
             <div className={styles.map} data-testid="hv-map">
               {cells.map((c) => (
@@ -633,9 +633,9 @@ function ConnectedControl() {
               </button>
             </div>
             <label className={styles.driveLabel}>
-              توجيه المعالج
+              توجيه الأخصائي
               <input
-                aria-label="توجيه المعالج"
+                aria-label="توجيه الأخصائي"
                 type="range"
                 min="-1"
                 max="1"

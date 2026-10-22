@@ -289,7 +289,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
             disabled={!editable || c.limbs !== "both"}
             onChange={(e) => cfg({ jumping: e.target.checked })}
           />{" "}
-          تفعيل القفز الاختياري (بموافقة المعالج)
+          تفعيل القفز الاختياري (بموافقة الأخصائي)
         </label>
         {c.jumping && (
           <p className={styles.banner}>
@@ -536,7 +536,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
             disabled={!editable}
             onChange={(e) => cfg({ calibrationConfirmed: e.target.checked })}
           />{" "}
-          أؤكد أنني قستُ الإسقاط وعايرته (بيان المعالج، لا إثبات دقة)
+          أؤكد أنني قستُ الإسقاط وعايرته (بيان الأخصائي، لا إثبات دقة)
         </label>
         <label className={styles.check}>
           <input
@@ -620,7 +620,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
         <p className={styles.banner} style={{ marginTop: 8 }}>
           حساسات WT901 قياسات حركة (IMU): لا تُعطي موقع القدم على الأرض ولا تدلّ
           على أي مربع يقف عليه الطفل، ولا تكشف الضغط أو الوقوف على قدم واحدة أو
-          القفز بصورة موثوقة. لذلك يؤكّد المعالج كل موضع يدويًا دائمًا،
+          القفز بصورة موثوقة. لذلك يؤكّد الأخصائي كل موضع يدويًا دائمًا،
           والمحاكاة هنا للتجربة فقط. لم يُختبر أي حساس فعلي مع هذه اللعبة.
         </p>
       </details>

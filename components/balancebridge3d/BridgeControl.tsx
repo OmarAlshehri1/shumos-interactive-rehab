@@ -1,4 +1,5 @@
 "use client";
+import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { GameSetupLayout } from "@/components/control/setup/GameSetupLayout";
 import { StagePicker } from "@/components/control/setup/ProgressiveStages";
@@ -176,7 +177,7 @@ function Controller({
           >
             <option value="wide">واسع</option>
             <option value="standard">قياسي</option>
-            <option value="narrower">أضيق بإشراف المعالج</option>
+            <option value="narrower">أضيق بإشراف الأخصائي</option>
             <option value="custom">عرض مخصص بعد المعايرة</option>
           </select>
         </label></ControlSlot>
@@ -277,7 +278,7 @@ function Controller({
             value={s.config.mode}
             onChange={(e) => patch({ mode: e.target.value as Config["mode"] })}
           >
-            <option value="MANUAL">تحكم المعالج دون حساسات</option>
+            <option value="MANUAL">تحكم الأخصائي دون حساسات</option>
             <option value="RIGHT_FOOT">القدم اليمنى — تلميحات فقط</option>
             <option value="LEFT_FOOT">القدم اليسرى — تلميحات فقط</option>
             <option value="DUAL_FOOT">القدمان — تلميحات فقط</option>
@@ -461,7 +462,7 @@ function Controller({
             </div>
             <div className={styles.metric}>
               <b>{s.deviations}</b>
-              <small>خروج أكّده المعالج</small>
+              <small>خروج أكّده الأخصائي</small>
             </div>
             <div className={styles.metric}>
               <b>
@@ -580,7 +581,7 @@ function Controller({
             </div>
             <p className={styles.note}>
               التأكيد يدوي بعد ملاحظة الطفل. لا توجد مهلة للمشي، ويمكن المساعدة
-              أو استخدام نشاط بديل بإشراف المعالج.
+              أو استخدام نشاط بديل بإشراف الأخصائي.
             </p>
             {s.status === "stage-complete" && (
               <p>
@@ -616,7 +617,7 @@ function Controller({
               </Link>
             </div>
             {confirm && (
-              <ControlSlot slot="dialogs"><div className={styles.confirm}>
+              <ControlSlot slot="dialogs"><ControlDialog open title={confirm === "end" ? "إنهاء الجلسة" : "إعادة الرحلة"} onClose={() => setConfirm(null)} role="alertdialog"><div className={styles.confirm}><h2>{confirm === "end" ? "إنهاء الجلسة" : "إعادة الرحلة"}</h2>
                 تأكد من توقف الطفل في موضع آمن.{" "}
                 {confirm === "restart"
                   ? "ستبدأ رحلة جديدة؛ أنهِ الجلسة الحالية واحفظها أولًا."
@@ -647,7 +648,7 @@ function Controller({
                     {confirm === "end" ? "تأكيد الإنهاء" : "تأكيد الإعادة"}
                   </button>
                 </div>
-              </div></ControlSlot>
+              </div></ControlDialog></ControlSlot>
             )}
             {error && (
               <ControlSlot slot="dialogs"><p role="alert" className={styles.error}>
@@ -667,7 +668,7 @@ function Controller({
                 {result.checkpointsConfirmed} تأكيدًا ·{" "}
                 {result.assistedCheckpoints} بمساعدة ·{" "}
                 {result.skippedCheckpoints} متخطّاة · {result.pathDeviations}{" "}
-                خروجًا أكّده المعالج · {result.holdCompletions} وقفات ثبات
+                خروجًا أكّده الأخصائي · {result.holdCompletions} وقفات ثبات
               </p>
               {result.stageResults.map((r) => (
                 <p key={r.stage}>
@@ -704,7 +705,7 @@ function Controller({
             />
             <p className={styles.note}>
               أوقف النشاط مؤقتًا لتغيير المرحلة. المرحلة الجديدة تبدأ عند طلب
-              المعالج.
+              الأخصائي.
             </p>
           </div>
           {settingsCard}
@@ -713,7 +714,7 @@ function Controller({
             {!local && <FootTelemetry mode={s.config.mode} />}
             <p>
               WT901 يقيس الحركة والاتجاه؛ لا يقيس موضع القدم أو الضغط أو ملامسة
-              الماء الافتراضي. تأكيد المعالج هو مصدر التقدم.
+              الماء الافتراضي. تأكيد الأخصائي هو مصدر التقدم.
             </p>
             <p className={styles.note}>
               ربط الأجهزة الفعلية بهذا النشاط غير متحقق. انقطاع الحساس لا يمنع

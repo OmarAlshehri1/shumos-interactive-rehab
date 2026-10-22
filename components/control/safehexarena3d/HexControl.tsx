@@ -384,7 +384,7 @@ function Panel({
       </AdditionalOptions>
       <p className={styles.note}>
         الصورة تُعرض على الأرض فقط. لا يتتبّع النظام موقع قدم الطفل على
-        البلاطات؛ المعالج هو من يؤكد موقعه. يحدّد المعالج مدى الحركة المناسبة
+        البلاطات؛ الأخصائي هو من يؤكد موقعه. يحدّد الأخصائي مدى الحركة المناسبة
         لكل طفل.
       </p>
       <div className={styles.status} role="status">
@@ -457,7 +457,7 @@ function Panel({
             <div className={styles.eyebrow}>SHUMOS CARE · FLOOR PROJECTION</div>
             <h1 className={styles.title}>الأرض الآمنة</h1>
             <div className={styles.sub}>
-              Safe Hex Arena 3D · المعالج يؤكد كل انتقال، والحساسات اختيارية
+              Safe Hex Arena 3D · الأخصائي يؤكد كل انتقال، والحساسات اختيارية
             </div>
           </div>
           <div className={styles.links}>

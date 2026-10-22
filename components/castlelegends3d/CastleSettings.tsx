@@ -20,7 +20,7 @@ export function CastleSettings({ state: s, enabled, configure }: { state: State;
         <option value="bilateral">الجهتان حسب الحركة</option><option value="right">اليمنى فقط</option><option value="left">اليسرى فقط</option>
       </SelectField></ControlSlot>
       <SelectField id="castle-presentation" label="وضعية عرض المدرب" value={s.config.presentation} disabled={!editable} onChange={e => configure({ presentation: e.target.value as Config["presentation"] })}>
-        <option value="seated">جالس · مع بدائل مريحة</option><option value="standing">واقف · بتوجيه المعالج</option>
+        <option value="seated">جالس · مع بدائل مريحة</option><option value="standing">واقف · بتوجيه الأخصائي</option>
       </SelectField>
       <ControlSlot slot="settings"><SelectField id="castle-range" label="حجم الحركة المعروضة" value={s.config.movementScale} disabled={!editable} onChange={e => configure({ movementScale: Number(e.target.value) })}>
         <option value="0.35">صغيرة</option><option value="0.65">مريحة</option><option value="1">كاملة</option>
@@ -31,13 +31,13 @@ export function CastleSettings({ state: s, enabled, configure }: { state: State;
       <label className={ui.choice}><input type="checkbox" checked={s.config.reducedMotion} disabled={!editable} onChange={e => configure({ reducedMotion: e.target.checked })} />تقليل الحركة البصرية</label>
     </div>
     <fieldset className={ui.group} disabled={!editable}><legend>الأطراف المشاركة</legend><div className={ui.choices}>{LIMBS.map(limb => <label className={ui.choice} key={limb}><input type="checkbox" checked={s.config.limbs.includes(limb)} onChange={e => configure({ limbs: e.target.checked ? [...s.config.limbs, limb] : s.config.limbs.filter(l => l !== limb) })} />{limbNames[limb]}</label>)}</div></fieldset>
-    <p className={ui.safety}>اختر حركة مريحة وآمنة. تأكيد الأداء بيد المعالج؛ لا يوجد قياس تلقائي للحركة أو تحميل الوزن.</p>
+    <p className={ui.safety}>اختر حركة مريحة وآمنة. تأكيد الأداء بيد الأخصائي؛ لا يوجد قياس تلقائي للحركة أو تحميل الوزن.</p>
     <TherapistDisclosure>
       <fieldset className={ui.group} disabled={!editable}><legend>تخصيص الحركات</legend><p className={ui.hint}>اترك الاختيار فارغًا للتنويع التلقائي.</p><div className={ui.choices}>{EXERCISES.filter(e => e.mode === s.config.mode && (!e.mat || s.config.mat)).map(e => <label className={ui.choice} key={e.id}><input type="checkbox" checked={s.config.exercises.includes(e.id)} onChange={v => configure({ exercises: v.target.checked ? [...s.config.exercises, e.id] : s.config.exercises.filter(id => id !== e.id) })} />{e.name}</label>)}</div></fieldset>
-      <SelectField id="castle-hold" label="ثبات اختياري بإشراف المعالج" value={s.config.holdSeconds} disabled={!editable} onChange={e => configure({ holdSeconds: Number(e.target.value) })}>
+      <SelectField id="castle-hold" label="ثبات اختياري بإشراف الأخصائي" value={s.config.holdSeconds} disabled={!editable} onChange={e => configure({ holdSeconds: Number(e.target.value) })}>
         {[0, 2, 3, 5].map(n => <option key={n} value={n}>{n ? `${n} ثوانٍ` : "دون ثبات"}</option>)}
       </SelectField>
-      <fieldset className={ui.group} disabled={!editable}><legend>حصيرة البصمات</legend><label className={ui.choice}><input type="checkbox" checked={s.config.mat} onChange={e => configure({ mat: e.target.checked, exercises: [] })} />تمارين الحصيرة بتأكيد المعالج</label>
+      <fieldset className={ui.group} disabled={!editable}><legend>حصيرة البصمات</legend><label className={ui.choice}><input type="checkbox" checked={s.config.mat} onChange={e => configure({ mat: e.target.checked, exercises: [] })} />تمارين الحصيرة بتأكيد الأخصائي</label>
         <SelectField label="هدف الحصيرة" id="castle-mat-target" value={s.config.matTarget} disabled={!s.config.mat || !editable} onChange={e => configure({ matTarget: e.target.value as Config["matTarget"] })}><option value="blue">الدائرة الزرقاء</option><option value="orange">الدائرة البرتقالية</option><option value="green">الدائرة الخضراء</option></SelectField>
       </fieldset>
       <SelectField id="castle-quality" label="جودة الرسوم" value={s.config.quality} disabled={!editable} onChange={e => configure({ quality: e.target.value as Config["quality"] })}><option value="high">عالية · ظلال وتفاصيل</option><option value="low">خفيفة · للأجهزة الأبطأ</option></SelectField>
