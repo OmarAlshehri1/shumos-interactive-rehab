@@ -2,6 +2,7 @@
 import { ProjectionGrid } from "./ProjectionGrid";
 import type { ProjectionPreviewCommand } from "@/lib/projection/calibration";
 import { subscribeToProjectionPreview } from "@/lib/realtime/sessionRepository";
+import { displayMayRenderGame } from "@/lib/display/sessionPresentation";
 import { visitGamePaused } from "@/lib/therapyVisits/gameSafety";
 import {decode as decodeBridgeLive} from '@/lib/balancebridge3d/live';
 import { SharedGameIntroduction } from "./SharedGameIntroduction";
@@ -201,10 +202,10 @@ function RealtimeDisplayScreen() {
   // publishes the current state again. The control never infers readiness
   // merely because its command write succeeded.
   useEffect(() => {
-    if (realtime.authStatus !== "authenticated") return;
+    if (realtime.authStatus !== "authenticated" || processingAudioCommandRef.current) return;
     void reportDisplayAudioStatus(getDisplayDb(), {
-      state: audio.readiness.ready ? "ready" : "not-ready",
-      commandId: null,
+      state: audio.readiness.ready ? "ready" : processedAudioCommandRef.current ? "blocked" : "not-ready",
+      commandId: processedAudioCommandRef.current,
       contextState: audio.readiness.contextState,
     }).catch(() => {});
   }, [audio.readiness.contextState, audio.readiness.ready, realtime.authStatus, realtime.connectionStatus]);
@@ -215,8 +216,8 @@ function RealtimeDisplayScreen() {
     const timer = setInterval(() => {
       if (processingAudioCommandRef.current) return;
       void reportDisplayAudioStatus(getDisplayDb(), {
-        state: audio.readiness.ready ? "ready" : "not-ready",
-        commandId: null,
+        state: audio.readiness.ready ? "ready" : processedAudioCommandRef.current ? "blocked" : "not-ready",
+        commandId: processedAudioCommandRef.current,
         contextState: audio.readiness.contextState,
       }).catch(() => {});
     }, 15000);
@@ -295,9 +296,9 @@ function RealtimeDisplayScreen() {
   // nothing, same as no session at all: fail safely to the waiting world,
   // never guess it must be Balloon Quest.
   const session = realtime.session;
-  const activeGame = realtime.authStatus === "authenticated" && session && realtime.gameId ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
+  const activeGame = realtime.authStatus === "authenticated" && session && realtime.gameId && displayMayRenderGame(session, realtime.gameId) ? { Component: GAME_DISPLAY_MODULES[realtime.gameId], session } : null;
   // Space Pilot 3D is silent by design (no ambience, no voice): it uses the same silent audio profile as the other 3D games.
-  const activeAudioGameId = session && realtime.gameId ? (isSpacePilotLive(session) || isFp3Live(session) || isCc3Live(session) || isDomeLive(session) ? "build-quest-3d" : realtime.gameId) : null;
+  const activeAudioGameId = activeGame && session && realtime.gameId ? (isSpacePilotLive(session) || isFp3Live(session) || isCc3Live(session) || isDomeLive(session) ? "build-quest-3d" : realtime.gameId) : null;
 
   // DISPLAY REQUIREMENT: the child only ever sees the mirrored hand while a
   // sensor-compatible game (lib/games/registry.ts's `sensorCompatible`) is

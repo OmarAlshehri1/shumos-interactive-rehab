@@ -483,24 +483,24 @@ function Controller({
             </p>
             <div className={styles.actions}>
               {s.status === "ready" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.button} ${styles.primary}`}
                   disabled={!connected}
                   onClick={() => send({ type: "start" })}
                 >
                   ابدأ الرحلة
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "running" && (
                 <>
                   {requiresHold(s) && !s.holding && (
-                    <button
+                    <ControlSlot slot="assistance"><button
                       className={styles.button}
                       disabled={!connected || s.countdown > 0}
                       onClick={() => send({ type: "begin-hold" })}
                     >
                       بدء الثبات عند الوصول
-                    </button>
+                    </button></ControlSlot>
                   )}
                   <ControlSlot slot="assistance"><button
                     className={`${styles.button} ${styles.primary}`}
@@ -563,20 +563,20 @@ function Controller({
               >
                 تخطّ العلامة
               </button></ControlSlot>
-              <button
+              <ControlSlot slot="assistance"><button
                 className={styles.button}
                 disabled={!connected || s.status !== "running"}
                 onClick={() => send({ type: "deviation" })}
               >
                 تأكيد خروج عن المسار
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="assistance"><button
                 className={styles.button}
                 disabled={!connected || s.status === "ended"}
                 onClick={() => send({ type: "instructions" })}
               >
                 إعادة التعليمات
-              </button>
+              </button></ControlSlot>
             </div>
             <p className={styles.note}>
               التأكيد يدوي بعد ملاحظة الطفل. لا توجد مهلة للمشي، ويمكن المساعدة
@@ -598,7 +598,7 @@ function Controller({
               >
                 إنهاء آمن
               </button></ControlSlot>
-              <button
+              <ControlSlot slot="navigation"><button
                 className={styles.button}
                 disabled={
                   !connected ||
@@ -610,7 +610,7 @@ function Controller({
                 onClick={() => setConfirm("restart")}
               >
                 إعادة الرحلة
-              </button>
+              </button></ControlSlot>
               <Link className={styles.previewLink} href="/control/calibration">
                 معايرة الإسقاط
               </Link>

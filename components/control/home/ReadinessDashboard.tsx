@@ -14,6 +14,7 @@ import {
 } from "@/components/control/sensors/SensorRuntimeProvider";
 import { InteractionIcon } from "@/components/control/library/InteractionIcon";
 import styles from "./readiness.module.css";
+import { audioRequestState, type AudioRequest } from "@/lib/control/audioRequest";
 export function freshDisplay(
   p: PresenceRecord | null | undefined,
   now: number,
@@ -56,7 +57,7 @@ export function ReadinessDashboard() {
     [rightPad, setRightPad] = useState(-1),
     [leftPad, setLeftPad] = useState(-1),
     [wheelPad, setWheelPad] = useState(-1),
-    [request, setRequest] = useState(""),
+    [request, setRequest] = useState<AudioRequest | null>(null),
     [sampleNow, setSampleNow] = useState(0);
   useEffect(() => {
     const poll = () => {
@@ -96,18 +97,16 @@ export function ReadinessDashboard() {
     };
   }, [realtime]);
   const fresh = connected && freshDisplay(presence, now),
-    audio = fresh && displayAudioReady(presence, now);
+    audioState = audioRequestState(presence, request, connected, now),
+    audio = audioState === "ready";
+  const audioCopy = { ready: "صوت شاشة العرض جاهز", pending: "بانتظار تأكيد شاشة العرض…", blocked: "يتطلب الصوت ضغطة على شاشة العرض؛ افتحها واضغط مرة واحدة.", failed: "لم يصل تأكيد الصوت. تحقق من الشاشة ثم أعد المحاولة.", "not-ready": "يحتاج تشغيل" }[audioState];
   const send = async () => {
-    setRequest("جاري الإرسال…");
+    const id = crypto.randomUUID();
+    setNow(Date.now());
+    setRequest({ id, at: Date.now() });
     try {
-      await requestDisplayAudioEnable(getStaffDb(), {
-        id: crypto.randomUUID(),
-        requestedAt: Date.now(),
-      });
-      setRequest("أُرسل الطلب");
-    } catch {
-      setRequest("تعذّر الإرسال");
-    }
+      await requestDisplayAudioEnable(getStaffDb(), { id, requestedAt: Date.now() });
+    } catch { setRequest(current => current?.id === id ? { ...current, failed: true } : current); }
   };
   const deviceSelect = (
     label: string,
@@ -180,11 +179,11 @@ export function ReadinessDashboard() {
           </div>
           <div className={styles.row}>
             <span className={styles.name}>الصوت</span>
-            <Status good={audio} label={audio ? "جاهز" : "يحتاج تشغيل"} />
+            <Status good={audio} label={audio ? "جاهز" : audioState === "pending" ? "جارٍ التحقق" : audioState === "failed" ? "تعذّر التفعيل" : "يحتاج تشغيل"} />
             <button
               type="button"
               className={styles.secondary}
-              disabled={!fresh}
+              disabled={!fresh || audioState === "pending"}
               onClick={() => void send()}
             >
               <InteractionIcon name="audio" />
@@ -193,7 +192,7 @@ export function ReadinessDashboard() {
           </div>
           {request && (
             <p role="status" className={styles.note}>
-              {request}
+              {audioCopy}
             </p>
           )}
         </article>

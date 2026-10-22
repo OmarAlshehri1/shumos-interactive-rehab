@@ -630,13 +630,13 @@ function SpacePilotControlScreen({
             : "استخدم اتصال اليد اليمنى الحالي. طابق النقطتين الذهبية والزرقاء قبل البدء أو المتابعة. أوقف الرحلة مؤقتًا قبل إعادة التمركز، ثم أعد تفعيل اليد."}
         </p>
         {state.inputMode === "sensor" && (
-          <button
+          <ControlSlot slot="assistance"><button
             className="mt-3 rounded-xl border border-teal-200 px-4 py-2 text-sm font-bold text-teal-800 disabled:opacity-40"
             disabled={ended || !!countdown}
             onClick={() => action({ type: "reengage" })}
           >
             إعادة تفعيل اليد
-          </button>
+          </button></ControlSlot>
         )}
         {state.reason && (
           <ControlSlot slot="dialogs"><p
@@ -716,12 +716,12 @@ function SpacePilotControlScreen({
               {countdown && (
                 <p role="status" data-testid="launch-countdown">
                   استعد للانطلاق… {numberArabic(countdown.remaining)}{" "}
-                  <button onClick={() => setCountdown(null)}>
+                  <ControlSlot slot="session"><button onClick={() => setCountdown(null)}>
                     إلغاء العد التنازلي
-                  </button>
+                  </button></ControlSlot>
                 </p>
               )}
-              <button
+              <ControlSlot slot="session"><button
                 type="button"
                 disabled={!view.ready || !!countdown}
                 onClick={() =>
@@ -733,7 +733,7 @@ function SpacePilotControlScreen({
                 }
               >
                 ابدأ النشاط
-              </button>
+              </button></ControlSlot>
             </div>
           }
         />
@@ -964,14 +964,14 @@ function SpacePilotControlScreen({
                   <strong>
                     استعد للانطلاق… {numberArabic(countdown.remaining)}
                   </strong>
-                  <button className={button} onClick={() => setCountdown(null)}>
+                  <ControlSlot slot="session"><button className={button} onClick={() => setCountdown(null)}>
                     إلغاء العد التنازلي
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div className="mt-6 flex flex-wrap gap-3">
                 {state.lifecycle === "ready" && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={button}
                     disabled={!!countdown}
                     onClick={() =>
@@ -984,10 +984,10 @@ function SpacePilotControlScreen({
                     {state.instructionsVisible
                       ? "متابعة · تخطي التعليمات"
                       : "عرض التعليمات"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {state.lifecycle === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={button}
                     disabled={!view.ready || !!countdown}
                     onClick={() =>
@@ -999,7 +999,7 @@ function SpacePilotControlScreen({
                     }
                   >
                     بدء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {state.lifecycle === "running" && (
                   <ControlSlot slot="session"><button
@@ -1029,7 +1029,7 @@ function SpacePilotControlScreen({
                 )}
                 {state.curriculumId && (
                   <>
-                    <button
+                    <ControlSlot slot="navigation"><button
                       data-testid="sp-restart-stage"
                       className={button}
                       disabled={
@@ -1038,8 +1038,8 @@ function SpacePilotControlScreen({
                       onClick={() => action({ type: "restart-stage" })}
                     >
                       إعادة المرحلة
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="navigation"><button
                       data-testid="sp-repeat-stage"
                       className={button}
                       disabled={
@@ -1048,8 +1048,8 @@ function SpacePilotControlScreen({
                       onClick={() => action({ type: "repeat-stage" })}
                     >
                       تكرار المرحلة
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="navigation"><button
                       data-testid="sp-skip-stage"
                       className={button}
                       disabled={
@@ -1062,10 +1062,10 @@ function SpacePilotControlScreen({
                       onClick={() => action({ type: "skip-stage" })}
                     >
                       تخطي المرحلة
-                    </button>
+                    </button></ControlSlot>
                   </>
                 )}
-                <button
+                <ControlSlot slot="navigation"><button
                   className={button}
                   disabled={
                     ended ||
@@ -1075,7 +1075,7 @@ function SpacePilotControlScreen({
                   onClick={() => action({ type: "restart" })}
                 >
                   إعادة الرحلة
-                </button>
+                </button></ControlSlot>
                 <ControlSlot slot="session"><button
                   className="rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold disabled:opacity-35"
                   disabled={ended || state.lifecycle === "ready"}

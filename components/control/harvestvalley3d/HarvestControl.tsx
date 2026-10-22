@@ -405,13 +405,13 @@ function ConnectedControl() {
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!connected}
               onClick={() => send({ type: "start" })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -484,24 +484,24 @@ function ConnectedControl() {
             >
               تكرار الصف
             </button></ControlSlot>
-            <button
+            <ControlSlot slot="assistance"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "reposition" })}
             >
               إعادة التموضع
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "skip-objective" })}
             >
               تجاوز الهدف
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="navigation"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "skip-stage" })}
             >
               تجاوز المرحلة
-            </button>
+            </button></ControlSlot>
             <ControlSlot slot="settings"><button
               disabled={
                 !connected ||
@@ -512,7 +512,7 @@ function ConnectedControl() {
             >
               المرحلة التالية
             </button></ControlSlot>
-            <button
+            <ControlSlot slot="navigation"><button
               disabled={!connected}
               onClick={() => {
                 manual.current = { steering: 0, throttle: 0, brake: 0 };
@@ -520,7 +520,7 @@ function ConnectedControl() {
               }}
             >
               إعادة الجلسة
-            </button>
+            </button></ControlSlot>
             <ControlSlot slot="session"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "end", at: Date.now() })}
@@ -669,7 +669,7 @@ function ConnectedControl() {
               >
                 فرامل
               </button>
-              <button
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || !running}
                 className={state.autoDrive ? styles.selected : ""}
                 onClick={() => {
@@ -682,13 +682,13 @@ function ConnectedControl() {
                 {state.autoDrive
                   ? "إيقاف القيادة الآلية"
                   : "قيادة آلية بمساعدة"}
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => send({ type: "harvest", on: !state.harvesting })}
               >
                 {state.harvesting ? "إيقاف الحصاد" : "تشغيل الحصاد"}
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="assistance"><button
                 disabled={!connected || !running}
                 onClick={() => send({ type: "assist", token: tokenFor(state) })}

@@ -122,6 +122,25 @@ describe("AudioManager fresh-session lifecycle", () => {
     expect(readiness).toHaveBeenLastCalledWith({ ready: false, contextState: "suspended" });
   });
 
+  it("acknowledges a never-settling Chrome resume as blocked within 1200ms and still permits a later gesture", async () => {
+    vi.useFakeTimers();
+    try {
+      const { contexts } = installFakeAudioContext("running");
+      const { provider } = createMockProvider();
+      const manager = new AudioManager(provider);
+      await manager.attemptRemoteEnable();
+      const ctx = contexts[0]; ctx.state = "suspended";
+      ctx.resume.mockImplementation(() => new Promise<void>(() => {}));
+      const result = manager.attemptRemoteEnable();
+      await vi.advanceTimersByTimeAsync(1200);
+      await expect(result).resolves.toEqual({ ready: false, contextState: "suspended" });
+      ctx.resume.mockImplementation(async () => { ctx.state = "running"; ctx.onstatechange?.(); });
+      manager.unlock();
+      expect(manager.getReadiness().ready).toBe(true);
+      manager.destroy();
+    } finally { vi.useRealTimers(); }
+  });
+
   it("reports remote enable ready only after the display context actually reaches running", async () => {
     const { gainNodes } = installFakeAudioContext("suspended", true);
     const { provider, calls } = createMockProvider();

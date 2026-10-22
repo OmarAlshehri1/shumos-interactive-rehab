@@ -584,13 +584,13 @@ function Panel({
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!enabled}
               onClick={() => action({ type: "start", at: Date.now() })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -614,13 +614,13 @@ function Panel({
       data-history={runtime.history}
     >
       {s.status === "running" && (
-        <button
+        <ControlSlot slot="assistance"><button
           className={styles.floatingStop}
           data-testid="safety-stop"
           onClick={() => action({ type: "stop" })}
         >
           ■ توقف آمن
-        </button>
+        </button></ControlSlot>
       )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -720,14 +720,14 @@ function Panel({
 
               <div className={styles.actions}>
                 {s.status === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     data-testid="start"
                     className={styles.primary}
                     disabled={!enabled}
                     onClick={() => action({ type: "start", at: Date.now() })}
                   >
                     ابدأ المهمة ←
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <ControlSlot slot="session"><button
@@ -759,14 +759,14 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.stop}
                     data-testid="stop"
                     disabled={!enabled}
                     onClick={() => action({ type: "stop" })}
                   >
                     ■ توقف آمن
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
             </div>
@@ -903,7 +903,7 @@ function Panel({
                 >
                   أعد الهدف
                 </button></ControlSlot>
-                <button
+                <ControlSlot slot="assistance"><button
                   data-testid="skip-objective"
                   disabled={
                     !enabled || !["running", "paused"].includes(s.status)
@@ -911,7 +911,7 @@ function Panel({
                   onClick={() => action({ type: "skipObjective" })}
                 >
                   تجاوز الهدف
-                </button>
+                </button></ControlSlot>
               </div>
               <p className={styles.note}>
                 اضغط باستمرار للتحريك أو رش الماء. التحرير يوقف الإدخال؛ زر
@@ -961,20 +961,20 @@ function Panel({
                     جلسة جديدة
                   </button>
                 )}
-                <button
+                <ControlSlot slot="navigation"><button
                   data-testid="restart"
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "restart" })}
                 >
                   إعادة المرحلة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="navigation"><button
                   data-testid="skip-stage"
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "skipStage" })}
                 >
                   تجاوز المرحلة
-                </button>
+                </button></ControlSlot>
                 <ControlSlot slot="session"><button
                   data-testid="end"
                   disabled={!enabled || s.status === "ended"}

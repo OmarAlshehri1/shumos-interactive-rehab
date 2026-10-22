@@ -428,7 +428,12 @@ export class AudioManager {
 
     if (ctx.state !== "running") {
       try {
-        await ctx.resume();
+        // Chrome may keep resume() pending until a real gesture on Display.
+        // Bound acknowledgement, not the browser's permission decision.
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        try {
+          await Promise.race([ctx.resume(), new Promise<void>(resolve => { timer = setTimeout(resolve, 1200); })]);
+        } finally { if (timer !== undefined) clearTimeout(timer); }
       } catch {
         // The state below is the authoritative result; autoplay rejection
         // must remain a visible blocked acknowledgement, never an exception

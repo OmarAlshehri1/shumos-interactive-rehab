@@ -11,12 +11,14 @@ import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { discardUnstartedPreview } from "@/lib/realtime/sessionRepository";
 import { controlTabId } from "@/lib/liveGame/ownership";
 import { canResumeSession, dismissCompletedSession } from "@/lib/realtime/dismissCompletedSession";
+import { useTherapistConfirmation } from "@/components/control/ui/TherapistConfirmation";
 import { TherapistButton } from "@/components/control/ui/TherapistSurface";
 import ui from "@/components/control/ui/therapist.module.css";
 import styles from "./recovery.module.css";
 
 /** One presentation of the existing recovery/ownership flow; never deletes on navigation or hide. */
 export function ResetLiveDisplayOnMount() {
+  const confirmation = useTherapistConfirmation();
   const safety = useGameSafety(), patient = usePatientContext(), router = useRouter();
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
   const [hiddenPreview, setHiddenPreview] = useState<string | null>(null);
@@ -38,7 +40,6 @@ export function ResetLiveDisplayOnMount() {
     } catch { setError("تعذّر استعادة سياق النشاط. لم يُغيّر تقدمه."); setBusy(false); }
   };
   const discard = async () => {
-    if (!window.confirm("حذف هذا الإعداد الذي لم يبدأ؟ لن يُحذف أي سجل محفوظ.")) return;
     setBusy(true); setError("");
     try {
       if (!canResumeSession(getStaffDb(), record) || !await discardUnstartedPreview(getStaffDb(), record.sessionId, controlTabId())) setError("تغيّر الإعداد أو تملكه نافذة أخرى. استكمل الإعداد من نافذته أولًا.");
@@ -56,11 +57,12 @@ export function ResetLiveDisplayOnMount() {
   return <section dir="rtl" className={`${ui.theme} ${styles.recovery}`} aria-label="استعادة نشاط سابق" data-testid="session-recovery" data-kind={preview ? "preview" : complete ? "complete" : "unfinished"}>
     <div className={styles.copy}><span className={styles.label}>{preview ? "إعداد لم يبدأ" : complete ? "نتائج نشاط منتهٍ" : "جلسة غير مكتملة"}</span><h2>{game.nameAr}</h2><p>{preview ? "يمكنك استكماله أو حذف الإعداد فقط." : complete ? safety.canLeave ? "تأكد حفظ النتائج. يمكنك إغلاق العرض بأمان." : "النتائج محفوظة داخل النشاط. افتحها لإتمام الحفظ." : "تقدم الطفل محفوظ. استكمل الجلسة أو أنهِها من أدوات النشاط."}</p></div>
     <div className={styles.actions}><TherapistButton tone="primary" disabled={busy || !safety.connected} onClick={() => void resume()}>{preview ? "استكمال الإعداد" : complete ? "فتح النتائج" : "استكمال الجلسة"}</TherapistButton>
-      {preview && <TherapistButton disabled={busy || !safety.connected} onClick={() => void discard()}>حذف الإعداد</TherapistButton>}
+      {preview && <TherapistButton disabled={busy || !safety.connected} onClick={() => confirmation.ask({ title: "حذف الإعداد الذي لم يبدأ؟", description: "يُحذف هذا الإعداد فقط بعد إعادة التحقق أنه لم يبدأ؛ لن يُحذف تقدم أو سجل محفوظ.", confirmLabel: "حذف الإعداد فقط", action: discard })}>حذف الإعداد</TherapistButton>}
       {!preview && !complete && <TherapistButton disabled={busy || !safety.connected} onClick={() => void resume()}>إنهاء بأمان من النشاط</TherapistButton>}
       {complete && safety.canLeave && <TherapistButton disabled={busy || !safety.connected} onClick={() => void dismiss()}>إغلاق العرض</TherapistButton>}
       {preview && <button className={styles.hide} type="button" disabled={busy} onClick={() => setHiddenPreview(record.sessionId)}>إخفاء التذكير</button>}
     </div>
+    {confirmation.dialog}
     {error && <p className={ui.error} role="alert">{error}</p>}
   </section>;
 }

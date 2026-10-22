@@ -8,6 +8,7 @@ import {
   type SelectHTMLAttributes,
   type ButtonHTMLAttributes,
 } from "react";
+import { ControlSlot, useControlWorkspace } from "@/components/control/ui/ControlWorkspace";
 import { useControlGameId } from "./ControlGameFrame";
 import { realGameThumbnail } from "@/components/control/library/realGameThumbnails";
 import { StageArtwork } from "./StageArtwork";
@@ -63,11 +64,15 @@ export function StagePicker({
   onSelect: (value: string | number) => void;
 }) {
   const gameId = useControlGameId();
+  const { active } = useControlWorkspace();
   const selected = items.findIndex(
     (item) => String(item.value) === String(value),
   );
   const level = stageLevel(selected);
   return (
+    <>
+    {active && selected >= 0 && <ControlSlot slot="navigation"><button type="button" disabled={disabled || selected <= 0 || items[selected - 1]?.disabled} onClick={() => onSelect(items[selected - 1].value)}>المرحلة السابقة</button><button type="button" disabled={disabled || selected >= items.length - 1 || items[selected + 1]?.disabled} onClick={() => onSelect(items[selected + 1].value)}>المرحلة التالية</button></ControlSlot>}
+    {active && selected >= 0 && <ControlSlot slot="progress"><strong>{items[selected].label}</strong><p>المرحلة {selected + 1} من {items.length}</p></ControlSlot>}
     <div className={styles.picker} data-progressive-stages>
       <div className={styles.levels} role="group" aria-label="مستوى الصعوبة">
         {LEVELS.map((label, index) => (
@@ -121,6 +126,7 @@ export function StagePicker({
         ))}
       </div>
     </div>
+    </>
   );
 }
 /** Preserves each native select's value, disabled options and configuration handler. */
@@ -158,6 +164,7 @@ export function ProgressiveStageGroup({
   selected: number;
 }) {
   const gameId = useControlGameId();
+  const { active } = useControlWorkspace();
   const nodes = Children.toArray(children);
   const level = stageLevel(selected);
   const candidate = (index: number) =>
@@ -171,6 +178,12 @@ export function ProgressiveStageGroup({
       ) as ReactElement<ButtonHTMLAttributes<HTMLButtonElement>> | undefined;
   if (nodes.length !== 9) return <>{children}</>;
   return (
+    <>
+    {active && nodes[selected] && <ControlSlot slot="navigation">{[-1, 1].map(delta => {
+      const target = nodes[selected + delta];
+      return isValidElement<ButtonHTMLAttributes<HTMLButtonElement>>(target) ? cloneElement(target, { key: delta, children: delta < 0 ? "المرحلة السابقة" : "المرحلة التالية" }) : <button key={delta} type="button" disabled>{delta < 0 ? "المرحلة السابقة" : "المرحلة التالية"}</button>;
+    })}</ControlSlot>}
+    {active && nodes[selected] && <ControlSlot slot="progress"><strong>{textOf(nodes[selected])}</strong><p>المرحلة {selected + 1} من {nodes.length}</p></ControlSlot>}
     <div className={styles.picker} data-progressive-stages>
       <div className={styles.levels} role="group" aria-label="مستوى الصعوبة">
         {LEVELS.map((label, index) => (
@@ -219,6 +232,7 @@ export function ProgressiveStageGroup({
         )}
       </div>
     </div>
+    </>
   );
 }
 export function AdditionalOptions({

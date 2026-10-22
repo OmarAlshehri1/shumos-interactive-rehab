@@ -14,3 +14,10 @@ export function displaySession(record: LiveSessionRecord | null, serverNow: numb
   const expiry = previewExpiresAt(record);
   return expiry !== null && expiry <= serverNow ? null : record;
 }
+
+/** Rendering gate only: keep setup and between-stage preparation off the child renderer.
+ * Never clear/rewrite the stored session; unfinished progress remains recoverable. */
+export function displayMayRenderGame(session: LiveSessionRecord["session"], gameId: LiveSessionRecord["gameId"]) {
+  if ("engine" in session && session.gameState === "START_ZONE") return false;
+  return !isUnstartedActivity({ session, gameId } as LiveSessionRecord);
+}

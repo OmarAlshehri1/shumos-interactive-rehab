@@ -167,7 +167,7 @@ function Current({
             (الإيقاف المؤقت يجمّد الانتظار).
           </div>
           <div className={styles.actions} style={{ marginTop: 0 }}>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               style={{ minHeight: 56 }}
@@ -176,8 +176,8 @@ function Current({
               onClick={() => send({ type: "release" })}
             >
               اسمح بالمرور الآن ✓
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={styles.btn}
               data-testid="fm-extend"
@@ -185,7 +185,7 @@ function Current({
               onClick={() => send({ type: "extend", ms: 2000 })}
             >
               مدّد الانتظار +٢ ث
-            </button>
+            </button></ControlSlot>
           </div>
         </div>
       )}
@@ -203,7 +203,7 @@ function Current({
             {ways.map((id) => {
               const t = turnOf(s, id);
               return (
-                <button
+                <ControlSlot key={id} slot="assistance"><button
                   key={id}
                   type="button"
                   className={`${styles.exitBtn} ${s.heading === id ? styles.exitOn : ""}`}
@@ -217,7 +217,7 @@ function Current({
                     {id === back ? " (رجوع)" : ""}
                   </span>
                   <small>{nodeNameAr(maze, id)}</small>
-                </button>
+                </button></ControlSlot>
               );
             })}
           </div>
@@ -242,7 +242,7 @@ function Current({
         )}
 
       <div className={styles.actions}>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.good}`}
           data-testid="fm-arrive"
@@ -250,8 +250,8 @@ function Current({
           onClick={() => send({ type: "arrive", assisted: false })}
         >
           ✓ وصل الطفل{s.heading ? ` إلى: ${headingName}` : ""}
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.assist}`}
           data-testid="fm-arrive-assist"
@@ -259,7 +259,7 @@ function Current({
           onClick={() => send({ type: "arrive", assisted: true })}
         >
           وصل بمساعدة المعالج
-        </button>
+        </button></ControlSlot>
       </div>
       <div className={styles.actions} style={{ marginTop: 4 }}>
         <ControlSlot slot="assistance"><button
@@ -291,7 +291,7 @@ function Current({
         >
           تخطَّ النجمة التالية
         </button></ControlSlot>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="fm-hint-btn"
@@ -299,8 +299,8 @@ function Current({
           onClick={() => send({ type: "hint" })}
         >
           💡 تلميح الطريق (٧ ث)
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.warn}`}
           data-testid="fm-trigger"
@@ -314,7 +314,7 @@ function Current({
             : evHere && !s.fired.includes(evHere.id)
               ? "شغّل تغيّر الطريق الآن"
               : "لا حدث هنا"}
-        </button>
+        </button></ControlSlot>
       </div>
       <p className={styles.note}>
         لا تُجمع أي نجمة إلا بضغطك «وصل» عند النجمة الفعلية، ولا تُمنح نفس
@@ -506,14 +506,14 @@ function Panel({
                 >
                   رُصدت حركة قدم أثناء انتظار الحارس (تلميح فقط، من محاكاة).
                   الحساس لا يعرف أين يقف الطفل؛ لاحظ بنفسك.
-                  <button
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={`${styles.btn} ${styles.btnSm}`}
                     style={{ marginInlineStart: 8 }}
                     onClick={() => send({ type: "dismissHint" })}
                   >
                     تجاهل
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
@@ -560,14 +560,14 @@ function Panel({
             <div className={styles.card}>
               <div className={styles.actions} style={{ marginTop: 0 }}>
                 {s.status === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="fm-start"
                     disabled={!can}
                     onClick={() => send({ type: "start", at: Date.now() })}
                   >
                     ابدأ المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <ControlSlot slot="session"><button
@@ -600,32 +600,32 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="fm-skipstage"
                     onClick={() => setConfirm("skipStage")}
                   >
                     تجاوز المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status !== "ended" && s.status !== "ready" && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="fm-restartstage"
                     onClick={() => setConfirm("restartStage")}
                   >
                     أعد ضبط هذه المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.btn}
                   data-testid="fm-restart"
                   onClick={() => setConfirm("restart")}
                 >
                   إعادة البدء
-                </button>
+                </button></ControlSlot>
                 {s.status !== "ended" && (
                   <ControlSlot slot="session"><button
                     className={styles.btn}

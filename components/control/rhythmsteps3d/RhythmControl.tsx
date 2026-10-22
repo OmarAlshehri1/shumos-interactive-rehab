@@ -183,7 +183,7 @@ function CurrentStep({
               >
                 أنهِ بمساعدة
               </button></ControlSlot>
-              <button
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={styles.btn}
                 data-testid="rs-hold-cancel"
@@ -191,11 +191,11 @@ function CurrentStep({
                 onClick={() => send({ type: "cancelHold", id })}
               >
                 إلغاء الثبات
-              </button>
+              </button></ControlSlot>
             </>
           ) : (
             <>
-              <button
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={`${styles.btn} ${styles.good}`}
                 data-testid="rs-hold-start"
@@ -203,7 +203,7 @@ function CurrentStep({
                 onClick={() => send({ type: "startHold", id })}
               >
                 ابدأ الثبات
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="assistance"><button
                 type="button"
                 className={`${styles.btn} ${styles.assist}`}
@@ -405,14 +405,14 @@ function Panel({
                 >
                   رُصدت حركة قدم (تلميح فقط، من محاكاة). الحساس لا يعرف أي مربع
                   وقف عليه الطفل؛ تحقّق بنظرك ثم أكّد الهدف بنفسك.
-                  <button
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={styles.btn}
                     style={{ minHeight: 40, marginInlineStart: 8 }}
                     onClick={() => send({ type: "dismissHint" })}
                   >
                     تجاهل
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
@@ -430,14 +430,14 @@ function Panel({
             <div className={styles.card}>
               <div className={styles.actions} style={{ marginTop: 0 }}>
                 {s.status === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="rs-start"
                     disabled={!can}
                     onClick={() => send({ type: "start", at: Date.now() })}
                   >
                     ابدأ المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <ControlSlot slot="session"><button
@@ -470,7 +470,7 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.btn}
                     data-testid="rs-spawn"
                     onClick={() => send({ type: "spawn", on: !s.spawnOn })}
@@ -478,7 +478,7 @@ function Panel({
                     {s.spawnOn
                       ? "أوقف الأهداف الجديدة مؤقتًا"
                       : "استأنف الأهداف الجديدة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <ControlSlot slot="assistance"><button
@@ -491,23 +491,23 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="rs-skipstage"
                     onClick={() => setConfirm("skipStage")}
                   >
                     تجاوز المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.btn}
                   data-testid="rs-restart"
                   onClick={() => setConfirm("restart")}
                 >
                   إعادة البدء
-                </button>
+                </button></ControlSlot>
                 {s.status !== "ended" && (
                   <ControlSlot slot="session"><button
                     className={styles.btn}

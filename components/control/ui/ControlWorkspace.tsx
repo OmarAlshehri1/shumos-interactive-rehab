@@ -12,10 +12,10 @@ import { useVisit } from "@/components/control/visits/VisitProvider";
 import ui from "./therapist.module.css";
 import styles from "./workspace.module.css";
 
-type Slot = "preview" | "assistance" | "session" | "settings" | "dialogs";
+type Slot = "preview" | "assistance" | "session" | "settings" | "dialogs" | "navigation" | "progress";
 type Targets = Record<Slot, HTMLElement | null>;
 interface Workspace { available: boolean; active: boolean; targets: Targets; setupTarget: HTMLElement | null; registerSetup: ((node: HTMLElement | null) => void) | null }
-const empty: Targets = { preview: null, assistance: null, session: null, settings: null, dialogs: null };
+const empty: Targets = { preview: null, assistance: null, session: null, settings: null, dialogs: null, navigation: null, progress: null };
 const Context = createContext<Workspace>({ available: false, active: false, targets: empty, setupTarget: null, registerSetup: null });
 export const useControlWorkspace = () => useContext(Context);
 
@@ -50,9 +50,11 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
   const [assistance, setAssistance] = useState<HTMLElement | null>(null);
   const [session, setSession] = useState<HTMLElement | null>(null);
   const [settings, setSettings] = useState<HTMLElement | null>(null);
+  const [navigation, setNavigation] = useState<HTMLElement | null>(null);
+  const [progress, setProgress] = useState<HTMLElement | null>(null);
   const [dialogs, setDialogs] = useState<HTMLElement | null>(null);
   const [setupTarget, registerSetup] = useState<HTMLElement | null>(null);
-  const value = useMemo(() => ({ available: true, active: info.active, targets: { preview, assistance, session, settings, dialogs }, setupTarget, registerSetup }), [info.active, preview, assistance, session, settings, dialogs, setupTarget]);
+  const value = useMemo(() => ({ available: true, active: info.active, targets: { preview, assistance, session, settings, dialogs, navigation, progress }, setupTarget, registerSetup }), [info.active, preview, assistance, session, settings, dialogs, navigation, progress, setupTarget]);
   const artwork = realGameThumbnail(game.id);
   return <Context.Provider value={value}>
     <div className={`${ui.theme} ${styles.workspace}`} data-workspace-active={info.active}>
@@ -63,7 +65,7 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
             <section className={styles.preview} aria-label="متابعة شاشة الطفل"><div ref={setPreview} className={styles.previewTarget} data-workspace-target="preview" /><div className={styles.fallback}>{artwork && <Image src={artwork} width={640} height={360} alt="صورة تمثيلية من النشاط" />}<p>صورة النشاط · تابع الحالة والإجراءات من أدوات المعالج.</p></div></section>
             <section className={styles.assistance} aria-label="مساعدة الطفل"><h2>مساعدة الطفل</h2><div ref={setAssistance} data-workspace-target="assistance" className={styles.assistanceTarget} /><p className={styles.noActions}>استخدم أدوات التفاعل داخل المعاينة.</p></section>
           </div>
-          <aside className={styles.therapist} aria-label="لوحة المعالج"><h2>لوحة المعالج</h2><p className={styles.current}>{info.level}{info.stage && ` · المرحلة ${info.stage}`}</p><div ref={setSession} data-workspace-target="session" className={styles.session} /><div ref={setSettings} data-workspace-target="settings" className={styles.settings} /><p className={styles.settingsHint}>الخيارات المقفلة تُعدّل أثناء الاستراحة أو عند إعداد مرحلة جديدة.</p></aside>
+          <aside className={styles.therapist} aria-label="لوحة المعالج"><h2>لوحة المعالج</h2><p className={styles.current}>{info.level}{info.stage && ` · المرحلة ${info.stage}`}</p><div ref={setProgress} data-workspace-target="progress" className={styles.progress} /><div ref={setNavigation} data-workspace-target="navigation" className={styles.navigation} /><div ref={setSession} data-workspace-target="session" className={styles.session} /><div ref={setSettings} data-workspace-target="settings" className={styles.settings} /><p className={styles.settingsHint}>الخيارات المقفلة تُعدّل أثناء الاستراحة أو عند إعداد مرحلة جديدة.</p></aside>
         </div>
       </div>
       {children}
@@ -75,10 +77,7 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
 /** This wrapper stays mounted across Start/End. Native controller and physical input effects never remount on layout changes. */
 export function WorkspaceNative({ children, className }: { children: ReactNode; className: string }) {
   const { active } = useControlWorkspace();
-  const [expanded, setExpanded] = useState(false);
-  return <details open={!active || expanded} className={`${styles.nativeOptions} ${active ? styles.activeOptions : ""}`} onToggle={e => { if (active) setExpanded(e.currentTarget.open); }}>
-    <summary>خيارات إضافية وإعدادات النشاط</summary><div className={className}>{children}</div>
-  </details>;
+  return <div className={styles.nativeOptions}><div hidden={active} className={className}>{children}</div></div>;
 }
 export function SetupOnly({ children }: { children: ReactNode }) {
   const { active } = useControlWorkspace();

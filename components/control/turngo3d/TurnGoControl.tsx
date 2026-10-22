@@ -145,7 +145,7 @@ function Current({
         <div className={styles.banner} role="status" data-testid="tg-wait">
           حدث ديناميكي جارٍ: {EVENT_LABEL_AR[s.wait.kind]} · {waitLeft} ث. الطفل
           واقف عند نجمته ولا يتحرك الطريق الآن.
-          <button
+          <ControlSlot slot="assistance"><button
             type="button"
             className={`${styles.btn} ${styles.btnSm}`}
             data-testid="tg-continue"
@@ -153,7 +153,7 @@ function Current({
             onClick={() => send({ type: "continue" })}
           >
             تابع الآن
-          </button>
+          </button></ControlSlot>
         </div>
       )}
       {kind === "stop" && !hold && !s.wait && (
@@ -270,7 +270,7 @@ function Current({
         </button></ControlSlot>
       </div>
       <div className={styles.actions} style={{ marginTop: 4 }}>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.warn}`}
           data-testid="tg-deviation"
@@ -278,8 +278,8 @@ function Current({
           onClick={() => send({ type: "deviation", cone: false })}
         >
           خرج عن المسار
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.warn}`}
           data-testid="tg-cone"
@@ -287,7 +287,7 @@ function Current({
           onClick={() => send({ type: "deviation", cone: true })}
         >
           لمس مخروطًا
-        </button>
+        </button></ControlSlot>
       </div>
       <p className={styles.note}>
         «خرج عن المسار» و«لمس مخروطًا» تسجيلات منك تُظهر نبضة لطيفة على الشاشة
@@ -471,14 +471,14 @@ function Panel({
                 >
                   رُصدت حركة قدم أثناء وقفة أو انتظار (تلميح فقط، من محاكاة).
                   الحساس لا يعرف أين يقف الطفل؛ لاحظ بنفسك.
-                  <button
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={`${styles.btn} ${styles.btnSm}`}
                     style={{ marginInlineStart: 8 }}
                     onClick={() => send({ type: "dismissHint" })}
                   >
                     تجاهل
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
@@ -524,14 +524,14 @@ function Panel({
             <div className={styles.card}>
               <div className={styles.actions} style={{ marginTop: 0 }}>
                 {s.status === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="tg-start"
                     disabled={!can}
                     onClick={() => send({ type: "start", at: Date.now() })}
                   >
                     ابدأ المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <ControlSlot slot="session"><button
@@ -564,32 +564,32 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="tg-skipstage"
                     onClick={() => setConfirm("skipStage")}
                   >
                     تجاوز المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status !== "ended" && s.status !== "ready" && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="tg-restartstage"
                     onClick={() => setConfirm("restartStage")}
                   >
                     أعد ضبط هذه المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.btn}
                   data-testid="tg-restart"
                   onClick={() => setConfirm("restart")}
                 >
                   إعادة البدء
-                </button>
+                </button></ControlSlot>
                 {s.status !== "ended" && (
                   <ControlSlot slot="session"><button
                     className={styles.btn}

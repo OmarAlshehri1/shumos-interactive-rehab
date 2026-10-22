@@ -418,13 +418,13 @@ function Panel({
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!can}
               onClick={() => send({ type: "start", at: Date.now() })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -513,13 +513,13 @@ function Panel({
 
             <div className={styles.actions}>
               {s.status === "ready" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.btn} ${styles.primary}`}
                   disabled={!can}
                   onClick={() => send({ type: "start", at: Date.now() })}
                 >
                   ابدأ المرحلة
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "running" && (
                 <ControlSlot slot="session"><button
@@ -551,31 +551,31 @@ function Panel({
             {live && (
               <div className={styles.actions}>
                 {s.phase === "prep" && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={`${styles.btn} ${styles.primary}`}
                     disabled={s.status !== "running"}
                     onClick={() => send({ type: "warn" })}
                   >
                     ابدأ التحذير
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.phase === "warning" && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.btn}
                     onClick={() => send({ type: "extend", ms: 3000 })}
                   >
                     +٣ ثوانٍ للتحذير
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.phase === "warning" && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.btn}
                     onClick={() => send({ type: "hide" })}
                   >
                     أطفئ البلاطات الآن
-                  </button>
+                  </button></ControlSlot>
                 )}
-                <button
+                <ControlSlot slot="assistance"><button
                   className={styles.btn}
                   disabled={sel === null}
                   onClick={() =>
@@ -583,7 +583,7 @@ function Panel({
                   }
                 >
                   هنا يقف الطفل
-                </button>
+                </button></ControlSlot>
                 <ControlSlot slot="assistance"><button
                   className={`${styles.btn} ${styles.primary}`}
                   disabled={!inRound || !selSafe}
@@ -611,28 +611,28 @@ function Panel({
                 >
                   أعد الجولة
                 </button></ControlSlot>
-                <button
+                <ControlSlot slot="assistance"><button
                   className={styles.btn}
                   disabled={resolved || s.phase === "restoring"}
                   onClick={() => send({ type: "skipRound" })}
                 >
                   تجاوز الجولة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="navigation"><button
                   className={styles.btn}
                   onClick={() => send({ type: "skipStage" })}
                 >
                   تجاوز المرحلة
-                </button>
+                </button></ControlSlot>
               </div>
             )}
             <div className={styles.actions}>
-              <button
+              <ControlSlot slot="navigation"><button
                 className={styles.btn}
                 onClick={() => send({ type: "restart" })}
               >
                 إعادة البدء
-              </button>
+              </button></ControlSlot>
               {s.status !== "ended" && (
                 <ControlSlot slot="session"><button
                   className={styles.btn}

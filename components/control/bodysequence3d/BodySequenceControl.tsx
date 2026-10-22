@@ -277,7 +277,7 @@ function Current({
             </button></ControlSlot>
           </>
         )}
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={`${styles.btn} ${styles.warn}`}
           data-testid="bs-incorrect"
@@ -292,7 +292,7 @@ function Current({
           onClick={() => send({ type: "incorrect" })}
         >
           محاولة غير صحيحة
-        </button>
+        </button></ControlSlot>
         <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
@@ -302,7 +302,7 @@ function Current({
         >
           أعد هذه الحركة
         </button></ControlSlot>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="bs-replay"
@@ -310,7 +310,7 @@ function Current({
           onClick={() => send({ type: "replay" })}
         >
           {round.preview ? "أعد عرض الترتيب" : "أعد عرض الحركة"}
-        </button>
+        </button></ControlSlot>
         <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
@@ -507,14 +507,14 @@ function Panel({
                 >
                   رُصدت حركة قدم أثناء وقفة أو ثبات (تلميح فقط، من محاكاة).
                   الحساس لا يعرف أين تقف القدم؛ لاحظ بنفسك.
-                  <button
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={`${styles.btn} ${styles.btnSm}`}
                     style={{ marginInlineStart: 8 }}
                     onClick={() => send({ type: "dismissHint" })}
                   >
                     تجاهل
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
@@ -532,14 +532,14 @@ function Panel({
             <div className={styles.card}>
               <div className={styles.actions} style={{ marginTop: 0 }}>
                 {s.status === "ready" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="bs-start"
                     disabled={!can}
                     onClick={() => send({ type: "start", at: Date.now() })}
                   >
                     ابدأ المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <ControlSlot slot="session"><button
@@ -572,32 +572,32 @@ function Panel({
                   </button></ControlSlot>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="bs-skipstage"
                     onClick={() => setConfirm("skipStage")}
                   >
                     تجاوز المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status !== "ended" && s.status !== "ready" && (
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="bs-restartstage"
                     onClick={() => setConfirm("restartStage")}
                   >
                     أعد ضبط هذه المرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.btn}
                   data-testid="bs-restart"
                   onClick={() => setConfirm("restart")}
                 >
                   إعادة البدء
-                </button>
+                </button></ControlSlot>
                 {s.status !== "ended" && (
                   <ControlSlot slot="session"><button
                     className={styles.btn}

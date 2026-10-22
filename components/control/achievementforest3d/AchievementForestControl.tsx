@@ -105,7 +105,7 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
           </div></ControlSlot>
           <div className={styles.field}>
             <span className={styles.lab}>الإسقاط</span>
-            <div className={styles.chips}><span className={`${styles.chip} ${styles.chipOk}`} data-testid="af-proj">جداري (الشاشة الجدارية)</span>{s.config.proj.name && <span className={styles.chip}>ملف: {s.config.proj.name}</span>}</div>
+                    <div className={styles.chips}><span className={`${styles.chip} ${styles.chipOk}`} data-testid="af-proj">جداري (الشاشة الجدارية)</span>{s.config.proj.name && <span className={styles.chip}>ملف: {s.config.proj.name}</span>}</div>
             <p className={styles.note}>مشهد بصري للمشاهدة فقط؛ لا يحتاج الطفل لمس الشاشة ولا معايرة أرضية.</p>
           </div>
           <PadBox s={s} send={send} session={session} locked={!can} />
@@ -137,7 +137,7 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
 
       <section className={styles.start}>
         <p>{s.exercise ? `التمرين: ${s.exercise} · ` : ""}المستوى {s.level + 1}: {levelDef(s.level).nameAr} · الهدف {s.target} إنجازًا. راجع الإعدادات وتأكد من ظهور العرض.</p>
-        <button type="button" className={`${styles.btn} ${styles.primary}`} data-testid="af-start" disabled={!can} onClick={() => send({ type: "start", at: now() })}>ابدأ النشاط</button>
+        <ControlSlot slot="session"><button type="button" className={`${styles.btn} ${styles.primary}`} data-testid="af-start" disabled={!can} onClick={() => send({ type: "start", at: now() })}>ابدأ النشاط</button></ControlSlot>
       </section>
     </div>
   );
@@ -160,7 +160,7 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
         <ControlSlot slot="session"><button className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`} data-testid="af-safety" onClick={() => send({ type: "safety" })} aria-label="إيقاف الأمان">⛔ إيقاف الأمان</button></ControlSlot>
       )}
       <section className={styles.card}>
-        <div className={styles.chips}>
+        <ControlSlot slot="progress"><div className={styles.chips}>
           <span className={styles.chip} data-testid="af-chip-level">المستوى {s.level + 1}: {def.nameAr}</span>
           <span className={`${styles.chip} ${s.status === "running" ? styles.chipOk : s.status === "paused" ? styles.chipWarn : ""}`} data-testid="af-chip-status">{STATUS_AR[s.status]}{s.safety && s.status === "paused" ? " · إيقاف أمان" : ""}</span>
           {s.exercise && <span className={styles.chip}>التمرين: {s.exercise}</span>}
@@ -172,6 +172,8 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
           <span className={styles.counterOf}>من {s.target} إنجازًا في هذا المستوى</span>
         </div>
         <div className={styles.track} role="progressbar" aria-valuemin={0} aria-valuemax={s.target} aria-valuenow={d}><div className={styles.fill} style={{ width: `${pct}%` }} /></div>
+
+</ControlSlot>
         <div className={styles.mile} aria-label="معالم المستوى">
           {def.milestones.map((m, i) => <span key={m.id} className={`${styles.mileItem} ${i < lp.completed ? styles.mileDone : i === lp.completed && s.status !== "level-complete" ? styles.mileNow : ""}`}>{i < lp.completed ? "✓ " : ""}{m.nameAr}</span>)}
         </div>
@@ -184,9 +186,9 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
               <h2>🎉 {def.doneAr}</h2>
               <p className={styles.lead}>{isFinalLevel(s) ? "اكتملت المستويات الثلاثة. يمكنك إنهاء الجلسة وعرض النتائج." : `الغابة تنتظر التالي: ${LEVELS[s.level + 1].nameAr}.`}</p>
               <div className={styles.row}>
-                {!isFinalLevel(s) && <button className={`${styles.btn} ${styles.primary}`} style={{ minHeight: 72, fontSize: 20 }} data-testid="af-continue" disabled={!can} onClick={() => send({ type: "continue", at: now() })}>المستوى التالي: {LEVELS[s.level + 1].nameAr}</button>}
+                {!isFinalLevel(s) && <ControlSlot slot="assistance"><button className={`${styles.btn} ${styles.primary}`} style={{ minHeight: 72, fontSize: 20 }} data-testid="af-continue" disabled={!can} onClick={() => send({ type: "continue", at: now() })}>المستوى التالي: {LEVELS[s.level + 1].nameAr}</button></ControlSlot>}
                 <ControlSlot slot="session"><button className={`${styles.btn} ${isFinalLevel(s) ? styles.primary : ""}`} style={isFinalLevel(s) ? { minHeight: 72, fontSize: 20 } : undefined} data-testid="af-finish" disabled={!can} onClick={() => send({ type: "end", at: now() })}>{isFinalLevel(s) ? "إنهاء وعرض النتائج" : "إنهاء الجلسة هنا"}</button></ControlSlot>
-                <button className={styles.btn} data-testid="af-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد</button>
+                <ControlSlot slot="assistance"><button className={styles.btn} data-testid="af-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد</button></ControlSlot>
               </div>
             </>
           ) : (
@@ -197,7 +199,7 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
               </button></ControlSlot>
               <div className={styles.row}>
                 <ControlSlot slot="assistance"><button className={`${styles.btn} ${styles.assist}`} data-testid="af-assist" disabled={!open} onClick={() => send({ type: "confirm", assisted: true, at: now() })}>تأكيد إنجاز بمساعدة</button></ControlSlot>
-                <button className={styles.btn} data-testid="af-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد ({s.undos})</button>
+                <ControlSlot slot="assistance"><button className={styles.btn} data-testid="af-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد ({s.undos})</button></ControlSlot>
                 <ControlSlot slot="assistance"><button className={styles.btn} data-testid="af-skip" disabled={!can || s.status !== "running"} onClick={() => send({ type: "skip", at: now() })}>تخطّي تمرين ({s.skipped})</button></ControlSlot>
               </div>
             </>
@@ -205,7 +207,7 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
           <div className={styles.row}>
             {s.status === "running" && <ControlSlot slot="session"><button className={styles.btn} data-testid="af-pause" onClick={() => send({ type: "pause" })}>إيقاف مؤقت</button></ControlSlot>}
             {s.status === "paused" && <ControlSlot slot="session"><button className={`${styles.btn} ${styles.primary}`} data-testid="af-resume" disabled={!can} onClick={() => send({ type: "resume", at: now() })}>{s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}</button></ControlSlot>}
-            <button className={styles.btn} data-testid="af-restart" onClick={() => setConfirm("restart")}>إعادة البدء</button>
+            <ControlSlot slot="navigation"><button className={styles.btn} data-testid="af-restart" onClick={() => setConfirm("restart")}>إعادة البدء</button></ControlSlot>
             <ControlSlot slot="session"><button className={styles.btn} data-testid="af-end" onClick={() => setConfirm("end")}>إنهاء آمن للجلسة</button></ControlSlot>
             <button className={styles.btn} data-testid="af-results-toggle" aria-pressed={showResults} onClick={() => setShowResults((v) => !v)}>{showResults ? "إخفاء النتائج" : "عرض النتائج"}</button>
           </div>
@@ -235,7 +237,7 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
           </div>
           {ended && (
             <div className={styles.row}>
-              <button className={`${styles.btn} ${styles.primary}`} data-testid="af-new" disabled={!can} onClick={() => send({ type: "restart" })}>جلسة جديدة</button>
+              <ControlSlot slot="navigation"><button className={`${styles.btn} ${styles.primary}`} data-testid="af-new" disabled={!can} onClick={() => send({ type: "restart" })}>جلسة جديدة</button></ControlSlot>
               <Link className={styles.btn} href="/control/activities" style={{ display: "grid", placeItems: "center" }}>مكتبة الأنشطة</Link>
             </div>
           )}

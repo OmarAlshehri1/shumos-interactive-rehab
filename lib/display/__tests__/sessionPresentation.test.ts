@@ -44,3 +44,18 @@ it('waits for a real server timestamp instead of guessing that an in-flight prev
   expect(displaySession(pending,20000)).toBe(pending);
   expect(displaySession(null,20000)).toBeNull();
 });
+
+import { displayMayRenderGame } from '../sessionPresentation';
+it('keeps fresh native setup off the child renderer without clearing the stored session', () => {
+  const r=record(), original=JSON.stringify(r);
+  expect(displayMayRenderGame(r.session,r.gameId)).toBe(false);
+  expect(JSON.stringify(r)).toBe(original);
+});
+it('renders actual Start and paused progress but waits again between stages until explicit Start', () => {
+  for(const status of ['running','paused','stage-complete'] as const){
+    const s=createState('synthetic-preview');s.status=status;s.startedAt=500;
+    expect(displayMayRenderGame(makeLive(s,'staff','Synthetic'),'balance-bridge-3d')).toBe(true);
+  }
+  const s=createState('synthetic-preview');s.startedAt=500;
+  expect(displayMayRenderGame(makeLive(s,'staff','Synthetic'),'balance-bridge-3d')).toBe(false);
+});

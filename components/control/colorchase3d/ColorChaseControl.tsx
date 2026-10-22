@@ -512,13 +512,13 @@ function Panel({
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!can}
               onClick={() => send({ type: "start", at: Date.now() })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -613,13 +613,13 @@ function Panel({
                           : ""}
                 </p>
                 <div className={styles.actions}>
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="restart"
                     onClick={() => send({ type: "restart" })}
                   >
                     جلسة جديدة
-                  </button>
+                  </button></ControlSlot>
                   <Link
                     className={styles.btn}
                     href="/control"
@@ -724,14 +724,14 @@ function Panel({
 
                 <div className={styles.actions}>
                   {s.status === "ready" && (
-                    <button
+                    <ControlSlot slot="session"><button
                       className={`${styles.btn} ${styles.primary}`}
                       data-testid="start"
                       disabled={!can}
                       onClick={() => send({ type: "start", at: Date.now() })}
                     >
                       ابدأ المرحلة
-                    </button>
+                    </button></ControlSlot>
                   )}
                   {s.status === "running" && (
                     <ControlSlot slot="session"><button
@@ -801,23 +801,23 @@ function Panel({
                     >
                       تجاوز الهدف
                     </button></ControlSlot>
-                    <button
+                    <ControlSlot slot="navigation"><button
                       className={styles.btn}
                       data-testid="skip-stage"
                       onClick={() => send({ type: "skipStage" })}
                     >
                       تجاوز المرحلة
-                    </button>
+                    </button></ControlSlot>
                   </div>
                 )}
                 <div className={styles.actions}>
-                  <button
+                  <ControlSlot slot="navigation"><button
                     className={styles.btn}
                     data-testid="restart"
                     onClick={() => send({ type: "restart" })}
                   >
                     إعادة البدء
-                  </button>
+                  </button></ControlSlot>
                   <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="end"

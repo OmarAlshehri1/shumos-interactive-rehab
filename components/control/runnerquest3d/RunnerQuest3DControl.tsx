@@ -348,14 +348,14 @@ export function RunnerControlPanels({
         </div>
       </label>
       <div className={styles.row}>
-        <button
+        <ControlSlot slot="assistance"><button
           className={styles.bigBtn}
           style={{ minHeight: 48 }}
           data-testid="recenter"
           onClick={() => run({ type: "recenter" })}
         >
           إعادة ضبط وضع الراحة
-        </button>
+        </button></ControlSlot>
       </div>
     </section>
   );
@@ -438,14 +438,14 @@ export function RunnerControlPanels({
           }
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               data-testid="start"
               disabled={!view.canStart || nameMissing || projectionRequired}
               onClick={() => run({ type: "start" })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </div>
@@ -531,13 +531,13 @@ export function RunnerControlPanels({
           انقطع الحسّاس لكن الجلسة محفوظة. يمكنك المتابعة الآن بالتحكم اليدوي من
           هذه الشاشة، أو الانتظار حتى يعود الحسّاس.
           <div className={styles.bigRow} style={{ marginTop: 8 }}>
-            <button
+            <ControlSlot slot="assistance"><button
               className={`${styles.bigBtn} ${styles.bigPrimary}`}
               data-testid="continue-manually"
               onClick={() => run({ type: "continue-manually" })}
             >
               متابعة يدويًا
-            </button>
+            </button></ControlSlot>
           </div>
         </div>
       )}
@@ -607,14 +607,14 @@ export function RunnerControlPanels({
             )}
             <div className={styles.bigRow} style={{ marginTop: 12 }}>
               {lc === "ready" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.bigBtn} ${styles.bigPrimary}`}
                   data-testid="start"
                   disabled={!view.canStart || nameMissing || projectionRequired}
                   onClick={() => run({ type: "start" })}
                 >
                   ابدأ
-                </button>
+                </button></ControlSlot>
               )}
               {playing && (
                 <ControlSlot slot="session"><button
@@ -662,22 +662,22 @@ export function RunnerControlPanels({
                 </button></ControlSlot>
               )}
               {!idle && (
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.bigBtn}
                   data-testid="restart"
                   onClick={() => run({ type: "restart" })}
                 >
                   إعادة المرحلة
-                </button>
+                </button></ControlSlot>
               )}
               {(lc === "completed" || lc === "ended") && (
-                <button
+                <ControlSlot slot="assistance"><button
                   className={`${styles.bigBtn} ${styles.bigPrimary}`}
                   data-testid="new-run"
                   onClick={() => run({ type: "new-run" })}
                 >
                   جلسة جديدة
-                </button>
+                </button></ControlSlot>
               )}
               {!(lc === "completed" || lc === "ended") && (
                 <button

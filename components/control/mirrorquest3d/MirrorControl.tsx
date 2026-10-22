@@ -262,13 +262,13 @@ function LiveMirrorControl() {
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!(session.connected && !session.blocked)}
               onClick={() => send({ type: "start", at: Date.now() })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -362,7 +362,7 @@ function LiveMirrorControl() {
                       })
                     }
                   />
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.button}
                     disabled={s.status !== "running"}
                     onClick={() =>
@@ -377,7 +377,7 @@ function LiveMirrorControl() {
                     }
                   >
                     راحة
-                  </button>
+                  </button></ControlSlot>
                   <div
                     className={styles.directional}
                     role="group"
@@ -389,7 +389,7 @@ function LiveMirrorControl() {
                       [0.65, "↑ أعلى"],
                       [1, "↑ كاملة"],
                     ].map(([value, label]) => (
-                      <button
+                      <ControlSlot key={value} slot="assistance"><button
                         key={value}
                         className={styles.button}
                         disabled={
@@ -409,7 +409,7 @@ function LiveMirrorControl() {
                         }
                       >
                         {label}
-                      </button>
+                      </button></ControlSlot>
                     ))}
                   </div>
                 </div>
@@ -505,12 +505,12 @@ function LiveMirrorControl() {
                     {s.stage === 8 ? "إنهاء الرحلة" : "المرحلة التالية"}
                   </button></ControlSlot>
                 )}
-                <button
+                <ControlSlot slot="navigation"><button
                   className={styles.button}
                   onClick={() => send({ type: "restart" })}
                 >
                   إعادة البدء
-                </button>
+                </button></ControlSlot>
                 {s.status !== "ended" && (
                   <ControlSlot slot="session"><button
                     className={styles.button}

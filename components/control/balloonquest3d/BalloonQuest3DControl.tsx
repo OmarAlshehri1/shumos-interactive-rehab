@@ -461,7 +461,7 @@ export function ControlPanels({
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               data-testid="start"
               disabled={
@@ -473,7 +473,7 @@ export function ControlPanels({
               onClick={() => runtime.command({ type: "start" })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </>
@@ -627,7 +627,7 @@ export function ControlPanels({
           >
             <div className="flex flex-wrap gap-2">
               {lifecycle === "ready" && (
-                <button
+                <ControlSlot slot="session"><button
                   type="button"
                   className={btn}
                   disabled={
@@ -640,7 +640,7 @@ export function ControlPanels({
                   data-testid="start"
                 >
                   ابدأ
-                </button>
+                </button></ControlSlot>
               )}
               {lifecycle === "playing" && (
                 <ControlSlot slot="session"><button
@@ -672,7 +672,7 @@ export function ControlPanels({
                   المرحلة التالية
                 </button></ControlSlot>
               )}
-              <button
+              <ControlSlot slot="navigation"><button
                 type="button"
                 className={btnSoft}
                 disabled={!live}
@@ -680,7 +680,7 @@ export function ControlPanels({
                 data-testid="restart"
               >
                 إعادة المرحلة
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="assistance"><button
                 type="button"
                 className={btnSoft}
@@ -704,7 +704,7 @@ export function ControlPanels({
                 </button></ControlSlot>
               ) : (
                 <>
-                  <button
+                  <ControlSlot slot="session"><button
                     type="button"
                     className="rounded-xl bg-red-700 px-4 py-2.5 text-sm font-bold text-white"
                     onClick={() => {
@@ -714,7 +714,7 @@ export function ControlPanels({
                     data-testid="end-confirm"
                   >
                     تأكيد الإنهاء
-                  </button>
+                  </button></ControlSlot>
                   <button
                     type="button"
                     className={btnSoft}
@@ -726,15 +726,15 @@ export function ControlPanels({
               )}
               {(lifecycle === "completed" || lifecycle === "ended") && (
                 <>
-                  <button
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={btn}
                     onClick={() => runtime.command({ type: "new-run" })}
                     data-testid="new-run"
                   >
                     جولة جديدة (نفس الجلسة)
-                  </button>
-                  <button
+                  </button></ControlSlot>
+                  <ControlSlot slot="assistance"><button
                     type="button"
                     className={btnSoft}
                     onClick={() =>
@@ -747,7 +747,7 @@ export function ControlPanels({
                     data-testid="new-session"
                   >
                     جلسة جديدة
-                  </button>
+                  </button></ControlSlot>
                 </>
               )}
             </div>

@@ -251,13 +251,13 @@ export function BuildQuestControl() {
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               disabled={!connected}
               onClick={() => session.act("start")}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -346,13 +346,13 @@ export function BuildQuestControl() {
               <span>المباني المكتملة: {state.completed.length}</span>
             </div>
             <div className={styles.buttons}>
-              <button
+              <ControlSlot slot="assistance"><button
                 className={styles.primary}
                 disabled={!connected || state.status !== "ready"}
                 onClick={() => session.act("start")}
               >
                 بدء الجلسة
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="session"><button
                 disabled={!connected || state.status !== "running"}
                 onClick={() => session.act("pause")}
@@ -365,12 +365,12 @@ export function BuildQuestControl() {
               >
                 متابعة
               </button></ControlSlot>
-              <button
+              <ControlSlot slot="navigation"><button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("restart")}
               >
                 إعادة المرحلة
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="settings"><button
                 disabled={!connected || state.status !== "complete"}
                 className={styles.primary}
@@ -378,12 +378,12 @@ export function BuildQuestControl() {
               >
                 {state.stage === 8 ? "عرض الملخص" : "المرحلة التالية"}
               </button></ControlSlot>
-              <button
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("skip")}
               >
                 تخطي المرحلة
-              </button>
+              </button></ControlSlot>
               <ControlSlot slot="session"><button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("end")}

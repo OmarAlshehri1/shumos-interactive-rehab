@@ -452,13 +452,13 @@ function ConnectedBloomControl() {
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!(connected && !projectionRequired)}
               onClick={() => send({ type: "start" })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
@@ -541,18 +541,18 @@ function ConnectedBloomControl() {
             >
               تكرار المنطقة
             </button></ControlSlot>
-            <button
+            <ControlSlot slot="assistance"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "skip-region" })}
             >
               تجاوز المنطقة
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="navigation"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "skip-stage" })}
             >
               تجاوز المرحلة
-            </button>
+            </button></ControlSlot>
             <ControlSlot slot="settings"><button
               disabled={
                 !connected ||
@@ -563,12 +563,12 @@ function ConnectedBloomControl() {
             >
               المرحلة التالية
             </button></ControlSlot>
-            <button
+            <ControlSlot slot="navigation"><button
               disabled={!connected}
               onClick={() => send({ type: "restart" })}
             >
               إعادة الجلسة
-            </button>
+            </button></ControlSlot>
             <ControlSlot slot="session"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "end", at: Date.now() })}
@@ -605,7 +605,7 @@ function ConnectedBloomControl() {
                   state.config.margin,
                 );
                 return (
-                  <button
+                  <ControlSlot key={r.id} slot="assistance"><button
                     key={r.id}
                     style={{
                       left: `${uv.x * 100}%`,
@@ -625,7 +625,7 @@ function ConnectedBloomControl() {
                     <small>
                       {r.hits}/{state.config.repetitions}
                     </small>
-                  </button>
+                  </button></ControlSlot>
                 );
               })}
             </div>

@@ -130,7 +130,7 @@ export function DomePanel({
     max: number,
     step: number,
   ) => (
-    <ControlSlot slot="settings" when={["smoothing","holdMs"].includes(String(key))}><label className={styles.field} key={key}>
+    <ControlSlot key={key} slot="settings" when={["smoothing","holdMs"].includes(String(key))}><label className={styles.field} key={key}>
       {label} <strong>{s.config[key]}</strong>
       <input
         aria-label={label}
@@ -150,7 +150,7 @@ export function DomePanel({
     disabled = false,
     primary = false,
   ) => (
-    <ControlSlot when={!["restart","skipStage"].includes(c.type)} slot={["start","pause","resume","end"].includes(c.type) ? "session" : ["next"].includes(c.type) ? "settings" : "assistance"}><button
+    <ControlSlot slot={["start","pause","resume","end"].includes(c.type) ? "session" : ["restart","skipStage"].includes(c.type) ? "navigation" : ["next"].includes(c.type) ? "settings" : "assistance"}><button
       className={primary ? styles.primary : ""}
       disabled={!can || disabled}
       onClick={() => send("at" in c ? { ...c, at: Date.now() } : c)}
@@ -294,13 +294,13 @@ export function DomePanel({
           settings={setupSettings}
           stages={setupStages}
           start={
-            <button
+            <ControlSlot slot="session"><button
               type="button"
               disabled={!can}
               onClick={() => send({ type: "start", at: Date.now() })}
             >
               ابدأ النشاط
-            </button>
+            </button></ControlSlot>
           }
         />
       </main>
