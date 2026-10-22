@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getDisplayDb, getDisplayFirebaseApp, getStaffDb, isRealtimeEnabled } from "./firebaseClient";
 import { subscribeToStaffAuthState } from "./staffAuthClient";
 import { recoverDisplaySessionOwner } from "./recoverDisplaySessionOwner";
+import { logDisplayAuthFailure } from "./displayAuthDiagnostics";
 
 /** Scoped approval metadata for the existing anonymous Display identity, never a staff credential. */
 export const DISPLAY_ACCESS_PATH = "presence/displayAccess";
@@ -38,6 +39,7 @@ export function watchDisplayAuthorization(uid: string, callback: (authorized: bo
 
 function startAuthorization(uid: string, callback: (authorized: boolean) => void): () => void {
   let stopped = false, staffUid: string | null = null, busy = false;
+  let approvalWritten = false;
   let serverOffset = 0;
   let stopScope = () => {};
   let stopRead = () => {}, expiry: ReturnType<typeof setTimeout> | undefined;
@@ -51,7 +53,11 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       const remaining = approval ? approval.expiresAt - (Date.now() + serverOffset) : 0;
       report(remaining > 0);
       if (remaining > 0) expiry = setTimeout(() => report(false), remaining);
-    }, () => { clearTimeout(expiry); report(false); });
+    }, error => {
+      clearTimeout(expiry);
+      if (approvalWritten) logDisplayAuthFailure("approval-read", error);
+      report(false);
+    });
   };
   const renew = async () => {
     if (stopped || busy) return;
@@ -59,6 +65,7 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
     if (!staffUid) { listen(); return; }
     busy = true;
     const owner = staffUid;
+    let phase: "server-clock" | "session-owner" | "approval-write" = "server-clock";
     try {
       // Rules use server time. A fast device clock otherwise makes a nominal
       // 30-minute grant exceed the rules' 30-minute maximum and denies Display.
@@ -79,26 +86,29 @@ function startAuthorization(uid: string, callback: (authorized: boolean) => void
       if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
       // The homepage has no game publisher to restamp legacy native setups.
       // Recover proven ownership before Display's rule-gated subscription.
+      phase = "session-owner";
       await recoverDisplaySessionOwner(getStaffDb(), owner);
       if (stopped || staffUid !== owner || suspendedStaff.has(owner)) return;
       // This write is checked by rules for active staff. No sign-in, credentials,
       // launch secrets, or pairing UI: reuse the therapist's persisted Firebase login.
+      phase = "approval-write";
       const approvalWrite = set(ref(getStaffDb(), `${DISPLAY_ACCESS_PATH}/${uid}`), {
         approvedBy: owner, issuedAt: serverTimestamp(), expiresAt: Date.now() + serverOffset + DISPLAY_ACCESS_TTL_MS - 5000,
       });
       pendingApprovals.add(approvalWrite);
-      try { await approvalWrite; } finally { pendingApprovals.delete(approvalWrite); }
+      try { await approvalWrite; approvalWritten = true; } finally { pendingApprovals.delete(approvalWrite); }
       if (staffUid !== owner || suspendedStaff.has(owner)) {
         // A late approval must not survive a concurrent sign-out.
         await remove(displayRef).catch(() => {});
         return;
       }
       if (!stopped) listen();
-    } catch { report(false); } finally { busy = false; }
+    } catch (error) { logDisplayAuthFailure(phase, error); report(false); } finally { busy = false; }
   };
   listen();
   const stopStaff = subscribeToStaffAuthState(state => {
     if (state.status === "initializing") return;
+    if (state.status === "failed") logDisplayAuthFailure("staff-session", null);
     const previousStaff = staffUid;
     stopScope();
     staffUid = state.status === "authenticated" ? state.uid : null;

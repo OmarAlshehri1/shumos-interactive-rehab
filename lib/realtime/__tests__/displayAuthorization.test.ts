@@ -3,6 +3,7 @@ import type { StaffAuthState } from '../staffAuthClient';
 const mocks = vi.hoisted(() => ({
   set: vi.fn(async () => {}), remove: vi.fn(async () => {}), update: vi.fn(async () => {}),
   get: vi.fn(), staff: vi.fn(), value: vi.fn(), offset: 0,
+  recover: vi.fn(async () => {}),
 }));
 vi.mock('firebase/database', () => ({
   ref: (db: string, path: string) => ({ db, path }),
@@ -11,7 +12,7 @@ vi.mock('firebase/database', () => ({
 }));
 vi.mock('../firebaseClient', () => ({ getStaffDb: () => 'staff', getDisplayDb: () => 'display' }));
 vi.mock('../staffAuthClient', () => ({ subscribeToStaffAuthState: mocks.staff }));
-vi.mock('../recoverDisplaySessionOwner', () => ({ recoverDisplaySessionOwner: vi.fn(async () => {}) }));
+vi.mock('../recoverDisplaySessionOwner', () => ({ recoverDisplaySessionOwner: mocks.recover }));
 
 describe('Silent authorization using the existing staff session', () => {
   const stops: (() => void)[] = [];
@@ -20,6 +21,7 @@ describe('Silent authorization using the existing staff session', () => {
   beforeEach(() => {
     vi.useFakeTimers(); vi.resetModules(); vi.clearAllMocks();
     mocks.set.mockResolvedValue(undefined); mocks.remove.mockResolvedValue(undefined);
+    mocks.recover.mockResolvedValue(undefined);
     mocks.offset = 0;
     mocks.staff.mockImplementation((callback: typeof staffChanged) => { staffChanged = callback; return vi.fn(); });
     mocks.value.mockImplementation((ref, callback) => { if (ref.path === '.info/connected') callback({ val: () => true }); else if (ref.path === '.info/serverTimeOffset') callback({ val: () => mocks.offset }); else if (ref.db === "display") approve = value => callback({ val: () => value }); return vi.fn(); });
@@ -61,6 +63,18 @@ describe('Silent authorization using the existing staff session', () => {
     expect(mocks.set).toHaveBeenLastCalledWith(expect.anything(), expect.objectContaining({
       expiresAt: Date.now() - 120000 + DISPLAY_ACCESS_TTL_MS - 5000,
     }));
+  });
+  it('fails closed and identifies ownership recovery when a competing lease rejects recovery', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      mocks.recover.mockRejectedValueOnce({ code: 'PERMISSION_DENIED', message: 'private-credential' });
+      const { watchDisplayAuthorization } = await import('../displayAuthorization');
+      const listener = vi.fn(); stops.push(watchDisplayAuthorization('display-uid', listener));
+      staffChanged(signedIn); await vi.advanceTimersByTimeAsync(0);
+      expect(mocks.set).not.toHaveBeenCalled();
+      expect(listener).toHaveBeenLastCalledWith(false);
+      expect(warn).toHaveBeenCalledWith('[display-auth] failed', { phase: 'session-owner', code: 'PERMISSION_DENIED' });
+    } finally { warn.mockRestore(); }
   });
   it('revokes only the signing-out therapist’s approvals and stops renewing them', async () => {
     const { watchDisplayAuthorization, revokeDisplaysForStaff, DISPLAY_ACCESS_REFRESH_MS } = await import('../displayAuthorization');

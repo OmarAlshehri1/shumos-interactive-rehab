@@ -1,4 +1,5 @@
 import { watchDisplayAuthorization } from "./displayAuthorization";
+import { logDisplayAuthFailure } from "./displayAuthDiagnostics";
 import { type Auth, type User, connectAuthEmulator, getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { getDisplayFirebaseApp, getEmulatorConfig } from "./firebaseClient";
 import { installBenignAuthRejectionFilter, isKnownBenignFirebaseAuthRejection } from "./benignAuthRejections";
@@ -137,11 +138,13 @@ export function subscribeToAuthState(listener: AuthListener): () => void {
       // No persisted session yet — establish one. onAuthStateChanged fires
       // again once signInAnonymously() resolves (with the new user), so the
       // real "authenticated" state is reported from the branch above, not here.
-      void ensureSignedIn(authInstance).catch(() => {
+      void ensureSignedIn(authInstance).catch(error => {
+        logDisplayAuthFailure("identity", error);
         listener({ status: "failed", uid: null });
       });
     },
-    () => {
+    error => {
+      logDisplayAuthFailure("identity", error);
       listener({ status: "failed", uid: null });
     },
   );

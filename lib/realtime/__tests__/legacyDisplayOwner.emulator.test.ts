@@ -40,13 +40,16 @@ it.skipIf(!enabled)('recovers the production legacy setup deadlock without chang
   const legacy = { gameId: 'balance-bridge-3d', sessionId: session.sessionId, revision: 4, updatedAt: 1, session };
   await admin('liveSession', legacy);
   await admin('liveSessionPrivate', { sessionId: session.sessionId, patientId: 'synthetic-private-patient', updatedAt: 1 });
-  await admin('controllerLease', { ownerId: uid, updatedAt: Date.now(), claimedAt: Date.now() });
+  // Exact production case: the game window has closed, the homepage has no
+  // controller lease, and the persisted native setup predates controllerUid.
+  await admin('controllerLease', null);
   const anonUid = JSON.parse(Buffer.from(anonymous.split('.')[1], 'base64url').toString()).user_id;
   await admin(`presence/displayAccess/${anonUid}`, { approvedBy: uid, issuedAt: Date.now(), expiresAt: Date.now() + 60000 });
   expect((await fetch(url('liveSession', anonymous))).status).toBe(401);
   expect(parseLiveSessionValue((await get(ref(db, 'liveSession'))).val())).not.toBeNull();
   await recoverDisplaySessionOwner(db, uid);
   const recovered = (await get(ref(db, 'liveSession'))).val();
+  expect((await get(ref(db, 'controllerLease/ownerId'))).val()).toBe(uid);
   expect(recovered).toEqual({ ...legacy, controllerUid: uid, revision: 5 });
   expect(recovered.session.bb3).toEqual(legacy.session.bb3);
   expect((await fetch(url('liveSession', anonymous))).status).toBe(200);
@@ -57,6 +60,16 @@ it.skipIf(!enabled)('recovers the production legacy setup deadlock without chang
   await admin('liveSession', { ...legacy, session: { ...session, bb3: { ...session.bb3, ownerId: 'another-therapist' } } });
   await recoverDisplaySessionOwner(db, uid);
   expect((await get(ref(db, 'liveSession/controllerUid'))).exists()).toBe(false);
+  await admin('liveSession', legacy);
+  await admin('controllerLease', null);
+  await admin('liveSession/session/bb3/ownerId', 'another-therapist');
+  await recoverDisplaySessionOwner(db, uid);
+  expect((await get(ref(db, 'controllerLease'))).exists()).toBe(false);
+  expect((await get(ref(db, 'liveSession/controllerUid'))).exists()).toBe(false);
+  await admin('liveSession', legacy);
+  await admin('controllerLease', { ownerId: uid, updatedAt: Date.now(), claimedAt: Date.now() });
+  await recoverDisplaySessionOwner(db, uid);
+  expect((await get(ref(db, 'liveSession/controllerUid'))).val()).toBe(uid);
   await admin('liveSession', legacy);
   await admin('controllerLease/ownerId', 'another-therapist');
   await recoverDisplaySessionOwner(db, uid);
