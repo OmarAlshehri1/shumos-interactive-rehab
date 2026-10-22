@@ -5,6 +5,7 @@ import { prepareVideoDisplay, stopOwnedVideo, subscribeCommand } from "./reposit
 import { localDescription, localPeer, stopTracks } from "./tabSharePeer";
 import { removeShare, renewShare, serverOffset, shareExpiry, subscribeShare } from "./tabShareSignaling";
 import { nativeTabCaptureSupported, parseShare, parseShareMessage, RECONNECT_MS, SHARE_REFRESH_MS, TAB_CAPTURE_OPTIONS, TAB_SHARE_CHANNEL, TAB_SHARE_PATH, type Receiver } from "./tabShareModel";
+import { captureFailureMessage, shareDiagnostic, type ShareStep } from "./tabShareDiagnostics";
 
 export interface SharingState {
   phase: "idle" | "selecting" | "connecting" | "sharing" | "hidden" | "reconnecting" | "blocked" | "error";
@@ -72,37 +73,51 @@ export class LocalTabShareControl {
   /** Called directly from a click. The native picker must run BEFORE any await. */
   async start(): Promise<void> {
     if (this.disposed || this.stream || this.selecting) return;
-    if (!nativeTabCaptureSupported()) { this.state("error", "مشاركة التبويب متاحة في Chrome على الكمبيوتر عبر اتصال آمن."); return; }
-    if (!this.online || !this.staffActive || this.lease === undefined) { this.state("error", "تحقق من اتصال التحكم وصلاحية الحساب ثم أعد المحاولة."); return; }
+    if (!nativeTabCaptureSupported()) { shareDiagnostic("capability", "rejected"); this.state("error", "مشاركة التبويب متاحة في Chrome على الكمبيوتر عبر اتصال آمن."); return; }
+    if (!this.online || !this.staffActive || this.lease === undefined) { shareDiagnostic("control-readiness", "rejected"); this.state("error", "تحقق من اتصال التحكم وصلاحية الحساب ثم أعد المحاولة."); return; }
+    shareDiagnostic("control-readiness", "passed");
     if (this.lease && this.lease.ownerId !== this.uid && !(typeof this.lease.updatedAt === "number" && this.now() - this.lease.updatedAt > 45000)) {
+      shareDiagnostic("ownership", "rejected");
       this.state("error", "التحكم لدى أخصائي آخر. لم تبدأ المشاركة."); return;
     }
-    if (!this.allowed()) { this.state("error", "أنهِ النشاط واحفظه قبل مشاركة يوتيوب."); return; }
+    shareDiagnostic("ownership", "passed");
+    if (!this.allowed()) { shareDiagnostic("game-guard", "rejected"); this.state("error", "أنهِ النشاط واحفظه قبل مشاركة يوتيوب."); return; }
     const receivers = [...this.receivers.values()];
     if (receivers.length !== 1) {
+      shareDiagnostic("display-readiness", "rejected");
       this.discover();
       this.state("error", receivers.length ? "أبقِ شاشة عرض شُموس واحدة مفتوحة ثم أعد الربط." : "افتح شاشة عرض شُموس في Chrome نفسه ثم أعد الربط."); return;
     }
+    shareDiagnostic("display-readiness", "passed");
     this.selecting = true; const attempt = ++this.generation;
     this.state("selecting");
     let selected: MediaStream | null = null;
+    let step: ShareStep = "capture";
     try {
+      shareDiagnostic(step, "start");
       selected = await navigator.mediaDevices.getDisplayMedia(TAB_CAPTURE_OPTIONS);
+      shareDiagnostic(step, "passed");
       if (this.disposed || attempt !== this.generation) { stopTracks(selected); return; }
+      step = "capture-surface";
       if (selected.getVideoTracks()[0]?.getSettings().displaySurface !== "browser") throw Error("choose-browser-tab");
+      step = "game-guard";
       if (!this.allowed()) throw Error("active-game");
+      step = "existing-share";
       if (this.lease?.ownerId === this.uid) {
         const previous = parseShare((await get(ref(this.db, TAB_SHARE_PATH))).val());
         if (previous && previous.controlTabId !== this.tab && previous.expiresAt > this.now()) throw Error("other-controller");
       }
       // An obsolete command from this therapist must not revive the old iframe path.
+      step = "legacy-command";
       const old = (await get(ref(this.db, "presence/display/youtubeCommand"))).val();
       if (old) {
         if (old.ownerId !== this.uid || (old.controlTabId !== this.tab && Date.now() - old.heartbeatAt < 15000)) throw Error("other-controller");
       }
+      step = "prepare-display";
       await prepareVideoDisplay(this.db, this.uid, this.tab, { leaseCleanup: "heartbeat" });
       if (old) await stopOwnedVideo(this.db, old.controlTabId);
       if (this.disposed || attempt !== this.generation) { stopTracks(selected); return; }
+      step = "server-clock";
       this.offset = await serverOffset(this.db);
       this.stream = selected; selected = null; this.hidden = false;
       this.stream.getTracks().forEach(track => track.addEventListener("ended", () => this.stop()));
@@ -121,10 +136,12 @@ export class LocalTabShareControl {
           .catch(() => this.stop("تعذّر تجديد المشاركة. أعد الربط."));
       }, SHARE_REFRESH_MS);
     } catch (error) {
+      shareDiagnostic(step, "rejected", error);
       stopTracks(selected);
       if (this.disposed || attempt !== this.generation) return;
       const name = (error as { name?: string }).name, message = (error as { message?: string }).message;
       if (name === "NotAllowedError" || name === "AbortError") this.stop();
+      else if (step === "capture") this.stop(captureFailureMessage(error));
       else this.stop(message === "choose-browser-tab" ? "اختر تبويب يوتيوب من تبويبات Chrome." :
         message === "active-game" ? "تغيّر النشاط. أنهِه واحفظه قبل المشاركة." :
         message === "other-controller" ? "هناك عرض تحت تحكم نافذة أخرى." : "تعذّر ربط العرض. تحقق من اتصال الشاشة ثم أعد المحاولة.");
@@ -141,6 +158,7 @@ export class LocalTabShareControl {
     this.remotePlayback = undefined;
     this.state("connecting");
     const peer = localPeer(); this.peer = peer;
+    let step: ShareStep = "offer";
     peer.onconnectionstatechange = () => {
       if (this.peer !== peer || !this.stream) return;
       if (peer.connectionState === "connected") {
@@ -152,14 +170,17 @@ export class LocalTabShareControl {
       if (oldId) await removeShare(this.db, oldId);
       stream.getTracks().forEach(track => peer.addTrack(track, stream));
       const offer = await localDescription(peer, "offer");
+      step = "display-approval";
       const grant = (await get(ref(this.db, `presence/displayAccess/${receiver.uid}`))).val();
       if (!grant || grant.approvedBy !== this.uid || grant.expiresAt <= this.now()) throw Error("display-not-approved");
       if (this.disposed || generation !== this.generation || this.peer !== peer) return;
+      step = "publish-offer";
       await set(ref(this.db, TAB_SHARE_PATH), {
         sessionId: id, ownerId: this.uid, controlTabId: this.tab,
         displayUid: receiver.uid, displayInstance: receiver.instance,
         createdAt: serverTimestamp(), expiresAt: shareExpiry(this.now()), hidden: this.hidden, offer,
       });
+      shareDiagnostic(step, "passed");
       if (this.disposed || generation !== this.generation || this.peer !== peer) { void removeShare(this.db, id).catch(() => {}); return; }
       let answering = false;
       this.signalStop = subscribeShare(this.db, share => {
@@ -168,7 +189,7 @@ export class LocalTabShareControl {
         if (share.sessionId !== id) { this.stop("تغيّر صاحب المشاركة."); return; }
         if (share.answer && !answering && !peer.remoteDescription) {
           answering = true;
-          void peer.setRemoteDescription({ type: "answer", sdp: share.answer.sdp }).catch(() => this.stop("تعذّر اتصال الشاشة."));
+          void peer.setRemoteDescription({ type: "answer", sdp: share.answer.sdp }).catch(error => { shareDiagnostic("answer", "rejected", error); this.stop("تعذّر اتصال الشاشة."); });
         }
         this.remotePlayback = share.playback?.state;
         if (this.hidden) this.state("hidden");
@@ -177,7 +198,8 @@ export class LocalTabShareControl {
       }, () => this.stop("انتهى تصريح المشاركة."));
       this.channel.postMessage({ kind: "connect", instance: receiver.instance, sessionId: id });
       this.armReconnectTimeout();
-    } catch {
+    } catch (error) {
+      shareDiagnostic(step, "rejected", error);
       if (generation === this.generation && !this.disposed) this.stop("تعذّر ربط شاشة العرض. تحقق من اتصالها ثم أعد المحاولة.");
     } finally { this.connecting = false; }
   }
