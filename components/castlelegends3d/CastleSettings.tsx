@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import type { ReactNode, SelectHTMLAttributes } from "react";
 import { EXERCISES, type Mode, type Side } from "@/lib/castlelegends3d/curriculum";
 import { LIMBS, type Config, type State } from "@/lib/castlelegends3d/engine";
@@ -12,18 +13,18 @@ export function CastleSettings({ state: s, enabled, configure }: { state: State;
   const editable = enabled && ["ready", "paused"].includes(s.status);
   return <div className={ui.stack}>
     <div className={ui.fieldGrid}>
-      <SelectField id="castle-mode" label="نمط الحركة" value={s.config.mode} disabled={!editable} onChange={e => configure({ mode: e.target.value as Mode, exercises: [], limbs: [...LIMBS] })}>
+      <ControlSlot slot="settings"><SelectField id="castle-mode" label="نمط الحركة" value={s.config.mode} disabled={!editable} onChange={e => configure({ mode: e.target.value as Mode, exercises: [], limbs: [...LIMBS] })}>
         <option value="hands">الذراعان فقط</option><option value="legs">الساقان فقط</option><option value="combined">حركات مشتركة</option>
-      </SelectField>
-      <SelectField id="castle-side" label="الجهة المشاركة" value={s.config.side} disabled={!editable} onChange={e => configure({ side: e.target.value as Side, exercises: [] })}>
+      </SelectField></ControlSlot>
+      <ControlSlot slot="settings"><SelectField id="castle-side" label="الجهة المشاركة" value={s.config.side} disabled={!editable} onChange={e => configure({ side: e.target.value as Side, exercises: [] })}>
         <option value="bilateral">الجهتان حسب الحركة</option><option value="right">اليمنى فقط</option><option value="left">اليسرى فقط</option>
-      </SelectField>
+      </SelectField></ControlSlot>
       <SelectField id="castle-presentation" label="وضعية عرض المدرب" value={s.config.presentation} disabled={!editable} onChange={e => configure({ presentation: e.target.value as Config["presentation"] })}>
         <option value="seated">جالس · مع بدائل مريحة</option><option value="standing">واقف · بتوجيه المعالج</option>
       </SelectField>
-      <SelectField id="castle-range" label="حجم الحركة المعروضة" value={s.config.movementScale} disabled={!editable} onChange={e => configure({ movementScale: Number(e.target.value) })}>
+      <ControlSlot slot="settings"><SelectField id="castle-range" label="حجم الحركة المعروضة" value={s.config.movementScale} disabled={!editable} onChange={e => configure({ movementScale: Number(e.target.value) })}>
         <option value="0.35">صغيرة</option><option value="0.65">مريحة</option><option value="1">كاملة</option>
-      </SelectField>
+      </SelectField></ControlSlot>
       <SelectField id="castle-reps" label="التكرارات في كل جولة" value={s.config.repetitions} disabled={!enabled || s.status !== "ready"} onChange={e => configure({ repetitions: Number(e.target.value) })}>
         {[1, 2, 3, 4, 5, 6].map(n => <option key={n} value={n}>{n} حركات</option>)}
       </SelectField>

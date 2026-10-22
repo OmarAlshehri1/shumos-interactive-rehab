@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { FootView } from "@/components/display/footsteps3d/FootView";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
@@ -152,7 +154,7 @@ function Panel({
 
       <AdditionalOptions>
         <div>
-          <label htmlFor="stoneScale">
+          <ControlSlot slot="settings"><label htmlFor="stoneScale">
             حجم الأحجار: {s.config.stoneScale}٪
           </label>
           <input
@@ -164,7 +166,7 @@ function Panel({
             value={s.config.stoneScale}
             disabled={!layoutEditable}
             onChange={(e) => cfg({ stoneScale: Number(e.target.value) })}
-          />
+          /></ControlSlot>
         </div>
         <div>
           <label htmlFor="spacing">
@@ -199,7 +201,7 @@ function Panel({
       </AdditionalOptions>
 
       <div>
-        <label htmlFor="reach">مدى الحركة الكلي: {s.config.reach}٪</label>
+        <ControlSlot slot="settings"><label htmlFor="reach">مدى الحركة الكلي: {s.config.reach}٪</label>
         <input
           id="reach"
           type="range"
@@ -209,7 +211,7 @@ function Panel({
           value={s.config.reach}
           disabled={!layoutEditable}
           onChange={(e) => cfg({ reach: Number(e.target.value) })}
-        />
+        /></ControlSlot>
       </div>
       {!layoutEditable && editable && (
         <p className={styles.note}>
@@ -262,7 +264,7 @@ function Panel({
 
       <h2>مصدر الحركة</h2>
       <div>
-        <label htmlFor="input">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="input">وضع الإدخال</label>
         <select
           id="input"
           value={
@@ -282,7 +284,7 @@ function Panel({
           <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
           <option value="DUAL_FOOT">محاكاة · القدمان</option>
           <option disabled>حساسات فعلية · بانتظار التحقق</option>
-        </select>
+        </select></ControlSlot>
       </div>
       {roles.length > 0 && (
         <div className={styles.sim}>
@@ -474,14 +476,14 @@ function Panel({
       data-rest={s.rest ? "1" : "0"}
     >
       {s.status !== "ended" && s.status !== "stage-complete" && (
-        <button
+        <ControlSlot slot="session"><button
           className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
           data-testid="safety"
           onClick={() => send({ type: "safety" })}
           aria-label="إيقاف الأمان"
         >
           ⛔ إيقاف الأمان
-        </button>
+        </button></ControlSlot>
       )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -550,7 +552,7 @@ function Panel({
                   الطفل؛ أكّد الخطوة بنفسك عند وصوله.
                 </div>
               )}
-              <StoneMap state={s} />
+              <><ControlSlot slot="preview"><FootView state={{...s,config:{...s.config,sound:false}}} connected={can}/></ControlSlot><StoneMap state={s} /></>
               <p className={styles.note}>
                 الحجر الذهبي هو الهدف الحالي على شاشة الطفل. لا يتقدم شيء حتى
                 تضغط «تأكيد الخطوة». لا يوجد وقت محدد ولا فشل.
@@ -568,15 +570,15 @@ function Panel({
                 </button>
               )}
               {s.status === "running" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={styles.btn}
                   onClick={() => send({ type: "pause" })}
                 >
                   إيقاف مؤقت
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "paused" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                   disabled={!can}
                   onClick={() => send({ type: "resume", at: Date.now() })}
@@ -586,21 +588,21 @@ function Panel({
                     : s.rest
                       ? "متابعة بعد الراحة"
                       : "متابعة"}
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "stage-complete" && (
-                <button
+                <ControlSlot slot="settings"><button
                   className={`${styles.btn} ${styles.primary}`}
                   onClick={() => send({ type: "next", at: Date.now() })}
                 >
                   {s.stage === 8 ? "إنهاء الجلسة" : "المرحلة التالية"}
-                </button>
+                </button></ControlSlot>
               )}
             </div>
 
             {live && (
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="assistance"><button
                   className={`${styles.btn} ${styles.confirm}`}
                   data-testid="confirm"
                   disabled={!stepping || isResolved(s)}
@@ -614,8 +616,8 @@ function Panel({
                   }
                 >
                   ✔ تأكيد الخطوة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   className={`${styles.btn} ${styles.assist}`}
                   disabled={!stepping || isResolved(s)}
                   onClick={() =>
@@ -628,15 +630,15 @@ function Panel({
                   }
                 >
                   خطوة بمساعدة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   className={styles.btn}
                   disabled={!stepping}
                   onClick={() => send({ type: "repeat" })}
                 >
                   أعد التلميح
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   className={styles.btn}
                   disabled={!stepping}
                   onClick={() =>
@@ -644,7 +646,7 @@ function Panel({
                   }
                 >
                   تجاوز الخطوة
-                </button>
+                </button></ControlSlot>
                 {def.pairs && (
                   <button
                     className={styles.btn}
@@ -679,12 +681,12 @@ function Panel({
                 إعادة البدء
               </button>
               {s.status !== "ended" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={styles.btn}
                   onClick={() => send({ type: "end", at: Date.now() })}
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               )}
             </div>
 

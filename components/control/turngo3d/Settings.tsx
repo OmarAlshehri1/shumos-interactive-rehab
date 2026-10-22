@@ -1,4 +1,5 @@
 'use client';
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { useEffect, useState } from 'react';
 import { COURSES, SELECTABLE_COURSES } from '@/lib/turngo3d/courses';
 import { LIMITS, type Config } from '@/lib/turngo3d/config';
@@ -69,14 +70,14 @@ export function Settings({ s, send, sim, setSim }: Props) {
       <details open>
         <summary>التوقف والأحداث</summary>
         <label className={styles.check}><input type="checkbox" data-testid="tg-stops" checked={c.stops} disabled={!editable} onChange={(e) => cfg({ stops: e.target.checked })} /> علامات التوقف (قف ثم تابع)</label>
-        <label htmlFor="tg-stopms">مدة التوقف: {c.stopMs / 1000} ثانية</label>
-        <input id="tg-stopms" data-testid="tg-stopms" type="range" min={LIMITS.stopMs[0]} max={LIMITS.stopMs[1]} step="500" value={c.stopMs} disabled={!editable} onChange={(e) => cfg({ stopMs: Number(e.target.value) })} />
+        <ControlSlot slot="settings"><label htmlFor="tg-stopms">مدة التوقف: {c.stopMs / 1000} ثانية</label>
+        <input id="tg-stopms" data-testid="tg-stopms" type="range" min={LIMITS.stopMs[0]} max={LIMITS.stopMs[1]} step="500" value={c.stopMs} disabled={!editable} onChange={(e) => cfg({ stopMs: Number(e.target.value) })} /></ControlSlot>
         <p className={styles.note}>الوقفات القصيرة الاختيارية في «الحديقة المضيئة» لا تتجاوز ٢ ثانية. التوقف يُحسب بساعة اللعب؛ والمعالج هو من يلاحظ ثبات الطفل.</p>
         <label className={styles.check}><input type="checkbox" data-testid="tg-events" checked={c.events} disabled={!editable} onChange={(e) => cfg({ events: e.target.checked })} /> أحداث المسار الديناميكية</label>
-        <label htmlFor="tg-eventms">مدة الانتظار عند الحدث</label>
+        <ControlSlot slot="settings"><label htmlFor="tg-eventms">مدة الانتظار عند الحدث</label>
         <select id="tg-eventms" data-testid="tg-eventms" value={c.eventMs} disabled={!editable} onChange={(e) => cfg({ eventMs: Number(e.target.value) })}>
           {[2000, 3000, 3500, 5000, 8000].map((n) => <option key={n} value={n}>{n / 1000} ثانية</option>)}
-        </select>
+        </select></ControlSlot>
         <p className={styles.note}>الأحداث تبدأ فقط بعد تأكيدك نجمة، والطفل واقف عندها؛ ولا يتغيّر الطريق أثناء مشيه. يمكنك إيقافها كلها هنا في أي وقت.</p>
       </details>
 
@@ -95,13 +96,13 @@ export function Settings({ s, send, sim, setSim }: Props) {
 
       <details>
         <summary>حساسات القدم (اختيارية)</summary>
-        <label htmlFor="tg-input-mode">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="tg-input-mode">وضع الإدخال</label>
         <select id="tg-input-mode" data-testid="tg-input-mode" value={c.inputMode} disabled={!editable} onChange={(e) => cfg({ inputMode: e.target.value as Config['inputMode'] })}>
           <option value="MANUAL">يدوي بالكامل</option>
           <option value="RIGHT_FOOT">القدم اليمنى</option>
           <option value="LEFT_FOOT">القدم اليسرى</option>
           <option value="DUAL_FOOT">القدمان</option>
-        </select>
+        </select></ControlSlot>
         <label htmlFor="tg-input-source">مصدر الحساسات</label>
         <select id="tg-input-source" data-testid="tg-input-source" value={c.inputSource} disabled={!editable || c.inputMode === 'MANUAL'} onChange={(e) => cfg({ inputSource: e.target.value as Config['inputSource'] })}>
           <option value="manual">بدون حساسات</option>

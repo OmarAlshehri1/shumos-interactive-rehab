@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { GameSetupLayout } from "@/components/control/setup/GameSetupLayout";
 import { StagePicker } from "@/components/control/setup/ProgressiveStages";
 import Link from "next/link";
@@ -85,7 +86,7 @@ export function LocalBridge({
     );
     return () => clearInterval(timer);
   }, [send]);
-  if (displayOnly) return <BridgeView state={state} full />;
+  if (displayOnly) return <ControlSlot slot="preview"><BridgeView state={state} full /></ControlSlot>;
   return (
     <Controller
       state={state}
@@ -163,7 +164,7 @@ function Controller({
         disabled={!setting}
         style={{ border: 0, padding: 0, margin: 0 }}
       >
-        <label className={styles.fieldLabel} htmlFor="bridge-width">
+        <ControlSlot slot="settings" disabled={(!setting)}><label className={styles.fieldLabel} htmlFor="bridge-width">
           عرض المسار
           <select
             id="bridge-width"
@@ -178,7 +179,7 @@ function Controller({
             <option value="narrower">أضيق بإشراف المعالج</option>
             <option value="custom">عرض مخصص بعد المعايرة</option>
           </select>
-        </label>
+        </label></ControlSlot>
         {s.config.pathWidth === "custom" && (
           <>
             <label className={styles.fieldLabel}>
@@ -197,7 +198,7 @@ function Controller({
             </label>
           </>
         )}
-        <label className={styles.fieldLabel}>
+        <ControlSlot slot="settings" disabled={(!setting)}><label className={styles.fieldLabel}>
           الهدف الحركي
           <select
             aria-label="الهدف الحركي"
@@ -219,7 +220,7 @@ function Controller({
             <option value="guided">مواضع القدمين</option>
             <option value="precise">خطوات متناوبة بإشراف</option>
           </select>
-        </label>
+        </label></ControlSlot>
         {s.stage === 6 && (
           <label className={styles.fieldLabel}>
             اتجاه رحلة السحاب
@@ -238,7 +239,7 @@ function Controller({
             </select>
           </label>
         )}
-        <label className={styles.fieldLabel}>
+        <ControlSlot slot="settings" disabled={(!setting)}><label className={styles.fieldLabel}>
           دليل القدمين
           <select
             aria-label="دليل القدمين"
@@ -255,7 +256,7 @@ function Controller({
             <option value="both">القدمان</option>
             <option value="neutral">وقفة مريحة</option>
           </select>
-        </label>
+        </label></ControlSlot>
         <label className={styles.fieldLabel}>
           الثبات الاختياري (ثوانٍ، 0 لتعطيله)
           <input
@@ -444,7 +445,7 @@ function Controller({
       )}
       <div className={styles.layout}>
         <section>
-          <BridgeView state={s} connected={connected} />
+          <ControlSlot slot="preview"><BridgeView state={s} connected={connected} /></ControlSlot>
           <div className={styles.metrics}>
             <div className={styles.metric}>
               <b>
@@ -501,7 +502,7 @@ function Controller({
                       بدء الثبات عند الوصول
                     </button>
                   )}
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={`${styles.button} ${styles.primary}`}
                     disabled={!connected || !canConfirm(s)}
                     onClick={() =>
@@ -509,8 +510,8 @@ function Controller({
                     }
                   >
                     تأكيد الوصول
-                  </button>
-                  <button
+                  </button></ControlSlot>
+                  <ControlSlot slot="assistance"><button
                     className={styles.button}
                     disabled={!connected || !canConfirm(s)}
                     onClick={() =>
@@ -518,50 +519,50 @@ function Controller({
                     }
                   >
                     تأكيد بمساعدة
-                  </button>
-                  <button
+                  </button></ControlSlot>
+                  <ControlSlot slot="session"><button
                     className={styles.button}
                     disabled={!connected}
                     onClick={() => send({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 </>
               )}
               {s.status === "paused" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.button} ${styles.primary}`}
                   disabled={!connected}
                   onClick={() => send({ type: "resume" })}
                 >
                   استئناف الرحلة
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "stage-complete" && s.stage < 8 && (
-                <button
+                <ControlSlot slot="settings"><button
                   className={`${styles.button} ${styles.primary}`}
                   disabled={!connected}
                   onClick={() => send({ type: "next" })}
                 >
                   المرحلة التالية
-                </button>
+                </button></ControlSlot>
               )}
             </div>
             <div className={styles.actions}>
-              <button
+              <ControlSlot slot="assistance"><button
                 className={styles.button}
                 disabled={!connected || s.status !== "running"}
                 onClick={() => send({ type: "repeat" })}
               >
                 كرّر العلامة
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="assistance"><button
                 className={styles.button}
                 disabled={!connected || s.status !== "running"}
                 onClick={() => send({ type: "skip", token })}
               >
                 تخطّ العلامة
-              </button>
+              </button></ControlSlot>
               <button
                 className={styles.button}
                 disabled={!connected || s.status !== "running"}
@@ -590,13 +591,13 @@ function Controller({
               </p>
             )}
             <div className={styles.actions}>
-              <button
+              <ControlSlot slot="session"><button
                 className={styles.button}
                 disabled={!connected || s.status === "ended"}
                 onClick={() => setConfirm("end")}
               >
                 إنهاء آمن
-              </button>
+              </button></ControlSlot>
               <button
                 className={styles.button}
                 disabled={
@@ -615,7 +616,7 @@ function Controller({
               </Link>
             </div>
             {confirm && (
-              <div className={styles.confirm}>
+              <ControlSlot slot="dialogs"><div className={styles.confirm}>
                 تأكد من توقف الطفل في موضع آمن.{" "}
                 {confirm === "restart"
                   ? "ستبدأ رحلة جديدة؛ أنهِ الجلسة الحالية واحفظها أولًا."
@@ -646,12 +647,12 @@ function Controller({
                     {confirm === "end" ? "تأكيد الإنهاء" : "تأكيد الإعادة"}
                   </button>
                 </div>
-              </div>
+              </div></ControlSlot>
             )}
             {error && (
-              <p role="alert" className={styles.error}>
+              <ControlSlot slot="dialogs"><p role="alert" className={styles.error}>
                 {error}
-              </p>
+              </p></ControlSlot>
             )}
             {history && (
               <p role="status" className={styles.note}>

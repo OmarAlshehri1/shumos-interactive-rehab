@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { TurnGoView } from "@/components/display/turngo3d/TurnGoView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Link from "next/link";
 import { useState } from "react";
@@ -185,7 +187,7 @@ function Current({
       <div className={styles.actions}>
         {hold ? (
           <>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               data-testid="tg-hold-done"
@@ -193,8 +195,8 @@ function Current({
               onClick={() => send({ type: "completeHold", assisted: false })}
             >
               أنهِ الوقفة الآن ✓
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.assist}`}
               data-testid="tg-hold-assist"
@@ -202,8 +204,8 @@ function Current({
               onClick={() => send({ type: "completeHold", assisted: true })}
             >
               أنهِها بمساعدة
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={styles.btn}
               data-testid="tg-hold-cancel"
@@ -211,11 +213,11 @@ function Current({
               onClick={() => send({ type: "repeat", prev: false })}
             >
               إلغاء الوقفة وإعادتها
-            </button>
+            </button></ControlSlot>
           </>
         ) : (
           <>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               data-testid="tg-confirm"
@@ -227,8 +229,8 @@ function Current({
                 : kind === "finish"
                   ? "✓ وصل إلى النهاية"
                   : "✓ وصل الطفل إلى النجمة"}
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.assist}`}
               data-testid="tg-assist"
@@ -236,10 +238,10 @@ function Current({
               onClick={() => send({ type: "confirm", assisted: true })}
             >
               بمساعدة المعالج
-            </button>
+            </button></ControlSlot>
           </>
         )}
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="tg-repeat"
@@ -247,8 +249,8 @@ function Current({
           onClick={() => send({ type: "repeat", prev: false })}
         >
           أعد هذا المقطع
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="tg-back"
@@ -256,8 +258,8 @@ function Current({
           onClick={() => send({ type: "repeat", prev: true })}
         >
           تراجع: أعد النجمة السابقة
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="tg-skip"
@@ -265,7 +267,7 @@ function Current({
           onClick={() => send({ type: "skip" })}
         >
           تخطَّ النجمة
-        </button>
+        </button></ControlSlot>
       </div>
       <div className={styles.actions} style={{ marginTop: 4 }}>
         <button
@@ -394,14 +396,14 @@ function Panel({
       {s.status !== "ended" &&
         s.status !== "stage-complete" &&
         s.status !== "ready" && (
-          <button
+          <ControlSlot slot="session"><button
             className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
             data-testid="tg-safety"
             onClick={() => send({ type: "safety" })}
             aria-label="إيقاف الأمان"
           >
             ⛔ إيقاف الأمان
-          </button>
+          </button></ControlSlot>
         )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -480,13 +482,13 @@ function Panel({
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
-                <CourseMap
+                <><ControlSlot slot="preview"><TurnGoView state={s} connected={can} muted/></ControlSlot><CourseMap
                   s={s}
                   editable={editable}
                   onConfigure={(patch) =>
                     send({ type: "configure", config: patch })
                   }
-                />
+                /></>
               </div>
               <div className={styles.legend}>
                 <span>
@@ -532,26 +534,26 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="tg-pause"
                     onClick={() => send({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                     data-testid="tg-resume"
                     disabled={!can}
                     onClick={() => send({ type: "resume", at: Date.now() })}
                   >
                     {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="tg-next"
                     onClick={() => send({ type: "next", at: Date.now() })}
@@ -559,7 +561,7 @@ function Panel({
                     {s.stage === 8
                       ? "إنهاء الجلسة وعرض النتائج"
                       : "المرحلة التالية"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <button
@@ -589,17 +591,17 @@ function Panel({
                   إعادة البدء
                 </button>
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="tg-end"
                     onClick={() => setConfirm("end")}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               {confirm && (
-                <div
+                <ControlSlot slot="dialogs"><div
                   className={styles.confirm}
                   role="alertdialog"
                   data-testid="tg-confirm-box"
@@ -641,7 +643,7 @@ function Panel({
                   >
                     لا
                   </button>
-                </div>
+                </div></ControlSlot>
               )}
               <div
                 className={styles.progress}

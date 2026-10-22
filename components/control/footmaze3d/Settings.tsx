@@ -1,4 +1,5 @@
 'use client';
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { useEffect, useState } from 'react';
 import { LIMITS, type Config } from '@/lib/footmaze3d/config';
 import { worldOf, type Command, type State } from '@/lib/footmaze3d/engine';
@@ -50,18 +51,18 @@ export function Settings({ s, send, sim, setSim }: Props) {
         </div>
         <p className={styles.note}>اللعبة لا تُضيّق الممر أبدًا دون قرارك: عرضك المعتمد يُحترم كما هو، وتظهر هنا تحذيرات إن اقتربت الممرات من بعضها. وحدات التخطيط ليست سنتيمترات.</p>
         {w.layout.warnings.length > 0 && <ul className={styles.warnList} data-testid="fm-warnings">{w.layout.warnings.map((x, i) => <li key={i}>{x}</li>)}</ul>}
-        <label htmlFor="fm-hint">إرشاد الطريق على الأرض</label>
+        <ControlSlot slot="settings"><label htmlFor="fm-hint">إرشاد الطريق على الأرض</label>
         <select id="fm-hint" data-testid="fm-hint" value={c.hint} disabled={!editable} onChange={(e) => cfg({ hint: e.target.value as Config['hint'] })}>
           {(Object.keys(HINT_LABEL) as (keyof typeof HINT_LABEL)[]).map((k) => <option key={k} value={k}>{HINT_LABEL[k]}{k === 'auto' ? ` · ${HINT_LABEL[stage.hint]}` : ''}</option>)}
-        </select>
+        </select></ControlSlot>
         <p className={styles.note}>مع «بدون أسهم» يبقى زر «تلميح» يُظهر الطريق لمدة ٧ ثوانٍ.</p>
       </details>
 
       <details open>
         <summary>الحارس والانتظار</summary>
         <label className={styles.check}><input type="checkbox" data-testid="fm-guards" checked={c.guards} disabled={!editable} onChange={(e) => cfg({ guards: e.target.checked })} /> الحرّاس الودودون (قف وانتظر ثم تابع)</label>
-        <label htmlFor="fm-guardms">مدة انتظار الحارس: {c.guardMs / 1000} ثانية</label>
-        <input id="fm-guardms" data-testid="fm-guardms" type="range" min={LIMITS.guardMs[0]} max={LIMITS.guardMs[1]} step="500" value={c.guardMs} disabled={!editable} onChange={(e) => cfg({ guardMs: Number(e.target.value) })} />
+        <ControlSlot slot="settings"><label htmlFor="fm-guardms">مدة انتظار الحارس: {c.guardMs / 1000} ثانية</label>
+        <input id="fm-guardms" data-testid="fm-guardms" type="range" min={LIMITS.guardMs[0]} max={LIMITS.guardMs[1]} step="500" value={c.guardMs} disabled={!editable} onChange={(e) => cfg({ guardMs: Number(e.target.value) })} /></ControlSlot>
         <label className={styles.check}><input type="checkbox" data-testid="fm-stance" checked={c.stance} disabled={!editable} onChange={(e) => cfg({ stance: e.target.checked })} /> وقفة ثبات معتمدة من المعالج أثناء الانتظار (تظهر إشارة «قف بثبات»)</label>
         <label className={styles.check}><input type="checkbox" data-testid="fm-events" checked={c.events} disabled={!editable} onChange={(e) => cfg({ events: e.target.checked })} /> الأحداث الديناميكية (بوابات وجسور وتغيّر الطريق)</label>
         <label htmlFor="fm-eventms">مدة انتظار الحدث</label>
@@ -86,13 +87,13 @@ export function Settings({ s, send, sim, setSim }: Props) {
 
       <details>
         <summary>حساسات القدم (اختيارية)</summary>
-        <label htmlFor="fm-input-mode">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="fm-input-mode">وضع الإدخال</label>
         <select id="fm-input-mode" data-testid="fm-input-mode" value={c.inputMode} disabled={!editable} onChange={(e) => cfg({ inputMode: e.target.value as Config['inputMode'] })}>
           <option value="MANUAL">يدوي بالكامل</option>
           <option value="RIGHT_FOOT">القدم اليمنى</option>
           <option value="LEFT_FOOT">القدم اليسرى</option>
           <option value="DUAL_FOOT">القدمان</option>
-        </select>
+        </select></ControlSlot>
         <label htmlFor="fm-input-source">مصدر الحساسات</label>
         <select id="fm-input-source" data-testid="fm-input-source" value={c.inputSource} disabled={!editable || c.inputMode === 'MANUAL'} onChange={(e) => cfg({ inputSource: e.target.value as Config['inputSource'] })}>
           <option value="manual">بدون حساسات</option>

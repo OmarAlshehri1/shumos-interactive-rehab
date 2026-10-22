@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
@@ -188,7 +189,7 @@ export function RunnerControlPanels({
   const setupSettings = (
     <section className={styles.card}>
       <h2>إعدادات المعالج</h2>
-      <div className={styles.field}>
+      <ControlSlot slot="settings"><div className={styles.field}>
         <label className={styles.label}>مصدر الإدخال</label>
         <select
           data-testid="input-source"
@@ -218,10 +219,10 @@ export function RunnerControlPanels({
             باللمس يبقى متاحًا ويُستخدم عند انقطاع الحسّاس.
           </div>
         )}
-      </div>
+      </div></ControlSlot>
       {!floorMode && (
         <>
-          <div className={styles.field}>
+          <ControlSlot slot="settings"><div className={styles.field}>
             <label className={styles.label}>
               السرعة الأمامية: {set.speed.toFixed(1)} م/ث
             </label>
@@ -247,8 +248,8 @@ export function RunnerControlPanels({
               value={set.speed}
               onChange={(e) => patch({ speed: Number(e.target.value) })}
             />
-          </div>
-          <div className={styles.field}>
+          </div></ControlSlot>
+          <ControlSlot slot="settings"><div className={styles.field}>
             <label className={styles.label}>
               المسافة بين العوائق: ×{set.spacing.toFixed(1)}{" "}
               {lc !== "ready" && (
@@ -267,7 +268,7 @@ export function RunnerControlPanels({
               value={set.spacing}
               onChange={(e) => patch({ spacing: Number(e.target.value) })}
             />
-          </div>
+          </div></ControlSlot>
         </>
       )}
       <div className={styles.field}>
@@ -616,49 +617,49 @@ export function RunnerControlPanels({
                 </button>
               )}
               {playing && (
-                <button
+                <ControlSlot slot="session"><button
                   className={styles.bigBtn}
                   data-testid="pause"
                   onClick={() => run({ type: "pause" })}
                 >
                   إيقاف مؤقت
-                </button>
+                </button></ControlSlot>
               )}
               {(lc === "paused" || lc === "suspended") && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.bigBtn} ${styles.bigPrimary}`}
                   data-testid="resume"
                   onClick={() => run({ type: "resume" })}
                 >
                   استئناف
-                </button>
+                </button></ControlSlot>
               )}
               {lc === "stage-complete" && (
-                <button
+                <ControlSlot slot="settings"><button
                   className={`${styles.bigBtn} ${styles.bigPrimary}`}
                   data-testid="advance"
                   onClick={() => run({ type: "advance" })}
                 >
                   المرحلة التالية
-                </button>
+                </button></ControlSlot>
               )}
               {(playing || lc === "paused") && !floorMode && st?.holding && (
-                <button
+                <ControlSlot slot="assistance"><button
                   className={`${styles.bigBtn} ${styles.bigWarn}`}
                   data-testid="assist"
                   onClick={() => run({ type: "assist" })}
                 >
                   تجاوز العائق (مساعدة)
-                </button>
+                </button></ControlSlot>
               )}
               {!idle && lc !== "stage-complete" && (
-                <button
+                <ControlSlot slot="assistance"><button
                   className={styles.bigBtn}
                   data-testid="skip"
                   onClick={() => run({ type: "skip" })}
                 >
                   تخطّي المرحلة
-                </button>
+                </button></ControlSlot>
               )}
               {!idle && (
                 <button
@@ -722,7 +723,7 @@ export function RunnerControlPanels({
           </section>
 
           {floorMode ? (
-            <FloorMapPanel runtime={runtime} view={view} run={run} />
+            <ControlSlot slot="preview"><FloorMapPanel runtime={runtime} view={view} run={run} /></ControlSlot>
           ) : (
             <section
               className={`${styles.card} ${styles.touchCard}`}

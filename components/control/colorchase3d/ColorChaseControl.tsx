@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { GardenView } from "@/components/display/colorchase3d/GardenView";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
@@ -235,7 +237,7 @@ function Panel({
         />
       </div>
       <div>
-        <label htmlFor="reach">مدى الحركة المريح: {s.config.reach}٪</label>
+        <ControlSlot slot="settings"><label htmlFor="reach">مدى الحركة المريح: {s.config.reach}٪</label>
         <input
           id="reach"
           type="range"
@@ -245,7 +247,7 @@ function Panel({
           value={s.config.reach}
           disabled={!layoutEditable}
           onChange={(e) => cfg({ reach: Number(e.target.value) })}
-        />
+        /></ControlSlot>
       </div>
       <AdditionalOptions>
         <div>
@@ -297,7 +299,7 @@ function Panel({
         أشكال وأسماء على المناطق (لا نعتمد على اللون وحده)
       </label>
       <div>
-        <label htmlFor="assist">مستوى المساعدة البصرية</label>
+        <ControlSlot slot="settings"><label htmlFor="assist">مستوى المساعدة البصرية</label>
         <select
           id="assist"
           data-testid="assist-select"
@@ -307,7 +309,7 @@ function Panel({
         >
           <option value="standard">عادي · إضاءة المنطقة المطلوبة</option>
           <option value="high">عالٍ · تخفيت بقية المناطق وتلميح للتالي</option>
-        </select>
+        </select></ControlSlot>
       </div>
       <p className={styles.note}>
         أنت من يحدّد مدى الحركة المناسب لكل طفل. المنصة لا تقيس مدى حركة المفاصل
@@ -316,7 +318,7 @@ function Panel({
 
       <h2>مصدر الحركة</h2>
       <div>
-        <label htmlFor="input">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="input">وضع الإدخال</label>
         <select
           id="input"
           value={
@@ -336,7 +338,7 @@ function Panel({
           <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
           <option value="DUAL_FOOT">محاكاة · القدمان</option>
           <option disabled>حساسات فعلية · بانتظار التحقق</option>
-        </select>
+        </select></ControlSlot>
       </div>
       {roles.length > 0 && (
         <div className={styles.sim}>
@@ -535,14 +537,14 @@ function Panel({
       data-picked={picked ?? ""}
     >
       {s.status !== "ended" && s.status !== "stage-complete" && (
-        <button
+        <ControlSlot slot="session"><button
           className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
           data-testid="safety"
           onClick={() => send({ type: "safety" })}
           aria-label="إيقاف الأمان"
         >
           ⛔ إيقاف الأمان
-        </button>
+        </button></ControlSlot>
       )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -707,12 +709,12 @@ function Panel({
                       يقف الطفل؛ اختر المنطقة وأكّد بنفسك.
                     </div>
                   )}
-                  <ZoneMap
+                  <><ControlSlot slot="preview"><GardenView state={{...s,config:{...s.config,sound:false}}} connected={can}/></ControlSlot><ControlSlot slot="assistance"><ZoneMap
                     state={s}
                     picked={picked}
                     onPick={setPicked}
                     disabled={!attempting || !can}
-                  />
+                  /></ControlSlot></>
                   <p className={styles.note}>
                     المنطقة المحاطة بخط متقطع هي اللون المطلوب على شاشة الطفل.
                     اضغط المنطقة التي اختارها الطفل ثم «تأكيد الاختيار». لا يوجد
@@ -732,46 +734,46 @@ function Panel({
                     </button>
                   )}
                   {s.status === "running" && (
-                    <button
+                    <ControlSlot slot="session"><button
                       className={styles.btn}
                       data-testid="pause"
                       onClick={() => send({ type: "pause" })}
                     >
                       إيقاف مؤقت
-                    </button>
+                    </button></ControlSlot>
                   )}
                   {s.status === "paused" && (
-                    <button
+                    <ControlSlot slot="session"><button
                       className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                       data-testid="resume"
                       disabled={!can}
                       onClick={() => send({ type: "resume", at: Date.now() })}
                     >
                       {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                    </button>
+                    </button></ControlSlot>
                   )}
                   {s.status === "stage-complete" && (
-                    <button
+                    <ControlSlot slot="settings"><button
                       className={`${styles.btn} ${styles.primary}`}
                       data-testid="next"
                       onClick={() => send({ type: "next", at: Date.now() })}
                     >
                       {s.stage === 8 ? "إنهاء الجلسة" : "المرحلة التالية"}
-                    </button>
+                    </button></ControlSlot>
                   )}
                 </div>
 
                 {live && (
                   <div className={styles.actions}>
-                    <button
+                    <ControlSlot slot="assistance"><button
                       className={`${styles.btn} ${styles.confirm}`}
                       data-testid="confirm"
                       disabled={!attempting || !picked || !can || isResolved(s)}
                       onClick={confirmPick}
                     >
                       ✔ تأكيد الاختيار
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={`${styles.btn} ${styles.assist}`}
                       data-testid="assist"
                       disabled={!attempting || !can || isResolved(s)}
@@ -780,16 +782,16 @@ function Panel({
                       }
                     >
                       اختيار بمساعدة
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={styles.btn}
                       data-testid="repeat"
                       disabled={!attempting}
                       onClick={() => send({ type: "repeat" })}
                     >
                       أعد الهدف
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={styles.btn}
                       data-testid="skip"
                       disabled={!attempting}
@@ -798,7 +800,7 @@ function Panel({
                       }
                     >
                       تجاوز الهدف
-                    </button>
+                    </button></ControlSlot>
                     <button
                       className={styles.btn}
                       data-testid="skip-stage"
@@ -816,13 +818,13 @@ function Panel({
                   >
                     إعادة البدء
                   </button>
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="end"
                     onClick={() => send({ type: "end", at: Date.now() })}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 </div>
               </>
             )}

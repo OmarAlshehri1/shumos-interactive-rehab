@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
@@ -140,7 +141,7 @@ function Panel({
   sensorReady: boolean;
 }) {
   const { send } = runtime;
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState(true);
   const held = useRef<Partial<Input>>({});
   const enabled = runtime.connected && !runtime.blocked;
   useLibraryLaunchAdapter("fire-rescue-3d", {
@@ -385,7 +386,7 @@ function Panel({
           disabled={!enabled || s.status === "ended"}
           className={styles.settings}
         >
-          <label>
+          <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
             طريقة القيادة
             <select
               aria-label="طريقة القيادة"
@@ -399,8 +400,8 @@ function Panel({
               <option value="steering-only">مشاركة بالمقود فقط</option>
               <option value="pedal-only">مشاركة بالدواسة فقط</option>
             </select>
-          </label>
-          <label>
+          </label></ControlSlot>
+          <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
             مصدر الإدخال
             <select
               aria-label="مصدر الإدخال"
@@ -423,7 +424,7 @@ function Panel({
                 حساس اليد · للماء فقط
               </option>
             </select>
-          </label>
+          </label></ControlSlot>
           <button
             data-testid="manual-fallback"
             type="button"
@@ -443,7 +444,7 @@ function Panel({
             </label>
           ))}
           {s.config.mode === "therapist-throttle" && (
-            <label>
+            <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
               تسارع المعالج
               <input
                 aria-label="تسارع المعالج"
@@ -456,7 +457,7 @@ function Panel({
                   cfg({ therapistThrottle: Number(e.target.value) })
                 }
               />
-            </label>
+            </label></ControlSlot>
           )}
           {sliders
             .filter((c) =>
@@ -533,9 +534,9 @@ function Panel({
         </fieldset>
         <DeviceMapping mapping={mapping} onChange={onMapping} />
         {mappingError && (
-          <p role="alert" className={styles.warning}>
+          <ControlSlot slot="dialogs"><p role="alert" className={styles.warning}>
             {mappingError}
-          </p>
+          </p></ControlSlot>
         )}
       </section>
       <section className={`${styles.card} ${styles.status}`} role="status">
@@ -683,7 +684,7 @@ function Panel({
                 معاينة ثلاثية الأبعاد على جهاز التحكم
               </label>
               {preview ? (
-                <FireRescueView state={s} connected={enabled} muted />
+                <ControlSlot slot="preview"><FireRescueView state={s} connected={enabled} muted /></ControlSlot>
               ) : (
                 <div className={styles.missionMap}>
                   <FireRescueThumbnail />
@@ -729,33 +730,33 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     data-testid="pause"
                     disabled={!enabled}
                     onClick={() => action({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     data-testid="resume"
                     className={styles.primary}
                     disabled={!enabled}
                     onClick={() => action({ type: "resume", at: Date.now() })}
                   >
                     استئناف المهمة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     data-testid="next"
                     className={styles.primary}
                     disabled={!enabled}
                     onClick={() => action({ type: "next", at: Date.now() })}
                   >
                     {s.stage === 8 ? "إنهاء وحفظ النتائج" : "المهمة التالية ←"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status !== "ended" && (
                   <button
@@ -785,7 +786,7 @@ function Panel({
                     : s.config.source}
                 </span>
               </div>
-              <div className={styles.controls}>
+              <ControlSlot slot="assistance"><div className={styles.controls}>
                 {s.phase === "driving" ? (
                   <>
                     <div className={styles.steering} dir="ltr">
@@ -883,17 +884,17 @@ function Panel({
                     </div>
                   </>
                 )}
-              </div>
+              </div></ControlSlot>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="assistance"><button
                   data-testid="assist"
                   className={styles.assist}
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "assist" })}
                 >
                   مساعدة المعالج
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   data-testid="repeat"
                   disabled={
                     !enabled || !["running", "paused"].includes(s.status)
@@ -901,7 +902,7 @@ function Panel({
                   onClick={() => action({ type: "repeat" })}
                 >
                   أعد الهدف
-                </button>
+                </button></ControlSlot>
                 <button
                   data-testid="skip-objective"
                   disabled={
@@ -974,13 +975,13 @@ function Panel({
                 >
                   تجاوز المرحلة
                 </button>
-                <button
+                <ControlSlot slot="session"><button
                   data-testid="end"
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "end", at: Date.now() })}
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               </div>
             </section>
           </div>

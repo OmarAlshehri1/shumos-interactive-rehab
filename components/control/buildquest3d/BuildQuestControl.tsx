@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
@@ -70,22 +71,22 @@ export function BuildQuestControl() {
     return (
       <main className={styles.control}>
         <h1>عالم البناء</h1>
-        <p role="alert" data-testid="bq-superseded">
+        <ControlSlot slot="dialogs"><p role="alert" data-testid="bq-superseded">
           تم نقل هذه الجلسة إلى نافذة تحكم أخرى. هذه النافذة لم تعد تتحكم
           باللعبة، أغلقها أو أعد تحميلها.
-        </p>
+        </p></ControlSlot>
       </main>
     );
   if (!state && session.recoveryBlocked)
     return (
       <main className={styles.control}>
         <h1>عالم البناء</h1>
-        <p role="alert" data-testid="bq-recovery-blocked">
+        <ControlSlot slot="dialogs"><p role="alert" data-testid="bq-recovery-blocked">
           توجد جلسة غير منتهية تعمل في نافذة تحكم أخرى.
           {session.takeoverAllowed
             ? " إذا كانت تلك النافذة مغلقة أو متوقفة يمكنك استعادة الجلسة هنا، وستعود متوقفة مؤقتًا بتقدّمها كما هو."
             : " تخص مريضًا آخر غير المختار هنا؛ أغلق النافذة الأخرى أو اختر المريض نفسه لاستعادتها."}
-        </p>
+        </p></ControlSlot>
         {session.takeoverAllowed && (
           <button
             type="button"
@@ -127,7 +128,7 @@ export function BuildQuestControl() {
   const setupSettings = (
     <aside className={styles.panel}>
       {state.status !== "ready" && setupStages}
-      <label>
+      <ControlSlot slot="settings"><label>
         طريقة التحكم
         <select
           aria-label="طريقة التحكم"
@@ -141,8 +142,8 @@ export function BuildQuestControl() {
           <option value="sensor">حساس اليد اليمنى</option>
           <option value="controller">وحدة تحكم · تجريبية</option>
         </select>
-      </label>
-      <label>
+      </label></ControlSlot>
+      <ControlSlot slot="settings"><label>
         مساعدة الالتقاط
         <select
           aria-label="مساعدة الالتقاط"
@@ -160,7 +161,7 @@ export function BuildQuestControl() {
           <option value="medium">متوسطة</option>
           <option value="low">منخفضة</option>
         </select>
-      </label>
+      </label></ControlSlot>
       <label>
         مدة الثبات (مللي ثانية)
         <input
@@ -176,7 +177,7 @@ export function BuildQuestControl() {
           }
         />
       </label>
-      <label>
+      <ControlSlot slot="settings"><label>
         حجم منطقة الالتقاط
         <input
           aria-label="حجم منطقة الالتقاط"
@@ -190,7 +191,7 @@ export function BuildQuestControl() {
             session.configure({ tolerance: Number(e.target.value) })
           }
         />
-      </label>
+      </label></ControlSlot>
       <AdditionalOptions>
         <label>
           جودة العرض
@@ -301,7 +302,7 @@ export function BuildQuestControl() {
                     ? "متصل · التغييرات مؤكدة"
                     : "جلسة محلية"}
             </p>
-            {session.error && <p role="alert">{session.error}</p>}
+            {session.error && <ControlSlot slot="dialogs"><p role="alert">{session.error}</p></ControlSlot>}
             {session.recovered &&
               (state.status === "paused" || state.status === "ready") && (
                 <p role="status" data-testid="bq-recovered">
@@ -311,9 +312,9 @@ export function BuildQuestControl() {
                 </p>
               )}
             <div className={styles.preview}>
-              <WorkshopCanvas state={state} onPointer={sendPointer} />
+              <ControlSlot slot="preview"><WorkshopCanvas state={state} onPointer={sendPointer} /></ControlSlot>
             </div>
-            <ManualWorkbench
+            <ControlSlot slot="assistance"><ManualWorkbench
               state={state}
               enabled={connected && state.status === "running"}
               select={(id) => {
@@ -325,7 +326,7 @@ export function BuildQuestControl() {
                 session.placePiece(id);
               }}
               move={(p) => sendPointer(p)}
-            />
+            /></ControlSlot>
             <div
               className={styles.stats}
               data-testid="build-state"
@@ -352,43 +353,43 @@ export function BuildQuestControl() {
               >
                 بدء الجلسة
               </button>
-              <button
+              <ControlSlot slot="session"><button
                 disabled={!connected || state.status !== "running"}
                 onClick={() => session.act("pause")}
               >
                 إيقاف مؤقت
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="session"><button
                 disabled={!connected || state.status !== "paused"}
                 onClick={() => session.act("resume")}
               >
                 متابعة
-              </button>
+              </button></ControlSlot>
               <button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("restart")}
               >
                 إعادة المرحلة
               </button>
-              <button
+              <ControlSlot slot="settings"><button
                 disabled={!connected || state.status !== "complete"}
                 className={styles.primary}
                 onClick={() => session.act("next")}
               >
                 {state.stage === 8 ? "عرض الملخص" : "المرحلة التالية"}
-              </button>
+              </button></ControlSlot>
               <button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("skip")}
               >
                 تخطي المرحلة
               </button>
-              <button
+              <ControlSlot slot="session"><button
                 disabled={!connected || state.status === "ended"}
                 onClick={() => session.act("end")}
               >
                 إنهاء الجلسة
-              </button>
+              </button></ControlSlot>
             </div>
             <p aria-live="polite">{state.feedback}</p>
             {state.status === "ended" && (

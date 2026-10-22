@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { BodySequenceView } from "@/components/display/bodysequence3d/BodySequenceView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Link from "next/link";
 import { useState } from "react";
@@ -168,7 +170,7 @@ function Current({
         >
           معاينة الترتيب جارية على الشاشة ({Math.ceil(previewLeft(s) / 1000)}{" "}
           ث): يحفظ الطفل الترتيب ثم ينفّذه. التأكيد مغلق أثناء المعاينة.
-          <button
+          <ControlSlot slot="assistance"><button
             type="button"
             className={`${styles.btn} ${styles.btnSm}`}
             data-testid="bs-endpreview"
@@ -177,7 +179,7 @@ function Current({
             onClick={() => send({ type: "endPreview" })}
           >
             ابدأ التنفيذ الآن
-          </button>
+          </button></ControlSlot>
         </div>
       )}
       {between && (
@@ -228,7 +230,7 @@ function Current({
       <div className={styles.actions}>
         {hold ? (
           <>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               data-testid="bs-hold-done"
@@ -236,8 +238,8 @@ function Current({
               onClick={() => send({ type: "completeHold", assisted: false })}
             >
               أنهِ الوقفة الآن ✓
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.assist}`}
               data-testid="bs-hold-assist"
@@ -245,11 +247,11 @@ function Current({
               onClick={() => send({ type: "completeHold", assisted: true })}
             >
               أنهِها بمساعدة
-            </button>
+            </button></ControlSlot>
           </>
         ) : (
           <>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               data-testid="bs-confirm"
@@ -261,8 +263,8 @@ function Current({
               {step?.move === "stop"
                 ? "✓ الطفل واقف ثابتًا"
                 : "✓ نفّذ الطفل الحركة"}
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.assist}`}
               data-testid="bs-assist"
@@ -272,7 +274,7 @@ function Current({
               }
             >
               بمساعدة المعالج
-            </button>
+            </button></ControlSlot>
           </>
         )}
         <button
@@ -291,7 +293,7 @@ function Current({
         >
           محاولة غير صحيحة
         </button>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="bs-repeat"
@@ -299,7 +301,7 @@ function Current({
           onClick={() => send({ type: "repeat", prev: false })}
         >
           أعد هذه الحركة
-        </button>
+        </button></ControlSlot>
         <button
           type="button"
           className={styles.btn}
@@ -309,7 +311,7 @@ function Current({
         >
           {round.preview ? "أعد عرض الترتيب" : "أعد عرض الحركة"}
         </button>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="bs-back"
@@ -317,8 +319,8 @@ function Current({
           onClick={() => send({ type: "repeat", prev: true })}
         >
           تراجع: أعد الحركة السابقة
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="bs-skip"
@@ -326,7 +328,7 @@ function Current({
           onClick={() => send({ type: "skip" })}
         >
           تخطَّ الحركة
-        </button>
+        </button></ControlSlot>
       </div>
       <p className={styles.note}>
         «محاولة غير صحيحة» تسجيل منك يُظهر وميضًا لطيفًا فقط؛ لا يُخصم شيء ولا
@@ -428,14 +430,14 @@ function Panel({
       {s.status !== "ended" &&
         s.status !== "stage-complete" &&
         s.status !== "ready" && (
-          <button
+          <ControlSlot slot="session"><button
             className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
             data-testid="bs-safety"
             onClick={() => send({ type: "safety" })}
             aria-label="إيقاف الأمان"
           >
             ⛔ إيقاف الأمان
-          </button>
+          </button></ControlSlot>
         )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -516,7 +518,7 @@ function Panel({
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
-                <LaneMap s={s} />
+                <><ControlSlot slot="preview"><BodySequenceView state={s} connected={can} muted/></ControlSlot><LaneMap s={s} /></>
               </div>
               <p className={styles.note}>
                 يمين ويسار هنا من جهة الطفل نفسه وليس من جهة الشاشة. الطفل يقف
@@ -540,26 +542,26 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="bs-pause"
                     onClick={() => send({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                     data-testid="bs-resume"
                     disabled={!can}
                     onClick={() => send({ type: "resume", at: Date.now() })}
                   >
                     {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="bs-next"
                     onClick={() => send({ type: "next", at: Date.now() })}
@@ -567,7 +569,7 @@ function Panel({
                     {s.stage === 8
                       ? "إنهاء الجلسة وعرض النتائج"
                       : "المرحلة التالية"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <button
@@ -597,17 +599,17 @@ function Panel({
                   إعادة البدء
                 </button>
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="bs-end"
                     onClick={() => setConfirm("end")}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               {confirm && (
-                <div
+                <ControlSlot slot="dialogs"><div
                   className={styles.confirm}
                   role="alertdialog"
                   data-testid="bs-confirm-box"
@@ -649,7 +651,7 @@ function Panel({
                   >
                     لا
                   </button>
-                </div>
+                </div></ControlSlot>
               )}
               <div
                 className={styles.progress}

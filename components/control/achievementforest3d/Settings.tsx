@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { useEffect, useState } from "react";
 import type { Config } from "@/lib/achievementforest/config";
 import { LIMITS } from "@/lib/achievementforest/config";
@@ -19,10 +20,10 @@ export function Settings({ config, set }: { config: Config; set: (c: Partial<Con
   const [profiles, setProfiles] = useState<ProjectionProfile[]>([]);
   useEffect(() => { queueMicrotask(() => setProfiles(loadWallProfiles())); }, []);
   const check = (key: keyof Config, label: string) => (
-    <label className={styles.check}>
+    <ControlSlot slot="settings" when={["sound","reducedMotion"].includes(String(key))}><label className={styles.check}>
       <input type="checkbox" data-testid={`af-opt-${String(key)}`} checked={config[key] as boolean} onChange={(e) => set({ [key]: e.target.checked } as Partial<Config>)} />
       {label}
-    </label>
+    </label></ControlSlot>
   );
   return (
     <details className={styles.opts} data-testid="af-options">

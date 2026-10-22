@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
@@ -351,7 +352,9 @@ function SpacePilotControlScreen({
           <legend className="px-2 text-sm font-bold">
             الطيران ومجال الحركة
           </legend>
-          <label className="text-sm font-semibold sm:col-span-3">
+          <ControlSlot slot="settings" disabled={(
+            !["ready", "paused"].includes(state.lifecycle) || !!countdown
+          )}><label className="text-sm font-semibold sm:col-span-3">
             نمط الطيران
             <select
               aria-label="نمط الطيران"
@@ -373,8 +376,10 @@ function SpacePilotControlScreen({
                 </option>
               ))}
             </select>
-          </label>
-          <label className="text-sm font-semibold">
+          </label></ControlSlot>
+          <ControlSlot slot="settings" disabled={(
+            !["ready", "paused"].includes(state.lifecycle) || !!countdown
+          )}><label className="text-sm font-semibold">
             مساعدة الارتفاع
             <select
               aria-label="مساعدة الارتفاع"
@@ -395,9 +400,11 @@ function SpacePilotControlScreen({
               <option value={1.5}>متوازنة</option>
               <option value={3}>أوضح</option>
             </select>
-          </label>
+          </label></ControlSlot>
           <AdditionalOptions>
-            <label className="text-sm font-semibold">
+            <ControlSlot slot="settings" disabled={(
+            !["ready", "paused"].includes(state.lifecycle) || !!countdown
+          )}><label className="text-sm font-semibold">
               فسحة عبور الحلقة
               <select
                 aria-label="فسحة عبور الحلقة"
@@ -419,7 +426,7 @@ function SpacePilotControlScreen({
                 <option value={0.8}>مريحة</option>
                 <option value={1}>واسعة</option>
               </select>
-            </label>
+            </label></ControlSlot>
             <label className="text-sm font-semibold">
               تطوير المركبة
               <select
@@ -632,7 +639,7 @@ function SpacePilotControlScreen({
           </button>
         )}
         {state.reason && (
-          <p
+          <ControlSlot slot="dialogs"><p
             role="alert"
             className="mt-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900"
           >
@@ -640,7 +647,7 @@ function SpacePilotControlScreen({
               ? "أُعيدت الرحلة. تابع عندما تكون جاهزًا."
               : (reasonArabic[state.reason as SuspendReason] ??
                 "الرحلة متوقفة بأمان. تحقق من الاتصال.")}
-          </p>
+          </p></ControlSlot>
         )}
         {!view.checkpointAvailable && (
           <p className="mt-3 text-sm text-amber-800">
@@ -786,25 +793,25 @@ function SpacePilotControlScreen({
           )}
         </header>
         {error && (
-          <p
+          <ControlSlot slot="dialogs"><p
             role="alert"
             className="rounded-2xl border border-amber-200 bg-amber-50 p-5"
           >
             {error}
-          </p>
+          </p></ControlSlot>
         )}
         {ownership?.kind === "superseded" && (
-          <p
+          <ControlSlot slot="dialogs"><p
             role="alert"
             data-testid="sp-superseded"
             className="rounded-2xl border border-amber-200 bg-amber-50 p-5"
           >
             تم نقل هذه الجلسة إلى نافذة تحكم أخرى. هذه النافذة لم تعد تتحكم
             بالرحلة، أغلقها أو أعد تحميلها.
-          </p>
+          </p></ControlSlot>
         )}
         {ownership?.kind === "blocked" && (
-          <div
+          <ControlSlot slot="dialogs"><div
             role="alert"
             data-testid="sp-recovery-blocked"
             className="rounded-2xl border border-amber-200 bg-amber-50 p-5"
@@ -828,7 +835,7 @@ function SpacePilotControlScreen({
                 استعادة الرحلة هنا
               </button>
             )}
-          </div>
+          </div></ControlSlot>
         )}
         {ownership?.kind === "recovered" &&
           state &&
@@ -853,7 +860,7 @@ function SpacePilotControlScreen({
           <>
             {setupSettings}
             {integrated && (
-              <ManualFlightControls
+              <ControlSlot slot="assistance"><ManualFlightControls
                 key={`${state.runId}/${state.inputMode}/${state.inputEpoch}`}
                 send={manual}
                 mode={state.accessibility.mode}
@@ -863,7 +870,7 @@ function SpacePilotControlScreen({
                   ended ||
                   state.lifecycle === "completed"
                 }
-              />
+              /></ControlSlot>
             )}
             {cloud && (
               <p
@@ -995,30 +1002,30 @@ function SpacePilotControlScreen({
                   </button>
                 )}
                 {state.lifecycle === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={button}
                     onClick={() => action({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {stopped && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={button}
                     disabled={!view.ready}
                     onClick={() => action({ type: "resume" })}
                   >
                     متابعة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {state.lifecycle === "mission-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={button}
                     disabled={!view.ready}
                     onClick={() => action({ type: "next-mission" })}
                   >
                     المرحلة التالية
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {state.curriculumId && (
                   <>
@@ -1069,13 +1076,13 @@ function SpacePilotControlScreen({
                 >
                   إعادة الرحلة
                 </button>
-                <button
+                <ControlSlot slot="session"><button
                   className="rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold disabled:opacity-35"
                   disabled={ended || state.lifecycle === "ready"}
                   onClick={() => action({ type: "end" })}
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               </div>
               <p className="mt-4 text-xs text-slate-500">
                 إعادة الرحلة تمسح نتائج المحاولة وتنتظر الاستعداد. تغيير طريقة

@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -67,14 +68,14 @@ function RealtimeRunnerQuestControl() {
   if (c.authPhase !== "authorized") return <Shell><Spinner label="جاري تجهيز الاتصال..." /></Shell>;
   return (
     <Shell right={<ConnectionBadge status={c.connectionStatus} hasLoadedInitialSession syncRestoredAt={null} />}>
-      {!c.isOwner && <LeaseContestedOverlay onTakeOver={c.claimOwnership} takeoverBlocked={c.takeoverBlocked} />}
+      {!c.isOwner && <ControlSlot slot="dialogs"><LeaseContestedOverlay onTakeOver={c.claimOwnership} takeoverBlocked={c.takeoverBlocked} /></ControlSlot>}
       {c.runtime && c.view ? (
         <RunnerControlPanels runtime={c.runtime} view={c.view} options={{
           crossDevice: true, requireChildName: true, childName: c.childName, onChildNameChange: c.setChildName, onRequestEnd: () => setEndOpen(true),
           showSimulator: SHOW_SIMULATOR, inputSources: PRODUCTION_INPUT_SOURCES, publishError: c.publishError,
         }} />
       ) : <Spinner label="جاري التحقق من الجلسة..." />}
-      <EndSessionReasonSheet open={endOpen} onCancel={() => setEndOpen(false)} onConfirm={(selection) => { c.endWithReason(selection); setEndOpen(false); }} />
+      <ControlSlot slot="dialogs"><EndSessionReasonSheet open={endOpen} onCancel={() => setEndOpen(false)} onConfirm={(selection) => { c.endWithReason(selection); setEndOpen(false); }} /></ControlSlot>
     </Shell>
   );
 }

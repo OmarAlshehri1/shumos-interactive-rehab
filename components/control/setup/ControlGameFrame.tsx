@@ -12,6 +12,7 @@ import { GAME_INSTRUCTIONS } from "@/lib/games/setup/introduction";
 import styles from "./controlSetup.module.css";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
+import { ControlWorkspace, SetupOnly, WorkspaceNative } from "@/components/control/ui/ControlWorkspace";
 const GameContext = createContext<GameId | null>(null);
 export const useControlGameId = () => useContext(GameContext);
 /** One Control-only surface. Native game providers, commands and Display themes remain owned by their games. */
@@ -21,10 +22,9 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
   const game = GAME_REGISTRY.find((g) => g.route === path);
   if (!game) return <>{children}</>;
   const thumbnail = realGameThumbnail(game.id);
-  const reference = game.id === "shumos-castle-legends-3d";
   return (
     <GameContext.Provider value={game.id}>
-      <div className={`${styles.frame} ${reference ? styles.referenceFrame : ""}`} data-control-game={game.id} dir="rtl">
+      <div className={`${styles.frame} ${styles.premiumFrame}`} data-control-game={game.id} dir="rtl">
         <ControlPageNav
           backHref={selectedPatient ? `/control/patients/${selectedPatient.patientId}` : "/control/activities"}
           backLabel={selectedPatient ? "ملف المريض" : "مكتبة الأنشطة"}
@@ -34,7 +34,7 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
             فتح العرض ↗
           </a>
         </ControlPageNav>
-        <header className={styles.header}>
+        <ControlWorkspace game={game}><SetupOnly><header className={styles.header}>
           {thumbnail && (
             <Image
               src={thumbnail}
@@ -56,7 +56,7 @@ export function ControlGameFrame({ children }: { children: ReactNode }) {
         </header>
         <LibraryLaunchControls />
         <PatientContextBanner />
-        <div className={reference ? styles.referenceNative : styles.native}>{children}</div>
+        </SetupOnly><WorkspaceNative className={game.id === "shumos-castle-legends-3d" ? styles.referenceNative : styles.native}>{children}</WorkspaceNative></ControlWorkspace>
       </div>
     </GameContext.Provider>
   );

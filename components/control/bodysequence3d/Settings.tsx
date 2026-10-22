@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { useEffect, useState } from "react";
 import { LIMITS, type Config } from "@/lib/bodysequence3d/config";
 import type { Command, State } from "@/lib/bodysequence3d/engine";
@@ -66,7 +67,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
       <details open>
         <summary>القدمان والحركات المسموحة</summary>
         <label>القدم التي تتحرك</label>
-        <div
+        <ControlSlot slot="settings"><div
           className={styles.seg}
           role="group"
           aria-label="القدمان المسموحتان"
@@ -90,7 +91,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
               {l}
             </button>
           ))}
-        </div>
+        </div></ControlSlot>
         <p className={styles.note}>
           عند اختيار قدم واحدة تتحرك القدم الأخرى لا تُطلب منها حركة (في «قدم
           تبقى» تثبت في مكانها). مراحل التبديل تكرر القدم المسموحة.
@@ -136,7 +137,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
 
       <details open>
         <summary>الممرّات والتباعد الآمن</summary>
-        <label htmlFor="bs-spacing">
+        <ControlSlot slot="settings"><label htmlFor="bs-spacing">
           حجم الممرّات والتباعد: ×{c.spacing.toFixed(2)}
         </label>
         <input
@@ -149,7 +150,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           value={c.spacing}
           disabled={!structural}
           onChange={(e) => cfg({ spacing: Number(e.target.value) })}
-        />
+        /></ControlSlot>
         <p className={styles.note}>
           صغّر التباعد لطفل يحتاج خطوة قصيرة وكبّره لمساحة أوسع. اضبطه بنظرك على
           الأرض؛ الوحدات تخطيطية وليست سنتيمترات، ولا يفترض التطبيق أن البكسل
@@ -200,7 +201,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           />{" "}
           وقفات الثبات (قدم تثبت، توقّف)
         </label>
-        <label htmlFor="bs-holdms">مدة الوقفة: {c.holdMs / 1000} ثانية</label>
+        <ControlSlot slot="settings"><label htmlFor="bs-holdms">مدة الوقفة: {c.holdMs / 1000} ثانية</label>
         <input
           id="bs-holdms"
           data-testid="bs-holdms"
@@ -211,7 +212,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           value={c.holdMs}
           disabled={!structural || !c.holds}
           onChange={(e) => cfg({ holdMs: Number(e.target.value) })}
-        />
+        /></ControlSlot>
         <p className={styles.note}>
           إن أوقفت الوقفات تكتمل حركة «اثبت» و«توقّف» بتأكيدك مباشرة. الوقفة
           تُحسب بساعة اللعب والمعالج هو من يلاحظ ثبات الطفل.
@@ -263,7 +264,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
 
       <details>
         <summary>حساسات القدم (اختيارية)</summary>
-        <label htmlFor="bs-input-mode">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="bs-input-mode">وضع الإدخال</label>
         <select
           id="bs-input-mode"
           data-testid="bs-input-mode"
@@ -277,7 +278,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           <option value="RIGHT_FOOT">القدم اليمنى</option>
           <option value="LEFT_FOOT">القدم اليسرى</option>
           <option value="DUAL_FOOT">القدمان</option>
-        </select>
+        </select></ControlSlot>
         <label htmlFor="bs-input-source">مصدر الحساسات</label>
         <select
           id="bs-input-source"

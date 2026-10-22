@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
@@ -161,7 +162,7 @@ function ConnectedControl() {
     return (
       <div className={styles.wait}>
         موسم الحصاد · بانتظار اتصال حساب الموظف{" "}
-        {error && <p role="alert">{error}</p>}
+        {error && <ControlSlot slot="dialogs"><p role="alert">{error}</p></ControlSlot>}
       </div>
     );
   const ready = state.status === "ready",
@@ -213,7 +214,7 @@ function ConnectedControl() {
         يحدد المعالج الوضعية الآمنة والمساعدة المناسبة. لا يلزم الوقوف أو المشي.
       </p>
       <fieldset disabled={!ready || !connected}>
-        <label>
+        <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
           المشاركة
           <select
             value={state.config.mode}
@@ -225,7 +226,7 @@ function ConnectedControl() {
               </option>
             ))}
           </select>
-        </label>
+        </label></ControlSlot>
         {(
           [
             ["coverage", "هدف التغطية (%)", 5, 100, 5],
@@ -241,7 +242,7 @@ function ConnectedControl() {
             ["volume", "مستوى الصوت", 0, 0.3, 0.01],
           ] as const
         ).map(([k, label, min, max, step]) => (
-          <label key={k}>
+          <ControlSlot slot="settings" key={k} when={["speed","assistance","movementRange"].includes(k)} disabled={(!ready || !connected)}><label key={k}>
             {label}
             <input
               aria-label={label}
@@ -252,7 +253,7 @@ function ConnectedControl() {
               value={state.config[k]}
               onChange={(e) => config({ [k]: +e.target.value })}
             />
-          </label>
+          </label></ControlSlot>
         ))}
         {(
           [
@@ -451,14 +452,14 @@ function ConnectedControl() {
         <span>عرض جداري · يمكن اللعب جلوسًا</span>
       </div>
       {error && (
-        <p className={styles.error} role="alert">
+        <ControlSlot slot="dialogs"><p className={styles.error} role="alert">
           {error}
-        </p>
+        </p></ControlSlot>
       )}
       <div className={styles.layout}>
         <section className={styles.world}>
           <div className={styles.actions}>
-            <button
+            <ControlSlot slot="session"><button
               disabled={
                 !connected || !["ready", "paused"].includes(state.status)
               }
@@ -470,19 +471,19 @@ function ConnectedControl() {
               }}
             >
               {state.status === "paused" ? "استئناف" : "بدء الحصاد"}
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="session"><button
               disabled={!connected || !running}
               onClick={() => send({ type: "pause" })}
             >
               استراحة
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "repeat" })}
             >
               تكرار الصف
-            </button>
+            </button></ControlSlot>
             <button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "reposition" })}
@@ -501,7 +502,7 @@ function ConnectedControl() {
             >
               تجاوز المرحلة
             </button>
-            <button
+            <ControlSlot slot="settings"><button
               disabled={
                 !connected ||
                 state.status !== "stage-complete" ||
@@ -510,7 +511,7 @@ function ConnectedControl() {
               onClick={() => send({ type: "next" })}
             >
               المرحلة التالية
-            </button>
+            </button></ControlSlot>
             <button
               disabled={!connected}
               onClick={() => {
@@ -520,14 +521,14 @@ function ConnectedControl() {
             >
               إعادة الجلسة
             </button>
-            <button
+            <ControlSlot slot="session"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "end", at: Date.now() })}
             >
               إنهاء والنتائج
-            </button>
+            </button></ControlSlot>
           </div>
-          <FarmView state={state} connected={connected} />
+          <ControlSlot slot="preview"><FarmView state={state} connected={connected} /></ControlSlot>
 
           <div className={styles.mapCard}>
             <div className={styles.cardTitle}>
@@ -688,12 +689,12 @@ function ConnectedControl() {
               >
                 {state.harvesting ? "إيقاف الحصاد" : "تشغيل الحصاد"}
               </button>
-              <button
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || !running}
                 onClick={() => send({ type: "assist", token: tokenFor(state) })}
               >
                 أكّد حصاد الخلية بمساعدة
-              </button>
+              </button></ControlSlot>
             </div>
 
             {state.status === "ended" && (

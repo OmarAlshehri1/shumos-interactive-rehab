@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
@@ -170,7 +171,7 @@ function ConnectedBloomControl() {
     return (
       <div className={styles.wait}>
         الحديقة التي تستيقظ · بانتظار اتصال حساب الموظف{" "}
-        {error && <p role="alert">{error}</p>}
+        {error && <ControlSlot slot="dialogs"><p role="alert">{error}</p></ControlSlot>}
         <Link href="/control">العودة</Link>
       </div>
     );
@@ -221,7 +222,7 @@ function ConnectedBloomControl() {
             </button>
           ))}
         </div>
-        <label>
+        <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
           طريقة المشاركة
           <select
             value={state.config.mode}
@@ -233,7 +234,7 @@ function ConnectedBloomControl() {
               </option>
             ))}
           </select>
-        </label>
+        </label></ControlSlot>
         <label>
           هدف المناطق{" "}
           <input
@@ -245,7 +246,7 @@ function ConnectedBloomControl() {
           />
           <small>0 = هدف المرحلة ({STAGES[state.stage].regions})</small>
         </label>
-        <label>
+        <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
           تكرارات كل منطقة
           <input
             type="number"
@@ -254,7 +255,7 @@ function ConnectedBloomControl() {
             value={state.config.repetitions}
             onChange={(e) => config({ repetitions: +e.target.value })}
           />
-        </label>
+        </label></ControlSlot>
         {(
           [
             ["targetSize", "حجم المنطقة", 0.65, 1.5, 0.05],
@@ -264,7 +265,7 @@ function ConnectedBloomControl() {
             ["deadZone", "المنطقة الميتة", 0, 0.2, 0.01],
           ] as const
         ).map(([k, title, min, max, step]) => (
-          <label key={k}>
+          <ControlSlot slot="settings" when={k === "movementRange"} key={k} disabled={!ready || !connected}><label key={k}>
             {title}
             <input
               type="range"
@@ -274,7 +275,7 @@ function ConnectedBloomControl() {
               value={state.config[k]}
               onChange={(e) => config({ [k]: +e.target.value })}
             />
-          </label>
+          </label></ControlSlot>
         ))}
         <label>
           تسلسل المناطق
@@ -509,14 +510,14 @@ function ConnectedBloomControl() {
         </span>
       </div>
       {error && (
-        <p role="alert" className={styles.error}>
+        <ControlSlot slot="dialogs"><p role="alert" className={styles.error}>
           {error}
-        </p>
+        </p></ControlSlot>
       )}
       <div className={styles.layout}>
         <section className={styles.world}>
           <div className={styles.actions}>
-            <button
+            <ControlSlot slot="session"><button
               disabled={
                 !connected ||
                 !["ready", "paused"].includes(state.status) ||
@@ -527,19 +528,19 @@ function ConnectedBloomControl() {
               }
             >
               {state.status === "paused" ? "استئناف" : "بدء الحديقة"}
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="session"><button
               disabled={!connected || state.status !== "running"}
               onClick={() => send({ type: "pause" })}
             >
               استراحة
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "repeat" })}
             >
               تكرار المنطقة
-            </button>
+            </button></ControlSlot>
             <button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "skip-region" })}
@@ -552,7 +553,7 @@ function ConnectedBloomControl() {
             >
               تجاوز المرحلة
             </button>
-            <button
+            <ControlSlot slot="settings"><button
               disabled={
                 !connected ||
                 state.status !== "stage-complete" ||
@@ -561,21 +562,21 @@ function ConnectedBloomControl() {
               onClick={() => send({ type: "next" })}
             >
               المرحلة التالية
-            </button>
+            </button></ControlSlot>
             <button
               disabled={!connected}
               onClick={() => send({ type: "restart" })}
             >
               إعادة الجلسة
             </button>
-            <button
+            <ControlSlot slot="session"><button
               disabled={!connected || state.status === "ended"}
               onClick={() => send({ type: "end", at: Date.now() })}
             >
               إنهاء والنتائج
-            </button>
+            </button></ControlSlot>
           </div>
-          <GardenView state={state} connected={connected} />
+          <ControlSlot slot="preview"><GardenView state={state} connected={connected} /></ControlSlot>
 
           <div className={styles.mapCard}>
             <div className={styles.cardTitle}>
@@ -628,20 +629,20 @@ function ConnectedBloomControl() {
                 );
               })}
             </div>
-            <div className={styles.confirm}>
-              <button
+            <ControlSlot slot="dialogs"><div className={styles.confirm}>
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || state.status !== "running"}
                 onClick={() => bloom(false)}
               >
                 ✿ أكّد الإزهار · {state.active + 1}
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="assistance"><button
                 disabled={!connected || state.status !== "running"}
                 onClick={() => bloom(true)}
               >
                 إزهار بمساعدة
-              </button>
-            </div>
+              </button></ControlSlot>
+            </div></ControlSlot>
 
             {state.status === "ended" && (
               <div className={styles.results}>

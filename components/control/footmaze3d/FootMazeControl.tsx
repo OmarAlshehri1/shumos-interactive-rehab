@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { FootMazeView } from "@/components/display/footmaze3d/FootMazeView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Link from "next/link";
 import { useState } from "react";
@@ -260,7 +262,7 @@ function Current({
         </button>
       </div>
       <div className={styles.actions} style={{ marginTop: 4 }}>
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="fm-repeat"
@@ -268,8 +270,8 @@ function Current({
           onClick={() => send({ type: "repeat", prev: false })}
         >
           أعد هذه الخطوة
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="fm-back"
@@ -279,8 +281,8 @@ function Current({
           onClick={() => send({ type: "repeat", prev: true })}
         >
           تراجع: أعد النقطة السابقة
-        </button>
-        <button
+        </button></ControlSlot>
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="fm-skip"
@@ -288,7 +290,7 @@ function Current({
           onClick={() => send({ type: "skip" })}
         >
           تخطَّ النجمة التالية
-        </button>
+        </button></ControlSlot>
         <button
           type="button"
           className={styles.btn}
@@ -426,14 +428,14 @@ function Panel({
       {s.status !== "ended" &&
         s.status !== "stage-complete" &&
         s.status !== "ready" && (
-          <button
+          <ControlSlot slot="session"><button
             className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
             data-testid="fm-safety"
             onClick={() => send({ type: "safety" })}
             aria-label="إيقاف الأمان"
           >
             ⛔ إيقاف الأمان
-          </button>
+          </button></ControlSlot>
         )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -515,7 +517,7 @@ function Panel({
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
-                <MazeMap s={s} send={send} enabled={can} />
+                <><ControlSlot slot="preview"><FootMazeView state={s} connected={can} muted/></ControlSlot><MazeMap s={s} send={send} enabled={can} /></>
               </div>
               <div className={styles.legend}>
                 <span>
@@ -568,26 +570,26 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="fm-pause"
                     onClick={() => send({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                     data-testid="fm-resume"
                     disabled={!can}
                     onClick={() => send({ type: "resume", at: Date.now() })}
                   >
                     {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="fm-next"
                     onClick={() => send({ type: "next", at: Date.now() })}
@@ -595,7 +597,7 @@ function Panel({
                     {s.stage === 8
                       ? "إنهاء الجلسة وعرض النتائج"
                       : "المرحلة التالية"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <button
@@ -625,17 +627,17 @@ function Panel({
                   إعادة البدء
                 </button>
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="fm-end"
                     onClick={() => setConfirm("end")}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               {confirm && (
-                <div
+                <ControlSlot slot="dialogs"><div
                   className={styles.confirm}
                   role="alertdialog"
                   data-testid="fm-confirm-box"
@@ -677,7 +679,7 @@ function Panel({
                   >
                     لا
                   </button>
-                </div>
+                </div></ControlSlot>
               )}
               <div
                 className={styles.progress}

@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
@@ -101,7 +102,7 @@ function LiveMirrorControl() {
       {(s.status !== "ready" || !!s.startedAt) && setupStages}
 
       <div>
-        <label htmlFor="hold">مدة الثبات</label>
+        <ControlSlot slot="settings"><label htmlFor="hold">مدة الثبات</label>
         <select
           id="hold"
           value={s.config.holdMs}
@@ -118,7 +119,7 @@ function LiveMirrorControl() {
               {n / 1000} ثانية
             </option>
           ))}
-        </select>
+        </select></ControlSlot>
       </div>
       <AdditionalOptions>
         <div>
@@ -176,7 +177,7 @@ function LiveMirrorControl() {
         </select>
       </div>
       <div>
-        <label htmlFor="presentation">عرض الشخصية</label>
+        <ControlSlot slot="settings"><label htmlFor="presentation">عرض الشخصية</label>
         <select
           id="presentation"
           value={s.config.presentation}
@@ -192,10 +193,10 @@ function LiveMirrorControl() {
         >
           <option value="seated">جالس</option>
           <option value="standing">واقف</option>
-        </select>
+        </select></ControlSlot>
       </div>
       <div>
-        <label htmlFor="input">مصدر الحركة</label>
+        <ControlSlot slot="settings"><label htmlFor="input">مصدر الحركة</label>
         <select
           id="input"
           value={s.config.input}
@@ -210,7 +211,7 @@ function LiveMirrorControl() {
           <option value="manual">يدوي · بدون حساسات</option>
           <option value="simulated">حساسات محاكاة</option>
           <option disabled>حساسات فعلية · بانتظار التحقق</option>
-        </select>
+        </select></ControlSlot>
       </div>
 
       <label>
@@ -292,7 +293,7 @@ function LiveMirrorControl() {
         </header>
         <div className={styles.grid}>
           <div className={styles.main}>
-            <MirrorView state={s} />
+            <ControlSlot slot="preview"><MirrorView state={s} /></ControlSlot>
             <div className={styles.characters}>
               {CHARACTERS.map((character) => (
                 <button
@@ -444,18 +445,18 @@ function LiveMirrorControl() {
                       <span>{Math.round(s.player[l] * 100)}%</span>
                     </div>
                   ))}
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.button}
                     disabled={s.status !== "running"}
                     onClick={() => send({ type: "pause" })}
                   >
                     محاكاة فقد الحساس
-                  </button>
+                  </button></ControlSlot>
                 </div>
               )}
               <div className={styles.actions}>
                 {(s.status === "ready" || s.status === "paused") && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.button} ${styles.primary}`}
                     disabled={!session.connected || session.blocked}
                     onClick={() =>
@@ -466,43 +467,43 @@ function LiveMirrorControl() {
                     }
                   >
                     {s.status === "ready" ? "ابدأ الرحلة" : "متابعة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "running" && (
                   <>
-                    <button
+                    <ControlSlot slot="session"><button
                       className={`${styles.button} ${styles.primary}`}
                       onClick={() => send({ type: "pause" })}
                     >
                       إيقاف مؤقت
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={styles.button}
                       onClick={() => send({ type: "repeat" })}
                     >
                       أعد الحركة
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={styles.button}
                       onClick={() => send({ type: "assist" })}
                     >
                       قبول بمساعدة المعالج
-                    </button>
-                    <button
+                    </button></ControlSlot>
+                    <ControlSlot slot="assistance"><button
                       className={styles.button}
                       onClick={() => send({ type: "skip" })}
                     >
                       تجاوز الحركة
-                    </button>
+                    </button></ControlSlot>
                   </>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={`${styles.button} ${styles.primary}`}
                     onClick={() => send({ type: "next", at: Date.now() })}
                   >
                     {s.stage === 8 ? "إنهاء الرحلة" : "المرحلة التالية"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 <button
                   className={styles.button}
@@ -511,12 +512,12 @@ function LiveMirrorControl() {
                   إعادة البدء
                 </button>
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.button}
                     onClick={() => send({ type: "end", at: Date.now() })}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               <div

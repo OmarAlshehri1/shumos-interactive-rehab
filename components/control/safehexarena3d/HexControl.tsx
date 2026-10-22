@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { HexView } from "@/components/display/safehexarena3d/HexView";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
@@ -151,7 +153,7 @@ function Panel({
       {(s.status !== "ready" || !!s.startedAt) && setupStages}
 
       <div>
-        <label htmlFor="warnMs">مدة التحذير</label>
+        <ControlSlot slot="settings"><label htmlFor="warnMs">مدة التحذير</label>
         <select
           id="warnMs"
           value={s.config.warnMs}
@@ -163,10 +165,10 @@ function Panel({
               {n / 1000} ثانية{n === 5000 ? " (افتراضي)" : ""}
             </option>
           ))}
-        </select>
+        </select></ControlSlot>
       </div>
       <div>
-        <label htmlFor="prepMs">مدة التحضير</label>
+        <ControlSlot slot="settings"><label htmlFor="prepMs">مدة التحضير</label>
         <select
           id="prepMs"
           value={s.config.prepMs}
@@ -178,7 +180,7 @@ function Panel({
               {n / 1000} ثانية
             </option>
           ))}
-        </select>
+        </select></ControlSlot>
       </div>
       <label className={styles.check}>
         <input
@@ -201,7 +203,7 @@ function Panel({
 
       <h2>مصدر الحركة</h2>
       <div>
-        <label htmlFor="input">وضع الإدخال</label>
+        <ControlSlot slot="settings"><label htmlFor="input">وضع الإدخال</label>
         <select
           id="input"
           value={
@@ -221,7 +223,7 @@ function Panel({
           <option value="LEFT_FOOT">محاكاة · القدم اليسرى</option>
           <option value="DUAL_FOOT">محاكاة · القدمان</option>
           <option disabled>حساسات فعلية · بانتظار التحقق</option>
-        </select>
+        </select></ControlSlot>
       </div>
       {roles.length > 0 && (
         <div className={styles.sim}>
@@ -440,14 +442,14 @@ function Panel({
       data-safety={s.safety ? "1" : "0"}
     >
       {s.status !== "ended" && s.status !== "stage-complete" && (
-        <button
+        <ControlSlot slot="session"><button
           className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
           data-testid="safety"
           onClick={() => send({ type: "safety" })}
           aria-label="إيقاف الأمان"
         >
           ⛔ إيقاف الأمان
-        </button>
+        </button></ControlSlot>
       )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -501,7 +503,7 @@ function Panel({
                   البلاطة التي وقف عليها الطفل ثم أكّد.
                 </div>
               )}
-              <HexMap state={s} selected={sel} onSelect={setPicked} />
+              <><ControlSlot slot="preview"><HexView state={{...s,config:{...s.config,sound:false}}} connected={can}/></ControlSlot><ControlSlot slot="assistance"><HexMap state={s} selected={sel} onSelect={setPicked} /></ControlSlot></>
               <p className={styles.note}>
                 اضغط بلاطة لتحديدها، ثم استخدم الأزرار. لا يتغيّر شيء قبل الضغط
                 على زر. الخطوط الخضراء المتقطعة: بلاطات آمنة مجاورة لبلاطة
@@ -520,29 +522,29 @@ function Panel({
                 </button>
               )}
               {s.status === "running" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={styles.btn}
                   onClick={() => send({ type: "pause" })}
                 >
                   إيقاف مؤقت
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "paused" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                   disabled={!can}
                   onClick={() => send({ type: "resume", at: Date.now() })}
                 >
                   {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                </button>
+                </button></ControlSlot>
               )}
               {s.status === "stage-complete" && (
-                <button
+                <ControlSlot slot="settings"><button
                   className={`${styles.btn} ${styles.primary}`}
                   onClick={() => send({ type: "next", at: Date.now() })}
                 >
                   {s.stage === 8 ? "إنهاء الجلسة" : "المرحلة التالية"}
-                </button>
+                </button></ControlSlot>
               )}
             </div>
 
@@ -582,7 +584,7 @@ function Panel({
                 >
                   هنا يقف الطفل
                 </button>
-                <button
+                <ControlSlot slot="assistance"><button
                   className={`${styles.btn} ${styles.primary}`}
                   disabled={!inRound || !selSafe}
                   onClick={() =>
@@ -591,8 +593,8 @@ function Panel({
                   }
                 >
                   أكّد: وصل لبلاطة آمنة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   className={`${styles.btn} ${styles.assist}`}
                   disabled={!inRound || !selSafe}
                   onClick={() =>
@@ -601,14 +603,14 @@ function Panel({
                   }
                 >
                   انتقال بمساعدة
-                </button>
-                <button
+                </button></ControlSlot>
+                <ControlSlot slot="assistance"><button
                   className={styles.btn}
                   disabled={resolved || s.phase === "restoring"}
                   onClick={() => send({ type: "repeat" })}
                 >
                   أعد الجولة
-                </button>
+                </button></ControlSlot>
                 <button
                   className={styles.btn}
                   disabled={resolved || s.phase === "restoring"}
@@ -632,12 +634,12 @@ function Panel({
                 إعادة البدء
               </button>
               {s.status !== "ended" && (
-                <button
+                <ControlSlot slot="session"><button
                   className={styles.btn}
                   onClick={() => send({ type: "end", at: Date.now() })}
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               )}
             </div>
 

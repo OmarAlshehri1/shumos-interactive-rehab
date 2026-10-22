@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageGroup,
@@ -181,7 +182,7 @@ function Panel({
   mappingError: string;
 }) {
   const { send } = runtime;
-  const [preview, setPreview] = useState(false);
+  const [preview, setPreview] = useState(true);
   // every touch-held control is tracked by id, so steering and throttle can be held at the same time
   const held = useRef(new Map<string, Partial<Input>>());
   const enabled = runtime.connected && !runtime.blocked;
@@ -378,7 +379,7 @@ function Panel({
           disabled={!enabled || s.status === "ended"}
           className={styles.settings}
         >
-          <label>
+          <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
             مصدر التحكم
             <select
               aria-label="مصدر التحكم"
@@ -399,7 +400,7 @@ function Panel({
                 مقود ودواسة · تحقق فعلي معلق
               </option>
             </select>
-          </label>
+          </label></ControlSlot>
           <button
             data-testid="manual-fallback"
             type="button"
@@ -424,7 +425,7 @@ function Panel({
               </option>
             </select>
           </label>
-          <label>
+          <ControlSlot slot="settings" disabled={(!enabled || s.status === "ended")}><label>
             طريقة التثبيت
             <select
               aria-label="طريقة التثبيت"
@@ -439,7 +440,7 @@ function Panel({
               <option value="pedal">ضغط الدواسة بلطف</option>
               <option value="tap">ضغطات قصيرة متكررة</option>
             </select>
-          </label>
+          </label></ControlSlot>
           {s.config.holdMode === "steering" && (
             <label>
               اتجاه المقود
@@ -580,9 +581,9 @@ function Panel({
           hardware={runtime.hardware}
         />
         {mappingError && (
-          <p role="alert" className={styles.warning}>
+          <ControlSlot slot="dialogs"><p role="alert" className={styles.warning}>
             {mappingError}
-          </p>
+          </p></ControlSlot>
         )}
       </section>
       <section className={`${styles.card} ${styles.status}`} role="status">
@@ -740,7 +741,7 @@ function Panel({
               </label>
               {preview ? (
                 <div className={styles.preview}>
-                  <PearlVoyageView state={s} connected={enabled} muted />
+                  <ControlSlot slot="preview"><PearlVoyageView state={s} connected={enabled} muted /></ControlSlot>
                 </div>
               ) : (
                 <div className={styles.missionMap}>
@@ -790,26 +791,26 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     data-testid="pause"
                     disabled={!enabled}
                     onClick={() => action({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     data-testid="resume"
                     className={styles.primary}
                     disabled={!enabled}
                     onClick={() => action({ type: "resume", at: Date.now() })}
                   >
                     استئناف الرحلة
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     data-testid="next"
                     className={styles.primary}
                     disabled={!enabled}
@@ -818,7 +819,7 @@ function Panel({
                     {s.stage === STAGES.length - 1
                       ? "إنهاء وحفظ النتائج"
                       : "المرحلة التالية ←"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status !== "ended" && (
                   <button
@@ -848,7 +849,7 @@ function Panel({
                   {MODE_LABEL[s.config.control]}
                 </span>
               </div>
-              <div className={styles.controls}>
+              <ControlSlot slot="assistance"><div className={styles.controls}>
                 <div className={styles.steering} dir="ltr">
                   {holdButton(
                     "left",
@@ -927,7 +928,7 @@ function Panel({
                   />
                   <span>{Math.round(s.hold * 100)}٪</span>
                 </div>
-              </div>
+              </div></ControlSlot>
               <div className={styles.toggleRow}>
                 <label className={styles.switch}>
                   <input
@@ -949,7 +950,7 @@ function Panel({
                   />
                   تثبيت تلقائي
                 </label>
-                <label className={styles.inlineSlider}>
+                <ControlSlot slot="settings"><label className={styles.inlineSlider}>
                   مساعدة التوجيه
                   <input
                     aria-label="مساعدة التوجيه السريعة"
@@ -964,10 +965,10 @@ function Panel({
                       cfg({ steeringAssist: Number(e.target.value) })
                     }
                   />
-                </label>
+                </label></ControlSlot>
               </div>
               <div className={styles.actions}>
-                <button
+                <ControlSlot slot="assistance"><button
                   data-testid="assist"
                   className={styles.assist}
                   disabled={
@@ -978,7 +979,7 @@ function Panel({
                   onClick={() => action({ type: "assist" })}
                 >
                   مساعدة المعالج الكاملة
-                </button>
+                </button></ControlSlot>
                 <button
                   data-testid="reset"
                   disabled={
@@ -990,7 +991,7 @@ function Panel({
                 >
                   إعادة وضع القارب
                 </button>
-                <button
+                <ControlSlot slot="assistance"><button
                   data-testid="repeat"
                   disabled={
                     !enabled || !["running", "paused"].includes(s.status)
@@ -998,7 +999,7 @@ function Panel({
                   onClick={() => action({ type: "repeat" })}
                 >
                   أعد الاكتشاف
-                </button>
+                </button></ControlSlot>
                 <button
                   data-testid="skip-objective"
                   disabled={
@@ -1117,13 +1118,13 @@ function Panel({
                 >
                   تجاوز المرحلة
                 </button>
-                <button
+                <ControlSlot slot="session"><button
                   data-testid="end"
                   disabled={!enabled || s.status === "ended"}
                   onClick={() => action({ type: "end", at: Date.now() })}
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               </div>
             </section>
           </div>

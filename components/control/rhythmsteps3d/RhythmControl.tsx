@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { RhythmView } from "@/components/display/rhythmsteps3d/RhythmView";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Link from "next/link";
 import { useState } from "react";
@@ -159,7 +161,7 @@ function CurrentStep({
         {cur.kind === "hold" ? (
           holding ? (
             <>
-              <button
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={`${styles.btn} ${styles.good}`}
                 data-testid="rs-hold-done"
@@ -169,8 +171,8 @@ function CurrentStep({
                 }
               >
                 أنهِ الثبات ✓ نجح
-              </button>
-              <button
+              </button></ControlSlot>
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={`${styles.btn} ${styles.assist}`}
                 data-testid="rs-hold-assist"
@@ -180,7 +182,7 @@ function CurrentStep({
                 }
               >
                 أنهِ بمساعدة
-              </button>
+              </button></ControlSlot>
               <button
                 type="button"
                 className={styles.btn}
@@ -202,7 +204,7 @@ function CurrentStep({
               >
                 ابدأ الثبات
               </button>
-              <button
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={`${styles.btn} ${styles.assist}`}
                 data-testid="rs-hold-assist"
@@ -212,12 +214,12 @@ function CurrentStep({
                 }
               >
                 أنهِ بمساعدة
-              </button>
+              </button></ControlSlot>
             </>
           )
         ) : (
           <>
-            <button
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.good}`}
               data-testid="rs-confirm"
@@ -225,8 +227,8 @@ function CurrentStep({
               onClick={() => send({ type: "confirm", id, assisted: false })}
             >
               ✓ أكّد: نُفّذت الحركة
-            </button>
-            <button
+            </button></ControlSlot>
+            <ControlSlot slot="assistance"><button
               type="button"
               className={`${styles.btn} ${styles.assist}`}
               data-testid="rs-assist"
@@ -234,10 +236,10 @@ function CurrentStep({
               onClick={() => send({ type: "confirm", id, assisted: true })}
             >
               بمساعدة المعالج
-            </button>
+            </button></ControlSlot>
           </>
         )}
-        <button
+        <ControlSlot slot="assistance"><button
           type="button"
           className={styles.btn}
           data-testid="rs-skip"
@@ -245,7 +247,7 @@ function CurrentStep({
           onClick={() => send({ type: "skip", id })}
         >
           تخطَّ الهدف
-        </button>
+        </button></ControlSlot>
       </div>
     </div>
   );
@@ -335,14 +337,14 @@ function Panel({
       {s.status !== "ended" &&
         s.status !== "stage-complete" &&
         s.status !== "ready" && (
-          <button
+          <ControlSlot slot="session"><button
             className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`}
             data-testid="rs-safety"
             onClick={() => send({ type: "safety" })}
             aria-label="إيقاف الأمان"
           >
             ⛔ إيقاف الأمان
-          </button>
+          </button></ControlSlot>
         )}
       <div className={styles.inner}>
         <header data-native-game-header className={styles.header}>
@@ -414,7 +416,7 @@ function Panel({
                 </div>
               )}
               <div style={{ marginTop: 10 }}>
-                <LaneMap state={s} />
+                <><ControlSlot slot="preview"><RhythmView state={{...s,config:{...s.config,music:false,sfx:false,volume:0}}} connected={can}/></ControlSlot><LaneMap state={s} /></>
               </div>
               <p className={styles.note}>
                 لا يتتبّع النظام موقع قدم الطفل على الأرض. الحساسات (إن وُجدت)
@@ -438,26 +440,26 @@ function Panel({
                   </button>
                 )}
                 {s.status === "running" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="rs-pause"
                     onClick={() => send({ type: "pause" })}
                   >
                     إيقاف مؤقت
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "paused" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={`${styles.btn} ${s.safety ? styles.resumeSafe : styles.primary}`}
                     data-testid="rs-resume"
                     disabled={!can}
                     onClick={() => send({ type: "resume", at: Date.now() })}
                   >
                     {s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {s.status === "stage-complete" && (
-                  <button
+                  <ControlSlot slot="settings"><button
                     className={`${styles.btn} ${styles.primary}`}
                     data-testid="rs-next"
                     onClick={() => send({ type: "next", at: Date.now() })}
@@ -465,7 +467,7 @@ function Panel({
                     {s.stage === 8
                       ? "إنهاء الجلسة وعرض النتائج"
                       : "المرحلة التالية"}
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <button
@@ -479,14 +481,14 @@ function Panel({
                   </button>
                 )}
                 {live && (
-                  <button
+                  <ControlSlot slot="assistance"><button
                     className={styles.btn}
                     data-testid="rs-repeat"
                     disabled={!hasResolved}
                     onClick={() => send({ type: "repeat" })}
                   >
                     أعد آخر تمرين
-                  </button>
+                  </button></ControlSlot>
                 )}
                 {live && (
                   <button
@@ -507,17 +509,17 @@ function Panel({
                   إعادة البدء
                 </button>
                 {s.status !== "ended" && (
-                  <button
+                  <ControlSlot slot="session"><button
                     className={styles.btn}
                     data-testid="rs-end"
                     onClick={() => setConfirm("end")}
                   >
                     إنهاء الجلسة
-                  </button>
+                  </button></ControlSlot>
                 )}
               </div>
               {confirm && (
-                <div
+                <ControlSlot slot="dialogs"><div
                   className={styles.confirm}
                   role="alertdialog"
                   data-testid="rs-confirm-box"
@@ -555,7 +557,7 @@ function Panel({
                   >
                     لا
                   </button>
-                </div>
+                </div></ControlSlot>
               )}
               <div
                 className={styles.progress}

@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { DomeView } from "@/components/display/bubblepopwall3d/DomeView";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   ProgressiveStageSelect,
@@ -128,7 +130,7 @@ export function DomePanel({
     max: number,
     step: number,
   ) => (
-    <label className={styles.field} key={key}>
+    <ControlSlot slot="settings" when={["smoothing","holdMs"].includes(String(key))}><label className={styles.field} key={key}>
       {label} <strong>{s.config[key]}</strong>
       <input
         aria-label={label}
@@ -140,7 +142,7 @@ export function DomePanel({
         disabled={s.status === "ended"}
         onChange={(e) => config({ [key]: Number(e.target.value) })}
       />
-    </label>
+    </label></ControlSlot>
   );
   const action = (
     name: string,
@@ -148,13 +150,13 @@ export function DomePanel({
     disabled = false,
     primary = false,
   ) => (
-    <button
+    <ControlSlot when={!["restart","skipStage"].includes(c.type)} slot={["start","pause","resume","end"].includes(c.type) ? "session" : ["next"].includes(c.type) ? "settings" : "assistance"}><button
       className={primary ? styles.primary : ""}
       disabled={!can || disabled}
       onClick={() => send("at" in c ? { ...c, at: Date.now() } : c)}
     >
       {name}
-    </button>
+    </button></ControlSlot>
   );
   const setupStages = (
     <ProgressiveStageSelect
@@ -190,7 +192,7 @@ export function DomePanel({
       <h2>مساحة الطفل</h2>
       {(s.status !== "ready" || !!s.startedAt) && setupStages}
 
-      <label className={styles.field}>
+      <ControlSlot slot="settings"><label className={styles.field}>
         اليد النشطة
         <select
           aria-label="اليد النشطة"
@@ -202,7 +204,7 @@ export function DomePanel({
           <option value="LEFT_HAND">اليسرى</option>
           <option value="ALTERNATE">بالتناوب</option>
         </select>
-      </label>
+      </label></ControlSlot>
       <label className={styles.field}>
         مكان الأهداف
         <select
@@ -334,7 +336,7 @@ export function DomePanel({
             </a>
           </nav>
         </header>
-        <div className={styles.grid}>
+        <div className={styles.grid}><ControlSlot slot="preview"><DomeView state={s} connected={can} muted /></ControlSlot>
           <section className={styles.card}>
             <div className={styles.chips}>
               <span>
@@ -509,7 +511,7 @@ export function DomePanel({
                 [0.04, 0, "يمين →"],
                 [0, 0.04, "↓ أسفل"],
               ].map(([dx, dy, label]) => (
-                <button
+                <ControlSlot slot="assistance" key={String(label)}><button
                   key={String(label)}
                   disabled={!live || !can}
                   onClick={() =>
@@ -517,7 +519,7 @@ export function DomePanel({
                   }
                 >
                   {label}
-                </button>
+                </button></ControlSlot>
               ))}
             </div>
             <div className={styles.progress}>

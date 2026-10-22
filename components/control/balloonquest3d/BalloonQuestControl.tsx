@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -75,7 +76,7 @@ function RealtimeBalloonQuestControl() {
   };
   return (
     <Shell right={<ConnectionBadge status={c.connectionStatus} hasLoadedInitialSession syncRestoredAt={null} />}>
-      {!c.isOwner && <LeaseContestedOverlay onTakeOver={c.claimOwnership} takeoverBlocked={c.takeoverBlocked} />}
+      {!c.isOwner && <ControlSlot slot="dialogs"><LeaseContestedOverlay onTakeOver={c.claimOwnership} takeoverBlocked={c.takeoverBlocked} /></ControlSlot>}
       {c.superseded ? (
         <div className="mx-auto mt-10 max-w-xl rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center" data-testid="bq-superseded" role="alert">
           <p className="text-base font-bold text-amber-900">تم نقل هذه الجلسة إلى نافذة تحكم أخرى.</p>
@@ -103,14 +104,14 @@ function RealtimeBalloonQuestControl() {
           <ControlPanels runtime={c.runtime} view={c.view} production={production} />
         </>
       ) : <Spinner label="جاري التحقق من الجلسة..." />}
-      <EndSessionReasonSheet
+      <ControlSlot slot="dialogs"><EndSessionReasonSheet
         open={endOpen}
         onCancel={() => setEndOpen(false)}
         onConfirm={(selection) => {
           c.endWithReason(selection);
           setEndOpen(false);
         }}
-      />
+      /></ControlSlot>
     </Shell>
   );
 }
@@ -148,7 +149,7 @@ function LocalBalloonQuestControl() {
   return (
     <Shell>
       <ControlPanels runtime={handle.runtime} view={view} production={production} />
-      <EndSessionReasonSheet open={endOpen} onCancel={() => setEndOpen(false)} onConfirm={() => { handle.runtime.command({ type: "end" }); setEndOpen(false); }} />
+      <ControlSlot slot="dialogs"><EndSessionReasonSheet open={endOpen} onCancel={() => setEndOpen(false)} onConfirm={() => { handle.runtime.command({ type: "end" }); setEndOpen(false); }} /></ControlSlot>
     </Shell>
   );
 }

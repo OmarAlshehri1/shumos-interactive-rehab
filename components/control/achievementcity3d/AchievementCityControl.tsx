@@ -1,4 +1,6 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { AchievementCityView } from "@/components/display/achievementcity3d/AchievementCityView";
 import { SetupSettingsCard } from "@/components/control/setup/GameSetupLayout";
 import Link from "next/link";
 import { useState } from "react";
@@ -83,13 +85,13 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
       <SetupSettingsCard>
         <p className={styles.lead}>اختر التمرين والهدف. يؤكد الأخصائي كل إنجاز يدويًا.</p>
         <div className={styles.fields}>
-          <div className={styles.field}>
+          <ControlSlot slot="settings"><div className={styles.field}>
             <label htmlFor="ac-exercise">اسم التمرين</label>
             <input id="ac-exercise" type="text" list="ac-ex" maxLength={60} data-testid="ac-exercise" placeholder="مثال: الوقوف من الجلوس" value={s.exercise} disabled={!can} onChange={(e) => send({ type: "setExercise", exercise: e.target.value })} />
             <datalist id="ac-ex">{EXAMPLES.map((x) => <option key={x} value={x} />)}</datalist>
             <p className={styles.note}>أمثلة فقط: يختار الأخصائي التمرين المناسب ويشرف عليه.</p>
-          </div>
-          <div className={styles.field}>
+          </div></ControlSlot>
+          <ControlSlot slot="settings"><div className={styles.field}>
             <span className={styles.lab}>عدد الإنجازات المطلوب في كل مستوى</span>
             <div className={styles.stepper}>
               <button type="button" className={styles.stepBtn} aria-label="أنقص" data-testid="ac-target-dec" disabled={!can || s.target <= TARGET_MIN} onClick={() => send({ type: "setTarget", target: s.target - 1 })}>−</button>
@@ -100,7 +102,7 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
               {PRESETS.map((p) => <button key={p} type="button" className={styles.segBtn} data-testid={`ac-preset-${p}`} aria-pressed={s.target === p} disabled={!can} onClick={() => send({ type: "setTarget", target: p })}>{p}</button>)}
             </div>
             <p className={styles.note}>من {TARGET_MIN} إلى {TARGET_MAX}. المباني توزَّع تلقائيًا على العدد المختار، فلا يلزم عدد محدد.</p>
-          </div>
+          </div></ControlSlot>
           <div className={styles.field}>
             <span className={styles.lab}>الإسقاط</span>
             <div className={styles.chips}><span className={`${styles.chip} ${styles.chipOk}`} data-testid="ac-proj">جداري (الشاشة الجدارية)</span>{s.config.proj.name && <span className={styles.chip}>ملف: {s.config.proj.name}</span>}</div>
@@ -153,9 +155,9 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
   const pct = Math.round((Math.min(d, s.target) / s.target) * 100);
   const gp = s.config.inputSource === "gamepad";
   return (
-    <div className={styles.inner} data-testid="ac-play">
+    <div className={styles.inner} data-testid="ac-play"><ControlSlot slot="preview"><AchievementCityView state={s} connected={can} muted /></ControlSlot>
       {!ended && s.status !== "ready" && (
-        <button className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`} data-testid="ac-safety" onClick={() => send({ type: "safety" })} aria-label="إيقاف الأمان">⛔ إيقاف الأمان</button>
+        <ControlSlot slot="session"><button className={`${styles.btn} ${styles.safety} ${styles.floatSafety}`} data-testid="ac-safety" onClick={() => send({ type: "safety" })} aria-label="إيقاف الأمان">⛔ إيقاف الأمان</button></ControlSlot>
       )}
       <section className={styles.card}>
         <div className={styles.chips}>
@@ -183,36 +185,36 @@ function Play({ s, send, session, can }: { s: State; send: (c: Command) => void;
               <p className={styles.lead}>{isFinalLevel(s) ? "اكتملت المدن الثلاث. يمكنك إنهاء الجلسة وعرض النتائج." : `المدينة تنتظر التالي: ${LEVELS[s.level + 1].nameAr}.`}</p>
               <div className={styles.row}>
                 {!isFinalLevel(s) && <button className={`${styles.btn} ${styles.primary}`} style={{ minHeight: 72, fontSize: 20 }} data-testid="ac-continue" disabled={!can} onClick={() => send({ type: "continue", at: now() })}>المستوى التالي: {LEVELS[s.level + 1].nameAr}</button>}
-                <button className={`${styles.btn} ${isFinalLevel(s) ? styles.primary : ""}`} style={isFinalLevel(s) ? { minHeight: 72, fontSize: 20 } : undefined} data-testid="ac-finish" disabled={!can} onClick={() => send({ type: "end", at: now() })}>{isFinalLevel(s) ? "إنهاء وعرض النتائج" : "إنهاء الجلسة هنا"}</button>
+                <ControlSlot slot="session"><button className={`${styles.btn} ${isFinalLevel(s) ? styles.primary : ""}`} style={isFinalLevel(s) ? { minHeight: 72, fontSize: 20 } : undefined} data-testid="ac-finish" disabled={!can} onClick={() => send({ type: "end", at: now() })}>{isFinalLevel(s) ? "إنهاء وعرض النتائج" : "إنهاء الجلسة هنا"}</button></ControlSlot>
                 <button className={styles.btn} data-testid="ac-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد</button>
               </div>
             </>
           ) : (
             <>
-              <button type="button" className={styles.confirmBtn} data-testid="ac-confirm" disabled={!open} onClick={() => send({ type: "confirm", at: now() })}>
+              <ControlSlot slot="assistance"><button type="button" className={styles.confirmBtn} data-testid="ac-confirm" disabled={!open} onClick={() => send({ type: "confirm", at: now() })}>
                 تأكيد إنجاز
                 <small>{s.status === "paused" ? "اللعبة متوقفة — اضغط «متابعة» أولًا" : gp && session.pad.status === "connected" ? "أو اضغط زر الذراع" : "كل ضغطة = إنجاز واحد يبني جزءًا من المدينة"}</small>
-              </button>
+              </button></ControlSlot>
               <div className={styles.row}>
-                <button className={`${styles.btn} ${styles.assist}`} data-testid="ac-assist" disabled={!open} onClick={() => send({ type: "confirm", assisted: true, at: now() })}>تأكيد إنجاز بمساعدة</button>
+                <ControlSlot slot="assistance"><button className={`${styles.btn} ${styles.assist}`} data-testid="ac-assist" disabled={!open} onClick={() => send({ type: "confirm", assisted: true, at: now() })}>تأكيد إنجاز بمساعدة</button></ControlSlot>
                 <button className={styles.btn} data-testid="ac-undo" disabled={!can || !canUndo(s)} onClick={() => send({ type: "undo", at: now() })}>تراجع عن آخر تأكيد ({s.undos})</button>
-                <button className={styles.btn} data-testid="ac-skip" disabled={!can || s.status !== "running"} onClick={() => send({ type: "skip", at: now() })}>تخطّي تمرين ({s.skipped})</button>
+                <ControlSlot slot="assistance"><button className={styles.btn} data-testid="ac-skip" disabled={!can || s.status !== "running"} onClick={() => send({ type: "skip", at: now() })}>تخطّي تمرين ({s.skipped})</button></ControlSlot>
               </div>
             </>
           )}
           <div className={styles.row}>
-            {s.status === "running" && <button className={styles.btn} data-testid="ac-pause" onClick={() => send({ type: "pause" })}>إيقاف مؤقت</button>}
-            {s.status === "paused" && <button className={`${styles.btn} ${styles.primary}`} data-testid="ac-resume" disabled={!can} onClick={() => send({ type: "resume", at: now() })}>{s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}</button>}
+            {s.status === "running" && <ControlSlot slot="session"><button className={styles.btn} data-testid="ac-pause" onClick={() => send({ type: "pause" })}>إيقاف مؤقت</button></ControlSlot>}
+            {s.status === "paused" && <ControlSlot slot="session"><button className={`${styles.btn} ${styles.primary}`} data-testid="ac-resume" disabled={!can} onClick={() => send({ type: "resume", at: now() })}>{s.safety ? "استئناف بعد إيقاف الأمان" : "متابعة"}</button></ControlSlot>}
             <button className={styles.btn} data-testid="ac-restart" onClick={() => setConfirm("restart")}>إعادة البدء</button>
-            <button className={styles.btn} data-testid="ac-end" onClick={() => setConfirm("end")}>إنهاء آمن للجلسة</button>
+            <ControlSlot slot="session"><button className={styles.btn} data-testid="ac-end" onClick={() => setConfirm("end")}>إنهاء آمن للجلسة</button></ControlSlot>
             <button className={styles.btn} data-testid="ac-results-toggle" aria-pressed={showResults} onClick={() => setShowResults((v) => !v)}>{showResults ? "إخفاء النتائج" : "عرض النتائج"}</button>
           </div>
           {confirm && (
-            <div className={styles.confirmBox} role="alertdialog" data-testid="ac-confirm-box">
+            <ControlSlot slot="dialogs"><div className={styles.confirmBox} role="alertdialog" data-testid="ac-confirm-box">
               <span>{confirm === "restart" ? "إعادة البدء تمسح إنجازات هذه الجولة ولا تُحفظ نتائجها. متأكد؟" : "إنهاء الجلسة الآن وحفظ ما تم تأكيده؟"}</span>
               <button className={`${styles.btn} ${styles.primary} ${styles.btnSm}`} data-testid="ac-confirm-yes" onClick={() => { send(confirm === "restart" ? { type: "restart" } : { type: "end", at: now() }); setConfirm(null); }}>نعم</button>
               <button className={`${styles.btn} ${styles.btnSm}`} data-testid="ac-confirm-no" onClick={() => setConfirm(null)}>لا</button>
-            </div>
+            </div></ControlSlot>
           )}
         </section>
       )}

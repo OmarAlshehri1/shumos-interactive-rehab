@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { loadProjectionProfiles } from "@/lib/projection/calibration";
 import {
   ASPECTS,
@@ -104,7 +105,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           في التدفق المستمر يُسجَّل الهدف الذي لم يُؤكَّد «غير مؤكد» دون أي
           عقوبة أو رسالة فشل.
         </p>
-        <label htmlFor="rs-speed">سرعة الأهداف</label>
+        <ControlSlot slot="settings"><label htmlFor="rs-speed">سرعة الأهداف</label>
         <select
           id="rs-speed"
           data-testid="rs-speed"
@@ -120,7 +121,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
               {k === "custom" ? "" : ` · ×${SPEED_PROFILES[k].speed}`}
             </option>
           ))}
-        </select>
+        </select></ControlSlot>
         {c.speedProfile === "custom" && (
           <>
             <label htmlFor="rs-custom">
@@ -185,7 +186,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
             </option>
           ))}
         </select>
-        <label htmlFor="rs-limbs">الأطراف المشاركة</label>
+        <ControlSlot slot="settings"><label htmlFor="rs-limbs">الأطراف المشاركة</label>
         <select
           id="rs-limbs"
           data-testid="rs-limbs"
@@ -196,7 +197,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
           <option value="both">القدمان</option>
           <option value="right">القدم اليمنى فقط</option>
           <option value="left">القدم اليسرى فقط</option>
-        </select>
+        </select></ControlSlot>
         <p className={styles.note}>
           عند اختيار قدم واحدة تتحوّل كل الحركات إلى خطوات بتلك القدم، ولا تُطلب
           حركة بالقدم الأخرى.
@@ -263,7 +264,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
             {label}
           </label>
         ))}
-        <label htmlFor="rs-hold">مدة الثبات</label>
+        <ControlSlot slot="settings"><label htmlFor="rs-hold">مدة الثبات</label>
         <select
           id="rs-hold"
           data-testid="rs-hold"
@@ -276,7 +277,7 @@ export function Settings({ s, send, sim, setSim }: Props) {
               {n / 1000} ثانية
             </option>
           ))}
-        </select>
+        </select></ControlSlot>
         <p className={styles.note}>
           المدد أمثلة للواجهة، لا وصفة علاجية: تختار ما يناسب الطفل.
         </p>

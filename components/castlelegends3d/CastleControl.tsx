@@ -1,12 +1,13 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import Link from "next/link";
-import Image from "next/image";
+import { CastleView } from "./CastleView";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import { useCastleSession } from "@/lib/castlelegends3d/useSession";
 import { GAME_ID } from "@/lib/castlelegends3d/live";
 import { STAGES } from "@/lib/castlelegends3d/curriculum";
-import { exercise, type Config } from "@/lib/castlelegends3d/engine";
+import { type Config } from "@/lib/castlelegends3d/engine";
 import { TherapistSection, TherapistDisclosure, TherapistButton, TherapistStatus } from "@/components/control/ui/TherapistSurface";
 import { TherapistStages } from "@/components/control/ui/TherapistStages";
 import { CastleSettings } from "./CastleSettings";
@@ -15,7 +16,6 @@ import styles from "./therapist.module.css";
 
 const stages = STAGES.map((s, i) => ({ name: s.name, description: `${s.enemies.length} مواجهات · ${s.phases} مراحل للحركة`, image: `/control-stage-previews/castle/${i + 1}.webp` }));
 const statusNames = { ready: "جاهز للبدء", running: "النشاط جارٍ", paused: "في استراحة", "stage-complete": "اكتملت المرحلة", ended: "انتهت الجلسة" };
-const phaseNames = { intro: "الاستعداد للمغامرة", travel: "يتقدم البطل نحو المواجهة", encounter: "بانتظار تأكيد المعالج", attack: "تنفيذ الحركة المؤكدة", defeat: "نهاية المواجهة", victory: "الاحتفال بإنجاز المرحلة" };
 export function CastleControl() {
   return isRealtimeEnabled() ? <LiveCastleControl /> : <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl"><h1>أسطورة قلعة شموس</h1><p>يلزم إعداد اتصال شموس المشترك لبدء جلسة متزامنة.</p><Link href="/control">مكتبة الأنشطة</Link></main>;
 }
@@ -26,13 +26,13 @@ function LiveCastleControl() {
   const enabled = session.connected && !session.blocked;
   const editable = ["ready", "paused", "stage-complete"].includes(s.status);
   const combat = s.status === "running" && s.phase === "encounter";
-  const prompt = exercise(s), stage = STAGES[s.stage];
+  const stage = STAGES[s.stage];
   const configure = (config: Partial<Config>) => send({ type: "configure", config });
   const settings = <CastleSettings state={s} enabled={enabled} configure={configure} />;
   const historyText = { saved: "حُفظت النتائج في سجل المريض", retry: "تعذّر الحفظ؛ تجري إعادة المحاولة. أبقِ الجلسة مفتوحة.", "walk-in": "جلسة سريعة · دون سجل مريض", saving: "جارٍ حفظ النتائج…", "not-ended": "تُحفظ النتائج عند إنهاء الجلسة" }[session.history];
   const end = () => { if (window.confirm("إنهاء الجلسة وحفظ ما أُنجز؟")) send({ type: "end", at: Date.now() }); };
   return <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl" data-testid="castle-control" data-status={s.status} data-stage={s.stage}>
-    {session.error && <p className={ui.error} role="alert">{session.error}</p>}
+    {session.error && <ControlSlot slot="dialogs"><p className={ui.error} role="alert">{session.error}</p></ControlSlot>}
     {s.status === "ready" && !s.startedAt ? <div className={styles.setup}>
       <TherapistSection step="01" title="إعداد المشاركة" description="اضبط الحركة بما يناسب الطفل، وأكّد المحاولات يدويًا أثناء اللعب.">{settings}</TherapistSection>
       <TherapistSection step="02" title="اختر مستوى المغامرة" description="ثلاثة مستويات، وفي كل مستوى ثلاث مراحل من المغامرة الأصلية."><TherapistStages stages={stages} selected={s.stage} disabled={!enabled} onSelect={stage => send({ type: "stage", stage })} /></TherapistSection>
@@ -41,15 +41,9 @@ function LiveCastleControl() {
       <div className={styles.sessionBar}><div><h2>متابعة المغامرة</h2><p>المستوى {Math.floor(s.stage / 3) + 1} · المرحلة {s.stage % 3 + 1} · {stage.name}</p></div><TherapistStatus good={s.status === "running" && enabled}>{statusNames[s.status]}</TherapistStatus></div>
       <div className={styles.live}>
         <div className={styles.previewColumn}>
-          <TherapistSection title="متابعة شاشة الطفل">
-            <div className={styles.liveTop}><TherapistStatus good={session.displayConnected}>{session.displayConnected ? "شاشة الطفل متصلة" : "شاشة الطفل غير متصلة"}</TherapistStatus><TherapistStatus good={enabled}>{enabled ? "التحكم متصل" : "التحكم غير متصل"}</TherapistStatus></div>
-            <div className={styles.preview} data-testid="castle-live-preview" data-phase={s.phase} data-demonstration={s.demonstration}>
-              <div className={styles.previewPicture}><Image src={stages[s.stage].image} width={640} height={360} alt={`صورة المرحلة: ${stage.name}`} sizes="(max-width:900px) 95vw, 55vw" /><span>صورة المرحلة · متابعة الحالة أدناه مباشرة</span></div>
-              <div className={styles.previewInfo}><p>{s.status === "running" ? phaseNames[s.phase] : statusNames[s.status]}</p><h3>{["encounter", "attack", "defeat"].includes(s.phase) ? prompt.name : s.status === "stage-complete" ? stage.reward : stage.name}</h3><strong>المواجهة {s.encounter + 1} من {stage.enemies.length} · المتبقي {s.health} من {s.maxHealth} حركات</strong>{s.lastOutcome && <p role="status">آخر محاولة: {({ confirmed: "نجاح مؤكد", assisted: "نجاح بمساعدة", skipped: "تجاوز الحركة" })[s.lastOutcome]}</p>}</div>
-            </div>
-          </TherapistSection>
+          <ControlSlot slot="preview"><CastleView state={s} connected={enabled} muted /></ControlSlot>
           <TherapistSection title="مساعدة الطفل" description="راقب أداء الطفل، ثم اختر التأكيد المناسب.">
-            <div className={styles.manual}><div className={styles.manualPrimary}><TherapistButton tone="primary" disabled={!enabled || !combat} onClick={() => send({ type: "confirm" })}>✓ تأكيد نجاح الحركة</TherapistButton><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "assist" })}>نجاح بمساعدة</TherapistButton></div><div className={styles.manualSecondary}><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "repeat" })}>إعادة عرض الحركة</TherapistButton><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "skip" })}>تجاوز الحركة</TherapistButton></div></div>
+            <div className={styles.manual}><div className={styles.manualPrimary}><ControlSlot slot="assistance"><TherapistButton tone="primary" disabled={!enabled || !combat} onClick={() => send({ type: "confirm" })}>✓ تأكيد نجاح الحركة</TherapistButton></ControlSlot><ControlSlot slot="assistance"><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "assist" })}>نجاح بمساعدة</TherapistButton></ControlSlot></div><div className={styles.manualSecondary}><ControlSlot slot="assistance"><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "repeat" })}>إعادة عرض الحركة</TherapistButton></ControlSlot><ControlSlot slot="assistance"><TherapistButton disabled={!enabled || !combat} onClick={() => send({ type: "skip" })}>تجاوز الحركة</TherapistButton></ControlSlot></div></div>
           </TherapistSection>
         </div>
         <div className={styles.panelColumn}>
@@ -60,10 +54,10 @@ function LiveCastleControl() {
             <dl className={styles.stats}><div><dt>نجاح مؤكد</dt><dd>{s.attempts.filter(a => a.result === "confirmed").length}</dd></div><div><dt>بمساعدة</dt><dd>{s.attempts.filter(a => a.result === "assisted").length}</dd></div><div><dt>تجاوز</dt><dd>{s.attempts.filter(a => a.result === "skipped").length}</dd></div></dl>
             {s.status === "paused" && <p className={styles.paused}>النشاط متوقف مؤقتًا. يمكنك مراجعة الإعدادات ثم الاستئناف.</p>}
             <div className={styles.runtimeActions}>
-              {["ready", "paused"].includes(s.status) && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: s.status === "ready" ? "start" : "resume", at: Date.now() })}>{s.status === "ready" ? "ابدأ المرحلة" : "استئناف الرحلة"}</TherapistButton>}
-              {s.status === "running" && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "pause" })}>إيقاف مؤقت</TherapistButton>}
-              {s.status === "stage-complete" && <TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "next" })}>{s.stage === 8 ? "إنهاء المغامرة وحفظ النتائج" : "المرحلة التالية"}</TherapistButton>}
-              {s.status !== "ended" && <TherapistButton tone="danger" disabled={!enabled} onClick={end}>إنهاء الجلسة بأمان</TherapistButton>}
+              {["ready", "paused"].includes(s.status) && <ControlSlot slot="session"><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: s.status === "ready" ? "start" : "resume", at: Date.now() })}>{s.status === "ready" ? "ابدأ المرحلة" : "استئناف الرحلة"}</TherapistButton></ControlSlot>}
+              {s.status === "running" && <ControlSlot slot="session"><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "pause" })}>إيقاف مؤقت</TherapistButton></ControlSlot>}
+              {s.status === "stage-complete" && <ControlSlot slot="settings"><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "next" })}>{s.stage === 8 ? "إنهاء المغامرة وحفظ النتائج" : "المرحلة التالية"}</TherapistButton></ControlSlot>}
+              {s.status !== "ended" && <ControlSlot slot="session"><TherapistButton tone="danger" disabled={!enabled} onClick={end}>إنهاء الجلسة بأمان</TherapistButton></ControlSlot>}
               {s.status === "ended" && <TherapistButton tone="primary" disabled={!enabled || !["saved", "walk-in"].includes(session.history)} onClick={() => send({ type: "new", sessionId: crypto.randomUUID() })}>جلسة جديدة بنفس الإعدادات</TherapistButton>}
             </div>
             <p className={session.history === "retry" ? styles.historyError : styles.statusLine} role="status">{historyText}</p>

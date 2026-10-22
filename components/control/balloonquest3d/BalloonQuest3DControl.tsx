@@ -1,4 +1,5 @@
 "use client";
+import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { NativeSetupSections } from "@/components/control/setup/GameSetupLayout";
 import {
   AdditionalOptions,
@@ -278,7 +279,7 @@ export function ControlPanels({
               <option value="level">هذا المستوى فقط (٣ مراحل)</option>
             </select>
           </Field>
-          <Field label="حجم البالونات">
+          <ControlSlot slot="settings"><Field label="حجم البالونات">
             <select
               className={field}
               value={st.sizeScale}
@@ -291,7 +292,7 @@ export function ControlPanels({
                 </option>
               ))}
             </select>
-          </Field>
+          </Field></ControlSlot>
           <Field
             label="عدد البالونات معًا"
             hint="بالنسبة للعدد الافتراضي للمرحلة"
@@ -359,7 +360,7 @@ export function ControlPanels({
           </Field>
         </AdditionalOptions>
 
-        <Field label="سرعة الصعود" hint="للمستويين المتوسط والمتقدم">
+        <ControlSlot slot="settings"><Field label="سرعة الصعود" hint="للمستويين المتوسط والمتقدم">
           <select
             className={field}
             value={st.speedScale}
@@ -372,7 +373,7 @@ export function ControlPanels({
               </option>
             ))}
           </select>
-        </Field>
+        </Field></ControlSlot>
 
         <Field label="العرض">
           <select
@@ -394,7 +395,7 @@ export function ControlPanels({
             )}
           </select>
         </Field>
-        <Field
+        <ControlSlot slot="settings"><Field
           label="طريقة الإدخال"
           hint={
             EXPERIMENTAL_MODES.includes(st.inputMode)
@@ -416,7 +417,7 @@ export function ControlPanels({
               </option>
             ))}
           </select>
-        </Field>
+        </Field></ControlSlot>
       </div>
       <AdditionalOptions title="الراحة وتشخيص التشغيل">
         {" "}
@@ -489,7 +490,7 @@ export function ControlPanels({
         {/* ---------- preview + simulator ---------- */}
         <div className="space-y-4">
           <div className="bq3g-preview shadow-md" data-testid="control-preview">
-            <BalloonStage
+            <ControlSlot slot="preview"><BalloonStage
               state={displayState}
               getSimTimeMs={getSimTimeMs}
               showSymbols={symbols}
@@ -503,7 +504,7 @@ export function ControlPanels({
               )}
               <BalloonQuestScenes state={displayState} />
               <PointerOverlay runtime={runtime} />
-            </BalloonStage>
+            </BalloonStage></ControlSlot>
           </div>
           <p className="text-xs text-slate-500">
             هذه معاينة لما يراه الطفل. نقر المعالج على بالون يُحتسب كاختيار
@@ -601,13 +602,13 @@ export function ControlPanels({
               ))}
             </div>
             {view.lastRefusal && (
-              <p
+              <ControlSlot slot="dialogs"><p
                 className="mt-2 rounded-lg bg-amber-50 p-2 text-sm text-amber-900"
                 role="alert"
                 data-testid="refusal"
               >
                 {view.lastRefusal}
-              </p>
+              </p></ControlSlot>
             )}
             {previous &&
               lifecycle === "ready" &&
@@ -642,34 +643,34 @@ export function ControlPanels({
                 </button>
               )}
               {lifecycle === "playing" && (
-                <button
+                <ControlSlot slot="session"><button
                   type="button"
                   className={btn}
                   onClick={() => runtime.command({ type: "pause" })}
                   data-testid="pause"
                 >
                   إيقاف مؤقت
-                </button>
+                </button></ControlSlot>
               )}
               {(lifecycle === "paused" || lifecycle === "suspended") && (
-                <button
+                <ControlSlot slot="session"><button
                   type="button"
                   className={btn}
                   onClick={() => runtime.command({ type: "resume" })}
                   data-testid="resume"
                 >
                   استئناف
-                </button>
+                </button></ControlSlot>
               )}
               {lifecycle === "stage-complete" && (
-                <button
+                <ControlSlot slot="settings"><button
                   type="button"
                   className={btn}
                   onClick={() => runtime.command({ type: "advance" })}
                   data-testid="advance"
                 >
                   المرحلة التالية
-                </button>
+                </button></ControlSlot>
               )}
               <button
                 type="button"
@@ -680,7 +681,7 @@ export function ControlPanels({
               >
                 إعادة المرحلة
               </button>
-              <button
+              <ControlSlot slot="assistance"><button
                 type="button"
                 className={btnSoft}
                 disabled={!live}
@@ -688,9 +689,9 @@ export function ControlPanels({
                 data-testid="skip"
               >
                 تخطي المرحلة
-              </button>
+              </button></ControlSlot>
               {!confirmEnd ? (
-                <button
+                <ControlSlot slot="session"><button
                   type="button"
                   className={btnSoft}
                   disabled={lifecycle === "completed" || lifecycle === "ended"}
@@ -700,7 +701,7 @@ export function ControlPanels({
                   data-testid="end"
                 >
                   إنهاء الجلسة
-                </button>
+                </button></ControlSlot>
               ) : (
                 <>
                   <button
