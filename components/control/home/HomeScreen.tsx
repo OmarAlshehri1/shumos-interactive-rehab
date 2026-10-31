@@ -7,7 +7,9 @@ import {
   formatPatientCountLabel,
   usePatients,
 } from "@/lib/patients/usePatients";
-import { ControlNav } from "@/components/control/nav/ControlNav";
+import { ControlIcon } from "@/components/control/ui/ControlIcon";
+import { GAME_REGISTRY } from "@/lib/games/registry";
+import styles from "./home.module.css";
 import { PatientListItem } from "@/components/control/patients/PatientListItem";
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { ReadinessDashboard } from "./ReadinessDashboard";
@@ -26,15 +28,13 @@ export function HomeScreen() {
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-5 px-5 py-6 md:px-8 xl:px-10">
-        <ControlNav active="home" />
-
-        <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
-          نظام التأهيل التفاعلي
-        </h1>
-
-        <ReadinessDashboard />
+        <header className={styles.heading}>
+          <div><span className={styles.eyebrow}>مساحة الرعاية</span><h1>الرئيسية</h1><p>جهّز مساحة اللعب، وابدأ خطوة جديدة.</p></div>
+          <Link href="/control/activities" className={styles.libraryLink}><ControlIcon name="activities"/><span><strong>مكتبة الأنشطة</strong>{GAME_REGISTRY.length} نشاطًا تفاعليًا</span><ControlIcon name="arrow"/></Link>
+        </header>
         <QuickStartSection />
-        {isRealtimeEnabled() && <QuickPatientsSection />}
+        <ReadinessDashboard />
+        {isRealtimeEnabled() && <div className={styles.patients}><QuickPatientsSection /></div>}
       </div>
     </main>
   );
@@ -46,38 +46,19 @@ function QuickStartSection() {
   const { visit } = useVisit();
   const [quickError, setQuickError] = useState(false);
   return (
-    <section className="flex flex-col gap-3 rounded-2xl border border-teal-100 bg-teal-50/50 p-4 shadow-sm shadow-slate-900/5">
-      <h2 className="text-base font-bold text-slate-900">بدء جلسة جديدة</h2>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <Link
-          href="/control/visits"
-          className="flex min-h-16 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl bg-teal-600 px-4 text-center text-white shadow-lg shadow-teal-900/15 transition-all active:scale-[0.98]"
-        >
-          <span className="text-base font-bold">جلسة علاجية</span>
-          <span className="text-xs text-teal-100">
-            مريض محفوظ أو جديد أو ضيف
-          </span>
+    <section className={styles.start} aria-label="بدء جلسة جديدة">
+      <div className={styles.sectionTitle}><h2>لنبدأ رحلة التأهيل</h2><ControlIcon name="spark"/></div>
+      <div className={styles.startOptions}>
+        <Link href="/control/visits" className={styles.primary}>
+          <ControlIcon name="patients"/><strong>جلسة علاجية</strong><small>مريض محفوظ، جديد أو ضيف</small><span className={styles.arrow}>بدء جلسة جديدة<ControlIcon name="arrow"/></span>
         </Link>
-        <Link
-          href="/control/quick-session"
-          onClick={(event) => {
-            if (visit && !visit.endedAt) {
-              event.preventDefault();
-              setQuickError(true);
-              return;
-            }
-            patient.clearPatient();
-          }}
-          aria-disabled={!!visit && !visit.endedAt}
-          className="flex min-h-16 touch-manipulation flex-col items-center justify-center gap-1 rounded-2xl border-2 border-slate-200 bg-white px-4 text-center text-slate-700 transition-all active:scale-[0.98] active:bg-slate-50"
-        >
-          <span className="text-base font-bold">جلسة سريعة</span>
-          <span className="text-xs text-slate-400">
-            بدون ملف مريض · اختر الاسم والنشاط
-          </span>
+        <Link href="/control/quick-session" className={styles.secondary}
+          onClick={event => { if (visit && !visit.endedAt) { event.preventDefault(); setQuickError(true); return; } patient.clearPatient(); }}
+          aria-disabled={!!visit && !visit.endedAt}>
+          <ControlIcon name="activities"/><strong>جلسة سريعة</strong><small>اختر الاسم والنشاط بدون ملف مريض</small><span className={styles.arrow}>اختيار النشاط<ControlIcon name="arrow"/></span>
         </Link>
       </div>
-      {quickError && <p role="status" className="text-sm text-amber-800">أنهِ الجلسة العلاجية الحالية من شريط الجلسة قبل بدء جلسة سريعة.</p>}
+      {quickError && <p role="status" className={styles.error}>أنهِ الجلسة العلاجية الحالية من شريط الجلسة قبل بدء جلسة سريعة.</p>}
     </section>
   );
 }

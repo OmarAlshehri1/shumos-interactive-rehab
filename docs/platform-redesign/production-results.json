@@ -1,0 +1,10 @@
+{
+  "rootRedirect": true,
+  "authentication": true,
+  "canonicalGames": 22,
+  "profile": true,
+  "newVisitRequiresName": true,
+  "tabletPortrait": true,
+  "youtubeControls": true,
+  "errors": []
+}

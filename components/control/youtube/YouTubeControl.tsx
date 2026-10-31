@@ -4,7 +4,6 @@ import { subscribeToDisplayPresence } from "@/lib/realtime/sessionRepository";
 import { getStaffDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { useGameSafety } from "@/components/control/visits/GameSafetyProvider";
-import { ControlNav } from "@/components/control/nav/ControlNav";
 import { subscribeFavorites } from "@/lib/youtube/repository";
 import type { Video } from "@/lib/youtube/model";
 import { IDLE_SHARING, LocalTabShareControl, type SharingState } from "@/lib/youtube/localTabShareControl";
@@ -42,7 +41,7 @@ export function YouTubeControl() {
   const active = !["idle", "error", "selecting"].includes(sharing.phase);
   const disabled = supported !== true || !safety.known || !safety.connected || !safety.canLeave || auth.phase !== "authorized";
   return <main className={styles.page} dir="rtl" lang="ar" data-testid="native-youtube-control">
-    <ControlNav active="youtube" />
+
     <header><span className={`${styles.logo} ${styles.nativeLogo}`} aria-hidden="true">▶</span><h1>YouTube</h1></header>
     <section className={styles.nativePanel} aria-label="مشاركة يوتيوب">
       <a className={styles.original} href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">يوتيوب ↗</a>

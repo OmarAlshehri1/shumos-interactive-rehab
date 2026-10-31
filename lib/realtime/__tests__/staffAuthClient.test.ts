@@ -21,6 +21,7 @@ const connectAuthEmulatorMock = vi.fn((..._args: unknown[]) => {});
 const setPersistenceMock = vi.fn((..._args: unknown[]) => Promise.resolve());
 const signInWithEmailAndPasswordMock = vi.fn((..._args: unknown[]): Promise<{ user: AuthUser }> => new Promise(() => {}));
 const signOutMock = vi.fn((..._args: unknown[]) => Promise.resolve());
+const passwordResetMock = vi.fn((..._args: unknown[]) => Promise.resolve());
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 vi.mock("firebase/auth", () => ({
@@ -32,6 +33,7 @@ vi.mock("firebase/auth", () => ({
   browserLocalPersistence: "LOCAL",
   signInWithEmailAndPassword: (...args: unknown[]) => signInWithEmailAndPasswordMock(...args),
   signOut: (...args: unknown[]) => signOutMock(...args),
+  sendPasswordResetEmail: (...args: unknown[]) => passwordResetMock(...args),
 }));
 
 vi.mock("../firebaseClient", () => ({
@@ -48,6 +50,7 @@ describe("staffAuthClient", () => {
     setPersistenceMock.mockClear().mockResolvedValue(undefined);
     signInWithEmailAndPasswordMock.mockClear();
     signOutMock.mockClear();
+    passwordResetMock.mockReset().mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -139,5 +142,25 @@ describe("staffAuthClient", () => {
     const { signOutStaff } = await import("../staffAuthClient");
     await signOutStaff();
     expect(signOutMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("requests a Firebase reset on the same isolated staff Auth instance without signing in", async () => {
+    const { requestStaffPasswordReset } = await import("../staffAuthClient");
+    expect(await requestStaffPasswordReset(" clinic@example.test ")).toBeNull();
+    expect(passwordResetMock).toHaveBeenCalledWith(expect.objectContaining({ __fakeAuth: true, languageCode: "ar" }), "clinic@example.test");
+    expect(signInWithEmailAndPasswordMock).not.toHaveBeenCalled();
+    expect(setPersistenceMock).not.toHaveBeenCalled();
+  });
+
+  it.each(["auth/user-not-found", "success"])("does not disclose account existence for %s", async code => {
+    if (code !== "success") passwordResetMock.mockRejectedValueOnce({ code });
+    const { requestStaffPasswordReset } = await import("../staffAuthClient");
+    expect(await requestStaffPasswordReset("clinic@example.test")).toBeNull();
+  });
+
+  it.each([["auth/network-request-failed", "network"], ["auth/too-many-requests", "unknown"]])("maps reset failure %s without raw errors", async (code, result) => {
+    passwordResetMock.mockRejectedValueOnce({ code });
+    const { requestStaffPasswordReset } = await import("../staffAuthClient");
+    expect(await requestStaffPasswordReset("clinic@example.test")).toBe(result);
   });
 });

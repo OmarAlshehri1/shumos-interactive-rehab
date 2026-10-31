@@ -461,6 +461,7 @@ export function ControlPanels({
           settings={setupSettings}
           stages={setupStages}
           start={
+            <>
             <ControlSlot slot="session"><button
               type="button"
               data-testid="start"
@@ -474,6 +475,8 @@ export function ControlPanels({
             >
               ابدأ النشاط
             </button></ControlSlot>
+            {view.lastRefusal && <p role="alert">{view.lastRefusal}</p>}
+            </>
           }
         />
       </>

@@ -1,7 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { shouldShowLogout } from "@/lib/control/topLevelNavigation";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
@@ -26,18 +24,9 @@ export function StaffAuthGate({ children }: { children: React.ReactNode }) {
 }
 
 function RealtimeStaffAuthGate({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
   const staffAuth = useStaffAuth();
-  // RELIABILITY FIX — PatientSessionContext is sessionStorage-backed
-  // (tab-scoped), not staff-scoped: on a shared clinic device, signing out
-  // without clearing it left the NEXT therapist's Setup screen silently
-  // prefilled with the PREVIOUS therapist's selected patient (name +
-  // resume-suggested difficulty/stage) the instant they reached it — no
-  // manual selection required. PatientSessionProvider wraps this component
-  // (see app/control/layout.tsx), so it's always safe to reach up and clear
-  // it here, at the one place every sign-out (both the normal "authorized"
-  // corner button and the "unauthorized" account's own sign-out) funnels
-  // through.
+  // Clear tab-scoped patient selection on unauthorized-account sign-out.
+  // The authorized shell uses the same ordering for its sign-out action.
   const patientContext = usePatientContext();
   const signOut = () => {
     patientContext.clearPatient();
@@ -49,7 +38,6 @@ function RealtimeStaffAuthGate({ children }: { children: React.ReactNode }) {
       return (
         <>
           {children}
-          {shouldShowLogout(pathname) && <LogoutCorner email={staffAuth.email} onSignOut={signOut} />}
         </>
       );
 
@@ -123,20 +111,5 @@ function Spinner({ label }: { label: string }) {
       <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-teal-600" />
       <span className="text-sm font-medium">{label}</span>
     </div>
-  );
-}
-
-/** Sign-out lives in the document header (absolute, not fixed) so it never follows the viewport while scrolling. */
-function LogoutCorner({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onSignOut}
-      title={email ?? undefined}
-      data-control-logout
-      className="absolute top-3 end-3 z-40 flex min-h-11 items-center gap-1.5 rounded-full bg-white px-4 text-[13px] font-medium text-slate-600 shadow-sm transition-colors hover:text-slate-800"
-    >
-      تسجيل الخروج
-    </button>
   );
 }

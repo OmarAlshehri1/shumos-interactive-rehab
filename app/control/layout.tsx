@@ -10,6 +10,7 @@ import { PrototypeLocalOnlyBoundary } from "@/components/control/spacepilot3d/Pr
 import { BuildQuestLocalOnlyBoundary } from "@/components/control/buildquest3d/BuildQuestLocalOnlyBoundary";
 import "./control.css";
 import { LibraryLaunchBoundary } from "@/components/control/library/launch/LibraryLaunchBoundary";
+import { ControlShell } from "@/components/control/nav/ControlShell";
 
 import { GameSafetyProvider } from '@/components/control/visits/GameSafetyProvider';
 import { VisitProvider } from '@/components/control/visits/VisitProvider';
@@ -57,7 +58,7 @@ export default function ControlLayout({ children }: { children: React.ReactNode 
         <LocalPointerBroadcastSync />
         <PatientSessionProvider>
           <SessionWorkflowProvider>
-            <StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary><ControlGameFrame>{children}</ControlGameFrame></LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>
+            <StaffAuthGate><GameSafetyProvider><VisitProvider><LibraryLaunchBoundary><ControlShell><ControlGameFrame>{children}</ControlGameFrame></ControlShell></LibraryLaunchBoundary><VisitWorkspace /></VisitProvider></GameSafetyProvider></StaffAuthGate>
           </SessionWorkflowProvider>
         </PatientSessionProvider>
       </SensorRuntimeProvider>

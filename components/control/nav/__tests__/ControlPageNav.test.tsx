@@ -17,12 +17,12 @@ import { GAME_REGISTRY } from "@/lib/games/registry";
 
 afterAll(() => vi.unstubAllEnvs());
 describe("visible contextual navigation", () => {
-  it("renders an ordinary accessible back link and one corner logo", () => {
+  it("renders an ordinary accessible back link without duplicating the shell logo", () => {
     const html = renderToStaticMarkup(<ControlPageNav backHref="/control/patients/p1" backLabel="ملف المريض" />);
     expect(html).toContain('href="/control/patients/p1"');
     expect(html).toContain('aria-label="رجوع إلى ملف المريض"');
     expect(html).toContain("رجوع");
-    expect(html.match(/alt="شعار شموس كير"/g)).toHaveLength(1);
+    expect(html).not.toContain('alt="شعار شموس كير"');
     expect(html).not.toContain('target="_blank"');
   });
   it("provides the same visible back action for all 22 canonical game pages", () => {

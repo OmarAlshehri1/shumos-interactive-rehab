@@ -26,6 +26,16 @@ describe("therapist workspace lifecycle presentation", () => {
     const r = record(true); r.session.gameState = "SESSION_COMPLETE" as never;
     expect(workspacePresentation(r, game).active).toBe(false);
   });
+  it("presents a suspended native game as paused without changing clinical safety or its snapshot", () => {
+    const r = record(true);
+    r.gameId = "balloon-quest";
+    const session = r.session as unknown as Record<string, unknown>;
+    session.engine = "bq3";
+    session.bq3 = { snapshot: JSON.stringify({ lifecycle: "suspended", suspendReason: "control-hidden" }) };
+    const before = JSON.stringify(r);
+    expect(workspacePresentation(r, r.gameId)).toMatchObject({ active: true, paused: true, status: "متوقف مؤقتًا" });
+    expect(JSON.stringify(r)).toBe(before);
+  });
   it("does not mistake a between-stage completion for running gameplay", () => {
     const r = record(true); r.session.gameState = "STAGE_COMPLETE" as never;
     expect(workspacePresentation(r, game).status).toBe("اكتملت المرحلة");

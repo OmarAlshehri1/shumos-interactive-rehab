@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
-import { ControlNav } from "@/components/control/nav/ControlNav";
 import {
   defaultProjection,
   PROFILE_KEY,
@@ -71,7 +70,7 @@ export function ProjectionCalibrationScreen() {
     <main dir="rtl" lang="ar" className={styles.page}>
       <div className={styles.content}>
         <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="home" showBrand={false} />
+
         <header className={styles.header}>
           <h1>معايرة الإسقاط</h1>
           <p>

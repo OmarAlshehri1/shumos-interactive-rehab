@@ -3,7 +3,7 @@
   max-width: 1480px;
   margin: 0 auto;
   padding: 24px clamp(16px, 3vw, 40px) 90px;
-  color: #173a43;
+  color: var(--control-ink);
   direction: rtl;
   min-height: 100vh;
   font-family: var(--font-control), Arial, sans-serif;
@@ -11,8 +11,8 @@
 .referenceFrame{font-size:16px;line-height:1.65;max-width:1520px;padding-top:24px}
 .referenceFrame .header{padding:24px;margin-bottom:18px;gap:24px}
 .referenceFrame .header h1{font-size:30px;line-height:1.5}
-.referenceFrame .header p{font-size:16px;color:#526b75}
-.referenceFrame .header small{font-size:14px;color:#526b75}
+.referenceFrame .header p{font-size:16px;color:var(--control-muted)}
+.referenceFrame .header small{font-size:14px;color:var(--control-muted)}
 .referenceFrame .badge{font-size:13px}
 .referenceNative{margin-top:20px;min-width:0}
 @media(max-width:650px){.referenceFrame .header h1{font-size:23px}.referenceFrame .header{padding:18px;gap:14px}.referenceFrame .header p{font-size:15px}}
@@ -23,7 +23,7 @@
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #087f81;
+  color: var(--control-primary);
 }
 .nav a {
   min-height: 44px;
@@ -35,7 +35,7 @@
   gap: 22px;
   align-items: center;
   padding: 20px;
-  border: 1px solid #dce9e8;
+  border: 1px solid var(--control-border);
   border-radius: 22px;
   background: #fff;
   box-shadow: 0 4px 18px #163e4605;
@@ -67,7 +67,7 @@
   display: inline-block;
   padding: 5px 10px;
   border-radius: 7px;
-  background: #eff8f6;
+  background: var(--control-tint);
   color: #217668;
   font-size: 11px;
   margin-inline-end: 6px;
@@ -78,7 +78,7 @@
 .native > main {
   min-height: 0 !important;
   background: transparent !important;
-  color: #173a43 !important;
+  color: var(--control-ink) !important;
   padding: 0 !important;
   font-family: inherit !important;
 }
@@ -91,8 +91,8 @@
 }
 .native :where([class*="__card"], [class*="__panel"]) {
   background: #fff !important;
-  color: #173a43 !important;
-  border-color: #dce9e8 !important;
+  color: var(--control-ink) !important;
+  border-color: var(--control-border) !important;
   border-radius: 18px !important;
   box-shadow: 0 3px 12px #173e4505 !important;
   min-width: 0 !important;
@@ -102,7 +102,7 @@
   opacity: 1 !important;
 }
 .native :where([class*="__chip"]) {
-  background: #edf7f5 !important;
+  background: var(--control-tint) !important;
   color: #246c63 !important;
 }
 .native :where([class*="__banner"]) {
@@ -110,13 +110,13 @@
   color: #75561d !important;
 }
 .native :where([class*="__current"]) {
-  background: #f0f9f7 !important;
+  background: var(--control-tint) !important;
   color: #183e45 !important;
   border-color: #cae5df !important;
 }
 .native :where(input, select) {
   max-width: 100% !important;
-  color: #173a43 !important;
+  color: var(--control-ink) !important;
   background: #f8fbfc !important;
   border-color: #d8e5e7 !important;
   border-radius: 10px !important;
@@ -137,9 +137,9 @@
   border-color: #cfe3de !important;
 }
 .native :where([class*="__primary"], [class*="__good"]) {
-  background: #008f83 !important;
+  background: var(--control-primary) !important;
   color: white !important;
-  border-color: #008f83 !important;
+  border-color: var(--control-primary) !important;
 }
 .native :where([class*="__safety"], [class*="__danger"]) {
   background: #b83939 !important;
@@ -162,7 +162,7 @@
   padding: 24px;
   min-width: 0;
   background: #fff;
-  border: 1px solid #dce9e8;
+  border: 1px solid var(--control-border);
   border-radius: 18px;
 }
 .settings > h2,
@@ -195,7 +195,7 @@
 .start button {
   min-height: 48px;
   padding: 12px 32px;
-  background: #008f83;
+  background: var(--control-primary);
   color: white;
   border: 0;
   border-radius: 12px;
@@ -283,8 +283,8 @@
     [class*="__actionsPanel"]
   ) {
   background: #fff !important;
-  color: #173a43 !important;
-  border-color: #dce9e8 !important;
+  color: var(--control-ink) !important;
+  border-color: var(--control-border) !important;
   border-radius: 18px !important;
   min-width: 0 !important;
 }
@@ -334,7 +334,7 @@
   min-width: 0;
   padding: 24px;
   background: #fff;
-  border: 1px solid #dce9e8;
+  border: 1px solid var(--control-border);
   border-radius: 18px;
 }
 .stages > h2 { margin-bottom: 16px; }
@@ -382,7 +382,11 @@
   }
 }
 /* Approved therapist surface, scoped to canonical Control routes only. */
-.premiumFrame{max-width:1520px;font-size:16px;line-height:1.65;padding-top:18px}.premiumFrame .header{padding:22px;gap:22px;margin-bottom:16px}.premiumFrame .header h1{font-size:28px}.premiumFrame .header p{font-size:16px;color:#526b75}.premiumFrame .header small{font-size:14px}.premiumFrame .badge{font-size:13px}.premiumFrame .settings,.premiumFrame .stages{padding:24px;border-radius:20px;box-shadow:0 4px 20px #173e4505}.premiumFrame .settings>h2,.premiumFrame .stages>h2{font-size:20px;margin-bottom:20px}.premiumFrame .native :where(label,legend){font-size:16px!important;line-height:1.7;color:#254b56!important}.premiumFrame .native :where(select,input[type=number],input[type=text]){min-height:48px!important;font-size:16px!important;padding:10px 12px!important}.premiumFrame .native input[type=checkbox]{width:20px;height:20px;accent-color:#007f78}.premiumFrame .native :where([class*="__note"],[class*="__sub"]){font-size:14px!important;line-height:1.8!important}.premiumFrame .native :where([class*="__field"]){gap:8px;font-size:16px!important}.premiumFrame .native :where([class*="__checks"],[class*="__check"]){font-size:15px!important}.premiumFrame .native :where([class*="__btn"],[class*="__button"]){font-size:16px!important;min-height:48px!important}.premiumFrame .settings details{padding:14px 18px;margin-top:14px}.premiumFrame .settings details>summary{font-size:16px;min-height:48px;color:#245861}.premiumFrame .settings details :where(label,select){font-size:15px!important}.premiumFrame .start{padding:22px 24px;border-radius:18px}.premiumFrame .start p{font-size:15px}.premiumFrame .start button{font-size:18px;min-height:54px;padding-inline:30px}.premiumFrame .native :where(h2){color:#173a43!important}.premiumFrame .native :where([class*="__panel"],[class*="__card"])>h2{font-size:19px!important}.premiumFrame :where(button,select,input,summary):focus-visible{outline:3px solid #057eaa;outline-offset:3px}
+.premiumFrame{max-width:1520px;font-size:16px;line-height:1.65;padding-top:18px}.premiumFrame .header{padding:22px;gap:22px;margin-bottom:16px}.premiumFrame .header h1{font-size:28px}.premiumFrame .header p{font-size:16px;color:var(--control-muted)}.premiumFrame .header small{font-size:14px}.premiumFrame .badge{font-size:13px}.premiumFrame .settings,.premiumFrame .stages{padding:24px;border-radius:20px;box-shadow:0 4px 20px #173e4505}.premiumFrame .settings>h2,.premiumFrame .stages>h2{font-size:20px;margin-bottom:20px}.premiumFrame .native :where(label,legend){font-size:16px!important;line-height:1.7;color:#254b56!important}.premiumFrame .native :where(select,input[type=number],input[type=text]){min-height:48px!important;font-size:16px!important;padding:10px 12px!important}.premiumFrame .native input[type=checkbox]{width:20px;height:20px;accent-color:var(--control-primary)}.premiumFrame .native :where([class*="__note"],[class*="__sub"]){font-size:14px!important;line-height:1.8!important}.premiumFrame .native :where([class*="__field"]){gap:8px;font-size:16px!important}.premiumFrame .native :where([class*="__checks"],[class*="__check"]){font-size:15px!important}.premiumFrame .native :where([class*="__btn"],[class*="__button"]){font-size:16px!important;min-height:48px!important}.premiumFrame .settings details{padding:14px 18px;margin-top:14px}.premiumFrame .settings details>summary{font-size:16px;min-height:48px;color:#245861}.premiumFrame .settings details :where(label,select){font-size:15px!important}.premiumFrame .start{padding:22px 24px;border-radius:18px}.premiumFrame .start p{font-size:15px}.premiumFrame .start button{font-size:18px;min-height:54px;padding-inline:30px}.premiumFrame .native :where(h2){color:var(--control-ink)!important}.premiumFrame .native :where([class*="__panel"],[class*="__card"])>h2{font-size:19px!important}.premiumFrame :where(button,select,input,summary):focus-visible{outline:3px solid #057eaa;outline-offset:3px}
 @media(max-width:650px){.premiumFrame{padding-inline:14px}.premiumFrame .header{padding:16px;gap:14px}.premiumFrame .header h1{font-size:22px}.premiumFrame .header p{font-size:15px}.premiumFrame .settings,.premiumFrame .stages{padding:18px}.premiumFrame .settings>aside{grid-template-columns:1fr!important}.premiumFrame .settings details{padding:12px}.premiumFrame .start{padding:18px}}
 :global(body:has([data-visit-active="true"])) .premiumFrame{padding-top:88px}
-.essentials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:18px}.essentials>[data-native-slot]{display:flex;flex-direction:column;gap:8px;border:0;margin:0;padding:0;min-width:0}.essentials>[data-native-slot]>label{display:flex;flex-direction:column;gap:7px;font-size:16px}.essentials :where(select,input[type=number],input[type=text]){font:inherit!important;min-height:48px!important;width:100%;border:1px solid #cbdde0!important;background:#f8fbfb!important;color:#173a43!important;border-radius:11px!important;padding:10px 12px!important}.essentials :where(input[type=range]){min-height:44px;width:100%;accent-color:#007f78}.essentials :where(label){font-size:16px!important;color:#254b56!important}.essentials :where(p){font-size:14px!important;color:#526b75!important}.essentials :where(button){min-height:44px;border-radius:9px;font-size:15px;padding:8px 12px;color:#245861;border:1px solid #cbdde0;background:#fff}.essentialHint{font-size:14px;color:#526b75;margin:8px 0 18px}.settings>details{margin-top:18px}.essentials [data-native-slot]>[class*="__field"]{display:grid;gap:8px;color:#254b56}.essentials [class*="__stepper"]{display:flex;align-items:center;gap:16px;font-size:20px}.essentials [class*="__seg"]{display:flex;gap:8px;flex-wrap:wrap}.essentials [data-testid$="-target"]{font-size:24px}.essentials :where([aria-pressed=true]){background:#007f78;color:white;border-color:#007f78}@media(max-width:650px){.essentials{grid-template-columns:1fr;gap:16px}}
+.essentials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:18px}.essentials>[data-native-slot]{display:flex;flex-direction:column;gap:8px;border:0;margin:0;padding:0;min-width:0}.essentials>[data-native-slot]>label{display:flex;flex-direction:column;gap:7px;font-size:16px}.essentials :where(select,input[type=number],input[type=text]){font:inherit!important;min-height:48px!important;width:100%;border:1px solid #cbdde0!important;background:#f8fbfb!important;color:var(--control-ink)!important;border-radius:11px!important;padding:10px 12px!important}.essentials :where(input[type=range]){min-height:44px;width:100%;accent-color:var(--control-primary)}.essentials :where(label){font-size:16px!important;color:#254b56!important}.essentials :where(p){font-size:14px!important;color:var(--control-muted)!important}.essentials :where(button){min-height:44px;border-radius:9px;font-size:15px;padding:8px 12px;color:#245861;border:1px solid #cbdde0;background:#fff}.essentialHint{font-size:14px;color:var(--control-muted);margin:8px 0 18px}.settings>details{margin-top:18px}.essentials [data-native-slot]>[class*="__field"]{display:grid;gap:8px;color:#254b56}.essentials [class*="__stepper"]{display:flex;align-items:center;gap:16px;font-size:20px}.essentials [class*="__seg"]{display:flex;gap:8px;flex-wrap:wrap}.essentials [data-testid$="-target"]{font-size:24px}.essentials :where([aria-pressed=true]){background:var(--control-primary);color:white;border-color:var(--control-primary)}@media(max-width:650px){.essentials{grid-template-columns:1fr;gap:16px}}
+
+.essentials [data-native-slot] button{background:var(--control-canvas)!important;color:var(--control-ink)!important;border:1px solid var(--control-border)!important}.essentials [data-native-slot] button[aria-pressed=true]{background:var(--control-primary)!important;color:white!important;border-color:var(--control-primary)!important}
+
+.start{flex-wrap:wrap}.start [role=alert]{flex-basis:100%;border-radius:10px;padding:12px 16px;background:var(--control-danger-tint);color:var(--control-danger);font-size:14px}

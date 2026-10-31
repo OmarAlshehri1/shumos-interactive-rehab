@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   setPersistence,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 import { getEmulatorConfig, getStaffFirebaseApp } from "./firebaseClient";
@@ -146,6 +147,20 @@ export async function signInStaff(email: string, password: string): Promise<void
     resumeDisplayApprovals(credential.user.uid);
   } catch (error) {
     throw mapSignInError(error);
+  }
+}
+
+/** Firebase delivers its one-time reset link. Unknown accounts receive the same UI outcome. */
+export async function requestStaffPasswordReset(email: string): Promise<StaffSignInError | null> {
+  try {
+    const instance = getStaffAuthInstance();
+    instance.languageCode = "ar";
+    await sendPasswordResetEmail(instance, email.trim());
+    return null;
+  } catch (error) {
+    const code = (error as { code?: string } | null)?.code;
+    if (code === "auth/user-not-found") return null;
+    return code === "auth/network-request-failed" || code === "auth/timeout" ? "network" : "unknown";
   }
 }
 

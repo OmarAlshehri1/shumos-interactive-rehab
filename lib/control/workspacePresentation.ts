@@ -20,7 +20,7 @@ export function workspacePresentation(record: LiveSessionRecord | null, gameId: 
   const stats = Array.isArray(native.stats) ? native.stats as { activeMs?: number }[] : [];
   const ms = typeof native.elapsedMs === "number" ? native.elapsedMs : typeof native.activeTimeMs === "number" ? native.activeTimeMs : rewards.includes(gameId) && typeof native.clock === "number" ? native.clock : stats.length && stats.every(row => typeof row.activeMs === "number" && row.activeMs >= 0) ? stats.reduce((sum, row) => sum + row.activeMs!, 0) : null;
   const elapsed = ms !== null && Number.isFinite(ms) && ms >= 0 ? `${Math.floor(ms / 60000)}:${String(Math.floor(ms / 1000) % 60).padStart(2, "0")}` : "";
-  const paused = visitGamePaused(record);
+  const paused = visitGamePaused(record) || ["paused", "suspended"].includes(String(native.lifecycle ?? native.status));
   const status = paused ? "متوقف مؤقتًا" : record.session.gameState === "STAGE_COMPLETE" || ["stage-complete", "level-complete", "mission-complete"].includes(String(native.status ?? native.lifecycle)) ? "اكتملت المرحلة" : "النشاط جارٍ";
   return { active, paused, level, stage, elapsed, status };
 }

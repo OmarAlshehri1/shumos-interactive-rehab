@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
-import { usePatientVisitHistory } from "./usePatientVisitHistory";
+import type { usePatientVisitHistory } from "./usePatientVisitHistory";
 import { numberFor } from "@/lib/therapyVisits/numbering";
 import { elapsedMs, formatClock } from "@/lib/therapyVisits/model";
 import { visitStatus, missing } from "@/lib/therapyVisits/clinicalSummary";
 import styles from "./visitHistory.module.css";
-export function PatientVisitHistory({ patientId }: { patientId: string }) {
-  const { visits, numbering, error } = usePatientVisitHistory(patientId);
+export function PatientVisitHistory({ patientId, history }: { patientId: string; history: ReturnType<typeof usePatientVisitHistory> }) {
+  const { visits, numbering, error } = history;
   return (
     <section className={styles.section} aria-label="الجلسات العلاجية">
-      <h2>الجلسات العلاجية</h2>
+      <h2>الجلسات العلاجية {visits && <span>{visits.length.toLocaleString("ar-SA")} جلسة</span>}</h2>
       {error && (
         <p role="alert" className={styles.error}>
           {error}
@@ -59,8 +59,10 @@ export function PatientVisitHistory({ patientId }: { patientId: string }) {
                         ? "التقييم غير مسجل"
                         : `★ ${v.overallRating}/5`}
                     </span>
+                    <span className={styles.activityCount}>{Object.keys(v.entries).length.toLocaleString("ar-SA")} أنشطة</span>
                     <span>فتح التفاصيل ←</span>
                   </div>
+                  {(v.finalNotes || v.initialNotes) && <p className={styles.previewNote}>{v.finalNotes || v.initialNotes}</p>}
                 </Link>
               );
             })}

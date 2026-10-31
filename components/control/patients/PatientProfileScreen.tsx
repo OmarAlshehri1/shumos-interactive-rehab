@@ -12,46 +12,29 @@ import { deactivatePatient, subscribeToPatient, updatePatientFirstName } from "@
 import { PatientRepositoryException, type Patient } from "@/lib/patients/types";
 import { describePatientError } from "./patientErrorCopy";
 import { formatPatientCreatedAt } from "./formatPatientDate";
-import { PatientQuickRail } from "./PatientQuickRail";
+import { usePatientVisitHistory } from "@/components/control/visits/usePatientVisitHistory";
+import { PatientClinicalOverview } from "./PatientClinicalOverview";
+import { ControlIcon } from "@/components/control/ui/ControlIcon";
+import styles from "./profile.module.css";
 import { PatientSessionHistorySection } from "./PatientSessionHistorySection";
 
-import historyStyles from "@/components/control/visits/visitHistory.module.css";
+
 import { PatientVisitHistory } from '@/components/control/visits/PatientVisitHistory';
 
 const MAX_NAME_LENGTH = 50;
 
-/**
- * PATIENT REGISTRY TASK — the Patient Profile: identity, status, edit
- * firstName, "بدء جلسة جديدة" (see the task's START SESSION FROM PATIENT
- * section). SESSION HISTORY TASK: now also a real session-history section
- * (PatientSessionHistorySection) and a compact patient quick-access rail on
- * wide (iPad landscape+) layouts — see PatientQuickRail's doc comment.
- *
- * CONTROL UX POLISH TASK: the old lone "← المرضى" arrow is now a small
- * breadcrumb (الرئيسية / المرضى / <name>) — same back-navigation, plus a
- * reachable Home, plus the "small contextual trail" the task asks deeper
- * pages to have (see ControlBreadcrumb's doc comment). Deliberately no
- * second nav strip alongside PatientQuickRail on this page — see the task's
- * "avoid visual clutter."
- */
+/** A full-width identity header and coordinated clinical history panels. */
 export function PatientProfileScreen({ patientId }: { patientId: string }) {
   return (
     <main
       dir="rtl"
       lang="ar"
-      className={`${historyStyles.profile} fixed inset-0 flex h-dvh w-dvw touch-manipulation flex-col overflow-y-auto bg-slate-50 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] text-slate-900`}
-      style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
+      className={styles.profile}
     >
-      <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10">
+      <div className={styles.content}>
         <ControlPageNav backHref="/control/patients" backLabel="المرضى" />
         <PatientProfileBreadcrumb patientId={patientId} />
-
-        <div className="flex flex-1 flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
-          <div className="mx-auto flex w-full max-w-none flex-1 flex-col gap-7 lg:mx-0">
-            {isRealtimeEnabled() ? <RealtimePatientProfile patientId={patientId} /> : <RealtimeUnavailableNotice />}
-          </div>
-          {isRealtimeEnabled() && <PatientQuickRail currentPatientId={patientId} />}
-        </div>
+        {isRealtimeEnabled() ? <RealtimePatientProfile patientId={patientId} /> : <RealtimeUnavailableNotice />}
       </div>
     </main>
   );
@@ -81,6 +64,7 @@ function RealtimeUnavailableNotice() {
 }
 
 function RealtimePatientProfile({ patientId }: { patientId: string }) {
+  const history = usePatientVisitHistory(patientId);
   const auth = useStaffAuth();
   const router = useRouter();
   const { selectPatient } = usePatientContext();
@@ -154,11 +138,14 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
 
   return (
     <>
-      <header className="flex flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white px-6 py-8 text-center shadow-[0_2px_8px_rgba(30,41,59,0.05)]">
+      <header className={styles.identity}>
+        <div className={styles.avatar} aria-hidden="true">{patient.firstName.slice(0,1)}</div>
+        <div className={styles.identityMain}>
         {editing ? (
-          <div className="flex w-full max-w-xs flex-col gap-2">
+          <div className={styles.editing}>
             <input
               autoFocus
+              aria-label="اسم الطفل"
               type="text"
               value={nameDraft}
               onChange={(e) => setNameDraft(e.target.value)}
@@ -185,65 +172,34 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-2">
+          <div className={styles.name}>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{patient.firstName}</h1>
-            <button type="button" onClick={startEditing} aria-label="تعديل اسم الطفل" className="text-slate-300 transition-colors hover:text-teal-600">
+            <button type="button" onClick={startEditing} aria-label="تعديل اسم الطفل" className={styles.edit}>
               ✎
             </button>
           </div>
         )}
 
-        <span className="rounded-full bg-slate-100 px-3.5 py-1.5 text-sm font-semibold text-slate-600">رقم المريض #{patient.patientNumber}</span>
-
-        <div className="flex items-center gap-2">
-          <span
-            className={`rounded-full px-3 py-1 text-xs font-semibold ${patient.active ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}
-          >
-            {patient.active ? "نشط" : "غير نشط"}
-          </span>
-          <span className="text-xs text-slate-400">تاريخ الإنشاء: {formatPatientCreatedAt(patient.createdAt)}</span>
+        <div className={styles.metadata}>
+          <span>رقم المريض <bdi>#{patient.patientNumber}</bdi></span>
+          <span>مسجل منذ {formatPatientCreatedAt(patient.createdAt)}</span>
+          <span className={styles.status}>{patient.active ? "نشط" : "غير نشط"}</span>
         </div>
+        </div>
+        {patient.active && <div className={styles.actions}>
+          <button type="button" className={styles.primary} disabled={auth.phase !== "authorized"} onClick={() => { selectPatient({ patientId: patient.patientId, patientNumber: patient.patientNumber, firstName: patient.firstName }); router.push("/control/visits"); }}><ControlIcon name="plus"/>بدء جلسة علاجية</button>
+          <button type="button" className={styles.secondary} disabled={auth.phase !== "authorized"} onClick={startNewSession}>نشاط مستقل</button>
+        </div>}
       </header>
-
-      {patient.active && (
-        <button
-          type="button"
-          disabled={auth.phase !== "authorized"}
-          className="min-h-12 rounded-xl bg-teal-600 px-5 font-semibold text-white disabled:opacity-50"
-          onClick={() => {
-            selectPatient({ patientId: patient.patientId, patientNumber: patient.patientNumber, firstName: patient.firstName });
-            router.push("/control/visits");
-          }}
-        >
-          بدء جلسة علاجية
-        </button>
-      )}
-      <PatientVisitHistory key={`visits-${patient.patientId}`} patientId={patient.patientId} />
-      <h2 className="text-lg font-bold text-slate-800">الألعاب المستقلة · خارج الجلسات العلاجية</h2>
-      <PatientSessionHistorySection key={`sessions-${patient.patientId}`} patient={patient} />
-
-      {patient.active && (
-        <button
-          type="button"
-          onClick={startNewSession}
-          disabled={auth.phase !== "authorized"}
-          className="min-h-14 touch-manipulation rounded-2xl border-2 border-teal-200 bg-white text-base font-bold text-teal-700 transition-all active:scale-[0.98] active:bg-teal-50 disabled:cursor-not-allowed disabled:border-slate-200 disabled:text-slate-400"
-        >
-          بدء نشاط مستقل
-        </button>
-      )}
-
-      {patient.active && (
-        <div className="mt-2 flex flex-col items-center gap-1 border-t border-slate-100 pt-4">
-          <button
-            type="button"
-            onClick={() => setConfirmDeactivate(true)}
-            className="min-h-10 touch-manipulation text-sm font-medium text-rose-400 transition-colors hover:text-rose-600"
-          >
-            إلغاء تنشيط هذا المريض
-          </button>
-        </div>
-      )}
+      <div className={styles.columns}>
+        <div className={styles.history}><PatientVisitHistory key={`visits-${patient.patientId}`} patientId={patient.patientId} history={history} /></div>
+        <aside className={styles.support} aria-label="التقدم والأنشطة المستقلة">
+          <PatientClinicalOverview patientId={patient.patientId} history={history}/>
+          <h2>سجل الأنشطة المستقلة</h2>
+          <PatientSessionHistorySection key={`sessions-${patient.patientId}`} patient={patient} />
+        </aside>
+      </div>
+      {patient.active && <div className={styles.management}><button type="button" onClick={() => setConfirmDeactivate(true)}>إلغاء تنشيط هذا المريض</button></div>}
 
       <ConfirmSheet
         open={confirmDeactivate}

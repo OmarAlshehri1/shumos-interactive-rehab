@@ -141,62 +141,62 @@
   }
 }
 
-/* Reserve a real layout inset for the persistent visit bar on fixed game screens. */
-body:has([data-visit-active="true"]) main { top: 64px !important; height: calc(100dvh - 64px) !important; }
-@media (max-width: 650px) { body:has([data-visit-active="true"]) main { top: 96px !important; height: calc(100dvh - 96px) !important; } }
-
-/* Shared clinical Control palette; child Display/game worlds remain independent. */
-.shumos-control { --control-canvas: #f3f7f8; --control-ink: #16383d; --control-primary: #087f81; --control-border: #dce7e9; --control-surface: #fff; }
-.shumos-control main { font-family: var(--font-control), system-ui, sans-serif; }
-.shumos-control main:not([data-projection-grid]) > header h1 { letter-spacing: -.025em; }
-
-.shumos-control { background:#f6f9fc;color:#173a43; }
-body:has(.shumos-control) { background:#f6f9fc; }
-
-/* Shared flowing setup pages reserve the visit bar without inheriting legacy fixed-screen height. */
-body:has([data-visit-active="true"]) [data-control-game] { padding-top:88px; }
-body:has([data-visit-active="true"]) [data-control-game] main { top:auto!important;height:auto!important;position:static!important; }
-[data-control-game] nav a { scroll-margin-top:96px; }
-@media(max-width:650px){body:has([data-visit-active="true"]) [data-control-game]{padding-top:112px;}}
-
-/* Flowing Control pages use the document scroll instead of a fixed-height body scroller. */
-html:has(.shumos-control) { height:auto;min-height:100%;overflow-y:auto;overscroll-behavior-y:auto; }
-/* hidden + visible computes to hidden + auto, creating a second scroll container.
-   clip keeps horizontal containment without trapping vertical wheel/touch scrolling. */
-body:has(.shumos-control) { height:auto;min-height:100dvh;overflow-x:clip;overflow-y:visible;overscroll-behavior-y:auto; }
-
-/* One therapist design scale. Preview content is intentionally excluded. */
+/* The one Control design scale. Display worlds and native preview content keep their own styles. */
 .shumos-control {
-  --control-canvas:#f6f9fc; --control-surface:#fff; --control-ink:#173a43;
-  --control-muted:#526b75; --control-primary:#087f81; --control-border:#dce7e9;
-  --control-card-radius:20px; --control-button-radius:12px; --control-card-padding:24px;
-  --control-field-height:46px; --control-space:8px;
-  font-family:var(--font-control),system-ui,sans-serif; font-size:16px; line-height:1.65;
-  color-scheme:light;
+  --control-sidebar-width:216px;
+  --control-topbar-height:76px;
+  --control-canvas:#f5f7f5;
+  --control-surface:#ffffff;
+  --control-ink:#213e36;
+  --control-muted:#65776f;
+  --control-primary:#167d68;
+  --control-primary-hover:#106650;
+  --control-teal:var(--control-primary);
+  --control-tint:#eaf4ef;
+  --control-border:#e1e8e2;
+  --control-danger:#a53449;
+  --control-danger-tint:#fff0f2;
+  --control-shadow:0 3px 18px #213e3605;
+  --control-card-radius:20px;
+  --control-button-radius:11px;
+  --control-card-padding:24px;
+  --control-field-height:46px;
+  --control-space:8px;
+  --control-title-size:27px;
+  --control-heading-size:18px;
+  --control-body-size:15px;
+  --control-caption-size:13px;
+  font-family:var(--font-control),system-ui,sans-serif;
+  font-size:15px;line-height:1.7;color:var(--control-ink);color-scheme:light;
 }
-.shumos-control :where(button,select,input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea):not([data-workspace-target=preview] *):not([data-native-slot=preview] *) {
-  font-family:var(--font-control),system-ui,sans-serif; font-size:15px; line-height:1.5;
-  border-radius:var(--control-button-radius); min-height:var(--control-field-height);
-}
-.shumos-control :where(button,select,input,textarea,a,summary):focus-visible { outline:3px solid var(--control-primary);outline-offset:3px; }
-.shumos-control button:disabled:not([data-native-slot=preview] *) { opacity:.68;cursor:not-allowed; }
-.shumos-control :where(input[type=checkbox],input[type=radio]) { width:20px;height:20px;accent-color:var(--control-primary); }
-.shumos-control :where(textarea) { padding:12px;resize:vertical;min-height:96px; }
-.shumos-control :where(h1,h2,h3):not([data-native-slot=preview] *) { line-height:1.5;text-wrap:balance; }
-.shumos-control :where(p,label,button,a,td,th):not([data-native-slot=preview] *) { overflow-wrap:break-word; }
-.shumos-control :where([role=alert]) { line-height:1.75; }
-.shumos-control nav[aria-label="التنقل الرئيسي"] { position:relative;flex-wrap:wrap;padding-inline:0;row-gap:10px; }
-.shumos-control [data-control-page-nav] a { border-radius:var(--control-button-radius);min-height:44px; }
-.shumos-control [data-control-page-nav] { gap:16px; }
-.shumos-control [data-control-card] { border-color:var(--control-border);border-radius:var(--control-card-radius);padding:var(--control-card-padding);box-shadow:0 2px 12px #173e4505; }
-.shumos-control [data-control-card] h2 { font-size:18px;color:var(--control-ink);font-weight:600; }
-
-@media(max-width:600px){.shumos-control{--control-card-padding:18px}}
+html:has(.shumos-control){height:auto;min-height:100%;overflow-y:auto;overscroll-behavior-y:auto}
+body:has(.shumos-control){height:auto;min-height:100dvh;overflow-x:clip;overflow-y:visible;overscroll-behavior-y:auto;background:#f5f7f5}
+.shumos-control main{font-family:var(--font-control),system-ui,sans-serif}
+.shumos-control :where(button,select,input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea):not([data-native-slot=preview] *){font-family:var(--font-control),sans-serif;font-size:15px;line-height:1.5;border-radius:var(--control-button-radius);min-height:var(--control-field-height)}
+.shumos-control :where(button,select,input,textarea,a,summary):focus-visible{outline:3px solid var(--control-primary);outline-offset:3px}
+.shumos-control button:disabled:not([data-native-slot=preview] *){cursor:not-allowed}
+.shumos-control :where(input[type=checkbox],input[type=radio]){width:20px;height:20px;accent-color:var(--control-primary)}
+.shumos-control textarea{padding:12px;resize:vertical;min-height:96px}
+.shumos-control :where(h1,h2,h3):not([data-native-slot=preview] *){line-height:1.5;text-wrap:balance}
+.shumos-control :where(p,label,button,a,td,th):not([data-native-slot=preview] *){overflow-wrap:break-word}
+.shumos-control :where([role=alert]){line-height:1.8}
+.shumos-control [data-control-card]{border-color:var(--control-border);border-radius:var(--control-card-radius);padding:var(--control-card-padding);box-shadow:var(--control-shadow)}
+.shumos-control [data-control-card] h2{font-size:18px;color:var(--control-ink);font-weight:600}
+.shumos-control [data-control-page-nav]{margin-bottom:8px;padding:0;gap:12px}
+.shumos-control [data-control-page-nav] a{border-radius:var(--control-button-radius);min-height:44px}
+/* Normalize only page roots, never game canvases, preview frames or modal layers. */
+[data-shell-content]>main{position:relative!important;inset:auto!important;height:auto!important;width:100%!important;min-height:calc(100dvh - var(--control-topbar-height));overflow:visible!important;background:var(--control-canvas)!important}
+[data-shell-content]>main>div:first-child{max-width:none;padding:26px 30px 44px}
+[data-shell-content]>[data-control-game]{max-width:none;min-height:0;padding:22px 30px 60px}
+[data-shell-content]>main:has(>[data-control-page-nav]){max-width:none;padding:24px 30px 60px}
+.shumos-control [data-visit-active]{top:var(--control-topbar-height,76px);inset-inline-start:var(--control-sidebar-width,216px);min-height:64px;padding:8px 26px;background:#f0f8f3;border-color:var(--control-border);box-shadow:none}
+body:has([data-visit-active=true]) [data-shell-content]{padding-top:76px}
+body:has([data-visit-active=true]) [data-shell-content] main,body:has([data-visit-active=true]) [data-shell-content] [data-control-game]{padding-top:24px}
+.shumos-control main :where(h1):not([data-native-slot=preview] *){font-size:var(--control-title-size);font-weight:600;letter-spacing:-.025em}
+.shumos-control main :where(.text-xs):not([data-native-slot=preview] *){font-size:var(--control-caption-size);line-height:1.7}
+.shumos-control :where(.bg-teal-600){background-color:var(--control-primary)}
+.shumos-control :where(.text-teal-700,.text-teal-800){color:var(--control-primary)}
+@media(max-width:1100px){.shumos-control{--control-sidebar-width:86px;--control-topbar-height:68px}[data-shell-content]>main>div:first-child{padding:24px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:20px 24px 50px}}
+@media(max-width:600px){.shumos-control{--control-sidebar-width:0px;--control-topbar-height:62px;--control-card-padding:18px;--control-title-size:24px}[data-shell-content]>main>div:first-child{padding:22px 16px 35px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:18px 16px 35px}.shumos-control [data-visit-active]{padding:8px 12px}body:has([data-visit-active=true]) [data-shell-content]{padding-top:110px}}
 @media(prefers-reduced-motion:reduce){.shumos-control :where(button,a,dialog){transition:none!important;scroll-behavior:auto}}
-
-.shumos-control [data-control-page-nav]{padding-inline-start:116px}.shumos-control [data-control-logout]{min-height:44px;font-size:13px;padding-inline:12px}
-
-.shumos-control{--control-title-size:24px;--control-heading-size:18px;--control-body-size:15px;--control-caption-size:14px}
-.shumos-control main :where(h1):not([data-native-slot=preview] *){font-size:var(--control-title-size)}
-.shumos-control main :where(h2):not([data-native-slot=preview] *){font-size:var(--control-heading-size)}
-.shumos-control main :where(.text-xs):not([data-native-slot=preview] *){font-size:var(--control-caption-size);line-height:1.6}
+@media print{[data-shell-content]>main,[data-shell-content]>main>div:first-child{padding:0!important;min-height:0!important}[data-visit-active]{display:none!important}}

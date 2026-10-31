@@ -46,6 +46,9 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
   const { selectedPatient } = usePatientContext();
   const { visit } = useVisit();
   const info = workspacePresentation(safety.live, game.id);
+  useEffect(() => {
+    if (info.active) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [info.active]);
   const [preview, setPreview] = useState<HTMLElement | null>(null);
   const [assistance, setAssistance] = useState<HTMLElement | null>(null);
   const [session, setSession] = useState<HTMLElement | null>(null);

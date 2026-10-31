@@ -8,7 +8,8 @@ export function ShumosBrandMark({ compact = false }: { compact?: boolean }) {
         alt="شعار شموس كير"
         width={495}
         height={495}
-        priority
+        preload
+        sizes={compact ? "48px" : "68px"}
         className={`${compact ? "h-12 w-12" : "h-16 w-16"} object-contain`}
       />
     </div>

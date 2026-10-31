@@ -1,0 +1,270 @@
+{
+  "environment": "Chromium, local Next dev, isolated Auth/RTDB emulators, synthetic records; no physical devices",
+  "checks": [
+    "Password visibility, real emulator reset delivery and generic sign-in feedback",
+    "All five primary screens and login fit the four requested viewport sizes",
+    "All 14 visits, stored ratings/notes, accessible dialog and unchanged historical records",
+    "22 unique canonical activities and input-method filters preserve launch parameters",
+    "All 22 native setup routes; three reward games have exactly three levels and no stages",
+    "Explicit per-visit therapist name persists separately from authenticated owner",
+    "Native start/pause/resume/end, navigation guard, save-once game result and clinical evaluation retained",
+    "Sign-out removes authenticated content"
+  ],
+  "viewports": [
+    {
+      "route": "/control",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/visits",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/visits",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/visits",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/visits",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    }
+  ],
+  "setups": [
+    {
+      "id": "shumos-castle-legends-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "balloon-quest",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "bubble-pop-wall",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "space-pilot",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "build-quest-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "mirror-quest-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "blooming-world-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "body-sequence-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "rhythm-steps-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "foot-maze-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "turn-and-go-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "balance-bridge-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "follow-the-footsteps",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "color-chase",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "runner-quest-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "safe-hex-arena-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "fire-rescue-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "harvest-valley-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "pearl-voyage-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": false
+    },
+    {
+      "id": "achievement-city-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": true
+    },
+    {
+      "id": "achievement-forest-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": true
+    },
+    {
+      "id": "ocean-wonders-3d",
+      "nativeSettings": true,
+      "levels": 3,
+      "reward": true
+    }
+  ],
+  "errors": []
+}

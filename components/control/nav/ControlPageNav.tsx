@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
 import styles from "./pageNav.module.css";
 
 /** Real links keep navigation visible and pass through the shared active-game guard. */
@@ -16,7 +15,6 @@ export function ControlPageNav({ backHref, backLabel, children }: {
         </Link>
         {children}
       </nav>
-      <ShumosBrandMark compact />
     </div>
   );
 }

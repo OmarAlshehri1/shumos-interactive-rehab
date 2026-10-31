@@ -2,7 +2,6 @@
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
-import { ControlNav } from "@/components/control/nav/ControlNav";
 import { PatientContextBanner } from "@/components/control/patients/PatientContextBanner";
 import { GameCard } from "./GameCard";
 import { InteractionIcon } from "./InteractionIcon";
@@ -44,10 +43,10 @@ function Library() {
   return (
     <main dir="rtl" lang="ar" className={styles.library}>
       <div className={styles.inner}>
-        <ControlNav active="library" />
+
         <header className={styles.header}>
-          <h1>مكتبة الأنشطة</h1>
-          <span className={styles.count}>{games.length} نشاط</span>
+          <div><h1>مكتبة الأنشطة</h1><p>تجارب للحركة، والتعلّم، والإنجاز.</p></div>
+          <span className={styles.count}>{selected === "ALL" ? `${GAME_REGISTRY.length} نشاطًا` : `${games.length} من ${GAME_REGISTRY.length} نشاطًا`}</span>
         </header>
         <PatientContextBanner />
         <nav className={styles.categories} aria-label="تصفية الأنشطة">

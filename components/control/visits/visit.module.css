@@ -1,15 +1,14 @@
 .page {
-  position: fixed;
-  inset: 0;
-  overflow: auto;
-  background: #f3f7f8;
-  color: #16383d;
+  position: relative;
+  overflow: visible;
+  background: var(--control-canvas);
+  color: var(--control-ink);
   font-family: var(--font-control), system-ui, sans-serif;
-  padding: 32px 20px 100px;
+  padding: 0;
 }
 .content {
   width: 100%;
-  max-width: 1280px;
+  max-width: none;
   margin: auto;
   display: grid;
   gap: 20px;
@@ -22,14 +21,14 @@
 .header p,
 .muted {
   font-size: 14px;
-  color: #61777e;
+  color: var(--control-muted);
   line-height: 1.8;
 }
 .card {
   background: white;
-  border: 1px solid #dce7e9;
+  border: 1px solid var(--control-border);
   border-radius: 20px;
-  padding: 22px;
+  padding: var(--control-card-padding);
   display: grid;
   gap: 16px;
   box-shadow: 0 3px 15px #143c4305;
@@ -58,8 +57,8 @@
 }
 .primary,
 .options button[aria-pressed="true"] {
-  background: #087f81 !important;
-  border-color: #087f81 !important;
+  background: var(--control-primary) !important;
+  border-color: var(--control-primary) !important;
   color: white !important;
 }
 .danger {
@@ -92,7 +91,7 @@
   border-radius: 10px;
   background: #fcfefe;
   padding: 10px 12px;
-  color: #16383d;
+  color: var(--control-ink);
   font: inherit;
 }
 .field textarea {
@@ -112,13 +111,13 @@
   display: flex;
   justify-content: space-between;
   text-align: right;
-  border: 1px solid #dce7e9;
+  border: 1px solid var(--control-border);
   border-radius: 12px;
   padding: 12px;
   background: #f9fcfc;
 }
 .patient[aria-pressed="true"] {
-  border-color: #087f81;
+  border-color: var(--control-primary);
   background: #e8f7f4;
 }
 .error {
@@ -195,7 +194,7 @@
   gap: 10px;
 }
 .entry {
-  border: 1px solid #dce7e9;
+  border: 1px solid var(--control-border);
   border-radius: 12px;
   padding: 14px;
   display: grid;
@@ -224,7 +223,7 @@
   white-space: pre-wrap;
 }
 .link {
-  color: #087f81;
+  color: var(--control-primary);
   font-weight: 600;
 }
 .rating {
@@ -240,13 +239,13 @@
   border-radius: 10px;
 }
 .rating button[aria-pressed="true"] {
-  background: #087f81;
+  background: var(--control-primary);
   color: #fff;
 }
 .break {
   border-inline-start: 3px solid #ccdce0;
   padding: 8px 14px;
-  color: #61777e;
+  color: var(--control-muted);
   font-size: 14px;
 }
 @media (max-width: 650px) {
@@ -273,6 +272,6 @@
     padding: 18px;
   }
   .page {
-    padding-top: 24px;
+    padding-top: 0;
   }
 }

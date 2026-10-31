@@ -13,17 +13,17 @@
   margin: 0;
   font-size: 16px;
   font-weight: 700;
-  color: #173f47;
+  color: var(--control-ink);
 }
 .sectionHeader a {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  color: #087f81;
+  color: var(--control-primary);
 }
 .grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 .card {
   grid-column: span 2;
@@ -31,10 +31,10 @@
   flex-direction: column;
   gap: 10px;
   padding: 18px 20px;
-  border: 1px solid #dce7e9;
+  border: 1px solid var(--control-border);
   border-radius: var(--control-card-radius);
   background: #fff;
-  box-shadow: 0 1px 2px #1739470a, 0 4px 14px #17394708;
+  box-shadow: var(--control-shadow);
 }
 .wide {
   grid-column: span 3;
@@ -47,9 +47,9 @@
 }
 .heading h3 {
   margin: 0;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
-  color: #173f47;
+  color: var(--control-ink);
 }
 .icon {
   display: grid;
@@ -57,8 +57,8 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: #e7f4f3;
-  color: #087f81;
+  background: var(--control-tint);
+  color: var(--control-primary);
 }
 .icon svg {
   width: 20px;
@@ -66,15 +66,15 @@
 }
 .row {
   display: grid;
-  grid-template-columns: minmax(78px, auto) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(60px, auto) minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
   min-height: 44px;
 }
 .name {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  color: #35565e;
+  color: var(--control-muted);
   white-space: nowrap;
 }
 .status {
@@ -84,8 +84,8 @@
   justify-self: start;
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
   white-space: nowrap;
 }
 .status i {
@@ -99,8 +99,8 @@
   background: #e9f8ef;
 }
 .wait {
-  color: #7a5e20;
-  background: #fff4dc;
+  color: #6c716a;
+  background: #f1f3ef;
 }
 .primary,
 .secondary {
@@ -109,12 +109,12 @@
   justify-content: center;
   gap: 7px;
   min-height: 44px;
-  min-width: 96px;
-  padding: 0 16px;
+  min-width: 76px;
+  padding: 0 12px;
   border-radius: 12px;
-  border: 1px solid #087f81;
+  border: 1px solid var(--control-primary);
   font-family: inherit;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -126,7 +126,7 @@
   height: 17px;
 }
 .primary {
-  background: #087f81;
+  background: var(--control-primary);
   color: #fff;
 }
 .primary:hover {
@@ -134,7 +134,7 @@
 }
 .secondary {
   background: #fff;
-  color: #087f81;
+  color: var(--control-primary);
   border-color: #b9d9d6;
 }
 .secondary:hover:not(:disabled) {
@@ -156,7 +156,7 @@
   border: 1px solid #d5e3e5;
   border-radius: 10px;
   background: #f8fbfc;
-  color: #35565e;
+  color: var(--control-muted);
   font-family: inherit;
   font-size: 14px;
 }
@@ -199,3 +199,6 @@
 
 .quietLink{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center;font-size:14px;color:#526b75;text-decoration:underline;text-underline-offset:4px}
 .quietLink:hover{color:#173a43}
+
+.card{min-width:0}.heading{margin-bottom:8px}.heading h3{font-size:15px;font-weight:600}.status{max-width:100%;white-space:normal;line-height:1.6}.status i{flex-shrink:0}.display{background:linear-gradient(145deg,#f2f8f4,#fff)}.display .quietLink{font-size:12px;min-height:32px}.row{gap:8px}.sectionHeader h2{font-size:16px;font-weight:500}.select{font-size:13px}.primary,.secondary{font-size:13px}.wide .row{grid-template-columns:52px minmax(0,1fr) auto}
+@media(min-width:1101px) and (max-width:1280px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card,.wide{grid-column:auto}.display{grid-column:1/-1}}

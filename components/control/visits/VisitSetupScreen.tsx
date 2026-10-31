@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
-import { ControlNav } from "@/components/control/nav/ControlNav";
 import { AddPatientSheet } from "@/components/control/patients/AddPatientSheet";
 import { usePatients, searchPatients } from "@/lib/patients/usePatients";
 import { getPatient } from "@/lib/patients/patientRepository";
@@ -51,7 +50,7 @@ export function VisitSetupScreen() {
   }, [prefillId, auth.phase]);
   const duration = minutes === "custom" ? Number(custom) : Number(minutes),
     child = mode === "guest" ? guest.trim() : (selected?.firstName ?? ""),
-    therapistName = therapist.trim() || auth.displayName || "";
+    therapistName = therapist.trim();
   const begin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -87,6 +86,7 @@ export function VisitSetupScreen() {
         entries: {},
         breaks: {},
       });
+      setTherapist("");
       if (mode === "guest") patientContext.selectWalkIn(child);
       else
         patientContext.selectPatient({
@@ -107,7 +107,7 @@ export function VisitSetupScreen() {
     <main className={styles.page} dir="rtl" lang="ar">
       <div className={styles.content}>
         <ControlPageNav backHref="/control" backLabel="الرئيسية" />
-        <ControlNav active="home" showBrand={false} />
+
         <header className={styles.header}>
           <h1>جلسة علاجية جديدة</h1>
         </header>
@@ -202,7 +202,9 @@ export function VisitSetupScreen() {
                 <input
                   required
                   maxLength={100}
-                  value={therapist || auth.displayName || ""}
+                  value={therapist}
+                  autoComplete="off"
+                  placeholder="الاسم المهني للأخصائي"
                   onChange={(e) => setTherapist(e.target.value)}
                 />
               </label>

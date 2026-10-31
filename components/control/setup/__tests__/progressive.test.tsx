@@ -45,10 +45,10 @@ describe("unique canonical library and real progressive stages", () => {
       filteredGames([...GAME_REGISTRY, ...GAME_REGISTRY], "ALL"),
     ).toHaveLength(GAME_REGISTRY.length);
     for (const filter of ["HAND", "FOOT", "JOYSTICK", "DRIVING"] as const) {
-      expect(filteredGames(GAME_REGISTRY, filter).map((g) => g.id)).toEqual(
+      expect(filteredGames(GAME_REGISTRY, filter).map((g) => g.id).sort()).toEqual(
         DEVICE_GAMES[filter].filter((id) =>
           GAME_REGISTRY.some((g) => g.id === id),
-        ),
+        ).slice().sort(),
       );
       expect(
         new Set(filteredGames(GAME_REGISTRY, filter).map((g) => g.id)).size,

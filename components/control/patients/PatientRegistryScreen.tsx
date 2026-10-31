@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ControlNav } from "@/components/control/nav/ControlNav";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { formatPatientCountLabel, searchPatients, usePatients } from "@/lib/patients/usePatients";
@@ -27,7 +26,7 @@ export function PatientRegistryScreen() {
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-5 py-8 sm:gap-10 sm:px-8 sm:py-10">
-        <ControlNav active="patients" />
+
         {isRealtimeEnabled() ? <RealtimePatientRegistry /> : <RealtimeUnavailableNotice />}
       </div>
     </main>
@@ -55,7 +54,7 @@ function RealtimePatientRegistry() {
 
   return (
     <>
-      <header className="flex flex-col gap-1 text-center">
+      <header className="flex flex-col gap-1 text-start">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">المرضى</h1>
         <p className="text-base text-slate-500">{loading ? "جاري التحميل..." : formatPatientCountLabel(activeCount)}</p>
       </header>
@@ -63,6 +62,7 @@ function RealtimePatientRegistry() {
       <SectionCard className="sm:flex-row sm:items-center">
         <input
           type="search"
+          aria-label="البحث عن مريض"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ابحث بالاسم أو رقم المريض"
@@ -94,7 +94,7 @@ function RealtimePatientRegistry() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2.5">
+        <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
           {results.map((patient) => (
             <PatientListItem key={patient.patientId} patient={patient} />
           ))}
