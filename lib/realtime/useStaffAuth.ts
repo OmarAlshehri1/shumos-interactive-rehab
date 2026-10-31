@@ -46,32 +46,44 @@ export interface UseStaffAuthResult {
 }
 
 export function useStaffAuth(): UseStaffAuthResult {
-  const [authState, setAuthState] = useState<StaffAuthState>({ status: "initializing", uid: null, email: null, displayName: null });
+  const [authState, setAuthState] = useState<StaffAuthState & { cycle: number }>({ status: "initializing", uid: null, email: null, displayName: null, cycle: 0 });
   // The allowlist result for whichever uid it was last computed for —
   // deliberately not "reset" on sign-out/uid-change via a second setState
   // call; `phase` below only trusts this when `result.uid` still matches
   // the CURRENT authState.uid, so a stale result for a previous/different
   // uid is automatically treated as "still checking," never a stale
-  // false-positive. Every setState call here happens inside an async
+  // false-positive; the sign-in cycle also rejects old results after logout. Every setState call here happens inside an async
   // callback (the isActiveStaff().then()/.catch()), never synchronously
   // inside the effect body.
-  const [authorization, setAuthorization] = useState<{ uid: string; active: boolean } | null>(null);
+  const [authorization, setAuthorization] = useState<{ uid: string; active: boolean; cycle: number } | null>(null);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const checkingUidRef = useRef<string | null>(null);
+  const authCycle = useRef(0);
 
-  useEffect(() => subscribeToStaffAuthState(setAuthState), []);
+  useEffect(() => subscribeToStaffAuthState(next => {
+    if (next.status !== "authenticated") {
+      authCycle.current++;
+      checkingUidRef.current = null;
+      setAuthorization(null);
+    }
+    setAuthState({ ...next, cycle: authCycle.current });
+  }), []);
 
-  // Runs the /staff allowlist check exactly once per signed-in uid — not on
+  // Runs the /staff allowlist check once per uid in each authenticated session — not on
   // every render, and not again just because some unrelated state changed.
   useEffect(() => {
     if (authState.status !== "authenticated" || !authState.uid) return;
-    if (checkingUidRef.current === authState.uid) return;
-    checkingUidRef.current = authState.uid;
-    const uid = authState.uid;
+    const uid = authState.uid, cycle = authState.cycle, check = `${cycle}:${uid}`;
+    if (checkingUidRef.current === check) return;
+    checkingUidRef.current = check;
     isActiveStaff(uid)
-      .then((active) => setAuthorization({ uid, active }))
-      .catch(() => setAuthorization({ uid, active: false })); // fail closed — an unreadable allowlist is never treated as authorized
-  }, [authState.status, authState.uid]);
+      .then((active) => {
+        if (authCycle.current === cycle && checkingUidRef.current === check) setAuthorization({ uid, active, cycle });
+      })
+      .catch(() => {
+        if (authCycle.current === cycle && checkingUidRef.current === check) setAuthorization({ uid, active: false, cycle });
+      }); // fail closed — an unreadable allowlist is never treated as authorized
+  }, [authState.status, authState.uid, authState.cycle]);
 
   const signIn = useCallback(async (email: string, password: string): Promise<StaffSignInError | null> => {
     setIsSigningIn(true);
@@ -94,7 +106,7 @@ export function useStaffAuth(): UseStaffAuthResult {
     if (authState.status === "failed") return "error";
     if (authState.status === "unauthenticated") return "signedOut";
     // authenticated:
-    if (!authorization || authorization.uid !== authState.uid) return "checkingAccess";
+    if (!authorization || authorization.uid !== authState.uid || authorization.cycle !== authState.cycle) return "checkingAccess";
     return authorization.active ? "authorized" : "unauthorized";
   })();
 

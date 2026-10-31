@@ -18,6 +18,7 @@ interface StaffLoginScreenProps {
 
 /** Firebase staff sign-in only. Device locking belongs to the managed device's OS. */
 export function StaffLoginScreen({ onSignIn }: StaffLoginScreenProps) {
+  const [method, setMethod] = useState<"staff" | "manager">("staff");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -41,10 +42,16 @@ export function StaffLoginScreen({ onSignIn }: StaffLoginScreenProps) {
       <header className={styles.welcome}>
         <div className={styles.identity}><ShumosBrandMark /></div>
         <h1 id="staff-login-title">تسجيل الدخول</h1>
-        <p>البريد وكلمة المرور</p>
+        <p>{method === "manager" ? "استخدم حساب المدير المستقل" : "البريد وكلمة المرور"}</p>
       </header>
+      <div className={styles.methods} role="group" aria-label="طريقة الدخول">
+        {([['staff', 'البريد وكلمة المرور'], ['manager', 'دخول المدير']] as const).map(([id, label]) =>
+          <button key={id} type="button" aria-pressed={method === id} disabled={isSubmitting} onClick={() => {
+            setMethod(id); setEmail(""); setPassword(""); setVisible(false); setError(null);
+          }}>{label}</button>)}
+      </div>
       <div className={styles.fields}>
-        <label className={styles.field} htmlFor="staff-email">البريد الإلكتروني<input id="staff-email" name="email" type="email" inputMode="email" autoComplete="username" dir="ltr" value={email} onChange={event => setEmail(event.target.value)} placeholder="name@clinic.com" required aria-invalid={error === "invalid-credentials" || undefined} aria-describedby={error ? "staff-auth-error" : undefined} disabled={isSubmitting} /></label>
+        <label className={styles.field} htmlFor="staff-email">البريد الإلكتروني<input id="staff-email" name="email" type="email" inputMode="email" autoComplete="username" dir="ltr" value={email} placeholder={method === "manager" ? "manager@clinic.com" : "name@clinic.com"} onChange={event => setEmail(event.target.value)} required aria-invalid={error === "invalid-credentials" || undefined} aria-describedby={error ? "staff-auth-error" : undefined} disabled={isSubmitting} /></label>
         <div className={styles.field}><label htmlFor="staff-password">كلمة المرور</label><div className={styles.password}><input id="staff-password" name="password" type={visible ? "text" : "password"} autoComplete="current-password" dir="ltr" value={password} onChange={event => setPassword(event.target.value)} required aria-invalid={error === "invalid-credentials" || undefined} aria-describedby={error ? "staff-auth-error" : undefined} disabled={isSubmitting} /><button type="button" onClick={() => setVisible(!visible)} aria-label={visible ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"} aria-pressed={visible}><ControlIcon name={visible ? "eyeOff" : "eye"} /></button></div></div>
       </div>
       {error && <p id="staff-auth-error" role="alert" className={styles.error}>{ERROR_MESSAGES[error]}</p>}

@@ -104,6 +104,12 @@ export function VisitProvider({ children }: { children: React.ReactNode }) {
     visit.ownerUid === uid &&
     visit.controlTabId === controlTabId() &&
     (!visit.patientId || safety.connected);
+  const setVisitReady = safety.setVisitReady;
+  const readyForNative = restored && (!pointer || visit?.visitId === pointer.visitId);
+  useEffect(() => {
+    setVisitReady(readyForNative);
+    return () => setVisitReady(false);
+  }, [readyForNative, setVisitReady]);
   useEffect(() => {
     const timer = setInterval(() => setNow(Date.now() + offset.current), 1000);
     return () => clearInterval(timer);

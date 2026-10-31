@@ -169,7 +169,16 @@ export async function signOutStaff(): Promise<void> {
   if (instance.currentUser) {
     const { revokeDisplaysForStaff } = await import("./displayAuthorization");
     // Fail closed: do not silently leave authorized projectors behind if revocation fails.
-    await revokeDisplaysForStaff(instance.currentUser.uid);
+    try {
+      await revokeDisplaysForStaff(instance.currentUser.uid);
+    } catch (error) {
+      // Inactive/unapproved identities cannot read or revoke Display grants.
+      // Their grants are already unusable under the rules' active-staff check.
+      // Only a confirmed inactive record permits logout without revocation;
+      // active accounts and failed/offline authorization reads still fail closed.
+      const { isActiveStaff } = await import("./staffRepository");
+      if (await isActiveStaff(instance.currentUser.uid)) throw error;
+    }
   }
   await signOut(instance);
 }

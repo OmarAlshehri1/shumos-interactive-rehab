@@ -51,14 +51,14 @@ export function ControlShell({ children }: { children: React.ReactNode }) {
 }
 
 function QueuedSwitchNotice() {
-  const { queuedDestination, cancelQueuedSwitch, connected } = useGameSafety();
+  const { queuedDestination, cancelQueuedSwitch, connected, finalizingSwitch } = useGameSafety();
   if (!queuedDestination) return null;
   const path = queuedDestination.split(/[?#]/)[0];
   const title = GAME_REGISTRY.find(game => game.route === path)?.nameAr
     ?? destinations.find(item => item.href === path)?.label ?? "الوجهة المطلوبة";
   return <aside role="status" className={styles.switchNotice} data-testid="queued-game-switch">
     <div><strong>الانتقال إلى {title}</strong><p>{connected
-      ? "أنهِ النشاط من أدواته الحالية. سنتابع الانتقال تلقائيًا بعد حفظ النتيجة والتقييم المطلوب."
+      ? finalizingSwitch ? "جارٍ إنهاء السابق وحفظ نتيجته. راجع التقييم إن ظهر؛ سنتابع الانتقال تلقائيًا بعد الحفظ." : "بانتظار تأكيد إنهاء النشاط للانتقال."
       : "بانتظار الاتصال لتأكيد الحفظ. سيبقى النشاط محفوظًا في مكانه."}</p></div>
     <button type="button" onClick={cancelQueuedSwitch}>إلغاء الانتقال</button>
   </aside>;

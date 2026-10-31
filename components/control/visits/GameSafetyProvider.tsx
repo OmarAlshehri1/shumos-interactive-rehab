@@ -1,7 +1,12 @@
 "use client";
 import { ControlDialog } from "@/components/control/ui/ControlDialog";
 import { ActivityRecoveryCard } from "@/components/control/live/ActivityRecoveryCard";
-import { createContext, useContext, useEffect, useState, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useRef, useCallback } from "react";
+import { SwitchFinalizerRegistry, hasDirectSwitchAdapter, type GameSwitchFinalizer } from "@/lib/liveGame/switchFinalizer";
+import { usePatientContext } from "@/lib/patients/PatientSessionContext";
+import { getPatient } from "@/lib/patients/patientRepository";
+import { get, ref } from "firebase/database";
+import { ShumosBrandMark } from "@/components/control/brand/ShumosBrandMark";
 import { usePathname, useRouter } from "next/navigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
 import { getStaffDb, isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
@@ -12,7 +17,7 @@ import {
 } from "@/lib/realtime/sessionRepository";
 import { getSessionHistoryRecord } from "@/lib/sessions/sessionHistoryRepository";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
-import { dismissCompletedSession } from "@/lib/realtime/dismissCompletedSession";
+import { dismissCompletedSession, canResumeSession } from "@/lib/realtime/dismissCompletedSession";
 import type { LiveSessionRecord } from "@/lib/realtime/types";
 import {
   confirmedLiveResult,
@@ -35,6 +40,10 @@ interface Safety {
   holdVisit: (hold: boolean) => void;
   queuedDestination: string | null;
   cancelQueuedSwitch: () => void;
+  registerFinalizer: (adapter: GameSwitchFinalizer) => () => void;
+  finalizingSwitch: boolean;
+  setVisitReady: (ready: boolean) => void;
+  blockNativeMount: boolean;
 }
 const Context = createContext<Safety>({
   live: null,
@@ -45,6 +54,10 @@ const Context = createContext<Safety>({
   holdVisit: () => {},
   queuedDestination: null,
   cancelQueuedSwitch: () => {},
+  registerFinalizer: () => () => {},
+  finalizingSwitch: false,
+  setVisitReady: () => {},
+  blockNativeMount: false,
 });
 export const useGameSafety = () => useContext(Context);
 export function GameSafetyProvider({
@@ -56,6 +69,7 @@ export function GameSafetyProvider({
     pathname = usePathname(),
     router = useRouter();
   const { uid } = useStaffAuth();
+  const patient = usePatientContext();
   const [canonical, setLive] = useState<LiveSessionRecord | null>(null),
     [pending, setPending] = useState<LiveSessionRecord | null>(null),
     [known, setKnown] = useState(!realtime),
@@ -64,9 +78,28 @@ export function GameSafetyProvider({
     [error, setError] = useState<string | null>(null),
     [blocked, setBlocked] = useState(false),
     [visitHold, holdVisit] = useState(false);
+  const [visitReady, setVisitReady] = useState(!realtime);
   const [requestedSwitch, setRequestedSwitch] = useState<{
     href: string; sessionId: string; activityKey: string | null; ownerUid: string;
   } | null>(null);
+  const [finalizingSwitch, setFinalizingSwitch] = useState(false);
+  const [finalizers] = useState(() => new SwitchFinalizerRegistry());
+  const automaticEnd = useRef<{ sessionId: string; activityKey: string | null } | null>(null);
+  const facts = useRef({ live: null as LiveSessionRecord | null, key: null as string | null, connected: false });
+  const registerFinalizer = useCallback((adapter: GameSwitchFinalizer) => {
+    const stop = finalizers.register(adapter);
+    queueMicrotask(() => {
+      const intent = automaticEnd.current, current = facts.current;
+      if (!intent || !current.live || !current.connected || !finalizers.matches(current.live)) return;
+      if (intent.sessionId !== current.live.sessionId || intent.activityKey !== current.key) return;
+      automaticEnd.current = null;
+      if (!canResumeSession(getStaffDb(), current.live)) return;
+      try { finalizers.finalize(current.live); }
+      catch { setError("تعذّر إنهاء النشاط المستعاد. لم يتغيّر تقدمه."); setBlocked(true); setFinalizingSwitch(false); }
+    });
+    return stop;
+  }, [finalizers]);
+  const cancelSwitch = () => { automaticEnd.current = null; setRequestedSwitch(null); setBlocked(false); setFinalizingSwitch(false); };
   const live = pending ?? canonical;
   const lastRoute = useRef(pathname);
   useEffect(() => {
@@ -94,6 +127,7 @@ export function GameSafetyProvider({
     ? `${live.gameId}:${live.patientId}:${historyKeyForLive(live)}`
     : null;
   const canLeave =
+    visitReady &&
     (!visitHold || isUnstartedActivity(live)) &&
     (!pending || isUnstartedActivity(pending)) &&
     known &&
@@ -103,12 +137,25 @@ export function GameSafetyProvider({
       (live.session.gameState === "SESSION_COMPLETE" &&
         (!live.patientId || proof === key)));
   const route = GAME_REGISTRY.find((g) => g.id === live?.gameId)?.route;
+  useEffect(() => { facts.current = { live, key, connected }; }, [live, key, connected]);
+  useEffect(() => {
+    if (!finalizingSwitch || !requestedSwitch) return;
+    const timer = setTimeout(() => {
+      if (!automaticEnd.current) return; // Native end was accepted; its normal save/review guards remain authoritative.
+      automaticEnd.current = null;
+      setFinalizingSwitch(false);
+      setBlocked(true);
+      setError("تعذّر تجهيز الإنهاء المباشر لهذه الجلسة. لم تُحذف بياناتها؛ استخدم أدوات النشاط أو أعد المحاولة بعد التحقق من الاتصال.");
+    }, 15000);
+    return () => clearTimeout(timer);
+  }, [finalizingSwitch, requestedSwitch]);
   useEffect(() => {
     if (!requestedSwitch || !canLeave || requestedSwitch.ownerUid !== uid) return;
     let cancelled = false;
     queueMicrotask(() => {
       if (cancelled) return;
       setRequestedSwitch(null);
+      setFinalizingSwitch(false);
       setBlocked(false);
       // A removed/replaced activity or a new run invalidates this intent.
       // Only the original live activity's verified completion can continue it.
@@ -182,8 +229,9 @@ export function GameSafetyProvider({
       if (!a || event.defaultPrevented || a.target === "_blank") return;
       const next = new URL(a.href, location.href);
       if (next.origin !== location.origin || next.pathname === pathname) return;
+      const safeEmptyEntry = known && connected && (!live || (!!uid && ownsUnstartedActivity(live, controlTabId(), uid)));
       if (
-        !canLeave &&
+        !canLeave && !safeEmptyEntry &&
         (route === pathname ||
           GAME_REGISTRY.some((g) => g.route === next.pathname))
       ) {
@@ -195,12 +243,13 @@ export function GameSafetyProvider({
           activityKey: key,
           ownerUid: uid,
         } : null);
+        setFinalizingSwitch(false);
         setBlocked(true);
       }
     };
     document.addEventListener("click", click, true);
     return () => document.removeEventListener("click", click, true);
-  }, [canLeave, pathname, route, live, key, uid]);
+  }, [canLeave, pathname, route, live, key, uid, known, connected]);
   useEffect(() => {
     const unload = (e: BeforeUnloadEvent) => {
       if (live && !canLeave) {
@@ -212,78 +261,103 @@ export function GameSafetyProvider({
     return () => window.removeEventListener("beforeunload", unload);
   }, [live, canLeave]);
   // Browser back/direct route entry must not mount a different game while a previous result is recoverable.
+  const foreignOwner = !!live && !!uid && !canResumeSession(getStaffDb(), live);
   const wrongGame =
     GAME_REGISTRY.some((g) => g.route === pathname) &&
     !!live &&
-    route !== pathname &&
-    !canLeave;
-  const waiting = GAME_REGISTRY.some((g) => g.route === pathname) && !known;
-  const open = blocked || wrongGame;
+    (route !== pathname || foreignOwner) &&
+    !canLeave &&
+    !(uid && ownsUnstartedActivity(live, controlTabId(), uid));
+  const waiting = GAME_REGISTRY.some((g) => g.route === pathname) && (!known || !visitReady);
+  const open = blocked || (wrongGame && !finalizingSwitch);
   // Empty owned previews are retired automatically; only recoverable clinical
   // work and another window's activity need an explicit recovery action.
   const savedComplete = live?.session.gameState === "SESSION_COMPLETE" && (!live.patientId || proof === key);
   const needsAction = !savedComplete && !(live && uid && ownsUnstartedActivity(live, controlTabId(), uid));
+  const nativeEndAvailable = !!live && !foreignOwner && (live.session.gameState === "SESSION_COMPLETE" || finalizers.matches(live) || (route !== pathname && hasDirectSwitchAdapter(live)));
+  const finalizeAndSwitch = async () => {
+    if (!live || !uid || !known || !connected || !canResumeSession(getStaffDb(), live)) return;
+    // A refreshed/deep-linked game has no intercepted click, but is still an explicit destination.
+    const request = requestedSwitch ?? (wrongGame ? {
+      href: `${pathname}${location.search}${location.hash}`, sessionId: live.sessionId, activityKey: key, ownerUid: uid,
+    } : null);
+    if (!request) return;
+    if (live.sessionId !== request.sessionId || key !== request.activityKey) {
+      setError("تغيّر النشاط الحالي. اضغط رجوع وتحقق من حالته قبل الانتقال.");
+      return;
+    }
+    if (!nativeEndAvailable) return;
+    if (!requestedSwitch) setRequestedSwitch(request);
+    setFinalizingSwitch(true);
+    setBlocked(false);
+    try {
+      if (live.session.gameState !== "SESSION_COMPLETE" && !finalizers.matches(live)) {
+        if (!route || !hasDirectSwitchAdapter(live) || route === pathname) {
+          setError("هذا النشاط لا يدعم الإنهاء المباشر في حالته الحالية. لم يتغير تقدمه.");
+          setFinalizingSwitch(false);
+          setBlocked(true);
+          return;
+        }
+        automaticEnd.current = { sessionId: live.sessionId, activityKey: key };
+        const activeVisit = (await get(ref(getStaffDb(), `activeTherapyVisits/${uid}`))).val() as { patientId?: string; controlTabId?: string } | null;
+        if (activeVisit && (activeVisit.patientId !== live.patientId || activeVisit.controlTabId !== controlTabId()))
+          throw Error("conflicting-visit-owner");
+        if (live.patientId) {
+          const original = await getPatient(live.patientId);
+          if (!original) throw Error("missing-patient");
+          if (automaticEnd.current?.sessionId !== live.sessionId) return;
+          if (!facts.current.live || facts.current.live.sessionId !== live.sessionId || facts.current.key !== key || !canResumeSession(getStaffDb(), facts.current.live))
+            throw Error("activity-changed");
+          patient.selectPatient(original);
+        } else patient.selectWalkIn(live.session.config.childFirstName);
+        if (!automaticEnd.current) return;
+        router.push(route); // Recover through the existing native paused lifecycle; its registration ends it.
+      } else if (live.session.gameState !== "SESSION_COMPLETE") {
+        finalizers.finalize(live);
+      }
+      setFinalizingSwitch(true);
+      setBlocked(false);
+      setError(null);
+    } catch {
+      automaticEnd.current = null;
+      setFinalizingSwitch(false);
+      setBlocked(true);
+      setError("تعذّر إنهاء النشاط. بقيت بياناته في مكانها؛ تحقق من الاتصال وأعد المحاولة.");
+    }
+  };
   return (
     <Context.Provider
       value={{ live, known, connected, canLeave, error, holdVisit,
         queuedDestination: requestedSwitch?.href ?? null,
-        cancelQueuedSwitch: () => setRequestedSwitch(null) }}
+        cancelQueuedSwitch: cancelSwitch, registerFinalizer, finalizingSwitch,
+        setVisitReady, blockNativeMount: wrongGame || waiting }}
     >
-      {!wrongGame && !waiting && children}
-      {waiting && (
-        <div
-          className="fixed inset-0 grid place-items-center bg-slate-50"
-          dir="rtl"
-        >
-          جاري التحقق من النشاط الحالي…
-        </div>
-      )}
-      {route && route !== pathname && live && known && needsAction && !open && (
+      {children}
+      {route && route !== pathname && live && known && needsAction && !open && !finalizingSwitch && (
         <ActivityRecoveryCard record={live} connected={connected} />
       )}
       {open && (
-        <ControlDialog open title="حفظ النشاط قبل الانتقال" onClose={() => { setBlocked(false); setRequestedSwitch(null); }} role="dialog">
-            <h2 className="text-lg font-bold">حفظ النشاط قبل الانتقال</h2>
-            <p className="text-sm leading-7">
-              {!known || !connected
-                ? "يلزم اتصال التحكم والتحقق من الحالة قبل بدء نشاط آخر."
-                : canLeave
-                  ? "تأكد حفظ النتيجة. يمكنك متابعة الانتقال."
-                  : "أنهِ النشاط من أدواته الحالية، وانتظر تأكيد حفظ نتيجته. يمكنك حفظ جلسة جزئية عبر إنهاء النشاط المبكر حيث يتوفر. لن يُمسح النشاط عند الانتقال."}
-            </p>
-            {error && (
-              <p role="alert" className="text-sm text-rose-700">
-                {error}
-              </p>
-            )}
-            <div className="flex flex-wrap gap-2">
-              <button
-                autoFocus
-                className="min-h-11 rounded-xl bg-teal-700 px-4 text-white"
-                onClick={() => {
-                  setBlocked(false);
-                  if (route && route !== pathname) router.push(route);
-                }}
-              >
-                {route ? requestedSwitch ? "متابعة إنهاء النشاط" : "العودة إلى النشاط" : "إلغاء الانتقال"}
-              </button>
-              {requestedSwitch && <button
-                className="min-h-11 rounded-xl bg-slate-100 px-4"
-                onClick={() => { setRequestedSwitch(null); setBlocked(false); }}
-              >إلغاء الانتقال</button>}
-              {canLeave && (
-                <button
-                  className="min-h-11 rounded-xl bg-slate-100 px-4"
-                  onClick={() => {
-                    setBlocked(false);
-                    router.push("/control/activities");
-                  }}
-                >
-                  متابعة إلى المكتبة
-                </button>
-              )}
-            </div>
-          </ControlDialog>
+        <ControlDialog open title="الانتقال إلى نشاط جديد" onClose={() => { cancelSwitch(); if (wrongGame) router.push("/control/activities"); }} role="dialog">
+          <div className="flex justify-center"><ShumosBrandMark compact /></div>
+          <h2 className="text-center text-lg font-bold">الانتقال إلى نشاط جديد</h2>
+          <p className="text-sm leading-7">
+            {!known || !connected
+              ? "يلزم الاتصال والتحقق من الحالة قبل إنهاء النشاط وفتح الجديدة."
+              : foreignOwner ? "النشاط الحالي يخص حسابًا آخر. لن يُنهى أو يُستبدل من حساب المدير."
+              : !nativeEndAvailable
+                ? "هذا النشاط لا يتيح الإنهاء المباشر في حالته الحالية. احتفظنا بتقدمه؛ يلزم استخدام أدواته الأصلية لإنهائه وحفظه."
+                : "سننهي النشاط السابق من أدواته الأصلية ونحفظ نتيجته قبل الانتقال. راجع التقييم إذا ظهر؛ لن تُضاف أي تقييمات تلقائيًا."}
+          </p>
+          {error && <p role="alert" className="text-sm text-rose-700">{error}</p>}
+          <div className="flex flex-wrap justify-center gap-2">
+            <button autoFocus className="min-h-11 rounded-xl bg-teal-700 px-4 text-white disabled:opacity-40"
+              disabled={(!requestedSwitch && !wrongGame) || !nativeEndAvailable || !connected || !known}
+              onClick={finalizeAndSwitch}>إنهاء السابق وفتح الجديدة</button>
+            <button className="min-h-11 rounded-xl bg-slate-100 px-4" onClick={() => {
+              cancelSwitch(); if (wrongGame) router.push("/control/activities");
+            }}>رجوع</button>
+          </div>
+        </ControlDialog>
       )}
     </Context.Provider>
   );

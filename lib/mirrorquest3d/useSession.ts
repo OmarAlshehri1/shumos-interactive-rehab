@@ -1,4 +1,5 @@
 'use client';
+import { useGameSwitchFinalizer } from "@/components/control/visits/useGameSwitchFinalizer";
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLiveGameController } from '@/lib/liveGame/useLiveGameController';
 import { LiveRecordPublisher } from '@/lib/liveGame/publisher';
@@ -64,5 +65,6 @@ export function useMirrorSession() {
   return()=>{disposed=true;ready=false;clearInterval(timer);stop();publisher.dispose();op.current=()=>{};};
  },[c.auth.phase,c.isOwner,db,uid,getLive]);
  const send=useCallback((command:Command)=>op.current(command),[]);
+  useGameSwitchFinalizer(GAME_ID, state?.sessionId, !!state && c.connectionStatus === "connected" && c.isOwner && !blocked, () => send({ type: "end", at: Date.now() }));
  return {state,send,error,history,blocked,connected:c.connectionStatus==='connected'&&c.isOwner,displayConnected:c.displayConnected};
 }

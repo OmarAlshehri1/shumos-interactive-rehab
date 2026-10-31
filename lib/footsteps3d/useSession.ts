@@ -1,4 +1,5 @@
 'use client';
+import { useGameSwitchFinalizer } from "@/components/control/visits/useGameSwitchFinalizer";
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLiveGameController } from '@/lib/liveGame/useLiveGameController';
 import { LiveRecordPublisher } from '@/lib/liveGame/publisher';
@@ -189,6 +190,7 @@ export function useFootstepsSession() {
   }, [c.auth.phase, c.isOwner, db, uid, getLive]);
 
   const send = useCallback((command: Command) => op.current(command), []);
+  useGameSwitchFinalizer(GAME_ID, state?.sessionId, !!state && c.connectionStatus === "connected" && c.isOwner && !blocked && hasActivity(state), () => send({ type: "end", at: Date.now() }));
   const setSimulated = useCallback((patch: Partial<SimState>) => {
     simRef.current = { ...simRef.current, ...patch };
     setSim(simRef.current);

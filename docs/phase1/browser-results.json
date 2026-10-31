@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "Same manager UID rechecks activation after sign-out: deactivated denied, reactivated accepted without reloading",
+    "Manager uses a distinct active Firebase admin identity and independent strong password; unapproved identity and wrong shared password rejected; authorized staff allowlist remains enforced",
+    "Standard Firebase login, password visibility/errors, glass design and manager method selector remain accessible",
+    "Empty native setup retires without warning or history; a different game opens with working difficulty selection",
+    "Direct-route empty setup switching keeps no obsolete live presentation",
+    "Manager backup identity cannot mount, end or overwrite another staff identity’s clinical controller",
+    "Shared end-and-switch invokes native end without reopening the game; Back preserves progress; exact save-once history and visit review precede navigation; Display reload stays idle",
+    "Mounted reward native end preserves two real confirmations and exactly one result; closing optional review fabricates no clinical rating"
+  ],
+  "screenshots": [
+    "login-1440",
+    "login-820",
+    "login-390",
+    "login-320",
+    "manager-login",
+    "login-error",
+    "switched-new-setup",
+    "shared-end-switch",
+    "display-idle-after-switch"
+  ],
+  "errors": [],
+  "syntheticOnly": true
+}

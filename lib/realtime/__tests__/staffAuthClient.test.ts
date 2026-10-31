@@ -8,6 +8,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
  */
 
 const approval = vi.hoisted(() => ({ resume: vi.fn(), revoke: vi.fn(async () => {}) }));
+const staffAccess = vi.hoisted(() => ({ active: vi.fn(async () => true) }));
+vi.mock("../staffRepository", () => ({ isActiveStaff: staffAccess.active }));
 vi.mock("../displayAuthorization", () => ({ resumeDisplayApprovals: approval.resume, revokeDisplaysForStaff: approval.revoke }));
 
 type AuthUser = { uid: string; email: string | null };
@@ -45,6 +47,9 @@ describe("staffAuthClient", () => {
   beforeEach(() => {
     vi.resetModules();
     getAuthMock.mockClear();
+    getAuthMock.mockReturnValue({ __fakeAuth: true });
+    approval.revoke.mockReset().mockResolvedValue(undefined);
+    staffAccess.active.mockReset().mockResolvedValue(true);
     onAuthStateChangedMock.mockClear();
     connectAuthEmulatorMock.mockClear();
     setPersistenceMock.mockClear().mockResolvedValue(undefined);
@@ -142,6 +147,33 @@ describe("staffAuthClient", () => {
     const { signOutStaff } = await import("../staffAuthClient");
     await signOutStaff();
     expect(signOutMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("lets a confirmed inactive identity leave the rejection screen when grant revocation is denied", async () => {
+    getAuthMock.mockReturnValue({ currentUser: { uid: "inactive" } } as never);
+    approval.revoke.mockRejectedValue(Error("permission-denied"));
+    staffAccess.active.mockResolvedValue(false);
+    const { signOutStaff } = await import("../staffAuthClient");
+    await signOutStaff();
+    expect(staffAccess.active).toHaveBeenCalledWith("inactive");
+    expect(signOutMock).toHaveBeenCalledOnce();
+  });
+
+  it("does not discard an active credential when Display revocation fails", async () => {
+    getAuthMock.mockReturnValue({ currentUser: { uid: "active" } } as never);
+    approval.revoke.mockRejectedValue(Error("permission-denied"));
+    const { signOutStaff } = await import("../staffAuthClient");
+    await expect(signOutStaff()).rejects.toThrow("permission-denied");
+    expect(signOutMock).not.toHaveBeenCalled();
+  });
+
+  it("keeps the credential when authorization cannot be rechecked", async () => {
+    getAuthMock.mockReturnValue({ currentUser: { uid: "unknown" } } as never);
+    approval.revoke.mockRejectedValue(Error("permission-denied"));
+    staffAccess.active.mockRejectedValue(Error("offline"));
+    const { signOutStaff } = await import("../staffAuthClient");
+    await expect(signOutStaff()).rejects.toThrow("offline");
+    expect(signOutMock).not.toHaveBeenCalled();
   });
 
   it("requests a Firebase reset on the same isolated staff Auth instance without signing in", async () => {

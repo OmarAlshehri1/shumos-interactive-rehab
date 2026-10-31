@@ -1,5 +1,6 @@
 "use client";
 
+import { useGameSwitchFinalizer } from "@/components/control/visits/useGameSwitchFinalizer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { attachBrowserLoop } from "@/lib/runnerquest3d/controlMount";
 import { ControlRuntime, type ControlView } from "@/lib/runnerquest3d/controlRuntime";
@@ -124,6 +125,8 @@ export function useRunnerQuestRealtimeControl() {
     endWorkflow.current = withEarlyEndReason(undefined, selection.reason, selection.customReason);
     runtime?.command({ type: "end" });
   }, [runtime]);
+
+  useGameSwitchFinalizer(RUNNER_QUEST_3D_GAME_ID, runtime?.session.sessionId, canRun && connectionStatus === "connected" && !!runtime, () => endWithReason({ reason: "CHANGE_ACTIVITY", customReason: "" }));
 
   return {
     authPhase: auth.phase, runtime, view, childName, setChildName: (n: string) => setChildName(n.slice(0, 30)),

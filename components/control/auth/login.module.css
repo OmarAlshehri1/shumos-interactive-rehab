@@ -86,3 +86,7 @@
 @media (prefers-reduced-motion: reduce) { .field input, .submit { transition: none; } }
 @media (prefers-reduced-transparency: reduce) { .card { background: #23473e; backdrop-filter: none; } }
 @media (forced-colors: active) { .card { background: Canvas; color: CanvasText; } .welcome p, .field input, .password button { color: CanvasText; } }
+.methods { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; border: 1px solid #ffffff47; border-radius: 14px; background: #102d272b; }
+.methods button { min-height: 44px; padding: 8px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: #edf4ed; font: 500 12px var(--font-control), sans-serif; cursor: pointer; }
+.methods button[aria-pressed=true] { background: #edf2dc; color: #244a3c; border-color: #ffffff4d; }
+.methods button:focus-visible { outline: 3px solid #f5d47d; outline-offset: 3px; }

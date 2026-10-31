@@ -1,5 +1,6 @@
 "use client";
 
+import { useGameSwitchFinalizer } from "@/components/control/visits/useGameSwitchFinalizer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { attachBrowserLoop } from "@/lib/balloonquest/controlMount";
 import { ControlRuntime, type ControlView } from "@/lib/balloonquest/controlRuntime";
@@ -189,6 +190,8 @@ export function useBalloonQuest3DRealtimeControl() {
     runtime?.command({ type: "end" });
   }, [runtime]);
 
+
+  useGameSwitchFinalizer(BALLOON_QUEST_GAME_ID, runtime?.session.sessionId, canRun && connectionStatus === "connected" && !!runtime && !recoveryBlocked, () => endWithReason({ reason: "CHANGE_ACTIVITY", customReason: "" }));
 
   return {
     authPhase: auth.phase,

@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import { useGameSafety } from "@/components/control/visits/GameSafetyProvider";
 import { LibraryLaunchControls } from "@/components/control/library/launch/LibraryLaunchBoundary";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,8 +20,12 @@ export const useControlGameId = () => useContext(GameContext);
 export function ControlGameFrame({ children }: { children: ReactNode }) {
   const path = usePathname();
   const { selectedPatient } = usePatientContext();
+  const safety = useGameSafety();
   const game = GAME_REGISTRY.find((g) => g.route === path);
   if (!game) return <>{children}</>;
+  // Keep visit/patient/navigation providers mounted while withholding only the
+  // conflicting native controller. Visit restoration must precede end/save navigation.
+  if (safety.blockNativeMount) return <div role="status" dir="rtl" className="p-8 text-center text-sm text-slate-600">جاري التحقق من النشاط والجلسة العلاجية…</div>;
   const thumbnail = realGameThumbnail(game.id);
   return (
     <GameContext.Provider value={game.id}>
