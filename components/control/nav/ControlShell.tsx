@@ -9,6 +9,7 @@ import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { shouldShowLogout } from "@/lib/control/topLevelNavigation";
 import { GAME_REGISTRY } from "@/lib/games/registry";
+import { useGameSafety } from "@/components/control/visits/GameSafetyProvider";
 import styles from "./shell.module.css";
 
 const destinations: { href: string; label: string; icon: ControlIconName }[] = [
@@ -44,9 +45,23 @@ export function ControlShell({ children }: { children: React.ReactNode }) {
           {isRealtimeEnabled() && shouldShowLogout(pathname) && <StaffSignOut />}
         </div>
       </header>
-      <div id="control-content" className={styles.content} tabIndex={-1} data-shell-content>{children}</div>
+      <div id="control-content" className={styles.content} tabIndex={-1} data-shell-content><QueuedSwitchNotice />{children}</div>
     </div>
   </div>;
+}
+
+function QueuedSwitchNotice() {
+  const { queuedDestination, cancelQueuedSwitch, connected } = useGameSafety();
+  if (!queuedDestination) return null;
+  const path = queuedDestination.split(/[?#]/)[0];
+  const title = GAME_REGISTRY.find(game => game.route === path)?.nameAr
+    ?? destinations.find(item => item.href === path)?.label ?? "الوجهة المطلوبة";
+  return <aside role="status" className={styles.switchNotice} data-testid="queued-game-switch">
+    <div><strong>الانتقال إلى {title}</strong><p>{connected
+      ? "أنهِ النشاط من أدواته الحالية. سنتابع الانتقال تلقائيًا بعد حفظ النتيجة والتقييم المطلوب."
+      : "بانتظار الاتصال لتأكيد الحفظ. سيبقى النشاط محفوظًا في مكانه."}</p></div>
+    <button type="button" onClick={cancelQueuedSwitch}>إلغاء الانتقال</button>
+  </aside>;
 }
 
 function StaffSignOut() {

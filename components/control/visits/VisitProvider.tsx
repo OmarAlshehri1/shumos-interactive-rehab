@@ -45,6 +45,7 @@ interface Value {
   start: (v: Visit) => Promise<void>;
   change: (fn: (v: Visit) => Visit) => Promise<void>;
   dismiss: () => void;
+  acknowledgeActivityReview: (id: string) => void;
 }
 const Context = createContext<Value | null>(null);
 export function useVisit() {
@@ -63,12 +64,40 @@ export function VisitProvider({ children }: { children: React.ReactNode }) {
     [busy, setBusy] = useState(false),
     [error, setError] = useState<string | null>(null),
     [now, setNow] = useState(() => Date.now());
+  const [reviewed, setReviewed] = useState<{ key: string; ids: string[] }>({ key: "", ids: [] });
   const offset = useRef(0),
     current = useRef(visit),
     lock = useRef(false);
   useEffect(() => {
     current.current = visit;
   }, [visit]);
+  const reviewKey = visit ? `shumos.visit.reviewed.${visit.ownerUid}.${visit.visitId}` : null;
+  useEffect(() => {
+    if (!reviewKey) return;
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+      let ids: string[] = [];
+      try {
+        const raw: unknown = JSON.parse(sessionStorage.getItem(reviewKey) ?? "[]");
+        if (Array.isArray(raw)) ids = raw.filter((id): id is string => typeof id === "string" && id.length <= 150);
+      } catch { /* Keep the existing optional review open when the tab store is unavailable. */ }
+      setReviewed({ key: reviewKey, ids });
+    });
+    return () => { cancelled = true; };
+  }, [reviewKey]);
+  const acknowledgeActivityReview = useCallback((id: string) => {
+    if (!reviewKey || !id || id.length > 150) return;
+    setReviewed(previous => {
+      const ids = [...new Set([...(previous.key === reviewKey ? previous.ids : []), id])].slice(-500);
+      return { key: reviewKey, ids };
+    });
+    try {
+      const raw: unknown = JSON.parse(sessionStorage.getItem(reviewKey) ?? "[]");
+      const previous = Array.isArray(raw) ? raw.filter((v): v is string => typeof v === "string" && v.length <= 150) : [];
+      sessionStorage.setItem(reviewKey, JSON.stringify([...new Set([...previous, id])].slice(-500)));
+    } catch { /* The mounted provider retains the acknowledgment even without tab storage. */ }
+  }, [reviewKey]);
   const uid = realtime ? auth.uid : "local-demo";
   const writable =
     !!visit &&
@@ -248,11 +277,11 @@ export function VisitProvider({ children }: { children: React.ReactNode }) {
       live.session.createdAt >= visit.startedAt &&
       ownedByTab(live, controlTabId()) &&
       key &&
-      !visit.entries[key]
+      (!visit.entries[key] || reviewed.key !== reviewKey || !reviewed.ids.includes(key))
     );
     holdVisit(hold);
     return () => holdVisit(false);
-  }, [visit, safety.live, holdVisit]);
+  }, [visit, safety.live, holdVisit, reviewed, reviewKey]);
   // Only the current tab's completed game and this visit's pinned patient may be linked. No history is re-saved here.
   useEffect(() => {
     const live = safety.live;
@@ -333,6 +362,7 @@ export function VisitProvider({ children }: { children: React.ReactNode }) {
         start,
         change,
         dismiss,
+        acknowledgeActivityReview,
       }}
     >
       {children}

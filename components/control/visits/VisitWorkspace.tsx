@@ -27,7 +27,7 @@ const gameTitle = (id: string) =>
   GAME_REGISTRY.find((g) => g.id === id)?.nameAr ?? id;
 export function VisitWorkspace() {
   const context = useVisit(),
-    { visit, now, change, busy, writable, error } = context,
+    { visit, now, change, busy, writable, error, acknowledgeActivityReview } = context,
     safety = useGameSafety();
   const [panel, setPanel] = useState<"details" | "end" | null>(null),
     [message, setMessage] = useState(""),
@@ -53,26 +53,10 @@ export function VisitWorkspace() {
       o.stop(c.currentTime + 0.55);
     }
   }, [visit, clock?.expired]);
-  const reviewKey = visit
-    ? `shumos.visit.reviewed.${visit.ownerUid}.${visit.visitId}`
-    : null;
   const acknowledgeReview = (id: string | null) => {
-    if (!id || !reviewKey) return;
+    if (!id) return;
     seen.current.add(id);
-    try {
-      const raw = JSON.parse(sessionStorage.getItem(reviewKey) ?? "[]");
-      const ids = Array.isArray(raw)
-        ? raw.filter(
-            (v): v is string => typeof v === "string" && v.length <= 150,
-          )
-        : [];
-      sessionStorage.setItem(
-        reviewKey,
-        JSON.stringify([...new Set([...ids, id])].slice(-500)),
-      );
-    } catch {
-      /* The current mounted workspace still remembers the acknowledgement. */
-    }
+    acknowledgeActivityReview(id);
   };
   useEffect(() => {
     if (!visit || visit.endedAt) return;

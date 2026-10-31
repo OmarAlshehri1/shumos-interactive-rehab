@@ -36,12 +36,10 @@ export function StaffLoginScreen({ onSignIn }: StaffLoginScreenProps) {
     finally { setIsSubmitting(false); }
   };
   return <main className={styles.page} dir="rtl" lang="ar">
-    <Image className={styles.background} src="/brand/image_for_Lpg%20in%20back-og.jpg" alt="" fill sizes="100vw" preload />
-    <div className={styles.shade} aria-hidden="true" />
-    <div className={styles.brand}><ShumosBrandMark /><div><strong>شموس كير</strong><span>التأهيل التفاعلي</span></div></div>
+    <Image className={styles.background} src="/brand/Highimagequilty-.PNG" alt="" fill sizes="100vw" preload unoptimized />
     <form onSubmit={handleSubmit} className={styles.card} aria-busy={isSubmitting} aria-labelledby="staff-login-title">
       <header className={styles.welcome}>
-        <span className={styles.seal} aria-hidden="true"><ControlIcon name="shield" /></span>
+        <div className={styles.identity}><ShumosBrandMark /></div>
         <h1 id="staff-login-title">تسجيل الدخول</h1>
         <p>البريد وكلمة المرور</p>
       </header>

@@ -33,6 +33,8 @@ interface Safety {
   canLeave: boolean;
   error: string | null;
   holdVisit: (hold: boolean) => void;
+  queuedDestination: string | null;
+  cancelQueuedSwitch: () => void;
 }
 const Context = createContext<Safety>({
   live: null,
@@ -41,6 +43,8 @@ const Context = createContext<Safety>({
   canLeave: false,
   error: null,
   holdVisit: () => {},
+  queuedDestination: null,
+  cancelQueuedSwitch: () => {},
 });
 export const useGameSafety = () => useContext(Context);
 export function GameSafetyProvider({
@@ -60,6 +64,9 @@ export function GameSafetyProvider({
     [error, setError] = useState<string | null>(null),
     [blocked, setBlocked] = useState(false),
     [visitHold, holdVisit] = useState(false);
+  const [requestedSwitch, setRequestedSwitch] = useState<{
+    href: string; sessionId: string; activityKey: string | null; ownerUid: string;
+  } | null>(null);
   const live = pending ?? canonical;
   const lastRoute = useRef(pathname);
   useEffect(() => {
@@ -96,6 +103,20 @@ export function GameSafetyProvider({
       (live.session.gameState === "SESSION_COMPLETE" &&
         (!live.patientId || proof === key)));
   const route = GAME_REGISTRY.find((g) => g.id === live?.gameId)?.route;
+  useEffect(() => {
+    if (!requestedSwitch || !canLeave || requestedSwitch.ownerUid !== uid) return;
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (cancelled) return;
+      setRequestedSwitch(null);
+      setBlocked(false);
+      // A removed/replaced activity or a new run invalidates this intent.
+      // Only the original live activity's verified completion can continue it.
+      if (live?.sessionId === requestedSwitch.sessionId && key === requestedSwitch.activityKey)
+        router.push(requestedSwitch.href);
+    });
+    return () => { cancelled = true; };
+  }, [requestedSwitch, canLeave, uid, live, key, router]);
   // Includes direct route entry after a reload: obsolete empty setups never
   // require an explicit recovery action. Transactions recheck Start/ownership.
   useEffect(() => {
@@ -168,12 +189,18 @@ export function GameSafetyProvider({
       ) {
         event.preventDefault();
         event.stopPropagation();
+        setRequestedSwitch(live && uid ? {
+          href: `${next.pathname}${next.search}${next.hash}`,
+          sessionId: live.sessionId,
+          activityKey: key,
+          ownerUid: uid,
+        } : null);
         setBlocked(true);
       }
     };
     document.addEventListener("click", click, true);
     return () => document.removeEventListener("click", click, true);
-  }, [canLeave, pathname, route]);
+  }, [canLeave, pathname, route, live, key, uid]);
   useEffect(() => {
     const unload = (e: BeforeUnloadEvent) => {
       if (live && !canLeave) {
@@ -198,7 +225,9 @@ export function GameSafetyProvider({
   const needsAction = !savedComplete && !(live && uid && ownsUnstartedActivity(live, controlTabId(), uid));
   return (
     <Context.Provider
-      value={{ live, known, connected, canLeave, error, holdVisit }}
+      value={{ live, known, connected, canLeave, error, holdVisit,
+        queuedDestination: requestedSwitch?.href ?? null,
+        cancelQueuedSwitch: () => setRequestedSwitch(null) }}
     >
       {!wrongGame && !waiting && children}
       {waiting && (
@@ -213,7 +242,7 @@ export function GameSafetyProvider({
         <ActivityRecoveryCard record={live} connected={connected} />
       )}
       {open && (
-        <ControlDialog open title="حفظ النشاط قبل الانتقال" onClose={() => setBlocked(false)} role="dialog">
+        <ControlDialog open title="حفظ النشاط قبل الانتقال" onClose={() => { setBlocked(false); setRequestedSwitch(null); }} role="dialog">
             <h2 className="text-lg font-bold">حفظ النشاط قبل الانتقال</h2>
             <p className="text-sm leading-7">
               {!known || !connected
@@ -236,8 +265,12 @@ export function GameSafetyProvider({
                   if (route && route !== pathname) router.push(route);
                 }}
               >
-                {route ? "العودة إلى النشاط" : "إلغاء الانتقال"}
+                {route ? requestedSwitch ? "متابعة إنهاء النشاط" : "العودة إلى النشاط" : "إلغاء الانتقال"}
               </button>
+              {requestedSwitch && <button
+                className="min-h-11 rounded-xl bg-slate-100 px-4"
+                onClick={() => { setRequestedSwitch(null); setBlocked(false); }}
+              >إلغاء الانتقال</button>}
               {canLeave && (
                 <button
                   className="min-h-11 rounded-xl bg-slate-100 px-4"
