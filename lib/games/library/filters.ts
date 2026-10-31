@@ -1,13 +1,12 @@
 import type { GameDefinition } from "@/lib/games/registry";
 import { ACTIVITY_CATEGORY_GAMES, DEVICE_GAMES, type RequestedInput } from "./capabilities";
 /** Device filters plus the activity category filter. A category describes what a game IS and never implies a sensor. */
-export type LibraryFilter = "ALL" | Exclude<RequestedInput, "MANUAL"> | "INTERACTIVE_REWARDS";
+export type LibraryFilter = Exclude<RequestedInput, "MANUAL"> | "INTERACTIVE_REWARDS";
 export const LIBRARY_FILTERS: readonly {
   id: LibraryFilter;
   label: string;
   icon: string;
 }[] = [
-  { id: "ALL", label: "الكل", icon: "all" },
   { id: "HAND", label: "حساسات اليد", icon: "hand" },
   { id: "FOOT", label: "حساسات القدم", icon: "foot" },
   { id: "JOYSTICK", label: "عصي التحكم", icon: "controller" },
@@ -17,12 +16,12 @@ export const LIBRARY_FILTERS: readonly {
 export function libraryFilter(raw: string | null): LibraryFilter {
   return LIBRARY_FILTERS.some((f) => f.id === raw)
     ? (raw as LibraryFilter)
-    : "ALL";
+    : "HAND";
 }
 /** Registry order and canonical capability membership remain the only source of games. */
 export function filteredGames(
   games: readonly GameDefinition[],
-  filter: LibraryFilter,
+  filter: LibraryFilter | "ALL",
 ): GameDefinition[] {
   const unique = [...new Map(games.map((g) => [g.id, g])).values()];
   if (filter === "ALL") return unique;

@@ -29,13 +29,11 @@ export function GameLibraryScreen() {
 function Library() {
   const query = useSearchParams(),
     router = useRouter(),
-    selected = libraryFilter(query.get("filter") ?? query.get("input")),
-    games = filteredGames(GAME_REGISTRY, selected);
+    selected = libraryFilter(query.get("filter") ?? query.get("input"));
   const select = (filter: LibraryFilter) => {
     const next = new URLSearchParams(query.toString());
     next.delete("input");
-    if (filter === "ALL") next.delete("filter");
-    else next.set("filter", filter);
+    next.set("filter", filter);
     router.replace(`/control/activities${next.size ? `?${next}` : ""}`, {
       scroll: false,
     });
@@ -45,8 +43,7 @@ function Library() {
       <div className={styles.inner}>
 
         <header className={styles.header}>
-          <div><h1>مكتبة الأنشطة</h1><p>تجارب للحركة، والتعلّم، والإنجاز.</p></div>
-          <span className={styles.count}>{selected === "ALL" ? `${GAME_REGISTRY.length} نشاطًا` : `${games.length} من ${GAME_REGISTRY.length} نشاطًا`}</span>
+          <h1>مكتبة الأنشطة</h1>
         </header>
         <PatientContextBanner />
         <nav className={styles.categories} aria-label="تصفية الأنشطة">
@@ -69,7 +66,7 @@ function Library() {
           ...librarySections(GAME_REGISTRY),
           ...categorySections(GAME_REGISTRY),
         ]
-          .filter((s) => selected === "ALL" || s.input === selected)
+          .filter((s) => s.input === selected)
           .map((section) => (
           <section
             key={section.id}

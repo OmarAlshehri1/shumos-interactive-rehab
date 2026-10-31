@@ -54,8 +54,8 @@ describe("unique canonical library and real progressive stages", () => {
         new Set(filteredGames(GAME_REGISTRY, filter).map((g) => g.id)).size,
       ).toBe(filteredGames(GAME_REGISTRY, filter).length);
     }
-    expect(libraryFilter(null)).toBe("ALL");
-    expect(libraryFilter("__proto__")).toBe("ALL");
+    expect(libraryFilter(null)).toBe("HAND");
+    expect(libraryFilter("__proto__")).toBe("HAND");
     expect(launchHref("/control/balloon-quest", "HAND")).toContain(
       "input=HAND",
     );

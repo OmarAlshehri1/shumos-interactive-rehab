@@ -2,21 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
-import {
-  formatPatientCountLabel,
-  usePatients,
-} from "@/lib/patients/usePatients";
 import { ControlIcon } from "@/components/control/ui/ControlIcon";
-import { GAME_REGISTRY } from "@/lib/games/registry";
 import styles from "./home.module.css";
-import { PatientListItem } from "@/components/control/patients/PatientListItem";
-import { SectionCard } from "@/components/control/ui/SectionCard";
 import { ReadinessDashboard } from "./ReadinessDashboard";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { useVisit } from "@/components/control/visits/VisitProvider";
-
-const RECENT_PATIENTS_LIMIT = 4;
 
 /** Clinical dashboard; the complete canonical game library remains at /control/activities. */
 export function HomeScreen() {
@@ -28,13 +18,9 @@ export function HomeScreen() {
       style={{ fontFamily: "var(--font-control), system-ui, sans-serif" }}
     >
       <div className="mx-auto flex w-full max-w-[1440px] flex-1 flex-col gap-5 px-5 py-6 md:px-8 xl:px-10">
-        <header className={styles.heading}>
-          <div><span className={styles.eyebrow}>مساحة الرعاية</span><h1>الرئيسية</h1><p>جهّز مساحة اللعب، وابدأ خطوة جديدة.</p></div>
-          <Link href="/control/activities" className={styles.libraryLink}><ControlIcon name="activities"/><span><strong>مكتبة الأنشطة</strong>{GAME_REGISTRY.length} نشاطًا تفاعليًا</span><ControlIcon name="arrow"/></Link>
-        </header>
+        <header className={styles.heading}><h1>الرئيسية</h1></header>
         <QuickStartSection />
         <ReadinessDashboard />
-        {isRealtimeEnabled() && <div className={styles.patients}><QuickPatientsSection /></div>}
       </div>
     </main>
   );
@@ -60,44 +46,5 @@ function QuickStartSection() {
       </div>
       {quickError && <p role="status" className={styles.error}>أنهِ الجلسة العلاجية الحالية من شريط الجلسة قبل بدء جلسة سريعة.</p>}
     </section>
-  );
-}
-
-/** Task section 4 — a few recent patients only (never the whole registry), same PatientListItem rows the full Patient Registry uses. */
-function QuickPatientsSection() {
-  const { patients, activeCount, loading } = usePatients();
-  const recent = [...patients]
-    .sort((a, b) => b.updatedAt - a.updatedAt)
-    .slice(0, RECENT_PATIENTS_LIMIT);
-
-  return (
-    <SectionCard>
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col">
-          <h2 className="text-sm font-semibold text-slate-700">المرضى</h2>
-          <span className="text-xs text-slate-400">
-            {loading ? "جاري التحميل..." : formatPatientCountLabel(activeCount)}
-          </span>
-        </div>
-        <Link
-          href="/control/patients"
-          className="text-sm font-semibold text-teal-700 transition-colors hover:text-teal-800"
-        >
-          عرض كل المرضى
-        </Link>
-      </div>
-
-      {!loading && recent.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 py-8 text-center text-sm text-slate-400">
-          لا يوجد مرضى مسجّلون بعد
-        </div>
-      )}
-
-      <div className="flex flex-col gap-2.5">
-        {recent.map((patient) => (
-          <PatientListItem key={patient.patientId} patient={patient} />
-        ))}
-      </div>
-    </SectionCard>
   );
 }

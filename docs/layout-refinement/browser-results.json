@@ -1,0 +1,159 @@
+{
+  "checks": [
+    "Trimmed sidebar, Shumos account label and dashboard with original readiness/session actions",
+    "Five category-only tabs; default hand category; all 22 games discoverable with original launch parameters",
+    "10/10/3 pagination, both chronological sorts, name/number search, empty results, live additions and deactivation clamping",
+    "24 activity cards keep native detail routes; 14 visits remain accessible; compact patient/visit headers",
+    "Centered YouTube workspace retains real sharing actions and original tab-opening link without a fabricated preview",
+    "All six pages fit the four requested viewports; history uses 3/2 columns, 4 on wide desktop, 1 on mobile",
+    "Every synthetic historical visit and saved activity remains byte-for-byte unchanged"
+  ],
+  "viewports": [
+    {
+      "route": "/control",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1/visits/visit-1",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1440,
+      "height": 900,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1/visits/visit-1",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1366,
+      "height": 768,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1/visits/visit-1",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "route": "/control",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/activities",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/patients/patient-1/visits/visit-1",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "route": "/control/youtube",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "syntheticOnly": true
+}

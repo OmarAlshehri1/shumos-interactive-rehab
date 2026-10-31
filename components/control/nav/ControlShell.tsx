@@ -30,21 +30,17 @@ export function ControlShell({ children }: { children: React.ReactNode }) {
       <Link href="/control" className={styles.brand} aria-label="شموس كير · الرئيسية">
         <ShumosBrandMark /><span><strong>شموس كير</strong><small>التأهيل التفاعلي</small></span>
       </Link>
-      <span className={styles.menuLabel}>مساحة العمل</span>
       <nav className={styles.nav} aria-label="التنقل الرئيسي">
         {destinations.map(item => <Link key={item.href} href={item.href} title={item.label} aria-current={active?.href === item.href ? "page" : undefined}>
           <ControlIcon name={item.icon} /><span>{item.label}</span>{item.icon === "activities" && <small>{GAME_REGISTRY.length}</small>}
         </Link>)}
       </nav>
-      <div className={styles.sidebarBottom}>
-        <div className={styles.careNote}><ControlIcon name="spark"/><strong>كل خطوة تصنع فرقًا</strong><span>مساحة للرعاية، وفرصة للتقدّم.</span></div>
-        <Link href="/control/calibration" className={styles.utility} title="معايرة الإسقاط"><ControlIcon name="calibrate"/><span>معايرة الإسقاط</span></Link>
-      </div>
+
     </aside>
     <div className={styles.body}>
       <header className={styles.topbar}>
         <div className={styles.location}><span>مساحة الأخصائي</span><i>/</i><strong>{title}</strong></div>
-        <div className={styles.account}><span className={styles.avatar}><ControlIcon name="shield"/></span><span>حساب العيادة<small>{isRealtimeEnabled() ? "وصول الأخصائيين" : "نسخة محلية"}</small></span>
+        <div className={styles.account}><span className={styles.avatar}><ControlIcon name="shield"/></span><span>حساب شموس كير</span>
           {isRealtimeEnabled() && shouldShowLogout(pathname) && <StaffSignOut />}
         </div>
       </header>

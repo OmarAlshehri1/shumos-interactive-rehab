@@ -193,9 +193,7 @@ export function ReadinessDashboard() {
               {audioCopy}
             </p>
           )}
-          <a className={styles.quietLink} href="/control/calibration">
-            معايرة الإسقاط
-          </a>
+
         </article>
         <article className={styles.card}>
           <CardHeading icon="hand" title="حساسات اليد" />

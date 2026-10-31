@@ -7,6 +7,8 @@ import { formatPatientCountLabel, searchPatients, usePatients } from "@/lib/pati
 import { SectionCard } from "@/components/control/ui/SectionCard";
 import { AddPatientSheet } from "./AddPatientSheet";
 import { PatientListItem } from "./PatientListItem";
+import { patientPage, type PatientSort } from "@/lib/control/patientPagination";
+import styles from "./registry.module.css";
 
 /**
  * PATIENT REGISTRY TASK — the Patient Registry home screen: patient count,
@@ -49,8 +51,12 @@ function RealtimePatientRegistry() {
   const { patients, activeCount, loading } = usePatients();
   const [query, setQuery] = useState("");
   const [addOpen, setAddOpen] = useState(false);
+  const [sort, setSort] = useState<PatientSort>("newest");
+  const [requestedPage, setPage] = useState(1);
 
   const results = searchPatients(patients, query);
+  const pagination = patientPage(results, requestedPage, sort);
+  if (requestedPage !== pagination.page) setPage(pagination.page);
 
   return (
     <>
@@ -59,15 +65,16 @@ function RealtimePatientRegistry() {
         <p className="text-base text-slate-500">{loading ? "جاري التحميل..." : formatPatientCountLabel(activeCount)}</p>
       </header>
 
-      <SectionCard className="sm:flex-row sm:items-center">
+      <SectionCard className={styles.toolbar}>
         <input
           type="search"
           aria-label="البحث عن مريض"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => { setQuery(e.target.value); setPage(1); }}
           placeholder="ابحث بالاسم أو رقم المريض"
           className="min-h-12 flex-1 touch-manipulation rounded-2xl border-2 border-slate-200 bg-white px-5 text-base font-medium text-slate-900 outline-none transition-colors select-text placeholder:text-slate-400 focus:border-teal-600"
         />
+        <label className={styles.sort}>ترتيب المرضى<select aria-label="ترتيب المرضى" value={sort} onChange={e => { setSort(e.target.value as PatientSort); setPage(1); }}><option value="newest">الأحدث أولًا</option><option value="oldest">الأقدم أولًا</option></select></label>
         <button
           type="button"
           onClick={() => setAddOpen(true)}
@@ -94,11 +101,15 @@ function RealtimePatientRegistry() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
-          {results.map((patient) => (
+        <div className={styles.grid} data-patient-grid>
+          {pagination.patients.map((patient) => (
             <PatientListItem key={patient.patientId} patient={patient} />
           ))}
         </div>
+        {!loading && pagination.total > 0 && <nav className={styles.pagination} aria-label="صفحات المرضى">
+          <span>عرض {(pagination.page - 1) * 10 + 1}–{Math.min(pagination.page * 10, pagination.total)} من {pagination.total}</span>
+          <div><button type="button" aria-label="الصفحة السابقة" disabled={pagination.page === 1} onClick={() => setPage(pagination.page - 1)}>→ السابق</button><span role="status">الصفحة {pagination.page} من {pagination.totalPages}</span><button type="button" aria-label="الصفحة التالية" disabled={pagination.page === pagination.totalPages} onClick={() => setPage(pagination.page + 1)}>التالي ←</button></div>
+        </nav>}
       </SectionCard>
 
       {auth.uid && (

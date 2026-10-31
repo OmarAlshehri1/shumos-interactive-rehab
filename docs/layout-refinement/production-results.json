@@ -1,0 +1,10 @@
+{
+  "login": true,
+  "pagination": 10,
+  "categoryOnly": true,
+  "activities": 24,
+  "variableVisits": 14,
+  "visitHeader": true,
+  "youtube": true,
+  "errors": []
+}

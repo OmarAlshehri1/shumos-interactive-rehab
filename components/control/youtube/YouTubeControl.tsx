@@ -8,6 +8,7 @@ import { subscribeFavorites } from "@/lib/youtube/repository";
 import type { Video } from "@/lib/youtube/model";
 import { IDLE_SHARING, LocalTabShareControl, type SharingState } from "@/lib/youtube/localTabShareControl";
 import { nativeTabCaptureSupported } from "@/lib/youtube/tabShareModel";
+import { ControlIcon } from "@/components/control/ui/ControlIcon";
 import styles from "./youtube.module.css";
 
 const STATUS: Record<SharingState["phase"], string> = {
@@ -40,26 +41,34 @@ export function YouTubeControl() {
   }, [auth.phase, auth.uid]);
   const active = !["idle", "error", "selecting"].includes(sharing.phase);
   const disabled = supported !== true || !safety.known || !safety.connected || !safety.canLeave || auth.phase !== "authorized";
-  return <main className={styles.page} dir="rtl" lang="ar" data-testid="native-youtube-control">
-
-    <header><span className={`${styles.logo} ${styles.nativeLogo}`} aria-hidden="true">▶</span><h1>YouTube</h1></header>
-    <section className={styles.nativePanel} aria-label="مشاركة يوتيوب">
-      <a className={styles.original} href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">يوتيوب ↗</a>
-      <p className={styles.notice} role="status">{displayOnline ? "شاشة العرض متصلة" : "شاشة العرض غير متصلة"} · <a href="/display" target="_blank" rel="noopener noreferrer">فتح شاشة العرض ↗</a></p>
-      <p className={styles.connection} role="status" data-testid="tab-share-status">{STATUS[sharing.phase]}</p>
-      <div className={styles.nativeActions}>
-        <button className={styles.displayAction} disabled={disabled || active || sharing.phase === "selecting"} onClick={() => void runtime.current?.start()}>عرض على الشاشة</button>
-        <button className={styles.back} disabled={!active || sharing.phase === "connecting" || sharing.phase === "reconnecting"} onClick={() => void runtime.current?.toggleHidden()}>{sharing.phase === "hidden" ? "إظهار العرض" : "إخفاء العرض"}</button>
-        <button className={styles.back} disabled={!active && sharing.phase !== "selecting"} onClick={() => runtime.current?.stop()}>إيقاف العرض</button>
+  return <main className={styles.page} dir="rtl" lang="ar" data-testid="native-youtube-control" data-control-page-layout="centered">
+    <div className={styles.workspace}>
+      <header className={styles.heading}><span className={styles.logo} aria-hidden="true"><ControlIcon name="youtube"/></span><div><h1>يوتيوب</h1><p>مشاركة المحتوى على شاشة العرض</p></div></header>
+      <div className={styles.workspaceGrid}>
+        <section className={styles.openCard} aria-label="فتح يوتيوب">
+          <span className={styles.largeIcon}><ControlIcon name="youtube"/></span>
+          <h2>المحتوى المناسب، في مكانه</h2><p>افتح يوتيوب واختر محتوى الجلسة، ثم ابدأ المشاركة.</p>
+          <a className={styles.original} href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">فتح يوتيوب ↗</a>
+        </section>
+        <section className={styles.nativePanel} aria-label="مشاركة يوتيوب">
+          <div className={styles.panelHeading}><h2>شاشة العرض</h2><span className={styles.deviceStatus} data-connected={displayOnline}>{displayOnline ? "متصلة" : "غير متصلة"}</span></div>
+          <p className={styles.connection} role="status" data-testid="tab-share-status">{STATUS[sharing.phase]}</p>
+          <a className={styles.displayLink} href="/display" target="_blank" rel="noopener noreferrer">فتح شاشة العرض ↗</a>
+          <div className={styles.nativeActions}>
+            <button className={styles.displayAction} disabled={disabled || active || sharing.phase === "selecting"} onClick={() => void runtime.current?.start()}>بدء المشاركة</button>
+            <button className={styles.back} disabled={!active || sharing.phase === "connecting" || sharing.phase === "reconnecting"} onClick={() => void runtime.current?.toggleHidden()}>{sharing.phase === "hidden" ? "إظهار العرض" : "إخفاء العرض"}</button>
+            <button className={styles.back} disabled={!active && sharing.phase !== "selecting"} onClick={() => runtime.current?.stop()}>إيقاف العرض</button>
+          </div>
+          {active && <p className={styles.notice}>{sharing.audio ? "صوت التبويب مشارك" : "صوت التبويب غير مشارك"}</p>}
+          {supported === false && <p className={styles.notice}>المشاركة متاحة عبر Chrome على الكمبيوتر.</p>}
+          {supported && !active && <p className={styles.notice}>اختر تبويب يوتيوب مع مشاركة الصوت.</p>}
+          {safety.live && !safety.canLeave && <p className={styles.error}>أنهِ النشاط واحفظ نتيجته من أدواته قبل المشاركة.</p>}
+          {sharing.error && <p role="alert" className={styles.error}>{sharing.error}</p>}
+        </section>
       </div>
-      {active && <p className={styles.notice}>{sharing.audio ? "صوت التبويب مشارك" : "صوت التبويب غير مشارك"}</p>}
-      {supported === false && <p className={styles.notice}>الربط متاح في Chrome على الكمبيوتر نفسه. فتح يوتيوب متاح على هذا الجهاز.</p>}
-      {supported && !active && <p className={styles.notice}>اختر تبويب YouTube وفعّل «مشاركة صوت التبويب» إن ظهر الخيار.</p>}
-      {safety.live && !safety.canLeave && <p className={styles.error}>أنهِ النشاط واحفظ نتيجته من أدواته قبل المشاركة.</p>}
-      {sharing.error && <p role="alert" className={styles.error}>{sharing.error}</p>}
-    </section>
-    {(favorites.length > 0 || favoriteError) && <details className={styles.favoriteLinks}><summary>المفضلة</summary>
-      {favoriteError ? <p className={styles.notice}>تعذّر تحميل المفضلة.</p> : <ul>{favorites.map(video => <li key={video.videoId}><a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer">{video.title} ↗</a></li>)}</ul>}
-    </details>}
+      {(favorites.length > 0 || favoriteError) && <details className={styles.favoriteLinks}><summary>المفضلة</summary>
+        {favoriteError ? <p className={styles.notice}>تعذّر تحميل المفضلة.</p> : <ul>{favorites.map(video => <li key={video.videoId}><a href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer">{video.title} ↗</a></li>)}</ul>}
+      </details>}
+    </div>
   </main>;
 }

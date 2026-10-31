@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ConfirmSheet } from "@/components/control/live/ConfirmSheet";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
-import { ControlBreadcrumb } from "@/components/control/nav/ControlBreadcrumb";
+import { ClinicalPageHeader } from "@/components/control/ui/ClinicalPageHeader";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
@@ -32,32 +32,16 @@ export function PatientProfileScreen({ patientId }: { patientId: string }) {
       className={styles.profile}
     >
       <div className={styles.content}>
-        <ControlPageNav backHref="/control/patients" backLabel="المرضى" />
-        <PatientProfileBreadcrumb patientId={patientId} />
         {isRealtimeEnabled() ? <RealtimePatientProfile patientId={patientId} /> : <RealtimeUnavailableNotice />}
       </div>
     </main>
   );
 }
 
-function PatientProfileBreadcrumb({ patientId }: { patientId: string }) {
-  const [patient, setPatient] = useState<Patient | null | undefined>(undefined);
-  useEffect(() => (isRealtimeEnabled() ? subscribeToPatient(patientId, setPatient) : undefined), [patientId]);
-
-  return (
-    <ControlBreadcrumb
-      items={[
-        { label: "الرئيسية", href: "/control" },
-        { label: "المرضى", href: "/control/patients" },
-        { label: patient?.firstName ?? "..." },
-      ]}
-    />
-  );
-}
-
 function RealtimeUnavailableNotice() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center text-slate-400">
+      <ControlPageNav backHref="/control/patients" backLabel="المرضى"/>
       <p className="max-w-xs text-sm leading-relaxed">سجل المرضى يتطلب اتصال Firebase مُهيّأ لهذه النسخة.</p>
     </div>
   );
@@ -82,6 +66,7 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
   if (patient === undefined) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-3 text-slate-400">
+        <ControlPageNav backHref="/control/patients" backLabel="المرضى"/>
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-teal-600" />
         <span className="text-sm font-medium">جاري تحميل بيانات المريض...</span>
       </div>
@@ -91,6 +76,7 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
   if (patient === null) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center text-slate-400">
+        <ControlPageNav backHref="/control/patients" backLabel="المرضى"/>
         <span className="text-3xl" aria-hidden="true">
           🔍
         </span>
@@ -138,7 +124,7 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
 
   return (
     <>
-      <header className={styles.identity}>
+      <ClinicalPageHeader backHref="/control/patients" backLabel="المرضى" context="ملف المريض">
         <div className={styles.avatar} aria-hidden="true">{patient.firstName.slice(0,1)}</div>
         <div className={styles.identityMain}>
         {editing ? (
@@ -190,15 +176,14 @@ function RealtimePatientProfile({ patientId }: { patientId: string }) {
           <button type="button" className={styles.primary} disabled={auth.phase !== "authorized"} onClick={() => { selectPatient({ patientId: patient.patientId, patientNumber: patient.patientNumber, firstName: patient.firstName }); router.push("/control/visits"); }}><ControlIcon name="plus"/>بدء جلسة علاجية</button>
           <button type="button" className={styles.secondary} disabled={auth.phase !== "authorized"} onClick={startNewSession}>نشاط مستقل</button>
         </div>}
-      </header>
-      <div className={styles.columns}>
-        <div className={styles.history}><PatientVisitHistory key={`visits-${patient.patientId}`} patientId={patient.patientId} history={history} /></div>
-        <aside className={styles.support} aria-label="التقدم والأنشطة المستقلة">
-          <PatientClinicalOverview patientId={patient.patientId} history={history}/>
-          <h2>سجل الأنشطة المستقلة</h2>
-          <PatientSessionHistorySection key={`sessions-${patient.patientId}`} patient={patient} />
-        </aside>
+      </ClinicalPageHeader>
+      <div className={history.visits && history.visits.length <= 2 ? styles.clinicalCompact : styles.clinicalExpanded}>
+        <PatientVisitHistory key={`visits-${patient.patientId}`} patientId={patient.patientId} history={history}/>
+        <PatientClinicalOverview patientId={patient.patientId} history={history}/>
       </div>
+      <section className={styles.historyArea} aria-label="الأنشطة المستقلة وتحليلها">
+        <PatientSessionHistorySection key={`sessions-${patient.patientId}`} patient={patient} />
+      </section>
       {patient.active && <div className={styles.management}><button type="button" onClick={() => setConfirmDeactivate(true)}>إلغاء تنشيط هذا المريض</button></div>}
 
       <ConfirmSheet

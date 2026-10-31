@@ -8,6 +8,7 @@ import { formatAccuracyPercent, formatDurationClock } from "@/components/display
 import { DIFFICULTY_LABELS } from "@/components/control/copy";
 import { formatCompletionPercent } from "@/components/control/footsteps/copy";
 import { formatSessionDate } from "./formatSessionDate";
+import styles from "./history.module.css";
 import { formatCountOrUnavailable } from "@/lib/dataIntegrity/numeric";
 
 /**
@@ -29,13 +30,11 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
   return (
     <Link
       href={`/control/patients/${patientId}/sessions/${session.sessionId}`}
-      className="flex touch-manipulation flex-col gap-1.5 rounded-2xl border border-slate-200 bg-white px-4 py-3.5 shadow-[0_2px_8px_rgba(30,41,59,0.05)] transition-all active:scale-[0.99] active:bg-slate-50"
+      className={styles.activityCard}
+      data-activity-history-card={session.sessionId}
     >
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-bold text-slate-900">{formatSessionDate(session.completedAt)}</span>
-        <span className="text-xs font-semibold text-slate-400">{gameName}</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
+      <div className={styles.cardHeading}><h3>{gameName}</h3><time>{formatSessionDate(session.completedAt)}</time></div>
+      <div className={styles.metrics}>
         {(session.gameId === "achievement-city-3d" || session.gameId === "ocean-wonders-3d" || session.gameId === "achievement-forest-3d") ? (
           <span className="font-semibold text-teal-700">المستوى {session.endingLevel} من 3 · {formatCountOrUnavailable(session.levelsCompleted)} مستويات مكتملة</span>
         ) : (
@@ -87,9 +86,6 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
         ) : (
           <span className="font-medium text-emerald-600">{formatAccuracyPercent(session.accuracy)} دقة</span>
         )}
-        <span dir="ltr" className="font-mono">
-          {formatDurationClock(session.durationMs)}
-        </span>
       </div>
       {(session.therapistName || session.therapistNote) && (
         <div className="flex flex-wrap gap-2 pt-0.5 text-xs text-slate-500">
@@ -97,6 +93,7 @@ export function SessionHistoryRow({ patientId, session }: { patientId: string; s
           {session.therapistNote && <span className="rounded-full bg-amber-50 px-2 py-1 font-semibold text-amber-800">توجد ملاحظة للأخصائي</span>}
         </div>
       )}
+      <div className={styles.cardFooter}><span>المدة <bdi>{formatDurationClock(session.durationMs)}</bdi></span><strong>عرض التفاصيل ←</strong></div>
     </Link>
   );
 }

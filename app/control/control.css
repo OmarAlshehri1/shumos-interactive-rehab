@@ -186,7 +186,7 @@ body:has(.shumos-control){height:auto;min-height:100dvh;overflow-x:clip;overflow
 .shumos-control [data-control-page-nav] a{border-radius:var(--control-button-radius);min-height:44px}
 /* Normalize only page roots, never game canvases, preview frames or modal layers. */
 [data-shell-content]>main{position:relative!important;inset:auto!important;height:auto!important;width:100%!important;min-height:calc(100dvh - var(--control-topbar-height));overflow:visible!important;background:var(--control-canvas)!important}
-[data-shell-content]>main>div:first-child{max-width:none;padding:26px 30px 44px}
+[data-shell-content]>main:not([data-control-page-layout="centered"])>div:first-child{max-width:none;padding:26px 30px 44px}
 [data-shell-content]>[data-control-game]{max-width:none;min-height:0;padding:22px 30px 60px}
 [data-shell-content]>main:has(>[data-control-page-nav]){max-width:none;padding:24px 30px 60px}
 .shumos-control [data-visit-active]{top:var(--control-topbar-height,76px);inset-inline-start:var(--control-sidebar-width,216px);min-height:64px;padding:8px 26px;background:#f0f8f3;border-color:var(--control-border);box-shadow:none}
@@ -196,7 +196,7 @@ body:has([data-visit-active=true]) [data-shell-content] main,body:has([data-visi
 .shumos-control main :where(.text-xs):not([data-native-slot=preview] *){font-size:var(--control-caption-size);line-height:1.7}
 .shumos-control :where(.bg-teal-600){background-color:var(--control-primary)}
 .shumos-control :where(.text-teal-700,.text-teal-800){color:var(--control-primary)}
-@media(max-width:1100px){.shumos-control{--control-sidebar-width:86px;--control-topbar-height:68px}[data-shell-content]>main>div:first-child{padding:24px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:20px 24px 50px}}
-@media(max-width:600px){.shumos-control{--control-sidebar-width:0px;--control-topbar-height:62px;--control-card-padding:18px;--control-title-size:24px}[data-shell-content]>main>div:first-child{padding:22px 16px 35px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:18px 16px 35px}.shumos-control [data-visit-active]{padding:8px 12px}body:has([data-visit-active=true]) [data-shell-content]{padding-top:110px}}
+@media(max-width:1100px){.shumos-control{--control-sidebar-width:86px;--control-topbar-height:68px}[data-shell-content]>main:not([data-control-page-layout="centered"])>div:first-child{padding:24px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:20px 24px 50px}}
+@media(max-width:600px){.shumos-control{--control-sidebar-width:0px;--control-topbar-height:62px;--control-card-padding:18px;--control-title-size:24px}[data-shell-content]>main:not([data-control-page-layout="centered"])>div:first-child{padding:22px 16px 35px}[data-shell-content]>[data-control-game],[data-shell-content]>main:has(>[data-control-page-nav]){padding:18px 16px 35px}.shumos-control [data-visit-active]{padding:8px 12px}body:has([data-visit-active=true]) [data-shell-content]{padding-top:110px}}
 @media(prefers-reduced-motion:reduce){.shumos-control :where(button,a,dialog){transition:none!important;scroll-behavior:auto}}
-@media print{[data-shell-content]>main,[data-shell-content]>main>div:first-child{padding:0!important;min-height:0!important}[data-visit-active]{display:none!important}}
+@media print{[data-shell-content]>main,[data-shell-content]>main:not([data-control-page-layout="centered"])>div:first-child{padding:0!important;min-height:0!important}[data-visit-active]{display:none!important}}

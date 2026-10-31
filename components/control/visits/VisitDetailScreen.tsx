@@ -36,6 +36,7 @@ import {
 import { numberFor } from "@/lib/therapyVisits/numbering";
 import { usePatientVisitHistory } from "./usePatientVisitHistory";
 import { ActivityEvaluation } from "./VisitWorkspace";
+import { ClinicalPageHeader } from "@/components/control/ui/ClinicalPageHeader";
 import { ControlPageNav } from "@/components/control/nav/ControlPageNav";
 import styles from "./visitHistory.module.css";
 export function VisitDetailScreen({
@@ -110,21 +111,13 @@ export function VisitDetailScreen({
     owner = auth.phase === "authorized" && auth.uid === visit.ownerUid;
   return (
     <main dir="rtl" className={styles.page}>
-      <ControlPageNav backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" />
-      <header className={`${styles.card} ${styles.header}`}>
-        <div className={styles.top}>
-          <h1>
-            {number === null ? "رقم الجلسة غير مسجل" : `الجلسة ${number}`}
-          </h1>
-          <span className={styles.status}>{visitStatus(visit)}</span>
+      <ClinicalPageHeader backHref={`/control/patients/${patientId}`} backLabel="ملف المريض" context={`ملف ${visit.childName}`}>
+        <div className={styles.visitIdentity}>
+          <span className={styles.number}>{number === null ? "رقم الجلسة غير مسجل" : `الجلسة ${number}`}</span>
+          <h1>{visit.title}</h1>
+          <div className={styles.meta}><time>{new Date(visit.startedAt).toLocaleString("ar-SA", { calendar: "gregory" })}</time><span>الأخصائي: {visit.therapistName || missing}</span></div>
         </div>
-        <h2>{visit.title}</h2>
-        <p className={styles.muted}>
-          {new Date(visit.startedAt).toLocaleString("ar-SA", {
-            calendar: "gregory",
-          })}{" "}
-          · {visit.therapistName || missing}
-        </p>
+        <span className={styles.status}>{visitStatus(visit)}</span>
         <dl className={styles.stats}>
           <Stat label="المدة المخططة" value={formatClock(visit.plannedMs)} />
           <Stat
@@ -140,7 +133,7 @@ export function VisitDetailScreen({
             value={formatClock(visit.pausedMs)}
           />
         </dl>
-      </header>
+      </ClinicalPageHeader>
       {(history.error || error || resultError) && (
         <p role="alert" className={styles.error}>
           {error || history.error || resultError}

@@ -14,6 +14,7 @@ import { formatSessionDate, formatSessionTime } from "./formatSessionDate";
 import { LastProgressCard } from "./LastProgressCard";
 import { PatientAnalyticsDashboard } from "./PatientAnalyticsDashboard";
 import { SessionHistoryList } from "./SessionHistoryList";
+import styles from "./history.module.css";
 import { getStaffDb } from "@/lib/realtime/firebaseClient";
 import { subscribeToLiveSession } from "@/lib/realtime/sessionRepository";
 import type { LiveSessionRecord } from "@/lib/realtime/types";
@@ -135,17 +136,19 @@ export function PatientSessionHistorySection({ patient }: { patient: Patient }) 
           </div>
         </SectionCard>
       )}
+      <SectionCard>
+        <SessionHistoryList patientId={patient.patientId} sessions={sessions} />
+      </SectionCard>
       <details className="rounded-2xl border border-slate-200 bg-white p-4">
         <summary className="min-h-11 cursor-pointer font-semibold text-teal-800">تفاصيل سجل الألعاب المستقلة</summary>
         <PatientAnalyticsDashboard patientId={patient.patientId} sessions={sessions} />
       </details>
+      <section aria-label="متابعة آخر تقدم"><h2 className={styles.heading}>متابعة آخر تقدم</h2><div className={styles.resumeGrid}>
       {mostRecentBalloonQuest && <LastProgressCard session={mostRecentBalloonQuest} onResume={handleResumeBalloonQuest} />}
       {mostRecentFootsteps && <LastProgressCard session={mostRecentFootsteps} onResume={handleResumeFootsteps} />}
       {mostRecentBubblePop && <LastProgressCard session={mostRecentBubblePop} onResume={handleResumeBubblePop} />}
       {mostRecentColorChase && <LastProgressCard session={mostRecentColorChase} onResume={handleResumeColorChase} />}
-      <SectionCard>
-        <SessionHistoryList patientId={patient.patientId} sessions={sessions} />
-      </SectionCard>
+      </div></section>
       {recovery}
     </>
   );
