@@ -11,7 +11,7 @@ import type { Session } from "@/lib/balloonquest/types";
 import { hashSeed } from "@/lib/balloonquest/rng";
 import type { TherapistSettings } from "@/lib/balloonquest/types";
 import { BALLOON_QUEST_GAME_ID } from "@/lib/games/registry";
-import { clearLiveSession, fetchLiveSession, publishSession, subscribeToLiveSession } from "@/lib/realtime/sessionRepository";
+import { clearOwnedLiveSession, fetchLiveSession, publishSession, subscribeToLiveSession } from "@/lib/realtime/sessionRepository";
 import { buildStoredBalloonQuest3DSession } from "@/lib/sessions/buildStoredBalloonQuest3DSession";
 import { saveSessionHistoryOnce } from "@/lib/sessions/sessionHistoryRepository";
 import { withEarlyEndReason, type EarlyEndSelection, type SessionWorkflowMetadata } from "@/lib/sessions/workflowMetadata";
@@ -133,7 +133,7 @@ export function useBalloonQuest3DRealtimeControl() {
       if (rt) saveHistory(rt.session);
       rt?.dispose();
       setRuntime(null);
-      if (rt) void clearLiveSession(db).catch(() => {});
+      if (rt) void clearOwnedLiveSession(db, rt.session.sessionId).catch(() => {});
     };
   }, [canRun, db, uid, saveHistory, forceRecover, getLive]);
 
@@ -164,7 +164,7 @@ export function useBalloonQuest3DRealtimeControl() {
     publisherRef.current?.setEnabled(nameValid && canRun);
   }, [childName, nameValid, canRun, runtime]);
   useEffect(() => {
-    if (runtime && !nameValid && view?.session.lifecycle === "ready") void clearLiveSession(db).catch(() => {});
+    if (runtime && !nameValid && view?.session.lifecycle === "ready") void clearOwnedLiveSession(db, runtime.session.sessionId).catch(() => {});
   }, [db, nameValid, runtime, view?.session.lifecycle]);
 
   // Prefill the name from the selected patient (or the walk-in name), once per patient — never over a typed name.

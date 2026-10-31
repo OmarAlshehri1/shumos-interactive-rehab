@@ -11,11 +11,14 @@ import {
   subscribeToConnectionStatus,
 } from "@/lib/realtime/sessionRepository";
 import { getSessionHistoryRecord } from "@/lib/sessions/sessionHistoryRepository";
+import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
+import { dismissCompletedSession } from "@/lib/realtime/dismissCompletedSession";
 import type { LiveSessionRecord } from "@/lib/realtime/types";
 import {
   confirmedLiveResult,
   historyKeyForLive,
   isUnstartedActivity,
+  ownsUnstartedActivity,
 } from "@/lib/therapyVisits/gameSafety";
 
 import { observePublishIntent } from "@/lib/realtime/publishIntent";
@@ -48,6 +51,7 @@ export function GameSafetyProvider({
   const realtime = isRealtimeEnabled(),
     pathname = usePathname(),
     router = useRouter();
+  const { uid } = useStaffAuth();
   const [canonical, setLive] = useState<LiveSessionRecord | null>(null),
     [pending, setPending] = useState<LiveSessionRecord | null>(null),
     [known, setKnown] = useState(!realtime),
@@ -58,29 +62,13 @@ export function GameSafetyProvider({
     [visitHold, holdVisit] = useState(false);
   const live = pending ?? canonical;
   const lastRoute = useRef(pathname);
-  const lastLive = useRef(live);
   useEffect(() => {
     const previous = lastRoute.current;
-    const old = lastLive.current;
     lastRoute.current = pathname;
-    lastLive.current = live;
     if (realtime && previous === "/control/youtube" && pathname !== previous) {
       void stopOwnedVideo(getStaffDb(), controlTabId()).catch(() => setError("تعذّر إغلاق الفيديو. سيتوقف العرض عند انتهاء إشارة التحكم."));
     }
-    if (
-      realtime &&
-      previous !== pathname &&
-      old &&
-      isUnstartedActivity(old) &&
-      GAME_REGISTRY.some((g) => g.route === previous)
-    ) {
-      void discardUnstartedPreview(
-        getStaffDb(),
-        old.sessionId,
-        controlTabId(),
-      ).catch(() => setError("تعذّر إغلاق المعاينة. تحقق من الاتصال."));
-    }
-  }, [pathname, live, realtime]);
+  }, [pathname, realtime]);
   useEffect(
     () =>
       observePublishIntent((event) => {
@@ -104,10 +92,22 @@ export function GameSafetyProvider({
     known &&
     connected &&
     (!live ||
-      isUnstartedActivity(live) ||
+      (!!uid && ownsUnstartedActivity(live, controlTabId(), uid)) ||
       (live.session.gameState === "SESSION_COMPLETE" &&
         (!live.patientId || proof === key)));
   const route = GAME_REGISTRY.find((g) => g.id === live?.gameId)?.route;
+  // Includes direct route entry after a reload: obsolete empty setups never
+  // require an explicit recovery action. Transactions recheck Start/ownership.
+  useEffect(() => {
+    if (!realtime || !known || !connected || !live || pending || route === pathname || !uid) return;
+    if (ownsUnstartedActivity(live, controlTabId(), uid)) {
+      void discardUnstartedPreview(getStaffDb(), live.sessionId, controlTabId())
+        .catch(() => setError("تعذّر إغلاق المعاينة. تحقق من الاتصال."));
+    } else if (canLeave && live.session.gameState === "SESSION_COMPLETE") {
+      void dismissCompletedSession(getStaffDb(), live.sessionId, live.revision)
+        .catch(() => setError("تعذّر إغلاق العرض السابق. لم تتغير النتائج المحفوظة."));
+    }
+  }, [realtime, known, connected, live, pending, route, pathname, uid, canLeave]);
   useEffect(() => {
     if (!realtime) return;
     const a = subscribeToLiveSession(getStaffDb(), (v) => {
@@ -192,9 +192,10 @@ export function GameSafetyProvider({
     !canLeave;
   const waiting = GAME_REGISTRY.some((g) => g.route === pathname) && !known;
   const open = blocked || wrongGame;
-  // Saved results and plain walk-in completions need no warning; setup previews and unsaved/unfinished activities do.
+  // Empty owned previews are retired automatically; only recoverable clinical
+  // work and another window's activity need an explicit recovery action.
   const savedComplete = live?.session.gameState === "SESSION_COMPLETE" && (!live.patientId || proof === key);
-  const needsAction = !savedComplete;
+  const needsAction = !savedComplete && !(live && uid && ownsUnstartedActivity(live, controlTabId(), uid));
   return (
     <Context.Provider
       value={{ live, known, connected, canLeave, error, holdVisit }}

@@ -104,6 +104,18 @@ describe("game history switching safety", () => {
 });
 
 describe("pre-start navigation", () => {
+  it("automatically replaces only this account's empty setup and respects native window ownership", () => {
+    const record = {
+      controllerUid: "staff", session: { engine: "bb3", gameState: "START_ZONE",
+        bb3: { ownerId: "staff", controlTabId: "tab", payload: JSON.stringify({ status: "ready" }) } },
+    } as unknown as LiveSessionRecord;
+    expect(ownsUnstartedActivity(record, "tab", "staff")).toBe(true);
+    expect(ownsUnstartedActivity(record, "other-tab", "staff")).toBe(false);
+    expect(ownsUnstartedActivity(record, "tab", "other-staff")).toBe(false);
+    const oldRunner = { session: { engine: "rq3", gameState: "START_ZONE", rq3: { ownerId: "staff", state: { lifecycle: "ready", distance: 0 } } } } as unknown as LiveSessionRecord;
+    expect(ownsUnstartedActivity(oldRunner, "tab", "staff")).toBe(true);
+    expect(ownsUnstartedActivity(oldRunner, "tab", "other-staff")).toBe(false);
+  });
   it("allows actual original shared setup without treating generated targets as played results", () => {
     const session = createSession({ childFirstName: "Synthetic", difficulty: Difficulty.EASY, targetSize: TargetSize.MEDIUM, targetSpacing: TargetSpacing.MEDIUM, playArea: PlayArea.FULL, seed: "setup" });
     const record = { gameId: "balloon-quest", controllerUid: "staff", session } as unknown as LiveSessionRecord;

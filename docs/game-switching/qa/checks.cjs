@@ -1,0 +1,4 @@
+/* Release switches only in this focused test child process. */
+const {spawnSync}=require('node:child_process'),fs=require('node:fs');const env={...process.env};
+for(const dir of fs.readdirSync('lib'))for(const name of ['registration.ts','availability.ts','releasePolicy.ts']){const path=`lib/${dir}/${name}`;if(fs.existsSync(path))for(const flag of fs.readFileSync(path,'utf8').match(/NEXT_PUBLIC_[A-Z0-9_]+/g)||[])env[flag]='true';}env.NEXT_PUBLIC_RUNNER_QUEST_3D='1';
+const result=spawnSync('node_modules/.bin/vitest',['run','lib/therapyVisits/__tests__/gameSafety.test.ts','lib/liveGame/__tests__/liveGame.test.ts','lib/realtime/__tests__/staffAuthClient.test.ts','lib/realtime/__tests__/displayAuthorization.test.ts','components/control/library/__tests__/categoryNavigation.test.ts'],{env,stdio:'inherit'});process.exit(result.status??1);

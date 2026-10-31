@@ -1,0 +1,20 @@
+{
+  "checks": [
+    "Responsive glass login, official logo upper-left, VelonWeb link, password visibility, Firebase error and successful sign-in; no PIN/public registration/recovery link",
+    "Empty native setup retires without warning or history; a different game opens with working difficulty selection",
+    "Direct-route empty setup switching keeps no obsolete live presentation",
+    "Started game blocks conflicting navigation; native end, exact save-once history and clinical evaluation complete before switching; Display reload keeps idle"
+  ],
+  "screenshots": [
+    "login-1440",
+    "login-820",
+    "login-390",
+    "login-320",
+    "login-error",
+    "switched-new-setup",
+    "started-transition-guard",
+    "display-idle-after-switch"
+  ],
+  "errors": [],
+  "syntheticOnly": true
+}

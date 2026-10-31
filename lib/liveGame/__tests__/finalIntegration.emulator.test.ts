@@ -1,5 +1,6 @@
 /** Short transport/recovery checks. Loopback demo services and synthetic records only; no game rendering. */
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+vi.hoisted(() => vi.stubEnv('NEXT_PUBLIC_ACHIEVEMENT_FOREST_3D', 'true'));
 import { initializeApp, deleteApp } from 'firebase/app';
 import { connectAuthEmulator, getAuth, signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { connectDatabaseEmulator, getDatabase, get, ref, goOffline, goOnline, type Database } from 'firebase/database';
@@ -39,6 +40,9 @@ describe.skipIf(process.env.FINAL_INTEGRATION_EMULATOR!=='1')('Critical shared i
   await admin(`patients/${pid}`,{patientNumber:'CRITICAL-1',firstName:'Synthetic',createdAt:1,updatedAt:1,createdByUid:uid,active:true});
   const auth=getAuth(getStaffFirebaseApp());connectAuthEmulator(auth,AUTH,{disableWarnings:true});await signInWithEmailAndPassword(auth,email,password);control=getStaffDb();
   const da=getAuth(getDisplayFirebaseApp());connectAuthEmulator(da,AUTH,{disableWarnings:true});await signInAnonymously(da);display=getDisplayDb();
+  // The SDK-only fixture bypasses the browser approval subscriber: explicitly
+  // grant its synthetic Display the same expiring staff approval as the app.
+  await admin(`presence/displayAccess/${da.currentUser!.uid}`,{approvedBy:uid,issuedAt:Date.now(),expiresAt:Date.now()+60000});
   await claimControllerLease(control,uid);
   publisher=new LiveRecordPublisher({write:async w=>{if(offline)throw Error('simulated brief interruption');await publishSession(control,{...w,gameId:'achievement-forest-3d',lastInteraction:null,patientId:pid,therapistNotes:state.notes});},fetchBaseRevision:async()=>(await fetchLiveSession(control))?.revision??0,now:Date.now});publisher.setTabId(tab);
   stops.push(subscribeToLiveSession(display,r=>{if(r?.gameId==='achievement-forest-3d'){const s=decode(r.session);if(s)counts.push(s.confirmed+s.assisted);}}));
@@ -49,7 +53,7 @@ describe.skipIf(process.env.FINAL_INTEGRATION_EMULATOR!=='1')('Critical shared i
  it('recovers Control as paused and restores Display using a fresh authenticated client',async()=>{
   const r=(await fetchLiveSession(control))!;const live=r.session as AchievementForestLiveSession;const snapshot=recoveredState(live)!;
   expect(r.therapistNotes).toBe('synthetic private note');expect(snapshot.status).toBe('paused');expect(snapshot.confirmed).toBe(1);expect(decideRecovery({recordSessionId:r.sessionId,recordPatientId:r.patientId??null,meta:live.af3,snapshot,uid,patientId:pid,tabId:tab,now:Date.now()}).kind).toBe('recover');
-  const app=initializeApp({apiKey:'fake',projectId:'demo-shumos-final',databaseURL:`https://${NS}.firebaseio.com`},'critical-reloaded-display');const a=getAuth(app);connectAuthEmulator(a,AUTH,{disableWarnings:true});await signInAnonymously(a);const db=getDatabase(app);connectDatabaseEmulator(db,'127.0.0.1',19940);try{expect(decode((await fetchLiveSession(db))?.session)?.confirmed).toBe(1);}finally{await deleteApp(app);}
+  const app=initializeApp({apiKey:'fake',projectId:'demo-shumos-final',databaseURL:`https://${NS}.firebaseio.com`},'critical-reloaded-display');const a=getAuth(app);connectAuthEmulator(a,AUTH,{disableWarnings:true});await signInAnonymously(a);await admin(`presence/displayAccess/${a.currentUser!.uid}`,{approvedBy:uid,issuedAt:Date.now(),expiresAt:Date.now()+60000});const db=getDatabase(app);connectDatabaseEmulator(db,'127.0.0.1',19940);try{expect(decode((await fetchLiveSession(db))?.session)?.confirmed).toBe(1);}finally{await deleteApp(app);}
  });
  it('reconnects after a 250ms interruption with the latest progress and no repeated achievement',async()=>{
   offline=true;goOffline(control);goOffline(display);state=reduce(state,{type:'confirm',at:Date.now()+1000});send();state=reduce(state,{type:'pause'});send();await sleep(250);goOnline(control);goOnline(display);offline=false;await claimControllerLease(control,uid);send();await until(()=>counts.at(-1)===2);await sleep(200);expect(decode((await fetchLiveSession(control))?.session)?.confirmed).toBe(2);expect(Math.max(...counts)).toBe(2);

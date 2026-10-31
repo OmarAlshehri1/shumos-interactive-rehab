@@ -219,7 +219,13 @@ export function isUnstartedActivity(record: LiveSessionRecord | null): boolean {
 
 /** Native sessions are window-scoped; older shared previews only stamp staff ownership. */
 export function ownsUnstartedActivity(record: LiveSessionRecord, tab: string, uid: string): boolean {
-  return isUnstartedActivity(record) && (ownedByTab(record, tab) ||
-    (!(record.session as unknown as { engine?: string }).engine &&
-      (record as unknown as { controllerUid?: string }).controllerUid === uid));
+  if (!isUnstartedActivity(record)) return false;
+  const session = record.session as unknown as Record<string, unknown>;
+  const meta = typeof session.engine === "string"
+    ? session[session.engine] as { ownerId?: string; controlTabId?: string } | undefined
+    : undefined;
+  const owner = (record as LiveSessionRecord & { controllerUid?: string }).controllerUid ?? meta?.ownerId;
+  // Runner and the original shared controllers predate window ownership. Keep
+  // their account-level boundary; never borrow a different window's native setup.
+  return owner === uid && (!meta?.controlTabId || meta.controlTabId === tab);
 }

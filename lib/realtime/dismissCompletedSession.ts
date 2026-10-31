@@ -26,7 +26,9 @@ export async function dismissCompletedSession(db: Database, sessionId: string, r
   const liveRef = ref(db, "liveSession");
   await get(liveRef);
   const result = await runTransaction(liveRef, raw => {
-    if (getAuth(db.app).currentUser?.uid !== uid || raw?.controllerUid !== uid || raw.sessionId !== sessionId || raw.revision !== revision || raw.session?.gameState !== "SESSION_COMPLETE") return;
+    if (getAuth(db.app).currentUser?.uid !== uid) return;
+    if (raw === null) return null; // Compare/retry at the server when the local cache is initially empty.
+    if (raw?.controllerUid !== uid || raw.sessionId !== sessionId || raw.revision !== revision || raw.session?.gameState !== "SESSION_COMPLETE") return;
     return null;
   }, { applyLocally: false });
   return result.committed;

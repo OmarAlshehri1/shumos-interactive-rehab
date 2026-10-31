@@ -8,7 +8,7 @@ import { hashSeed } from "@/lib/runnerquest3d/rng";
 import type { Session, TherapistSettings } from "@/lib/runnerquest3d/types";
 import { RUNNER_QUEST_3D_GAME_ID } from "@/lib/games/registry";
 import { useLiveGameController } from "@/lib/liveGame/useLiveGameController";
-import { clearLiveSession, fetchLiveSession, publishSession } from "@/lib/realtime/sessionRepository";
+import { clearOwnedLiveSession, fetchLiveSession, publishSession } from "@/lib/realtime/sessionRepository";
 import { buildStoredRunnerQuestSession } from "@/lib/sessions/buildStoredRunnerQuestSession";
 import { saveSessionHistoryOnce } from "@/lib/sessions/sessionHistoryRepository";
 import { withEarlyEndReason, type EarlyEndSelection, type SessionWorkflowMetadata } from "@/lib/sessions/workflowMetadata";
@@ -92,7 +92,7 @@ export function useRunnerQuestRealtimeControl() {
       if (rt) saveHistory(rt.session);
       rt?.dispose();
       setRuntime(null);
-      if (rt) void clearLiveSession(db).catch(() => {});
+      if (rt) void clearOwnedLiveSession(db, rt.session.sessionId).catch(() => {});
     };
   }, [canRun, db, uid, saveHistory, getLive]);
 
@@ -103,7 +103,7 @@ export function useRunnerQuestRealtimeControl() {
     publisherRef.current?.setEnabled(nameValid && canRun);
   }, [childName, nameValid, canRun, runtime]);
   useEffect(() => {
-    if (runtime && !nameValid && view?.session.lifecycle === "ready") void clearLiveSession(db).catch(() => {});
+    if (runtime && !nameValid && view?.session.lifecycle === "ready") void clearOwnedLiveSession(db, runtime.session.sessionId).catch(() => {});
   }, [db, nameValid, runtime, view?.session.lifecycle]);
 
   // Prefill the name from the selected patient (or walk-in), once per patient, never over a typed name.

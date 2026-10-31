@@ -155,7 +155,7 @@ export async function publishSession(db: Database, input: PublishSessionInput): 
   updates[LIVE_SESSION_PRIVATE_PATH] = input.patientId || input.therapistNotes !== undefined
     ? { sessionId: input.sessionId, ...(input.patientId ? { patientId: input.patientId } : {}), ...(input.therapistNotes !== undefined ? { therapistNotes: input.therapistNotes } : {}), updatedAt: serverTimestamp() }
     : null;
-  const intent: LiveSessionRecord = { ...input, updatedAt: Date.now(), celebrationReplay: input.celebrationReplay ?? null };
+  const intent: LiveSessionRecord & { controllerUid: string } = { ...input, controllerUid, updatedAt: Date.now(), celebrationReplay: input.celebrationReplay ?? null };
   reportPublishIntent({ record: intent, acknowledged: false });
   await update(ref(db), updates);
   reportPublishIntent({ record: intent, acknowledged: true });
@@ -169,6 +169,28 @@ function normalizeGameId(raw: unknown): GameId | null {
 /** Therapist tapped "جلسة جديدة" (or there is nothing to clean up yet): removes the whole node, taking the child's name and every stage result with it. */
 export async function clearLiveSession(db: Database): Promise<void> {
   await update(ref(db), { [LIVE_SESSION_PATH]: null, [LIVE_SESSION_PRIVATE_PATH]: null });
+}
+
+/** Native teardown may finish after another game mounts. Never clear its newer record or patient binding. */
+export async function clearOwnedLiveSession(db: Database, sessionId: string): Promise<boolean> {
+  const uid = getAuth(db.app).currentUser?.uid;
+  if (!uid) return false;
+  const binding = (await get(ref(db, LIVE_SESSION_PRIVATE_PATH))).val() as { sessionId?: string; updatedAt?: number } | null;
+  await get(ref(db, LIVE_SESSION_PATH));
+  const result = await runTransaction(ref(db, LIVE_SESSION_PATH), raw => {
+    if (getAuth(db.app).currentUser?.uid !== uid) return;
+    // RTDB may start a transaction with an empty local cache even after get().
+    // Return a harmless no-op so the server compares/retries with current data.
+    if (raw === null) return null;
+    if (raw?.controllerUid !== uid || raw.sessionId !== sessionId) return;
+    return null;
+  }, { applyLocally: false });
+  if (!result.committed) return false;
+  if (binding?.sessionId === sessionId && typeof binding.updatedAt === "number") {
+    await runTransaction(ref(db, LIVE_SESSION_PRIVATE_PATH), raw =>
+      raw === null || (raw.sessionId === sessionId && raw.updatedAt === binding.updatedAt) ? null : undefined, { applyLocally: false });
+  }
+  return true;
 }
 
 /** Re-attaches the staff-only patient binding to a raw live value. A binding that belongs to another session is ignored; a legacy in-record patientId (older client) is kept only when no binding exists. */
@@ -676,17 +698,21 @@ export function subscribeToProjectionPreview(db: Database, callback: (command: P
 /** After the old Control has unmounted, clear only that tab's never-started preview. A concurrent Start aborts deletion. */
 export async function discardUnstartedPreview(db: Database, sessionId: string, tabId: string): Promise<boolean> {
   const binding = (await get(ref(db, LIVE_SESSION_PRIVATE_PATH))).val() as {sessionId?: string; patientId?: string; updatedAt?: number} | null;
-  await get(ref(db, LIVE_SESSION_PATH)); // Prime the transaction cache; an empty local cache must not abort a valid cleanup.
+  await get(ref(db, LIVE_SESSION_PATH));
   const result = await runTransaction(ref(db, LIVE_SESSION_PATH), raw => {
-    const record = parseLiveSessionValue(raw);
     const uid = getAuth(db.app).currentUser?.uid;
-    if (!record || record.sessionId !== sessionId || !uid || !ownsUnstartedActivity(record, tabId, uid)) return;
+    if (!uid) return;
+    // An initial null cache is not evidence that the server record is absent.
+    // A null no-op asks RTDB to compare/retry; undefined would abort locally.
+    if (raw === null) return null;
+    const record = parseLiveSessionValue(raw);
+    if (!record || record.sessionId !== sessionId || !ownsUnstartedActivity(record, tabId, uid)) return;
     return null;
   }, { applyLocally: false });
   if (!result.committed) return false;
   if (binding?.sessionId === sessionId && typeof binding.updatedAt === "number" && Number.isFinite(binding.updatedAt)) {
     await runTransaction(ref(db, LIVE_SESSION_PRIVATE_PATH), raw =>
-      raw?.sessionId === sessionId && raw.patientId === binding.patientId && raw.updatedAt === binding.updatedAt ? null : undefined, { applyLocally: false });
+      raw === null || (raw.sessionId === sessionId && raw.patientId === binding.patientId && raw.updatedAt === binding.updatedAt) ? null : undefined, { applyLocally: false });
   }
   return true;
 }
