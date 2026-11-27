@@ -5,7 +5,7 @@ afterEach(()=>{vi.unstubAllEnvs();vi.resetModules();});
 describe('Final library device membership and canonical identity',()=>{
  it('shows exact owner membership in four sections while reusing the 22 canonical registrations',async()=>{
   vi.stubEnv('NODE_ENV','development');vi.resetModules();const {GAME_REGISTRY}=await import('@/lib/games/registry');
-  const sections=librarySections(GAME_REGISTRY);expect(sections).toHaveLength(4);expect(sections.map(s=>s.games.length)).toEqual([7,13,6,3]);
+  const sections=librarySections(GAME_REGISTRY);expect(sections).toHaveLength(4);expect(sections.map(s=>s.games.length)).toEqual([5,13,4,3]);
   expect(new Set(GAME_REGISTRY.map(g=>g.id)).size).toBe(22);
   for(const s of sections){expect(s.games.map(g=>g.id)).toEqual(DEVICE_GAMES[s.input]);for(const game of s.games)expect(game).toBe(GAME_REGISTRY.find(g=>g.id===game.id));}
   expect(sections.flatMap(s=>s.games).filter(g=>g.id==='balloon-quest')).toHaveLength(3);

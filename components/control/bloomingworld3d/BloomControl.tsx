@@ -73,7 +73,7 @@ function ConnectedBloomControl() {
   const sensorFacts = useRef({ state, sensors, connected });
   const projectionRequired = useLibraryLaunchAdapter("blooming-world-3d", {
     sessionKey: state ? `${state.sessionId}:${state.run}` : "waiting",
-    modes: ["MANUAL", "RIGHT_HAND", "LEFT_HAND", "DUAL_HAND"],
+    modes: ["MANUAL"],
     apply: (mode) => {
       if (
         !state ||
@@ -86,7 +86,7 @@ function ConnectedBloomControl() {
       send({ type: "config", patch: { mode: mode as Mode } });
       return true;
     },
-    projections: ["WALL", "FLOOR"],
+    projections: ["FLOOR"],
     applyProjection: (projection) => {
       if (!state || !connected || blocked || state.status !== "ready")
         return false;
@@ -208,7 +208,7 @@ function ConnectedBloomControl() {
     <aside className={styles.settings}>
       <h2>مساحة تناسب الطفل</h2>
       {(state.status !== "ready" || !!state.startedAt) && setupStages}
-      <p>كل هدف قابل للتعديل. لا وقت محدد، ولا حركة إلزامية.</p>
+      <ControlSlot slot="settings"><p>نشاط أرضي للقدمين. تأكيد الأخصائي يبدأ إزهار الهدف خلال ثانيتين؛ حساسات القدم غير متحققة.</p></ControlSlot>
       <fieldset disabled={!ready || !connected}>
         <legend>العرض والمشاركة</legend>
         <div className={styles.toggle}>
@@ -222,7 +222,7 @@ function ConnectedBloomControl() {
             </button>
           ))}
         </div>
-        <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
+        <label>
           طريقة المشاركة
           <select
             value={state.config.mode}
@@ -234,7 +234,7 @@ function ConnectedBloomControl() {
               </option>
             ))}
           </select>
-        </label></ControlSlot>
+        </label>
         <label>
           هدف المناطق{" "}
           <input
@@ -246,7 +246,7 @@ function ConnectedBloomControl() {
           />
           <small>0 = هدف المرحلة ({STAGES[state.stage].regions})</small>
         </label>
-        <ControlSlot slot="settings" disabled={(!ready || !connected)}><label>
+        <label>
           تكرارات كل منطقة
           <input
             type="number"
@@ -255,7 +255,7 @@ function ConnectedBloomControl() {
             value={state.config.repetitions}
             onChange={(e) => config({ repetitions: +e.target.value })}
           />
-        </label></ControlSlot>
+        </label>
         {(
           [
             ["targetSize", "حجم المنطقة", 0.65, 1.5, 0.05],
@@ -265,7 +265,7 @@ function ConnectedBloomControl() {
             ["deadZone", "المنطقة الميتة", 0, 0.2, 0.01],
           ] as const
         ).map(([k, title, min, max, step]) => (
-          <ControlSlot slot="settings" when={k === "movementRange"} key={k} disabled={!ready || !connected}><label key={k}>
+          <ControlSlot slot="settings" when={k === "targetSize"} key={k} disabled={!ready || !connected}><label key={k}>
             {title}
             <input
               type="range"

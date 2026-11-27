@@ -327,3 +327,9 @@ describe("therapist-tap mode and production display presence", () => {
     expect(env.rt.view().lastRefusal).toBeNull();
   });
 });
+
+it("native right-hand input and therapist taps coexist with exactly-once balloon scoring",()=>{
+ const env=new Env({inputMode:"right-hand",allowNoDisplay:true});const hand=env.pointer("RIGHT_HAND");hand.moveTo(.02,.02);env.run(40);expect(env.rt.command({type:"start"})).toBe(true);
+ const target=env.normOf(b=>env.isTarget(b.id))!;expect(target).not.toBeNull();expect(env.rt.therapistSelect(target.id)).toBe(true);const done=env.rt.session.stage!.goalDone;
+ hand.moveTo(target.x,target.y);env.run(500,16,()=>hand.heartbeat());expect(env.rt.therapistSelect(target.id)).toBe(false);expect(env.rt.session.stage!.goalDone).toBe(done);expect(env.rt.session.settings.inputMode).toBe("right-hand");
+});

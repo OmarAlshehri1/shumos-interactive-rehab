@@ -19,6 +19,7 @@ import {
 import { useMirrorSession } from "@/lib/mirrorquest3d/useSession";
 import { MirrorView } from "@/components/display/mirrorquest3d/MirrorView";
 import styles from "@/components/display/mirrorquest3d/mirror.module.css";
+import ui from "@/components/control/ui/therapist.module.css";
 const animals = {
   lion: ["🦁", "الأسد"],
   rabbit: ["🐰", "الأرنب"],
@@ -26,8 +27,8 @@ const animals = {
   fox: ["🦊", "الثعلب"],
 };
 const names: Record<Limb, string> = {
-  RIGHT_HAND: "الذراع اليمنى",
-  LEFT_HAND: "الذراع اليسرى",
+  RIGHT_HAND: "اليد اليمنى",
+  LEFT_HAND: "اليد اليسرى",
   RIGHT_FOOT: "القدم اليمنى",
   LEFT_FOOT: "القدم اليسرى",
 };
@@ -90,7 +91,7 @@ function LiveMirrorControl() {
             value={i}
             disabled={s.accepted.some((p) => p.stage === i)}
           >
-            المستوى {stage.level} · {stage.name}
+            المستوى {stage.level} · {s.config.limbs && s.config.limbs.length < 4 ? `حركات الأطراف المختارة ${i + 1}` : stage.name}
           </option>
         ))}
       </select>
@@ -99,6 +100,7 @@ function LiveMirrorControl() {
   const setupSettings = (
     <aside className={styles.panel}>
       <h2>إعدادات الرحلة</h2>
+      <ControlSlot slot="settings"><fieldset className={ui.group} disabled={!editable}><legend>الأطراف المشاركة</legend><div className={ui.choices}>{LIMBS.map(l => <label className={ui.choice} key={l}><input type="checkbox" checked={(s.config.limbs ?? LIMBS).includes(l)} disabled={s.config.limbs?.length === 1 && s.config.limbs.includes(l)} onChange={e => send({type:"configure", config:{limbs: e.target.checked ? [...(s.config.limbs ?? LIMBS), l] : (s.config.limbs ?? LIMBS).filter(v=>v!==l)}})} />{names[l]}</label>)}</div></fieldset></ControlSlot>
       {(s.status !== "ready" || !!s.startedAt) && setupStages}
 
       <div>

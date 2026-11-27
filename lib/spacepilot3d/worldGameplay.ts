@@ -1,5 +1,5 @@
 import {CURRICULUM_ENCOUNTERS, SPACE_STAGES, curriculumIndex, type CurriculumId, type StageResult} from './curriculum';
-import { normalizeAccessibility, openingRadius, ringCrossing, type AccessibilitySettings } from './rings';
+import { flightModeForStage, normalizeAccessibility, openingRadius, ringCrossing, type AccessibilitySettings } from './rings';
 import { pointerForHeading } from './worldFlight';
 import { DIFFICULTY_PRESETS, MISSION_PLANS, normalizeGameplayConfig, type GameplayConfig } from './missions';
 import type { EncounterOutcome, GameplayEvent, GameplayObject, GameplaySnapshot, GameplayStats, GameplayStatus } from './gameplay';
@@ -44,6 +44,7 @@ export class WorldGameplaySimulation {
     this.loadMission();
   }
   get currentStageAssisted(){return this.assisted;}
+  restoreStageAssistance(assisted:boolean){this.assisted=assisted;}
   noteManualParticipation(){if(!this.assisted){this.assisted=true;this.revision++;}}
   get plan() { return this.curriculumId?SPACE_STAGES[this.mission]:MISSION_PLANS[this.mission]; }
   get missionName() { return this.plan.name; }
@@ -69,6 +70,7 @@ export class WorldGameplaySimulation {
     this.loadMission(); this.status = 'running'; this.revision++;
   }
   private loadMission() {
+    if(this.curriculumId)this.config.accessibility.mode=flightModeForStage(this.mission);
     this.objects.length = 0;
     this.assisted=this.config.accessibility.mode!=='ADVANCED'||this.config.accessibility.ringTolerance>0;
     if(this.curriculumId)this.config.difficulty=SPACE_STAGES[this.mission].difficulty;

@@ -17,7 +17,7 @@ export function validState(raw:unknown):raw is State {
  if(!s.player||!LIMBS.every(l=>Number.isFinite(s.player[l])&&s.player[l]>=0&&s.player[l]<=1)||!['neutral','near','matched'].includes(s.feedback)||![s.hold,s.lastTick,s.lastInput,s.startedAt,s.endedAt].every(v=>Number.isFinite(v)&&v>=0)||s.hold>s.config.holdMs||!nat(s.sequence)||!Array.isArray(s.accepted)||s.accepted.length>28||!Array.isArray(s.completed)||s.completed.length>9)return false;
  if(new Set(s.completed).size!==s.completed.length||!s.completed.every(i=>nat(i,8))||new Set(s.accepted.map(p=>p.key)).size!==s.accepted.length)return false;
  if(!s.completed.every(stage=>STAGES[stage].poses.every((_,pose)=>s.accepted.some(a=>a.stage===stage&&a.pose===pose&&!a.skipped))))return false;
- return s.accepted.every(p=>nat(p.stage,8)&&nat(p.pose,STAGES[p.stage].poses.length-1)&&p.key===`${s.run}:${p.stage}:${p.pose}`&&typeof p.assisted==='boolean'&&typeof p.skipped==='boolean');
+ return s.accepted.every(p=>(p.nativePoseId===undefined||STAGES.some(stage=>stage.poses.some(pose=>pose.id===p.nativePoseId)))&&nat(p.stage,8)&&nat(p.pose,STAGES[p.stage].poses.length-1)&&p.key===`${s.run}:${p.stage}:${p.pose}`&&typeof p.assisted==='boolean'&&typeof p.skipped==='boolean');
 }
 export function decode(raw:unknown):State|null {
  try {const r=raw as MirrorLiveSession;if(r?.engine!=='mirror3'||r.engineVersion!==1||typeof r.mirror3?.payload!=='string'||r.mirror3.payload.length>32768)return null;const s=JSON.parse(r.mirror3.payload);return validState(s)&&s.sessionId===r.sessionId?s:null;}catch{return null;}

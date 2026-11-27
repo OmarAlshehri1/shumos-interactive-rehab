@@ -3,6 +3,7 @@ import { SHIP_CAPSULES, type Point3 } from './collision';
 import type { WorldFlightPose } from './worldFlight';
 import type { FlightDifficulty } from './missions';
 
+export const flightModeForStage = (index:number):FlightMode => index < 3 ? 'EASY' : index < 6 ? 'MEDIUM' : 'ADVANCED';
 export type FlightMode = 'EASY' | 'MEDIUM' | 'ADVANCED';
 export interface AccessibilitySettings { mode: FlightMode; altitudeAssistance: number; ringTolerance: number; upgrade2: number; upgrade3: number }
 export interface RingOpening { innerRadius: number; normal: Point3 }

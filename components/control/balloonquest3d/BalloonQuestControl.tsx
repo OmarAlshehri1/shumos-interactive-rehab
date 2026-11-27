@@ -15,7 +15,7 @@ import { EndSessionReasonSheet } from "../session/EndSessionReasonSheet";
 import { ControlPanels, type ProductionPanelOptions } from "./BalloonQuest3DControl";
 
 /** Real-hardware status: only RIGHT_HAND has been validated. Keyboard (development), left/both hands (experimental), foot and handheld (simulation) stay in the engine but are not offered to therapists. */
-const PRODUCTION_INPUT_MODES: readonly InputMode[] = ["therapist", "right-hand"];
+const PRODUCTION_INPUT_MODES: readonly InputMode[] = ["therapist", "right-hand", "left-hand", "both-hands"];
 const SHOW_SIMULATOR = process.env.NODE_ENV !== "production";
 
 /**

@@ -206,3 +206,7 @@ export const RUNNER_QUEST_3D_GAME_ID = "runner-quest-3d";
 
 /** Build Quest 3D canonical id for the live session, display routing and history (see lib/buildquest3d/registration.ts). */
 export const BUILD_QUEST_GAME_ID = "build-quest-3d";
+
+/** Retired engines remain registered for live recovery and historical revivers. */
+export const isLaunchableGame = (game: Pick<GameDefinition,"id">) => game.id !== "bubble-pop-wall";
+export const LAUNCHABLE_GAMES = GAME_REGISTRY.filter(isLaunchableGame);

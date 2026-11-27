@@ -127,8 +127,8 @@ export function BuildQuestControl() {
   );
   const setupSettings = (
     <aside className={styles.panel}>
-      {state.status !== "ready" && setupStages}
-      <ControlSlot slot="settings"><label>
+      {state.status !== "ready" && setupStages}<ControlSlot slot="settings"><p>تحريك القطع باللمس وأدوات الأخصائي متاح دائمًا، مع مساعدة التقاط مريحة.</p></ControlSlot>
+      <label>
         طريقة التحكم
         <select
           aria-label="طريقة التحكم"
@@ -142,8 +142,8 @@ export function BuildQuestControl() {
           <option value="sensor">حساس اليد اليمنى</option>
           <option value="controller">وحدة تحكم · تجريبية</option>
         </select>
-      </label></ControlSlot>
-      <ControlSlot slot="settings"><label>
+      </label>
+      <label>
         مساعدة الالتقاط
         <select
           aria-label="مساعدة الالتقاط"
@@ -161,7 +161,7 @@ export function BuildQuestControl() {
           <option value="medium">متوسطة</option>
           <option value="low">منخفضة</option>
         </select>
-      </label></ControlSlot>
+      </label>
       <label>
         مدة الثبات (مللي ثانية)
         <input
@@ -177,7 +177,7 @@ export function BuildQuestControl() {
           }
         />
       </label>
-      <ControlSlot slot="settings"><label>
+      <label>
         حجم منطقة الالتقاط
         <input
           aria-label="حجم منطقة الالتقاط"
@@ -191,7 +191,7 @@ export function BuildQuestControl() {
             session.configure({ tolerance: Number(e.target.value) })
           }
         />
-      </label></ControlSlot>
+      </label>
       <AdditionalOptions>
         <label>
           جودة العرض

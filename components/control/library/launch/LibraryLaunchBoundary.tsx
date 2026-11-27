@@ -124,6 +124,8 @@ function LaunchPanel({
   const game = GAME_REGISTRY.find((g) => g.route === pathname),
     { right, left } = useDualSensorRuntime(),
     workspace = useControlWorkspace();
+  const handFacts = useRef({right,left});
+  useEffect(() => {handFacts.current={right,left};},[right,left]);
   const [open, setOpen] = useState(false),
     [message, setMessage] = useState("");
   const native = adapter?.id === game?.id ? adapter?.get() : null;
@@ -152,6 +154,7 @@ function LaunchPanel({
       modeDone = false;
     const tryApply = () => {
       const current = adapter?.id === game.id ? adapter.get() : null;
+      const {right,left}=handFacts.current;
       if (!current) return false;
       if (!surfaceDone)
         surfaceDone =
@@ -164,7 +167,7 @@ function LaunchPanel({
         modeDone =
           input !== "HAND" ||
           !current.modes.includes("RIGHT_HAND") ||
-          current.apply("RIGHT_HAND");
+          current.apply(handModeReady("RIGHT_HAND", {connected:right.connected,centered:right.centered,pointerAt:right.pointer?.timestampMs??null,deviceId:right.deviceId}, {connected:left.connected,centered:left.centered,pointerAt:left.pointer?.timestampMs??null,deviceId:left.deviceId},performance.now()) ? "RIGHT_HAND" : "MANUAL");
       return surfaceDone && modeDone;
     };
     const timer = setInterval(() => {

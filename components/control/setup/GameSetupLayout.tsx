@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import { StagePicker, type StageChoice } from "./ProgressiveStages";
 import styles from "./controlSetup.module.css";
-import { useControlWorkspace } from "@/components/control/ui/ControlWorkspace";
+import { SetupStart, useControlWorkspace } from "@/components/control/ui/ControlWorkspace";
 /**
  * Essentials only: options a game promotes with ControlSlot render in the card. Every other native setting stays mounted
  * (same handlers, same safe defaults) but is not offered here; the owner decides per game which ones are promoted.
@@ -43,15 +43,14 @@ export function GameSetupLayout({
         />
       </section>
       <section className={styles.start}>
-        <p>راجع الإعدادات ومساحة الحركة قبل البدء.</p>
-        <button
+        <SetupStart><button
           type="button"
           data-testid={startTestId}
           disabled={disabled}
           onClick={onStart}
         >
           ابدأ النشاط
-        </button>
+        </button></SetupStart>
       </section>
     </div>
   );
@@ -75,8 +74,7 @@ export function NativeSetupSections({
         {stages}
       </section>
       <section className={styles.start}>
-        <p>راجع الإعدادات ومساحة الحركة قبل البدء.</p>
-        {start}
+        <SetupStart>{start}</SetupStart>
       </section>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 import { ControlDialog } from "@/components/control/ui/ControlDialog";
-import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { SetupStart, ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import { AchievementCityView } from "@/components/display/achievementcity3d/AchievementCityView";
 import { SetupSettingsCard } from "@/components/control/setup/GameSetupLayout";
 import Link from "next/link";
@@ -138,7 +138,7 @@ function Setup({ s, send, session, can }: { s: State; send: (c: Command) => void
 
       <section className={styles.start}>
         <p>{s.exercise ? `التمرين: ${s.exercise} · ` : ""}المستوى {s.level + 1}: {levelDef(s.level).nameAr} · الهدف {s.target} إنجازًا. راجع الإعدادات وتأكد من ظهور العرض.</p>
-        <ControlSlot slot="session"><button type="button" className={`${styles.btn} ${styles.primary}`} data-testid="ac-start" disabled={!can} onClick={() => send({ type: "start", at: now() })}>ابدأ النشاط</button></ControlSlot>
+        <SetupStart><button type="button" className={`${styles.btn} ${styles.primary}`} data-testid="ac-start" disabled={!can} onClick={() => send({ type: "start", at: now() })}>ابدأ النشاط</button></SetupStart>
       </section>
     </div>
   );

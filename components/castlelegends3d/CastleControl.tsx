@@ -1,6 +1,6 @@
 "use client";
 import { useTherapistConfirmation } from "@/components/control/ui/TherapistConfirmation";
-import { ControlSlot } from "@/components/control/ui/ControlWorkspace";
+import { SetupStart, ControlSlot } from "@/components/control/ui/ControlWorkspace";
 import Link from "next/link";
 import { CastleView } from "./CastleView";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
@@ -15,7 +15,7 @@ import { CastleSettings } from "./CastleSettings";
 import ui from "@/components/control/ui/therapist.module.css";
 import styles from "./therapist.module.css";
 
-const stages = STAGES.map((s, i) => ({ name: s.name, description: `${s.enemies.length} مواجهات · ${s.phases} مراحل للحركة`, image: `/control-stage-previews/castle/${i + 1}.webp` }));
+const stages = (repetitions: number) => STAGES.map((s, i) => ({ name: s.name, description: `${s.enemies.length} أعداء · ${s.phases * repetitions} حركات لكل عدو`, image: `/control-stage-previews/castle/${i + 1}.webp` }));
 const statusNames = { ready: "جاهز للبدء", running: "النشاط جارٍ", paused: "في استراحة", "stage-complete": "اكتملت المرحلة", ended: "انتهت الجلسة" };
 export function CastleControl() {
   return isRealtimeEnabled() ? <LiveCastleControl /> : <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl"><h1>أسطورة قلعة شموس</h1><p>يلزم إعداد اتصال شموس المشترك لبدء جلسة متزامنة.</p><Link href="/control">مكتبة الأنشطة</Link></main>;
@@ -36,9 +36,9 @@ function LiveCastleControl() {
   return <main className={`${ui.theme} ${styles.control}`} lang="ar" dir="rtl" data-testid="castle-control" data-status={s.status} data-stage={s.stage}>
     {session.error && <ControlSlot slot="dialogs"><p className={ui.error} role="alert">{session.error}</p></ControlSlot>}
     {s.status === "ready" && !s.startedAt ? <div className={styles.setup}>
-      <TherapistSection step="01" title="إعداد المشاركة" description="اضبط الحركة بما يناسب الطفل، وأكّد المحاولات يدويًا أثناء اللعب.">{settings}</TherapistSection>
-      <TherapistSection step="02" title="اختر مستوى المغامرة" description="ثلاثة مستويات، وفي كل مستوى ثلاث مراحل من المغامرة الأصلية."><TherapistStages stages={stages} selected={s.stage} disabled={!enabled} onSelect={stage => send({ type: "stage", stage })} /></TherapistSection>
-      <section className={styles.start} aria-label="بدء النشاط"><div><strong>جاهزون للمغامرة؟</strong><p>راجع مساحة الحركة وراحة الطفل قبل البدء.</p></div><ControlSlot slot="session"><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "start", at: Date.now() })}>ابدأ النشاط ←</TherapistButton></ControlSlot></section>
+      <TherapistSection step="01" title="إعداد المشاركة">{settings}</TherapistSection>
+      <TherapistSection step="02" title="اختر مستوى المغامرة" description="ثلاثة مستويات، وفي كل مستوى ثلاث مراحل من المغامرة الأصلية."><TherapistStages stages={stages(s.config.repetitions)} selected={s.stage} disabled={!enabled} onSelect={stage => send({ type: "stage", stage })} /></TherapistSection>
+      <section className={styles.start} aria-label="بدء النشاط"><div><strong>جاهزون للمغامرة؟</strong><p>راجع مساحة الحركة وراحة الطفل قبل البدء.</p></div><SetupStart><TherapistButton tone="primary" disabled={!enabled} onClick={() => send({ type: "start", at: Date.now() })}>ابدأ النشاط</TherapistButton></SetupStart></section>
     </div> : <>
       <div className={styles.sessionBar}><div><h2>متابعة المغامرة</h2><p>المستوى {Math.floor(s.stage / 3) + 1} · المرحلة {s.stage % 3 + 1} · {stage.name}</p></div><TherapistStatus good={s.status === "running" && enabled}>{statusNames[s.status]}</TherapistStatus></div>
       <div className={styles.live}>

@@ -352,9 +352,7 @@ function SpacePilotControlScreen({
           <legend className="px-2 text-sm font-bold">
             الطيران ومجال الحركة
           </legend>
-          <ControlSlot slot="settings" disabled={(
-            !["ready", "paused"].includes(state.lifecycle) || !!countdown
-          )}><label className="text-sm font-semibold sm:col-span-3">
+          <label className="text-sm font-semibold sm:col-span-3">
             نمط الطيران
             <select
               aria-label="نمط الطيران"
@@ -376,10 +374,8 @@ function SpacePilotControlScreen({
                 </option>
               ))}
             </select>
-          </label></ControlSlot>
-          <ControlSlot slot="settings" disabled={(
-            !["ready", "paused"].includes(state.lifecycle) || !!countdown
-          )}><label className="text-sm font-semibold">
+          </label>
+          <label className="text-sm font-semibold">
             مساعدة الارتفاع
             <select
               aria-label="مساعدة الارتفاع"
@@ -400,11 +396,9 @@ function SpacePilotControlScreen({
               <option value={1.5}>متوازنة</option>
               <option value={3}>أوضح</option>
             </select>
-          </label></ControlSlot>
+          </label>
           <AdditionalOptions>
-            <ControlSlot slot="settings" disabled={(
-            !["ready", "paused"].includes(state.lifecycle) || !!countdown
-          )}><label className="text-sm font-semibold">
+            <label className="text-sm font-semibold">
               فسحة عبور الحلقة
               <select
                 aria-label="فسحة عبور الحلقة"
@@ -426,7 +420,7 @@ function SpacePilotControlScreen({
                 <option value={0.8}>مريحة</option>
                 <option value={1}>واسعة</option>
               </select>
-            </label></ControlSlot>
+            </label>
             <label className="text-sm font-semibold">
               تطوير المركبة
               <select

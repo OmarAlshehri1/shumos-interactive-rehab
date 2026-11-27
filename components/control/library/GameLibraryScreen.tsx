@@ -1,7 +1,7 @@
 "use client";
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { GAME_REGISTRY } from "@/lib/games/registry";
+import { LAUNCHABLE_GAMES } from "@/lib/games/registry";
 import { PatientContextBanner } from "@/components/control/patients/PatientContextBanner";
 import { GameCard } from "./GameCard";
 import { InteractionIcon } from "./InteractionIcon";
@@ -58,13 +58,13 @@ function Library() {
             >
               <InteractionIcon name={f.icon} />
               {f.label}
-              <small>{filteredGames(GAME_REGISTRY, f.id).length}</small>
+              <small>{filteredGames(LAUNCHABLE_GAMES, f.id).length}</small>
             </button>
           ))}
         </nav>
         {[
-          ...librarySections(GAME_REGISTRY),
-          ...categorySections(GAME_REGISTRY),
+          ...librarySections(LAUNCHABLE_GAMES),
+          ...categorySections(LAUNCHABLE_GAMES),
         ]
           .filter((s) => s.input === selected)
           .map((section) => (

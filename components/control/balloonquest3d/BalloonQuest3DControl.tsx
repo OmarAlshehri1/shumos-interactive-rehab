@@ -7,6 +7,7 @@ import {
 } from "@/components/control/setup/ProgressiveStages";
 import { useLibraryLaunchAdapter } from "@/components/control/library/launch/LibraryLaunchBoundary";
 
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BalloonStage } from "@/components/display/balloonquest3d/game/BalloonStage";
 import { BalloonQuestScenes } from "@/components/display/balloonquest3d/game/Scenes";
@@ -71,19 +72,8 @@ function Field({
   );
 }
 
-const SIZE_OPTIONS: Array<[number, string]> = [
-  [0.85, "أصغر"],
-  [1, "عادي"],
-  [1.15, "كبير"],
-  [1.3, "أكبر"],
-];
-const SPEED_OPTIONS: Array<[number, string]> = [
-  [0.6, "بطيء جدًا"],
-  [0.8, "بطيء"],
-  [1, "عادي"],
-  [1.2, "أسرع قليلًا"],
-  [1.4, "أسرع"],
-];
+export const SIZE_OPTIONS: Array<[number, string]> = [[0.85, "صغير"], [1, "متوسط"], [1.3, "كبير"]];
+export const SPEED_OPTIONS: Array<[number, string]> = [[0.6, "بطيء"], [1, "متوسط"], [1.4, "سريع"]];
 const TOLERANCE_OPTIONS: Array<[number, string]> = [
   [0, "دقيق"],
   [0.15, "عادي"],
@@ -124,6 +114,8 @@ export function ControlPanels({
   production,
   previous = null,
 }: PanelsProps) {
+  const launchInput = useSearchParams().get("input");
+  const supportedInputs: readonly InputMode[] = launchInput === "FOOT" || launchInput === "JOYSTICK" ? ["therapist"] : (production?.inputModes ?? INPUT_MODES);
   const [confirmEnd, setConfirmEnd] = useState(false);
   const [symbols, setSymbols] = useState(false);
   const getSimTimeMs = useCallback(() => runtime.getSimTimeMs(), [runtime]);
@@ -149,7 +141,7 @@ export function ControlPanels({
     projections: ["WALL", "FLOOR"],
     applyProjection: (layout) =>
       s.lifecycle === "ready" &&
-      runtime.command({ type: "settings", patch: { layout } }),
+      runtime.command({ type: "settings", patch: { layout, ...(layout === "FLOOR" ? {inputMode: "therapist" as const} : {}) } }),
   });
   const stage = s.stage;
   const lifecycle = s.lifecycle;
@@ -198,19 +190,6 @@ export function ControlPanels({
         الإعدادات
       </h2>
 
-      {production?.requireChildName && (
-        <ControlSlot slot="settings"><div className="mb-3">
-          <Field label="اسم الطفل" hint="مطلوب لبدء الجلسة (حتى ٣٠ حرفًا)">
-            <input
-              className={field}
-              value={production.childName}
-              maxLength={30}
-              onChange={(e) => production.onChildNameChange(e.target.value)}
-              data-testid="child-name"
-            />
-          </Field>
-        </div></ControlSlot>
-      )}
       <div hidden aria-hidden="true">
         {" "}
         <Field label="المستوى">
@@ -396,7 +375,7 @@ export function ControlPanels({
           </select>
         </Field>
         <ControlSlot slot="settings"><Field
-          label="طريقة الإدخال"
+          label="الأطراف والأجهزة المشاركة"
           hint={
             EXPERIMENTAL_MODES.includes(st.inputMode)
               ? "تجريبي: لم يُتحقق منه على أجهزة حقيقية."
@@ -411,14 +390,15 @@ export function ControlPanels({
             }
             data-testid="sel-input"
           >
-            {(production?.inputModes ?? INPUT_MODES).map((m) => (
+            {supportedInputs.map((m) => (
               <option key={m} value={m}>
-                {INPUT_MODE_AR[m]}
+                {INPUT_MODE_AR[m]}{EXPERIMENTAL_MODES.includes(m) ? " · غير متحقق على أجهزة حقيقية" : ""}
               </option>
             ))}
           </select>
         </Field></ControlSlot>
       </div>
+      <ControlSlot slot="settings"><p className="text-sm text-slate-600">تأكيد الأخصائي باللمس متاح مع الحساسات. {launchInput === "FOOT" || launchInput === "JOYSTICK" ? "لا يتوفر ربط عتادي متحقق لهذا الجهاز؛ استخدم تأكيد الأخصائي." : "اربط الحساس وعايره قبل استخدامه."}</p></ControlSlot>
       <AdditionalOptions title="الراحة وتشخيص التشغيل">
         {" "}
         <div className="mt-3 grid gap-2 text-sm text-slate-700">

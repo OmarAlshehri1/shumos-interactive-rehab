@@ -8,7 +8,7 @@ import { controlTabId, decideRecovery, isTakenOver, HEARTBEAT_MS } from '@/lib/l
 import { fetchLiveSession, publishSession, subscribeToLiveSession } from '@/lib/realtime/sessionRepository';
 import { saveSessionHistoryOnce } from '@/lib/sessions/sessionHistoryRepository';
 import { useDualSensorRuntime } from '@/components/control/sensors/SensorRuntimeProvider';
-import { activeHand, createState, reduce, type Command, type State } from './engine';
+import { activeHand, reduce, type Command, type State } from './engine';
 import { GAME_ID, encode, makeLive, recoveredState, reviveDomeLive, type DomeLiveSession } from './live';
 import { buildHistory } from './history';
 import { DomeSensorMapper } from './sensorInput';
@@ -49,8 +49,8 @@ export function useDomeSession() {
       const snapshot=live?recoveredState(live):null;
       if(live&&live.dome3.ownerId!==uid&&snapshot?.status!=='ended'){setBlocked(true);setError('الجلسة الحالية تخص معالجًا آخر؛ يلزم إنهاؤها من حسابه أولًا.');return;}
       const decision=decideRecovery({recordSessionId:record?.sessionId??'',recordPatientId:record?.patientId??null,meta:live?.dome3??{ownerId:''},snapshot,uid,patientId:bound,tabId:tab,now:Date.now()});
-      if(decision.kind==='blocked'){setBlocked(true);return;}
-      current=decision.kind==='recover'?decision.snapshot:createState(crypto.randomUUID());
+      if(decision.kind!=='recover'){setBlocked(true);setError('هذا النشاط متوقف للأنشطة الجديدة.');return;}
+      current=decision.snapshot;
       if(decision.kind==='recover')publisher.setTakeoverFrom(decision.fromTabId);
       seq=current.seq;setState(current);publish();publisher.setEnabled(true);ready=true;save();
     }catch(e){if(!disposed)setError(String(e));}})();

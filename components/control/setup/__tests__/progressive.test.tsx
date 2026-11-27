@@ -5,7 +5,7 @@ import {
   ProgressiveStageSelect,
   optionsOf,
 } from "../ProgressiveStages";
-import { GAME_REGISTRY } from "@/lib/games/registry";
+import { GAME_REGISTRY, LAUNCHABLE_GAMES } from "@/lib/games/registry";
 import { DEVICE_GAMES, launchHref } from "@/lib/games/library/capabilities";
 import { filteredGames, libraryFilter } from "@/lib/games/library/filters";
 import {
@@ -43,7 +43,7 @@ describe("unique canonical library and real progressive stages", () => {
   it("deduplicates All and derives every category directly from canonical capabilities", () => {
     expect(
       filteredGames([...GAME_REGISTRY, ...GAME_REGISTRY], "ALL"),
-    ).toHaveLength(GAME_REGISTRY.length);
+    ).toHaveLength(LAUNCHABLE_GAMES.length);
     for (const filter of ["HAND", "FOOT", "JOYSTICK", "DRIVING"] as const) {
       expect(filteredGames(GAME_REGISTRY, filter).map((g) => g.id).sort()).toEqual(
         DEVICE_GAMES[filter].filter((id) =>

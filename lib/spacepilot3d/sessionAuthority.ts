@@ -207,9 +207,10 @@ export class SessionAuthority {
   restore(state: ExperimentalSessionState, frame: PresentationFrame, missionSeconds: number): void {
     const sim = this.simulation;
     sim.restart({ difficulty: state.difficulty, flightSettings: state.flightSettings, accessibility: state.accessibility });
+    sim.config.accessibility={...state.accessibility};
     sim.stageResults.splice(0,sim.stageResults.length,...(state.stageResults??[]).map(r=>({...r})));
     sim.startingStageIndex=state.startingStageIndex??0;sim.repeats.splice(0,sim.repeats.length,...(state.stageRepeats??Array(9).fill(0)));
-    if(state.currentStageAssisted)sim.noteManualParticipation();
+    sim.restoreStageAssistance(state.currentStageAssisted ?? (state.accessibility.mode!=='ADVANCED'||state.accessibility.ringTolerance>0));
     sim.runId = state.runId; sim.mission = state.mission - 1; sim.config.difficulty = state.difficulty;
     sim.elapsedSeconds = state.elapsedSeconds; sim.missionSeconds = missionSeconds;
     Object.assign(sim.ship, frame.ship); Object.assign(sim.stats, state.stats);

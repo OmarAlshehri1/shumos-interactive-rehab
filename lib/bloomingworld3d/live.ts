@@ -1,6 +1,6 @@
 import { GameState } from '@/lib/game';
 import type { LiveControlMeta } from '@/lib/liveGame/ownership';
-import { sanitizeConfig, progress, difficultyOf, type State } from './engine';
+import { sanitizeConfig, tokenFor, progress, difficultyOf, type State } from './engine';
 export const GAME_ID = 'blooming-world-3d' as const;
 export interface BloomLiveSession { engine: 'bw3'; engineVersion: 1; sessionId: string; seed: number; createdAt: number; gameState: GameState; currentDifficulty: ReturnType<typeof difficultyOf>; currentStage: {stageNumber:1|2|3;stageIndex:number}; config:{childFirstName:string}; bw3: LiveControlMeta & {payload:string}; }
 export const encode=(s:State)=>JSON.stringify({...s,lastTick:0});
@@ -8,6 +8,7 @@ export function makeLive(s:State,uid:string,name:string,stamp:Partial<LiveContro
 const nat=(n:unknown,max=Number.MAX_SAFE_INTEGER):n is number=>typeof n==='number'&&Number.isInteger(n)&&n>=0&&n<=max;
 export function validState(raw:unknown):raw is State { try {const s=raw as State;
  if(!s||typeof s.sessionId!=='string'||!s.sessionId.length||s.sessionId.length>80||!nat(s.stage,8)||!nat(s.startingStage,8)||!nat(s.run,1e6)||!nat(s.epoch,1e6)||!nat(s.repeats,1e6)||!['ready','running','paused','stage-complete','ended'].includes(s.status))return false;
+ if(s.activation && (!s.config.activationMs || s.status!=='running' || !nat(s.activation.id,s.regions.length-1) || s.activation.token!==tokenFor(s,s.activation.id) || typeof s.activation.assisted!=='boolean' || !nat(s.activation.elapsedMs,1999)))return false;
  if(JSON.stringify(sanitizeConfig(s.config))!==JSON.stringify(s.config))return false;
  const validRegions=(a:State['regions'],goal:number,repetitions=s.config.repetitions)=>Array.isArray(a)&&a.length===goal&&a.every((v,i)=>v.id===i&&nat(v.hits,repetitions)&&nat(v.assisted,v.hits)&&Array.isArray(v.accepted)&&v.accepted.length===v.hits&&new Set(v.accepted).size===v.accepted.length&&v.accepted.every(k=>typeof k==='string'&&k.length<=80)&&v.accepted.filter(k=>k.endsWith('A')).length===v.assisted);
  if(!(s.practiceRegion===null||nat(s.practiceRegion,s.regions.length-1))||!Array.isArray(s.practiceEvents)||s.practiceEvents.length>30||new Set(s.practiceEvents.map(e=>e.token)).size!==s.practiceEvents.length||!s.practiceEvents.every(e=>nat(e.stage,8)&&nat(e.region,11)&&typeof e.token==='string'&&e.token.length<=80&&typeof e.assisted==='boolean'))return false;
@@ -18,4 +19,4 @@ export function validState(raw:unknown):raw is State { try {const s=raw as State
  }catch{return false;} }
 export function decode(raw:unknown):State|null {try{const r=raw as BloomLiveSession;if(r?.engine!=='bw3'||r.engineVersion!==1||typeof r.bw3?.payload!=='string'||r.bw3.payload.length>32768)return null;const s=JSON.parse(r.bw3.payload);return validState(s)&&s.sessionId===r.sessionId?s:null;}catch{return null;}}
 export function reviveBloomLive(raw:unknown):BloomLiveSession|null {const r=raw as BloomLiveSession;const s=decode(r);return s&&typeof r.bw3.ownerId==='string'&&r.bw3.ownerId.length>0&&typeof r.bw3.controlTabId==='string'&&r.bw3.controlTabId.length>0&&nat(r.bw3.heartbeatAt)&&r.currentStage?.stageIndex===s.stage&&r.currentStage.stageNumber===s.stage%3+1&&r.currentDifficulty===difficultyOf(s.stage)&&typeof r.config?.childFirstName==='string'&&r.config.childFirstName.length>0&&r.config.childFirstName.length<=30?r:null;}
-export function recoveredState(r:BloomLiveSession){const s=decode(r);return s?{...s,status:s.status==='running'?'paused' as const:s.status,lastTick:0}:null;}
+export function recoveredState(r:BloomLiveSession){const s=decode(r);return s?{...s,status:s.status==='running'?'paused' as const:s.status,lastTick:0,activation:null}:null;}

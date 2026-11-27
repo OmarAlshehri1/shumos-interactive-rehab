@@ -1,11 +1,12 @@
 import { describe,it,expect } from 'vitest';
 import {assertFirebaseSafeValue} from '@/lib/dataIntegrity/numeric';
-import { createState, reduce, progress, tokenFor, restorationMilestones, STAGES, type State } from '../engine';
+import { DEFAULT_CONFIG, createState as createFloorState, reduce, progress, tokenFor, restorationMilestones, STAGES, type State } from '../engine';
 import { decode,makeLive,validState,recoveredState,reviveBloomLive } from '../live';
 import { buildHistory,reviveBloomHistory } from '../history';
 import { handCursor, FootHintDetector } from '../sensorInput';
+const createState=(id:string):State=>({...createFloorState(id),config:{...DEFAULT_CONFIG},activation:null});
 const accept=(s:State,assisted=false)=>reduce(s,{type:'bloom',id:s.active,token:tokenFor(s,s.active),assisted});
-describe('Blooming World shared spatial engine',()=>{
+describe('Blooming World legacy shared spatial engine',()=>{
  for(const projection of ['WALL','FLOOR'] as const)it(`completes all nine stages with only therapist input in ${projection}`,()=>{let s=reduce(createState('garden'),{type:'config',patch:{projection}});for(const d of STAGES){expect(s.stage).toBe(d.index);expect(s.regions).toHaveLength(d.regions);s=reduce(s,{type:'start'});for(let i=0;i<d.regions;i++)s=accept(s,i%2===0);expect(progress(s)).toBe(100);expect(s.status).toBe('stage-complete');expect(validState(s)).toBe(true);expect(decode(makeLive(s,'staff','ليلى'))).toEqual({...s,lastTick:0});if(d.index<8)s=reduce(s,{type:'next'});}s=reduce(s,{type:'end',at:Date.now()});const h=buildHistory(s,'patient','staff');expect(h.completedStageCount).toBe(9);expect(h.restoredRegions).toBe(72);expect(h.sessionCompleted).toBe(true);expect(reviveBloomHistory(h)).toEqual(h);});
  it('scales a limited movement goal and repetitions to 100%; partial regions are not restored',()=>{let s=reduce(createState('accessible'),{type:'config',patch:{goal:1,repetitions:3,movementRange:.2}});s=reduce(s,{type:'start'});s=accept(s,true);expect(progress(s)).toBe(33);const partial=buildHistory(reduce(s,{type:'end',at:Date.now()}),'patient','staff');expect(partial.restoredRegions).toBe(0);s=accept(s);s=accept(s);expect(progress(s)).toBe(100);expect(s.regions[0].assisted).toBe(1);});
  it('rejects stale and duplicate events, including after repeat and restart',()=>{let s=reduce(createState('dedup'),{type:'start'});const cmd={type:'bloom' as const,id:0,token:tokenFor(s,0),assisted:false};s=reduce(s,cmd);expect(reduce(s,cmd)).toBe(s);s=reduce(s,{type:'select',id:0});s=reduce(s,{type:'repeat'});expect(reduce(s,cmd)).toBe(s);s=reduce(s,{type:'restart'});s=reduce(s,{type:'start'});expect(reduce(s,cmd)).toBe(s);});

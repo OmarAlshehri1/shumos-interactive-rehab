@@ -14,9 +14,9 @@ import styles from "./workspace.module.css";
 
 type Slot = "preview" | "assistance" | "session" | "settings" | "dialogs" | "navigation" | "progress";
 type Targets = Record<Slot, HTMLElement | null>;
-interface Workspace { available: boolean; active: boolean; targets: Targets; setupTarget: HTMLElement | null; registerSetup: ((node: HTMLElement | null) => void) | null }
+interface Workspace { available: boolean; active: boolean; targets: Targets; setupTarget: HTMLElement | null; registerSetup: ((node: HTMLElement | null) => void) | null; setupStartTarget: HTMLElement | null }
 const empty: Targets = { preview: null, assistance: null, session: null, settings: null, dialogs: null, navigation: null, progress: null };
-const Context = createContext<Workspace>({ available: false, active: false, targets: empty, setupTarget: null, registerSetup: null });
+const Context = createContext<Workspace>({ available: false, active: false, targets: empty, setupTarget: null, registerSetup: null, setupStartTarget: null });
 export const useControlWorkspace = () => useContext(Context);
 
 /** Keep the original Display composition at 16:9 instead of crowding its HUD into a short laptop viewport. */
@@ -41,6 +41,14 @@ export function ControlSlot({ slot, children, disabled, when = true }: { slot: S
   return target ? createPortal(<fieldset disabled={disabled} data-native-slot={slot}>{slot === "preview" ? <ScaledPreview>{children}</ScaledPreview> : children}</fieldset>, target) : null;
 }
 
+/** Move the original Start element once; its native handler, disabled state and warnings stay intact. */
+export function SetupStart({ children }: { children: ReactNode }) {
+  const workspace = useControlWorkspace();
+  if (!workspace.available) return <>{children}</>;
+  if (workspace.active) return <ControlSlot slot="session">{children}</ControlSlot>;
+  return workspace.setupStartTarget ? createPortal(<div data-native-start>{children}</div>, workspace.setupStartTarget) : null;
+}
+
 export function ControlWorkspace({ game, children }: { game: GameDefinition; children: ReactNode }) {
   const safety = useGameSafety();
   const { selectedPatient } = usePatientContext();
@@ -57,7 +65,8 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
   const [progress, setProgress] = useState<HTMLElement | null>(null);
   const [dialogs, setDialogs] = useState<HTMLElement | null>(null);
   const [setupTarget, registerSetup] = useState<HTMLElement | null>(null);
-  const value = useMemo(() => ({ available: true, active: info.active, targets: { preview, assistance, session, settings, dialogs, navigation, progress }, setupTarget, registerSetup }), [info.active, preview, assistance, session, settings, dialogs, navigation, progress, setupTarget]);
+  const [setupStartTarget, setSetupStartTarget] = useState<HTMLElement | null>(null);
+  const value = useMemo(() => ({ available: true, active: info.active, targets: { preview, assistance, session, settings, dialogs, navigation, progress }, setupTarget, registerSetup, setupStartTarget }), [info.active, preview, assistance, session, settings, dialogs, navigation, progress, setupTarget, setupStartTarget]);
   const artwork = realGameThumbnail(game.id);
   return <Context.Provider value={value}>
     <div className={`${ui.theme} ${styles.workspace}`} data-workspace-active={info.active}>
@@ -73,6 +82,7 @@ export function ControlWorkspace({ game, children }: { game: GameDefinition; chi
         </div>
       </div>
       {children}
+      <div className={styles.setupStartBar} hidden={info.active || (safety.live?.gameId === game.id && safety.live.session.gameState === "SESSION_COMPLETE")} aria-label="بدء النشاط"><div ref={setSetupStartTarget} className={styles.setupStartTarget} /></div>
     </div>
   </Context.Provider>;
 }

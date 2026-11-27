@@ -8,7 +8,7 @@ import { useStaffAuth } from "@/lib/realtime/useStaffAuth";
 import { usePatientContext } from "@/lib/patients/PatientSessionContext";
 import { isRealtimeEnabled } from "@/lib/realtime/firebaseClient";
 import { shouldShowLogout } from "@/lib/control/topLevelNavigation";
-import { GAME_REGISTRY } from "@/lib/games/registry";
+import { GAME_REGISTRY, LAUNCHABLE_GAMES } from "@/lib/games/registry";
 import { useGameSafety } from "@/components/control/visits/GameSafetyProvider";
 import styles from "./shell.module.css";
 
@@ -33,7 +33,7 @@ export function ControlShell({ children }: { children: React.ReactNode }) {
       </Link>
       <nav className={styles.nav} aria-label="التنقل الرئيسي">
         {destinations.map(item => <Link key={item.href} href={item.href} title={item.label} aria-current={active?.href === item.href ? "page" : undefined}>
-          <ControlIcon name={item.icon} /><span>{item.label}</span>{item.icon === "activities" && <small>{GAME_REGISTRY.length}</small>}
+          <ControlIcon name={item.icon} /><span>{item.label}</span>{item.icon === "activities" && <small>{LAUNCHABLE_GAMES.length}</small>}
         </Link>)}
       </nav>
 

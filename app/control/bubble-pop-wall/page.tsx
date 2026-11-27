@@ -1,3 +1,4 @@
+import { RetiredActivity } from "@/components/control/bubblepopwall3d/RetiredActivity";
 import type { Metadata } from "next";
 import { DomeControl } from "@/components/control/bubblepopwall3d/DomeControl";
 import { WONDER_DOME_ENABLED } from "@/lib/bubblepopwall3d/releasePolicy";
@@ -14,5 +15,5 @@ export const metadata: Metadata = {
  * lives entirely behind BubblePopControlScreen.
  */
 export default function BubblePopWallControlPage() {
-  return WONDER_DOME_ENABLED ? <DomeControl /> : <BubblePopControlScreen />;
+  return <RetiredActivity>{WONDER_DOME_ENABLED ? <DomeControl /> : <BubblePopControlScreen />}</RetiredActivity>;
 }
